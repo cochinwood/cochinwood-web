@@ -1,0 +1,50 @@
+[
+ {
+  "file": "casuarina",
+  "title": "Casuarina Wood (Casuarina equisetifolia): Properties, Density & Uses",
+  "slug": "wood-casuarina-equisetifolia",
+  "summary": "Casuarina (Casuarina equisetifolia): heavy, dense coastal hardwood at ~900-1000 kg/m3 - density, hardness, seasoning, durability and its packing-timber uses."
+ },
+ {
+  "file": "subabul",
+  "title": "Subabul Wood (Leucaena leucocephala): Properties, Density & Uses",
+  "slug": "wood-subabul-leucaena-leucocephala",
+  "summary": "Subabul (Leucaena leucocephala): medium-density plantation wood (~500-650 kg/m3) that seasons well and treats easily — for packing cases, pallets and ply core."
+ },
+ {
+  "file": "anjili",
+  "title": "Anjili (Wild Jack) Wood (Artocarpus hirsutus): Properties, Density & Uses",
+  "slug": "wood-anjili-artocarpus-hirsutus",
+  "summary": "Anjili (Wild Jack, Artocarpus hirsutus): a Western Ghats hardwood with teak-class strength (~600 kg/m3), very high durability, ideal for packing cases."
+ },
+ {
+  "file": "matti",
+  "title": "Matti (Indian Laurel) Wood (Terminalia elliptica): Properties, Density & Uses",
+  "slug": "wood-matti-terminalia-elliptica",
+  "summary": "Matti (Indian laurel, Terminalia elliptica): a heavy, hard 800-870 kg/m3 hardwood for heavy-duty packing cases, pallets, sawn timber. Uses, density, sourcing."
+ },
+ {
+  "file": "irul",
+  "title": "Irul (Pyinkado) Wood (Xylia xylocarpa): Properties, Density & Uses",
+  "slug": "wood-irul-xylia-xylocarpa",
+  "summary": "Irul (Pyinkado / Burma Ironwood, Xylia xylocarpa) is one of India's heaviest, most durable hardwoods - its properties, density, working traits and packing uses."
+ },
+ {
+  "file": "venteak",
+  "title": "Venteak Wood (Lagerstroemia microcarpa): Properties, Density & Uses",
+  "slug": "wood-venteak-lagerstroemia-microcarpa",
+  "summary": "Venteak (benteak, Lagerstroemia microcarpa) is a Western Ghats teak substitute at ~640 kg/m3. Properties, density, seasoning, durability and packing uses."
+ },
+ {
+  "file": "kadam",
+  "title": "Kadam Wood (Neolamarckia cadamba): Properties, Density & Uses",
+  "slug": "wood-kadam-neolamarckia-cadamba",
+  "summary": "Kadam (Neolamarckia cadamba): a light, fast-growing Indian plantation hardwood for plywood core veneer and packing cases. Density, strength, durability & uses."
+ },
+ {
+  "file": "pala",
+  "title": "Pala (White Cheesewood) Wood (Alstonia scholaris): Properties, Density & Uses",
+  "slug": "wood-pala-alstonia-scholaris",
+  "summary": "Pala (white cheesewood, Alstonia scholaris) is a light, soft, low-density wood for packing cases, match splints and plywood core. Density, durability & uses."
+ }
+]
