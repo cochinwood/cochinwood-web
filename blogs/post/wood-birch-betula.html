@@ -12,10 +12,10 @@
         '<a href="/">Home</a>' +
         '<a href="/about">About</a>' +
         '<a href="/products">Products</a>' +
-        '<a href="/industries">Industries</a><a href="/resources">Resources</a><a href="/wood-encyclopedia">Wood Encyclopedia</a>' +
+        '<a href="/industries">Industries</a><a href="/resources">Resources</a>' +
         '<a href="/contact">Contact</a>' +
       '</nav>' +
-      '<a class="cw-hd-cta" href="/contact">Request a quote' +
+      '<a class="cw-hd-cta" href="/contact#quote">Request a quote' +
         '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>' +
       '</a>' +
     '</div></header>';
@@ -254,7 +254,7 @@
     // Brand the default 404 page
     if (/^.?404.?\s*(error|file not found)/i.test(document.title) || /404.{0,3}File Not Found/i.test(document.body.innerText.slice(0,200))) {
       document.title = "Page not found · Cochin Wood Industries";
-      document.body.innerHTML = '<section style="max-width:720px;margin:8vh auto;padding:0 24px;font-family:Poppins,system-ui,sans-serif;color:#042321;text-align:center"><p style="font-family:\'Bree Serif\',Georgia,serif;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:#007A5E;margin:0 0 12px">Cochin Wood Industries &middot; Group Est. 1986</p><div style="font-family:\'Bree Serif\',Georgia,serif;font-size:48px;line-height:1.1;margin:0 0 16px;color:#042321;font-weight:400">This page isn\'t here.</div><p style="font-size:18px;line-height:1.55;color:#2a3b39;margin:0 0 32px">A link, a typo, or a page we\'ve moved. Try the catalogue, or send us a spec sheet and we\'ll route you to the right product.</p><div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><a href="/products" style="padding:14px 24px;border-radius:4px;background:#007A5E;color:#fff;text-decoration:none;font-weight:500;font-size:15px">Browse the catalogue</a><a href="/contact" style="padding:14px 24px;border-radius:4px;background:transparent;color:#042321;border:1px solid rgba(4,35,33,.2);text-decoration:none;font-weight:500;font-size:15px">Request a quote</a></div><p style="margin-top:56px;padding-top:24px;border-top:1px solid rgba(4,35,33,.08);font-size:13px;color:#6a7775">Lost? Email <a href="mailto:sales@cochinwood.in" style="color:#007A5E;text-decoration:none">sales@cochinwood.in</a> or WhatsApp <a href="https://wa.me/919567410175" style="color:#007A5E;text-decoration:none">+91 95674 10175</a>.</p></section>';
+      document.body.innerHTML = '<section style="max-width:720px;margin:8vh auto;padding:0 24px;font-family:Poppins,system-ui,sans-serif;color:#042321;text-align:center"><p style="font-family:\'Bree Serif\',Georgia,serif;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:#007A5E;margin:0 0 12px">Cochin Wood Industries &middot; Group Est. 1986</p><div style="font-family:\'Bree Serif\',Georgia,serif;font-size:48px;line-height:1.1;margin:0 0 16px;color:#042321;font-weight:400">This page isn\'t here.</div><p style="font-size:18px;line-height:1.55;color:#2a3b39;margin:0 0 32px">A link, a typo, or a page we\'ve moved. Try the catalogue, or send us a spec sheet and we\'ll route you to the right product.</p><div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><a href="/products" style="padding:14px 24px;border-radius:4px;background:#007A5E;color:#fff;text-decoration:none;font-weight:500;font-size:15px">Browse the catalogue</a><a href="/contact#quote" style="padding:14px 24px;border-radius:4px;background:transparent;color:#042321;border:1px solid rgba(4,35,33,.2);text-decoration:none;font-weight:500;font-size:15px">Request a quote</a></div><p style="margin-top:56px;padding-top:24px;border-top:1px solid rgba(4,35,33,.08);font-size:13px;color:#6a7775">Lost? Email <a href="mailto:sales@cochinwood.in" style="color:#007A5E;text-decoration:none">sales@cochinwood.in</a> or WhatsApp <a href="https://wa.me/919567410175" style="color:#007A5E;text-decoration:none">+91 95674 10175</a>.</p></section>';
     }
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", cleanup); else cleanup();
@@ -601,7 +601,7 @@ window.__CWIPT={"/contact-us":"Contact Us","/about-us":"About Cochin Wood Indust
   <div class="cwg__container cwg__cta-inner">
     <h2>Need birch or birch-faced plywood?</h2>
     <p>Tell us your thickness, panel size, face grade and monthly quantity, and we will match the right board to your job.</p>
-    <a class="cwg__btn" href="/contact">Request a quote</a>
+    <a class="cwg__btn" href="/contact#quote">Request a quote</a>
   </div>
 </section>
 
