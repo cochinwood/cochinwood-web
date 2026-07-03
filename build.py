@@ -234,8 +234,10 @@ def enc_rewrite(body, slug_map):
     return body
 
 def encyclopedia():
-    slugs = ["okoume","gurjan","rubberwood","eucalyptus","poplar","birch","jackwood",
-             "mango","silver-oak","pine","teak","sheesham","sal","neem","mahogany"]
+    slugs = ["okoume","gurjan","rubberwood","eucalyptus","poplar","birch",
+             "meranti","gmelina","melia-dubia","acacia-mangium",
+             "jackwood","mango","silver-oak","pine","semul",
+             "teak","sheesham","sal","neem","mahogany"]
     encdir = os.path.join(ROOT, "content", "encyclopedia")
     # hub
     title, desc, body = enc_extract(os.path.join(encdir, "_hub.html"))
