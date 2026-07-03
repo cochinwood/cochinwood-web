@@ -1,0 +1,72 @@
+<!-- ============================================================
+     CWI /about — "From veneer to loaded container"
+     Process = TEXT + ICONS (no per-step machine photos — avoids mislabeling).
+     Then an UNCAPTIONED facility gallery (photos make no functional claim).
+     suggested snippet id: about-3-operation. Tokens scoped on .cwop.
+     Gallery images: 08 · 42 · 24 · 05 · 44 · 45  (/files/Enhanced Factory Photos/)
+     ============================================================ -->
+<style>
+.cwop{--cw-bg:#FAF9F7;--cw-green-700:#1B4332;--cw-green-100:#E5EFE9;--cw-ink-900:#141414;--cw-ink-700:#4a4a4a;--cw-ink-200:#D9D9D9;--cw-teal:#007A5E;
+  background:#fff;padding:84px 0;font-family:Heebo,Poppins,system-ui,sans-serif;color:var(--cw-ink-900)}
+.cwop .cwop-in{max-width:1240px;margin:0 auto;padding:0 24px}
+.cwop .cwop-head{max-width:720px;margin:0 0 48px}
+.cwop .cwop-eyebrow{display:inline-block;border-left:3px solid var(--cw-teal);padding-left:12px;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cw-teal);font-weight:600;margin:0 0 14px}
+.cwop .cwop-h2{font-family:'Bree Serif',Georgia,serif;font-weight:400;font-size:clamp(1.8rem,3.2vw,2.5rem);line-height:1.14;color:#042321;margin:0 0 14px}
+.cwop .cwop-lede{font-size:1.05rem;line-height:1.6;color:var(--cw-ink-700);margin:0;max-width:640px}
+/* TEXT + ICON PROCESS */
+.cwop .cwop-flow{list-style:none;margin:0 0 60px;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:22px}
+.cwop .cwop-flow li{position:relative}
+.cwop .cwop-flow li::after{content:"";position:absolute;top:26px;left:66px;right:-22px;border-top:2px dashed var(--cw-ink-200)}
+.cwop .cwop-flow li:last-child::after{display:none}
+.cwop .cwop-ic{position:relative;z-index:1;width:52px;height:52px;border-radius:14px;background:var(--cw-green-100);color:var(--cw-green-700);display:flex;align-items:center;justify-content:center;margin:0 0 16px}
+.cwop .cwop-ic svg{width:26px;height:26px}
+.cwop .cwop-n{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cw-teal);font-weight:700;margin:0 0 4px}
+.cwop .cwop-flow h3{font-family:'Bree Serif',Georgia,serif;font-weight:400;font-size:1.15rem;color:#042321;margin:0 0 6px}
+.cwop .cwop-flow p{font-size:.92rem;line-height:1.5;color:var(--cw-ink-700);margin:0}
+/* UNCAPTIONED FACILITY GALLERY */
+.cwop .cwop-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.cwop .cwop-card{margin:0;border-radius:16px;overflow:hidden;box-shadow:0 12px 34px rgba(20,20,20,.10)}
+.cwop .cwop-card img{display:block;width:100%;height:248px;object-fit:cover;transition:transform .5s ease}
+.cwop .cwop-card:hover img{transform:scale(1.05)}
+@media(max-width:900px){.cwop .cwop-flow{grid-template-columns:repeat(3,1fr);gap:28px 22px}.cwop .cwop-flow li::after{display:none}.cwop .cwop-gallery{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.cwop{padding:60px 0}.cwop .cwop-flow{grid-template-columns:repeat(2,1fr)}.cwop .cwop-gallery{grid-template-columns:1fr}}
+</style>
+<section class="cwop">
+  <div class="cwop-in">
+    <div class="cwop-head">
+      <p class="cwop-eyebrow">Our operation</p>
+      <h2 class="cwop-h2">From veneer to loaded container.</h2>
+      <p class="cwop-lede">Forty years doing the same things well — peeled, treated, pressed, graded and loaded, the same way every time.</p>
+    </div>
+    <ol class="cwop-flow">
+      <li>
+        <div class="cwop-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg></div>
+        <p class="cwop-n">01</p><h3>Peeling</h3><p>Logs peeled and clipped into veneer.</p>
+      </li>
+      <li>
+        <div class="cwop-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg></div>
+        <p class="cwop-n">02</p><h3>Treatment</h3><p>Dipped against borer and termite, then seasoned.</p>
+      </li>
+      <li>
+        <div class="cwop-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"></path><path d="M4 18h16"></path><path d="M9 10l3-3 3 3"></path><path d="M9 14l3 3 3-3"></path></svg></div>
+        <p class="cwop-n">03</p><h3>Pressing</h3><p>Glued and hot-pressed to the bond grade.</p>
+      </li>
+      <li>
+        <div class="cwop-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"></rect><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><path d="M9 13l2 2 4-4"></path></svg></div>
+        <p class="cwop-n">04</p><h3>Grading</h3><p>Measured, graded and stacked to spec.</p>
+      </li>
+      <li>
+        <div class="cwop-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><path d="M3.3 7L12 12l8.7-5"></path><path d="M12 22V12"></path></svg></div>
+        <p class="cwop-n">05</p><h3>Loading</h3><p>Loaded as quoted, container after container.</p>
+      </li>
+    </ol>
+    <div class="cwop-gallery">
+      <figure class="cwop-card"><img src="/files/Enhanced%20Factory%20Photos/factory_08.jpg" alt="Warehouse aisle stacked with plywood and a forklift" width="1600" height="1200" loading="lazy"></figure>
+      <figure class="cwop-card"><img src="/files/Enhanced%20Factory%20Photos/factory_42.jpg" alt="Hydraulic hot press in the plywood plant" width="1600" height="1200" loading="lazy"></figure>
+      <figure class="cwop-card"><img src="/files/Enhanced%20Factory%20Photos/factory_24.jpg" alt="Stacks of wood veneer on the production floor" width="1600" height="1200" loading="lazy"></figure>
+      <figure class="cwop-card"><img src="/files/Enhanced%20Factory%20Photos/factory_05.jpg" alt="Plywood production hall with stacked panels" width="1600" height="1200" loading="lazy"></figure>
+      <figure class="cwop-card"><img src="/files/Enhanced%20Factory%20Photos/factory_44.jpg" alt="Finished plywood stacked and ready to load" width="1600" height="1200" loading="lazy"></figure>
+      <figure class="cwop-card"><img src="/files/Enhanced%20Factory%20Photos/factory_45.jpg" alt="Workers handling plywood sheets on the floor" width="1600" height="1200" loading="lazy"></figure>
+    </div>
+  </div>
+</section>

@@ -488,7 +488,7 @@ body.cw-in-editor .cw-editor-label {
 }
 
 /* FIX 4: Cormorant Garamond display font */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap');
+/* (Cormorant @import removed 2026-06-14 — font-lock below) */
 :root { --cw-display: 'Bree Serif', Georgia, serif !important; }
 .cw, .cw__h1, .cw__h2, .cw__h3, h1, h2 { font-family: 'Bree Serif', Georgia, serif !important; }
 
@@ -689,7 +689,7 @@ html { scroll-padding-top: 120px; }
 .zpform-container .zpbutton-type-primary { background: #007A5E !important; border-color: #007A5E !important; color: #fff !important; font-family: 'Poppins', sans-serif; font-weight: 600; padding: 14px 30px; border-radius: 999px; }
 .zpform-container .zpbutton-type-primary:hover { background: #042321 !important; border-color: #042321 !important; }
 .zpform-container .zpbutton:not(.zpbutton-type-primary) { display: none !important; }
-.zpform-container .zpform-formname { font-family: 'Bree Serif', 'Lora', Georgia, serif; color: #042321; font-weight: 400; }
+.zpform-container .zpform-formname { font-family: 'Bree Serif', Georgia, serif; color: #042321; font-weight: 400; }
 /* Checkbox/radio fix — box inline-left of label (Products of interest) */
 .zpform-container .zpform-field-container input[type=checkbox],
 .zpform-container .zpform-field-container input[type=radio] { width: auto !important; display: inline-block; vertical-align: middle; margin: 0 10px 0 0; padding: 0; box-shadow: none !important; }
@@ -944,3 +944,124 @@ body{margin:0;background:#fff;font-family:Poppins,system-ui,sans-serif;color:#14
 /* Font unification 2026-06-04: brand pairing only (Bree Serif display + Poppins body); removes stray Cormorant Garamond & Lora */
 .cw__industry-name,.cw__process-num,.cw__stat-strip strong,.cw__trust-strip strong{font-family:'Bree Serif',Georgia,serif !important}
 .theme-site-name{font-family:'Poppins',sans-serif !important}
+
+
+/* ============================================================
+   City / SEO blog posts — match home-page theme (2026-06-08)
+   Scoped to .theme-single-post so ONLY blog post pages are touched.
+   Replaces the Zoho blog template's purple headings, Cormorant h3
+   and magenta links with the Cochin Wood home palette
+   (Bree Serif headings #141414, Poppins body, #007A5E green accent).
+   ============================================================ */
+.theme-single-post .theme-blog-heading{font-family:'Bree Serif',Georgia,serif !important;color:#141414 !important;font-size:40px !important;line-height:1.12 !important}
+.theme-single-post .zpsnippet-container h2{font-family:'Bree Serif',Georgia,serif !important;color:#141414 !important;font-size:32px !important;line-height:1.2 !important;font-weight:600 !important;margin:40px 0 14px !important}
+.theme-single-post .zpsnippet-container h3{font-family:'Bree Serif',Georgia,serif !important;color:#141414 !important;font-size:22px !important;line-height:1.28 !important;font-weight:600 !important;margin:28px 0 10px !important}
+.theme-single-post .zpsnippet-container h4{font-family:'Bree Serif',Georgia,serif !important;color:#1a1a1a !important;font-size:17px !important;font-weight:600 !important;margin:22px 0 8px !important}
+.theme-single-post .zpsnippet-container p,
+.theme-single-post .zpsnippet-container li{font-family:'Poppins',sans-serif !important;color:#2c2c2c !important;font-size:16px !important;line-height:1.72 !important}
+.theme-single-post .zpsnippet-container strong{color:#141414 !important;font-weight:600 !important}
+.theme-single-post .zpsnippet-container a{color:#007A5E !important;text-decoration:none !important;font-weight:600 !important}
+.theme-single-post .zpsnippet-container a:hover{text-decoration:underline !important}
+.theme-single-post .zpsnippet-container table{border-collapse:collapse !important;width:100% !important;margin:20px 0 !important;font-family:'Poppins',sans-serif !important}
+.theme-single-post .zpsnippet-container thead th,
+.theme-single-post .zpsnippet-container th{background:#FAF9F7 !important;color:#141414 !important;font-weight:600 !important;text-align:left !important;padding:11px 13px !important;border:1px solid #e7e7e7 !important;font-size:14px !important}
+.theme-single-post .zpsnippet-container td{padding:11px 13px !important;border:1px solid #e7e7e7 !important;color:#2c2c2c !important;font-size:14px !important;vertical-align:top !important}
+.theme-single-post .zpsnippet-container ul,
+.theme-single-post .zpsnippet-container ol{margin:10px 0 16px !important;padding-left:22px !important}
+.theme-single-post .zpsnippet-container li{margin:6px 0 !important}
+
+
+/* City blog posts with cwp__ hero: hide duplicate blog title/byline/social/comments (2026-06-08) */
+.theme-single-post:has(.cwp__hero) .theme-blog-post-header-area,
+.theme-single-post:has(.cwp__hero) .theme-blog-post-social-share,
+.theme-single-post:has(.cwp__hero) .theme-single-blog-comment-container{display:none !important}
+.theme-single-post .cwp__hero-grid{grid-template-columns:1fr !important}
+.theme-single-post .cwp__hero{padding-top:8px !important}
+
+/* cwp__ pill buttons on blog posts: re-assert text colour (blog theme link-override hijacks it to green = low contrast) 2026-06-09 */
+.theme-single-post .zpsnippet-container a.cwp__btn,.theme-single-post .zpsnippet-container a.cwp__btn:hover{color:#fff !important}
+.theme-single-post .zpsnippet-container a.cwp__btn--secondary,.theme-single-post .zpsnippet-container a.cwp__btn--secondary:hover{color:#141414 !important}
+.theme-single-post .zpsnippet-container .cwp__cta a.cwp__btn{color:#1B4332 !important}
+.theme-single-post .zpsnippet-container .cwp__cta a.cwp__btn--secondary{color:#fff !important}
+
+/* Blog author block: CWI emblem as avatar + de-purple the author name (2026-06-09) */
+.theme-single-post .theme-blog-author-img{background:#fff url('/files/Logo/Cochin%20wood%20logo.png') center/cover no-repeat}
+.theme-single-post .theme-blog-author-img svg{display:none !important}
+.theme-single-post .theme-blog-author-name{color:#1B4332 !important;font-family:'Bree Serif',Georgia,serif !important}
+
+/* cwp__ hero 2-col + per-place art (2026-06-09) — :has guard = no-op until art embedded */
+.theme-single-post .cwp__hero-grid:has(.cwp__hero-art){grid-template-columns:1.05fr .85fr !important;gap:40px !important}
+.theme-single-post .cwp__hero-art{display:flex;align-items:center;justify-content:center}
+.theme-single-post .cwp__hero-art svg{width:100%;height:auto;max-width:520px}
+@media(max-width:820px){.theme-single-post .cwp__hero-grid:has(.cwp__hero-art){grid-template-columns:1fr !important}.theme-single-post .cwp__hero-art{order:-1;max-width:300px;margin:0 auto 6px}}
+
+
+/* Guide posts (cwg__) migrated from pages: hide duplicate blog chrome + keep button colours (2026-06-10) */
+.theme-single-post:has(.cwg__hero) .theme-blog-post-header-area,
+.theme-single-post:has(.cwg__hero) .theme-blog-post-social-share,
+.theme-single-post:has(.cwg__hero) .theme-single-blog-comment-container{display:none !important}
+.theme-single-post .zpsnippet-container a.cwg__btn{color:var(--cw-green-700,#1B4332) !important}
+
+/* Comments container sits OUTSIDE .theme-single-post in this theme - hide at body level for cwp+cwg posts (2026-06-10) */
+body:has(.theme-single-post .cwp__hero) .theme-single-blog-comment-container,
+body:has(.theme-single-post .cwg__hero) .theme-single-blog-comment-container{display:none !important}
+
+
+/* hide Zoho dead template button on blog posts (2026-06-11) */
+body:has(.theme-single-post) .zpelem-button:has(a.zpbutton[href="javascript:;"]){display:none!important}
+
+
+/* ============================================================
+   FONT LOCK 2026-06-14 — Bree Serif (display) + Poppins (body) only.
+   Eliminates theme Heebo + Cormorant. Theme style.css not editable,
+   so override its exact selectors. No icon-font risk (SVG icons).
+   ============================================================ */
+:root{--cw-display:'Bree Serif',Georgia,serif !important;--cw-body:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif !important;}
+h1,h2,h3,h4,h5,h6,.theme-site-name,.theme-portal-heading,#headtitle,.verifytitle,.zpform-container h2,
+.zpelem-iconheading h1,.zpelem-iconheading h2,.zpelem-iconheading h3,.zpelem-iconheading h4,.zpelem-iconheading h5,.zpelem-iconheading h6,
+.zpelem-iconheadingtext h1,.zpelem-iconheadingtext h2,.zpelem-iconheadingtext h3,.zpelem-iconheadingtext h4,.zpelem-iconheadingtext h5,.zpelem-iconheadingtext h6,
+.zpelem-imageheadingtext h1.zpimage-heading,.zpelem-imageheadingtext h2.zpimage-heading,.zpelem-imageheadingtext h3.zpimage-heading,.zpelem-imageheadingtext h4.zpimage-heading,.zpelem-imageheadingtext h5.zpimage-heading,.zpelem-imageheadingtext h6.zpimage-heading{font-family:'Bree Serif',Georgia,serif !important;}
+body,.theme-header-topbar,.theme-header-topbar a,.theme-header .theme-site-name-caption .theme-site-caption,
+.theme-navigation-and-icons input[type="text"],.theme-navigation-and-icons .theme-search-go,
+.theme-navigation-and-icons .theme-menu ul li a,.theme-navigation-and-icons .theme-menu ul li ul li a,
+.theme-navigation-and-icons .theme-menu .theme-currency-option-container,.theme-navigation-and-icons .theme-menu .theme-currency-option-container ul li,
+.theme-lang-container,.theme-lang-container .theme-lang-label,.theme-lang-container .theme-lang-dropdown li span,.theme-currency-option-container ul li,
+.zpmm .zpmm-element a,.zpbutton,button.zpbutton-type-primary,button.zpbutton-type-secondary,button.zpbutton-type-link,input[type=submit],input[type=button],
+.zpdivider-container.zpdivider-text .zpdivider-common,.zptabelem-inner-container .zptab,.zpaccordion-container .zpaccordion,
+.zpform-container input,.zpform-container textarea,.zpform-container select,.zpform-container label,.zpform-container .zpform-label,
+.zptable table td,.zptable table th,.zpelem-iconheadingtext,.zpelem-iconheadingtext .zpicon-text,.zpelem-imagetext .zpimage-text,.zpelem-imageheadingtext .zpimage-text{font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif !important;}
+.zpcontent-container p,.zpcontent-container li,.zpcontent-container span:not([class*="icon"]):not([class*="zpicon"]),.zpcontent-container a,.zpcontent-container td,.zpcontent-container label,.zpcontent-container input,.zpcontent-container textarea,.zpcontent-container select{font-family:var(--cw-body);}
+
+/* ============================================================
+   ACCESSIBILITY A+ LAYER 2026-06-14 — focus-visible rings, skip link,
+   44px tap targets, reduced-motion, AAA eyebrow greys. Keyboard/AT only;
+   no visual change for mouse/touch users. Brand teal #007a5e.
+   ============================================================ */
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible,[tabindex]:focus-visible,[role="button"]:focus-visible,[role="link"]:focus-visible,.zs-button:focus-visible,.button:focus-visible{outline:2px solid #007a5e !important;outline-offset:2px !important;box-shadow:0 0 0 4px rgba(255,255,255,0.85) !important;border-radius:3px;}
+@supports selector(:focus-visible){a:focus:not(:focus-visible),button:focus:not(:focus-visible),input:focus:not(:focus-visible),select:focus:not(:focus-visible),textarea:focus:not(:focus-visible),summary:focus:not(:focus-visible),[tabindex]:focus:not(:focus-visible),[role="button"]:focus:not(:focus-visible){outline:none;box-shadow:none;}}
+input:focus-visible,select:focus-visible,textarea:focus-visible{border-color:#007a5e !important;}
+.skip-to-main{position:absolute;left:8px;top:-60px;z-index:100000;display:inline-block;padding:10px 16px;min-height:44px;line-height:24px;background:#007a5e;color:#fff !important;font-family:"Poppins",system-ui,sans-serif;font-size:15px;font-weight:600;text-decoration:none;border-radius:0 0 6px 0;transition:top .15s ease;}
+.skip-to-main:focus,.skip-to-main:focus-visible{top:0;outline:2px solid #fff !important;outline-offset:2px !important;box-shadow:0 0 0 4px rgba(0,122,94,.35) !important;}
+#main{scroll-margin-top:90px;}
+header nav a,header nav button,footer a,.zs-menu a,.zs-footer a,a[href^="https://wa.me"],a[href^="https://web.whatsapp.com"],a[href^="tel:"],a[href^="mailto:"],a[aria-label],.social-icons a,.zs-social a{min-height:44px;min-width:44px;display:inline-flex;align-items:center;justify-content:center;}
+.whatsapp-float,.wa-float,.call-float,a.float-btn{min-width:44px;min-height:44px;}
+p a,li a,.cw__prose a,.blog-content a{min-height:0;min-width:0;display:inline;}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important;}html{scroll-behavior:auto !important;}}
+.cw__eyebrow,.eyebrow,.caption,.cw__caption,figcaption,small,.text-muted,.zs-caption{color:#4a575e !important;}
+
+
+/* === Responsive audit fixes 2026-06-15: mobile hero stacking + footer font === */
+@media(max-width:1024px){
+  .cw__hero-grid.cw__hero-grid.cw__hero-grid{grid-template-columns:1fr!important;gap:26px!important}
+  .cw__page-hero .cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img{height:auto!important}
+  .cw__page-hero .cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img img{height:auto!important;width:100%!important;max-height:340px!important;object-fit:cover!important}
+}
+@media(max-width:768px){ .cw-ft-est{font-size:11px!important} }
+
+
+/* === Responsive polish 2026-06-15: stack tight 2-up grids + readable tags on phones === */
+@media(max-width:600px){
+  .cw__std-grid{grid-template-columns:1fr!important}
+  .cwop-flow{grid-template-columns:1fr!important}
+  .cw__tag{font-size:12px!important}
+}

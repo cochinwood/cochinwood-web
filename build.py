@@ -66,8 +66,13 @@ def footer():
   <span><a href="{LIVE}/privacy-policy" style="display:inline">Privacy</a> &middot; <a href="{LIVE}/terms-and-conditions" style="display:inline">Terms</a></span></div>
 </div></footer>'''
 
+ORG_SCHEMA = '''<script type="application/ld+json">
+{"@context":"https://schema.org","@type":["Organization","LocalBusiness"],"@id":"https://www.cochinwood.in/#organization","name":"Cochin Wood Industries","url":"https://www.cochinwood.in/","logo":"https://www.cochinwood.in/files/Logo/Cochin wood logo.png","email":"sales@cochinwood.in","telephone":"+919567410175","address":{"@type":"PostalAddress","streetAddress":"Kuruppampady","addressLocality":"Ernakulam","addressRegion":"Kerala","postalCode":"683545","addressCountry":"IN"},"parentOrganization":{"@type":"Organization","name":"Cochin Wood Group","foundingDate":"1986"},"areaServed":["IN","AE","VN"],"description":"Plywood manufacturer in Kochi, Kerala - packing, Okoume, marine and film-faced shuttering plywood, sawn timber and export crates."}
+</script>'''
+
 def base(title, desc, path, body, body_class="", extra_head=""):
     canonical = LIVE + path
+    extra_head = ORG_SCHEMA + "\n" + extra_head
     return f'''<!doctype html>
 <html lang="en-IN">
 <head>
@@ -221,6 +226,83 @@ def encyclopedia():
         write(f"wood-encyclopedia/{s}/index.html", base(title, desc, f"/wood-encyclopedia/{s}", body, body_class="cw-encbody"))
     return len(slugs)+1
 
+# ---------------- content pages (product + core, from clean snippets) ----------------
+PAGE_META = json.load(open(os.path.join(ROOT, "content", "pages_meta.json"), encoding="utf-8"))
+PAGE_SNIPPETS = {
+    "commercial-plywood":"commercial-plywood.html","marine-plywood":"marine-plywood.html",
+    "film-faced-shuttering-plywood":"film-faced-shuttering-plywood.html",
+    "container-flooring-plywood":"container-flooring-plywood.html",
+    "bwr-hardwood-plywood":"bwr-hardwood-plywood.html","chequered-anti-skid-plywood":"chequered-anti-skid-plywood.html",
+    "block-board-flush-doors":"block-board-flush-doors.html","finger-joint-board":"finger-joint-board.html",
+    "particle-board":"particle-board.html","plywood-boxes-crates":"plywood-boxes-crates.html",
+    "plywood-pallets":"plywood-pallets.html","plywood-cable-drums":"plywood-cable-drums.html",
+    "sawn-timber":"sawn-timber.html","faq":"faq.html","resources":"resources.html",
+    "industries":"industries-LIVE-2026-06-11.html","privacy-policy":"privacy.html",
+    "terms-and-conditions":"terms.html","llms":"llms.html",
+}
+_files_used = set()
+def process_content(body):
+    body = re.sub(r'<script\b[^>]*>.*?</script>', '', body, flags=re.S)   # drop any inline scripts
+    body = re.sub(r'\son\w+="[^"]*"', '', body)                            # drop inline handlers
+    # record + prefix same-origin image refs; blog links -> live until Phase 3
+    for m in re.findall(r'(?:src|href)="(/files/[^"?]+)', body): _files_used.add(m)
+    body = re.sub(r'((?:src|href)=")/blogs/', r'\1'+LIVE+'/blogs/', body)
+    body = re.sub(r'((?:src|href)=")/(?!/)', r'\1'+BASE+'/', body)          # prefix remaining root-relative
+    return body
+
+def build_content_pages():
+    sdir = os.path.join(ROOT, "content", "pages")
+    n = 0
+    for slug, fname in PAGE_SNIPPETS.items():
+        fp = os.path.join(sdir, fname)
+        if not os.path.exists(fp): continue
+        meta = PAGE_META.get(slug, {})
+        content = process_content(open(fp, encoding="utf-8").read())
+        title = meta.get("title") or slug.replace("-", " ").title() + " | Cochin Wood Industries"
+        desc  = meta.get("desc") or ""
+        body = f'<main class="cw-page"><div class="cw-wrap">{content}</div></main>'
+        write(f"{slug}/index.html", base(title, desc, "/"+slug, body, body_class="cw-contentpage"))
+        n += 1
+    return n
+
+def build_about():
+    sdir = os.path.join(ROOT, "content", "pages")
+    parts = []
+    for f in ("about-history.html", "about-operation.html"):
+        fp = os.path.join(sdir, f)
+        if os.path.exists(fp): parts.append(process_content(open(fp, encoding="utf-8").read()))
+    if not parts: return 0
+    meta = PAGE_META.get("about", {})
+    body = f'<main class="cw-page"><div class="cw-wrap">{"".join(parts)}</div></main>'
+    write("about/index.html", base(meta.get("title","About Cochin Wood Industries"),
+          meta.get("desc",""), "/about", body, body_class="cw-contentpage"))
+    return 1
+
+def build_sitemap():
+    urls = []
+    for r, _, fs in os.walk(DIST):
+        for f in fs:
+            if f != "index.html": continue
+            rel = os.path.relpath(os.path.join(r, f), DIST).replace(os.sep, "/")
+            path = "/" if rel == "index.html" else "/" + rel[:-len("index.html")].rstrip("/")
+            urls.append(LIVE + path)
+    urls = sorted(set(urls))
+    items = "".join(f"<url><loc>{u_}</loc></url>" for u_ in urls)
+    write("sitemap.xml", f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{items}</urlset>\n')
+    return len(urls)
+
+def copy_referenced_files():
+    mirror = os.environ.get("MIRROR_DIR", os.path.join(os.path.dirname(ROOT), "cochinwood-site"))
+    import urllib.parse
+    copied = 0
+    for ref in _files_used:
+        src = os.path.join(mirror, urllib.parse.unquote(ref.lstrip("/")))
+        if os.path.exists(src):
+            dst = os.path.join(DIST, urllib.parse.unquote(ref.lstrip("/")))
+            os.makedirs(os.path.dirname(dst), exist_ok=True)
+            shutil.copy(src, dst); copied += 1
+    return copied
+
 # ---------------- assets + meta ----------------
 def assets_and_meta():
     src = os.path.join(ROOT, "assets")
@@ -237,9 +319,13 @@ def main():
     os.makedirs(DIST)
     home(); products(); contact()
     n = encyclopedia()
+    p = build_content_pages()
+    p += build_about()
+    f = copy_referenced_files()
     assets_and_meta()
+    sm = build_sitemap()
     cnt = sum(len(fs) for _,_,fs in os.walk(DIST))
-    print(f"BUILD OK  base='{BASE or '(root)'}'  pages: home+products+contact + {n} encyclopedia  files: {cnt}")
+    print(f"BUILD OK  base='{BASE or '(root)'}'  home+products+contact + {p} content pages + {n} encyclopedia + {f} images  sitemap:{sm} urls  files: {cnt}")
 
 if __name__ == "__main__":
     main()
