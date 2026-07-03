@@ -1,0 +1,946 @@
+/* ============================================================
+   Cochin Wood Industries — site-wide overrides
+   Beats Zoho's anchor/button stylesheet specificity
+   ============================================================ */
+
+/* ---------- Buttons (Zoho forces all <a> children to white) ---------- */
+.cw .cw__btn,
+.cw a.cw__btn,
+a.cw__btn,
+.cw__btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding: 14px 26px !important;
+  border-radius: 999px !important;
+  font-weight: 600 !important;
+  font-size: .95rem !important;
+  text-decoration: none !important;
+  transition: transform .16s, box-shadow .16s, background .16s, color .16s !important;
+}
+.cw .cw__btn:hover,
+.cw a.cw__btn:hover,
+a.cw__btn:hover { transform: translateY(-2px) !important; }
+
+.cw .cw__btn--primary,
+.cw a.cw__btn--primary,
+a.cw__btn--primary,
+.cw__btn--primary {
+  background: #1B4332 !important;
+  color: #ffffff !important;
+  box-shadow: 0 16px 40px rgba(27,67,50,.25) !important;
+  border: 0 !important;
+}
+.cw .cw__btn--primary:hover,
+a.cw__btn--primary:hover { background: #163E30 !important; color: #ffffff !important; }
+
+.cw .cw__btn--secondary,
+.cw a.cw__btn--secondary,
+a.cw__btn--secondary,
+.cw__btn--secondary {
+  background: #ffffff !important;
+  color: #163E30 !important;
+  border: 1.5px solid #E1DDD3 !important;
+}
+.cw .cw__btn--secondary:hover,
+a.cw__btn--secondary:hover {
+  border-color: #1B4332 !important;
+  color: #163E30 !important;
+  background: #ffffff !important;
+}
+
+.cw .cw__btn--ghost,
+.cw a.cw__btn--ghost,
+a.cw__btn--ghost,
+.cw__btn--ghost {
+  color: #ffffff !important;
+  background: transparent !important;
+  border: 1.5px solid rgba(255,255,255,.4) !important;
+}
+.cw .cw__btn--ghost:hover,
+a.cw__btn--ghost:hover {
+  background: rgba(255,255,255,.1) !important;
+  color: #ffffff !important;
+}
+
+/* ---------- CTA banner — force solid background & visible text ---------- */
+.cw .cw__cta,
+.cw__cta {
+  background-color: #163E30 !important;
+  background-image: linear-gradient(110deg, #163E30 50%, #6B3F1D 100%) !important;
+  isolation: isolate !important;
+  position: relative !important;
+  color: #ffffff !important;
+}
+.cw__cta .cw__h2 { color: #ffffff !important; }
+.cw__cta p { color: rgba(255,255,255,.85) !important; }
+.cw__cta .cw__eyebrow { color: #E8C9A8 !important; }
+.cw__cta .cw__eyebrow::before { background: #E8C9A8 !important; }
+
+/* ---------- Form submit button (also <button> tag) ---------- */
+.cw form button.cw__btn,
+.cw form button.cw__btn--primary,
+form.cw__form-card button {
+  background: #1B4332 !important;
+  color: #ffffff !important;
+}
+
+/* ---------- Page hero text colors (in case Zoho overrides) ---------- */
+.cw .cw__page-hero .cw__h1,
+.cw .cw__page-hero h1 { color: #ffffff !important; }
+.cw .cw__page-hero p { color: rgba(255,255,255,.78) !important; }
+.cw .cw__hero .cw__h1 { color: #ffffff !important; }
+.cw .cw__hero .cw__lede { color: rgba(255,255,255,.78) !important; }
+
+/* Stats section */
+.cw .cw__stat-num, .cw .cw__stat-num span { color: #E8C9A8 !important; }
+.cw .cw__stat-label { color: rgba(255,255,255,.7) !important; }
+
+/* Showcase / hero card text */
+.cw .cw__sc-content small { color: #E8C9A8 !important; }
+.cw .cw__sc-content strong { color: #ffffff !important; }
+
+/* Industry card text */
+.cw .cw__ind-card h3 { color: #ffffff !important; }
+.cw .cw__ind-card p { color: rgba(255,255,255,.85) !important; }
+
+/* Director quote section (ink bg) */
+.cw .cw__section--ink, .cw .cw__section--ink h2 { color: #ffffff !important; }
+
+/* ---------- Hide Zoho default social-icon sidebar (right edge) ---------- */
+.zpsocialicon-floater,
+.theme-socialicon-parent,
+.theme-socialicon-list,
+ul.theme-socialicon-list,
+.theme-social-icon-space {
+  display: none !important;
+}
+
+/* ---------- Compact Zoho default header (was 564px) ---------- */
+.theme-header,
+.zpheader-style-01,
+.theme-header-content,
+[class*="theme-header"]:not([class*="topbar"]) {
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+  min-height: 0 !important;
+}
+.theme-branding-info img,
+.theme-header img,
+[class*="theme-logo"] img,
+.theme-header-content img {
+  max-height: 64px !important;
+  width: auto !important;
+}
+.theme-branding-info {
+  padding: 0 !important;
+}
+
+/* Site title — keep tight */
+.theme-branding-info,
+.theme-branding-info * {
+  line-height: 1.2 !important;
+}
+
+/* Tighten the white gap between header and snippet */
+.zpsections-style-content > section:first-child,
+.theme-content > section:first-child {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+/* ---------- Smooth scroll site-wide ---------- */
+html { scroll-behavior: smooth; }
+
+
+/* ============================================================
+   Editor-only labels
+   ============================================================
+   Drop a Zoho "Text" element above each Code Snippet on a page,
+   class it `cw-editor-label`, and write a description of what
+   the snippet contains. Hidden on the published site, visible
+   inside Zoho’s edit mode (which renders the page in an iframe).
+*/
+.cw-editor-label { display: none; }
+body.cw-in-editor .cw-editor-label {
+  display: block !important;
+  background: #FFF8E1;
+  border: 1px dashed #C49A2C;
+  color: #6B4D00;
+  padding: 8px 14px;
+  margin: 4px 0;
+  font: 500 13px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  border-radius: 4px;
+}
+
+
+/* ============================================================
+   ABOUT PAGE STYLES — extracted from original "About" snippet
+   on 2026-05-06 to restore styling after splitting into 9 sections.
+   These rules style .cw__page-hero, .cw__section, .cw__container,
+   .cw__pillar, .cw__h1/h2/h3/h4, .cw__two-col, etc. that the
+   about-1 through about-9 snippets reference.
+   ============================================================ */
+
+.cw {
+  --cw-green-900:#0E2B22; --cw-green-800:#163E30; --cw-green-700:#1B4332; --cw-green-600:#2D6A4F; --cw-green-100:#E5EFE9;
+  --cw-wood-700:#6B3F1D; --cw-wood-500:#A66833; --cw-wood-200:#E8C9A8;
+  --cw-cream-100:#FBF7F0; --cw-cream-200:#F5EFE6;
+  --cw-ink-900:#141414; --cw-ink-600:#4A4A4A; --cw-ink-100:#EFEFEF; --cw-ink-200:#D9D9D9;
+  --cw-display:'Bree Serif', Georgia, serif; --cw-body:'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --cw-teal:#007A5E; --cw-teal-600:#007f66; --cw-teal-700:#006652; --cw-teal-50:#e6f5f1; --cw-teal-900:#003d33;
+  --cw-bg:#ffffff; --cw-bg-soft:#f6f9f8;
+  font-family: var(--cw-body); color: var(--cw-ink-900); line-height: 1.6; font-size: 16px; background: #ffffff; width: 100%; box-sizing: border-box;
+}
+.cw *, .cw *::before, .cw *::after { box-sizing: border-box; }
+.cw a { color: inherit; text-decoration: none; }
+.cw button { font-family: inherit; cursor: pointer; border: 0; background: transparent; }
+.cw img, .cw svg { display: block; max-width: 100%; }
+.cw__container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+.cw__h1, .cw__h2, .cw__h3, .cw__h4 { font-family: var(--cw-display); font-weight: 500; letter-spacing: -.015em; line-height: 1.1; margin: 0 0 .5em; color: var(--cw-ink-900); }
+.cw__h1 { font-size: clamp(2.4rem, 4vw + 1rem, 3.6rem); }
+.cw__h2 { font-size: clamp(2rem, 2.6vw + 1rem, 3rem); font-weight: 600; }
+.cw__h3 { font-size: 1.5rem; font-weight: 600; }
+.cw__h4 { font-size: 1.15rem; font-weight: 600; }
+.cw__lede { font-size: 1.15rem; line-height: 1.6; color: var(--cw-ink-600); margin: 0 0 1.5em; }
+.cw__eyebrow { font-size: .8rem; font-weight: 600; letter-spacing: .18em; text-transform: none; color: var(--cw-teal); display: inline-flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.cw__eyebrow::before { content: ''; width: 28px; height: 1.5px; background: var(--cw-teal); }
+.cw__btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 26px; border-radius: 999px; font-weight: 600; font-size: .95rem; transition: transform .16s; }
+.cw__btn:hover { transform: translateY(-2px); }
+.cw__btn--secondary { background: #fff; color: var(--cw-teal); border: 1.5px solid #E1DDD3; }
+
+.cw__page-hero { padding: 96px 0 80px; text-align: center; color: var(--cw-ink-900); position: relative; overflow: hidden; background: linear-gradient(180deg, #fff 0%, var(--cw-bg-soft) 100%); }
+.cw__page-hero::before { content: ''; position: absolute; inset: 0; opacity: .6;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><path d='M0 50 Q25 25 50 50 T100 50' stroke='rgba(255,255,255,.04)' stroke-width='1' fill='none'/></svg>"); }
+.cw__page-hero .cw__container { position: relative; }
+.cw__page-hero .cw__h1 { color: var(--cw-ink-900); }
+.cw__page-hero .cw__h1 em { font-style: italic; color: var(--cw-teal); font-weight: 500; }
+.cw__page-hero p { color: #3a4a52; max-width: 640px; margin: 0 auto; font-size: 1.1rem; }
+.cw__crumb { display: inline-flex; align-items: center; gap: 8px; font-size: .82rem; color: #5f6e76; margin-bottom: 16px; }
+
+.cw__section { padding: 96px 0; }
+.cw__section--cream { background: var(--cw-bg-soft, #f6f9f8); }
+.cw__section--ink { background: var(--cw-teal); color: rgba(255,255,255,.92); }
+.cw__section--ink .cw__h2 { color: #fff; }
+.cw__section-head { max-width: 760px; margin: 0 auto 48px; text-align: center; }
+
+.cw__two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+@media (max-width: 880px) { .cw__two-col { grid-template-columns: 1fr; } }
+.cw__visual { border-radius: 20px; overflow: hidden; aspect-ratio: 4/3; background: var(--cw-bg-soft, #f6f9f8); box-shadow: 0 8px 24px rgba(20,20,20,.08); }
+
+.cw__pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+@media (max-width: 880px) { .cw__pillars { grid-template-columns: 1fr; } }
+.cw__pillar { background: #fff; padding: 48px 32px; border-radius: 20px; border: 1px solid var(--cw-ink-100); transition: transform .32s, box-shadow .32s; }
+.cw__pillar:hover { transform: translateY(-6px); box-shadow: 0 8px 24px rgba(20,20,20,.08); }
+.cw__pillar-icon { width: 56px; height: 56px; border-radius: 12px; background: var(--cw-teal-50); color: var(--cw-teal); display: grid; place-items: center; margin-bottom: 16px; }
+.cw__pillar p { color: var(--cw-ink-600); margin: 0; }
+
+.cw__timeline { position: relative; padding-left: 40px; max-width: 760px; margin: 0 auto; }
+.cw__timeline::before { content: ''; position: absolute; left: 12px; top: 6px; bottom: 6px; width: 2px; background: var(--cw-ink-100); }
+.cw__tl-item { position: relative; padding-bottom: 48px; }
+.cw__tl-item:last-child { padding-bottom: 0; }
+.cw__tl-item::before { content: ''; position: absolute; left: -34px; top: 6px; width: 16px; height: 16px; border-radius: 50%; background: #fff; border: 3px solid var(--cw-teal); }
+.cw__tl-year { font-family: var(--cw-display); font-size: 1.5rem; font-weight: 600; color: var(--cw-teal); margin-bottom: 6px; }
+.cw__tl-item h4 { margin: 0 0 6px; }
+.cw__tl-item p { margin: 0; color: var(--cw-ink-600); }
+
+/* FAQ accordion */
+.cw__faq { max-width: 820px; margin: 0 auto; }
+.cw__faq-item { border-bottom: 1px solid var(--cw-ink-100); }
+.cw__faq-item:first-child { border-top: 1px solid var(--cw-ink-100); }
+.cw__faq-q { width: 100%; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 24px 0; font-family: var(--cw-display); font-size: 1.2rem; font-weight: 600; color: var(--cw-ink-900); transition: color .16s; }
+.cw__faq-q:hover { color: var(--cw-teal); }
+.cw__faq-q .cw__icon { width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid var(--cw-ink-200); display: grid; place-items: center; flex-shrink: 0; transition: transform .32s, border-color .32s, background .32s, color .32s; }
+.cw__faq-item.cw-open .cw__faq-q .cw__icon { transform: rotate(45deg); background: var(--cw-teal); border-color: var(--cw-teal); color: #fff; }
+.cw__faq-a { max-height: 0; overflow: hidden; transition: max-height .32s; }
+.cw__faq-a-inner { padding: 0 0 24px; color: var(--cw-ink-600); max-width: 720px; }
+.cw__faq-a-inner p { margin: 0 0 12px; }
+.cw__faq-a-inner a { color: var(--cw-teal); border-bottom: 1px solid currentColor; }
+
+.cw__cta { background: var(--cw-teal); border-radius: 24px; color: #fff; border-radius: 28px; padding: 80px 48px; }
+.cw__cta-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 32px; align-items: center; }
+@media (max-width: 760px) { .cw__cta-grid { grid-template-columns: 1fr; } .cw__cta { padding: 56px 32px; } }
+.cw__cta .cw__h2 { color: #fff; }
+.cw__cta p { color: rgba(255,255,255,.8); }
+.cw__cta-actions { display: flex; gap: 12px; justify-content: flex-end; }
+@media (max-width: 760px) { .cw__cta-actions { justify-content: flex-start; } }
+
+/* Defeat site-wide Custom CSS dark-hero overrides */
+.cw .cw__page-hero .cw__h1, .cw .cw__page-hero h1 { color: #0e1a1f !important; }
+.cw .cw__page-hero p, .cw .cw__page-hero .cw__lede { color: #3a4a52 !important; }
+.cw .cw__page-hero .cw__crumb { color: #5f6e76 !important; }
+.cw .cw__hero .cw__h1 { color: #0e1a1f !important; }
+.cw .cw__hero .cw__lede { color: #3a4a52 !important; }
+.cw .cw__hero .cw__eyebrow { color: #007A5E !important; }
+.cw .cw__stat-num, .cw .cw__stat-num span { color: #007A5E !important; }
+
+
+/* ============================================================
+   ABOUT PAGE — VE IMAGE ELEMENT CUSTOM CLASSES
+   Apply these as Custom Class on Visual Editor Image elements
+   to give them the right shape, size, and border styling.
+   ============================================================ */
+
+/* Hero band — wide cinematic image, full container width */
+.cw__image--hero-band img {
+  width: 100%;
+  max-width: 1240px;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  border-radius: 16px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Story panel — right column of 2-col founding story (~514x385) */
+.cw__image--story-panel img {
+  width: 100%;
+  max-width: 514px;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border-radius: 16px;
+  display: block;
+  margin: 0 auto;
+  box-shadow: 0 12px 32px rgba(22, 62, 48, 0.12);
+}
+
+/* Mission band — wide image above pillar grid */
+.cw__image--mission-band img {
+  width: 100%;
+  max-width: 1240px;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  border-radius: 16px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Director avatar — circular 300x300 portrait */
+.cw__image--director-avatar img {
+  width: 300px;
+  height: 300px;
+  max-width: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto;
+  border: 4px solid rgba(255,255,255,0.18);
+}
+
+/* Compliance band — wide image above standards grid */
+.cw__image--compliance-band img {
+  width: 100%;
+  max-width: 1240px;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  border-radius: 16px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Community band — wide image above community content */
+.cw__image--community-band img {
+  width: 100%;
+  max-width: 1240px;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  border-radius: 16px;
+  display: block;
+  margin: 0 auto;
+}
+
+
+/* ============================================================
+   ABOUT PAGE — SIDE-BY-SIDE PAIRS via CSS Grid
+   When the column contains story-panel or director-avatar images,
+   apply a 2-col grid and pair specific snippets with their photo.
+   ============================================================ */
+.zpcol-12:has(.cw__image--story-panel),
+.zpcol-12:has(.cw__image--director-avatar) {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-flow: row dense;
+  gap: 48px 32px;
+  align-items: stretch;
+}
+.zpcol-12:has(.cw__image--story-panel) > *,
+.zpcol-12:has(.cw__image--director-avatar) > * {
+  grid-column: 1 / -1;
+}
+/* Story pair: snippet immediately before story-panel sits in left column */
+.zpcol-12 > .zpelement:has(+ .cw__image--story-panel),
+.zpcol-12 > .cw__image--story-panel {
+  grid-column: span 1;
+  align-self: center;
+}
+/* Director pair: avatar in left, snippet immediately after in right */
+.zpcol-12 > .cw__image--director-avatar,
+.zpcol-12 > .cw__image--director-avatar + .zpelement {
+  grid-column: span 1;
+  align-self: center;
+}
+/* Tighten section padding when in a grid pair so it doesn't feel disjointed */
+.zpcol-12:has(.cw__image--story-panel) > .zpelement:has(+ .cw__image--story-panel) .cw__section,
+.zpcol-12:has(.cw__image--director-avatar) > .cw__image--director-avatar + .zpelement .cw__section {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+@media (max-width: 760px) {
+  .zpcol-12:has(.cw__image--story-panel),
+  .zpcol-12:has(.cw__image--director-avatar) {
+    grid-template-columns: 1fr;
+  }
+  .zpcol-12 > * {
+    grid-column: 1 / -1 !important;
+  }
+}
+
+
+/* ============================================================
+   ROOT VARIABLES — mirror of .cw vars on :root so they work
+   even without a .cw ancestor (after section split, snippets
+   no longer have a .cw wrapper).
+   ============================================================ */
+:root {
+  --cw-green-900: #0E2B22; --cw-green-800: #163E30; --cw-green-700: #1B4332; --cw-green-600: #2D6A4F; --cw-green-100: #E5EFE9;
+  --cw-wood-700: #6B3F1D; --cw-wood-500: #A66833; --cw-wood-200: #E8C9A8;
+  --cw-cream-100: #FBF7F0; --cw-cream-200: #F5EFE6;
+  --cw-ink-900: #141414; --cw-ink-600: #4A4A4A; --cw-ink-100: #EFEFEF; --cw-ink-200: #D9D9D9;
+  --cw-display: 'Bree Serif', Georgia, serif;
+  --cw-body: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --cw-teal: #007A5E; --cw-teal-600: #007f66; --cw-teal-700: #006652; --cw-teal-50: #e6f5f1; --cw-teal-900: #003d33;
+  --cw-bg: #ffffff; --cw-bg-soft: #f6f9f8;
+}
+/* Make .cw__section--ink legible without .cw wrapper */
+.cw__section--ink, .cw__section--ink * { color: rgba(255,255,255,0.95); }
+.cw__section--ink .cw__h2, .cw__section--ink h2, .cw__section--ink strong { color: #ffffff; }
+.cw__section--ink .cw__eyebrow { color: rgba(255,255,255,0.92); }
+.cw__section--ink .cw__eyebrow::before { background: rgba(255,255,255,0.4); }
+
+
+/* ============================================================
+   FIX: Override Zoho Image element max-width:500px so our band
+   placeholders fill their proper width (1240px hero/mission/etc.)
+   ============================================================ */
+.cw__image--hero-band img,
+.cw__image--mission-band img,
+.cw__image--compliance-band img,
+.cw__image--community-band img {
+  width: 100% !important;
+  max-width: 1240px !important;
+  height: auto !important;
+  aspect-ratio: 16 / 9 !important;
+  object-fit: cover !important;
+}
+.cw__image--story-panel img {
+  width: 100% !important;
+  max-width: 514px !important;
+  height: auto !important;
+  aspect-ratio: 4 / 3 !important;
+  object-fit: cover !important;
+}
+.cw__image--director-avatar img {
+  width: 300px !important;
+  max-width: 300px !important;
+  height: 300px !important;
+  object-fit: cover !important;
+  border-radius: 50% !important;
+}
+/* The wrapping div should also be wide enough so the image can fill it */
+.cw__image--hero-band,
+.cw__image--mission-band,
+.cw__image--compliance-band,
+.cw__image--community-band {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+
+/* FIX 2: figure.zpimage-data-ref display:table shrinks to content. Force block+100% width */
+.cw__image--hero-band .zpimage-data-ref, .cw__image--mission-band .zpimage-data-ref, .cw__image--compliance-band .zpimage-data-ref, .cw__image--community-band .zpimage-data-ref { display: block !important; width: 100% !important; max-width: 1240px !important; margin: 0 auto !important; }
+.cw__image--story-panel .zpimage-data-ref { display: block !important; width: 100% !important; max-width: 514px !important; margin: 0 auto !important; }
+.cw__image--director-avatar .zpimage-data-ref { display: block !important; width: 300px !important; margin: 0 auto !important; }
+.cw__image--hero-band .zpimage-anchor, .cw__image--mission-band .zpimage-anchor, .cw__image--compliance-band .zpimage-anchor, .cw__image--community-band .zpimage-anchor, .cw__image--story-panel .zpimage-anchor, .cw__image--director-avatar .zpimage-anchor { display: block !important; width: 100% !important; }
+.cw__image--hero-band picture, .cw__image--mission-band picture, .cw__image--compliance-band picture, .cw__image--community-band picture, .cw__image--story-panel picture, .cw__image--director-avatar picture { display: block !important; width: 100% !important; }
+
+.cw__image--hero-band figure img,
+.cw__image--mission-band figure img,
+.cw__image--compliance-band figure img,
+.cw__image--community-band figure img {
+      max-width: 1240px !important;
+      max-inline-size: 1240px !important;
+      width: 100% !important;
+      height: auto !important;
+      aspect-ratio: 16/9 !important;
+}
+.cw__image--story-panel figure img {
+      max-width: 514px !important;
+      max-inline-size: 514px !important;
+      width: 100% !important;
+      aspect-ratio: 4/3 !important;
+}
+.cw__image--director-avatar figure img {
+      width: 300px !important;
+      height: 300px !important;
+      max-inline-size: 300px !important;
+      border-radius: 50% !important;
+}
+
+/* FIX 4: Cormorant Garamond display font */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap');
+:root { --cw-display: 'Bree Serif', Georgia, serif !important; }
+.cw, .cw__h1, .cw__h2, .cw__h3, h1, h2 { font-family: 'Bree Serif', Georgia, serif !important; }
+
+/* FIX 5: Shrink empty (default.jpg) placeholders so they don't dominate the page. Real photos still go to full 16:9. */
+.cw__image--hero-band img[src*="default.jpg"],
+.cw__image--mission-band img[src*="default.jpg"],
+.cw__image--compliance-band img[src*="default.jpg"],
+.cw__image--community-band img[src*="default.jpg"] {
+      aspect-ratio: auto !important;
+      height: 280px !important;
+      min-height: 280px !important;
+}
+.cw__image--story-panel img[src*="default.jpg"] {
+      aspect-ratio: auto !important;
+      height: 260px !important;
+}
+
+/* FIX 6: Hero 2-col so photo sits beside the headline. Pair page-hero snippet with hero-band image. */
+.zpcol-12 > [data-element-type="codeSnippet"]:has(.cw__page-hero),
+.zpcol-12 > .cw__image--hero-band {
+      grid-column: span 1 !important;
+      align-self: center !important;
+}
+.zpcol-12 > [data-element-type="codeSnippet"]:has(.cw__page-hero) .cw__page-hero {
+      text-align: left !important;
+      padding: 80px 0 64px !important;
+      background: transparent !important;
+}
+.zpcol-12 > [data-element-type="codeSnippet"]:has(.cw__page-hero) .cw__crumb {
+      justify-content: flex-start !important;
+      text-align: left !important;
+}
+.zpcol-12 > [data-element-type="codeSnippet"]:has(.cw__page-hero) .cw__h1 {
+      text-align: left !important;
+}
+.zpcol-12 > [data-element-type="codeSnippet"]:has(.cw__page-hero) .cw__lede,
+.zpcol-12 > [data-element-type="codeSnippet"]:has(.cw__page-hero) p {
+      text-align: left !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+}
+
+
+/* Phase 0 fix (2026-05-07): prevent hidden POI checkboxes inside .cw__poi-chip from inheriting width:100% from .cw__field input rule, which combined with position:absolute pushed the document scrollWidth to 2568px on desktop. Reduces them to a 1px visually-hidden box. */
+.cw__poi-chip input[type="checkbox"] {
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden;
+}
+
+
+/* === CWI: collapse header→hero gap (2026-05-15) === */
+/* The custom .cw-hd already provides the full header. Hide Zoho's residual theme header chrome. */
+.zpheader-style-01,
+.theme-header,
+.theme-header-content { display: none !important; }
+
+/* Hide empty placeholder <p><br></p> sections that Zoho inserts above the first real snippet (home, industries) */
+.zpcontent-container > .zpsection:first-child:not(:has(.zpelem-codesnippet)) { display: none !important; }
+
+/* Flush the first content section against the header — zero the Zoho wrapper's top padding/margin (snippet keeps its own design padding) */
+.zpcontent-container > .zpsection:first-child:has(.zpelem-codesnippet),
+.zpcontent-container > .zpsection:first-child:not(:has(.zpelem-codesnippet)) + .zpsection { padding-top: 0 !important; }
+.zpcontent-container > .zpsection:first-child:has(.zpelem-codesnippet) .zpelement.zpelem-codesnippet,
+.zpcontent-container > .zpsection:first-child:not(:has(.zpelem-codesnippet)) + .zpsection .zpelement.zpelem-codesnippet { margin-top: 0 !important; }
+
+
+/* === Restore home hero photo (2026-05-15) === */
+/* Snippet img src points at lowercase /files/home/ which 404s; the real upload lives at /files/Home/. Mask via CSS background until the snippet can be edited. */
+.cw__hero-img { background: url('/files/Home/home-1-hero.jpg') center/cover no-repeat; }
+.cw__hero-img img { color: transparent; font-size: 0 !important; opacity: 0; }
+
+
+/* Global dark-section override - use brand teal instead of ink-900 */
+.cw__section--ink,
+.cw__section--trust,
+.cw__home-cta {
+  background: var(--cw-teal) !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+
+/* Case-card image fallbacks - masks broken <img>s in cases section */
+.cw__case-img { position: relative; }
+.cw__case-img img { color: transparent; font-size: 0 !important; opacity: 0; }
+.cw__case-grid .cw__case:nth-of-type(1) .cw__case-img { background: url('/files/Home/home-3-industries-1-construction.jpg') center/cover no-repeat; }
+.cw__case-grid .cw__case:nth-of-type(2) .cw__case-img { background: url('/files/Home/home-3-industries-2-marine.jpg') center/cover no-repeat; }
+.cw__case-grid .cw__case:nth-of-type(3) .cw__case-img { background: url('/files/Home/home-3-industries-4-packaging.jpg') center/cover no-repeat; }
+
+
+/* FIX 5: Body Poppins override (added 2026-05-17) */
+body, p, input, textarea, select, button { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, system-ui, sans-serif !important; }
+
+
+/* ============================================================
+   P0 #2 (added 2026-05-18) — de-claim certification badges
+   Stamps stay decorative; framing labels make the claim honest.
+   ============================================================ */
+.cw__about-compliance-grid .cw__about-compliance-card { position: relative; padding-top: 32px !important; }
+.cw__about-compliance-grid .cw__about-compliance-card::before {
+  position: absolute; top: 12px; left: 16px; right: 16px;
+  display: block;
+  font-size: 10px; letter-spacing: 0.08em; text-transform: none;
+  font-weight: 700;
+  padding: 4px 8px; border-radius: 4px;
+}
+/* Cards 1-3: Indian Standards — these we genuinely manufacture to */
+.cw__about-compliance-grid .cw__about-compliance-card:nth-of-type(-n+3)::before {
+  content: "Standard we manufacture to";
+  background: rgba(0,149,121,0.08);
+  color: var(--cw-teal, #007A5E);
+}
+/* Cards 4-6: FSC, CARB/EPA/CE, ISO 9001 — these are on-request / aligned, not held */
+.cw__about-compliance-grid .cw__about-compliance-card:nth-of-type(n+4)::before {
+  content: "Available on request — testable per shipment";
+  background: rgba(4,35,33,0.06);
+  color: rgba(4,35,33,0.7);
+}
+/* Tone down the round-seal visual so it reads as a spec icon, not a certificate */
+.cw__about-stamp { transform: scale(0.85); transform-origin: center; opacity: 0.85; }
+.cw__about-stamp svg circle:first-of-type { stroke-width: 1 !important; }
+
+/* ============================================================
+   2026-05-18 bundle — audit P1 #7 + P1 #9 + P2 #12/19
+   Breadcrumb colour, Zoho footer branding, section padding,
+   duplicate header brand link.
+   ============================================================ */
+
+/* P1 #7: Breadcrumb visited-link colour fix */
+.cw__crumb a, .cw__crumb a:visited, .cw__crumb a:link {
+  color: var(--cw-text-2, #3a4a52) !important;
+  text-decoration: none;
+}
+.cw__crumb a:hover { color: var(--cw-teal, #007A5E) !important; }
+
+/* P1 #9: Hide Zoho footer branding link */
+footer a[href*="zohosites.com"], footer a[href*="zoho.com/sites"],
+a[href*="zohosites.com"][rel*="nofollow"],
+a[title*="Zoho Sites" i], a[aria-label*="Zoho Sites" i],
+.zsite-footer-credits, .zsfooter-branding, .zsite-branding,
+[class*="zsiteBranding" i], [id*="zsiteBranding" i] {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+}
+
+/* P2 #12: Tighten inter-section padding ~40% */
+.cw__section, section.cw__section {
+  padding-block: 60px !important;
+}
+@media (max-width: 768px) {
+  .cw__section, section.cw__section { padding-block: 44px !important; }
+}
+
+/* P2 #19: Hide the duplicate empty <a class="cw-hd-brand"> for a11y */
+.cw-hd-inner > a.cw-hd-brand:empty,
+.cw-hd-mark > a.cw-hd-brand:empty {
+  display: none !important;
+}
+
+
+/* ============================================================
+   P1 #13 / P1 #14 / P2 #19 (added 2026-05-18, audit follow-up)
+   Sticky-header anchor padding + nav font override + hide Zoho badge
+   ============================================================ */
+
+html { scroll-padding-top: 120px; }
+
+.cw-hd-nav a, .cw-hd-nav span,
+.cw-hd-nav, .cw-hd-nav * { font-family: Poppins, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important; }
+
+.zs-powered-by, .powered-by, [class*="zspowered"], [class*="zsite-powered"], a[href*="zoho.com/sites"][class*="powered"] { display: none !important; }
+
+
+/* P1 #11: Hide JS-injected duplicate quote nav CTA (keep the pill button only) */
+.cw-hd-nav .cw-hd-nav-cta { display: none !important; }
+
+
+/* P2 #16 follow-up: eyebrows in sentence-case site-wide */
+.cw__eyebrow, .cwi__eyebrow, [class*="__eyebrow"] { text-transform: none !important; letter-spacing: 0.04em !important; }
+
+
+/* ============================================================
+   Quote Request form (Zoho native zpform) — brand theming
+   Added 2026-05-29, audit follow-up (lead-capture)
+   ============================================================ */
+.zpform-container { max-width: 720px; margin: 0 auto; }
+.zpform-container .zpform-outer > li { display: block !important; margin-bottom: 18px; }
+.zpform-container .zpform-label-container { width: auto !important; display: block; margin-bottom: 8px; font-family: 'Poppins', sans-serif; font-weight: 500; color: #0E1F18; }
+.zpform-container .zpform-field-container { width: 100% !important; }
+.zpform-container .zpform-field-container input,
+.zpform-container .zpform-field-container textarea,
+.zpform-container .zpform-field-container select { width: 100% !important; box-sizing: border-box; border: 1px solid #D9D9D9; border-radius: 10px; padding: 13px 16px; font-size: 1rem; font-family: 'Poppins', sans-serif; color: #0E1F18; background: #fff; }
+.zpform-container .zpform-field-container input:focus,
+.zpform-container .zpform-field-container textarea:focus { border-color: #007A5E; outline: none; box-shadow: 0 0 0 3px rgba(0,149,121,0.12); }
+.zpform-container .zpbutton-type-primary { background: #007A5E !important; border-color: #007A5E !important; color: #fff !important; font-family: 'Poppins', sans-serif; font-weight: 600; padding: 14px 30px; border-radius: 999px; }
+.zpform-container .zpbutton-type-primary:hover { background: #042321 !important; border-color: #042321 !important; }
+.zpform-container .zpbutton:not(.zpbutton-type-primary) { display: none !important; }
+.zpform-container .zpform-formname { font-family: 'Bree Serif', 'Lora', Georgia, serif; color: #042321; font-weight: 400; }
+/* Checkbox/radio fix — box inline-left of label (Products of interest) */
+.zpform-container .zpform-field-container input[type=checkbox],
+.zpform-container .zpform-field-container input[type=radio] { width: auto !important; display: inline-block; vertical-align: middle; margin: 0 10px 0 0; padding: 0; box-shadow: none !important; }
+.zpform-container .zpform-choice-container { display: flex; align-items: center; margin-bottom: 10px; }
+.zpform-container .zpform-choice-container label { margin: 0; font-family: 'Poppins', sans-serif; color: #0E1F18; font-weight: 400; }
+/* Force hero banner backgrounds (beats snippet !important bg) */
+.cw__page-hero--bg.cw__page-hero--bg.cw__page-hero--bg.cw__page-hero--bg.cw__page-hero--bg { background-image: linear-gradient(rgba(4,35,33,.58),rgba(4,35,33,.58)), url('/files/Hero%20Banner/Products?v=2026hero') !important; background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important; }
+.cw__page-hero--industries.cw__page-hero--industries.cw__page-hero--bg.cw__page-hero--bg.cw__page-hero--bg.cw__page-hero--bg { background-image: linear-gradient(rgba(4,35,33,.58),rgba(4,35,33,.58)), url('/files/Hero%20Banner/Industries?v=2026hero') !important; }
+/* Hero banner-bg pages: white text (high-spec, beats --industries) */
+.cw__page-hero--bg.cw__page-hero--bg .cw__crumb, .cw__page-hero--bg.cw__page-hero--bg .cw__crumb a, .cw__page-hero--bg.cw__page-hero--bg .cw__h1, .cw__page-hero--bg.cw__page-hero--bg .cw__lede, .cw__page-hero--bg.cw__page-hero--bg .cw__eyebrow, .cw__page-hero--bg.cw__page-hero--bg p { color: #ffffff !important; }
+.cw__page-hero--bg.cw__page-hero--bg .cw__h1 em { color: #7FE0C7 !important; }
+/* Home hero: visible image is the .cw__hero-img background (not the <img>) — point it at the Home banner */
+.cw__page-hero--home .cw__hero-img.cw__hero-img.cw__hero-img { background-image: url('/files/Hero%20Banner/Home?v=2026hero') !important; background-size: cover !important; background-position: center !important; }
+
+/* === CW UNIFORM HERO FIX 2026-05 (high-spec, beats forced bg) === */
+.cw__hero-grid.cw__hero-grid.cw__hero-grid{align-items:flex-start!important}
+.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img{background:none!important;background-image:none!important}
+.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img img{height:auto!important;width:100%!important;max-width:100%!important;object-fit:initial!important;display:block!important;position:relative!important;opacity:1!important;visibility:visible!important}
+
+
+/* CWHEROPOLISH */
+.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img{border-radius:24px!important;overflow:hidden!important;box-shadow:0 24px 64px rgba(20,20,20,.14)!important}
+@media(min-width:1025px){.cw__hero-grid.cw__hero-grid.cw__hero-grid{grid-template-columns:1fr 1.35fr!important;gap:48px!important}}
+
+
+/* CWHEROFINAL uniform full-height image, no gap */
+@media(min-width:1025px){
+.cw__hero-grid.cw__hero-grid.cw__hero-grid{align-items:stretch!important;grid-template-columns:1.05fr 1fr!important;gap:48px!important}
+.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img{height:100%!important}
+.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img img{height:100%!important;width:100%!important;object-fit:cover!important}
+}
+
+
+
+/* ===== CWI product-page (.cwp__*) + guide (.cwg__*) styles — appended by Claude ===== */
+/* ============================================================
+   Cochin Wood Industries â€” shared PRODUCT-PAGE styles (.cwp__*)
+   Linked by every /products-rebuild/*.html product page.
+   For Zoho: paste these rules once into site-wide Custom CSS,
+   or inline the relevant block into each snippet's <style>.
+   Depends on the global cw__ CSS variables from site.css.
+   ============================================================ */
+body{margin:0;background:#fff;font-family:Poppins,system-ui,sans-serif;color:#141414}
+.cwp__container{max-width:1240px;margin:0 auto;padding:0 24px}
+.cwp__eyebrow{color:var(--cw-green-700,#1B4332);font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin:0}
+.cwp__h2{font-family:'Bree Serif',Georgia,serif;font-size:clamp(1.8rem,3vw,2.5rem);line-height:1.15;color:#0E1F18;margin:10px 0 12px}
+.cwp__lede{color:#4a4a4a;font-size:1.08rem;line-height:1.6;max-width:660px;margin:0 0 8px}
+
+/* 1 Â· hero */
+.cwp__hero{padding:32px 0 72px;background:var(--cw-bg,#FAF9F7)}
+.cwp__hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center}
+.cwp__crumb{font-size:13px;color:#4a4a4a;margin-bottom:22px}
+.cwp__crumb a{color:#4a4a4a;text-decoration:none}
+.cwp__crumb-sep{margin:0 8px;opacity:.5}
+.cwp__h1{font-family:'Bree Serif',Georgia,serif;line-height:1.1;margin:12px 0 18px;font-size:clamp(2.1rem,4.2vw,3.2rem);color:#0E1F18}
+.cwp__hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin:0 0 28px}
+.cwp__btn{background:var(--cw-green-700,#1B4332);color:#fff;border:none;padding:15px 26px;border-radius:999px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:transform .16s,background .16s}
+.cwp__btn:hover{transform:translateY(-2px);background:var(--cw-ink-900,#141414)}
+.cwp__btn--secondary{background:transparent;color:var(--cw-ink-900,#141414);border:1.5px solid var(--cw-ink-200,#D9D9D9)}
+.cwp__btn--secondary:hover{background:#fff;border-color:var(--cw-green-700,#1B4332)}
+.cwp__hero-meta{display:flex;flex-wrap:wrap;gap:14px;color:#4a4a4a;font-size:.95rem;padding-top:20px;border-top:1.5px dashed var(--cw-ink-200,#D9D9D9)}
+.cwp__hero-meta strong{color:#141414;font-weight:700}
+.cwp__hero-meta .sep{color:var(--cw-ink-200,#D9D9D9)}
+.cwp__hero-img{border-radius:24px;overflow:hidden;box-shadow:0 24px 64px rgba(20,20,20,.14)}
+.cwp__hero-img img{display:block;width:100%;height:520px;object-fit:cover}
+
+/* 2 Â· spec table */
+.cwp__spec{padding:72px 0}
+.cwp__table{width:100%;border-collapse:collapse;margin-top:32px;font-size:.98rem}
+.cwp__table th,.cwp__table td{text-align:left;padding:14px 16px;border-bottom:1px solid var(--cw-ink-200,#D9D9D9);vertical-align:top}
+.cwp__table th{width:34%;color:#0E1F18;font-weight:600;background:var(--cw-green-100,#E5EFE9)}
+.cwp__table tr:last-child td,.cwp__table tr:last-child th{border-bottom:none}
+.cwp__note{margin-top:14px;font-size:.85rem;color:#5f6e76}
+
+/* 3 Â· why (pillars) */
+.cwp__why{padding:72px 0;background:var(--cw-bg,#FAF9F7)}
+.cwp__pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+.cwp__pillar{background:#fff;border:1.5px solid var(--cw-ink-200,#D9D9D9);border-radius:16px;padding:28px}
+.cwp__pillar-icon{width:52px;height:52px;display:grid;place-items:center;border-radius:14px;background:var(--cw-green-100,#E5EFE9);color:var(--cw-green-700,#1B4332);margin-bottom:16px}
+.cwp__pillar h3{font-family:'Bree Serif',Georgia,serif;margin:0 0 8px;font-size:1.2rem;color:#0E1F18}
+.cwp__pillar p{margin:0;color:#4a4a4a;line-height:1.6}
+
+/* 4 Â· faq */
+.cwp__faq{padding:72px 0}
+.cwp__faq-list{margin-top:36px;border-top:1px solid var(--cw-ink-200,#D9D9D9)}
+.cwp__faq-item{border-bottom:1px solid var(--cw-ink-200,#D9D9D9);padding:22px 0}
+.cwp__faq-item h3{font-family:'Bree Serif',Georgia,serif;font-size:1.12rem;margin:0 0 8px;color:#0E1F18}
+.cwp__faq-item p{margin:0;color:#4a4a4a;line-height:1.62}
+
+/* 5 Â· cta band */
+.cwp__cta{padding:80px 0;background:var(--cw-teal,#007A5E);color:#fff}
+.cwp__cta-row{display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:center}
+.cwp__cta h2{font-family:'Bree Serif',Georgia,serif;color:#fff;font-size:clamp(1.8rem,3vw,2.5rem);line-height:1.2;margin:10px 0 0}
+.cwp__cta p{color:rgba(255,255,255,.78);margin:14px 0 0;line-height:1.6;max-width:560px}
+.cwp__cta-actions{display:flex;flex-direction:column;gap:14px}
+.cwp__cta .cwp__btn{justify-content:center;background:var(--cw-green-100,#E5EFE9);color:var(--cw-green-700,#1B4332)}
+.cwp__cta .cwp__btn:hover{background:#fff}
+.cwp__cta .cwp__btn--secondary{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.3)}
+
+@media (max-width:1024px){.cwp__hero-grid{grid-template-columns:1fr;gap:40px}.cwp__hero-img img{height:360px}.cwp__pillars{grid-template-columns:1fr}.cwp__cta-row{grid-template-columns:1fr;gap:28px}}
+@media (max-width:640px){.cwp__table th{width:44%}}
+
+/* ============================================================
+   Cochin Wood Industries â€” shared GUIDE / ARTICLE styles (.cwg__*)
+   Linked by every /guides/*.html resource article.
+   Self-contained (includes hero + faq + cta) so the Resources
+   hub reads consistently. Depends on cw__ variables in site.css.
+   ============================================================ */
+body{margin:0;background:#fff;font-family:Poppins,system-ui,sans-serif;color:#141414;line-height:1.65}
+.cwg__container{max-width:820px;margin:0 auto;padding:0 24px}
+.cwg__wide{max-width:1100px;margin:0 auto;padding:0 24px}
+
+/* hero / header */
+.cwg__hero{padding:40px 0 28px;background:var(--cw-bg,#FAF9F7);border-bottom:1px solid var(--cw-ink-200,#D9D9D9)}
+.cwg__crumb{font-size:13px;color:#4a4a4a;margin-bottom:18px}
+.cwg__crumb a{color:#4a4a4a;text-decoration:none}
+.cwg__crumb-sep{margin:0 8px;opacity:.5}
+.cwg__eyebrow{color:var(--cw-green-700,#1B4332);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin:0}
+.cwg__h1{font-family:'Bree Serif',Georgia,serif;font-size:clamp(1.9rem,3.6vw,2.7rem);line-height:1.15;color:#0E1F18;margin:10px 0 14px}
+.cwg__meta{font-size:.84rem;color:#5f6e76}
+
+/* the answer-first summary box (the bit AI engines lift) */
+.cwg__tldr{margin:36px 0;padding:22px 24px;background:var(--cw-green-100,#E5EFE9);border-left:4px solid var(--cw-green-700,#1B4332);border-radius:8px}
+.cwg__tldr p{margin:0;font-size:1.05rem;color:#0E1F18}
+.cwg__tldr strong{font-weight:700}
+
+/* body prose */
+.cwg__body{padding:8px 0 16px}
+.cwg__body h2{font-family:'Bree Serif',Georgia,serif;font-size:clamp(1.4rem,2.4vw,1.9rem);color:#0E1F18;margin:40px 0 12px;line-height:1.2}
+.cwg__body h3{font-family:'Bree Serif',Georgia,serif;font-size:1.18rem;color:#0E1F18;margin:26px 0 8px}
+.cwg__body p{color:#3a4a52;margin:0 0 16px}
+.cwg__body ul,.cwg__body ol{color:#3a4a52;margin:0 0 16px;padding-left:22px}
+.cwg__body li{margin:6px 0}
+.cwg__body a{color:var(--cw-green-700,#1B4332);text-decoration:underline}
+
+/* comparison table */
+.cwg__table{width:100%;border-collapse:collapse;margin:22px 0;font-size:.95rem}
+.cwg__table th,.cwg__table td{text-align:left;padding:12px 14px;border:1px solid var(--cw-ink-200,#D9D9D9);vertical-align:top}
+.cwg__table thead th{background:var(--cw-green-100,#E5EFE9);color:#0E1F18;font-weight:600}
+.cwg__table td:first-child{font-weight:600;color:#0E1F18}
+
+/* faq */
+.cwg__faq{padding:8px 0 40px}
+.cwg__faq h2{font-family:'Bree Serif',Georgia,serif;font-size:1.5rem;color:#0E1F18;margin:0 0 8px}
+.cwg__faq-item{border-bottom:1px solid var(--cw-ink-200,#D9D9D9);padding:18px 0}
+.cwg__faq-item h3{font-family:'Bree Serif',Georgia,serif;font-size:1.08rem;margin:0 0 6px;color:#0E1F18}
+.cwg__faq-item p{margin:0;color:#3a4a52}
+
+/* cta band */
+.cwg__cta{padding:56px 0;background:var(--cw-teal,#007A5E);color:#fff;margin-top:24px}
+.cwg__cta-inner{display:flex;justify-content:space-between;align-items:center;gap:28px;flex-wrap:wrap}
+.cwg__cta h2{font-family:'Bree Serif',Georgia,serif;color:#fff;font-size:1.6rem;margin:0;line-height:1.25}
+.cwg__cta p{margin:8px 0 0;color:rgba(255,255,255,.78)}
+.cwg__btn{background:var(--cw-green-100,#E5EFE9);color:var(--cw-green-700,#1B4332);border:none;padding:15px 26px;border-radius:999px;font-weight:600;text-decoration:none;white-space:nowrap;display:inline-flex;align-items:center;gap:8px}
+.cwg__btn:hover{background:#fff}
+
+/* related links */
+.cwg__related{padding:40px 0;background:var(--cw-bg,#FAF9F7)}
+.cwg__related h2{font-family:'Bree Serif',Georgia,serif;font-size:1.3rem;color:#0E1F18;margin:0 0 16px}
+.cwg__related a{display:inline-block;margin:0 10px 10px 0;padding:8px 16px;border:1.5px solid var(--cw-ink-200,#D9D9D9);border-radius:999px;color:var(--cw-green-700,#1B4332);text-decoration:none;font-size:.92rem}
+.cwg__related a:hover{border-color:var(--cw-green-700,#1B4332)}
+
+@media (max-width:640px){.cwg__cta-inner{flex-direction:column;align-items:flex-start}}
+
+
+/* ======================================================================
+   CWI — brand restyle of the NATIVE Zoho "Quote Request" form (/contact)
+   Append to: Zoho Sites ▸ Settings ▸ Code ▸ Custom CSS
+   (URL: /zcms/<id>/settings/code/customcss)
+   Targets Zoho's own form classes, so it restyles the REAL working form.
+   Assumes brand vars (--cw-*) already exist in Custom CSS (they do).
+   Pairing the first two fields (First/Last name) side-by-side assumes
+   they remain fields 1 and 2 in the form builder.
+   ====================================================================== */
+.zpelem-lpform .zpform-container{background:var(--cw-bg,#FAF9F7);border:1.5px solid var(--cw-ink-200,#D9D9D9);border-radius:18px;padding:32px}
+.zpelem-lpform .zpform-info{margin:0 0 4px}
+.zpelem-lpform .zpheading{font-family:'Bree Serif',Georgia,serif;font-weight:400;font-size:clamp(1.4rem,2.2vw,1.8rem);color:#0E1F18;margin:0 0 18px;text-align:left}
+
+/* grid: everything full-width; first two fields (names) share a row */
+.zpelem-lpform .zpform-outer{display:grid;grid-template-columns:1fr 1fr;gap:16px;list-style:none;margin:0;padding:0}
+.zpelem-lpform .zpform-outer>li{margin:0;display:flex;flex-direction:column;grid-column:1 / -1}
+.zpelem-lpform .zpform-outer>li:nth-child(1),
+.zpelem-lpform .zpform-outer>li:nth-child(2){grid-column:auto}
+
+/* labels */
+.zpelem-lpform .zpform-label-container{margin:0 0 6px}
+.zpelem-lpform .zpform-label-container label,
+.zpelem-lpform .zpform-label{font-size:.82rem;font-weight:600;color:#1f2d33;display:block}
+.zpelem-lpform .zpform-mandatory{color:#b23b3b;margin-left:2px;font-style:normal}
+
+/* inputs / textarea / select */
+.zpelem-lpform input[type=text],.zpelem-lpform input[type=email],.zpelem-lpform input[type=tel],
+.zpelem-lpform textarea,.zpelem-lpform select{font-family:Poppins,sans-serif;font-size:.95rem;color:#141414;
+  padding:11px 13px;border:1.5px solid var(--cw-ink-200,#D9D9D9);border-radius:10px;background:#fff;width:100%;
+  transition:border-color .15s,box-shadow .15s}
+.zpelem-lpform input:focus,.zpelem-lpform textarea:focus,.zpelem-lpform select:focus{outline:none;
+  border-color:var(--cw-green-700,#1B4332);box-shadow:0 0 0 3px rgba(27,67,50,.12)}
+.zpelem-lpform textarea{resize:vertical;min-height:90px}
+
+/* product checkboxes -> branded pill-chips */
+.zpelem-lpform .zpform-choice-input-container .zpform-field-container{display:flex;flex-wrap:wrap;gap:8px}
+.zpelem-lpform .zpform-choice-container{display:inline-flex;align-items:center;gap:7px;margin:0;padding:8px 13px;
+  border:1.5px solid var(--cw-ink-200,#D9D9D9);border-radius:999px;background:#fff;cursor:pointer;font-size:.85rem;
+  transition:border-color .15s,background .15s}
+.zpelem-lpform .zpform-choice-container:hover{border-color:var(--cw-green-700,#1B4332)}
+.zpelem-lpform .zpform-choice-container label{font-weight:500;cursor:pointer;margin:0}
+.zpelem-lpform .zpform-choice-container input{accent-color:var(--cw-green-700,#1B4332);width:auto;margin:0}
+
+/* captcha row */
+.zpelem-lpform .zpform-verification-group{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.zpelem-lpform .captcha_img{border-radius:8px;border:1px solid var(--cw-ink-200,#D9D9D9);height:44px}
+.zpelem-lpform .captcha_text{max-width:220px}
+
+/* buttons */
+.zpelem-lpform .zpform-button{display:flex;gap:12px}
+.zpelem-lpform .zpbutton-type-primary{width:100%;background:var(--cw-green-700,#1B4332);color:#fff;border:none;
+  padding:15px 24px;border-radius:999px;font-family:Poppins,sans-serif;font-weight:600;font-size:1rem;cursor:pointer;
+  transition:transform .16s,background .16s}
+.zpelem-lpform .zpbutton-type-primary:hover{transform:translateY(-2px);background:var(--cw-ink-900,#141414)}
+.zpelem-lpform .zpbutton-type-secondary{display:none}   /* hide Zoho's default Reset button */
+
+@media(max-width:880px){
+  .zpelem-lpform .zpform-outer{grid-template-columns:1fr}
+  .zpelem-lpform .zpform-outer>li:nth-child(1),
+  .zpelem-lpform .zpform-outer>li:nth-child(2){grid-column:1 / -1}
+}
+
+
+/* ===== Mobile/tablet nav drawer fix (added 2026-06-03) =====
+   Header .cw-hd uses backdrop-filter, which makes the fixed
+   .cw-hd-nav.is-open drawer resolve against the ~105px header
+   instead of the viewport, so inset:72px 0 0 0 collapsed it to a
+   ~56px sliver that clipped the nav links. Force full viewport height. */
+@media (max-width: 880px){
+  .cw-hd-nav.is-open{
+    height: calc(100vh - 72px) !important;
+    height: calc(100dvh - 72px) !important;
+    bottom: auto !important;
+  }
+}
+
+
+/* Mobile drawer: re-show the Request-a-quote CTA (the unscoped .cw-hd-nav .cw-hd-nav-cta{display:none!important} hides it on mobile too) */
+@media (max-width: 880px){
+  .cw-hd-nav.is-open .cw-hd-nav-cta{ display: block !important; }
+}
+
+
+/* Footer legal line: keep the copyright/Privacy/Terms links inline so the middot separators read on one line and don't orphan (global .cw-ft a is display:block for the column nav). Paired with nowrap spans in the footer markup. */
+.cw-ft-bottom a{ display: inline !important; padding: 0 !important; }
+
+/* Font unification 2026-06-04: brand pairing only (Bree Serif display + Poppins body); removes stray Cormorant Garamond & Lora */
+.cw__industry-name,.cw__process-num,.cw__stat-strip strong,.cw__trust-strip strong{font-family:'Bree Serif',Georgia,serif !important}
+.theme-site-name{font-family:'Poppins',sans-serif !important}
