@@ -1116,3 +1116,5 @@ p a,li a,.cw__prose a,.blog-content a{min-height:0;min-width:0;display:inline;}
 
 /* enc hub: cards are anchors — kill prose-link underline inheritance */
 a.cwe__card, a.cwe__card * { text-decoration: none !important; }
+/* static host: Zoho comment box has no backend — hide the empty section on all posts */
+.theme-single-blog-comment-container { display: none !important; }
