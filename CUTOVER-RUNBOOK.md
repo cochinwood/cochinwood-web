@@ -13,17 +13,20 @@ rollback at any point is a single DNS change.
 ## 1. Create the Cloudflare Pages project  *(you, in the Cloudflare dashboard)*
 1. Cloudflare dashboard → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**.
 2. Authorize the **`cochinwood` GitHub** account (one-time OAuth), pick repo **cochinwood-web**.
-3. Build settings:
-   - Production branch: **master**
+3. Build settings — **RECOMMENDED (no-build, guaranteed): use the prebuilt branch**
+   - Production branch: **`cf-live`**   ← prebuilt, already pushed
    - Framework preset: **None**
-   - **Build command:** `python build.py`
-   - **Build output directory:** `dist`
-   - (Python is in CF's default build image — no extra config.)
+   - **Build command:** *(leave empty)*
+   - **Build output directory:** `/`
 4. **Save and Deploy.** You get a `https://cochinwood-web.pages.dev` URL to verify.
 
-> If the CF build image can't run `python`, alternative: set build command to
-> *(empty)* and output dir to `/`, then commit the built `dist/` to a `cf-live`
-> branch — I can generate that branch on request. But `python build.py` should work.
+> The `cf-live` branch already contains the finished site (root-relative links), so
+> Cloudflare just serves it — nothing to build. When the site changes, I regenerate
+> and re-push `cf-live`.
+>
+> *(Alternative, auto-rebuild on push: production branch `master`, build command
+> `python build.py`, output dir `dist`. Only use if you want CF to rebuild from
+> source — the prebuilt branch is simpler and can't fail on the build step.)*
 
 ## 2. Verify the `*.pages.dev` build
 - Spot-check home, a product page, a blog post, the encyclopedia, `/sitemap.xml`, the quote form.
