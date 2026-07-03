@@ -1118,3 +1118,14 @@ p a,li a,.cw__prose a,.blog-content a{min-height:0;min-width:0;display:inline;}
 a.cwe__card, a.cwe__card * { text-decoration: none !important; }
 /* static host: Zoho comment box has no backend — hide the empty section on all posts */
 .theme-single-blog-comment-container { display: none !important; }
+
+/* woods-behind-this-product strip (mirrors geo-strip look) */
+.cw-woods-strip{background:#f4f7f6;border-top:1px solid #e2e9e6;padding:18px 24px;text-align:center}
+.cw-woods-strip__label{display:block;font-family:'Poppins',sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5f6e76;margin-bottom:8px}
+.cw-woods-strip__links{margin:0;padding:0;list-style:none;line-height:2}
+.cw-woods-strip__links li{display:inline-block;margin:0;padding:0}
+.cw-woods-strip__links a{display:inline-block;color:#007A5E;text-decoration:none;font-size:14px;font-weight:500;padding:0 13px;border-right:1px solid #dfe4e6;white-space:nowrap}
+.cw-woods-strip__links li:last-child a{border-right:none}
+.cw-woods-strip__links a:hover{text-decoration:underline}
+.cw-woods-strip__all{font-weight:600}
+@media(max-width:600px){.cw-woods-strip__links a{padding:0 10px;font-size:13px}}
