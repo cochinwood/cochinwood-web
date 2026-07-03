@@ -1065,3 +1065,51 @@ p a,li a,.cw__prose a,.blog-content a{min-height:0;min-width:0;display:inline;}
   .cwop-flow{grid-template-columns:1fr!important}
   .cw__tag{font-size:12px!important}
 }
+
+
+/* ===== Wood Encyclopedia (cwe__) — ported 2026-07-03 ===== */
+/* ============================================================
+   Cochin Wood Industries — WOOD ENCYCLOPEDIA styles (.cwe__*)
+   Extends guide.css (.cwg__*). Adds: spec-data card, references
+   block, hub species grid. Depends on cw__ vars in site.css.
+   ============================================================ */
+
+/* ---- spec-data card (the quick-stats box, our own layout) ---- */
+.cwe__spec{margin:34px 0;border:1px solid var(--cw-ink-200,#D9D9D9);border-radius:12px;overflow:hidden}
+.cwe__spec-head{background:var(--cw-green-700,#1B4332);color:#fff;padding:14px 20px;font-family:'Bree Serif',Georgia,serif;font-size:1.05rem;letter-spacing:.01em}
+.cwe__spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.cwe__spec-row{display:flex;justify-content:space-between;gap:16px;padding:12px 20px;border-top:1px solid var(--cw-ink-200,#E4E4E4);font-size:.92rem}
+.cwe__spec-row:nth-child(-n+2){border-top:none}
+.cwe__spec-k{color:#6b7a82;flex:0 0 auto}
+.cwe__spec-v{color:#0E1F18;font-weight:600;text-align:right}
+.cwe__spec-note{padding:10px 20px;background:var(--cw-bg,#FAF9F7);border-top:1px solid var(--cw-ink-200,#E4E4E4);font-size:.8rem;color:#6b7a82}
+@media (max-width:620px){.cwe__spec-grid{grid-template-columns:1fr}.cwe__spec-row:nth-child(2){border-top:1px solid var(--cw-ink-200,#E4E4E4)}}
+
+/* ---- references block (numbered, cited sources) ---- */
+.cwe__refs{padding:32px 0 8px}
+.cwe__refs h2{font-family:'Bree Serif',Georgia,serif;font-size:1.4rem;color:#0E1F18;margin:0 0 6px}
+.cwe__refs-lead{font-size:.9rem;color:#6b7a82;margin:0 0 14px}
+.cwe__refs ol{margin:0;padding-left:20px;font-size:.9rem;color:#3a4a52}
+.cwe__refs li{margin:9px 0;line-height:1.55}
+.cwe__refs a{color:var(--cw-green-700,#1B4332);text-decoration:underline;word-break:break-word}
+.cwe__refs sup{color:var(--cw-green-700,#1B4332);font-weight:700}
+
+/* inline citation marker in body prose */
+.cwe__cite{font-size:.72em;vertical-align:super;line-height:0;color:var(--cw-green-700,#1B4332);font-weight:700;text-decoration:none;margin-left:1px}
+
+/* originality / accuracy note ribbon */
+.cwe__note{margin:26px 0;padding:14px 18px;background:var(--cw-bg,#FAF9F7);border:1px dashed var(--cw-ink-200,#CfCfCf);border-radius:8px;font-size:.86rem;color:#6b7a82}
+
+/* ---- hub species grid ---- */
+.cwe__hub-intro{padding:24px 0 8px}
+.cwe__group{padding:14px 0 6px}
+.cwe__group h2{font-family:'Bree Serif',Georgia,serif;font-size:1.35rem;color:#0E1F18;margin:22px 0 4px}
+.cwe__group p{color:#6b7a82;font-size:.92rem;margin:0 0 14px}
+.cwe__grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.cwe__card{display:block;border:1px solid var(--cw-ink-200,#D9D9D9);border-radius:12px;padding:18px 18px 16px;text-decoration:none;background:#fff;transition:border-color .15s,box-shadow .15s}
+.cwe__card:hover{border-color:var(--cw-green-700,#1B4332);box-shadow:0 4px 18px rgba(27,67,50,.08)}
+.cwe__card-name{font-family:'Bree Serif',Georgia,serif;font-size:1.12rem;color:#0E1F18;margin:0 0 2px}
+.cwe__card-sci{font-style:italic;font-size:.82rem;color:#6b7a82;margin:0 0 8px}
+.cwe__card-tag{display:inline-block;font-size:.72rem;font-weight:600;color:var(--cw-green-700,#1B4332);background:var(--cw-green-100,#E5EFE9);padding:3px 9px;border-radius:999px}
+.cwe__card--soon{opacity:.6;pointer-events:none}
+.cwe__card--soon .cwe__card-tag{background:#Eee;color:#8a8a8a}
