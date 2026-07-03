@@ -36,9 +36,9 @@ PRODUCTS = [
     ("sawn-timber","Sawn Timber","Kiln-conditioned hardwood runners, scantlings and packing timber."),
 ]
 
-NAV = [("Products", "/products", False), ("Industries", "/industries", True),
+NAV = [("Products", "/products", False), ("Industries", "/industries", False),
        ("Wood Encyclopedia", "/wood-encyclopedia/", False),
-       ("Resources", "/resources", True), ("Contact", "/contact", False)]
+       ("Blog", "/blogs", False), ("Contact", "/contact", False)]
 
 def header():
     links = ""
@@ -82,7 +82,7 @@ def base(title, desc, path, body, body_class="", extra_head=""):
 <meta name="description" content="{html.escape(desc)}">
 <link rel="canonical" href="{canonical}">
 <link rel="icon" href="{u('/assets/logo.png')}">
-<link href="https://fonts.googleapis.com/css2?family=Bree+Serif&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{u('/assets/fonts.css')}">
 <link rel="stylesheet" href="{u('/assets/site.css')}">
 <link rel="stylesheet" href="{u('/assets/guide.css')}">
 <link rel="stylesheet" href="{u('/assets/wood-enc.css')}">
@@ -278,6 +278,55 @@ def build_about():
           meta.get("desc",""), "/about", body, body_class="cw-contentpage"))
     return 1
 
+def _blog_content(body):
+    body = re.sub(r'<script\b[^>]*>.*?</script>', '', body, flags=re.S)
+    body = re.sub(r'\son\w+="[^"]*"', '', body)
+    for m in re.findall(r'(?:src|href)="(/files/[^"?]+)', body): _files_used.add(m)
+    body = re.sub(r'((?:src|href)=")/(?!/)', r'\1'+BASE+'/', body)   # keep blog/internal links internal
+    return body
+
+def build_blog():
+    fp = os.path.join(ROOT, "content", "blog", "posts.json")
+    if not os.path.exists(fp): return 0
+    posts = json.load(open(fp, encoding="utf-8"))
+    live = [p for p in posts if p.get("html")]
+    n = 0
+    for p in live:
+        slug, title = p["slug"], (p.get("title") or slug)
+        desc = p.get("desc", "")
+        content = _blog_content(p["html"])
+        art = f'''<header class="cwg__hero"><div class="cwg__container">
+  <nav class="cwg__crumb"><a href="{u('/')}">Home</a> &rsaquo; <a href="{u('/blogs')}">Blog</a> &rsaquo; <span aria-current="page">{html.escape(title.split('|')[0].strip())}</span></nav>
+  <h1 class="cwg__h1">{html.escape(title.split('|')[0].strip())}</h1>
+  <p class="cwg__meta">Cochin Wood Industries</p>
+</div></header>
+<article class="cwg__body"><div class="cwg__container">{content}</div></article>
+<section class="cwg__cta"><div class="cwg__wide cwg__cta-inner"><div><h2>Need a plywood quote?</h2><p>Tell us the grade, size and quantity — we'll price it within one business day.</p></div><a class="cwg__btn" href="{u('/contact')}">Request a quote</a></div></section>'''
+        ld = f'<script type="application/ld+json">{{"@context":"https://schema.org","@type":"BlogPosting","headline":{json.dumps(title.split("|")[0].strip())},"description":{json.dumps(desc)},"author":{{"@id":"https://www.cochinwood.in/#organization"}},"publisher":{{"@id":"https://www.cochinwood.in/#organization"}},"mainEntityOfPage":"https://www.cochinwood.in/blogs/post/{slug}"}}</script>'
+        write(f"blogs/post/{slug}/index.html", base(title, desc, f"/blogs/post/{slug}", art, body_class="cw-encbody", extra_head=ld))
+        n += 1
+    # blog index
+    def card(p):
+        t = (p.get("title") or p["slug"]).split("|")[0].strip()
+        return f'<a href="{u("/blogs/post/"+p["slug"])}"><b>{html.escape(t)}</b><span>{html.escape((p.get("desc") or "")[:120])}</span></a>'
+    cities = [p for p in live if p["slug"].startswith("plywood-supply")]
+    articles = [p for p in live if not p["slug"].startswith("plywood-supply")]
+    body = f'''<section class="cw-sec"><div class="cw-wrap">
+  <p class="cw-hero__ey" style="color:var(--cw-green-600)">Blog</p>
+  <h1 class="cw-sec__h" style="font-size:clamp(1.9rem,4vw,2.8rem)">Plywood guides, specs &amp; supply</h1>
+  <p class="cw-sec__lead">Field notes on grades, standards, export packing and city-by-city supply from the Cochin Wood desk.</p>
+  <div class="cw-blogindex">
+    <h2>Guides &amp; articles ({len(articles)})</h2>
+    <div class="cw-bloglist">{"".join(card(p) for p in articles)}</div>
+    <h2>Plywood supply by city ({len(cities)})</h2>
+    <div class="cw-bloglist">{"".join(card(p) for p in cities)}</div>
+  </div>
+</div></section>'''
+    write("blogs/index.html", base("Blog — Plywood Guides, Specs & Supply | Cochin Wood",
+          "Plywood guides, standards, export-packing notes and city-by-city supply from Cochin Wood Industries.",
+          "/blogs", body))
+    return n
+
 def build_sitemap():
     urls = []
     for r, _, fs in os.walk(DIST):
@@ -321,11 +370,12 @@ def main():
     n = encyclopedia()
     p = build_content_pages()
     p += build_about()
+    b = build_blog()
     f = copy_referenced_files()
     assets_and_meta()
     sm = build_sitemap()
     cnt = sum(len(fs) for _,_,fs in os.walk(DIST))
-    print(f"BUILD OK  base='{BASE or '(root)'}'  home+products+contact + {p} content pages + {n} encyclopedia + {f} images  sitemap:{sm} urls  files: {cnt}")
+    print(f"BUILD OK  base='{BASE or '(root)'}'  {p} content pages + {n} encyclopedia + {b} blog posts + {f} images  sitemap:{sm}  files: {cnt}")
 
 if __name__ == "__main__":
     main()

@@ -85,3 +85,18 @@ img{max-width:100%;display:block}
 
 /* encyclopedia page: shared chrome sits above the guide hero, so trim its top pad */
 .cw-encbody .cwg__hero{padding-top:26px}
+
+/* ---- blog ---- */
+.cw-blogindex{padding:14px 0}
+.cw-blogindex h2{font-family:var(--cw-display,serif);font-weight:400;font-size:1.35rem;color:var(--cw-green-800);margin:26px 0 6px}
+.cw-bloglist{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.cw-bloglist a{display:block;text-decoration:none;border:1px solid var(--cw-ink-200,#D9D9D9);border-radius:12px;padding:16px 18px;color:inherit;transition:border-color .15s,box-shadow .15s}
+.cw-bloglist a:hover{border-color:var(--cw-green-600);box-shadow:0 6px 18px rgba(27,67,50,.08)}
+.cw-bloglist b{display:block;font-family:var(--cw-display,serif);font-weight:400;color:var(--cw-green-800);font-size:1.02rem;line-height:1.25;margin-bottom:5px}
+.cw-bloglist span{color:var(--cw-ink-600);font-size:.86rem;line-height:1.45}
+/* prose fallbacks for plain-HTML article bodies inside .cwg__body */
+.cwg__body table{width:100%;border-collapse:collapse;margin:20px 0;font-size:.94rem}
+.cwg__body th,.cwg__body td{border:1px solid var(--cw-ink-200,#D9D9D9);padding:10px 12px;text-align:left;vertical-align:top}
+.cwg__body thead th,.cwg__body tr:first-child th{background:var(--cw-green-100,#E5EFE9);color:#0E1F18}
+.cwg__body img{border-radius:8px;margin:16px 0}
+.cwg__body h2{margin-top:34px}
