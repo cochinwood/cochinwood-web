@@ -100,3 +100,18 @@ img{max-width:100%;display:block}
 .cwg__body thead th,.cwg__body tr:first-child th{background:var(--cw-green-100,#E5EFE9);color:#0E1F18}
 .cwg__body img{border-radius:8px;margin:16px 0}
 .cwg__body h2{margin-top:34px}
+
+/* ---- quote form ---- */
+.cw-form{margin:26px 0 0;display:grid;gap:16px}
+.cw-form .cw-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.cw-form label{display:block;font-size:.86rem;font-weight:600;color:var(--cw-green-800);margin:0 0 6px}
+.cw-form input[type=text],.cw-form input[type=email],.cw-form input[type=tel],.cw-form textarea{
+  width:100%;padding:12px 14px;border:1px solid var(--cw-ink-200,#D9D9D9);border-radius:10px;font:inherit;font-size:.95rem;background:#fff}
+.cw-form input:focus,.cw-form textarea:focus{outline:none;border-color:var(--cw-green-600);box-shadow:0 0 0 3px var(--cw-green-100)}
+.cw-form textarea{min-height:120px;resize:vertical}
+.cw-form .cw-checks{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px 16px;margin-top:4px}
+.cw-form .cw-checks label{display:flex;align-items:center;gap:8px;font-weight:400;font-size:.9rem;color:var(--cw-ink-900);margin:0}
+.cw-form .cw-checks input{width:auto}
+.cw-form .cw-hp{position:absolute;left:-9999px}
+.cw-form .cw-note{font-size:.82rem;color:var(--cw-ink-600)}
+@media(max-width:620px){.cw-form .cw-row{grid-template-columns:1fr}}

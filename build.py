@@ -172,19 +172,41 @@ def products():
         "/products", body))
 
 # ---------------- CONTACT ----------------
+PRODUCT_INTEREST = ["Commercial/Packing Grade","Wooden/Plywood Packing Case","Film Faced/Shuttering",
+    "Premium/ISI/303/710","Calibrated/Modular","Container Flooring","Block Board/Flush Door","Timber/Runners/Planks"]
 def contact():
+    checks = "".join(f'<label><input type="checkbox" name="LEADCF35" value="{v}">{v}</label>' for v in PRODUCT_INTEREST)
+    form = f'''<form action="https://crm.zoho.in/crm/WebToLeadForm" method="POST" accept-charset="UTF-8" class="cw-form" id="quote">
+  <input type="hidden" name="xnQsjsdp" value="8c1293748fe2bcc59321f7d8a9f9f3bb0b51755eb854438a34">
+  <input type="hidden" name="xmIwtLD" value="d40b1aef750a96dbf59cc4499048e10c3650bd8d72a9ade4a4">
+  <input type="hidden" name="actionType" value="TGVhZHM=">
+  <input type="hidden" name="returnURL" value="https://www.cochinwood.in/contact?sent=1#quote">
+  <input class="cw-hp" type="text" name="cwq2_website" tabindex="-1" autocomplete="off" aria-hidden="true">
+  <div class="cw-row">
+    <div><label for="q-name">Name *</label><input id="q-name" type="text" name="Last Name" required></div>
+    <div><label for="q-co">Company</label><input id="q-co" type="text" name="Company"></div>
+  </div>
+  <div class="cw-row">
+    <div><label for="q-em">Work email *</label><input id="q-em" type="email" name="Email" required></div>
+    <div><label for="q-ph">WhatsApp / phone *</label><input id="q-ph" type="tel" name="Phone" required></div>
+  </div>
+  <div><label>Product interest</label><div class="cw-checks">{checks}</div></div>
+  <div><label for="q-port">Delivery location / port</label><input id="q-port" type="text" name="LEADCF4" placeholder="e.g. Kochi, or Jebel Ali, UAE"></div>
+  <div><label for="q-msg">What do you need?</label><textarea id="q-msg" name="Description" placeholder="Grade, thickness, size, monthly quantity, delivery location"></textarea></div>
+  <div><button class="cw-btn cw-btn--p" type="submit">Send enquiry</button>
+  <p class="cw-note" style="margin:10px 0 0">Goes straight to our sales desk. We reply within one business day.</p></div>
+</form>'''
     body = f'''
-<section class="cw-sec"><div class="cw-wrap" style="max-width:760px">
+<section class="cw-sec"><div class="cw-wrap" style="max-width:820px">
   <p class="cw-hero__ey" style="color:var(--cw-green-600)">Get in touch</p>
   <h1 class="cw-sec__h" style="font-size:clamp(1.9rem,4vw,2.8rem)">Request a quote</h1>
-  <p class="cw-sec__lead">Tell us the product, grade, thickness, quantity and delivery location. We reply within one business day with a price and lead time.</p>
-  <div class="cw-feat" style="margin-bottom:30px">
+  <p class="cw-sec__lead">Tell us the product, grade, thickness, quantity and delivery location — we reply within one business day with a price and lead time.</p>
+  <div class="cw-feat" style="margin-bottom:8px">
     <div><h3>WhatsApp / Phone</h3><p><a href="tel:{CONTACT['phone_href']}">{CONTACT['phone_disp']}</a></p></div>
     <div><h3>Email</h3><p><a href="mailto:{CONTACT['email']}">{CONTACT['email']}</a></p></div>
     <div><h3>Works &amp; office</h3><p>{CONTACT['addr']}</p></div>
   </div>
-  <a class="cw-btn cw-btn--p" href="mailto:{CONTACT['email']}?subject=Plywood%20enquiry">Email an enquiry</a>
-  <p style="margin-top:26px;color:var(--cw-ink-600);font-size:.9rem">A quote form wired to our CRM lands here in the migration — for now, WhatsApp or email is fastest.</p>
+  {form}
 </div></section>'''
     write("contact/index.html", base(
         "Contact — Request a Plywood Quote | Cochin Wood Industries",
@@ -359,6 +381,8 @@ def assets_and_meta():
     if os.path.exists(dst): shutil.rmtree(dst)
     shutil.copytree(src, dst)
     open(os.path.join(DIST, ".nojekyll"), "w").close()
+    # Cloudflare Pages headers (ignored by GitHub Pages, honoured by CF Pages)
+    write("_headers", "/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: SAMEORIGIN\n")
     write("404.html", base("Page not found | Cochin Wood Industries", "Page not found.", "/404",
         f'<section class="cw-sec"><div class="cw-wrap" style="text-align:center;padding:60px 0"><h1 class="cw-sec__h">Page not found</h1><p class="cw-sec__lead" style="margin:0 auto 24px">That page has moved or doesn\'t exist.</p><a class="cw-btn cw-btn--p" href="{u("/")}">Back to home</a></div></section>'))
     write("robots.txt", f"User-agent: *\nAllow: /\nSitemap: {LIVE}/sitemap.xml\n")
