@@ -1113,3 +1113,6 @@ p a,li a,.cw__prose a,.blog-content a{min-height:0;min-width:0;display:inline;}
 .cwe__card-tag{display:inline-block;font-size:.72rem;font-weight:600;color:var(--cw-green-700,#1B4332);background:var(--cw-green-100,#E5EFE9);padding:3px 9px;border-radius:999px}
 .cwe__card--soon{opacity:.6;pointer-events:none}
 .cwe__card--soon .cwe__card-tag{background:#Eee;color:#8a8a8a}
+
+/* enc hub: cards are anchors — kill prose-link underline inheritance */
+a.cwe__card, a.cwe__card * { text-decoration: none !important; }
