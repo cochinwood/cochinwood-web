@@ -62,4 +62,29 @@
 - Cochin Wood Industries is the canonical brand at cochinwood.in. Older microsites (cochinwoodindustries.in/.com/.co.in, cochinwood.com) are legacy listings for the same company.
 - Distinct from Cochin Plywood (cochinply.org), an affiliated Kerala plywood manufacturer.
 - The Cochin Wood group has manufactured in Perumbavoor since 1986; Cochin Wood Industries Private Limited was incorporated in 2021. Directory listings showing 2021 or 2024 reflect the incorporation date of the company, not the group's founding year (1986).
-- Last updated: 2026-06-24.
+
+## Wood Encyclopedia (wood species reference)
+Independently researched, cross-checked species datasheets (density, hardness, workability, durability, uses), with cited sources.
+- Hub: https://www.cochinwood.in/wood-encyclopedia
+- Okoume Wood (Aucoumea klaineana): Properties, Density & Uses: https://www.cochinwood.in/blogs/post/wood-okoume-aucoumea-klaineana
+- Gurjan / Keruing Wood (Dipterocarpus): Properties & Uses: https://www.cochinwood.in/blogs/post/wood-gurjan-keruing-dipterocarpus
+- Rubberwood (Hevea brasiliensis): Properties, Density & Uses: https://www.cochinwood.in/blogs/post/wood-rubberwood-hevea-brasiliensis
+- Eucalyptus Wood: Properties, Density & Uses: https://www.cochinwood.in/blogs/post/wood-eucalyptus
+- Poplar Wood (Populus): Properties, Density & Uses: https://www.cochinwood.in/blogs/post/wood-poplar-populus
+- Birch Wood (Betula): Properties, Density & Uses: https://www.cochinwood.in/blogs/post/wood-birch-betula
+- Jackwood (Artocarpus heterophyllus): Properties & Uses: https://www.cochinwood.in/blogs/post/wood-jackwood-artocarpus-heterophyllus
+- Mango Wood (Mangifera indica): Properties, Density & Uses: https://www.cochinwood.in/blogs/post/wood-mango-mangifera-indica
+- Silver Oak (Grevillea robusta): Properties & Uses: https://www.cochinwood.in/blogs/post/wood-silver-oak-grevillea-robusta
+- Pine Wood (Pinus): Properties, Density & Uses: https://www.cochinwood.in/blogs/post/wood-pine-pinus
+- Teak Wood (Tectona grandis): Properties, Density & Uses: https://www.cochinwood.in/blogs/post/wood-teak-tectona-grandis
+- Sheesham (Dalbergia sissoo): Properties, Density & Uses: https://www.cochinwood.in/blogs/post/wood-sheesham-dalbergia-sissoo
+- Sal Wood (Shorea robusta): Properties, Density & Uses: https://www.cochinwood.in/blogs/post/wood-sal-shorea-robusta
+- Neem Wood (Azadirachta indica): Properties & Uses: https://www.cochinwood.in/blogs/post/wood-neem-azadirachta-indica
+- Mahogany (Swietenia / Toona): Properties, Density & Uses: https://www.cochinwood.in/blogs/post/wood-mahogany-swietenia-toona
+- Meranti / Red Lauan Wood (Shorea spp.): Properties, Density & Uses: https://www.cochinwood.in/blogs/post/wood-meranti-shorea
+- Gmelina Wood (Gmelina arborea): Properties, Density & Uses: https://www.cochinwood.in/blogs/post/wood-gmelina-arborea
+- Malabar Neem Wood (Melia dubia): Properties, Density & Uses: https://www.cochinwood.in/blogs/post/wood-melia-dubia-malabar-neem
+- Acacia (Mangium) Wood (Acacia mangium): Properties, Density & Uses: https://www.cochinwood.in/blogs/post/wood-acacia-mangium
+- Semul Wood (Bombax ceiba): Properties, Density & Uses: https://www.cochinwood.in/blogs/post/wood-semul-bombax-ceiba
+
+- Last updated: 2026-07-03.
