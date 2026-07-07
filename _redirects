@@ -4,3 +4,26 @@
 /terms /terms-and-conditions 301
 /about-us /about 301
 /contact-us /contact 301
+
+# --- 2026-07-07 audit fixes: old guide/page slugs -> live equivalents ---
+/guide-okoume-vs-gurjan /blogs/post/okoume-vs-gurjan-plywood 301
+/guide-bwp-bwr-plywood-explained /blogs/post/bwr-vs-bwp-for-export-packing-when-mr-grade-will-fail-at-sea 301
+/guide-is-710-vs-is-303 /blogs/post/how-to-read-a-plywood-grade-stamp 301
+/guide-marine-plywood-thickness /blogs/post/marine-plywood-thickness-guide 301
+/guide-rubberwood-plywood-explained /woods-we-use 301
+/guide-plywood-boxes-ispm-15 /plywood-boxes-crates 301
+/guide-ispm-15-crate-cost /plywood-boxes-crates 301
+/guide-plywood-for-packing-cases /commercial-plywood 301
+/packing-grade-plywood-spec-sheet /blogs/post/packing-grade-plywood-spec-sheet 301
+/plywood-pallets-crates-ahmedabad /plywood-pallets 301
+# --- stale Zoho blog taxonomy (archives never rebuilt) -> blog hub ---
+/blogs/tag/* /blogs 301
+/blogs/author/* /blogs 301
+/blogs/post / /blogs 301
+/blogs/buyer-guides /blogs 301
+/blogs/north-india /blogs 301
+/blogs/south-india /blogs 301
+/blogs/west-india /blogs 301
+/blogs/central-east-india /blogs 301
+/blogs/gcc-export /blogs 301
+/blogs/Uncategorized /blogs 301
