@@ -16,14 +16,8 @@
 /guide-plywood-for-packing-cases /commercial-plywood 301
 /packing-grade-plywood-spec-sheet /blogs/post/packing-grade-plywood-spec-sheet 301
 /plywood-pallets-crates-ahmedabad /plywood-pallets 301
-# --- stale Zoho blog taxonomy (archives never rebuilt) -> blog hub ---
-/blogs/tag/* /blogs 301
+# --- blog taxonomy: real tag + category hub pages now exist (built 2026-07-07);
+#     only redirect the ones with NO real page ---
 /blogs/author/* /blogs 301
-/blogs/post / /blogs 301
-/blogs/buyer-guides /blogs 301
-/blogs/north-india /blogs 301
-/blogs/south-india /blogs 301
-/blogs/west-india /blogs 301
-/blogs/central-east-india /blogs 301
-/blogs/gcc-export /blogs 301
+/blogs/post/ /blogs 301
 /blogs/Uncategorized /blogs 301
