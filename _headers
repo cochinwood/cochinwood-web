@@ -6,3 +6,15 @@
 
 /files/*
   Access-Control-Allow-Origin: *
+
+# --- 2026-07-09 audit: long-lived caching for hashed/static assets ---
+/css/*
+  Cache-Control: public, max-age=31536000, immutable
+/js/*
+  Cache-Control: public, max-age=31536000, immutable
+/template/*
+  Cache-Control: public, max-age=31536000, immutable
+/files/*
+  Cache-Control: public, max-age=86400
+/favicon.png
+  Cache-Control: public, max-age=86400
