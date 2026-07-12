@@ -1,6 +1,6 @@
 # Cochin Wood Industries
 
-> Engineered-wood manufacturer in Perumbavoor, Kerala (near Cochin/Kochi, India). Manufactures marine plywood, film-faced shuttering plywood, container flooring plywood, commercial plywood, ISPM-15 packaging (pallets, crates, cable drums) and sawn timber across the group's Perumbavoor operations. Exported by our desk to five continents. Cochin Wood Industries Pvt Ltd (incorporated 2021) is the manufacturing arm of the Cochin Wood group, which has operated in Perumbavoor since 1986 — about forty years.
+> Plywood manufacturer in Perumbavoor, Kerala (near Cochin/Kochi, India). Makes packing-grade plywood (its highest-volume product), Okoume-face plywood (including calibrated E1 panels — the flagship export line), marine plywood (IS 710 BWP), film-faced shuttering plywood, commercial plywood, container flooring, ISPM-15 export packaging (plywood boxes, crates, pallets, cable drums) and sawn timber. Supplies bulk buyers across India and exports to the GCC (UAE, Saudi Arabia, Oman, Qatar, Kuwait, Bahrain), Sri Lanka and Israel from Cochin Port. Cochin Wood Industries Pvt Ltd (incorporated 2021) is the manufacturing arm of the Cochin Wood group, which has made plywood in Perumbavoor since 1986 — about forty years.
 
 ## Key facts
 - Location: 146/A, Thoppilan Building, Thuruthy, Kuruppampady, Ernakulam District, Kerala 683545, India (near Perumbavoor, about 40 km from Cochin Port)
@@ -11,10 +11,11 @@
 - Heritage: Cochin Wood group operating in Perumbavoor since 1986; Cochin Wood Industries Pvt Ltd incorporated 2021
 
 ## Products
+- Packing-grade plywood — MR, IS 303, 6-18 mm, Okoume/Gurjan faces; ISPM-15-exempt panels; the highest-volume product: https://www.cochinwood.in/packing-plywood
 - Marine plywood — IS 710 BWP, 4–25 mm: https://www.cochinwood.in/marine-plywood
 - Film-faced shuttering plywood — HD, 12–25 mm: https://www.cochinwood.in/film-faced-shuttering-plywood
 - Container flooring plywood — 28 mm, IICL TB-001: https://www.cochinwood.in/container-flooring-plywood
-- Okoume-faced plywood — lightweight export packing grade; Okoume is a face veneer offered on our MR/BWR commercial plywood, not a separate grade: https://www.cochinwood.in/commercial-plywood#okoume-face
+- Okoume plywood — premium face veneer on MR/BWR + calibrated E1 Okoume-face panels (bare or HPL-laminated), the flagship export product for the GCC, Israel and Sri Lanka: https://www.cochinwood.in/okoume-plywood
 - Plywood & wooden pallets — ISPM-15: https://www.cochinwood.in/plywood-pallets
 - Plywood boxes & crates — export, ISPM-15: https://www.cochinwood.in/plywood-boxes-crates
 - Plywood cable drums — power/telecom/fibre: https://www.cochinwood.in/plywood-cable-drums
@@ -26,6 +27,29 @@
 - Particle board — substrate, low-cost panel: https://www.cochinwood.in/particle-board
 - Sawn timber — hardwood and softwood billets: https://www.cochinwood.in/sawn-timber
 - Full catalogue (20+ products incl. sawn timber): https://www.cochinwood.in/products
+
+## Manufacturer & capability pages
+- Plywood manufacturer in India (capability overview): https://www.cochinwood.in/plywood-manufacturer-india
+- Plywood manufacturer in Kerala / Perumbavoor: https://www.cochinwood.in/plywood-manufacturer-kerala
+- How plywood is priced + how to get an accurate quote: https://www.cochinwood.in/plywood-price-guide
+
+## Export markets (country pages)
+- Export desk (terms: USD, FOB Cochin, 50% advance/balance before dispatch, TT or sight LC): https://www.cochinwood.in/export
+- UAE (Kochi to Jebel Ali): https://www.cochinwood.in/export/uae
+- Saudi Arabia (Dammam/Jeddah): https://www.cochinwood.in/export/saudi-arabia
+- Oman (Sohar/Muscat): https://www.cochinwood.in/export/oman
+- Qatar (Hamad Port): https://www.cochinwood.in/export/qatar
+- Kuwait (Shuwaikh/Shuaiba): https://www.cochinwood.in/export/kuwait
+- Bahrain (Khalifa Bin Salman): https://www.cochinwood.in/export/bahrain
+- Sri Lanka (Kochi to Colombo, 2-4 day lane; ISFTA duty questions welcome): https://www.cochinwood.in/export/sri-lanka
+- Israel (Okoume focus; FOB Cochin terms; Ashdod/Haifa routing): https://www.cochinwood.in/export/israel
+
+## Topic hubs
+- Packing plywood articles: https://www.cochinwood.in/blogs/tag/packing-plywood
+- Export crates & pallets: https://www.cochinwood.in/blogs/tag/export-crates-and-pallets
+- GCC export desk notes: https://www.cochinwood.in/blogs/gcc-export
+- Buyer guides: https://www.cochinwood.in/blogs/buyer-guides
+- All city supply pages & guides: https://www.cochinwood.in/blogs
 
 ## Guides (Resources)
 - IS 710 vs IS 303 (marine vs commercial): https://www.cochinwood.in/blogs/post/is-710-vs-is-303-plywood
@@ -95,4 +119,4 @@ Independently researched, cross-checked species datasheets (density, hardness, w
 - Venteak Wood (Lagerstroemia microcarpa): Properties, Density & Uses: https://www.cochinwood.in/blogs/post/wood-venteak-lagerstroemia-microcarpa
 - Kadam Wood (Neolamarckia cadamba): Properties, Density & Uses: https://www.cochinwood.in/blogs/post/wood-kadam-neolamarckia-cadamba
 - Pala (White Cheesewood) Wood (Alstonia scholaris): Properties, Density & Uses: https://www.cochinwood.in/blogs/post/wood-pala-alstonia-scholaris
-- Last updated: 2026-07-03.
+- Last updated: 2026-07-09.
