@@ -21,3 +21,61 @@
 /blogs/author/* /blogs 301
 /blogs/post/ /blogs 301
 /blogs/Uncategorized /blogs 301
+
+# --- 2026-07-28 GSC 404 sweep: 68 "Not found" URLs from Search Console ---
+# All targets verified 200 before adding. Wildcard bases verified 404 (no live page captured).
+
+# 1) Doubled path segment /blogs/post/post/<slug> -> the real post (21 URLs)
+/blogs/post/post/* /blogs/post/:splat 301
+
+# 2) Old keyword URLs -> best-matching live money page
+/best-plywood-suppliers-in-kerala /plywood-manufacturer-kerala 301
+/plywood-suppliers-in-kochi /plywood-manufacturer-kerala 301
+/plywood-manufacturers-in-perumbavoor /plywood-factory 301
+/plywood-manufacturers-perumbavoor /plywood-factory 301
+/plywood-price-kerala /plywood-price-guide 301
+/marine-plywood-kerala /marine-plywood 301
+/plywood-pallets-crates-mumbai /plywood-pallets 301
+/plywood-pallets-crates-delhi-ncr /plywood-pallets 301
+/guide-plywood-cable-drum-specifications /plywood-cable-drums 301
+/sawn-timber-products /sawn-timber 301
+/sawn_timber_products /sawn-timber 301
+/engineered_wood_panels /products 301
+
+# 3) Legacy pre-migration paths
+/Home / 301
+/home / 301
+/files/Home/* / 301
+/files/home/* / 301
+/40 / 301
+/our-process /about 301
+/helpdesk /contact 301
+/faq-1 /faq 301
+/guides/ /resources 301
+
+# 4) Old blog structure: feeds + dead pagination
+#    WARNING: /blogs/page/2..N ARE LIVE. Only page/1 is dead - never wildcard /blogs/page/*
+/blogs/page/1 /blogs 301
+/blogs/feed /blogs 301
+/blogs/buyer-guides/feed /blogs/buyer-guides 301
+/blogs/buyer-guides/page/* /blogs/buyer-guides 301
+/blogs/north-india/feed /blogs/north-india 301
+/blogs/tag/uttar-pradesh/feed /blogs/tag/uttar-pradesh 301
+/blogs/tag/uae/feed /blogs/tag/uae 301
+/blogs/tag/andhra-pradesh/page/* /blogs/tag/andhra-pradesh 301
+/blogs/insight /blogs 301
+/blogs/plywood /blogs 301
+/blog/* /blogs 301
+
+# 5) Dead tag pages -> the matching product page
+/blogs/tag/film-faced-plywood /film-faced-shuttering-plywood 301
+/blogs/tag/marine-plywood /marine-plywood 301
+/blogs/tag/india-suppliers /blogs 301
+/blogs/tag/interiors /blogs 301
+
+# 6) Removed posts -> nearest live page
+/blogs/post/uae-s-green-building-standards-driving-plywood-innovation* /export/uae 301
+/blogs/post/areas-we-serve-* /export 301
+/blogs/post/gcc-s-humanitarian-leadership-* /export 301
+/blogs/post/plywood-in-global-aviation-cargo-packaging /blogs 301
+/blogs/post/plywood-in-global-e-commerce-warehousing* /blogs 301
