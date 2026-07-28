@@ -1157,21 +1157,19 @@ a.cwe__card, a.cwe__card * { text-decoration: none !important; }
    Footer space management (2026-07-28)
    Was 1,073px tall: the brand column held 95px of content in a 432px stretched
    box (337px dead), and Products stacked 9 links which set that height.
+   NB each page carries its OWN inline footer CSS that loads after this file,
+   so these rules are scoped through footer.cw-ft to outrank it.
    --------------------------------------------------------------------------- */
-.cw-ft-grid{align-items:start}
-/* Products: 9 links in one stack made the footer tall — flow into two */
-.cw-ft-grid > div:nth-child(2) > a{break-inside:avoid}
+footer.cw-ft .cw-ft-grid{align-items:start;margin-bottom:28px}
+footer.cw-ft .cw-ft-grid > div > a{padding:4px 0}
 @media(min-width:781px){
-  .cw-ft-grid{grid-template-columns:1.35fr 1.5fr 1fr 1.15fr}
-  .cw-ft-grid > div:nth-child(2){columns:2;column-gap:24px}
-  .cw-ft-grid > div:nth-child(2) h4{column-span:all}
+  footer.cw-ft .cw-ft-grid{grid-template-columns:1.35fr 1.5fr 1fr 1.15fr}
+  footer.cw-ft .cw-ft-grid > div:nth-child(2){columns:2;column-gap:24px}
+  footer.cw-ft .cw-ft-grid > div:nth-child(2) h4{column-span:all}
+  footer.cw-ft .cw-ft-grid > div:nth-child(2) > a{break-inside:avoid}
 }
-/* short brand line, fills what was empty space */
-.cw-ft-blurb{margin:14px 0 0;font-size:13px;line-height:1.7;color:#5f6e76;max-width:320px}
-/* links were 30px apart in a 9-deep stack */
-.cw-ft a{padding:4px 0}
-.cw-ft-grid{margin-bottom:28px}
+footer.cw-ft .cw-ft-blurb{margin:14px 0 0;font-size:13px;line-height:1.7;color:#5f6e76;max-width:320px}
 @media(max-width:780px){
-  .cw-ft-grid > div:nth-child(2){columns:1}
-  .cw-ft-blurb{max-width:none}
+  footer.cw-ft .cw-ft-grid > div:nth-child(2){columns:1}
+  footer.cw-ft .cw-ft-blurb{max-width:none}
 }
