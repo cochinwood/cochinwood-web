@@ -1129,3 +1129,16 @@ a.cwe__card, a.cwe__card * { text-decoration: none !important; }
 .cw-woods-strip__links a:hover{text-decoration:underline}
 .cw-woods-strip__all{font-weight:600}
 @media(max-width:600px){.cw-woods-strip__links a{padding:0 10px;font-size:13px}}
+
+/* ==========================================================================
+   Brand heading colour  (added 2026-07-28)
+   The Zoho template stylesheet sets h1,h2,h3 { color:#512E66 } (purple).
+   Authored content lives inside .zpsnippet-container, so restore brand ink
+   there. Dark-hero (.cw__page-hero) and CTA rules use !important / higher
+   specificity and continue to win, so white-on-dark headings are unaffected.
+   ========================================================================== */
+.zpsnippet-container h1{color:var(--cw-ink-900,#141414)}
+.zpsnippet-container h2,
+.zpsnippet-container h3,
+.zpsnippet-container h4{color:#0E1F18}
+.cwg__hero h1,.cwp__hero h1{color:var(--cw-ink-900,#141414)}
