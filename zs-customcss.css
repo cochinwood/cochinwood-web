@@ -1142,3 +1142,13 @@ a.cwe__card, a.cwe__card * { text-decoration: none !important; }
 .zpsnippet-container h3,
 .zpsnippet-container h4{color:#0E1F18}
 .cwg__hero h1,.cwp__hero h1{color:var(--cw-ink-900,#141414)}
+
+/* Legal / trust pages inject their content into .theme-content-area-inner
+   (not .zpsnippet-container), so they need the same brand-ink treatment. */
+.theme-content-area-inner h1,
+.theme-post-content h1{color:var(--cw-ink-900,#141414)}
+.theme-content-area-inner h2,
+.theme-content-area-inner h3,
+.theme-content-area-inner h4,
+.theme-post-content h2,
+.theme-post-content h3{color:#0E1F18}
