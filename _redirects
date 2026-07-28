@@ -1,6 +1,29 @@
+# 21 doubled-segment URLs from GSC. Written explicitly because Cloudflare Pages
+# silently drops the :splat form here (static-destination wildcards work fine).
+/blogs/post/post/plywood-supply-to-bengaluru /blogs/post/plywood-supply-to-bengaluru 301
+/blogs/post/post/plywood-supply-to-chennai /blogs/post/plywood-supply-to-chennai 301
+/blogs/post/post/plywood-supply-to-coimbatore /blogs/post/plywood-supply-to-coimbatore 301
+/blogs/post/post/plywood-supply-to-davangere /blogs/post/plywood-supply-to-davangere 301
+/blogs/post/post/plywood-supply-to-guntur /blogs/post/plywood-supply-to-guntur 301
+/blogs/post/post/plywood-supply-to-hosur /blogs/post/plywood-supply-to-hosur 301
+/blogs/post/post/plywood-supply-to-hubli-dharwad /blogs/post/plywood-supply-to-hubli-dharwad 301
+/blogs/post/post/plywood-supply-to-hyderabad /blogs/post/plywood-supply-to-hyderabad 301
+/blogs/post/post/plywood-supply-to-jeddah /blogs/post/plywood-supply-to-jeddah 301
+/blogs/post/post/plywood-supply-to-jubail /blogs/post/plywood-supply-to-jubail 301
+/blogs/post/post/plywood-supply-to-kakinada /blogs/post/plywood-supply-to-kakinada 301
+/blogs/post/post/plywood-supply-to-karur /blogs/post/plywood-supply-to-karur 301
+/blogs/post/post/plywood-supply-to-khammam /blogs/post/plywood-supply-to-khammam 301
+/blogs/post/post/plywood-supply-to-khobar /blogs/post/plywood-supply-to-khobar 301
+/blogs/post/post/plywood-supply-to-nellore /blogs/post/plywood-supply-to-nellore 301
+/blogs/post/post/plywood-supply-to-riyadh /blogs/post/plywood-supply-to-riyadh 301
+/blogs/post/post/plywood-supply-to-salem /blogs/post/plywood-supply-to-salem 301
+/blogs/post/post/plywood-supply-to-sivakasi /blogs/post/plywood-supply-to-sivakasi 301
+/blogs/post/post/plywood-supply-to-sohar /blogs/post/plywood-supply-to-sohar 301
+/blogs/post/post/plywood-supply-to-tirupati /blogs/post/plywood-supply-to-tirupati 301
+/blogs/post/post/plywood-supply-to-vizag /blogs/post/plywood-supply-to-vizag 301
+
 # doubled-segment fix MUST be first: _redirects is first-match-wins and
 # the /blogs/post/ rule below would otherwise shadow it
-/blogs/post/post/* /blogs/post/:splat 301
 
 /wood-encyclopedia /woods-we-use 301
 /wood-encyclopedia/* /woods-we-use 301
