@@ -1,3 +1,7 @@
+# doubled-segment fix MUST be first: _redirects is first-match-wins and
+# the /blogs/post/ rule below would otherwise shadow it
+/blogs/post/post/* /blogs/post/:splat 301
+
 /wood-encyclopedia /woods-we-use 301
 /wood-encyclopedia/* /woods-we-use 301
 /privacy /privacy-policy 301
@@ -26,7 +30,6 @@
 # All targets verified 200 before adding. Wildcard bases verified 404 (no live page captured).
 
 # 1) Doubled path segment /blogs/post/post/<slug> -> the real post (21 URLs)
-/blogs/post/post/* /blogs/post/:splat 301
 
 # 2) Old keyword URLs -> best-matching live money page
 /best-plywood-suppliers-in-kerala /plywood-manufacturer-kerala 301
