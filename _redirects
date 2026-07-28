@@ -105,3 +105,20 @@
 /blogs/post/gcc-s-humanitarian-leadership-* /export 301
 /blogs/post/plywood-in-global-aviation-cargo-packaging /blogs 301
 /blogs/post/plywood-in-global-e-commerce-warehousing* /blogs 301
+
+# --- 2026-07-28 (b) remaining GSC gaps: crawled-not-indexed 404s + all blog feeds ---
+# catch-all for every remaining /blogs/<anything>/feed (specific ones above win first)
+/blogs/*/feed /blogs 301
+/industrial-packaging /products 301
+/return-policy /return-refund-policy 301
+/blogs/tag/plywood-export/ /blogs 301
+# removed posts -> nearest live page
+/blogs/post/marine-plywood-in-global-yacht-interiors /marine-plywood 301
+/blogs/post/plywood-in-smart-home-technology /blogs 301
+/blogs/post/plywood-in-modular-healthcare-units-building-faster-safer-hospitals /blogs 301
+/blogs/post/qatar-s-world-cup-legacy-plywood-in-sports-projects /export/qatar 301
+/blogs/post/bahrain-s-tourism-push-plywood-in-resorts-interiors /export/bahrain 301
+/blogs/post/plywood-in-urban-public-furniture1 /blogs 301
+/blogs/post/plywood-in-space-robotics-testing-facilities /blogs 301
+/blogs/post/plywood-in-international-expo-booths1 /blogs 301
+/blogs/post/shuttering-plywood-in-renewable-energy-plants /film-faced-shuttering-plywood 301
