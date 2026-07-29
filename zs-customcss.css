@@ -1173,3 +1173,23 @@ footer.cw-ft .cw-ft-blurb{margin:14px 0 0;font-size:13px;line-height:1.7;color:#
   footer.cw-ft .cw-ft-grid > div:nth-child(3){columns:1}
   footer.cw-ft .cw-ft-blurb{max-width:none}
 }
+
+/* ------------------------------------------------------------------ */
+/* Related-pages strip (added 2026-07-30).                            */
+/* GSC reported "Referring page: None detected" on every money page   */
+/* that refused to index. This block gives those pages real in-body   */
+/* internal links instead of sitemap-only discovery. Sits directly    */
+/* above the footer, so it reads as end-of-article navigation.        */
+/* !important throughout: the theme's content styles load after this  */
+/* sheet on several page types.                                       */
+/* ------------------------------------------------------------------ */
+.cw-rel{font-family:'Poppins',-apple-system,BlinkMacSystemFont,sans-serif;background:#f7f9f8;border-top:1px solid #e6ebe9;padding:34px 20px 30px}
+.cw-rel__in{max-width:1120px;margin:0 auto}
+.cw-rel__label{display:block!important;font-size:11px!important;letter-spacing:.14em;text-transform:uppercase;color:#7d8a90!important;margin:0 0 14px!important;font-weight:700!important}
+.cw-rel__links{margin:0!important;padding:0!important;list-style:none!important;display:grid!important;grid-template-columns:repeat(4,1fr);gap:8px 26px}
+.cw-rel__links li{margin:0!important;padding:0!important;list-style:none!important}
+.cw-rel__links li:before{content:none!important}
+.cw-rel__links a{display:block!important;width:auto!important;color:#1B4332!important;text-decoration:none!important;font-size:14px!important;font-weight:500!important;line-height:1.5;padding:5px 0!important;margin:0!important;border-bottom:1px solid #e6ebe9}
+.cw-rel__links a:hover{color:#007A5E!important;text-decoration:underline!important}
+@media(max-width:900px){.cw-rel__links{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.cw-rel__links{grid-template-columns:1fr}.cw-rel{padding:26px 16px 22px}}
