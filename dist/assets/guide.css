@@ -1,0 +1,61 @@
+/* ============================================================
+   Cochin Wood Industries — shared GUIDE / ARTICLE styles (.cwg__*)
+   Linked by every /guides/*.html resource article.
+   Self-contained (includes hero + faq + cta) so the Resources
+   hub reads consistently. Depends on cw__ variables in site.css.
+   ============================================================ */
+body{margin:0;background:#fff;font-family:Poppins,system-ui,sans-serif;color:#141414;line-height:1.65}
+.cwg__container{max-width:820px;margin:0 auto;padding:0 24px}
+.cwg__wide{max-width:1100px;margin:0 auto;padding:0 24px}
+
+/* hero / header */
+.cwg__hero{padding:40px 0 28px;background:var(--cw-bg,#FAF9F7);border-bottom:1px solid var(--cw-ink-200,#D9D9D9)}
+.cwg__crumb{font-size:13px;color:#4a4a4a;margin-bottom:18px}
+.cwg__crumb a{color:#4a4a4a;text-decoration:none}
+.cwg__crumb-sep{margin:0 8px;opacity:.5}
+.cwg__eyebrow{color:var(--cw-green-700,#1B4332);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin:0}
+.cwg__h1{font-family:'Bree Serif',Georgia,serif;font-size:clamp(1.9rem,3.6vw,2.7rem);line-height:1.15;color:#0E1F18;margin:10px 0 14px}
+.cwg__meta{font-size:.84rem;color:#6b7a82}
+
+/* the answer-first summary box (the bit AI engines lift) */
+.cwg__tldr{margin:36px 0;padding:22px 24px;background:var(--cw-green-100,#E5EFE9);border-left:4px solid var(--cw-green-700,#1B4332);border-radius:8px}
+.cwg__tldr p{margin:0;font-size:1.05rem;color:#0E1F18}
+.cwg__tldr strong{font-weight:700}
+
+/* body prose */
+.cwg__body{padding:8px 0 16px}
+.cwg__body h2{font-family:'Bree Serif',Georgia,serif;font-size:clamp(1.4rem,2.4vw,1.9rem);color:#0E1F18;margin:40px 0 12px;line-height:1.2}
+.cwg__body h3{font-family:'Bree Serif',Georgia,serif;font-size:1.18rem;color:#0E1F18;margin:26px 0 8px}
+.cwg__body p{color:#3a4a52;margin:0 0 16px}
+.cwg__body ul,.cwg__body ol{color:#3a4a52;margin:0 0 16px;padding-left:22px}
+.cwg__body li{margin:6px 0}
+.cwg__body a{color:var(--cw-green-700,#1B4332);text-decoration:underline}
+
+/* comparison table */
+.cwg__table{width:100%;border-collapse:collapse;margin:22px 0;font-size:.95rem}
+.cwg__table th,.cwg__table td{text-align:left;padding:12px 14px;border:1px solid var(--cw-ink-200,#D9D9D9);vertical-align:top}
+.cwg__table thead th{background:var(--cw-green-100,#E5EFE9);color:#0E1F18;font-weight:600}
+.cwg__table td:first-child{font-weight:600;color:#0E1F18}
+
+/* faq */
+.cwg__faq{padding:8px 0 40px}
+.cwg__faq h2{font-family:'Bree Serif',Georgia,serif;font-size:1.5rem;color:#0E1F18;margin:0 0 8px}
+.cwg__faq-item{border-bottom:1px solid var(--cw-ink-200,#D9D9D9);padding:18px 0}
+.cwg__faq-item h3{font-family:'Bree Serif',Georgia,serif;font-size:1.08rem;margin:0 0 6px;color:#0E1F18}
+.cwg__faq-item p{margin:0;color:#3a4a52}
+
+/* cta band */
+.cwg__cta{padding:56px 0;background:var(--cw-ink-900,#141414);color:#fff;margin-top:24px}
+.cwg__cta-inner{display:flex;justify-content:space-between;align-items:center;gap:28px;flex-wrap:wrap}
+.cwg__cta h2{font-family:'Bree Serif',Georgia,serif;color:#fff;font-size:1.6rem;margin:0;line-height:1.25}
+.cwg__cta p{margin:8px 0 0;color:rgba(255,255,255,.78)}
+.cwg__btn{background:var(--cw-green-100,#E5EFE9);color:var(--cw-green-700,#1B4332);border:none;padding:15px 26px;border-radius:999px;font-weight:600;text-decoration:none;white-space:nowrap;display:inline-flex;align-items:center;gap:8px}
+.cwg__btn:hover{background:#fff}
+
+/* related links */
+.cwg__related{padding:40px 0;background:var(--cw-bg,#FAF9F7)}
+.cwg__related h2{font-family:'Bree Serif',Georgia,serif;font-size:1.3rem;color:#0E1F18;margin:0 0 16px}
+.cwg__related a{display:inline-block;margin:0 10px 10px 0;padding:8px 16px;border:1.5px solid var(--cw-ink-200,#D9D9D9);border-radius:999px;color:var(--cw-green-700,#1B4332);text-decoration:none;font-size:.92rem}
+.cwg__related a:hover{border-color:var(--cw-green-700,#1B4332)}
+
+@media (max-width:640px){.cwg__cta-inner{flex-direction:column;align-items:flex-start}}
