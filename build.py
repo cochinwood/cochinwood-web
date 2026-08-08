@@ -234,7 +234,7 @@ def header(path="/"):
         aria = ' aria-current="page"' if cur else ""
         links += f'<a href="{href}"{aria}>{label}</a>\n'
     return f'''<header class="cw-hd"><div class="cw-wrap cw-hd__in">
-  <a class="cw-hd__brand" href="{u('/')}"><img src="{u('/assets/logo.png')}" alt="Cochin Wood Industries logo" width="40" height="40"><span style="display:block"><b>Cochin Wood Industries</b><span>Plywood Manufacturer &middot; Kochi</span></span></a>
+  <a class="cw-hd__brand" href="{u('/')}"><img src="{u('/assets/icons/logo-80.png')}" alt="Cochin Wood Industries logo" width="40" height="40" decoding="async"><span style="display:block"><b>Cochin Wood Industries</b><span>Plywood Manufacturer &middot; Kochi</span></span></a>
   <button class="cw-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav">&#9776;</button>
   <nav class="cw-nav" id="nav" aria-label="Primary">
     {links}<a class="cw-cta" href="{u('/contact')}">Get a quote</a>
@@ -395,7 +395,9 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
 <title>{esc(page_title)}</title>
 <meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="{canonical}">
-<link rel="icon" href="{u('/assets/logo.png')}">
+<link rel="icon" type="image/png" sizes="32x32" href="{u('/assets/icons/favicon-32.png')}">
+<link rel="icon" type="image/png" sizes="16x16" href="{u('/assets/icons/favicon-16.png')}">
+<link rel="apple-touch-icon" href="{u('/assets/icons/apple-touch-icon.png')}">
 <meta property="og:type" content="{og_type}">
 <meta property="og:site_name" content="Cochin Wood Industries">
 <meta property="og:locale" content="en_IN">
@@ -424,10 +426,30 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
 </body>
 </html>'''
 
-def write(path, content):
+_page_source = {}      # output path -> source file it was generated from
+
+def write(path, content, src=None):
     fp = os.path.join(DIST, path)
     os.makedirs(os.path.dirname(fp) or DIST, exist_ok=True)
     with open(fp, "w", encoding="utf-8") as f: f.write(content)
+    _page_source[path] = src or "build.py"
+
+_gitdate_cache = {}
+def git_date(relpath):
+    """Date of the last commit touching a source file, for a truthful <lastmod>.
+
+    A sitemap that stamps every URL with today's build date tells crawlers the
+    whole site changed on every deploy, which is not information."""
+    if relpath not in _gitdate_cache:
+        out = ""
+        try:
+            import subprocess
+            out = subprocess.run(["git", "log", "-1", "--format=%cs", "--", relpath],
+                                 cwd=ROOT, capture_output=True, text=True, timeout=15).stdout.strip()
+        except Exception:
+            pass
+        _gitdate_cache[relpath] = out or datetime.date.today().isoformat()
+    return _gitdate_cache[relpath]
 
 # ---------------- HOME ----------------
 def home():
@@ -569,13 +591,13 @@ def encyclopedia():
     # hub
     title, desc, body = enc_extract(os.path.join(encdir, "_hub.html"))
     body = enc_rewrite(body, slugs)
-    write("wood-encyclopedia/index.html", base(title, desc, "/wood-encyclopedia", body,
+    write("wood-encyclopedia/index.html", src=os.path.join("content","encyclopedia","_hub.html"), content=base(title, desc, "/wood-encyclopedia", body,
           body_class="cw-encbody", crumbs=[("Home", "/"), ("Wood Encyclopedia", None)]))
     # species — the imported pages carry their own visible crumb, so emit schema only
     for s in slugs:
         title, desc, body = enc_extract(os.path.join(encdir, f"{s}.html"))
         body = enc_rewrite(body, slugs)
-        write(f"wood-encyclopedia/{s}/index.html",
+        write(f"wood-encyclopedia/{s}/index.html", src=os.path.join("content","encyclopedia",f"{s}.html"), content=
               base(title, desc, f"/wood-encyclopedia/{s}", body, body_class="cw-encbody",
                    show_crumbs=False,
                    crumbs=[("Home", "/"), ("Wood Encyclopedia", "/wood-encyclopedia/"),
@@ -617,7 +639,7 @@ def build_content_pages():
             crumbs = [("Home", "/"), ("Products", "/products"), (pname, None)]
         else:
             crumbs = [("Home", "/"), (title.split("|")[0].strip(), None)]
-        write(f"{slug}/index.html", base(title, desc, "/"+slug, body,
+        write(f"{slug}/index.html", src=os.path.join("content","pages",fname), content=base(title, desc, "/"+slug, body,
               body_class="cw-contentpage", crumbs=crumbs,
               extra_head=product_schema(slug) if pname else ""))
         n += 1
@@ -632,7 +654,7 @@ def build_about():
     if not parts: return 0
     meta = PAGE_META.get("about", {})
     body = f'<main class="cw-page"><div class="cw-wrap">{"".join(parts)}</div></main>'
-    write("about/index.html", base(meta.get("title","About Cochin Wood Industries"),
+    write("about/index.html", src=os.path.join("content","pages","about-operation.html"), content=base(meta.get("title","About Cochin Wood Industries"),
           meta.get("desc",""), "/about", body, body_class="cw-contentpage",
           crumbs=[("Home", "/"), ("About", None)]))
     return 1
@@ -642,20 +664,32 @@ def _blog_content(body):
     body = re.sub(r'\son\w+="[^"]*"', '', body)
     return rewrite_links(prune_images(body))
 
+BLOG_SRC = os.path.join("content", "blog", "posts.json")
+
 def build_blog():
-    fp = os.path.join(ROOT, "content", "blog", "posts.json")
+    fp = os.path.join(ROOT, BLOG_SRC)
     if not os.path.exists(fp): return 0
     posts = json.load(open(fp, encoding="utf-8"))
     live = [p for p in posts if p.get("html")]
-    n = 0
+    n, undated = 0, []
     for p in live:
         slug, title = p["slug"], (p.get("title") or slug)
         desc = p.get("desc", "")
         content = _blog_content(p["html"])
         short = esc(title.split('|')[0].strip())
+        # Optional "date": "YYYY-MM-DD" in posts.json. Absent for every post in the
+        # migrated set, and no date survives anywhere in the mirror — so rather than
+        # invent one, the markup simply omits it until a real date is supplied.
+        date = (p.get("date") or "").strip()
+        if date and not re.fullmatch(r'\d{4}-\d{2}-\d{2}', date):
+            warn(f"post {slug}: ignoring unparseable date {date!r}"); date = ""
+        if not date: undated.append(slug)
+        byline = (f'Cochin Wood Industries &middot; <time datetime="{date}">'
+                  f'{datetime.date.fromisoformat(date).strftime("%-d %B %Y")}</time>'
+                  if date else "Cochin Wood Industries")
         art = f'''<header class="cwg__hero"><div class="cwg__container">
   <h1 class="cwg__h1">{short}</h1>
-  <p class="cwg__meta">Cochin Wood Industries</p>
+  <p class="cwg__meta">{byline}</p>
 </div></header>
 <article class="cwg__body"><div class="cwg__container">{content}</div></article>
 <section class="cwg__cta"><div class="cwg__wide cwg__cta-inner"><div><h2>Need a plywood quote?</h2><p>Tell us the grade, size and quantity — we'll price it within one business day.</p></div><a class="cwg__btn" href="{u('/contact')}">Request a quote</a></div></section>'''
@@ -667,9 +701,10 @@ def build_blog():
                 "image": OG_IMAGE,
                 "inLanguage": "en-IN",
                 "isPartOf": {"@type": "Blog", "@id": LIVE + "/blogs"},
-                "mainEntityOfPage": f"{LIVE}/blogs/post/{slug}"},
+                "mainEntityOfPage": f"{LIVE}/blogs/post/{slug}",
+                **({"datePublished": date, "dateModified": date} if date else {})},
                 separators=(",", ":")) + '</script>')
-        write(f"blogs/post/{slug}/index.html",
+        write(f"blogs/post/{slug}/index.html", src=BLOG_SRC, content=
               base(title, desc, f"/blogs/post/{slug}", art, body_class="cw-encbody",
                    extra_head=ld, og_type="article",
                    crumbs=[("Home", "/"), ("Blog", "/blogs"), (title.split("|")[0].strip(), None)]))
@@ -697,7 +732,11 @@ def build_blog():
     <p id="cw-blogempty" hidden>No posts match that search. <a href="{u('/contact')}">Ask us directly</a> — we'll answer it.</p>
   </div>
 </div></section>'''
-    write("blogs/index.html", base("Blog — Plywood Guides, Specs & Supply | Cochin Wood",
+    if undated:
+        warn(f"{len(undated)} of {len(live)} posts have no \"date\" — BlogPosting omits "
+             f"datePublished, which Google wants for article rich results. Add "
+             f"\"date\": \"YYYY-MM-DD\" to entries in {BLOG_SRC} to fill it in.")
+    write("blogs/index.html", src=BLOG_SRC, content=base("Blog — Plywood Guides, Specs & Supply | Cochin Wood",
           "Plywood guides, standards, export-packing notes and city-by-city supply from Cochin Wood Industries.",
           "/blogs", body, crumbs=[("Home", "/"), ("Blog", None)]))
     return n
@@ -711,8 +750,10 @@ def build_sitemap():
             path = "/" if rel == "index.html" else "/" + rel[:-len("index.html")].rstrip("/")
             urls.append(LIVE + path)
     urls = sorted(set(urls))
-    today = datetime.date.today().isoformat()
-    items = "\n".join(f"  <url><loc>{u_}</loc><lastmod>{today}</lastmod></url>" for u_ in urls)
+    def lastmod(url):
+        rel = url[len(LIVE):].strip("/")
+        return git_date(_page_source.get((rel + "/index.html").lstrip("/") or "index.html", "build.py"))
+    items = "\n".join(f"  <url><loc>{u_}</loc><lastmod>{lastmod(u_)}</lastmod></url>" for u_ in urls)
     write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n'
           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + items + '\n</urlset>\n')
     return len(urls)
