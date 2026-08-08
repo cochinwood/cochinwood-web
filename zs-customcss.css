@@ -696,13 +696,13 @@ html { scroll-padding-top: 120px; }
 .zpform-container .zpform-choice-container { display: flex; align-items: center; margin-bottom: 10px; }
 .zpform-container .zpform-choice-container label { margin: 0; font-family: 'Poppins', sans-serif; color: #0E1F18; font-weight: 400; }
 /* Force hero banner backgrounds (beats snippet !important bg) */
-.cw__page-hero--bg.cw__page-hero--bg.cw__page-hero--bg.cw__page-hero--bg.cw__page-hero--bg { background-image: linear-gradient(rgba(4,35,33,.58),rgba(4,35,33,.58)), url('/files/Hero%20Banner/Products?v=2026hero') !important; background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important; }
-.cw__page-hero--industries.cw__page-hero--industries.cw__page-hero--bg.cw__page-hero--bg.cw__page-hero--bg.cw__page-hero--bg { background-image: linear-gradient(rgba(4,35,33,.58),rgba(4,35,33,.58)), url('/files/Hero%20Banner/Industries?v=2026hero') !important; }
+.cw__page-hero--bg.cw__page-hero--bg.cw__page-hero--bg.cw__page-hero--bg.cw__page-hero--bg { background-image: linear-gradient(rgba(4,35,33,.58),rgba(4,35,33,.58)), url('/files/Hero%20Optimized/Products.jpg?v=2026hero') !important; background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important; }
+.cw__page-hero--industries.cw__page-hero--industries.cw__page-hero--bg.cw__page-hero--bg.cw__page-hero--bg.cw__page-hero--bg { background-image: linear-gradient(rgba(4,35,33,.58),rgba(4,35,33,.58)), url('/files/Hero%20Optimized/Industries.jpg?v=2026hero') !important; }
 /* Hero banner-bg pages: white text (high-spec, beats --industries) */
 .cw__page-hero--bg.cw__page-hero--bg .cw__crumb, .cw__page-hero--bg.cw__page-hero--bg .cw__crumb a, .cw__page-hero--bg.cw__page-hero--bg .cw__h1, .cw__page-hero--bg.cw__page-hero--bg .cw__lede, .cw__page-hero--bg.cw__page-hero--bg .cw__eyebrow, .cw__page-hero--bg.cw__page-hero--bg p { color: #ffffff !important; }
 .cw__page-hero--bg.cw__page-hero--bg .cw__h1 em { color: #7FE0C7 !important; }
 /* Home hero: visible image is the .cw__hero-img background (not the <img>) — point it at the Home banner */
-.cw__page-hero--home .cw__hero-img.cw__hero-img.cw__hero-img { background-image: url('/files/Hero%20Banner/Home?v=2026hero') !important; background-size: cover !important; background-position: center !important; }
+.cw__page-hero--home .cw__hero-img.cw__hero-img.cw__hero-img { background-image: url('/files/Hero%20Optimized/Home.jpg?v=2026hero') !important; background-size: cover !important; background-position: center !important; }
 
 /* === CW UNIFORM HERO FIX 2026-05 (high-spec, beats forced bg) === */
 .cw__hero-grid.cw__hero-grid.cw__hero-grid{align-items:flex-start!important}
