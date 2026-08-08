@@ -375,10 +375,14 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
     canonical = LIVE + path
     page_title = seo_title(title)      # <title> is trimmed; og/twitter keep the full headline
     crumb_nav, crumb_ld = breadcrumbs(crumbs)
-    # Several imported pages already render their own trail (cwp__crumb, cwg__crumb…).
-    # Keep the schema, drop our duplicate bar.
+    # Several imported pages already render their own trail (cwp__crumb, cwg__crumb…);
+    # drop our duplicate bar in that case.
     if not show_crumbs or re.search(r'class="[^"]*\b\w*__crumb\b', body):
         crumb_nav = ""
+    # …and the encyclopedia pages ship their own BreadcrumbList too. Two of them on
+    # one page is conflicting structured data, so emit ours only when there is none.
+    if '"BreadcrumbList"' in body:
+        crumb_ld = ""
     extra_head = ORG_SCHEMA + "\n" + crumb_ld + extra_head
     preloads = "\n".join(
         f'<link rel="preload" href="{u("/assets/fonts/"+f)}" as="font" type="font/woff2" crossorigin>'
