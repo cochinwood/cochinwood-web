@@ -28,15 +28,32 @@ looks for each one in `assets/photos/<same path>` first, then in `$MIRROR_DIR`
 one that does not is **stripped from the markup** and listed at the end of the
 build, so a broken image can never reach production.
 
-18 photos are currently unresolved — the About gallery, the Industries and BWR
-hero art, and several CSS background images. To restore them, copy the files in
-under `assets/photos/` keeping the same path, e.g.
+Two corrections happen on the way out:
 
-    assets/photos/files/Enhanced Factory Photos/factory_08.jpg
-    assets/photos/files/Product/bwr-hardwood.jpg
+- **True extension.** Part of the Zoho asset set is WebP carrying a `.jpg` name.
+  Served by extension a browser gets `image/jpeg` for WebP bytes and refuses to
+  decode it, so the build sniffs the magic bytes and publishes each file under
+  the extension it deserves, rewriting the reference to match.
+- **True dimensions.** `width`/`height` are read from the file rather than
+  trusted from the markup, so the browser reserves the right box and the page
+  does not shift as photos load.
 
-and rebuild. Layouts collapse gracefully while a photo is absent and re-expand
-once it exists — no markup change needed.
+One photo is still unresolved: `files/Product/bwr-hardwood.jpg`, which exists on
+no branch. That product hero simply renders without art. To restore it, drop the
+file at `assets/photos/files/Product/bwr-hardwood.jpg` and rebuild — layouts
+collapse gracefully while a photo is absent and re-expand once it exists.
+
+`PRODUCT_HERO` maps catalogue slugs to hero photography for pages whose hero slot
+previously held a Zoho stock placeholder. A slug with no entry keeps no hero
+image rather than borrowing an unrelated one.
+
+### Titles
+`seo_title()` fits every `<title>` into ~62 characters so search snippets stop
+truncating mid-word: it shortens or drops the brand suffix, simplifies the
+species-page pattern, and drops a trailing parenthetical or subtitle. The visible
+H1 and the `og:title` keep the full headline. `TITLE_OVERRIDES` holds the handful
+of headlines that needed a hand-written short form; the build warns if any title
+still does not fit.
 
 ### Redirects
 `LEGACY_REDIRECTS` in `build.py` is the single source of truth for old Zoho

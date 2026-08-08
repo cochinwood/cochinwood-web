@@ -288,12 +288,67 @@ def esc(s):
     first so a pre-escaped '&amp;' does not ship as a literal '&amp;amp;'."""
     return html.escape(html.unescape(s or ""))
 
+TITLE_MAX = 62          # roughly where Google truncates a result title
+
+# Headlines the automatic rules cannot shorten without losing the point. Written
+# for the search snippet only — each post keeps its full headline as the H1.
+TITLE_OVERRIDES = {
+    "Birch vs Okoume vs Gurjan: Pick the Right Face Veneer for Export Packing":
+        "Birch vs Okoume vs Gurjan: Export Packing Veneers",
+    "FOB Cochin vs FCA Mundra: Which Incoterm to Quote a GCC Plywood Buyer":
+        "FOB Cochin vs FCA Mundra: Which Incoterm for GCC",
+    "Plywood Cable Drum Flanges: IS 10418 Spec, Sizing & Sourcing Guide":
+        "Plywood Cable Drum Flanges: IS 10418 Spec & Sizing",
+    "Plywood Boxes for Machinery: Triple-Wall vs Reinforced Single-Wall":
+        "Plywood Boxes: Triple-Wall vs Reinforced Single-Wall",
+    "Okoume Plywood: Calibrated Export-Grade Panels, Built to Your Spec":
+        "Okoume Plywood: Calibrated Export-Grade Panels",
+    "ISPM-15 HT Stamp Validity & Re-Stamping Rules for Indian Exporters":
+        "ISPM-15 HT Stamp Validity & Re-Stamping Rules",
+    "Plywood Crate Sizing: Break-Bulk vs Container - Which Spec Wins?":
+        "Plywood Crate Sizing: Break-Bulk vs Container",
+}
+
 def seo_title(title):
-    """Search results truncate near 60 characters. When a headline already fills
-    that on its own, the ' | Cochin Wood Industries' suffix only pushes real
-    words out of the snippet — so drop it rather than shipping a cut-off brand."""
-    head = title.split("|")[0].strip()
-    return head if len(head) > 55 else title
+    """Fit a title into the search snippet without losing the words that sell it.
+
+    Applied in order, stopping as soon as it fits: shorten or drop the brand
+    suffix; on the species pages drop the redundant 'Wood' and 'Density'; drop a
+    trailing parenthetical; drop the subtitle after the last colon. The visible
+    H1 is untouched — this only governs the <title> tag."""
+    head = html.unescape(title).split("|")[0].strip()
+    head = TITLE_OVERRIDES.get(head, head)
+
+    def fit(h):
+        for suffix in (" | Cochin Wood Industries", " | Cochin Wood", ""):
+            if len(h + suffix) <= TITLE_MAX: return h + suffix
+        return None
+
+    out = fit(head)
+    if out: return out
+
+    # "Gurjan / Keruing Wood (Dipterocarpus spp.): Properties, Density & Uses"
+    m = re.match(r'^(.*?) Wood (\(.+?\)): Properties, Density & Uses$', head)
+    if m:
+        for cand in (f"{m.group(1)} {m.group(2)}: Properties & Uses",
+                     f"{m.group(1)}: Properties & Uses"):
+            out = fit(cand)
+            if out: return out
+
+    trimmed = re.sub(r'\s*\([^()]*\)\s*$', '', head)          # trailing parenthetical
+    if trimmed != head:
+        head = TITLE_OVERRIDES.get(trimmed, trimmed)          # an override may fit the shorter form
+        out = fit(head)
+        if out: return out
+
+    if ": " in head:                                           # trailing subtitle
+        stem = head.rsplit(": ", 1)[0].strip()
+        if len(stem) >= 28:
+            out = fit(stem)
+            if out: return out
+
+    warn(f"title still {len(head)} chars, no safe trim: {head}")
+    return head
 
 def product_schema(slug):
     """Product + Offer markup so the 13 catalogue pages are eligible for rich results."""
@@ -318,6 +373,7 @@ def product_schema(slug):
 def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
          og_type="website", show_crumbs=True):
     canonical = LIVE + path
+    page_title = seo_title(title)      # <title> is trimmed; og/twitter keep the full headline
     crumb_nav, crumb_ld = breadcrumbs(crumbs)
     # Several imported pages already render their own trail (cwp__crumb, cwg__crumb…).
     # Keep the schema, drop our duplicate bar.
@@ -336,7 +392,7 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{esc(title)}</title>
+<title>{esc(page_title)}</title>
 <meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="{canonical}">
 <link rel="icon" href="{u('/assets/logo.png')}">
@@ -513,14 +569,14 @@ def encyclopedia():
     # hub
     title, desc, body = enc_extract(os.path.join(encdir, "_hub.html"))
     body = enc_rewrite(body, slugs)
-    write("wood-encyclopedia/index.html", base(seo_title(title), desc, "/wood-encyclopedia", body,
+    write("wood-encyclopedia/index.html", base(title, desc, "/wood-encyclopedia", body,
           body_class="cw-encbody", crumbs=[("Home", "/"), ("Wood Encyclopedia", None)]))
     # species — the imported pages carry their own visible crumb, so emit schema only
     for s in slugs:
         title, desc, body = enc_extract(os.path.join(encdir, f"{s}.html"))
         body = enc_rewrite(body, slugs)
         write(f"wood-encyclopedia/{s}/index.html",
-              base(seo_title(title), desc, f"/wood-encyclopedia/{s}", body, body_class="cw-encbody",
+              base(title, desc, f"/wood-encyclopedia/{s}", body, body_class="cw-encbody",
                    show_crumbs=False,
                    crumbs=[("Home", "/"), ("Wood Encyclopedia", "/wood-encyclopedia/"),
                            (title.split("|")[0].split("—")[0].strip(), None)]))
@@ -614,7 +670,7 @@ def build_blog():
                 "mainEntityOfPage": f"{LIVE}/blogs/post/{slug}"},
                 separators=(",", ":")) + '</script>')
         write(f"blogs/post/{slug}/index.html",
-              base(seo_title(title), desc, f"/blogs/post/{slug}", art, body_class="cw-encbody",
+              base(title, desc, f"/blogs/post/{slug}", art, body_class="cw-encbody",
                    extra_head=ld, og_type="article",
                    crumbs=[("Home", "/"), ("Blog", "/blogs"), (title.split("|")[0].strip(), None)]))
         n += 1
