@@ -15,7 +15,7 @@ body{margin:0;background:#fff;font-family:Poppins,system-ui,sans-serif;color:#14
 .cwg__crumb-sep{margin:0 8px;opacity:.5}
 .cwg__eyebrow{color:var(--cw-green-700,#1B4332);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin:0}
 .cwg__h1{font-family:'Bree Serif',Georgia,serif;font-size:clamp(1.9rem,3.6vw,2.7rem);line-height:1.15;color:#0E1F18;margin:10px 0 14px}
-.cwg__meta{font-size:.84rem;color:#6b7a82}
+.cwg__meta{font-size:.84rem;color:#5a6a72}
 
 /* the answer-first summary box (the bit AI engines lift) */
 .cwg__tldr{margin:36px 0;padding:22px 24px;background:var(--cw-green-100,#E5EFE9);border-left:4px solid var(--cw-green-700,#1B4332);border-radius:8px}

@@ -246,9 +246,9 @@ def footer():
     return f'''<footer class="cw-ft"><div class="cw-wrap">
   <div class="cw-ft__cols">
     <div class="cw-ft__brand"><b>Cochin Wood Industries</b><p>Plywood manufacturer in Kochi, Kerala — packing, Okoume and shuttering ply, shipped across India and exported. Part of a group manufacturing in Perumbavoor since 1986.</p></div>
-    <div><h4>Products</h4>{prod}</div>
-    <div><h4>Explore</h4><a href="{u('/products')}">All products</a><a href="{u('/wood-encyclopedia/')}">Wood Encyclopedia</a><a href="{u('/resources')}">Resources</a><a href="{u('/industries')}">Industries</a><a href="{u('/about')}">About</a><a href="{u('/faq')}">FAQ</a></div>
-    <div><h4>Contact</h4><a href="tel:{CONTACT['phone_href']}">{CONTACT['phone_disp']}</a><a href="mailto:{CONTACT['email']}">{CONTACT['email']}</a><a href="https://maps.google.com/?q=Kuruppampady+Kerala" target="_blank" rel="noopener">{CONTACT['addr']}</a></div>
+    <div><h2 class="cw-ft__h">Products</h2>{prod}</div>
+    <div><h2 class="cw-ft__h">Explore</h2><a href="{u('/products')}">All products</a><a href="{u('/wood-encyclopedia/')}">Wood Encyclopedia</a><a href="{u('/resources')}">Resources</a><a href="{u('/industries')}">Industries</a><a href="{u('/about')}">About</a><a href="{u('/faq')}">FAQ</a></div>
+    <div><h2 class="cw-ft__h">Contact</h2><a href="tel:{CONTACT['phone_href']}">{CONTACT['phone_disp']}</a><a href="mailto:{CONTACT['email']}">{CONTACT['email']}</a><a href="https://maps.google.com/?q=Kuruppampady+Kerala" target="_blank" rel="noopener">{CONTACT['addr']}</a></div>
   </div>
   <div class="cw-ft__bar"><span>&copy; 2026 Cochin Wood Industries Pvt Ltd. Group established 1986.</span>
   <span><a href="{u('/privacy-policy')}" style="display:inline">Privacy</a> &middot; <a href="{u('/terms-and-conditions')}" style="display:inline">Terms</a></span></div>
@@ -276,7 +276,7 @@ def breadcrumbs(crumbs):
         if p: item["item"] = LIVE + p
         items.append(item)
     nav = ('<nav class="cw-crumb" aria-label="Breadcrumb"><div class="cw-wrap">'
-           + ' <span class="cw-crumb__sep">&rsaquo;</span> '.join(parts) + '</div></nav>')
+           + ' <span class="cw-crumb__sep" aria-hidden="true">&rsaquo;</span> '.join(parts) + '</div></nav>')
     ld = ('<script type="application/ld+json">'
           + json.dumps({"@context": "https://schema.org", "@type": "BreadcrumbList",
                         "itemListElement": items}, separators=(",", ":")) + '</script>')
@@ -454,7 +454,7 @@ def git_date(relpath):
 # ---------------- HOME ----------------
 def home():
     cards = "".join(
-        f'<a class="cw-card" href="{u("/"+s)}"><h3>{n}</h3><p>{d}</p><span class="cw-card__tag">View &rarr;</span></a>'
+        f'<a class="cw-card" href="{u("/"+s)}"><h2>{n}</h2><p>{d}</p><span class="cw-card__tag">View &rarr;</span></a>'
         for s,n,d in PRODUCTS[:9])
     body = f'''
 <section class="cw-hero"><div class="cw-wrap">
@@ -504,7 +504,7 @@ def home():
 # ---------------- PRODUCTS ----------------
 def products():
     cards = "".join(
-        f'<a class="cw-card" href="{u("/"+s)}"><h3>{n}</h3><p>{d}</p><span class="cw-card__tag">View &rarr;</span></a>'
+        f'<a class="cw-card" href="{u("/"+s)}"><h2>{n}</h2><p>{d}</p><span class="cw-card__tag">View &rarr;</span></a>'
         for s,n,d in PRODUCTS)
     body = f'''
 <section class="cw-sec"><div class="cw-wrap">
@@ -553,9 +553,9 @@ def contact():
   <h1 class="cw-sec__h" style="font-size:clamp(1.9rem,4vw,2.8rem)">Request a quote</h1>
   <p class="cw-sec__lead">Tell us the product, grade, thickness, quantity and delivery location — we reply within one business day with a price and lead time.</p>
   <div class="cw-feat" style="margin-bottom:8px">
-    <div><h3>WhatsApp / Phone</h3><p><a href="tel:{CONTACT['phone_href']}">{CONTACT['phone_disp']}</a></p></div>
-    <div><h3>Email</h3><p><a href="mailto:{CONTACT['email']}">{CONTACT['email']}</a></p></div>
-    <div><h3>Works &amp; office</h3><p>{CONTACT['addr']}</p></div>
+    <div><h2>WhatsApp / Phone</h2><p><a href="tel:{CONTACT['phone_href']}">{CONTACT['phone_disp']}</a></p></div>
+    <div><h2>Email</h2><p><a href="mailto:{CONTACT['email']}">{CONTACT['email']}</a></p></div>
+    <div><h2>Works &amp; office</h2><p>{CONTACT['addr']}</p></div>
   </div>
   {form}
 </div></section>'''
@@ -619,6 +619,10 @@ PAGE_SNIPPETS = {
     "terms-and-conditions":"terms.html","llms":"llms.html",
 }
 def process_content(body, slug=None):
+    # a couple of imported snippets carry their own <main>; the page shell provides
+    # the landmark, so demote theirs rather than ship two
+    body = re.sub(r'<main\b([^>]*)>', r'<section\1>', body)
+    body = body.replace('</main>', '</section>')
     body = re.sub(r'<script\b[^>]*>.*?</script>', '', body, flags=re.S)   # drop any inline scripts
     body = re.sub(r'\son\w+="[^"]*"', '', body)                            # drop inline handlers
     return rewrite_links(prune_images(body, slug))
