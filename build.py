@@ -9,7 +9,7 @@ domain root (Cloudflare Pages at cochinwood.in).
     python build.py          # builds to dist/ at root ("")
     SITE_BASE=/cochinwood-web python build.py
 """
-import os, re, json, shutil, html, urllib.parse, datetime
+import os, re, json, shutil, html, urllib.parse, datetime, struct
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 DIST = os.path.join(ROOT, "dist")
@@ -59,7 +59,32 @@ CONTACT = dict(email="sales@cochinwood.in", phone_disp="+91 95674 10175",
 MIRROR_DIR = os.environ.get("MIRROR_DIR", os.path.join(os.path.dirname(ROOT), "cochinwood-site"))
 PHOTO_ROOTS = [os.path.join(ROOT, "assets", "photos"), MIRROR_DIR]
 
-_files_used, _files_missing = set(), set()
+_files_used, _files_missing = {}, set()      # {public ref: source path on disk}
+
+_MAGIC = [(b"\x89PNG\r\n\x1a\n", ".png"), (b"\xff\xd8\xff", ".jpg"), (b"GIF8", ".gif")]
+
+def true_ext(path):
+    """The extension the bytes actually deserve. Part of the Zoho asset set was
+    converted to WebP but kept a .jpg name; browsers refuse to decode those, so
+    the build renames on the way out rather than shipping an undecodable image."""
+    with open(path, "rb") as fh: head = fh.read(16)
+    if head[:4] == b"RIFF" and head[8:12] == b"WEBP": return ".webp"
+    for magic, ext in _MAGIC:
+        if head.startswith(magic): return ext
+    return os.path.splitext(path)[1].lower()
+
+def register_file(ref, path):
+    """Record a resolved asset and return the public ref it will be served at."""
+    stem, ext = os.path.splitext(ref)
+    real = true_ext(path)
+    if real and real != ext.lower():
+        if ext.lower() in (".jpeg",) and real == ".jpg":
+            real = ext                                  # .jpeg/.jpg are the same thing
+        else:
+            warn(f"{ref} is really {real[1:].upper()} — serving it as {stem}{real}")
+            ref = stem + real
+    _files_used[ref] = path
+    return ref
 
 # Legacy Zoho asset paths whose real file already lives in the repo.
 FILE_ALIASES = {"files/Logo/Cochin wood logo.png": os.path.join(ROOT, "assets", "logo.png")}
@@ -73,35 +98,99 @@ def resolve_file(ref):
         if os.path.isfile(p): return p
     return None
 
-# Wrappers that exist only to hold one photo — drop the whole box when the photo
-# is missing, otherwise the CSS leaves a sized empty panel behind.
-_PHOTO_WRAPPERS = [
-    (re.compile(r'<figure class="cwop-card">\s*<img\b[^>]*>\s*</figure>', re.I), "figure.cwop-card"),
-    (re.compile(r'<div class="cwp__hero-img">\s*<img\b[^>]*>\s*</div>', re.I), "div.cwp__hero-img"),
-    (re.compile(r'<div class="cw__hero-img">\s*<img\b[^>]*>\s*</div>', re.I), "div.cw__hero-img"),
-]
+# Catalogue pages whose hero slot held a Zoho stock placeholder and for which we
+# have real product photography. Anything not listed keeps no hero image.
+PRODUCT_HERO = {
+    "block-board-flush-doors": "/files/Product/block-board.jpg",
+    "plywood-cable-drums":     "/files/Product/cable-drums.jpg",
+    "plywood-boxes-crates":    "/files/Product/crates.jpg",
+    "finger-joint-board":      "/files/Product/finger-joint.jpg",
+    "plywood-pallets":         "/files/Product/pallets.jpg",
+    "particle-board":          "/files/Product/particle-board.jpg",
+    "sawn-timber":             "/files/Product/specialty-timbers.jpg",
+}
 
-def _img_is_dead(tag):
-    src = re.search(r'src="([^"]+)"', tag)
-    if not src: return None
-    s = src.group(1)
-    if "zohocdn.com" in s:
-        return "Zoho stock placeholder"                      # never our photography
-    if s.startswith("/files/"):
-        if resolve_file(s):
-            _files_used.add(s); return None
-        _files_missing.add(s)
-        return "missing source file"
+def image_size(path):
+    """(width, height) for PNG/JPEG/WebP, or None. Used to correct the width and
+    height attributes so the browser reserves the right box and nothing shifts."""
+    try:
+        with open(path, "rb") as fh: d = fh.read(256 * 1024)
+    except OSError:
+        return None
+    if d[:8] == b"\x89PNG\r\n\x1a\n":
+        return struct.unpack(">II", d[16:24])
+    if d[:4] == b"RIFF" and d[8:12] == b"WEBP":
+        if d[12:16] == b"VP8 ":
+            return struct.unpack("<HH", d[26:30])
+        if d[12:16] == b"VP8L":
+            b = struct.unpack("<I", d[21:25])[0]
+            return ((b & 0x3FFF) + 1, ((b >> 14) & 0x3FFF) + 1)
+        if d[12:16] == b"VP8X":
+            w = int.from_bytes(d[24:27], "little") + 1
+            h = int.from_bytes(d[27:30], "little") + 1
+            return (w, h)
+        return None
+    if d[:2] == b"\xff\xd8":                      # JPEG: walk the segment chain
+        i = 2
+        while i + 9 < len(d):
+            if d[i] != 0xFF: i += 1; continue
+            m = d[i + 1]
+            if m in (0xD8, 0x01) or 0xD0 <= m <= 0xD7: i += 2; continue
+            if 0xC0 <= m <= 0xCF and m not in (0xC4, 0xC8, 0xCC):
+                h, w = struct.unpack(">HH", d[i + 5:i + 9])
+                return (w, h)
+            seg = struct.unpack(">H", d[i + 2:i + 4])[0]
+            if seg < 2: break
+            i += 2 + seg
     return None
 
-def prune_images(body):
-    """Remove images with no real source, plus their photo-only wrapper."""
-    for pat, what in _PHOTO_WRAPPERS:
-        def wrap(m):
-            inner = re.search(r'<img\b[^>]*>', m.group(0), re.I)
-            return "" if (inner and _img_is_dead(inner.group(0))) else m.group(0)
-        body = pat.sub(wrap, body)
-    return re.sub(r'<img\b[^>]*>', lambda m: "" if _img_is_dead(m.group(0)) else m.group(0), body, flags=re.I)
+def _set_dims(tag, path):
+    """Replace width/height on an <img> with the file's true pixel size."""
+    size = image_size(path)
+    if not size: return tag
+    w, h = size
+    tag = re.sub(r'\s(width|height)="[^"]*"', '', tag)
+    return tag[:-1].rstrip() + f' width="{w}" height="{h}"' + ('/>' if tag.endswith('/>') else '>')
+
+# Wrappers that exist only to hold one photo. Once a dead image is removed the
+# wrapper is empty, and the CSS would leave a sized blank panel — so drop it too.
+_EMPTY_WRAPPERS = [
+    re.compile(r'<figure class="cwop-card">\s*</figure>', re.I),
+    re.compile(r'<div class="cwp__hero-img">\s*</div>', re.I),
+    re.compile(r'<div class="cw__hero-img">\s*</div>', re.I),
+]
+
+def _fix_img(tag, slug=None):
+    """Return the <img> with a real source and true dimensions, or "" to drop it.
+
+    A Zoho stock placeholder is swapped for genuine product photography where we
+    have it, and dropped otherwise — it must never reach the site either way."""
+    m = re.search(r'src="([^"]+)"', tag)
+    if not m: return tag
+    s = m.group(1)
+    if "zohocdn.com" in s:
+        repl = PRODUCT_HERO.get(slug)
+        if not repl: return ""
+        tag = tag.replace(s, repl)
+        s = repl
+    if s.startswith("/files/"):
+        path = resolve_file(s)
+        if not path:
+            _files_missing.add(s)
+            return ""
+        pub = register_file(s, path)
+        if pub != s: tag = tag.replace(s, pub)
+        return _set_dims(tag, path)
+    return tag
+
+def prune_images(body, slug=None):
+    """Resolve every image, then drop any wrapper left empty by a removal.
+
+    Images are fixed in a single pass so a rewritten src is never re-examined."""
+    body = re.sub(r'<img\b[^>]*>', lambda m: _fix_img(m.group(0), slug), body, flags=re.I)
+    for pat in _EMPTY_WRAPPERS:
+        body = pat.sub("", body)
+    return body
 
 # ---------------- links ----------------
 _LEGACY_RE = re.compile(r'((?:src|href)=")(' + "|".join(
@@ -165,7 +254,7 @@ def footer():
   <span><a href="{u('/privacy-policy')}" style="display:inline">Privacy</a> &middot; <a href="{u('/terms-and-conditions')}" style="display:inline">Terms</a></span></div>
 </div></footer>'''
 
-OG_IMAGE = LIVE + "/assets/logo.png"          # 1000x1000 brand mark
+OG_IMAGE = LIVE + "/assets/og/cwi-og-share-1200x630.png"   # 1200x630 share card
 
 ORG_SCHEMA = '''<script type="application/ld+json">
 {"@context":"https://schema.org","@type":["Organization","LocalBusiness"],"@id":"https://www.cochinwood.in/#organization","name":"Cochin Wood Industries","url":"https://www.cochinwood.in/","logo":"https://www.cochinwood.in/assets/logo.png","image":"https://www.cochinwood.in/assets/logo.png","email":"sales@cochinwood.in","telephone":"+919567410175","address":{"@type":"PostalAddress","streetAddress":"Kuruppampady","addressLocality":"Ernakulam","addressRegion":"Kerala","postalCode":"683545","addressCountry":"IN"},"parentOrganization":{"@type":"Organization","name":"Cochin Wood Group","foundingDate":"1986"},"areaServed":["IN","AE","VN"],"description":"Plywood manufacturer in Kochi, Kerala - packing, Okoume, marine and film-faced shuttering plywood, sawn timber and export crates."}
@@ -451,10 +540,10 @@ PAGE_SNIPPETS = {
     "industries":"industries-LIVE-2026-06-11.html","privacy-policy":"privacy.html",
     "terms-and-conditions":"terms.html","llms":"llms.html",
 }
-def process_content(body):
+def process_content(body, slug=None):
     body = re.sub(r'<script\b[^>]*>.*?</script>', '', body, flags=re.S)   # drop any inline scripts
     body = re.sub(r'\son\w+="[^"]*"', '', body)                            # drop inline handlers
-    return rewrite_links(prune_images(body))
+    return rewrite_links(prune_images(body, slug))
 
 def build_content_pages():
     sdir = os.path.join(ROOT, "content", "pages")
@@ -463,7 +552,7 @@ def build_content_pages():
         fp = os.path.join(sdir, fname)
         if not os.path.exists(fp): continue
         meta = PAGE_META.get(slug, {})
-        content = process_content(open(fp, encoding="utf-8").read())
+        content = process_content(open(fp, encoding="utf-8").read(), slug)
         title = meta.get("title") or slug.replace("-", " ").title() + " | Cochin Wood Industries"
         desc  = meta.get("desc") or ""
         body = f'<main class="cw-page"><div class="cw-wrap">{content}</div></main>'
@@ -574,9 +663,7 @@ def build_sitemap():
 
 def copy_referenced_files():
     copied = 0
-    for ref in sorted(_files_used):
-        src = resolve_file(ref)
-        if not src: continue
+    for ref, src in sorted(_files_used.items()):
         dst = os.path.join(DIST, urllib.parse.unquote(ref.lstrip("/")))
         os.makedirs(os.path.dirname(dst), exist_ok=True)
         shutil.copy(src, dst); copied += 1
@@ -590,9 +677,9 @@ def _css_fix_urls(css, name):
     """Resolve /files/... backgrounds; neutralise the ones with no source file."""
     def sub(m):
         ref = "/" + m.group(2).lstrip("/")
-        if resolve_file(ref):
-            _files_used.add(ref)
-            return f"url('{u(ref)}')"
+        path = resolve_file(ref)
+        if path:
+            return f"url('{u(register_file(ref, path))}')"
         _files_missing.add(f"{ref}  (css: {name})")
         return "none"
     return re.sub(r"url\((['\"]?)(/files/[^)'\"]+)\1\)", sub, css)
