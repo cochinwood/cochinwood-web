@@ -129,4 +129,4 @@
 # Cloudflare Pages honours only the first 100 rules in this file, and the 95 above already
 # use most of that budget - 603 explicit /dist/ rules silently became 404s. One wildcard costs
 # one rule. :splat is tested here; if Pages drops it the fallback below sends everything home.
-/dist/* /:splat 301
+/dist/* / 301
