@@ -128,5 +128,6 @@
 
 # Cloudflare Pages honours only the first 100 rules in this file, and the 95 above already
 # use most of that budget - 603 explicit /dist/ rules silently became 404s. One wildcard costs
-# one rule. :splat is tested here; if Pages drops it the fallback below sends everything home.
+# one rule. /dist/* /:splat 301 was tested live and every path still 404'd, confirming the
+# note at the top: Pages drops :splat here. Static destination it is.
 /dist/* / 301
