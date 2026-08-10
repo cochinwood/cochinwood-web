@@ -554,11 +554,6 @@ body.cw-in-editor .cw-editor-label {
 .zpcontent-container > .zpsection:first-child:not(:has(.zpelem-codesnippet)) + .zpsection { padding-top: 0 !important; }
 .zpcontent-container > .zpsection:first-child:has(.zpelem-codesnippet) .zpelement.zpelem-codesnippet,
 .zpcontent-container > .zpsection:first-child:not(:has(.zpelem-codesnippet)) + .zpsection .zpelement.zpelem-codesnippet { margin-top: 0 !important; }
-
-
-/* === Restore home hero photo (2026-05-15) === */
-/* Snippet img src points at lowercase /files/home/ which 404s; the real upload lives at /files/Home/. Mask via CSS background until the snippet can be edited. */
-.cw__hero-img { background: url('/files/Home/home-1-hero.jpg') center/cover no-repeat; }
 .cw__hero-img img { color: transparent; font-size: 0 !important; opacity: 0; }
 
 
