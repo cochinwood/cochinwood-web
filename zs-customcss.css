@@ -573,10 +573,10 @@ body.cw-in-editor .cw-editor-label {
 
 /* Case-card image fallbacks - masks broken <img>s in cases section */
 .cw__case-img { position: relative; }
-.cw__case-img img { color: transparent; font-size: 0 !important; opacity: 0; }
-.cw__case-grid .cw__case:nth-of-type(1) .cw__case-img { background: url('/files/Home/home-3-industries-1-construction.jpg') center/cover no-repeat; }
-.cw__case-grid .cw__case:nth-of-type(2) .cw__case-img { background: url('/files/Home/home-3-industries-2-marine.jpg') center/cover no-repeat; }
-.cw__case-grid .cw__case:nth-of-type(3) .cw__case-img { background: url('/files/Home/home-3-industries-4-packaging.jpg') center/cover no-repeat; }
+
+
+
+
 
 
 /* FIX 5: Body Poppins override (added 2026-05-17) */
