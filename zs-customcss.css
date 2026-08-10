@@ -697,7 +697,7 @@ html { scroll-padding-top: 120px; }
 .cw__page-hero--bg.cw__page-hero--bg .cw__crumb, .cw__page-hero--bg.cw__page-hero--bg .cw__crumb a, .cw__page-hero--bg.cw__page-hero--bg .cw__h1, .cw__page-hero--bg.cw__page-hero--bg .cw__lede, .cw__page-hero--bg.cw__page-hero--bg .cw__eyebrow, .cw__page-hero--bg.cw__page-hero--bg p { color: #ffffff !important; }
 .cw__page-hero--bg.cw__page-hero--bg .cw__h1 em { color: #7FE0C7 !important; }
 /* Home hero: visible image is the .cw__hero-img background (not the <img>) — point it at the Home banner */
-.cw__page-hero--home .cw__hero-img.cw__hero-img.cw__hero-img { background-image: url('/files/Hero%20Optimized/Home.jpg?v=2026hero') !important; background-size: cover !important; background-position: center !important; }
+.cw__page-hero--home .cw__hero-img.cw__hero-img.cw__hero-img { background-image: url('/files/Hero%20Optimized/Home.webp?v=2026hero') !important; background-size: cover !important; background-position: center !important; }
 
 /* === CW UNIFORM HERO FIX 2026-05 (high-spec, beats forced bg) === */
 .cw__hero-grid.cw__hero-grid.cw__hero-grid{align-items:flex-start!important}
