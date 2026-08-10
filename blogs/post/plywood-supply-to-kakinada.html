@@ -52,7 +52,7 @@
   var c=head.querySelector('link[rel="canonical"]');
   if(c && c.href.indexOf('http://')===0) c.href=c.href.replace('http://','https://');
   ['meta[property="og:url"]','meta[name="twitter:url"]'].forEach(function(s){var m=head.querySelector(s); if(m && m.content && m.content.indexOf('http://')===0) m.content=m.content.replace('http://','https://');});
-  if(!head.querySelector('meta[property="og:image"]')) add('meta',{property:'og:image',content:CW_BASE+'/cwi-og-share-1200x630.png'});
+  
   var t=document.title; ['meta[property="og:title"]','meta[name="twitter:title"]'].forEach(function(s){var m=head.querySelector(s); if(m && t) m.content=t;});
   if(!head.querySelector('link[rel="alternate"][hreflang="en"]')) add('link',{rel:'alternate',hreflang:'en',href:CW_BASE+location.pathname});
   if(!head.querySelector('link[rel="alternate"][hreflang="en-IN"]')) add('link',{rel:'alternate',hreflang:'en-IN',href:CW_BASE+location.pathname});
