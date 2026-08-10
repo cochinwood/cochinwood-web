@@ -67,7 +67,7 @@
   new MutationObserver(fixSocial).observe(document.documentElement,{childList:true,subtree:true});
 })();
 
-  // === Favicon + OG image + lowercase /files/home/ corrections (added 2026-05-16) ===
+  // === Favicon + OG image corrections (added 2026-05-16) ===
   (function(){
     function applyBrandHeadTags(){
       // Replace default favicon
@@ -89,20 +89,10 @@
       if(!tw){tw=document.createElement("meta"); tw.setAttribute("name","twitter:image"); document.head.appendChild(tw);}
       tw.setAttribute("content","/files/cwi-og-1.png"); */
     }
-    function fixHomeCase(){
-      var imgs = document.querySelectorAll("img[src*=\"/files/home/\"]");
-      for (var i = 0; i < imgs.length; i++){
-        imgs[i].src = imgs[i].src.replace("/files/home/","/files/Home/");
-      }
-    }
     applyBrandHeadTags();
     // Drop legacy icon declarations so our new /icons/* ones win
     document.querySelectorAll('link[rel="apple-touch-icon"]:not([sizes])').forEach(function(l){l.remove()});
     document.querySelectorAll('link[rel="icon"][href*="/files/Logo/favicon-32x32.png"]').forEach(function(l){l.remove()});
-    if (document.readyState === "loading"){
-      document.addEventListener("DOMContentLoaded", fixHomeCase);
-    } else { fixHomeCase(); }
-    new MutationObserver(fixHomeCase).observe(document.documentElement,{childList:true,subtree:true});
   })();
 </script><!-- ============================================================ CWI mobile nav hamburger + slide-in drawer at<=880px
  Added 2026-05-18 (audit P0 #1)============================================================ --><style> .cw-hd-menu-btn { display: none; width: 44px; height: 44px; padding: 0; background: transparent; border: 0; cursor: pointer; position: relative; margin-left: auto; z-index: 1001; } .cw-hd-menu-btn span { position: absolute; left: 10px; width: 24px; height: 2.5px; background: var(--cw-ink, #042321); border-radius: 2px; transition: transform .25s, opacity .2s, top .25s; } .cw-hd-menu-btn span:nth-child(1) { top: 14px; } .cw-hd-menu-btn span:nth-child(2) { top: 21px; } .cw-hd-menu-btn span:nth-child(3) { top: 28px; } .cw-hd-menu-btn.is-open span:nth-child(1) { top: 21px; transform: rotate(45deg); } .cw-hd-menu-btn.is-open span:nth-child(2) { opacity: 0; } .cw-hd-menu-btn.is-open span:nth-child(3) { top: 21px; transform: rotate(-45deg); } @media (max-width: 880px) { .cw-hd-menu-btn { display: block; } .cw-hd-cta { display: none; } .cw-hd-nav { display: none !important; } .cw-hd-nav.is-open { display: flex !important; position: fixed; inset: 72px 0 0 0; flex-direction: column; align-items: stretch; background: #fff; padding: 16px 24px 40px; gap: 0; z-index: 1000; overflow-y: auto; box-shadow: 0 8px 32px rgba(4,35,33,0.08); } .cw-hd-nav.is-open a { padding: 18px 8px; font-size: 18px; border-bottom: 1px solid rgba(4,35,33,0.08); color: var(--cw-ink, #042321); text-decoration: none; } .cw-hd-nav.is-open a.is-active { color: var(--cw-teal, #007A5E); } .cw-hd-nav.is-open .cw-hd-nav-cta { margin-top: 24px; padding: 16px 24px; background: var(--cw-teal, #007A5E); color: #fff !important; border-radius: 999px; text-align: center; font-weight: 600; border: 0; } body.cw-nav-open { overflow: hidden; } } </style><script>
