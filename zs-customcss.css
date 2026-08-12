@@ -714,7 +714,7 @@ html { scroll-padding-top: 120px; }
    unified hero block at the end of this file; it must not be tied to the height
    of the text column beside it. */
 @media(min-width:1025px){
-.cw__hero-grid.cw__hero-grid.cw__hero-grid{align-items:center!important;grid-template-columns:1.05fr 1fr!important;gap:48px!important}
+.cw__hero-grid.cw__hero-grid.cw__hero-grid{align-items:center!important;grid-template-columns:1.2fr 1fr!important;gap:48px!important}
 }
 
 
@@ -735,11 +735,11 @@ body{margin:0;background:#fff;font-family:Poppins,system-ui,sans-serif;color:#14
 
 /* 1 · hero */
 .cwp__hero{padding:32px 0 72px;background:var(--cw-bg,#FAF9F7)}
-.cwp__hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center}
+.cwp__hero-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:center}
 .cwp__crumb{font-size:13px;color:#4a4a4a;margin-bottom:22px}
 .cwp__crumb a{color:#4a4a4a;text-decoration:none}
 .cwp__crumb-sep{margin:0 8px;opacity:.5}
-.cwp__h1{font-family:'Bree Serif',Georgia,serif;line-height:1.1;margin:12px 0 18px;font-size:clamp(2.1rem,4.2vw,3.2rem);color:#0E1F18}
+.cwp__h1{font-family:'Bree Serif',Georgia,serif;line-height:1.1;margin:12px 0 18px;font-size:clamp(2.1rem,4.2vw,3.0rem);color:#0E1F18}
 .cwp__hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin:0 0 28px}
 .cwp__btn{background:var(--cw-green-700,#1B4332);color:#fff;border:none;padding:15px 26px;border-radius:999px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:transform .16s,background .16s}
 .cwp__btn:hover{transform:translateY(-2px);background:var(--cw-ink-900,#141414)}
@@ -1244,6 +1244,23 @@ footer.cw-ft .cw-ft-blurb{margin:14px 0 0;font-size:13px;line-height:1.7;color:#
   object-fit: cover !important;
 }
 
+/* The two families also disagreed on the two things that set how much vertical
+   room a hero takes: section padding and headline size. .cwp__hero sits on
+   32px/72px with a headline capped at 3.2rem; .cw__page-hero was pinned at
+   80px/64px with a headline capped larger, so its heroes ran 80-190px taller
+   than the product pages and pushed the homepage and About below the fold on a
+   1536x760 window. Same numbers for both now. The padding selector repeats the
+   Zoho wrapper because that is where the 80px is declared, with !important. */
+.zpcol-12 > [data-element-type="codeSnippet"]:has(.cw__page-hero) .cw__page-hero,
+.cw__page-hero.cw__page-hero { padding: 32px 0 72px !important; }
+/* Doubled class: the pages carry an inline <style> setting .cw__hero-text .cw__h1
+   to a 3.4rem cap, which ties this rule on specificity and wins on source order
+   because an inline block comes after the linked sheet. Same drift as the hero
+   grid gap. Three classes takes it back. */
+.cw__page-hero.cw__page-hero .cw__h1.cw__h1,
+.cw__page-hero.cw__page-hero.cw__page-hero h1,
+.cwp__hero .cwp__h1.cwp__h1 { font-size: clamp(2.1rem, 4.2vw, 3.0rem); }
+
 /* Both hero grids use the same column split and the same gap, so the image
    column comes out the same width in each family and the two heights match.
    This is pinned at three-class weight because at least one page carries its
@@ -1252,7 +1269,8 @@ footer.cw-ft .cw-ft-blurb{margin:14px 0 0;font-size:13px;line-height:1.7;color:#
    rule into a page loses to this. */
 @media (min-width:1025px){
   .cw__hero-grid.cw__hero-grid.cw__hero-grid,
-  .cwp__hero-grid.cwp__hero-grid.cwp__hero-grid { column-gap: 48px !important; }
+  .cwp__hero-grid.cwp__hero-grid.cwp__hero-grid {
+    grid-template-columns: 1.2fr 1fr !important; column-gap: 48px !important; }
 }
 
 /* Below 1025px the hero grid stacks to a single column, so the image spans the
