@@ -702,7 +702,7 @@ html { scroll-padding-top: 120px; }
 /* === CW UNIFORM HERO FIX 2026-05 (high-spec, beats forced bg) === */
 .cw__hero-grid.cw__hero-grid.cw__hero-grid{align-items:flex-start!important}
 .cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img{background:none!important;background-image:none!important}
-.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img img{height:auto!important;width:100%!important;max-width:100%!important;object-fit:initial!important;display:block!important;position:relative!important;opacity:1!important;visibility:visible!important}
+.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img img{width:100%!important;max-width:100%!important;display:block!important;position:relative!important;opacity:1!important;visibility:visible!important}
 
 
 /* CWHEROPOLISH */
@@ -710,11 +710,11 @@ html { scroll-padding-top: 120px; }
 @media(min-width:1025px){.cw__hero-grid.cw__hero-grid.cw__hero-grid{grid-template-columns:1fr 1.35fr!important;gap:48px!important}}
 
 
-/* CWHEROFINAL uniform full-height image, no gap */
+/* CWHEROFINAL — column widths only. The image's own height is set once, in the
+   unified hero block at the end of this file; it must not be tied to the height
+   of the text column beside it. */
 @media(min-width:1025px){
-.cw__hero-grid.cw__hero-grid.cw__hero-grid{align-items:stretch!important;grid-template-columns:1.05fr 1fr!important;gap:48px!important}
-.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img{height:100%!important}
-.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img img{height:100%!important;width:100%!important;object-fit:cover!important}
+.cw__hero-grid.cw__hero-grid.cw__hero-grid{align-items:center!important;grid-template-columns:1.05fr 1fr!important;gap:48px!important}
 }
 
 
@@ -735,7 +735,7 @@ body{margin:0;background:#fff;font-family:Poppins,system-ui,sans-serif;color:#14
 
 /* 1 · hero */
 .cwp__hero{padding:32px 0 72px;background:var(--cw-bg,#FAF9F7)}
-.cwp__hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center}
+.cwp__hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center}
 .cwp__crumb{font-size:13px;color:#4a4a4a;margin-bottom:22px}
 .cwp__crumb a{color:#4a4a4a;text-decoration:none}
 .cwp__crumb-sep{margin:0 8px;opacity:.5}
@@ -749,7 +749,7 @@ body{margin:0;background:#fff;font-family:Poppins,system-ui,sans-serif;color:#14
 .cwp__hero-meta strong{color:#141414;font-weight:700}
 .cwp__hero-meta .sep{color:var(--cw-ink-200,#D9D9D9)}
 .cwp__hero-img{border-radius:24px;overflow:hidden;box-shadow:0 24px 64px rgba(20,20,20,.14)}
-.cwp__hero-img img{display:block;width:100%;height:520px;object-fit:cover}
+.cwp__hero-img img{display:block;width:100%;object-fit:cover}
 
 /* 2 · spec table */
 .cwp__spec{padding:72px 0}
@@ -784,7 +784,7 @@ body{margin:0;background:#fff;font-family:Poppins,system-ui,sans-serif;color:#14
 .cwp__cta .cwp__btn:hover{background:#fff}
 .cwp__cta .cwp__btn--secondary{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.3)}
 
-@media (max-width:1024px){.cwp__hero-grid{grid-template-columns:1fr;gap:40px}.cwp__hero-img img{height:360px}.cwp__pillars{grid-template-columns:1fr}.cwp__cta-row{grid-template-columns:1fr;gap:28px}}
+@media (max-width:1024px){.cwp__hero-grid{grid-template-columns:1fr;gap:40px}.cwp__pillars{grid-template-columns:1fr}.cwp__cta-row{grid-template-columns:1fr;gap:28px}}
 @media (max-width:640px){.cwp__table th{width:44%}}
 
 /* ============================================================
@@ -1048,8 +1048,6 @@ p a,li a,.cw__prose a,.blog-content a{min-height:0;min-width:0;display:inline;}
 /* === Responsive audit fixes 2026-06-15: mobile hero stacking + footer font === */
 @media(max-width:1024px){
   .cw__hero-grid.cw__hero-grid.cw__hero-grid{grid-template-columns:1fr!important;gap:26px!important}
-  .cw__page-hero .cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img{height:auto!important}
-  .cw__page-hero .cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img img{height:auto!important;width:100%!important;max-height:340px!important;object-fit:cover!important}
 }
 @media(max-width:768px){ .cw-ft-est{font-size:11px!important} }
 
@@ -1188,3 +1186,93 @@ footer.cw-ft .cw-ft-blurb{margin:14px 0 0;font-size:13px;line-height:1.7;color:#
 .cw-rel__links a:hover{color:#007A5E!important;text-decoration:underline!important}
 @media(max-width:900px){.cw-rel__links{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.cw-rel__links{grid-template-columns:1fr}.cw-rel{padding:26px 16px 22px}}
+
+
+/* =========================================================================
+   UNIFIED HERO GEOMETRY — 2026-08-12
+   =========================================================================
+   One shape for every hero image on the site. Before this block there were
+   three different behaviours:
+
+     .cw__hero-img   >=1025px  image stretched to the height of the text column
+                               beside it, so the hero grew and shrank with how
+                               much copy a page happened to have
+     .cw__hero-img   <=1024px  height:auto capped at 340px, so the height
+                               followed each file's own aspect ratio
+     .cwp__hero-img            a flat 520px, dropping to 360px on small screens
+
+   A visitor moving from /products into /marine-plywood saw the hero jump by
+   nearly 200px, and no two of the six main pages agreed with each other.
+
+   The fix is aspect-ratio plus object-fit:cover. The box is defined by the
+   column width and one ratio; the image fills it and is cropped to suit. That
+   makes the intrinsic size of the source file irrelevant -- 1024x1024,
+   1024x765 and 1200x860 all now render identically -- and it reserves the
+   right amount of space before the image loads, so nothing shifts.
+
+   3:2 is the ratio: a standard photographic frame, and what the hero images
+   are generated at, so the crop throws away as little as possible. At the
+   1240px container this lands both families at roughly 370px tall.
+
+   Height belongs here and nowhere else. If a hero needs to be a different
+   size, change the ratio in this block rather than adding a height somewhere
+   downstream -- that is how the three competing systems above came about.
+
+   The five-fold class repetition is not decoration: .cw__hero-img img is set
+   to opacity:0 by the Zoho theme layer near the top of this file, and the
+   overrides that undo it are written at that weight. These rules have to
+   match it to win.
+   ------------------------------------------------------------------------- */
+
+:root { --cw-hero-ratio: 3 / 2; }
+
+/* wrapper: keeps the rounded corner and shadow, takes its height from the image */
+.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img,
+.cwp__hero-img {
+  height: auto !important;
+  align-self: center;
+}
+
+/* the image itself */
+.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img img,
+.cwp__hero-img img {
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+  aspect-ratio: var(--cw-hero-ratio) !important;
+  object-fit: cover !important;
+}
+
+/* Both hero grids use the same column split and the same gap, so the image
+   column comes out the same width in each family and the two heights match.
+   This is pinned at three-class weight because at least one page carries its
+   own inline copy of the hero CSS with the older 56px gap, which quietly made
+   its hero 3px shorter than every other page. Anything that copies the old
+   rule into a page loses to this. */
+@media (min-width:1025px){
+  .cw__hero-grid.cw__hero-grid.cw__hero-grid,
+  .cwp__hero-grid.cwp__hero-grid.cwp__hero-grid { column-gap: 48px !important; }
+}
+
+/* Below 1025px the hero grid stacks to a single column, so the image spans the
+   full container instead of half of it. A fixed ratio there is wrong: at 850px
+   wide 3:2 is 567px tall and pushes the whole page below the fold, while at
+   390px the same ratio gives a sensible 208px. Cap the height instead of
+   changing the ratio -- every page is the same width at these sizes, so they
+   all clamp to the same number and stay in agreement. 360px matches the height
+   the product pages already used on small screens. */
+@media (max-width:1024px){
+  .cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img img,
+  .cwp__hero-img img { max-height: 360px !important; }
+}
+
+/* Older Safari and any engine without aspect-ratio support falls back to a
+   padding box, so those visitors get the same shape rather than an unsized
+   image collapsing into the layout. */
+@supports not (aspect-ratio: 3 / 2) {
+  .cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img,
+  .cwp__hero-img { position: relative; padding-top: 66.667%; }
+  .cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img img,
+  .cwp__hero-img img { position: absolute !important; inset: 0; height: 100% !important; }
+}
