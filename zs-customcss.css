@@ -1294,3 +1294,24 @@ footer.cw-ft .cw-ft-blurb{margin:14px 0 0;font-size:13px;line-height:1.7;color:#
   .cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img img,
   .cwp__hero-img img { position: absolute !important; inset: 0; height: 100% !important; }
 }
+
+
+/* === Finding us block on /contact — 2026-08-13 ===
+   Distances, a landmark and a Plus Code: the three things that actually get a driver
+   to a gate on a Kerala highway. Deliberately no drive times — a distance is a fact,
+   a time on the Kochi road is a guess that is wrong every afternoon. */
+.cw__find { margin: 18px 0 0; padding-top: 16px; border-top: 1.5px dashed var(--cw-ink-200, #D9D9D9); }
+.cw__find-lead { margin: 0; font-size: .98rem; line-height: 1.6; color: var(--cw-ink-700, #4a4a4a); }
+.cw__find-lead strong { color: var(--cw-ink-900, #141414); }
+.cw__find-dist { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; gap: 0; }
+.cw__find-dist li { display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+  padding: 7px 0; border-bottom: 1px solid var(--cw-ink-100, #ECEFED); }
+.cw__find-dist li:last-child { border-bottom: 0; }
+.cw__find-from { color: #4a575e; font-size: .93rem; }
+.cw__find-km { font-weight: 700; color: var(--cw-ink-900, #141414); font-size: .93rem;
+  font-variant-numeric: tabular-nums; white-space: nowrap; }
+.cw__find-note { margin: 14px 0 0; font-size: .92rem; line-height: 1.6; color: #4a575e; }
+.cw__find-note strong { color: var(--cw-green-700, #1B4332); font-weight: 700; letter-spacing: .01em; }
+@media (max-width: 560px) {
+  .cw__find-dist li { flex-direction: column; align-items: flex-start; gap: 2px; }
+}
