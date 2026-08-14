@@ -1,20 +1,37 @@
-/assets/*
-  Cache-Control: public, max-age=31536000, immutable
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
 
 /files/*
   Access-Control-Allow-Origin: *
-
-# --- 2026-07-09 audit: long-lived caching for hashed/static assets ---
-/css/*
-  Cache-Control: public, max-age=31536000, immutable
-/js/*
-  Cache-Control: public, max-age=31536000, immutable
-/template/*
-  Cache-Control: public, max-age=31536000, immutable
-/files/*
   Cache-Control: public, max-age=86400
+
 /favicon.png
   Cache-Control: public, max-age=86400
+
+# --- 2026-08-15 audit: correct the immutable claim ---
+# These paths were served "max-age=31536000, immutable". Nothing under them is
+# content-addressed: /assets/fonts.css, /css/zsite-core.css, /js/zsite-core.js
+# and the /template/<id>/ stylesheets and scripts all keep the same filename
+# when their contents change, and every page references them with no version
+# query. "immutable" told browsers not to revalidate even on a hard reload, so
+# an edit to any of them could go unseen by a returning visitor for a year.
+# One hour, then revalidate: still cached for normal browsing, but a change
+# reaches everyone the same day. See CLAUDE.md.
+/assets/*
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/css/*
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/js/*
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/template/*
+  Cache-Control: public, max-age=3600, must-revalidate
+
+# The fonts are the one genuinely content-addressed set — the hash is in the
+# filename, so a changed font is a changed URL. Safe to pin for a year. Listed
+# after /assets/* so it wins where rule order decides.
+/assets/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
