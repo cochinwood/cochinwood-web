@@ -9,7 +9,7 @@ domain root (Cloudflare Pages at cochinwood.in).
     python build.py          # builds to dist/ at root ("")
     SITE_BASE=/cochinwood-web python build.py
 """
-import os, re, json, shutil, html, urllib.parse, datetime, struct
+import os, re, json, shutil, html, urllib.parse, datetime, struct, hashlib
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 DIST = os.path.join(ROOT, "dist")
@@ -416,7 +416,7 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
 <meta name="twitter:image" content="{OG_IMAGE}">
 <meta name="theme-color" content="#1f5132">
 {preloads}
-<link rel="stylesheet" href="{u('/assets/bundle.css')}">
+<link rel="stylesheet" href="{u('/assets/' + ASSETS['bundle.css'])}">
 {extra_head}</head>
 <body class="{body_class}">
 <a class="cw-skip" href="#main">Skip to content</a>
@@ -426,7 +426,7 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
 {footer()}
 <a class="cw-wa" href="https://wa.me/{CONTACT['wa']}" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" focusable="false"><path fill="currentColor" d="M.06 24l1.68-6.16A11.87 11.87 0 010 11.9C0 5.33 5.36 0 11.95 0a11.9 11.9 0 018.42 3.48 11.75 11.75 0 013.49 8.37c0 6.56-5.36 11.9-11.96 11.9-2 0-3.96-.5-5.7-1.45L.06 24zm6.6-3.8c1.68.99 3.28 1.58 5.4 1.58 5.45 0 9.9-4.42 9.9-9.87a9.8 9.8 0 00-2.9-6.99 9.9 9.9 0 00-7-2.9C6.6 2.02 2.15 6.44 2.15 11.9c0 2.2.62 3.85 1.67 5.57l-.99 3.6 3.83-.87zm11.6-5.5c-.08-.13-.28-.2-.58-.35-.3-.15-1.76-.86-2.03-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.14-.14.3-.36.45-.53.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41z"/></svg></a>
 <button class="cw-top" type="button" aria-label="Back to top" hidden>&uarr;</button>
-<script src="{u('/assets/site.js')}" defer></script>
+<script src="{u('/assets/' + ASSETS['site.js'])}" defer></script>
 </body>
 </html>'''
 
@@ -661,7 +661,11 @@ def build_about():
         if os.path.exists(fp): parts.append(process_content(open(fp, encoding="utf-8").read()))
     if not parts: return 0
     meta = PAGE_META.get("about", {})
-    body = f'<main class="cw-page"><div class="cw-wrap">{"".join(parts)}</div></main>'
+    # The page opens on the "Our history" section label, so it carried no <h1> at
+    # all — the only page on the site without one. The heading is hidden rather
+    # than drawn so the layout is untouched.
+    h1 = '<h1 class="cw-sr-only">About Cochin Wood Industries</h1>'
+    body = f'<main class="cw-page"><div class="cw-wrap">{h1}{"".join(parts)}</div></main>'
     write("about/index.html", src=os.path.join("content","pages","about-operation.html"), content=base(meta.get("title","About Cochin Wood Industries"),
           meta.get("desc",""), "/about", body, body_class="cw-contentpage",
           crumbs=[("Home", "/"), ("About", None)]))
@@ -789,21 +793,51 @@ def _css_fix_urls(css, name):
         return "none"
     return re.sub(r"url\((['\"]?)(/files/[^)'\"]+)\1\)", sub, css)
 
+_bundle_css = None
+def css_bundle_content():
+    """Concatenated CSS bundle. Memoised: the hash is needed before pages render,
+    and _css_fix_urls() must only record its /files/ references once."""
+    global _bundle_css
+    if _bundle_css is None:
+        src = os.path.join(ROOT, "assets")
+        parts = []
+        for name in CSS_BUNDLE:
+            fp = os.path.join(src, name)
+            if not os.path.exists(fp):
+                warn(f"css bundle: missing {name}"); continue
+            parts.append(f"/* --- {name} --- */\n" + _css_fix_urls(open(fp, encoding="utf-8").read(), name))
+        _bundle_css = "\n".join(parts)
+    return _bundle_css
+
+# /assets/* is served immutable for a year, so the two files that actually change
+# between deploys carry a content hash in their name. Without it a returning
+# visitor keeps the old CSS/JS until the cache expires. Fonts already ship with
+# hashed names; the logo and icons are versioned by hand when they change.
+ASSETS = {"bundle.css": "bundle.css", "site.js": "site.js"}
+
+def _digest(data):
+    if isinstance(data, str): data = data.encode("utf-8")
+    return hashlib.sha256(data).hexdigest()[:8]
+
+def fingerprint_assets():
+    ASSETS["bundle.css"] = f"bundle.{_digest(css_bundle_content())}.css"
+    jp = os.path.join(ROOT, "assets", "site.js")
+    if os.path.exists(jp):
+        ASSETS["site.js"] = f"site.{_digest(open(jp, 'rb').read())}.js"
+
 def build_css_bundle():
-    src = os.path.join(ROOT, "assets")
-    parts = []
-    for name in CSS_BUNDLE:
-        fp = os.path.join(src, name)
-        if not os.path.exists(fp):
-            warn(f"css bundle: missing {name}"); continue
-        parts.append(f"/* --- {name} --- */\n" + _css_fix_urls(open(fp, encoding="utf-8").read(), name))
-    write("assets/bundle.css", "\n".join(parts))
+    write("assets/" + ASSETS["bundle.css"], css_bundle_content())
 
 def assets_and_meta():
     src = os.path.join(ROOT, "assets")
     dst = os.path.join(DIST, "assets")
     if os.path.exists(dst): shutil.rmtree(dst)
     shutil.copytree(src, dst, ignore=shutil.ignore_patterns("photos"))
+    # publish site.js under its fingerprinted name so the immutable header is safe
+    if ASSETS["site.js"] != "site.js":
+        plain = os.path.join(dst, "site.js")
+        if os.path.exists(plain):
+            os.replace(plain, os.path.join(dst, ASSETS["site.js"]))
     build_css_bundle()
     open(os.path.join(DIST, ".nojekyll"), "w").close()
     # Cloudflare Pages headers (ignored by GitHub Pages, honoured by CF Pages)
@@ -835,6 +869,7 @@ def assets_and_meta():
 def main():
     if os.path.exists(DIST): shutil.rmtree(DIST)
     os.makedirs(DIST)
+    fingerprint_assets()         # hashes must exist before any page references them
     home(); products(); contact()
     n = encyclopedia()
     p = build_content_pages()

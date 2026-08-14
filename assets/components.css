@@ -16,6 +16,22 @@
 }
 .cw-skip:focus { left: 0; }
 
+/* ---- visually hidden ----------------------------------------------------
+   Read by screen readers and search engines, painted nowhere. Used where a
+   page's design opens on a section label rather than a document heading. */
+.cw-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* Visible keyboard focus everywhere — the Zoho theme suppressed it. */
 a:focus-visible,
 button:focus-visible,
