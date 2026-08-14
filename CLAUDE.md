@@ -71,8 +71,14 @@ of using `/assets/*`.
 
 `css/zsite-core.css` and `template/<id>/stylesheets/*.css` are Zoho theme
 stylesheets carried over by the mirror. Well over 90% of their rules could never
-match any element on this site, so on 2026-08-15 they were reduced with
-`tools/purge-css.py`: 264KB + 188KB + 1.3KB of CSS became 40KB + 42KB + 124B.
+match any element on this site, so on 2026-08-15 they were reduced with the purge
+script: 264KB + 188KB + 1.3KB of CSS became 40KB + 42KB + 124B.
+
+The script lives on the **`master`** branch at `tools/purge-css.py`, deliberately
+not here — Cloudflare Pages publishes every committed file on this branch, and
+`master` is not deployed. Fetch it without switching branches:
+
+    git show master:tools/purge-css.py > /tmp/purge-css.py
 
 The script keeps a selector when every class and id token in it appears somewhere
 in the 293 HTML files **or** in any JavaScript string literal (so runtime-added
@@ -83,7 +89,7 @@ unconditionally.
 styling will be missing.** Restore the full stylesheet from git history, add the
 markup, then re-run:
 
-    python tools/purge-css.py css/zsite-core.css \
+    python /tmp/purge-css.py css/zsite-core.css \
       template/<id>/stylesheets/style.css template/<id>/stylesheets/sub-style.css
 
 Verify the same way it was verified originally: serve the before and after trees
