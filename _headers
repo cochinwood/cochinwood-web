@@ -2,6 +2,16 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
 
+# Repo docs. Cloudflare Pages serves any committed file and prefers it over every
+# _redirects rule, so a redirect cannot hide this - a 404 rule for /CLAUDE.md was
+# tried on 2026-08-15 and the file was still served. It cannot be moved either:
+# Claude Code loads CLAUDE.md from the repo root, which is also the web root.
+# Keeping search engines off it is the part that is actually achievable. Nothing
+# in it is secret; it describes the branch layout.
+/CLAUDE.md
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store
+
 /files/*
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=86400
