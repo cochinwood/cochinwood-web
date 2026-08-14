@@ -16,9 +16,16 @@ static site** that Claude can fully build, audit and manage. Recurring cost **$0
 
 ## Branches / deploy
 - `master` — source (`build.py`, `assets/`, `content/`). `dist/` is gitignored.
+  **Not deployed.**
 - `gh-pages` — built preview (`SITE_BASE=/cochinwood-web`). GitHub Pages serves it.
-- **Production** — Cloudflare Pages builds `python build.py` (SITE_BASE unset) and
-  serves `dist/` at cochinwood.in. Private repo is fine there.
+- `cf-live` — **production today.** Cloudflare Pages serves this branch verbatim at
+  cochinwood.in: ~293 hand-maintained `.html` files, no build step. It is the static
+  mirror of the old Zoho site plus every fix since. Until Phase 6 below is done, this
+  is the only branch a visitor ever sees.
+- **Production after cutover (target state, NOT yet live)** — Cloudflare Pages will
+  build `python build.py` (SITE_BASE unset) and serve `dist/` at cochinwood.in.
+  Private repo is fine there. Phase 6 is what flips production from `cf-live` to
+  this build; nothing on `master` reaches users before that.
 
 ## Phases
 **Phase 1 — foundation & first pages ✅ (this build)**
