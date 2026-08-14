@@ -52,15 +52,45 @@ Work landed on `master` reaches no users today.
 - `robots.txt`, `sitemap.xml` — hand-maintained; keep them in step with the pages
   that actually exist.
 
-## Caching caveat
+## Caching
 
-`_headers` marks `/assets/*`, `/css/*`, `/js/*` and `/template/*` as
-`max-age=31536000, immutable`. Only `assets/fonts/*.woff2` are genuinely
-content-addressed. The rest — `assets/fonts.css`, `css/zsite-core.css`,
-`js/zsite-core.js`, the `template/` stylesheets — have stable filenames and are
-referenced with no version query string, so an edit to any of them will not reach
-a returning visitor, and `immutable` means even a hard reload will not revalidate.
-Narrow those rules before relying on them.
+Fixed 2026-08-15. Only `assets/fonts/*.woff2` carry a hash in the filename, so
+only they are served `immutable` for a year. Everything else with a stable
+filename — `assets/fonts.css`, `css/zsite-core.css`, `js/zsite-core.js`, the
+`template/` stylesheets — is `max-age=3600, must-revalidate`, because an edit to
+those does not change their URL and `immutable` would hide the change from
+returning visitors for up to a year.
+
+Note when editing `_headers`: Cloudflare Pages **merges every matching rule**
+rather than letting the most specific one win. Two rules matching one path append
+two `Cache-Control` values into a single header. Keep the path patterns disjoint —
+this is why `/assets/fonts.css` and `/assets/og/*` are named individually instead
+of using `/assets/*`.
+
+## The Zoho theme CSS is purged — regenerate it, don't hand-edit
+
+`css/zsite-core.css` and `template/<id>/stylesheets/*.css` are Zoho theme
+stylesheets carried over by the mirror. Well over 90% of their rules could never
+match any element on this site, so on 2026-08-15 they were reduced with
+`tools/purge-css.py`: 264KB + 188KB + 1.3KB of CSS became 40KB + 42KB + 124B.
+
+The script keeps a selector when every class and id token in it appears somewhere
+in the 293 HTML files **or** in any JavaScript string literal (so runtime-added
+class names survive), and keeps tag-only, attribute and `:root` selectors
+unconditionally.
+
+**If you add markup that uses a Zoho theme class not currently on the site, its
+styling will be missing.** Restore the full stylesheet from git history, add the
+markup, then re-run:
+
+    python tools/purge-css.py css/zsite-core.css \
+      template/<id>/stylesheets/style.css template/<id>/stylesheets/sub-style.css
+
+Verify the same way it was verified originally: serve the before and after trees
+on two ports, and for each page compare a digest of `getComputedStyle` across
+every element in `body`. **Wait for `document.fonts.ready` plus a settle delay
+before measuring** — measuring during webfont load produces false differences,
+which cost an hour the first time.
 
 ## Automated audit
 
