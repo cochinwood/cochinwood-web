@@ -18,8 +18,11 @@
 # an edit to any of them could go unseen by a returning visitor for a year.
 # One hour, then revalidate: still cached for normal browsing, but a change
 # reaches everyone the same day. See CLAUDE.md.
-/assets/*
+/assets/fonts.css
   Cache-Control: public, max-age=3600, must-revalidate
+
+/assets/og/*
+  Cache-Control: public, max-age=86400
 
 /css/*
   Cache-Control: public, max-age=3600, must-revalidate
@@ -31,7 +34,10 @@
   Cache-Control: public, max-age=3600, must-revalidate
 
 # The fonts are the one genuinely content-addressed set — the hash is in the
-# filename, so a changed font is a changed URL. Safe to pin for a year. Listed
-# after /assets/* so it wins where rule order decides.
+# filename, so a changed font is a changed URL. Safe to pin for a year. Note the
+# rules above name /assets/fonts.css and /assets/og/* individually rather than
+# using /assets/*: Cloudflare Pages MERGES every matching rule into one header
+# rather than letting the most specific win, so an /assets/* rule would append a
+# second, conflicting max-age to this one.
 /assets/fonts/*
   Cache-Control: public, max-age=31536000, immutable
