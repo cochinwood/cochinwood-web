@@ -43,6 +43,19 @@
 /template/*
   Cache-Control: public, max-age=3600, must-revalidate
 
+# --- 2026-08-15 audit: the two root-level assets had no Cache-Control at all ---
+# /zs-customcss.css (75KB, render-blocking, linked from every page) and
+# /zs-lang_en_US.js (53KB, linked from 292) sit at the web root, so none of the
+# directory rules above reach them and they fell through to the Pages default.
+# Same one-hour-then-revalidate policy as the other non-hashed CSS and JS. The
+# ?v= query every page already appends to the stylesheet still forces an
+# immediate refetch whenever that value is bumped.
+/zs-customcss.css
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/zs-lang_en_US.js
+  Cache-Control: public, max-age=3600, must-revalidate
+
 # The fonts are the one genuinely content-addressed set — the hash is in the
 # filename, so a changed font is a changed URL. Safe to pin for a year. Note the
 # rules above name /assets/fonts.css and /assets/og/* individually rather than
