@@ -133,5 +133,8 @@ South America is what produced an earlier false five-continent claim, which is
 why the count was cut to four in the first place. If Chile ever lapses, four
 becomes correct again — so check the list, never repeat the number from memory.
 
-Why this gets audited at all: a buyer can verify a shipping claim faster than
-anything else on the site, and CWI asks strangers for a 50% advance.
+Why this gets audited at all: an export-reach claim is among the easiest things
+on the site for a buyer to check, so it has to match the country list exactly.
+
+(Kept deliberately brief. This file is publicly readable — see the `/CLAUDE.md`
+note in `_headers` — so commercial reasoning belongs in memory, not here.)
