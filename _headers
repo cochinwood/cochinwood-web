@@ -12,6 +12,15 @@
   X-Robots-Tag: noindex, nofollow
   Cache-Control: no-store
 
+# The CI workflow, same situation as CLAUDE.md above and for the same reason: Pages publishes every
+# committed file on this branch — `.nojekyll` is committed and answers 200 — and GitHub only runs a
+# workflow that is on the branch it triggers from, so this one cannot live anywhere else. Nothing in
+# it is secret; it names two pinned action shas and fetches the checker from `master`. Keeping it
+# out of the index is the part that is achievable. The checker itself is NOT here, deliberately.
+/.github/*
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store
+
 /files/*
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=86400
