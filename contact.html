@@ -347,7 +347,28 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
 <div class="cwq2-field"><label for="cwq2-incoterm">Quote basis</label><select id="cwq2-incoterm" name="incoterm" data-pack="Quote basis"><option value="">Not sure — advise me</option><option>Delivered within India</option><option>Ex-works Perumbavoor</option><option>FCA Cochin</option><option>FOB Cochin</option><option>CFR destination port</option><option>CIF destination port</option></select></div>
 </div>
 <div class="cwq2-field"><label for="cwq2-msg">Anything else</label><textarea id="cwq2-msg" name="description" placeholder="Sizes, monthly volume, timing…"></textarea></div>
-<div class="cf-turnstile" data-sitekey="0x4AAAAAAEC9o-zON82Wc-NR" data-theme="light" style="margin:0 0 14px"></div>
+<!-- data-error-callback: the ONLY way anyone finds out Turnstile has started refusing real buyers.
+     The form still submits without a token and the Worker still refuses it and still shows the
+     ordinary thank-you, so a wrongly-refused buyer is told "Request received" and never writes
+     again. Nothing else can see that: the hourly probe is signed past this gate on purpose, an
+     automated browser is not issued a token at all, and the enquiry volume is far too low for its
+     absence to mean anything. This fires on VISITORS, which the site has plenty of. -->
+<div class="cf-turnstile" data-sitekey="0x4AAAAAAEC9o-zON82Wc-NR" data-theme="light" data-error-callback="cwq2TsFail" style="margin:0 0 14px"></div>
+<script>
+  /* Global because Turnstile resolves the callback by name off window. Deliberately says nothing to
+     the buyer and returns nothing, so Turnstile's own retry behaviour is left exactly as it was —
+     this reports, it does not interfere. sendBeacon so a page the visitor is leaving still sends it,
+     falling back to a keepalive fetch where sendBeacon is missing. Nothing personal is sent: the
+     error code and nothing else. */
+  window.cwq2TsFail = function (code) {
+    try {
+      var u = 'https://www.cochinwood.in/ts-fail?c=' +
+              encodeURIComponent(String(code == null ? 'unknown' : code).slice(0, 24));
+      if (navigator.sendBeacon) navigator.sendBeacon(u);
+      else fetch(u, { method: 'POST', mode: 'no-cors', keepalive: true });
+    } catch (e) { /* a monitor must never break the form it is watching */ }
+  };
+</script>
 <p class="cwq2-error" id="cwq2-error" role="alert"></p><button class="cwq2-submit" type="submit">Request a written quote <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"></path></svg></button><p class="cwq2-fine">We reply within one business day. Your details are used only to quote your enquiry.</p></form></div>
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   (function () {
