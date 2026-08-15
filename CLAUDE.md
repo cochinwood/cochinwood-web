@@ -103,3 +103,35 @@ which cost an hour the first time.
 A scheduled cloud routine audits this branch every 6 hours and opens a single
 `audit/<date>` PR against `cf-live`. It must verify every finding against the
 actual file before fixing, and opens no PR when nothing survives verification.
+
+## Export reach: FIVE continents, and the fifth is Chile
+
+**Do not "correct" this to four.** The `cochin-wood-brand-voice` skill may still
+say *"four continents, not five — never write five continents."* That card is
+STALE. Edwin confirmed Chile as a live South American market on 15 Aug 2026 and
+the site was updated in `810e7b5b`. This file is the authority; the skill loses.
+
+| Continent | Markets |
+|---|---|
+| Asia | India (domestic), Sri Lanka, Turkey, GCC — UAE, Saudi Arabia, Qatar, Oman, Kuwait, Bahrain |
+| Africa | South Africa, Nigeria, Kenya |
+| Europe | Netherlands |
+| North America | United States, Haiti, Puerto Rico, Dominican Republic |
+| South America | **Chile** |
+
+**Never move the number without the list.** 292 pages carry a JSON-LD FAQ
+answering *"Which export markets do you currently ship to?"* with the countries
+spelled out. Changing the headline count alone leaves the site claiming one
+number in the copy Google reads and another in the data Google indexes — worse
+than either version, and the exact self-refuting shape the 10 Aug 2026 audit
+existed to remove. Re-parse every `ld+json` block after such an edit; there were
+1431 of them and all were checked that day.
+
+**The fifth continent rests on Chile alone.** Haiti, Puerto Rico and the
+Dominican Republic are Caribbean islands in **North** America. Reading them as
+South America is what produced an earlier false five-continent claim, which is
+why the count was cut to four in the first place. If Chile ever lapses, four
+becomes correct again — so check the list, never repeat the number from memory.
+
+Why this gets audited at all: a buyer can verify a shipping claim faster than
+anything else on the site, and CWI asks strangers for a 50% advance.
