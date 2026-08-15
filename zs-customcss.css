@@ -980,7 +980,7 @@ body{margin:0;background:#fff;font-family:Poppins,system-ui,sans-serif;color:#14
 .theme-single-post .zpsnippet-container .cwp__cta a.cwp__btn--secondary{color:#fff !important}
 
 /* Blog author block: CWI emblem as avatar + de-purple the author name (2026-06-09) */
-.theme-single-post .theme-blog-author-img{background:#fff url('/files/Logo/Cochin%20wood%20logo.png') center/cover no-repeat}
+.theme-single-post .theme-blog-author-img{background:#fff url('/files/Logo/cochin-wood-logo-256.png') center/cover no-repeat}
 .theme-single-post .theme-blog-author-img svg{display:none !important}
 .theme-single-post .theme-blog-author-name{color:#1B4332 !important;font-family:'Bree Serif',Georgia,serif !important}
 
