@@ -377,18 +377,6 @@ window.__CWSVGZ="H4sIAAAAAAACA8VVTXPaMBD9Kzvk0s40WJKNMRnKTEigF3rspcNFyMKoMTaRRUj
   }
   ready(go);
 })();
-</script><script>/* CWI resources JSON-LD v1 */
-(function(){"use strict";
-function ready(f){if(document.readyState!=="loading"){f();}else{document.addEventListener("DOMContentLoaded",f);}}
-ready(function(){try{
-if(location.pathname.replace(/\/$/,"")!=="/resources")return;
-if(document.getElementById("cw-resources-ld"))return;
-var items=[];var seen={};
-[].slice.call(document.querySelectorAll('a[href^="/guides/"],a[href^="/blogs/post/"],a[href^="/blogs"]')).forEach(function(a){var h=a.getAttribute("href");if(!h||seen[h])return;seen[h]=1;var t=(a.querySelector("h3")?a.querySelector("h3").textContent:a.textContent).trim().replace(/\s+/g," ").slice(0,90);if(t.length>3&&items.length<60)items.push({"@type":"ListItem","position":items.length+1,"name":t,"url":"https://www.cochinwood.in"+h});});
-var ld={"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.cochinwood.in/"},{"@type":"ListItem","position":2,"name":"Resources","item":"https://www.cochinwood.in/resources"}]},{"@type":"CollectionPage","name":"Plywood Resources and Buyer Guides","url":"https://www.cochinwood.in/resources","mainEntity":{"@type":"ItemList","numberOfItems":items.length,"itemListElement":items}}]};
-var s=document.createElement("script");s.type="application/ld+json";s.id="cw-resources-ld";s.textContent=JSON.stringify(ld);document.head.appendChild(s);
-}catch(e){}});
-})();
 </script><!-- cw-guide-post-seo: meta description for cwg__ guide posts + static og:image for all blog posts (2026-06-10) --><script id="cw-guide-post-seo">(function(){try{
 if(!/^\/blogs\/post\//.test(location.pathname))return;
 function setMeta(sel,val){var m=document.querySelector(sel);if(!m){var p=sel.match(/\[(name|property)="([^"]+)"\]/);if(!p)return;m=document.createElement("meta");m.setAttribute(p[1],p[2]);document.head.appendChild(m);}m.setAttribute("content",val);}
