@@ -1,0 +1,48 @@
+name: Site checks
+
+# THE BRANCH IS THE BUILD. Cloudflare Pages serves cf-live verbatim: no build step, no generator,
+# no package manager. What is committed here is byte-for-byte what a visitor receives, which means
+# there has never been anything between a typo and production. This is that thing.
+#
+# It runs on pull_request as well as push, because on this branch a merge IS a deploy — Pages
+# publishes the moment cf-live moves, so a check that only ran afterwards would be telling you
+# about a page buyers were already reading.
+on:
+  push:
+    branches: [cf-live]
+  pull_request:
+    branches: [cf-live]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Pinned to a COMMIT with the release in the comment, same as the app repo: a tag is a mutable
+# pointer the upstream owner can move, and an Action runs with access to this checkout. Both
+# releases declare `using: node24`, checked by reading action.yml at the pinned sha rather than
+# inferred from the version number.
+
+jobs:
+  site:
+    name: The site says one thing
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97  # v7.0.0
+        with:
+          python-version: "3.13"
+
+      # THE CHECKER IS NOT IN THIS BRANCH ON PURPOSE. Pages publishes every committed file on
+      # cf-live — `.nojekyll` is committed here and answers 200, so anything added would be
+      # downloadable from www.cochinwood.in. It lives on `master`, which is not deployed, exactly
+      # like tools/purge-css.py. Fetched shallow; the checkout above is the tree being tested.
+      - name: Fetch the checker from master
+        run: |
+          set -e
+          git fetch --depth=1 origin master
+          git show origin/master:tools/check_site.py > "$RUNNER_TEMP/check_site.py"
+
+      # Stdlib only, so there is nothing to install. Runs against the working tree, which is this
+      # branch exactly as Pages would serve it.
+      - name: Check the site
+        run: python "$RUNNER_TEMP/check_site.py"
