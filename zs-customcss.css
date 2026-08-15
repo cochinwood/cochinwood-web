@@ -1037,7 +1037,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 input:focus-visible,select:focus-visible,textarea:focus-visible{border-color:#007a5e !important;}
 .skip-to-main{position:absolute;left:8px;top:-60px;z-index:100000;display:inline-block;padding:10px 16px;min-height:44px;line-height:24px;background:#007a5e;color:#fff !important;font-family:"Poppins",system-ui,sans-serif;font-size:15px;font-weight:600;text-decoration:none;border-radius:0 0 6px 0;transition:top .15s ease;}
 .skip-to-main:focus,.skip-to-main:focus-visible{top:0;outline:2px solid #fff !important;outline-offset:2px !important;box-shadow:0 0 0 4px rgba(0,122,94,.35) !important;}
-#main{scroll-margin-top:90px;}
+#main,#thememaincontent{scroll-margin-top:90px;}
 header nav a,header nav button,footer a,.zs-menu a,.zs-footer a,a[href^="https://wa.me"],a[href^="https://web.whatsapp.com"],a[href^="tel:"],a[href^="mailto:"],a[aria-label],.social-icons a,.zs-social a{min-height:44px;min-width:44px;display:inline-flex;align-items:center;justify-content:center;}
 .whatsapp-float,.wa-float,.call-float,a.float-btn{min-width:44px;min-height:44px;}
 p a,li a,.cw__prose a,.blog-content a{min-height:0;min-width:0;display:inline;}
