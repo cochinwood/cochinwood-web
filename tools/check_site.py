@@ -93,36 +93,46 @@ def market_answer(src):
     return m.group(1) if m else None
 
 def check_continents():
-    pages = 0
+    """One canonical count, derived from the country list, enforced against every page's copy.
+
+    This used to compare copy against the FAQ ON THE SAME PAGE, which worked only because all 292
+    pages carried the FAQ — and they carried it in a script that never ran. With the FAQ made static
+    it lives on one page, so a per-page comparison would pass on the 291 that no longer have it.
+    The site-wide form is the stronger check anyway: the country list is the authority, and EVERY
+    page's claim has to match it. It also catches two pages disagreeing with each other, which the
+    per-page version never could."""
+    answers = {}
+    for p in HTML:
+        t = market_answer(p.read_text(encoding="utf-8", errors="replace"))
+        if t: answers[rel(p)] = t
+    if not answers:
+        bad("continents", "(site)", "the export-market FAQ is not on any page — the country list "
+                                    "is the authority for the count and it has gone")
+        return 0
+
+    counts = set()
+    for where, text in answers.items():
+        named = [c for c in CONTINENTS if re.search(r"\b" + c + r"\b", text)]
+        # South America must not be inferred from a Caribbean island — see CLAUDE.md. Haiti, Puerto
+        # Rico and the Dominican Republic are NORTH America; reading them as South is what produced
+        # the earlier false five-continent claim.
+        if "South America" in named and "Chile" not in text:
+            bad("continents", where,
+                "the answer claims South America without naming Chile")
+        counts.add(len(named))
+    if len(counts) > 1:
+        bad("continents", "(site)",
+            f"the export-market answer names different continent counts on different pages: {sorted(counts)}")
+        return len(answers)
+
+    canon = counts.pop()
     for p in HTML:
         src = p.read_text(encoding="utf-8", errors="replace")
-        text = market_answer(src)
         claims = {WORD[m.group(1).lower()] for m in CLAIM.finditer(src)}
-        if text is None:
-            if claims:
-                bad("continents", rel(p),
-                    f"the copy claims {sorted(claims)} continent(s) but the page carries no export-"
-                    "market FAQ to check it against")
-            continue
-        pages += 1
-        named = [c for c in CONTINENTS if re.search(r"\b" + c + r"\b", text)]
-        # "North America" contains "America"; the list above is explicit so there is no overlap,
-        # but South America must not be inferred from a Caribbean island — see CLAUDE.md.
-        if "South America" in named and "Chile" not in text:
+        if claims and claims != {canon}:
             bad("continents", rel(p),
-                "the answer claims South America without naming Chile. Haiti, Puerto Rico and the "
-                "Dominican Republic are NORTH America; reading them as South is what produced the "
-                "earlier false five-continent claim")
-        if not claims:
-            continue
-        if claims != {len(named)}:
-            bad("continents", rel(p),
-                f"copy says {sorted(claims)} continent(s); the FAQ answer names {len(named)} "
-                f"({', '.join(named)})")
-    if pages == 0:
-        bad("continents", "(site)", "no export-market FAQ found on any page — this check would "
-                                    "pass on a site that had lost it entirely")
-    return pages
+                f"the copy claims {sorted(claims)} continent(s); the country list names {canon}")
+    return len(answers)
 
 
 # ---------------------------------------------------------------------------------------------
