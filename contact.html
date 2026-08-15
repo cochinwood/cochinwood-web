@@ -219,58 +219,7 @@
 </script><script>
 /* a11y 2026-06-04: alt text for Zoho captcha image (builder exposes no alt) */
 (function(){function fix(){document.querySelectorAll('img.captcha_img:not([alt])').forEach(function(i){i.setAttribute('alt','Verification code image');});}fix();var o=new MutationObserver(function(){fix();});o.observe(document.documentElement,{childList:true,subtree:true});setTimeout(function(){o.disconnect();},20000);})();
-</script><!-- CWI blog-post SEO enhancements (audit 2026-06-09): real meta description from lede, FAQPage + BreadcrumbList, BlogPosting fixups. Scoped to /blogs/post/*, runs after DOM ready, fully try/caught. --><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"><script>
-(function(){
-  var p = (window.location.pathname || "");
-  if (p.indexOf("/blogs/post/") !== 0) return;
-  var PH = /You can edit text on your website/i;
-  function inject(obj){ var s=document.createElement("script"); s.type="application/ld+json"; s.text=JSON.stringify(obj); document.head.appendChild(s); }
-  function run(){
-    try {
-      var th=document.querySelector("h1.theme-single-blog-heading"); if(th&&document.querySelectorAll("h1").length>1){var nh=document.createElement("h2"); nh.className=th.className; nh.setAttribute("data-cw-demoted","1"); nh.innerHTML=th.innerHTML; th.parentNode.replaceChild(nh,th);} var __th=document.querySelector("h1.theme-single-blog-heading"),__hero=document.querySelector(".cwp__h1,.cwg__h1"); if(__th&&__hero){var __e=__th,__hid=null;for(var __k=0;__k<6&&__e;__k++){if(getComputedStyle(__e).display==="none"){__hid=__e;break;}__e=__e.parentElement;} if(__hid&&!__hid.getAttribute("data-cw-srh")){__hid.setAttribute("data-cw-srh","1");__hid.style.cssText+=";display:block!important;position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0 0 0 0)!important;clip-path:inset(50%)!important;white-space:nowrap!important;margin:-1px!important;padding:0!important;border:0!important;";}}
-      var lede = document.querySelector(".cwp__lede");
-      var desc = lede ? lede.textContent.trim() : "";
-      if (desc.length > 158){ desc = desc.slice(0,158); var sp=desc.lastIndexOf(" "); if(sp>120) desc=desc.slice(0,sp); desc += "…"; }
-      if (desc) {
-        [["meta[name=description]"],['meta[property="og:description"]'],['meta[name="twitter:description"]']].forEach(function(s){
-          var m=document.querySelector(s[0]); if(m && PH.test(m.getAttribute("content")||"")) m.setAttribute("content", desc);
-        });
-      }
-      var tc=document.querySelector('meta[name="twitter:card"]'); if(tc) tc.setAttribute("content","summary_large_image");
-      document.querySelectorAll('script[type="application/ld+json"]').forEach(function(sc){
-        try { var d=JSON.parse(sc.textContent);
-          if (d && d["@type"]==="BlogPosting"){
-            if (desc && PH.test(d.description||"")) d.description=desc;
-            if (d.author && d.author["@type"]==="Person") d.author={"@type":"Organization","name":"Cochin Wood Industries","url":"https://www.cochinwood.in/"};
-            if (!d.mainEntityOfPage) d.mainEntityOfPage=location.href.split("?")[0].split("#")[0];
-            sc.text=JSON.stringify(d);
-          }
-        } catch(e){}
-      });
-      var faq=[];
-      [].forEach.call(document.querySelectorAll(".cwp__container"), function(c){
-        var eb=c.querySelector(".cwp__eyebrow");
-        if (eb && /^FAQ/i.test(eb.textContent.trim())){
-          [].forEach.call(c.querySelectorAll("h3"), function(h){
-            var a=h.nextElementSibling;
-            if (a && a.tagName==="P") faq.push({"@type":"Question","name":h.textContent.trim(),"acceptedAnswer":{"@type":"Answer","text":a.textContent.trim()}});
-          });
-        }
-      });
-      if (faq.length) inject({"@context":"https://schema.org","@type":"FAQPage","mainEntity":faq});
-      var cr=document.querySelector("nav.cwp__crumb");
-      if (cr){
-        var items=[], pos=1;
-        [].forEach.call(cr.querySelectorAll("a"), function(a){ items.push({"@type":"ListItem","position":pos++,"name":a.textContent.trim(),"item":a.href}); });
-        var cur=cr.querySelector('[aria-current="page"]');
-        if (cur) items.push({"@type":"ListItem","position":pos++,"name":cur.textContent.trim(),"item":location.href.split("?")[0].split("#")[0]});
-        if (items.length>=2) inject({"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":items});
-      }
-    } catch(e){}
-  }
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run); else run();
-})();
-</script><script>/* CWI resources JSON-LD v1 */
+</script><!-- CWI blog-post SEO enhancements (audit 2026-06-09): real meta description from lede, FAQPage + BreadcrumbList, BlogPosting fixups. Scoped to /blogs/post/*, runs after DOM ready, fully try/caught. --><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"><script>/* CWI resources JSON-LD v1 */
 (function(){"use strict";
 function ready(f){if(document.readyState!=="loading"){f();}else{document.addEventListener("DOMContentLoaded",f);}}
 ready(function(){try{
