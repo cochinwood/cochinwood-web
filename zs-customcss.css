@@ -1043,6 +1043,15 @@ header nav a,header nav button,footer a,.zs-menu a,.zs-footer a,a[href^="https:/
 p a,li a,.cw__prose a,.blog-content a{min-height:0;min-width:0;display:inline;}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important;}html{scroll-behavior:auto !important;}}
 .cw__eyebrow,.eyebrow,.caption,.cw__caption,figcaption,small,.text-muted,.zs-caption{color:#4a575e !important;}
+/* Correction 2026-08-16 audit. The rule above darkens muted text to #4a575e so it clears AA
+   on the light page background - which it does. But it carries no background condition, so it
+   also repaints the eyebrow inside .cw__section--ink, the dark teal (#007A5E) CTA band, where
+   #4a575e lands at 1.4:1 and the label is effectively invisible. Five places on the site put a
+   .cw__eyebrow on that band, and all five were unreadable: /index "Ready when you are",
+   /about "From the director" and "Nurturing our roots", /industries "Tell us your sector",
+   /products "Tell us your project". White is what the band already uses for its own headings
+   and takes those labels to 5.3:1. Eyebrows on light backgrounds keep #4a575e. */
+.cw__section--ink .cw__eyebrow{color:#ffffff !important;}
 
 
 /* === Responsive audit fixes 2026-06-15: mobile hero stacking + footer font === */
