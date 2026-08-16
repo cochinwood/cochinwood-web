@@ -44,6 +44,24 @@ before and after, at both 375px and 1280px.
 
 Work landed on `master` reaches no users today.
 
+## `cf-live` is gated, because on this branch a push IS a deploy
+
+Pages publishes the moment `cf-live` moves, so a check that ran afterwards was
+telling you about pages buyers were already reading. Since 15 Aug 2026 the branch
+requires the **`The site says one thing`** status check to pass before a commit can
+land: work on another branch, let the check run there, then merge or fast-forward.
+
+The check is `.github/workflows/site-checks.yml` here, running `tools/check_site.py`
+from `master` — it is not in this branch because Pages would publish it. It verifies
+that every `ld+json` block parses, that the continent count in the copy matches the
+country list, that no two `_headers` rules setting `Cache-Control` can match one path,
+that every root-relative link is a committed file or a `_redirects` rule, and that the
+quote form still posts to `/web-lead` with its honeypot and Turnstile error-callback.
+
+Administrators can still bypass — deliberately, so a broken checker or a GitHub outage
+cannot stop you rolling back. That escape hatch is for emergencies, not for skipping a
+red check.
+
 ## Config files
 
 - `_headers`, `_redirects` — Cloudflare Pages config, hand-maintained.
