@@ -331,8 +331,8 @@
           return c.closest('.cwq2-chip').textContent.trim();
         }).join(', ');
         var lines = ['New quote request — cochinwood.in', '',
-          'Name: ' + g('Last Name'), 'Company: ' + g('Company'),
-          'Email: ' + g('Email'), 'Phone: ' + g('Phone'),
+          'Name: ' + g('name'), 'Company: ' + g('company'),
+          'Email: ' + g('email'), 'Phone: ' + g('phone'),
           'Products: ' + prods, 'Destination: ' + (document.getElementById('cwq2-port').value || ''),
           desc.value ? 'Details: ' + desc.value : ''];
         window.open('https://wa.me/919567410175?text=' + encodeURIComponent(lines.join('\n')), '_blank');
