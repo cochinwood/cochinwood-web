@@ -979,6 +979,18 @@ body{margin:0;background:#fff;font-family:Poppins,system-ui,sans-serif;color:#14
 .theme-single-post .zpsnippet-container .cwp__cta a.cwp__btn{color:#1B4332 !important}
 .theme-single-post .zpsnippet-container .cwp__cta a.cwp__btn--secondary{color:#fff !important}
 
+/* Same hijack, same band, the half that was never covered: the four rules above
+   rescued the CTA's buttons, but the heading and paragraph beside them are still
+   painted by the post-readability block (h2 #141414, p/li #2c2c2c, both
+   !important) — on the teal band that is 3.35:1 and 2.62:1, and .cwg__cta /
+   .cwp__cta both ask for white in their own rules. .cw__cta already carries this
+   exact protection; its blog-post siblings never got it. Measured on 36 posts.
+   2026-08-18 audit. */
+.theme-single-post .zpsnippet-container .cwg__cta h2,
+.theme-single-post .zpsnippet-container .cwp__cta h2{color:#fff !important}
+.theme-single-post .zpsnippet-container .cwg__cta p,
+.theme-single-post .zpsnippet-container .cwp__cta p{color:rgba(255,255,255,.78) !important}
+
 /* Blog author block: CWI emblem as avatar + de-purple the author name (2026-06-09) */
 .theme-single-post .theme-blog-author-img{background:#fff url('/files/Logo/cochin-wood-logo-256.png') center/cover no-repeat}
 .theme-single-post .theme-blog-author-img svg{display:none !important}
