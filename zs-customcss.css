@@ -980,12 +980,25 @@ body{margin:0;background:#fff;font-family:Poppins,system-ui,sans-serif;color:#14
 .theme-single-post .zpsnippet-container .cwp__cta a.cwp__btn--secondary{color:#fff !important}
 
 /* Same hijack, same band, the half that was never covered: the four rules above
-   rescued the CTA's buttons, but the heading and paragraph beside them are still
-   painted by the post-readability block (h2 #141414, p/li #2c2c2c, both
-   !important) — on the teal band that is 3.35:1 and 2.62:1, and .cwg__cta /
-   .cwp__cta both ask for white in their own rules. .cw__cta already carries this
-   exact protection; its blog-post siblings never got it. Measured on 36 posts.
+   rescued the CTA's buttons, but the heading and paragraph beside them are not.
+   .cwg__cta and .cwp__cta each declare color:#fff on their heading, and every
+   one of these bands is teal (#007A5E) — checked on all 293 pages, there is no
+   light-background variant. Yet the heading comes out dark on 67 of them, from
+   two different directions:
+     - on 36 blog posts the post-readability block below (h2 #141414, p/li
+       #2c2c2c, both !important) reaches into the band — 3.46:1 and 2.62:1;
+     - on 31 other pages the brand-heading rule further down
+       (.zpsnippet-container h2 / .theme-content-area-inner h2, #0E1F18) ties
+       .cwp__cta h2 on specificity and wins on source order — 3.21:1.
+   65 pages render the identical band white, which is what makes this a leak
+   rather than a choice. .cw__cta already carries this protection; its two
+   siblings never got it.
+   The heading needs two selectors, because !important is decided by
+   specificity: the plain one covers the brand-heading rule, and the
+   .theme-single-post one has to out-specify the post block's own !important.
    2026-08-18 audit. */
+.cwg__cta h2,
+.cwp__cta h2{color:#fff !important}
 .theme-single-post .zpsnippet-container .cwg__cta h2,
 .theme-single-post .zpsnippet-container .cwp__cta h2{color:#fff !important}
 .theme-single-post .zpsnippet-container .cwg__cta p,
