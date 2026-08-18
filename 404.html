@@ -3,7 +3,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <link rel="icon" href="/favicon.png"/>
-<link rel="stylesheet" href="/assets/fonts.css">
+<!-- Preload the three woff2 subsets every page actually uses (measured: 32/32 loads at 375px and 1280px). Without this the browser cannot discover them until /assets/fonts.css has arrived and matched a rule, so the swap lands after first paint and reflows the text - the whole of the residual CLS on this site was that swap. 26KB for all three, and they are the one content-hashed asset set, pinned immutable for a year. 2026-08-16 audit. --><link rel="preload" href="/assets/fonts/poppins-pxiEyp8kv8JHgFVrJJfecg.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/assets/fonts/poppins-pxiByp8kv8JHgFVrLCz7Z1xlFQ.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/assets/fonts/breeserif-4UaHrEJCrhhnVA3DgluA96rp5w.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="/assets/fonts.css">
 <style>
 body{margin:0;font-family:Poppins,system-ui,sans-serif;background:#faf8f2;color:#1b2a22;display:flex;min-height:100vh;align-items:center;justify-content:center;padding:24px}
 .card{max-width:560px;text-align:center}

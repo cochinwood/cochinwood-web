@@ -43,6 +43,15 @@
 /assets/og/*
   Cache-Control: public, max-age=86400
 
+# The og:image named by 283 pages. It sat at the web root, so none of the
+# directory rules reach it and it fell through to the Pages default with no
+# Cache-Control at all - refetched by every social and chat crawler that
+# unfurls a cochinwood.in link. Same one-day policy as the other share art in
+# /assets/og/*. Named individually, not via a wildcard, because Pages merges
+# every matching rule and /* above must stay free of Cache-Control.
+/cwi-og-share-1200x630.png
+  Cache-Control: public, max-age=86400
+
 /css/*
   Cache-Control: public, max-age=3600, must-revalidate
 
@@ -50,6 +59,19 @@
   Cache-Control: public, max-age=3600, must-revalidate
 
 /template/*
+  Cache-Control: public, max-age=3600, must-revalidate
+
+# --- 2026-08-15 audit: the two root-level assets had no Cache-Control at all ---
+# /zs-customcss.css (75KB, render-blocking, linked from every page) and
+# /zs-lang_en_US.js (53KB, linked from 292) sit at the web root, so none of the
+# directory rules above reach them and they fell through to the Pages default.
+# Same one-hour-then-revalidate policy as the other non-hashed CSS and JS. The
+# ?v= query every page already appends to the stylesheet still forces an
+# immediate refetch whenever that value is bumped.
+/zs-customcss.css
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/zs-lang_en_US.js
   Cache-Control: public, max-age=3600, must-revalidate
 
 # The fonts are the one genuinely content-addressed set — the hash is in the

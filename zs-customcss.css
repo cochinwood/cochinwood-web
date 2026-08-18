@@ -979,8 +979,33 @@ body{margin:0;background:#fff;font-family:Poppins,system-ui,sans-serif;color:#14
 .theme-single-post .zpsnippet-container .cwp__cta a.cwp__btn{color:#1B4332 !important}
 .theme-single-post .zpsnippet-container .cwp__cta a.cwp__btn--secondary{color:#fff !important}
 
+/* Same hijack, same band, the half that was never covered: the four rules above
+   rescued the CTA's buttons, but the heading and paragraph beside them are not.
+   .cwg__cta and .cwp__cta each declare color:#fff on their heading, and every
+   one of these bands is teal (#007A5E) — checked on all 293 pages, there is no
+   light-background variant. Yet the heading comes out dark on 67 of them, from
+   two different directions:
+     - on 36 blog posts the post-readability block below (h2 #141414, p/li
+       #2c2c2c, both !important) reaches into the band — 3.46:1 and 2.62:1;
+     - on 31 other pages the brand-heading rule further down
+       (.zpsnippet-container h2 / .theme-content-area-inner h2, #0E1F18) ties
+       .cwp__cta h2 on specificity and wins on source order — 3.21:1.
+   65 pages render the identical band white, which is what makes this a leak
+   rather than a choice. .cw__cta already carries this protection; its two
+   siblings never got it.
+   The heading needs two selectors, because !important is decided by
+   specificity: the plain one covers the brand-heading rule, and the
+   .theme-single-post one has to out-specify the post block's own !important.
+   2026-08-18 audit. */
+.cwg__cta h2,
+.cwp__cta h2{color:#fff !important}
+.theme-single-post .zpsnippet-container .cwg__cta h2,
+.theme-single-post .zpsnippet-container .cwp__cta h2{color:#fff !important}
+.theme-single-post .zpsnippet-container .cwg__cta p,
+.theme-single-post .zpsnippet-container .cwp__cta p{color:rgba(255,255,255,.78) !important}
+
 /* Blog author block: CWI emblem as avatar + de-purple the author name (2026-06-09) */
-.theme-single-post .theme-blog-author-img{background:#fff url('/files/Logo/Cochin%20wood%20logo.png') center/cover no-repeat}
+.theme-single-post .theme-blog-author-img{background:#fff url('/files/Logo/cochin-wood-logo-256.png') center/cover no-repeat}
 .theme-single-post .theme-blog-author-img svg{display:none !important}
 .theme-single-post .theme-blog-author-name{color:#1B4332 !important;font-family:'Bree Serif',Georgia,serif !important}
 
@@ -1037,12 +1062,21 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 input:focus-visible,select:focus-visible,textarea:focus-visible{border-color:#007a5e !important;}
 .skip-to-main{position:absolute;left:8px;top:-60px;z-index:100000;display:inline-block;padding:10px 16px;min-height:44px;line-height:24px;background:#007a5e;color:#fff !important;font-family:"Poppins",system-ui,sans-serif;font-size:15px;font-weight:600;text-decoration:none;border-radius:0 0 6px 0;transition:top .15s ease;}
 .skip-to-main:focus,.skip-to-main:focus-visible{top:0;outline:2px solid #fff !important;outline-offset:2px !important;box-shadow:0 0 0 4px rgba(0,122,94,.35) !important;}
-#main{scroll-margin-top:90px;}
+#main,#thememaincontent{scroll-margin-top:90px;}
 header nav a,header nav button,footer a,.zs-menu a,.zs-footer a,a[href^="https://wa.me"],a[href^="https://web.whatsapp.com"],a[href^="tel:"],a[href^="mailto:"],a[aria-label],.social-icons a,.zs-social a{min-height:44px;min-width:44px;display:inline-flex;align-items:center;justify-content:center;}
 .whatsapp-float,.wa-float,.call-float,a.float-btn{min-width:44px;min-height:44px;}
 p a,li a,.cw__prose a,.blog-content a{min-height:0;min-width:0;display:inline;}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important;}html{scroll-behavior:auto !important;}}
 .cw__eyebrow,.eyebrow,.caption,.cw__caption,figcaption,small,.text-muted,.zs-caption{color:#4a575e !important;}
+/* Correction 2026-08-16 audit. The rule above darkens muted text to #4a575e so it clears AA
+   on the light page background - which it does. But it carries no background condition, so it
+   also repaints the eyebrow inside .cw__section--ink, the dark teal (#007A5E) CTA band, where
+   #4a575e lands at 1.4:1 and the label is effectively invisible. Five places on the site put a
+   .cw__eyebrow on that band, and all five were unreadable: /index "Ready when you are",
+   /about "From the director" and "Nurturing our roots", /industries "Tell us your sector",
+   /products "Tell us your project". White is what the band already uses for its own headings
+   and takes those labels to 5.3:1. Eyebrows on light backgrounds keep #4a575e. */
+.cw__section--ink .cw__eyebrow{color:#ffffff !important;}
 
 
 /* === Responsive audit fixes 2026-06-15: mobile hero stacking + footer font === */
@@ -1158,7 +1192,7 @@ footer.cw-ft .cw-ft-grid > div > a{padding:4px 0}
 @media(min-width:781px){
   footer.cw-ft .cw-ft-grid{grid-template-columns:1.15fr .85fr 1.85fr 1.05fr}
   footer.cw-ft .cw-ft-grid > div:nth-child(3){columns:2;column-gap:22px}
-  footer.cw-ft .cw-ft-grid > div:nth-child(3) h4{column-span:all}
+  footer.cw-ft .cw-ft-grid > div:nth-child(3) h3{column-span:all}
   footer.cw-ft .cw-ft-grid > div:nth-child(3) > a{break-inside:avoid}
 }
 footer.cw-ft .cw-ft-blurb{margin:14px 0 0;font-size:13px;line-height:1.7;color:#5f6e76;max-width:320px}
@@ -1319,3 +1353,17 @@ footer.cw-ft .cw-ft-blurb{margin:14px 0 0;font-size:13px;line-height:1.7;color:#
 @media (max-width: 560px) {
   .cw__find-dist li { flex-direction: column; align-items: flex-start; gap: 2px; }
 }
+
+/* ==========================================================================
+   Blog listing heading levels (2026-08-18 audit)
+   The 62 listing pages ran h1 -> h3 for the post cards, then h4 for the
+   sidebar's Tags/Categories: a skipped level on every one of them. The cards
+   are now h2 and the sidebar headings h3, which takes the site to zero
+   skipped heading levels.
+   The cards keep their size on their own — .theme-blog-part
+   .theme-blog-post-header-area .theme-blog-heading already pins 44px and
+   outranks the element rule. The sidebar headings had no size of their own
+   and were taking 36px from the template's h4 rule, so pin that here; h3 and
+   h4 are identical in that stylesheet apart from font-size.
+   ========================================================================== */
+.theme-blog-category-heading{font-size:36px}
