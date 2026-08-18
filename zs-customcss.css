@@ -1340,3 +1340,17 @@ footer.cw-ft .cw-ft-blurb{margin:14px 0 0;font-size:13px;line-height:1.7;color:#
 @media (max-width: 560px) {
   .cw__find-dist li { flex-direction: column; align-items: flex-start; gap: 2px; }
 }
+
+/* ==========================================================================
+   Blog listing heading levels (2026-08-18 audit)
+   The 62 listing pages ran h1 -> h3 for the post cards, then h4 for the
+   sidebar's Tags/Categories: a skipped level on every one of them. The cards
+   are now h2 and the sidebar headings h3, which takes the site to zero
+   skipped heading levels.
+   The cards keep their size on their own — .theme-blog-part
+   .theme-blog-post-header-area .theme-blog-heading already pins 44px and
+   outranks the element rule. The sidebar headings had no size of their own
+   and were taking 36px from the template's h4 rule, so pin that here; h3 and
+   h4 are identical in that stylesheet apart from font-size.
+   ========================================================================== */
+.theme-blog-category-heading{font-size:36px}
