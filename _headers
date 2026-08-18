@@ -43,6 +43,15 @@
 /assets/og/*
   Cache-Control: public, max-age=86400
 
+# The og:image named by 283 pages. It sat at the web root, so none of the
+# directory rules reach it and it fell through to the Pages default with no
+# Cache-Control at all - refetched by every social and chat crawler that
+# unfurls a cochinwood.in link. Same one-day policy as the other share art in
+# /assets/og/*. Named individually, not via a wildcard, because Pages merges
+# every matching rule and /* above must stay free of Cache-Control.
+/cwi-og-share-1200x630.png
+  Cache-Control: public, max-age=86400
+
 /css/*
   Cache-Control: public, max-age=3600, must-revalidate
 
