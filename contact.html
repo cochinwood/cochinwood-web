@@ -388,6 +388,23 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
         return;
       }
 
+      // Verification gate (2026-08-26 audit). Turnstile's error callback only fired a
+      // beacon: it never told the buyer and never blocked the post. Meanwhile the success
+      // card keys off nothing but ?sent=1 in the URL, so there was no path on this page for
+      // a server-side rejection to surface at all. A buyer whose challenge failed could
+      // therefore submit, be rejected, and still be shown "Request received".
+      // Stop before that happens, say so plainly, and offer a channel that always works.
+      var ts = f.querySelector('[name="cf-turnstile-response"]');
+      if (!ts || !ts.value) {
+        e.preventDefault();
+        err.innerHTML = 'Verification has not finished, so this cannot be sent yet. ' +
+          'Give it a moment and press the button again \u2014 or reach the export desk ' +
+          'directly on <a href="https://wa.me/919567410175">WhatsApp</a> or ' +
+          '<a href="mailto:sales@cochinwood.in">sales@cochinwood.in</a>.';
+        err.style.display = 'block';
+        try { err.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (x) {}
+        return;
+      }
       // fold spec + quantity into Description so they land on the CRM lead
       // Every chip now carries its own value, so the posted list is unambiguous:
       // BWP marine and BWR hardwood used to share one Zoho picklist entry and the
