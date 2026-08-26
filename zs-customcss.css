@@ -1319,3 +1319,23 @@ footer.cw-ft .cw-ft-blurb{margin:14px 0 0;font-size:13px;line-height:1.7;color:#
 @media (max-width: 560px) {
   .cw__find-dist li { flex-direction: column; align-items: flex-start; gap: 2px; }
 }
+
+/* --- 2026-08-25 audit fix: eyebrow contrast on dark bands ---
+   The blanket rule above (.cw__eyebrow,.eyebrow,.caption,... { color:#4a575e !important })
+   darkens eyebrows for legibility on light backgrounds, but it also caught the one eyebrow
+   that sits on the teal CTA band, giving "Ready when you are" a 1.4:1 ratio against #007A5E
+   where WCAG 2.2 AA needs 4.5:1. Scoped back to white inside ink sections only: 5.3:1. */
+.cw__section--ink .cw__eyebrow,
+.cw__home-cta .cw__eyebrow { color: #ffffff !important; }
+
+/* --- 2026-08-25 audit fix: make room for the Export nav item ---
+   The header nav gained a seventh item (Export) so that the export hub and its eight country
+   pages are reachable from the homepage at all. At the default 30px gap that tipped the header
+   into horizontal overflow between the 880px hamburger breakpoint and roughly 1000px, which it
+   did not do with six items. Tightening the gap in exactly that band buys back ~84px and keeps
+   the desktop nav rather than pushing more visitors onto the mobile menu.
+   Specificity is deliberately .cw-hd .cw-hd-inner .cw-hd-nav so it wins over the per-page
+   inline <style> block regardless of document order. */
+@media (min-width: 881px) and (max-width: 1080px) {
+  .cw-hd .cw-hd-inner .cw-hd-nav { gap: 16px; }
+}
