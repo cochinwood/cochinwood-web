@@ -40,10 +40,24 @@ rollback at any point is a single DNS change.
 The quote form's `returnURL` currently points to the live Zoho contact page — fine
 during transition. No change needed; it resolves to whatever serves `cochinwood.in`.
 
-## 5. Flip production to Pages  *(you authorize — takes the site off Zoho)*
-- In Cloudflare, the custom-domain attach routes `cochinwood.in` to the Pages project.
-- Confirm the apex + www both serve the new site; then **purge the Cloudflare cache**.
-- **Rollback:** remove the custom domain from Pages (or revert the DNS/route) → back to Zoho instantly.
+## 5. Flip production to the built site  *(you authorize)*
+
+> Corrected 2026-08-26. This step used to say the flip "takes the site off Zoho", and that
+> rollback meant removing the custom domain or reverting DNS. **Neither is true any more.**
+> `cochinwood.in` and `www` are already custom domains on the Pages project `cochinwood-web`,
+> which today serves the `cf-live` branch verbatim. Removing the custom domain would take the
+> site *offline*, not back to Zoho. The real flip changes what that project builds.
+
+- Record the current production settings first: branch `cf-live`, **no** build command, output
+  directory `/`.
+- Change the production branch to `master`, build command `python build.py`, output `dist`.
+  Custom domains untouched; DNS untouched.
+- Confirm apex + www both serve the new build, then **purge the Cloudflare cache**. Some edge
+  PoPs keep serving cached HTML briefly — append a cache-busting query to see what the origin
+  is really returning.
+- **Rollback:** set the production branch back to `cf-live`, clear the build command, restore
+  output `/`, redeploy. `cf-live` is never modified by the cutover, so rolling back returns
+  byte-for-byte the site that was live beforehand. Do not remove the custom domain.
 
 ## 6. Post-cutover
 - Resubmit `sitemap.xml` in Google Search Console.
