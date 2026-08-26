@@ -80,3 +80,15 @@
 # second, conflicting max-age to this one.
 /assets/fonts/*
   Cache-Control: public, max-age=31536000, immutable
+
+# --- 2026-08-25 audit: the hero-art blob, lifted out of the HTML ---
+# window.__CWSVGZ was 58,599 bytes of base64-encoded gzip inlined into all 109 city posts —
+# byte-identical on every one, and re-downloaded on every one, because inline content cannot
+# be cached across navigations. Base64 of already-compressed data does not re-compress either,
+# which is why those pages managed only 2.2x gzip while the homepage managed 3.9x, and why a
+# post cost 76.8 KB over the wire against the homepage's 30.7 KB.
+# Now one shared file, fetched once and reused by all 109. The sha256 is IN THE FILENAME, so
+# this is content-addressed in the same sense the fonts are: a changed file is a changed URL,
+# and a year is safe. Regenerate the name when the content changes.
+/assets/js/*
+  Cache-Control: public, max-age=31536000, immutable
