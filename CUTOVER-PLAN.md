@@ -51,14 +51,35 @@ Self-host Bree Serif + Poppins (drop the Google/Zoho font CDNs) for speed + priv
 (currently ~none — paths are 1:1). Lighthouse + schema validation in the build.
 
 **Phase 6 — Cloudflare Pages cutover**
-1. Connect the repo to **Cloudflare Pages**, build command `python build.py`,
-   output dir `dist`, root `/`.
-2. Verify the `*.pages.dev` build end-to-end (all pages, assets, forms, schema).
-3. Add `cochinwood.in` + `www` as custom domains on the Pages project (you're
-   already on Cloudflare — DNS is in place).
-4. Flip DNS/routing from the Zoho origin to Pages. Keep Zoho live until verified.
-5. Purge Cloudflare cache; re-test; submit sitemap in Search Console.
-6. **Rollback:** revert the DNS/route change — Zoho origin is untouched until step 4.
+
+> Corrected 2026-08-26. The steps below used to describe flipping DNS away from "the Zoho
+> origin". **There is no Zoho origin.** Production has been the Cloudflare Pages project
+> `cochinwood-web` serving the `cf-live` branch verbatim, with `cochinwood.in` and `www`
+> already attached to it as custom domains. The cutover therefore never touches DNS — it
+> changes what that one project builds. Following the old wording under pressure would have
+> sent someone hunting for a DNS record that does not exist, during an incident.
+
+1. On the existing `cochinwood-web` Pages project, verify the current production settings so
+   you can restore them exactly: production branch `cf-live`, **no** build command, output
+   directory `/`. Write them down before changing anything.
+2. Point a **preview** deployment at `master` with build command `python build.py` and output
+   directory `dist`. Verify the resulting `*.pages.dev` URL end-to-end — every page, assets,
+   the quote form, schema — against the live site. Nothing about production has changed yet.
+3. Reconcile the URL set before flipping. As of 2026-08-26 the build emits 202 pages against
+   293 live URLs; the gap is blog category, pagination and tag pages. Also settle
+   `/wood-encyclopedia/*`, which this build produces but `cf-live` 301s to `/woods-we-use` —
+   both cannot be right.
+4. **Flip:** change the project's production branch to `master`, set build command
+   `python build.py`, output directory `dist`. The custom domains stay where they are; DNS is
+   not touched. Deployment is atomic — Pages serves the previous build until the new one
+   succeeds.
+5. Purge the Cloudflare cache; re-test; submit the sitemap in Search Console. Expect the edge
+   to keep serving cached HTML at some PoPs for a while — a cache-busting query proves what the
+   origin is actually returning.
+6. **Rollback:** set the production branch back to `cf-live`, clear the build command, restore
+   output directory `/`, and redeploy. `cf-live` is never modified by any of this, so it is
+   always exactly the site that was live before the flip. No DNS change is involved in the
+   rollback either.
 
 ## Cost
 $0 recurring (Cloudflare Pages free tier). One-time cost is build effort only.

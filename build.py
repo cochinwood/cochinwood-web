@@ -689,16 +689,26 @@ def build_blog():
         desc = p.get("desc", "")
         content = _blog_content(p["html"])
         short = esc(title.split('|')[0].strip())
-        # Optional "date": "YYYY-MM-DD" in posts.json. Absent for every post in the
-        # migrated set, and no date survives anywhere in the mirror — so rather than
-        # invent one, the markup simply omits it until a real date is supplied.
+        # "date": "YYYY-MM-DD" in posts.json. These are NOT invented: every post in the
+        # cf-live mirror carries a real "datePublished" inside its BlogPosting JSON-LD,
+        # and 155 of the 156 entries here were back-filled from it on 2026-08-26. Keeping
+        # the same values matters at cutover — 155 posts changing datePublished on the day
+        # we flip would read to Google as mass re-publication. The 156th, okoume-plywood,
+        # exists only in this build and has no mirror page to take a date from.
         date = (p.get("date") or "").strip()
         if date and not re.fullmatch(r'\d{4}-\d{2}-\d{2}', date):
             warn(f"post {slug}: ignoring unparseable date {date!r}"); date = ""
         if not date: undated.append(slug)
-        byline = (f'Cochin Wood Industries &middot; <time datetime="{date}">'
-                  f'{datetime.date.fromisoformat(date).strftime("%-d %B %Y")}</time>'
-                  if date else "Cochin Wood Industries")
+        if date:
+            _d = datetime.date.fromisoformat(date)
+            # The day is formatted by hand because "%-d" is a glibc extension: it renders
+            # fine in CI on Linux and raises ValueError on Windows, where this build also
+            # gets run by hand. While no post had a date this branch never executed, so
+            # the platform difference stayed invisible until the back-fill above.
+            byline = (f'Cochin Wood Industries &middot; <time datetime="{date}">'
+                      f'{_d.day} {_d.strftime("%B %Y")}</time>')
+        else:
+            byline = "Cochin Wood Industries"
         art = f'''<header class="cwg__hero"><div class="cwg__container">
   <h1 class="cwg__h1">{short}</h1>
   <p class="cwg__meta">{byline}</p>
