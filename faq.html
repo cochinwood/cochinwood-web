@@ -140,19 +140,6 @@
     document.querySelectorAll('iframe[src*="google.com/maps"], iframe[src*="maps.google"]').forEach(function(f){
       if (!f.hasAttribute("loading")) f.setAttribute("loading", "lazy");
     });
-    // P1 #8: inject a honeypot field into the contact form
-    var form = document.querySelector('form[action*="contact"], form');
-    if (form && !form.querySelector('[name=website]')) {
-      var hp = document.createElement("div");
-      hp.setAttribute("style", "position:absolute;left:-9999px;top:-9999px;height:0;overflow:hidden;");
-      hp.setAttribute("aria-hidden", "true");
-      hp.innerHTML = '<label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label>';
-      form.appendChild(hp);
-      form.addEventListener("submit", function(e){
-        var f = form.querySelector('[name=website]');
-        if (f && f.value.trim() !== "") { e.preventDefault(); e.stopPropagation(); console.log("[CWI] Honeypot triggered, submission blocked."); return false; }
-      }, true);
-    }
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", applyOnReady);
   else applyOnReady();
@@ -304,7 +291,6 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
 <div class="cwf__q"><h2>What export documents do you provide?</h2><p>Commercial invoice and packing list, phytosanitary certificate, ISPM-15 stamp where applicable, and the bill of lading on dispatch. Tell us your destination's requirements and we'll match them.</p></div>
 <div class="cwf__q"><h2>How do I get a quote?</h2><p>Fastest is <a href="https://wa.me/919567410175">WhatsApp</a> with your product, spec and destination port. You can also email <a href="/cdn-cgi/l/email-protection#0b786a676e784b6864686362657c64646f256265"><span class="__cf_email__" data-cfemail="0271636e677142616d616a6b6c756d6d662c6b6c">[email&#160;protected]</span></a> or use the <a href="/contact">quote form</a>. The export desk replies within one business day with a real number — never a brochure.</p></div>
 
-<div class="cwf__q"><h2>Do you ship FOB Cochin and which ports?</h2><p>Yes. We quote FOB Cochin by default and FCA Cochin on request, loading at our group's facilities or at Vallarpadam ICTT. We export across the Middle East, Africa, South and Southeast Asia and beyond; other Incoterms on request.</p></div>
 
 </div><div class="cwf__cta"><h2>Didn't find your answer?</h2><p>Tell us the product, spec and destination — we'll come back within one business day.</p><a class="cwf__btn" href="https://wa.me/919567410175">WhatsApp the desk</a><a class="cwf__btn cwf__btn--ghost" href="/contact#quote">Request a quote</a></div>
 </div></section><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="application/ld+json">
@@ -317,7 +303,7 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
 {"@type":"Question","name":"What is Okoume packing plywood and when should I specify it?","acceptedAnswer":{"@type":"Answer","text":"Okoume is a light, uniform African hardwood face veneer favoured for export packing cases where weight and a clean surface matter."}},
 {"@type":"Question","name":"Do you supply container flooring plywood to IICL TB-001?","acceptedAnswer":{"@type":"Answer","text":"Yes, 28 mm (±1 mm) Okoume-faced HD boards on a rubberwood core for container floors. IICL TB-001 is the buyer reference specification."}},
 {"@type":"Question","name":"What is your minimum order quantity?","acceptedAnswer":{"@type":"Answer","text":"We work at bulk and container scale, typically by the 20 or 40 foot container load, including repeat schedules. Smaller trial quantities can be discussed and samples are available on request."}},
-{"@type":"Question","name":"Do you ship FOB Cochin and which ports?","acceptedAnswer":{"@type":"Answer","text":"Yes. We quote FOB Cochin by default and FCA Cochin on request, loading at our group's facilities or at Vallarpadam ICTT. We export across the Middle East, Africa, South and Southeast Asia and beyond; other Incoterms on request."}},
+{"@type":"Question","name":"Do you ship FOB Cochin? Which ports?","acceptedAnswer":{"@type":"Answer","text":"Yes. We quote FOB Cochin by default and FCA Cochin on request, loading at our group's facilities or at Vallarpadam ICTT, 40 km from the plant. We export across the Middle East, Africa, South & Southeast Asia and beyond; other Incoterms on request."}},
 {"@type":"Question","name":"What are your lead times?","acceptedAnswer":{"@type":"Answer","text":"Stock-grade material is normally 7-10 working days and made-to-order panels and fabricated crates 15-20, from receipt of your advance; the date on your proforma invoice is the one that governs. They depend on grade, volume and finishing. We share pre-shipment photos before dispatch."}},
 {"@type":"Question","name":"Can I get a sample before ordering?","acceptedAnswer":{"@type":"Answer","text":"Yes. Tell us the grade and spec and we will arrange a physical sample. For many products a photo and product code are enough for us to quote the same day."}},
 {"@type":"Question","name":"What export documents do you provide?","acceptedAnswer":{"@type":"Answer","text":"Commercial invoice and packing list, phytosanitary certificate, ISPM-15 stamp where applicable, and the bill of lading on dispatch."}},

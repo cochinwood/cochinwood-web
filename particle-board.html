@@ -140,19 +140,6 @@
     document.querySelectorAll('iframe[src*="google.com/maps"], iframe[src*="maps.google"]').forEach(function(f){
       if (!f.hasAttribute("loading")) f.setAttribute("loading", "lazy");
     });
-    // P1 #8: inject a honeypot field into the contact form
-    var form = document.querySelector('form[action*="contact"], form');
-    if (form && !form.querySelector('[name=website]')) {
-      var hp = document.createElement("div");
-      hp.setAttribute("style", "position:absolute;left:-9999px;top:-9999px;height:0;overflow:hidden;");
-      hp.setAttribute("aria-hidden", "true");
-      hp.innerHTML = '<label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label>';
-      form.appendChild(hp);
-      form.addEventListener("submit", function(e){
-        var f = form.querySelector('[name=website]');
-        if (f && f.value.trim() !== "") { e.preventDefault(); e.stopPropagation(); console.log("[CWI] Honeypot triggered, submission blocked."); return false; }
-      }, true);
-    }
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", applyOnReady);
   else applyOnReady();
