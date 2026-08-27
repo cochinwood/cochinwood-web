@@ -7,6 +7,10 @@
 # records the day 603 rules past that limit became 404s in silence. A rule that matters should not
 # sit where four more additions can push it off the end without anyone being told.
 /404 /404.html 404
+# TEMPORARY, removed before this branch merges. A 302 is a status Pages certainly supports, so if
+# this path starts redirecting then the deployment has re-read _redirects -- which is the only way
+# to tell "the rule was ignored" apart from "the build has not landed yet".
+/_c22-probe / 302
 
 # 21 doubled-segment URLs from GSC. Written explicitly because Cloudflare Pages
 # silently drops the :splat form here (static-destination wildcards work fine).
