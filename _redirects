@@ -1,3 +1,13 @@
+# C-22, the soft 404. Pages strips .html, so /404.html 308s to /404 and Pages then serves the
+# error page there with a 200 -- a page that says "This page isn't here" while telling every
+# crawler it is fine. Genuinely missing paths are unaffected and always were: they 404 correctly.
+#
+# FIRST IN THE FILE ON PURPOSE, and not for precedence -- /404 is an exact path and shadows
+# nothing. Pages honours only the first 100 rules and 96 were already used; the note further down
+# records the day 603 rules past that limit became 404s in silence. A rule that matters should not
+# sit where four more additions can push it off the end without anyone being told.
+/404 /404.html 404
+
 # 21 doubled-segment URLs from GSC. Written explicitly because Cloudflare Pages
 # silently drops the :splat form here (static-destination wildcards work fine).
 /blogs/post/post/plywood-supply-to-bengaluru /blogs/post/plywood-supply-to-bengaluru 301
