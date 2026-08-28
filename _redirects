@@ -1,3 +1,23 @@
+# C-22, the soft 404. Pages strips .html, so /404.html 308s to /404 and the error page is served
+# there with a 200 -- a page reading "This page isn't here" that tells every crawler it is fine.
+# Genuinely missing paths were never part of this and still answer 404 with the same custom body.
+#
+# A 404 STATUS IN THIS FILE IS IGNORED. `/404 /404.html 404` was the obvious rule and it does
+# nothing. Measured on the branch preview rather than assumed: a throwaway probe rule proved the
+# deployment had re-read this file, and in that same deployment /404 still answered 200. Cloudflare
+# documents 301, 302, 303, 307 and 308, and that is exactly what it honours. So the error page's own
+# URL is sent home instead, which removes the soft 404 just as well -- there is no longer any URL
+# that renders an error under a 200.
+#
+# Verified on the preview before merging: /404 -> 301 to /, a missing path -> 404 with the custom
+# body intact, a missing blog post -> 404, homepage 200.
+#
+# FIRST IN THE FILE ON PURPOSE, and not for precedence -- /404 is an exact path and shadows
+# nothing. Pages honours only the first 100 rules and 96 were already used; the note further down
+# records the day 603 rules past that limit became 404s in silence. A rule that matters should not
+# sit where four more additions can push it off the end without anyone being told.
+/404 / 301
+
 # 21 doubled-segment URLs from GSC. Written explicitly because Cloudflare Pages
 # silently drops the :splat form here (static-destination wildcards work fine).
 /blogs/post/post/plywood-supply-to-bengaluru /blogs/post/plywood-supply-to-bengaluru 301

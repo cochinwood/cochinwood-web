@@ -36,11 +36,22 @@ jobs:
       # cf-live — `.nojekyll` is committed here and answers 200, so anything added would be
       # downloadable from www.cochinwood.in. It lives on `master`, which is not deployed, exactly
       # like tools/purge-css.py. Fetched shallow; the checkout above is the tree being tested.
+      # PINNED, and the pin is the point. `origin/master` is a moving pointer: the gate that
+      # decided a deploy was safe on Monday could be different code by Friday, with nothing in
+      # this branch recording which version passed. Not an attack path -- same repository, same
+      # access control -- but a deploy gate that cannot say what it ran is not a gate you can
+      # audit after an incident.
+      #
+      # The cost is a bump: improvements to check_site.py on master do not reach this branch
+      # until CHECKER_SHA moves. That is deliberate, and the step prints the sha it ran so a
+      # stale pin is visible in every log rather than only when somebody goes looking.
       - name: Fetch the checker from master
         run: |
           set -e
-          git fetch --depth=1 origin master
-          git show origin/master:tools/check_site.py > "$RUNNER_TEMP/check_site.py"
+          CHECKER_SHA=ac083b4a15b743b8481a9c5425c6410982411cb6  # master @ 2026-08-26
+          git fetch --depth=1 origin "$CHECKER_SHA"
+          git show "$CHECKER_SHA:tools/check_site.py" > "$RUNNER_TEMP/check_site.py"
+          echo "checker pinned at $CHECKER_SHA"
 
       # Stdlib only, so there is nothing to install. Runs against the working tree, which is this
       # branch exactly as Pages would serve it.
