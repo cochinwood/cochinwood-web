@@ -146,8 +146,40 @@
 # Thin 324-word duplicate of the 1532-word money page - consolidate
 /blogs/post/okoume-plywood /okoume-plywood 301
 
-# Cloudflare Pages honours only the first 100 rules in this file, and the 95 above already
+# Cloudflare Pages honours only the first 100 rules in this file, and the 96 above already
 # use most of that budget - 603 explicit /dist/ rules silently became 404s. One wildcard costs
 # one rule. /dist/* /:splat 301 was tested live and every path still 404'd, confirming the
 # note at the top: Pages drops :splat here. Static destination it is.
 /dist/* / 301
+
+# THE BRANCH IS THE BUILD, AND THAT INCLUDES THE FILES THAT DESCRIBE IT. Pages serves cf-live
+# verbatim, so anything committed here is downloadable -- which is why check_site.py lives on
+# master and says so at the top of itself. Two files were missed by that reasoning, and both
+# answered 200 on 28 Aug 2026:
+#
+#     /CLAUDE.md                          12,324 b   branch layout, the deploy gate, the fact that
+#                                                    administrators can bypass a red check, and
+#                                                    since today the purge procedure and the
+#                                                    obfuscation switch
+#     /.github/workflows/site-checks.yml   2,933 b   what the required check does, the sha it is
+#                                                    pinned to, and by omission what it does NOT
+#                                                    verify
+#
+# The second is the more useful of the two to anybody probing the site: it names the gate and its
+# blind spots. Neither is a secret -- there are no credentials in either -- but neither is a page,
+# and a static host with no build step cannot tell the difference without being told.
+#
+# NEITHER FILE CAN SIMPLY MOVE. CLAUDE.md is the guide for whoever is working ON this branch, so
+# hosting it elsewhere defeats it; the workflow must live here because it triggers on pushes to
+# here. So they stay committed and stop being served.
+#
+# LAST IN THE FILE, DELIBERATELY, and this is a budget decision rather than tidiness. Pages honours
+# the first 100 rules; /dist/* above is #97 and the note beside it depends on that. Inserting these
+# ABOVE it would push it to #99 and quietly spend two thirds of the remaining margin. Appended
+# here, /dist/* keeps its slot, these are #98 and #99, and nothing that already works moves. Safe
+# because first-match-wins and /dist/* only matches paths under /dist/.
+#
+# 301 rather than 404 because a 404 status in this file is IGNORED -- measured, see the note on the
+# error page above. A redirect is what Pages actually honours, so a redirect is what this is.
+/CLAUDE.md / 301
+/.github/* / 301
