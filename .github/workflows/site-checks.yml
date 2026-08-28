@@ -48,7 +48,7 @@ jobs:
       - name: Fetch the checker from master
         run: |
           set -e
-          CHECKER_SHA=ac083b4a15b743b8481a9c5425c6410982411cb6  # master @ 2026-08-26
+          CHECKER_SHA=4678a8f5139bd1499f1d5f3a4d75071321ce2ffd  # master @ 2026-08-28
           git fetch --depth=1 origin "$CHECKER_SHA"
           git show "$CHECKER_SHA:tools/check_site.py" > "$RUNNER_TEMP/check_site.py"
           echo "checker pinned at $CHECKER_SHA"
