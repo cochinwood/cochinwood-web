@@ -18,6 +18,7 @@ gives: Pages publishes every committed file on cf-live. Verified 15 Aug 2026 -- 
 committed there and answers 200, so a checker committed to cf-live would be downloadable from
 www.cochinwood.in. The workflow fetches this file from master and runs it against the cf-live tree.
 """
+import html as html_mod
 import json
 import pathlib
 import re
@@ -289,18 +290,242 @@ def check_quote_form():
     return 1
 
 
+# ---------------------------------------------------------------------------------------------
+# 6. The page and its markup say the same thing.
+#
+# check_json_ld above proves a block PARSES. It has never proved a block is TRUE, and on 28 Aug
+# 2026 that gap cost something real: /faq's visible answer said container flooring was "built to
+# ISO container floor specifications and the IICL TB-001 bulletin" while its own FAQPage schema
+# said Okoume-faced boards on a rubberwood core -- two different products, and the visible copy
+# was claiming a certification container-flooring-plywood.html says in terms that we do not hold.
+# It was live and indexed, and this checker reported OK on it every run, including the one that
+# gated the merge which published it.
+#
+# Google's FAQPage guidance is that the answer must appear on the page. Enforcing that is what
+# would have caught it: the schema text was nowhere in the visible copy.
+#
+# WHAT IS ENFORCED IS THE FACTS, NOT THE WORDS, and that line was drawn by measurement rather
+# than taste. Requiring the schema text to appear verbatim fails 76 of the 481 displayed answers
+# on today's site, and every one sampled is a harmless rewrite -- "blocks or bearers in the pallet
+# must be treated" against "blocks or bearers must be treated". A gate that cries wolf 76 times is
+# one people learn to bypass, and bypassing is worse than not checking.
+#
+# So a schema answer must keep the HARD FACTS of the visible one: standard and specification
+# tokens (IS 710, ISPM-15, IICL TB-001), species and resin names, and numbers with units. Those
+# are exactly what a paraphrase preserves and a contradiction changes.
+#
+# CALIBRATED IN BOTH DIRECTIONS, because a rule that fires on nothing is as useless as one that
+# fires on everything:
+#     today's site, 481 displayed answers ...... 0 failures
+#     faq.html before c4b93d74, IICL live ...... 1 failure, missing "rubberwood" and "1mm"
+# That one is the contradiction this check exists for -- the visible copy claimed film-faced
+# boards built to ISO, the schema said Okoume on a rubberwood core, and no earlier check in this
+# file could see it.
+#
+# TWO THINGS ARE COUNTED RATHER THAN FAILED, both pre-existing and neither a contradiction: a
+# question with no matching visible heading (keyword-expanded rewrites), and an answer that says
+# the right things in different words. Printed so they cannot grow unnoticed.
+# ---------------------------------------------------------------------------------------------
+TAGS = re.compile(r"<(script|style)\b.*?</\1>", re.S | re.I)
+COMMENT = re.compile(r"<!--.*?-->", re.S)
+ANYTAG = re.compile(r"<[^>]+>")
+
+
+def norm_text(t):
+    t = html_mod.unescape(t)
+    for a, b in (("\u00a0", " "), ("\u2013", "-"), ("\u2014", "-"), ("\u2019", "'"),
+                 ("\u2018", "'"), ("\u201c", '"'), ("\u201d", '"'), ("\u2212", "-")):
+        t = t.replace(a, b)
+    return re.sub(r"\s+", " ", t).strip()
+
+
+def visible_text(src):
+    t = COMMENT.sub(" ", TAGS.sub(" ", src))
+    return norm_text(ANYTAG.sub(" ", t))
+
+
+def faq_questions(src):
+    """(name, answer) for every FAQPage Question, however the blocks are nested."""
+    out = []
+    for m in LD.finditer(src):
+        try:
+            doc = json.loads(m.group(1))
+        except Exception:
+            continue
+        for node in (doc if isinstance(doc, list) else [doc]):
+            if not isinstance(node, dict):
+                continue
+            graph = node.get("@graph") if isinstance(node.get("@graph"), list) else [node]
+            for g in graph:
+                if not isinstance(g, dict) or g.get("@type") != "FAQPage":
+                    continue
+                ents = g.get("mainEntity") or []
+                for q in (ents if isinstance(ents, list) else [ents]):
+                    if not isinstance(q, dict):
+                        continue
+                    a = q.get("acceptedAnswer") or {}
+                    out.append((str(q.get("name") or ""),
+                                str(a.get("text") or "") if isinstance(a, dict) else ""))
+    return out
+
+
+SPEC = re.compile(r"\b(?:IS|ISO|ISPM|IICL|TB|EN|BS|ASTM|BWP|BWR|MR|HDF|MDF|PF|MUF|UF)"
+                  r"[ -]?\d[\w-]*\b")
+NAMED = re.compile(r"\b(?:ISPM|IICL|ISO|BWP|BWR|Okoume|Gurjan|rubberwood|keruing|apitong|birch|"
+                   r"eucalyptus|poplar|hardwood|softwood|melamine|phenolic|formaldehyde)\b", re.I)
+QTY = re.compile(r"\b\d+(?:\.\d+)?\s?(?:mm|cm|kg|kg/m3|%|ply|plies)\b", re.I)
+
+def hard_facts(t):
+    """Standards, species, resins and measurements -- what a paraphrase keeps."""
+    out = set()
+    for rx in (SPEC, NAMED, QTY):
+        for m in rx.findall(norm_text(t)):
+            out.add(re.sub(r"[ -]", "", str(m)).lower())
+    return out
+
+
+def check_faq_matches_page():
+    n_q = 0
+    loose_names = 0
+    reworded = 0
+    for p in HTML:
+        src = p.read_text(encoding="utf-8", errors="replace")
+        qs = faq_questions(src)
+        if not qs:
+            continue
+        vis = visible_text(src)
+        vis_facts = hard_facts(vis)
+        for name, answer in qs:
+            q = norm_text(name)
+            a = norm_text(ANYTAG.sub(" ", answer))
+            if not a:
+                bad("faq-answer", rel(p), 'the answer to "%s" is empty' % name[:60])
+                continue
+            if not q or q not in vis:
+                # The page does not DISPLAY this question, so there is no visible answer for the
+                # schema to contradict. Counted, not failed -- see the note above.
+                loose_names += 1
+                continue
+            n_q += 1
+            if a not in vis:
+                reworded += 1
+            missing = sorted(hard_facts(a) - vis_facts)
+            if missing:
+                bad("faq-answer", rel(p),
+                    'the page ASKS "%s" and its schema answer states facts the page does not.\n'
+                    "      only in the schema : %s\n"
+                    "      schema answer      : %s\n"
+                    "      Googlebot reads that; a buyer reads the page. Check which is true "
+                    "against the product page before changing either."
+                    % (name[:60], ", ".join(missing), a[:140]))
+    return n_q, loose_names, reworded
+
+
+# ---------------------------------------------------------------------------------------------
+# 7. Each page agrees with itself about its own address.
+#
+# canonical, og:url and the file's own path are three statements of one fact, maintained by hand
+# across 293 files. A canonical pointing at the wrong page hands that page's ranking to another
+# one; an og:url disagreeing with it makes every share resolve somewhere the canonical denies.
+# Neither is visible in a browser and neither breaks anything a person would notice.
+#
+# THE EXPECTED URL IS DERIVED THE WAY PAGES SERVES IT, not the way the file is named: Pages strips
+# .html and serves index.html at the directory root. Checking against the filename would fail
+# every page on the site.
+# ---------------------------------------------------------------------------------------------
+SITE = "https://www.cochinwood.in"
+CANON = re.compile(r'<link[^>]+rel=["\']canonical["\'][^>]*>', re.I)
+OGURL = re.compile(r'<meta[^>]+property=["\']og:url["\'][^>]*>', re.I)
+# NOT `HREF`: the link checker already owns that name at the top of the file, and its pattern
+# matches href OR src. Redefining it here silently dropped 3,877 links from that check --
+# same tree, 43451 before and 39574 after, with nothing failing to say so.
+CANON_HREF = re.compile(r'href\s*=\s*"([^"]+)"', re.I)
+CONTENT = re.compile(r'content\s*=\s*"([^"]+)"', re.I)
+TITLE = re.compile(r"<title[^>]*>(.*?)</title>", re.S | re.I)
+# The hero art on every blog post carries an <svg><title> for screen readers. It is an
+# accessibility label, not the document title, and counting it reported 24 pages as having
+# two titles when every one of them has exactly one.
+SVG = re.compile(r"<svg\b.*?</svg>", re.S | re.I)
+
+
+def served_url(p):
+    r = rel(p)
+    if r == "index.html":
+        return SITE + "/"
+    if r.endswith("/index.html"):
+        return SITE + "/" + r[:-len("/index.html")] + "/"
+    return SITE + "/" + r[:-len(".html")]
+
+
+def attr(pattern, tag):
+    m = pattern.search(tag)
+    return m.group(1) if m else ""
+
+
+def absolute(u):
+    """A canonical may be relative -- /blogs/page/10 is valid and Google resolves it.
+
+    Demanding an absolute URL would have failed 28 pages that are perfectly correct, which is how
+    a checker teaches people to ignore it."""
+    u = (u or "").strip()
+    if u.startswith("//"):
+        return "https:" + u
+    if u.startswith("/"):
+        return SITE + u
+    return u
+
+
+def check_self_reference():
+    n = 0
+    for p in HTML:
+        if rel(p) == "404.html":      # _redirects sends /404 home; it has no address of its own
+            continue
+        src = p.read_text(encoding="utf-8", errors="replace")
+        want = served_url(p).rstrip("/") or SITE
+        n += 1
+
+        cs = CANON.findall(src)
+        if len(cs) != 1:
+            bad("canonical", rel(p), "expected exactly one rel=canonical, found %d" % len(cs))
+        else:
+            got = absolute(attr(CANON_HREF, cs[0])).rstrip("/") or SITE
+            if got != want:
+                bad("canonical", rel(p), "points at %s\n      expected %s" % (got, want))
+
+        og = OGURL.findall(src)
+        if len(og) > 1:
+            bad("og:url", rel(p), "%d og:url tags; they cannot all be right" % len(og))
+        elif og:
+            got = absolute(attr(CONTENT, og[0])).rstrip("/") or SITE
+            if got != want:
+                bad("og:url", rel(p), "says %s\n      but the page is served at %s" % (got, want))
+
+        ts = TITLE.findall(SVG.sub(" ", src))
+        if len(ts) != 1:
+            bad("title", rel(p), "expected exactly one <title>, found %d" % len(ts))
+        elif not norm_text(ts[0]):
+            bad("title", rel(p), "the <title> is empty")
+    return n
+
+
 def main():
     n_ld = check_json_ld()
     n_faq = check_continents()
     n_hdr = check_headers()
     n_lnk = check_links()
     check_quote_form()
+    n_q, loose, reworded = check_faq_matches_page()
+    n_self = check_self_reference()
 
     print(f"pages          : {len(HTML)}")
     print(f"ld+json blocks : {n_ld}")
     print(f"export-market  : {n_faq} pages carry the FAQ")
     print(f"cache rules    : {n_hdr} set Cache-Control")
     print(f"internal links : {n_lnk}")
+    print(f"faq answers    : {n_q} checked against the page that asks the question")
+    print(f"  reworded     : {reworded} say it in different words (counted, not failed)")
+    print(f"  orphaned     : {loose} questions with no visible heading (counted, not failed)")
+    print(f"self-reference : {n_self} pages checked for canonical, og:url and title")
 
     if not fails:
         print("\nOK - the site says one thing, and every link goes somewhere.")
