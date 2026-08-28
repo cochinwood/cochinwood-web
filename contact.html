@@ -320,9 +320,11 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
 </div>
 <div class="cwq2-field"><label for="cwq2-msg">Anything else</label><textarea id="cwq2-msg" name="description" placeholder="Sizes, monthly volume, timing…"></textarea></div>
 <!-- data-error-callback: the ONLY way anyone finds out Turnstile has started refusing real buyers.
-     The form still submits without a token and the Worker still refuses it and still shows the
-     ordinary thank-you, so a wrongly-refused buyer is told "Request received" and never writes
-     again. Nothing else can see that: the hourly probe is signed past this gate on purpose, an
+     STALE UNTIL 28 AUG 2026 and worth reading as a warning: this said the form still submits, the
+     Worker refuses it, and the ordinary thank-you is shown. That was true when it was written and
+     was fixed on 26 Aug by the submit gate below, which stops the post and tells the buyer. The
+     comment outlived the behaviour it described by two days and was believed twice in that time.
+     Nothing else can see that: the hourly probe is signed past this gate on purpose, an
      automated browser is not issued a token at all, and the enquiry volume is far too low for its
      absence to mean anything. This fires on VISITORS, which the site has plenty of. -->
 <div class="cf-turnstile" data-sitekey="0x4AAAAAAEC9o-zON82Wc-NR" data-theme="light" data-error-callback="cwq2TsFail" style="margin:0 0 14px"></div>
@@ -349,9 +351,14 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
      the beacon exists for, and it was the one shape it could not see: sensitive to the ordinary
      network stumble that makes a false alarm, blind to total failure.
 
-     What the buyer gets meanwhile is the bad part. With no widget there is no token, the form
-     posts without one, the Worker refuses it, and the ordinary thank-you is still shown -- so a
-     real enquiry is lost and the person is told it arrived.
+     WHAT THE BUYER GETS, corrected on 28 Aug 2026 -- the older comment below this widget still
+     describes the behaviour that the 26 Aug submit gate replaced, and this one repeated it before
+     being checked against the code. With no script there is no cf-turnstile-response element at
+     all, so the gate at the bottom of this page takes its `!ts` branch and STOPS the submission:
+     the buyer is told verification has not finished and is pointed at WhatsApp and email. Better
+     than the silent "Request received" it replaced, and it is why this beacon is the ONLY thing
+     that can see the fault -- the form never posts, so the Worker never receives it, so there is
+     no server-side record of any kind. The absence is observable here and nowhere else.
 
      A SEPARATE CODE, NOT THE SAME ONE, and that is the whole design of this block. An ad-blocker
      produces exactly this state for one visitor, all day, every day, and folding it into the same
