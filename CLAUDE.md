@@ -62,6 +62,43 @@ Administrators can still bypass — deliberately, so a broken checker or a GitHu
 cannot stop you rolling back. That escape hatch is for emergencies, not for skipping a
 red check.
 
+## Merging deploys the origin and purges nothing
+
+A merge into `cf-live` republishes the origin. It does **not** clear Cloudflare's
+edge cache, so a page already cached keeps being served until its TTL runs out —
+the same URL can return the old document to a visitor and the new one to anyone
+who adds a query string.
+
+Measured on 28 Aug 2026, about two hours after a merge:
+
+    https://www.cochinwood.in/            cf-cache-status: HIT   Age: 7148   (pre-merge copy)
+    https://www.cochinwood.in/?cb=<rand>  cf-cache-status: MISS              (correct)
+
+That instance cost the `/cw-event` counter its most-visited page: the homepage was
+serving a document without `js/cw-events.js`, so the dashboard would have reported
+the homepage producing no quote clicks — a wrong answer rather than a missing one.
+
+**The app repo does not have this problem, which is why it is easy to forget here.**
+`webapp/deploy.py` purges the edge for `app.cochinwood.in` on every shell deploy and
+says so in its output. There is no equivalent step on this side, because there is no
+deploy script on this side at all — the merge is the deploy.
+
+So after merging anything whose correctness is time-sensitive — a price, a phone
+number, a contact CTA, a legal line — purge the affected URLs and then re-fetch them
+WITHOUT a cache-buster to confirm. A cache-buster proves the origin is right and
+proves nothing about what a visitor receives.
+
+    POST https://api.cloudflare.com/client/v4/zones/<zone>/purge_cache
+    {"files": ["https://www.cochinwood.in/", "https://cochinwood.in/"]}
+
+Purge the specific URLs rather than the zone: a full purge sends every page to the
+origin at once for no benefit when two files changed.
+
+ONE READING TRAP, PAID FOR ONCE. `/index.html` answers `BYPASS` with an empty body —
+that is a 308 to `/`, not a document, and reading it as "reached the origin and the
+origin is wrong" turns a cache problem into an imaginary build problem. Probe the URL
+a visitor actually requests.
+
 ## Config files
 
 - `_headers`, `_redirects` — Cloudflare Pages config, hand-maintained.
