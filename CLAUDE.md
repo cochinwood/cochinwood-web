@@ -117,12 +117,27 @@ source is the same either way. Nothing you can grep for tells you which state yo
 
 Measured 28 Aug 2026, after the setting was turned **off**:
 
-    live /contact   __cf_email__ 0   email-decode.min.js 2
-    source          __cf_email__ 0   email-decode.min.js 2
+    API   /zones/<zone>/settings/email_obfuscation   value "off"
+                                                     modified_on 2026-08-28T09:11:57Z
+
+    live /            __cf_email__ 0   email-protection 0   plain mailto 3
+    live /contact     __cf_email__ 0   email-protection 0   plain mailto 7
+    live /llms        __cf_email__ 0   email-protection 0   plain mailto 4
+    source            __cf_email__ 0   email-decode.min.js 2
 
 Live and source agree, which is how we know these tags are **ours** — committed into the HTML,
 almost certainly fossilised from a Cloudflare pass years ago the same way the Zoho strings were —
 rather than injected fresh on each request.
+
+**The live page lags the setting, and on 28 Aug that lag produced a confident wrong answer.** The
+switch was thrown at 09:11:57Z. A review measuring the served pages afterwards found `__cf_email__`
+on `/`, `/contact` and `/llms`, and reported that the 292-page decode sweep was inert — because the
+edge was still serving copies cached *before* the flip. The homepage entry was nearly two hours old.
+The origin was correct, the markup was correct, the setting was correct, and the served bytes were
+stale, so every check except the setting itself agreed on the wrong answer.
+
+Add `?cb=<random>` to force a MISS if you must read this off a page. But the page is the symptom and
+the setting is the fact, which is why the check below is an API call and not a curl.
 
 **So before removing them**, check the setting rather than the markup:
 
