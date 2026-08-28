@@ -99,6 +99,45 @@ that is a 308 to `/`, not a document, and reading it as "reached the origin and 
 origin is wrong" turns a cache problem into an imaginary build problem. Probe the URL
 a visitor actually requests.
 
+## The 292 email-decode tags look dead and are not safe to delete
+
+Every page carries
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/.../email-decode.min.js"></script>
+
+and since the 28 Aug sweep there is **not a single `__cf_email__` left in the source** — so the
+decoder has nothing in this repo to decode, and reads as obvious dead weight. Delete it on that
+reasoning and you may break every email link on the site.
+
+**Whether it is dead depends on a switch that is not in this repo.** Scrape Shield → Email
+Obfuscation, on the Cloudflare zone, rewrites plain `mailto:` links into `__cf_email__` placeholders
+*at the edge, on the way out*. While it is on, the served page needs a decoder and the repo looks
+like it has none — and while it is off, the repo looks like it has a decoder for nothing. The
+source is the same either way. Nothing you can grep for tells you which state you are in.
+
+Measured 28 Aug 2026, after the setting was turned **off**:
+
+    live /contact   __cf_email__ 0   email-decode.min.js 2
+    source          __cf_email__ 0   email-decode.min.js 2
+
+Live and source agree, which is how we know these tags are **ours** — committed into the HTML,
+almost certainly fossilised from a Cloudflare pass years ago the same way the Zoho strings were —
+rather than injected fresh on each request.
+
+**So before removing them**, check the setting rather than the markup:
+
+    GET https://api.cloudflare.com/client/v4/zones/<zone>/settings/email_obfuscation
+
+If it reads `off`, they are genuinely inert and removable. If it reads `on`, they may be the only
+thing decoding the addresses on 292 pages, and *that* has not been tested — nobody has established
+whether Cloudflare would inject its own decoder in their absence.
+
+**Why the setting is off.** With it on, a no-JS crawler receives `[email protected]` instead of an
+address — including on `llms.html`, which exists specifically for JS-less AI clients. The trade
+accepted on 28 Aug is that plain `mailto:` links are scrapeable by spam bots. If the spam becomes a
+problem, turning it back on is one PATCH to the endpoint above — and at that moment these tags stop
+being dead weight again.
+
 ## Config files
 
 - `_headers`, `_redirects` — Cloudflare Pages config, hand-maintained.
