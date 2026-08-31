@@ -1815,7 +1815,30 @@ def assets_and_meta():
             os.replace(plain, os.path.join(dst, ASSETS["site.js"]))
     build_css_bundle()
     open(os.path.join(DIST, ".nojekyll"), "w").close()
-    # Cloudflare Pages headers (ignored by GitHub Pages, honoured by CF Pages)
+    # Cloudflare Pages headers (ignored by GitHub Pages, honoured by CF Pages).
+    #
+    # The Content-Security-Policy below is carried VERBATIM from what production serves
+    # today (`git show origin/cf-live:_headers`, re-checked against the wire on 1 Sep
+    # 2026: www.cochinwood.in returns it on /, /contact, /assets/* and even on 404s).
+    # It is the ONE security header here that no Cloudflare zone rule re-adds. Proof:
+    # the apex 301 at https://cochinwood.in/ is a zone Redirect Rule that never reaches
+    # Pages, and it still carries Strict-Transport-Security, X-Content-Type-Options,
+    # Referrer-Policy, Permissions-Policy and the report-only CSP -- but NOT this
+    # enforced one. So this file is its only source, and a build that omits it drops
+    # the protection silently at cutover: frame-ancestors is what stops another origin
+    # framing this site inside its own page, and base-uri stops an injected <base> tag
+    # re-pointing every relative URL on the page.
+    #
+    # script-src, frame-src, connect-src and default-src are deliberately ABSENT, exactly
+    # as on live. /contact runs Cloudflare Turnstile: it loads
+    # https://challenges.cloudflare.com/turnstile/v0/api.js, frames the widget from that
+    # same origin and calls back to it. Any one of those four directives, added without
+    # also allow-listing challenges.cloudflare.com, would kill every quote submission on
+    # the site while the page still looked perfectly healthy -- worse than no CSP at all.
+    # base-uri, object-src and frame-ancestors govern none of those three things, which
+    # is why this policy is safe to enforce unchanged. The pages also still carry inline
+    # JS, so any script-src short of 'unsafe-inline' would break them anyway. Tighten
+    # only with a policy that has been tested against a real Turnstile submission.
     write("_headers",
         "/assets/*\n"
         "  Cache-Control: public, max-age=31536000, immutable\n"
@@ -1824,6 +1847,7 @@ def assets_and_meta():
         "/*\n"
         "  X-Content-Type-Options: nosniff\n"
         "  Referrer-Policy: strict-origin-when-cross-origin\n"
+        "  Content-Security-Policy: base-uri 'self'; object-src 'none'; frame-ancestors 'self'\n"
         "  X-Frame-Options: SAMEORIGIN\n"
         "  Strict-Transport-Security: max-age=31536000; includeSubDomains\n"
         "  Permissions-Policy: geolocation=(), camera=(), microphone=(), interest-cohort=()\n"
