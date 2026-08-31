@@ -399,6 +399,13 @@ def seo_title(title):
     head = TITLE_OVERRIDES.get(head, head)
 
     def fit(h):
+        # A head that already names the brand takes no brand suffix. Without this, a title
+        # carried over verbatim from the live site -- "Request a Plywood Quote · Cochin Wood
+        # Industries" -- comes out as "... Cochin Wood Industries | Cochin Wood", saying the
+        # company name twice inside Google's 62 characters and spending them on nothing. The
+        # suffix exists to ADD the brand to a title that lacks it, not to repeat one it has.
+        if "Cochin Wood" in h:
+            return h if len(h) <= TITLE_MAX else None
         for suffix in (" | Cochin Wood Industries", " | Cochin Wood", ""):
             if len(h + suffix) <= TITLE_MAX: return h + suffix
         return None
@@ -593,8 +600,8 @@ def home():
   <a class="cw-btn cw-btn--p" href="{u('/contact')}">Request a quote</a>
 </div></section>'''
     write("index.html", base(
-        "Plywood Manufacturer in Kochi, Kerala | Cochin Wood Industries",
-        "Cochin Wood Industries manufactures packing, Okoume, marine and film-faced shuttering plywood, sawn timber and export crates in Kochi, Kerala. Group manufacturing since 1986. Pan-India delivery and export.",
+        "Plywood Manufacturer & Exporter in India | Cochin Wood",
+        "Marine, shuttering, packing and Okoume plywood from the Cochin Wood group in Perumbavoor, Kerala — factory-direct, pan-India delivery and export.",
         "/", body))
 
 # ---------------- PRODUCTS ----------------
@@ -656,7 +663,7 @@ def contact():
   {form}
 </div></section>'''
     write("contact/index.html", base(
-        "Contact — Request a Plywood Quote | Cochin Wood Industries",
+        "Request a Plywood Quote · Cochin Wood Industries",
         "Contact Cochin Wood Industries, Kuruppampady, Ernakulam, Kerala. WhatsApp/phone +91 95674 10175 or sales@cochinwood.in for plywood quotes, pan-India and export.",
         "/contact", body, crumbs=[("Home", "/"), ("Contact", None)]))
 
