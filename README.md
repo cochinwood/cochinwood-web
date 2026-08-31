@@ -56,10 +56,20 @@ of headlines that needed a hand-written short form; the build warns if any title
 still does not fit.
 
 ### Redirects
-`LEGACY_REDIRECTS` in `build.py` is the single source of truth for old Zoho
-slugs. Each entry both rewrites in-content links at build time and emits a 301
-into `dist/_redirects` for Cloudflare Pages, so inbound links keep their value.
-Add a slug there when a URL changes.
+`dist/_redirects` is generated from two things. `PORTED_REDIRECTS` carries the
+hand-maintained rule set from the live `cf-live` branch verbatim, comments and
+order included; `LEGACY_REDIRECTS` holds the old Zoho slugs, and each of its
+entries *also* rewrites in-content links at build time — so where the two
+disagree on a slug, `LEGACY_REDIRECTS` wins and the build says so, because a 301
+and the links on the page must not lead to different places.
+
+Every rule is then re-checked against the pages the build actually emitted. A
+rule whose target is not built is dropped and reported, and comes back on its own
+the day that page is added; a rule that would shadow a real page is dropped too.
+**Cloudflare Pages honours only the first 100 rules** — the build counts them,
+prints the count in its banner and warns as the file approaches the limit, so put
+anything order-sensitive near the top. `DROPPED_FROM_LIVE` records the live rules
+deliberately not carried across, and why.
 
 ## Status
 All pages rebuilt clean: Home, Products (13 lines), Industries, About, Contact,

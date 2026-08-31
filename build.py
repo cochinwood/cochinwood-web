@@ -939,6 +939,283 @@ def copy_referenced_files():
         shutil.copy(src, dst); copied += 1
     return copied
 
+# ---------------- redirects ----------------
+# cf-live's _redirects is 99 hand-maintained rules; regenerating this file from
+# LEGACY_REDIRECTS alone dropped 77 of them, silently, on the day of the cutover.
+# The live file is carried here instead (git show origin/cf-live:_redirects, read
+# 31 Aug 2026), comments and order intact, and every rule is re-checked at build
+# time against the pages this build actually emits -- so a rule comes back on its
+# own the day the page it points at is ported, and one that has gone stale is
+# dropped with a reason rather than shipped as a redirect into a 404.
+#
+# CLOUDFLARE PAGES HONOURS ONLY THE FIRST 100 RULES. The build counts them and
+# warns. Order below is load-bearing wherever the live file said so.
+PORTED_REDIRECTS = """
+# C-22, the soft 404. Pages strips .html, so /404.html 308s to /404 and the error
+# page is served there with a 200 -- a page reading "This page isn't here" that
+# tells every crawler it is fine. A 404 STATUS IN THIS FILE IS IGNORED (measured
+# on cf-live: Pages honours 301/302/303/307/308 and nothing else), so the error
+# page's own URL is sent home instead. FIRST IN THE FILE ON PURPOSE -- not for
+# precedence, but so four more additions cannot push it past the 100-rule cut.
+/404 / 301
+
+# 21 doubled-segment URLs from GSC. Written explicitly because Cloudflare Pages
+# silently drops the :splat form on this project (static destinations work fine).
+# MUST STAY FIRST among the /blogs rules: _redirects is first-match-wins.
+/blogs/post/post/plywood-supply-to-bengaluru /blogs/post/plywood-supply-to-bengaluru 301
+/blogs/post/post/plywood-supply-to-chennai /blogs/post/plywood-supply-to-chennai 301
+/blogs/post/post/plywood-supply-to-coimbatore /blogs/post/plywood-supply-to-coimbatore 301
+/blogs/post/post/plywood-supply-to-davangere /blogs/post/plywood-supply-to-davangere 301
+/blogs/post/post/plywood-supply-to-guntur /blogs/post/plywood-supply-to-guntur 301
+/blogs/post/post/plywood-supply-to-hosur /blogs/post/plywood-supply-to-hosur 301
+/blogs/post/post/plywood-supply-to-hubli-dharwad /blogs/post/plywood-supply-to-hubli-dharwad 301
+/blogs/post/post/plywood-supply-to-hyderabad /blogs/post/plywood-supply-to-hyderabad 301
+/blogs/post/post/plywood-supply-to-jeddah /blogs/post/plywood-supply-to-jeddah 301
+/blogs/post/post/plywood-supply-to-jubail /blogs/post/plywood-supply-to-jubail 301
+/blogs/post/post/plywood-supply-to-kakinada /blogs/post/plywood-supply-to-kakinada 301
+/blogs/post/post/plywood-supply-to-karur /blogs/post/plywood-supply-to-karur 301
+/blogs/post/post/plywood-supply-to-khammam /blogs/post/plywood-supply-to-khammam 301
+/blogs/post/post/plywood-supply-to-khobar /blogs/post/plywood-supply-to-khobar 301
+/blogs/post/post/plywood-supply-to-nellore /blogs/post/plywood-supply-to-nellore 301
+/blogs/post/post/plywood-supply-to-riyadh /blogs/post/plywood-supply-to-riyadh 301
+/blogs/post/post/plywood-supply-to-salem /blogs/post/plywood-supply-to-salem 301
+/blogs/post/post/plywood-supply-to-sivakasi /blogs/post/plywood-supply-to-sivakasi 301
+/blogs/post/post/plywood-supply-to-sohar /blogs/post/plywood-supply-to-sohar 301
+/blogs/post/post/plywood-supply-to-tirupati /blogs/post/plywood-supply-to-tirupati 301
+/blogs/post/post/plywood-supply-to-vizag /blogs/post/plywood-supply-to-vizag 301
+
+# The wood section. /woods-we-use is the live URL and this build now emits it, so
+# both live rules still hold. The species pages move under the hub with it: all
+# 28 are live at /blogs/post/wood-<slug> and would otherwise 404. One wildcard
+# costs one rule; 28 explicit rules do not fit under the 100-rule cut. It has to
+# sit above the generic /blogs rules further down.
+/wood-encyclopedia /woods-we-use 301
+/wood-encyclopedia/* /woods-we-use 301
+/blogs/post/wood-* /woods-we-use 301
+
+/privacy /privacy-policy 301
+/terms /terms-and-conditions 301
+/about-us /about 301
+/contact-us /contact 301
+
+# --- 2026-07-07 audit fixes: old guide/page slugs -> live equivalents ---
+# Sources also present in LEGACY_REDIRECTS are overridden by it below, so the
+# 301 and the in-content link rewrite cannot disagree.
+/guide-okoume-vs-gurjan /blogs/post/okoume-vs-gurjan-plywood 301
+/guide-bwp-bwr-plywood-explained /blogs/post/bwr-vs-bwp-for-export-packing-when-mr-grade-will-fail-at-sea 301
+/guide-is-710-vs-is-303 /blogs/post/how-to-read-a-plywood-grade-stamp 301
+/guide-marine-plywood-thickness /blogs/post/marine-plywood-thickness-guide 301
+/guide-rubberwood-plywood-explained /woods-we-use 301
+/guide-plywood-boxes-ispm-15 /blogs/post/ispm-15-heat-treatment-vs-methyl-bromide 301
+/guide-ispm-15-crate-cost /plywood-boxes-crates 301
+/guide-plywood-for-packing-cases /commercial-plywood 301
+/packing-grade-plywood-spec-sheet /blogs/post/packing-grade-plywood-spec-sheet 301
+/plywood-pallets-crates-ahmedabad /plywood-pallets 301
+
+# --- blog taxonomy ---
+# The two tag rules that reach a product page must stay ABOVE the /blogs/tag/*
+# wildcard: first match wins, and /blogs is the weaker destination.
+/blogs/tag/film-faced-plywood /film-faced-shuttering-plywood 301
+/blogs/tag/marine-plywood /marine-plywood 301
+# This build emits no pagination and no tag pages, so both families collapse.
+# NOTE: cf-live carries "never wildcard /blogs/page/* -- page/2..N ARE LIVE".
+# That was true of cf-live. It is not true of this build, which emits /blogs and
+# /blogs/post/<slug> and nothing else; the owner's call is that the 55 pagination
+# and tag URLs go. These two rules replace 9 of the live ones.
+/blogs/page/* /blogs 301
+/blogs/tag/* /blogs 301
+/blogs/author/* /blogs 301
+/blogs/post/ /blogs 301
+/blogs/Uncategorized /blogs 301
+/blogs/insight /blogs 301
+/blogs/plywood /blogs 301
+/blog/* /blogs 301
+# catch-all for every remaining /blogs/<anything>/feed
+/blogs/feed /blogs 301
+/blogs/*/feed /blogs 301
+
+# --- 2026-07-28 GSC 404 sweep. Old keyword URLs -> best-matching money page ---
+/best-plywood-suppliers-in-kerala /plywood-manufacturer-kerala 301
+/plywood-suppliers-in-kochi /plywood-manufacturer-kerala 301
+/plywood-manufacturers-in-perumbavoor /plywood-factory 301
+/plywood-manufacturers-perumbavoor /plywood-factory 301
+/plywood-price-kerala /plywood-price-guide 301
+/marine-plywood-kerala /marine-plywood 301
+/plywood-pallets-crates-mumbai /plywood-pallets 301
+/plywood-pallets-crates-delhi-ncr /plywood-pallets 301
+/guide-plywood-cable-drum-specifications /plywood-cable-drums 301
+/sawn-timber-products /sawn-timber 301
+/sawn_timber_products /sawn-timber 301
+/engineered_wood_panels /products 301
+/industrial-packaging /products 301
+/return-policy /return-refund-policy 301
+
+# --- legacy pre-migration paths ---
+/Home / 301
+/home / 301
+/40 / 301
+/our-process /about 301
+/helpdesk /contact 301
+/faq-1 /faq 301
+/guides/ /resources 301
+
+# --- removed posts -> nearest live page ---
+/blogs/post/uae-s-green-building-standards-driving-plywood-innovation* /export/uae 301
+/blogs/post/areas-we-serve-* /export 301
+/blogs/post/gcc-s-humanitarian-leadership-* /export 301
+/blogs/post/plywood-in-global-aviation-cargo-packaging /blogs 301
+/blogs/post/plywood-in-global-e-commerce-warehousing* /blogs 301
+/blogs/post/marine-plywood-in-global-yacht-interiors /marine-plywood 301
+/blogs/post/plywood-in-smart-home-technology /blogs 301
+/blogs/post/plywood-in-modular-healthcare-units-building-faster-safer-hospitals /blogs 301
+/blogs/post/qatar-s-world-cup-legacy-plywood-in-sports-projects /export/qatar 301
+/blogs/post/bahrain-s-tourism-push-plywood-in-resorts-interiors /export/bahrain 301
+/blogs/post/plywood-in-urban-public-furniture1 /blogs 301
+/blogs/post/plywood-in-space-robotics-testing-facilities /blogs 301
+/blogs/post/plywood-in-international-expo-booths1 /blogs 301
+/blogs/post/shuttering-plywood-in-renewable-energy-plants /film-faced-shuttering-plywood 301
+
+# Thin 324-word duplicate of the 1532-word money page - consolidate. Holds only
+# while /okoume-plywood is not yet built; the moment it is, this rule and
+# LEGACY_REDIRECTS' /okoume-plywood entry point at each other, and the shadow
+# check below drops whichever source has become a real page.
+/blogs/post/okoume-plywood /okoume-plywood 301
+
+# 603 explicit /dist/ rules once silently became 404s past the 100-rule cut. One
+# wildcard costs one rule. :splat was tested live here and every path still 404'd.
+/dist/* / 301
+
+# /index.html is a duplicate of /. build.py exempts *.html sources from its
+# "this source is a real page" check, because sending this one home is the point.
+/index.html / 301
+"""
+
+# Rules NOT carried across from cf-live, and why. Recorded so the next person can
+# see they were considered rather than missed.
+DROPPED_FROM_LIVE = {
+    "/CLAUDE.md /": "cf-live is served verbatim so its CLAUDE.md was downloadable; "
+                    "the cutover serves dist/, which contains no such file",
+    "/.github/* /": "same -- dist/ has no .github, so there is nothing to hide",
+    "/files/Home/* /": "cf-live served nothing under /files/Home/; this build SERVES "
+                       "/files/Home/home-1-hero.jpg there and the rule would 301 it away",
+    "/files/home/* /": "the lowercase twin of the above, left out for the same reason",
+    "/blogs/page/1 /blogs": "subsumed by the new /blogs/page/* wildcard",
+    "/blogs/tag/india-suppliers /blogs": "subsumed by the new /blogs/tag/* wildcard",
+    "/blogs/tag/interiors /blogs": "subsumed by the new /blogs/tag/* wildcard",
+    "/blogs/tag/plywood-export/ /blogs": "subsumed by the new /blogs/tag/* wildcard",
+    "/blogs/tag/uae/feed /blogs/tag/uae": "target never built; /blogs/tag/* catches it",
+    "/blogs/tag/uttar-pradesh/feed /blogs/tag/uttar-pradesh":
+        "target never built; /blogs/tag/* catches it",
+    "/blogs/tag/andhra-pradesh/page/* /blogs/tag/andhra-pradesh":
+        "target never built; /blogs/tag/* catches it",
+    "/blogs/buyer-guides/feed /blogs/buyer-guides":
+        "target never built; /blogs/*/feed catches it",
+    "/blogs/north-india/feed /blogs/north-india":
+        "target never built; /blogs/*/feed catches it",
+    "/blogs/buyer-guides/page/* /blogs/buyer-guides":
+        "target never built and NOTHING else catches it -- those URLs will 404",
+}
+
+REDIRECT_LIMIT = 100          # Cloudflare Pages honours only the first N rules
+
+def _served_paths():
+    """Every URL this build actually serves: each file, plus the clean directory
+    URL of every index.html. Used so no redirect can shadow real content."""
+    out = set()
+    for r, _d, fs in os.walk(DIST):
+        rel = os.path.relpath(r, DIST).replace(os.sep, "/")
+        pre = "" if rel == "." else "/" + rel
+        for f in fs:
+            out.add(f"{pre}/{f}")
+            if f == "index.html": out.add(pre or "/")
+    return out
+
+def _rule_re(src):
+    """A _redirects source as a regex. Cloudflare's * spans slashes."""
+    return re.compile("^" + ".*".join(re.escape(p) for p in src.split("*")) + "$")
+
+def _parse_redirects(text):
+    """-> [("#", comment) | ("r", src, dst, code)], order and comments preserved."""
+    items = []
+    for line in text.splitlines():
+        s = line.strip()
+        if not s:
+            items.append(("#", ""))
+        elif s.startswith("#"):
+            items.append(("#", s))
+        else:
+            p = s.split()
+            items.append(("r", p[0], p[1], p[2] if len(p) > 2 else "301"))
+    return items
+
+def build_redirects():
+    """Merge the ported live rules with LEGACY_REDIRECTS, drop whatever no longer
+    holds, report every drop, and emit. Returns the number of rules emitted."""
+    items = _parse_redirects(PORTED_REDIRECTS)
+    have  = {it[1] for it in items if it[0] == "r"}
+    added = False
+
+    # LEGACY_REDIRECTS also rewrites in-content links, so where it and the live
+    # file disagree on a source the in-content target has to win -- otherwise a
+    # link on the page and the 301 for the same slug lead to different places.
+    for src in sorted(LEGACY_REDIRECTS):
+        dst = LEGACY_REDIRECTS[src]
+        if src.startswith("/blogs/post/wood-"):
+            continue                      # the /blogs/post/wood-* wildcard covers these
+        if src in have:
+            for i, it in enumerate(items):
+                if it[0] == "r" and it[1] == src and it[2] != dst:
+                    warn(f"redirect conflict on {src}: cf-live sends it to {it[2]}, "
+                         f"LEGACY_REDIRECTS to {dst} -- using {dst}, which is what the "
+                         f"in-content links already say")
+                    items[i] = ("r", src, dst, "301")
+        else:
+            if not added:
+                items.append(("#", ""))
+                items.append(("#", "# --- LEGACY_REDIRECTS slugs cf-live never had a rule for ---"))
+                added = True
+            items.append(("r", src, dst, "301"))
+
+    served, out, seen, dropped = _served_paths(), [], set(), []
+    def resolve(t):
+        t = t.split("#")[0].split("?")[0]
+        return t in served or (t.rstrip("/") or "/") in served
+
+    for it in items:
+        if it[0] == "#":
+            out.append(it[1]); continue
+        _k, src, dst, code = it
+        if src in seen:
+            dropped.append((src, dst, "duplicate source -- the earlier rule wins")); continue
+        if not resolve(dst):
+            dropped.append((src, dst, "target is not a page this build emits")); continue
+        # a rule matching something we serve would take that page off the site
+        if not src.endswith(".html"):
+            hit = next((p for p in sorted(served) if _rule_re(src).match(p)), None)
+            if hit:
+                dropped.append((src, dst, f"would shadow {hit}, which this build serves"))
+                continue
+        seen.add(src); out.append(f"{src} {dst} {code}")
+
+    n = sum(1 for l in out if l and not l.startswith("#"))
+    for src, dst, why in dropped:
+        warn(f"redirect dropped: {src} -> {dst}  ({why})")
+    for rule, why in sorted(DROPPED_FROM_LIVE.items()):
+        warn(f"cf-live rule not carried across: {rule}  ({why})")
+    if n > REDIRECT_LIMIT:
+        warn(f"_redirects has {n} rules; Cloudflare Pages honours only the first "
+             f"{REDIRECT_LIMIT}, so the last {n - REDIRECT_LIMIT} will never fire")
+    elif n > REDIRECT_LIMIT - 5:
+        # cf-live sat at 99 of 100 and 603 rules had already fallen off the end
+        # once. Say so while there is still room to do something about it.
+        warn(f"_redirects is at {n} of the {REDIRECT_LIMIT} rules Cloudflare Pages "
+             f"honours — {REDIRECT_LIMIT - n} left before rules start being ignored")
+    header = (f"# Generated by build.py -- do not hand-edit; change PORTED_REDIRECTS\n"
+              f"# or LEGACY_REDIRECTS instead. {n} rules, of the {REDIRECT_LIMIT}\n"
+              f"# Cloudflare Pages honours. Order is load-bearing: first match wins.\n")
+    write("_redirects", header + "\n".join(out).strip("\n") + "\n")
+    return n
+
 # ---------------- assets + meta ----------------
 # One request instead of five; order preserved so cascade behaviour is unchanged.
 CSS_BUNDLE = ["fonts.css", "site.css", "guide.css", "wood-enc.css", "shell.css", "components.css"]
@@ -1014,10 +1291,6 @@ def assets_and_meta():
         "  Strict-Transport-Security: max-age=31536000; includeSubDomains\n"
         "  Permissions-Policy: geolocation=(), camera=(), microphone=(), interest-cohort=()\n"
         "  Cross-Origin-Opener-Policy: same-origin\n")
-    # 301s for the legacy Zoho slugs so inbound links and old SERP entries survive
-    lines = [f"{old}  {new}  301" for old, new in sorted(LEGACY_REDIRECTS.items())]
-    lines.append("/index.html  /  301")
-    write("_redirects", "\n".join(lines) + "\n")
     write("404.html", base("Page not found | Cochin Wood Industries",
         "That page has moved or doesn't exist. Browse the plywood catalogue or ask us for a quote.", "/404",
         f'''<section class="cw-sec"><div class="cw-wrap" style="text-align:center;padding:60px 0">
@@ -1041,8 +1314,11 @@ def main():
     for ref in sorted(_files_missing):
         warn(f"photo missing, reference removed: {ref}")
     sm = build_sitemap()
+    # last: it checks every rule against the pages this build actually emitted,
+    # /files/ assets included, so everything has to be on disk first
+    rd = build_redirects()
     cnt = sum(len(fs) for _,_,fs in os.walk(DIST))
-    print(f"BUILD OK  base='{BASE or '(root)'}'  {p} content pages + {n} encyclopedia + {b} blog posts + {f} images  sitemap:{sm}  files: {cnt}")
+    print(f"BUILD OK  base='{BASE or '(root)'}'  {p} content pages + {n} wood pages + {b} blog posts + {f} images  sitemap:{sm}  redirects:{rd}/{REDIRECT_LIMIT}  files: {cnt}")
     if WARNINGS:
         print(f"\n{len(WARNINGS)} WARNING(S):")
         for w in WARNINGS: print("  ! " + w)
