@@ -106,6 +106,22 @@ SPECIES_SLUGS = [f for f, _s, _e, _d in SPECIES]
 LEGACY_REDIRECTS.update({f"/blogs/post/{slug}": f"{WOOD_PATH}/{f}"
                          for f, slug, _e, _d in SPECIES if slug})
 
+# OWNER-DECIDED, 31 Aug 2026. Neither legacy history nor a ported cf-live rule: the five regional
+# and buyer-guide category pages are live and indexed today, this build does not emit them, and
+# Edwin chose redirect-to-/blogs over rebuilding them -- nothing 404s, and they can be rebuilt
+# later without undoing anything. The pagination wildcard replaces the one cf-live rule whose
+# target was never built (see its settled entry in DROPPED_FROM_LIVE). Routed through
+# LEGACY_REDIRECTS on purpose: that also rewrites in-content links, and a page's link and the
+# slug's 301 must lead to the same place.
+LEGACY_REDIRECTS.update({
+    "/blogs/buyer-guides": "/blogs",
+    "/blogs/buyer-guides/page/*": "/blogs",
+    "/blogs/north-india": "/blogs",
+    "/blogs/south-india": "/blogs",
+    "/blogs/west-india": "/blogs",
+    "/blogs/central-east-india": "/blogs",
+})
+
 CONTACT = dict(email="sales@cochinwood.in", phone_disp="+91 95674 10175",
                phone_href="+919567410175", addr="Kuruppampady, Ernakulam, Kerala 683545",
                wa="919567410175")
@@ -950,13 +966,10 @@ def build_blog():
 </div></section>'''
     # Posts allowed to have no "date", each with the why. Anything undated and
     # NOT in this dict is a mistake and gets the loud generic warning below.
-    EXPECTED_UNDATED = {
-        "okoume-plywood": 'expected: the post is new in this build (never live, so '
-                          'there is no real datePublished to inherit and inventing '
-                          'one would read to Google as false). Set "date" to the '
-                          'go-live day at cutover — or drop the post entirely; see '
-                          'the okoume consolidation note above PORTED_REDIRECTS.',
-    }
+    # Empty since 31 Aug 2026: the okoume-plywood post was dropped by owner decision -- one of
+    # the two options its entry here offered. The dict stays so the next genuinely expected
+    # case has somewhere to live rather than growing a new mechanism.
+    EXPECTED_UNDATED = {}
     for slug in undated:
         why = EXPECTED_UNDATED.get(slug)
         if why:
@@ -1196,12 +1209,9 @@ DROPPED_FROM_LIVE = {
     "/blogs/north-india/feed /blogs/north-india":
         "target never built; /blogs/*/feed catches it",
     "/blogs/buyer-guides/page/* /blogs/buyer-guides":
-        "NEEDS OWNER: target never built and NOTHING else catches it -- those URLs "
-        "will 404. The same question hangs over the five live category pages this "
-        "build neither emits nor redirects (/blogs/buyer-guides, /blogs/north-india, "
-        "/blogs/south-india, /blogs/west-india, /blogs/central-east-india; only "
-        "/blogs/gcc-export was ported). Rescuing all of them to /blogs costs ~6 "
-        "rules against the 100-rule cap -- or the owner rules they 404",
+        "settled 31 Aug 2026: Edwin ruled the five category pages and this "
+        "pagination all redirect to /blogs. The replacement rules live in the "
+        "owner-decided LEGACY_REDIRECTS.update() block near the top of this file",
 }
 
 # The seven sources where cf-live's 301 target and LEGACY_REDIRECTS disagree.
@@ -1316,13 +1326,10 @@ def build_redirects():
     n = sum(1 for l in out if l and not l.startswith("#"))
     # Drops that are the machinery working as designed, with the why to print.
     # Keyed (src, dst); anything not listed here still warns bare, as a surprise.
-    EXPECTED_DROPPED = {
-        ("/blogs/post/okoume-plywood", "/okoume-plywood"):
-            "expected: this consolidation 301 idles while posts.json still carries "
-            "the okoume-plywood post (416 words next to the 1471-word money page). "
-            "Owner's call pending -- drop the post and the rule fires, or keep both "
-            "pages and delete the rule; see the note above it in PORTED_REDIRECTS",
-    }
+    # Empty since 31 Aug 2026: the thin okoume post is gone, so the consolidation 301 now
+    # FIRES instead of idling, and there is nothing to explain. The dict stays for the next
+    # pending case.
+    EXPECTED_DROPPED = {}
     for src, dst, why in dropped:
         note = EXPECTED_DROPPED.get((src, dst))
         warn(f"redirect dropped: {src} -> {dst}  ({why})"
