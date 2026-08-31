@@ -59,3 +59,8 @@ body{margin:0;background:#fff;font-family:Poppins,system-ui,sans-serif;color:#14
 .cwg__related a:hover{border-color:var(--cw-green-700,#1B4332)}
 
 @media (max-width:640px){.cwg__cta-inner{flex-direction:column;align-items:flex-start}}
+
+/* export lane pages: the "shipping direct from our factory, no local stock in X"
+   note that sits under the hero lede on /export/<country>. */
+.cwg__note{font-size:.9rem;font-weight:600;color:var(--cw-teal,#007A5E);margin:12px 0 0}
+.cwg__note a{color:inherit;text-decoration:underline}

@@ -1,0 +1,513 @@
+{
+ "shared": {
+  "eeat": "By <strong>Edwin David</strong>, Director, Cochin Wood Industries &mdash; plywood manufacturer in Perumbavoor, Kerala. <span aria-hidden=\"true\">&middot;</span> Last updated 18 July 2026.",
+  "date_modified": "2026-07-18",
+  "author": {
+   "name": "Edwin David",
+   "jobTitle": "Director",
+   "url": "/about",
+   "sameAs": [
+    "https://www.linkedin.com/in/edwin-david-thoppilan"
+   ]
+  },
+  "hero_actions": [
+   [
+    "/contact#quote",
+    "Request an export quote",
+    true
+   ],
+   [
+    "https://wa.me/919567410175",
+    "WhatsApp the export desk",
+    false
+   ]
+  ],
+  "cta_btn": [
+   "/contact#quote",
+   "Request a quote"
+  ],
+  "badge": "Shipping direct from our <a href=\"/plywood-factory\">plywood factory near Cochin (Kochi)</a>, India &mdash; no local stock in {name_the}.",
+  "import": {
+   "h2": "Import essentials for {name_the}",
+   "lead": "What your clearing agent needs to land a plywood shipment in {name_the}. We quote FCA or FOB Cochin in USD; customs duty and any VAT are added at import on the CIF value.",
+   "hs_code": "4412 (plywood; the national item within 4412.31 / 4412.33 / 4412.34 / 4412.39 turns on panel construction and individual ply thickness as well as face species, and finished cases, pallets and drums are generally considered under 4415 — your broker confirms the line)",
+   "customs_duty": "5% GCC Common External Tariff on CIF value",
+   "landed_cost_note": "Indicative only — your broker must confirm the destination tariff line and the rates in force. Import VAT is not charged on CIF alone: the base is the customs value plus customs duty, and local law may add excise, fees and other incidental charges.",
+   "documents": "Commercial invoice, packing list, certificate of origin, bill of lading",
+   "ispm15": "Panels exempt; assembled crates stamped through a compliant process"
+  },
+  "faq_templates": {
+   "hs": [
+    "What HS code is plywood under for {name_the} imports?",
+    "Plywood falls under HS heading 4412 (sub-headings 4412.31, 4412.33, 4412.34 and 4412.39 by face species). We state the correct code on the commercial invoice for your clearing agent."
+   ],
+   "duty": [
+    "How much import duty applies to plywood in {name_the}?",
+    "The GCC Common External Tariff is 5% customs duty on the CIF value. {vat_faq} We quote FCA or FOB Cochin in USD; duty and VAT are added by your agent at clearance."
+   ],
+   "standards": [
+    "What standards or conformity approval does {name_the} require?",
+    "Clearance references {conformity_faq}. We supply the certificate of origin and product documentation your agent needs; regulated-product certificates are arranged where they apply."
+   ],
+   "documents": [
+    "What documents do you provide for {name_the} customs?",
+    "{documents_faq} — issued so your shipment clears at {ports_clear} without hold-ups."
+   ],
+   "warehouse": [
+    "Do you have a plywood factory or warehouse in {name_plain}?",
+    "No — Cochin Wood is an Indian plywood factory near Cochin (Kochi), Kerala. We do not hold local stock or a warehouse in {name_the}; we ship full-container loads FOB Cochin to {ports_ship}. You buy factory-direct from India."
+   ]
+  },
+  "documents_faq": "Commercial invoice, packing list, certificate of origin and bill of lading",
+  "related": {
+   "label": "Other export destinations",
+   "order": [
+    "uae",
+    "saudi-arabia",
+    "qatar",
+    "oman",
+    "kuwait",
+    "bahrain",
+    "sri-lanka",
+    "israel"
+   ],
+   "tail": [
+    [
+     "/export-process",
+     "How we handle an export order"
+    ],
+    [
+     "/export",
+     "All export markets"
+    ]
+   ]
+  }
+ },
+ "hub": {
+  "title": "Plywood Exporter in India — FOB Cochin | Cochin Wood",
+  "desc": "Indian plywood exporter shipping packing, shuttering and Okoume plywood from Cochin Port to the GCC, Sri Lanka and Israel. FOB, USD terms. Request a quote.",
+  "schema_name": "Plywood Exporter in India — FOB Cochin",
+  "crumb_leaf": "Plywood exporter in India — FOB Cochin to the GCC, Sri Lanka and Israel",
+  "kicker": "Plywood export from India",
+  "h1": "Plywood exporter in India — FOB Cochin to the GCC, Sri Lanka and Israel",
+  "lede": "Packing, shuttering and Okoume plywood made by a group manufacturing in Perumbavoor since 1986, forty kilometres from Cochin Port. Quoted in USD, loaded to the weight limit, papers ready before cut-off.",
+  "tldr": "<strong>In short:</strong> Cochin Wood Industries is an Indian plywood exporter. We ship packing-grade, film-faced shuttering, Okoume-faced and marine plywood, plus boxes, crates and pallets, from Cochin to six GCC countries, Sri Lanka and Israel. USD quotes, FOB Cochin, 50% advance with balance before dispatch, by bank transfer (T/T). Quote replies within one business day.",
+  "faq": [
+   [
+    "Does plywood need ISPM-15 treatment for export?",
+    "No. Plywood is a processed wood material and is exempt from ISPM-15, so the panels ship without a stamp or fumigation. The standard applies to solid-wood packaging such as timber runners in boxes, crates and pallets — and our packaging process is ISPM-15 compliant, so those components ship with treatment handled."
+   ],
+   [
+    "What are your export payment terms?",
+    "50% advance with the balance before dispatch for standard products; custom specifications are 100% advance. We accept bank transfer (T/T). Export quotes are in USD, FOB Cochin by default."
+   ],
+   [
+    "How many plywood sheets fit in a 20ft or 40ft container?",
+    "It depends on weight, not volume. Plywood reaches a container's permitted payload before the space fills, and destination road limits can lower the cap further, so the count varies with thickness, density and lane. Every quote includes a loading plan with sheets per container and net and gross weights."
+   ],
+   [
+    "How quickly can you send an export quote?",
+    "Within one business day. Send thickness and sheet size, grade or face veneer, quantity, and the destination port, and we reply with USD FOB pricing and a container loading plan."
+   ]
+  ],
+  "cta_h2": "Send the spec. The quote comes back in one business day.",
+  "cta_p": "Thickness, size, grade, quantity, destination port — that is all we need to return a USD FOB quote with a loading plan.",
+  "related": {
+   "label": "How an export order runs",
+   "links": [
+    [
+     "/export-process",
+     "How we handle an export order"
+    ],
+    [
+     "/rubberwood-plywood-container-weight",
+     "Panel weight per container"
+    ],
+    [
+     "/okoume-plywood",
+     "Okoume-faced plywood"
+    ],
+    [
+     "/packing-plywood",
+     "Packing-grade plywood"
+    ],
+    [
+     "/faq",
+     "Frequently asked questions"
+    ],
+    [
+     "/contact",
+     "Request a written quote"
+    ]
+   ]
+  }
+ },
+ "countries": [
+  {
+   "slug": "uae",
+   "name_the": "the UAE",
+   "name_plain": "UAE",
+   "title": "Indian Plywood Exporter to UAE — FOB Cochin | Cochin Wood",
+   "desc": "Import plywood from India to the UAE: film-faced, packing and commercial ply, Kochi to Jebel Ali, USD FOB Cochin terms. Request a quote.",
+   "schema_name": "Indian Plywood Factory Exporting to UAE",
+   "crumb_leaf": "Indian plywood exporter to the UAE, shipping Kochi to Jebel Ali",
+   "kicker": "Export &middot; United Arab Emirates",
+   "h1": "Indian plywood exporter to the UAE, shipping Kochi to Jebel Ali",
+   "lede": "Film-faced shuttering, packing-grade and commercial plywood from Perumbavoor, Kerala, made by a group that has manufactured plywood since 1986. USD quotes, FOB Cochin, replies within one business day.",
+   "tldr": "<strong>TL;DR:</strong> If you import plywood from India to the UAE, we ship film-faced shuttering, packing-grade MR and commercial plywood from Cochin Port to Jebel Ali, the main gateway for plywood export to Dubai and the wider Emirates. FOB Cochin by default, CIF Jebel Ali on request, every quote in USD.",
+   "import": {
+    "vat": "5% VAT, charged on the customs value plus customs duty — not on CIF alone",
+    "conformity": "ESMA / ECAS where the product is regulated; GSO standards otherwise",
+    "ports_clear": "Jebel Ali or Khalifa Port",
+    "landed_cost_note": true,
+    "vat_faq": "5% VAT is charged at import on the CIF value."
+   },
+   "ports_ship": "Jebel Ali",
+   "faq": [
+    [
+     "How long does shipping take from Kochi to Jebel Ali?",
+     "Direct sailings from Cochin Port to Jebel Ali typically take 4 to 7 days port to port. Transhipment routings take longer. Add production and stuffing time at our end; we confirm a dispatch schedule with every order."
+    ],
+    [
+     "Do you quote FOB or CIF for UAE orders?",
+     "FOB Cochin is our default for export. CIF Jebel Ali is available on request, priced against current freight. All export quotes are issued in USD, and we reply to enquiries within one business day."
+    ],
+    [
+     "Does plywood need ISPM-15 treatment to enter the UAE?",
+     "Plywood panels are processed wood and exempt from ISPM-15. Where you buy assembled boxes, crates or pallets, ours are made under an ISPM-15 compliant process."
+    ],
+    [
+     "What are your payment terms for UAE buyers?",
+     "Standard products ship on 50 percent advance with the balance before dispatch. Custom specifications are 100 percent advance. We accept bank transfer (T/T)."
+    ]
+   ],
+   "faq_boiler": [
+    "hs",
+    "duty",
+    "standards",
+    "documents",
+    "warehouse"
+   ],
+   "cta_h2": "Get a UAE quote in one business day",
+   "cta_p": "Send thickness, size, grade, quantity and your delivery port to sales@cochinwood.in or +91 95674 10175, or use the form. We reply with a USD quote within one business day."
+  },
+  {
+   "slug": "saudi-arabia",
+   "name_the": "Saudi Arabia",
+   "name_plain": "Saudi Arabia",
+   "title": "Plywood Exporter to Saudi Arabia — FOB Cochin | Cochin Wood",
+   "desc": "Import plywood from India to Saudi Arabia: film-faced shuttering and packing grades shipped FOB Cochin to Dammam and Jeddah. Request a quote.",
+   "schema_name": "Indian Plywood Factory Exporting to Saudi Arabia",
+   "crumb_leaf": "Plywood exporter to Saudi Arabia: shuttering, packing, and marine grades from Cochin",
+   "kicker": "Export · Saudi Arabia",
+   "h1": "Plywood exporter to Saudi Arabia: shuttering, packing, and marine grades from Cochin",
+   "lede": "Film-faced shuttering plywood for KSA formwork and packing grades for industrial crating, loaded at Cochin Port. Our group has made plywood since 1986. USD quotes, FOB Cochin terms, and a reply within one business day.",
+   "tldr": "<strong>TL;DR:</strong> We ship film-faced shuttering plywood and packing-grade plywood from Cochin to Jeddah and Dammam. Quotes in USD, FOB Cochin, full export documentation with every container, and a reply to your enquiry within one business day.",
+   "import": {
+    "vat": "15% VAT, charged on the customs value plus customs duty — not on CIF alone",
+    "conformity": "SABER platform (SASO) — Product &amp; Shipment Certificates of Conformity",
+    "ports_clear": "Jeddah or Dammam",
+    "landed_cost_note": true,
+    "documents": "Commercial invoice, packing list, certificate of origin, bill of lading, plus the SABER shipment certificate",
+    "vat_faq": "15% VAT is charged at import on the CIF value.",
+    "conformity_faq": "SABER platform (SASO) — Product and Shipment Certificates of Conformity",
+    "documents_faq": "Commercial invoice, packing list, certificate of origin and bill of lading, plus the SABER shipment certificate"
+   },
+   "ports_ship": "Jeddah or Dammam",
+   "faq": [
+    [
+     "Which Saudi ports do you ship to?",
+     "Jeddah Islamic Port and King Abdulaziz Port, Dammam. On FOB Cochin terms you nominate the shipping line and forwarder; if you prefer, we can suggest services our other GCC buyers use out of Cochin."
+    ],
+    [
+     "Do you provide SASO or SABER certificates?",
+     "Conformity registration under SABER is completed by the Saudi importer, so we do not issue SASO certificates ourselves. We supply the commercial invoice, packing list, certificate of origin, and technical data sheets your conformity consultant needs, and we respond to document queries while the filing is in process."
+    ],
+    [
+     "Can one container carry both shuttering and packing plywood?",
+     "Yes. Mixed loads of film-faced shuttering plywood and packing-grade plywood in one FCL are routine, subject to the container's payload limit. We confirm the split sheet count and weights on the packing list before stuffing."
+    ],
+    [
+     "Do plywood panels need ISPM-15 treatment for Saudi customs?",
+     "No. Plywood is processed wood, so panels are exempt from ISPM-15 and need no fumigation or heat-treatment marking. Assembled boxes, crates, and pallets do fall under ISPM-15, and ours follow a compliant process."
+    ]
+   ],
+   "faq_boiler": [
+    "hs",
+    "duty",
+    "standards",
+    "documents",
+    "warehouse"
+   ],
+   "cta_h2": "Send your KSA enquiry",
+   "cta_p": "Share thickness, sheet size, quantity, and destination port — Jeddah or Dammam — and you will have a USD, FOB Cochin quote within one business day. Write to sales@cochinwood.in or call +91 95674 10175."
+  },
+  {
+   "slug": "qatar",
+   "name_the": "Qatar",
+   "name_plain": "Qatar",
+   "title": "Indian Plywood Exporter to Qatar — FOB Cochin | Cochin Wood",
+   "desc": "Plywood exporter to Qatar: packing, shuttering and Okoume-faced plywood from Kochi, shipped FOB Cochin to Hamad Port in USD. Request a quote.",
+   "schema_name": "Indian Plywood Factory Exporting to Qatar",
+   "crumb_leaf": "Import plywood from India to Qatar",
+   "kicker": "Export · Qatar",
+   "h1": "Import plywood from India to Qatar",
+   "lede": "Cochin Wood Industries is a plywood exporter serving Qatar buyers from Kochi, Kerala. Packing, shuttering and Okoume-faced plywood, quoted in USD and shipped FOB Cochin to Hamad Port, Doha.",
+   "tldr": "<strong>In short:</strong> we manufacture packing-grade, shuttering, marine and Okoume-faced plywood near Cochin Port and ship full containers to Hamad Port. Quotes are in USD on FOB Cochin terms, with a written reply within one business day.",
+   "import": {
+    "vat": "None (0%)",
+    "conformity": "QGOSM standards / QS-Mark where applicable",
+    "ports_clear": "Hamad Port",
+    "landed_cost_note": false,
+    "vat_faq": "There is no VAT in Qatar."
+   },
+   "ports_ship": "Hamad Port",
+   "faq": [
+    [
+     "How do I import plywood from India to Qatar?",
+     "Send the specification: grade, thickness, sheet size and quantity. We reply with a written USD quote on FOB Cochin terms within one business day. On confirmation, standard products ship on 50% advance with the balance before dispatch, and the loaded container is delivered to Cochin Port for carriage to Hamad Port."
+    ],
+    [
+     "Do plywood sheets need ISPM-15 treatment for Qatar?",
+     "No. Plywood panels are exempt from ISPM-15 because plywood is processed wood. Treatment applies to solid timber components such as pallet runners and crate skids, and our plywood boxes and crates are produced under an ISPM-15-compliant process, so those parts arrive treated and marked."
+    ],
+    [
+     "What are the payment terms for Qatar orders?",
+     "Standard products are 50% advance with the balance before dispatch; custom-manufactured items are 100% advance. We accept bank transfer (T/T), and all export quotes are issued in USD."
+    ],
+    [
+     "Which Qatar port do you ship to?",
+     "Hamad Port, Qatar's main container gateway south of Doha. We sell FOB Cochin, so your nominated forwarder or carrier books the ocean leg and we deliver the loaded, documented container to the terminal in Kochi."
+    ]
+   ],
+   "faq_boiler": [
+    "hs",
+    "duty",
+    "standards",
+    "documents",
+    "warehouse"
+   ],
+   "cta_h2": "Get a USD quote for Qatar",
+   "cta_p": "Send your specification: grade, thickness, sheet size, quantity and any veneer preference. A written FOB Cochin quote comes back within one business day."
+  },
+  {
+   "slug": "oman",
+   "name_the": "Oman",
+   "name_plain": "Oman",
+   "title": "Indian Plywood Exporter to Oman — FOB Cochin | Cochin Wood",
+   "desc": "Import plywood from India to Oman — packing, shuttering & commercial grades, FOB Cochin to Sohar and Muscat. USD quotes in one business day.",
+   "schema_name": "Indian Plywood Factory Exporting to Oman",
+   "crumb_leaf": "Import plywood from India to Oman, direct from Kochi",
+   "kicker": "Export · Oman",
+   "schema_desc": "Import plywood from India to Oman — packing, shuttering & commercial grades, FOB Cochin to Sohar and Muscat. USD quotes in one business day. Request a quote.",
+   "h1": "Import plywood from India to Oman, direct from Kochi",
+   "lede": "Packing, shuttering, and commercial plywood loaded at Cochin Port and landed at Sohar. USD quotes on FOB Cochin terms, answered within one business day.",
+   "tldr": "<strong>TL;DR:</strong> Cochin Wood Industries is a plywood exporter to Oman. Packing-grade, film-faced shuttering, and commercial plywood ship FOB Cochin to Sohar, covering Muscat and the interior. USD quotes, 50% advance terms, and a written reply within one business day.",
+   "import": {
+    "vat": "5% VAT, charged on the customs value plus customs duty — not on CIF alone",
+    "conformity": "GSO standards via the DGSM",
+    "ports_clear": "Sohar or Salalah",
+    "landed_cost_note": true,
+    "vat_faq": "5% VAT is charged at import on the CIF value."
+   },
+   "ports_ship": "Sohar or Salalah",
+   "faq": [
+    [
+     "How long does a container take from Kochi to Sohar?",
+     "It is a direct Arabian Sea run and one of the shorter export lanes from India, with transit measured in days rather than weeks. Exact port-to-port time depends on the carrier and sailing; we confirm the schedule alongside the quote, and shipping documents are shared before the vessel sails."
+    ],
+    [
+     "Do plywood sheets need ISPM-15 treatment for import into Oman?",
+     "No. Plywood is a processed wood product and is exempt from ISPM-15. The rule applies to solid-wood packaging such as pallets and crates; where we supply those, they are produced under an ISPM-15 compliant process with the marks and paperwork in order."
+    ],
+    [
+     "What are your payment terms for Oman orders?",
+     "Standard products ship against 50% advance with the balance payable before dispatch; custom builds are 100% advance. We accept bank transfer (T/T), and all export invoicing is in US dollars."
+    ],
+    [
+     "How do I get a price for Muscat or Sohar?",
+     "Send the thickness, sheet size, grade, quantity, and your discharge port to sales@cochinwood.in or through the quote form. A written USD quote on FOB Cochin terms comes back within one business day."
+    ]
+   ],
+   "faq_boiler": [
+    "hs",
+    "duty",
+    "standards",
+    "documents",
+    "warehouse"
+   ],
+   "cta_h2": "Get a written quote for Oman",
+   "cta_p": "Send thickness, sheet size, grade, quantity, and discharge port. A USD quote on FOB Cochin terms comes back within one business day. Write to sales@cochinwood.in or call +91 95674 10175."
+  },
+  {
+   "slug": "kuwait",
+   "name_the": "Kuwait",
+   "name_plain": "Kuwait",
+   "title": "Indian Plywood Exporter to Kuwait — FOB Cochin | Cochin Wood",
+   "desc": "Packing and commercial plywood shipped from Cochin to Shuwaikh and Shuaiba. USD quotes, FOB terms, ISPM-15 exempt panels. Request a quote today.",
+   "schema_name": "Indian Plywood Factory Exporting to Kuwait",
+   "crumb_leaf": "Import plywood from India to Kuwait, direct from a Kerala manufacturer",
+   "kicker": "Export · Kuwait",
+   "h1": "Import plywood from India to Kuwait, direct from a Kerala manufacturer",
+   "lede": "Packing-grade and commercial plywood shipped from Cochin Port to Shuwaikh and Shuaiba. USD quotes on FOB Cochin terms, answered within one business day.",
+   "tldr": "<strong>In short:</strong> Cochin Wood Industries is a plywood exporter to Kuwait, manufacturing packing-grade (MR, IS 303), commercial and BWR, film-faced shuttering and marine plywood, plus ready-made boxes, crates and pallets. Quotes are in USD, FOB Cochin. Plywood panels are ISPM-15 exempt, so there is no fumigation step to hold up clearance at Shuwaikh or Shuaiba.",
+   "import": {
+    "vat": "None (0%)",
+    "conformity": "KUCAS (Kuwait Conformity Assurance Scheme) — Technical Evaluation Report for regulated goods",
+    "ports_clear": "Shuwaikh or Shuaiba",
+    "landed_cost_note": false,
+    "vat_faq": "There is no VAT in Kuwait."
+   },
+   "ports_ship": "Shuwaikh or Shuaiba",
+   "faq": [
+    [
+     "Do plywood panels need ISPM-15 fumigation to clear Kuwait customs?",
+     "No. Plywood is processed wood and is exempt from ISPM-15, so sheet shipments need no heat-treatment mark or fumigation certificate. Finished boxes, crates and pallets we supply are produced under an ISPM-15 compliant process."
+    ],
+    [
+     "Should we nominate Shuwaikh or Shuaiba as the discharge port?",
+     "Either works. Shuwaikh is the container gateway for Kuwait City; Shuaiba serves the industrial area to the south. Since we ship FOB Cochin, your forwarder books the sea leg to whichever port suits your clearance and delivery plan, and our documents are identical for both."
+    ],
+    [
+     "What are your payment terms for Kuwait orders?",
+     "USD invoicing on FOB Cochin terms. Standard products ship on 50% advance with the balance before dispatch; custom specifications are 100% advance. We accept bank transfer (T/T)."
+    ],
+    [
+     "Can you supply Okoume-faced plywood to Kuwait?",
+     "Yes. Okoume is a face veneer option on our MR packing and BWR grades. We also produce calibrated E1 panels with an Okoume face and eucalyptus core, a 16 mm sheet weighing roughly 32 kg, supplied bare or HPL-laminated."
+    ]
+   ],
+   "faq_boiler": [
+    "hs",
+    "duty",
+    "standards",
+    "documents",
+    "warehouse"
+   ],
+   "cta_h2": "Get a Kuwait quote in writing",
+   "cta_p": "Send your thickness, grade, quantity and discharge port. We reply with a firm USD FOB offer within one business day. Or write to sales@cochinwood.in, WhatsApp +91 95674 10175."
+  },
+  {
+   "slug": "bahrain",
+   "name_the": "Bahrain",
+   "name_plain": "Bahrain",
+   "title": "Indian Plywood Exporter to Bahrain — FOB Cochin",
+   "desc": "Plywood exporter to Bahrain — packing and commercial grades from Kochi, India. FOB Cochin, USD quotes, routed to Khalifa Bin Salman Port. Request a quote.",
+   "schema_name": "Indian Plywood Factory Exporting to Bahrain",
+   "crumb_leaf": "Plywood Exporter to Bahrain: Packing and Commercial Grades from Kochi",
+   "kicker": "Export — Kingdom of Bahrain",
+   "h1": "Plywood Exporter to Bahrain: Packing and Commercial Grades from Kochi",
+   "lede": "If you import plywood from India to Bahrain — for packing cases in the Sitra industrial area, joinery and fit-out work in Manama, or crating at the port — we manufacture it near Kochi and ship it on FOB Cochin terms, quoted in USD, routed to Khalifa Bin Salman Port.",
+   "tldr": "<strong>In short:</strong> Cochin Wood Industries is a plywood manufacturer in Kerala, India, exporting to the GCC including Bahrain. The core range for Bahrain buyers is packing-grade MR plywood (IS 303) in 6–18&nbsp;mm and commercial/BWR panels, plus ready-made <a href=\"/plywood-boxes-crates\">plywood boxes and crates</a>. USD quotes, FOB Cochin, containers to Khalifa Bin Salman Port. Quote replies within one business day.",
+   "import": {
+    "vat": "10% VAT, charged on the customs value plus customs duty — not on CIF alone",
+    "conformity": "BSMD standards (GSO)",
+    "ports_clear": "Khalifa Bin Salman Port",
+    "landed_cost_note": true,
+    "vat_faq": "10% VAT is charged at import on the CIF value."
+   },
+   "ports_ship": "Khalifa Bin Salman Port",
+   "faq": [
+    [
+     "Which port in Bahrain do you ship plywood to?",
+     "Cargo for Bahrain is routed to Khalifa Bin Salman Port at Hidd, the kingdom's main container port. We sell FOB Cochin, so your forwarder books the ocean freight from Kochi; we handle export clearance, supervised container loading, and the shipping documents."
+    ],
+    [
+     "Do plywood panels need ISPM-15 treatment for Bahrain?",
+     "No. Plywood is a processed wood product and is exempt from ISPM-15, so panels ship without heat-treatment marking. Solid-wood packing such as boxes, crates, and pallets is different — ours is produced under an ISPM-15 compliant process."
+    ],
+    [
+     "What are your payment terms for Bahrain orders?",
+     "We quote in USD on FOB Cochin terms. Standard products are 50% advance with the balance before dispatch; custom specifications are 100% advance. Payment by bank transfer (T/T)."
+    ],
+    [
+     "What packing plywood do you export to Bahrain?",
+     "MR-bonded packing-grade plywood to IS 303, typically in 6, 8, 12, 15 and 18 mm. Okoume face veneer is available on packing and BWR constructions, and we also supply ready-made plywood boxes, crates, and pallets."
+    ]
+   ],
+   "faq_boiler": [
+    "hs",
+    "duty",
+    "standards",
+    "documents",
+    "warehouse"
+   ],
+   "cta_h2": "Get a Bahrain quote",
+   "cta_p": "Send thickness, sheet size, grade, and monthly quantity. We reply with a USD FOB Cochin quotation within one business day. sales@cochinwood.in · +91 95674 10175."
+  },
+  {
+   "slug": "sri-lanka",
+   "name_the": "Sri Lanka",
+   "name_plain": "Sri Lanka",
+   "title": "Indian Plywood Exporter to Sri Lanka — FOB Cochin",
+   "desc": "Import plywood from India to Sri Lanka: packing, commercial and marine ply, Kochi to Colombo on a typical 2-4 day sailing. FOB or CIF. Request a quote today.",
+   "schema_name": "Indian Plywood Factory Exporting to Sri Lanka",
+   "crumb_leaf": "Plywood supplier to Sri Lanka, shipped Kochi to Colombo on a typical 2-4 day port-to-port sailing",
+   "kicker": "Export markets",
+   "h1": "Plywood supplier to Sri Lanka, shipped Kochi to Colombo on a typical 2-4 day port-to-port sailing",
+   "lede": "Colombo is the shortest export lane we run. Import plywood from India to Sri Lanka on a 2-4 day sail out of Cochin Port, quoted in USD, FOB Cochin or CIF Colombo.",
+   "tldr": "<strong>TL;DR:</strong> We are a plywood exporter serving Colombo and the rest of Sri Lanka from Kochi. Packing-grade, commercial and marine plywood, plus ready-made plywood boxes and crates. Port-to-port transit is 2-4 days. Quotes in USD, FOB Cochin or CIF Colombo. Ask us about ISFTA eligibility for your HS code. Every enquiry gets a written reply within one business day.",
+   "ports_ship": "Colombo",
+   "faq": [
+    [
+     "How long does shipping take from Kochi to Colombo?",
+     "Port-to-port transit is typically 2-4 days, which makes Kochi to Colombo one of the shortest export lanes out of India. Add your local clearance and haulage time to plan door-to-door delivery."
+    ],
+    [
+     "Do you quote FOB Cochin or CIF Colombo?",
+     "Both. FOB Cochin is the default; if you prefer a single landed figure, we quote CIF Colombo with sea freight included. All export quotes are in USD."
+    ],
+    [
+     "Will my plywood shipment qualify for ISFTA duty concessions?",
+     "It depends on the HS code, Sri Lanka's tariff schedule and rules-of-origin conditions, so we do not guarantee a duty outcome. We confirm the HS code we ship under and provide the certificate of origin; your clearing agent confirms eligibility on the Sri Lankan side."
+    ],
+    [
+     "Does plywood from India need ISPM-15 treatment for Sri Lanka?",
+     "Plywood panels are processed wood and exempt from ISPM-15, so no heat-treatment marking is required on the panels themselves. Plywood boxes and crates we supply are built under an ISPM-15 compliant process."
+    ]
+   ],
+   "faq_boiler": [
+    "warehouse"
+   ],
+   "cta_h2": "Get a Sri Lanka quote within one business day",
+   "cta_p": "Send us the grade, thickness, quantity and whether you want FOB Cochin or CIF Colombo. You will have a written USD quote within one business day. Email sales@cochinwood.in or WhatsApp +91 95674 10175."
+  },
+  {
+   "slug": "israel",
+   "name_the": "Israel",
+   "name_plain": "Israel",
+   "title": "Okoume Plywood Exporter to Israel — FOB Cochin | Cochin Wood",
+   "desc": "Calibrated Okoume-face plywood exported from India to Israel. FOB Cochin, USD quotes, buyer-nominated freight to Ashdod or Haifa. Request a quote.",
+   "schema_name": "Indian Plywood Factory Exporting to Israel",
+   "crumb_leaf": "Okoume plywood export to Israel from India",
+   "kicker": "Export market: Israel",
+   "h1": "Okoume plywood export to Israel from India",
+   "lede": "Calibrated Okoume-face panels manufactured in Perumbavoor, 40 km from Cochin Port. Quoted FOB Cochin in USD; you nominate the vessel and the freight to Ashdod or Haifa. Our group, making plywood since 1986.",
+   "tldr": "<strong>TL;DR</strong> For plywood importers in Israel: we quote FOB Cochin only, in USD, never CIF. You arrange ocean freight to Ashdod or Haifa; we manufacture, calibrate, pack and clear the goods onto your nominated vessel. Samples are available (chargeable). Quote replies within one business day.",
+   "ports_ship": "Ashdod or Haifa",
+   "faq": [
+    [
+     "Do you quote CIF Ashdod or CIF Haifa?",
+     "No. All quotes for Israel are FOB Cochin, in USD. You or your forwarder arrange ocean freight and insurance; we deliver export-cleared goods on board your nominated vessel at Cochin Port."
+    ],
+    [
+     "Does the plywood need ISPM-15 treatment or fumigation?",
+     "No. Plywood is engineered wood and is exempt from ISPM-15, so the panels need no heat-treatment stamp or fumigation certificate. Any solid-wood pallets or crating in the shipment follow an ISPM-15-compliant process."
+    ],
+    [
+     "Can I get samples before placing an order?",
+     "Yes. Samples are available and chargeable. Most buyers check the Okoume face, thickness calibration and core before committing to a trial container."
+    ],
+    [
+     "What are the payment terms for Israeli buyers?",
+     "50% advance with the balance before dispatch for standard products, and 100% advance for custom production. We accept bank transfer (T/T)."
+    ]
+   ],
+   "faq_boiler": [
+    "warehouse"
+   ],
+   "cta_h2": "Send your Israel specification",
+   "cta_p": "Thickness, size, face, quantity and your discharge port. A FOB Cochin quote in USD comes back within one business day."
+  }
+ ]
+}
