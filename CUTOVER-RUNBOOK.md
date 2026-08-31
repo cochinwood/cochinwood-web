@@ -23,7 +23,12 @@ production-branch change in the Cloudflare dashboard (step 5).
 
 ## 0. Pre-flight (done)
 - ✅ Repo `cochinwood/cochinwood-web`, `master` = source, builds with `python build.py`.
-- ✅ Quote form posts directly to Zoho CRM (`crm.zoho.in/crm/WebToLeadForm`) — no server needed.
+- ✅ Quote form posts to CWI's own Worker (`https://www.cochinwood.in/web-lead` → `webLead` in
+  `cochin-wood-document-studio/webapp/api-worker.js`), exactly as the live site does, gated by
+  Cloudflare Turnstile. **It must never be pointed back at the CRM webform.** That subscription is
+  cancelled on 3 September; a form posting there shows the buyer a success page while the enquiry
+  reaches nobody. This line claimed the opposite until 31 Aug 2026 — the build really did still
+  carry the old CRM form, and this checklist marked it ✅.
 - ✅ `_headers` (security + font caching), `sitemap.xml`, `robots.txt`, Org/BlogPosting schema.
 
 ## 1. Create the Cloudflare Pages project  *(you, in the Cloudflare dashboard)*
