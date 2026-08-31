@@ -4,7 +4,7 @@
     python export_section.py                       # build dist/
     python tools/verify_export_vs_live.py <cf-live-checkout>
 
-For each of the nine URLs it compares dist/<path>/index.html against the live
+For each of the nine URLs it compares dist/<path>.html against the live
 page on three axes:
 
   * every visible line of copy inside <main>, whitespace- and entity-normalised
@@ -76,7 +76,9 @@ def schemas(t):
 def main(live, dist):
     fails = 0
     for lf, path in PAGES:
-        built_path = os.path.join(dist, path, "index.html")
+        # dist emits the flat cf-live shape: export/qatar.html, not
+        # export/qatar/index.html (see write() in build.py).
+        built_path = os.path.join(dist, path + ".html")
         if not os.path.exists(built_path):
             print("%-22s MISSING from dist/ - run export_section.py first" % path)
             fails += 1

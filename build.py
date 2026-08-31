@@ -512,9 +512,22 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
 _page_source = {}      # output path -> source file it was generated from
 
 def write(path, content, src=None):
+    # cf-live commits FLAT files -- about.html, export/qatar.html,
+    # blogs/post/<slug>.html -- so live answers /about with a direct 200. A
+    # <slug>/index.html layout makes Cloudflare Pages answer 308 -> /about/
+    # instead: an extra hop on every one of 200+ page views, and an SEO
+    # self-contradiction, because every canonical (and the sitemap) names the
+    # non-slash form, so each canonical URL would itself redirect. Parity with
+    # live's served status codes is restored here, in one place, rather than at
+    # nine call sites: every page rendered as <slug>/index.html lands on disk as
+    # <slug>.html. Only the site root keeps index.html.
+    if path.endswith("/index.html"):
+        path = path[:-len("/index.html")] + ".html"
     fp = os.path.join(DIST, path)
     os.makedirs(os.path.dirname(fp) or DIST, exist_ok=True)
-    with open(fp, "w", encoding="utf-8") as f: f.write(content)
+    # newline pinned: in text mode a Windows build silently CRLFs every emitted
+    # byte, so a locally-built dist differs from CI's and from live (both LF).
+    with open(fp, "w", encoding="utf-8", newline="\n") as f: f.write(content)
     _page_source[path] = src or "build.py"
 
 _gitdate_cache = {}
@@ -1008,22 +1021,48 @@ def build_export():
     import export_section
     return export_section.build()
 
+# Live serves /sitemap.xml as an INDEX referencing /sitemap-cms.xml and
+# /sitemap-post.xml, both 200 (measured on cf-live, 31 Aug 2026). Google's
+# cached copy of that index keeps requesting the children after cutover, and
+# with _redirects at 99 of Cloudflare's 100 rules a redirect per child is not
+# on the table -- so the build emits the same three files instead of one flat
+# urlset. Split exactly as live splits: blog posts under /blogs/post/ go in
+# -post, every other page in -cms; each URL appears in exactly one child.
+# The children carry <loc> + a truthful git-dated <lastmod>. Live's Zoho-era
+# <priority>/<changefreq> are not reproduced: they were per-page settings of an
+# engine that no longer builds this site, unrecoverable for pages Zoho never
+# had, and Google documents both fields as ignored.
 def build_sitemap():
-    urls = []
+    paths = []
     for r, _, fs in os.walk(DIST):
         for f in fs:
-            if f != "index.html": continue
+            if not f.endswith(".html"): continue
             rel = os.path.relpath(os.path.join(r, f), DIST).replace(os.sep, "/")
-            path = "/" if rel == "index.html" else "/" + rel[:-len("index.html")].rstrip("/")
-            urls.append(LIVE + path)
-    urls = sorted(set(urls))
-    def lastmod(url):
-        rel = url[len(LIVE):].strip("/")
-        return git_date(_page_source.get((rel + "/index.html").lstrip("/") or "index.html", "build.py"))
-    items = "\n".join(f"  <url><loc>{u_}</loc><lastmod>{lastmod(u_)}</lastmod></url>" for u_ in urls)
+            if rel == "404.html": continue    # the error page: C-22 sends /404 home
+            paths.append("/" if rel == "index.html" else "/" + rel[:-len(".html")])
+    paths = sorted(set(paths))
+    def lastmod(path):
+        rel = path.strip("/")
+        return git_date(_page_source.get((rel + ".html") if rel else "index.html", "build.py"))
+    XMLNS = ('xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
+             'xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 '
+             'http://www.sitemaps.org/schemas/sitemap/0.9/{}" '
+             'xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"')
+    def child(name, ps):
+        items = "\n".join(f"  <url><loc>{LIVE + p}</loc><lastmod>{lastmod(p)}</lastmod></url>"
+                          for p in ps)
+        write(name, '<?xml version="1.0" encoding="UTF-8"?>\n'
+              f'<urlset {XMLNS.format("sitemap.xsd")}>\n' + items + '\n</urlset>\n')
+        return max((lastmod(p) for p in ps), default=datetime.date.today().isoformat())
+    posts = [p for p in paths if p.startswith("/blogs/post/")]
+    cms   = [p for p in paths if not p.startswith("/blogs/post/")]
+    lm_cms, lm_post = child("sitemap-cms.xml", cms), child("sitemap-post.xml", posts)
     write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n'
-          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + items + '\n</urlset>\n')
-    return len(urls)
+          f'<sitemapindex {XMLNS.format("siteindex.xsd")}>\n'
+          f'  <sitemap><loc>{LIVE}/sitemap-cms.xml</loc><lastmod>{lm_cms}</lastmod></sitemap>\n'
+          f'  <sitemap><loc>{LIVE}/sitemap-post.xml</loc><lastmod>{lm_post}</lastmod></sitemap>\n'
+          '</sitemapindex>\n')
+    return f"{len(paths)}({len(cms)}cms+{len(posts)}post)"
 
 def copy_referenced_files():
     copied = 0
@@ -1242,7 +1281,14 @@ def _served_paths():
         pre = "" if rel == "." else "/" + rel
         for f in fs:
             out.add(f"{pre}/{f}")
-            if f == "index.html": out.add(pre or "/")
+            if f == "index.html":
+                out.add(pre or "/")
+            elif f.endswith(".html") and f != "404.html":
+                # Pages strips .html: about.html serves /about, so that clean URL
+                # is real content no rule may shadow. NOT 404.html -- its clean
+                # URL is the C-22 soft 404 that the /404 rule deliberately sends
+                # home, and listing it here would drop that rule as a shadow.
+                out.add(f"{pre}/{f[:-len('.html')]}")
     return out
 
 def _rule_re(src):
@@ -1409,6 +1455,73 @@ def fingerprint_assets():
 def build_css_bundle():
     write("assets/" + ASSETS["bundle.css"], css_bundle_content())
 
+# Live robots.txt, verbatim minus its final Sitemap line (appended from LIVE at
+# the write site in assets_and_meta, where the why of all this is recorded).
+ROBOTS_TXT = """# Cochin Wood Industries — full-access policy for AI answer engines and search crawlers.
+
+User-agent: *
+Allow: /
+
+# AI answer engines (explicit allow)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Meta-ExternalFetcher
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: PhindBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Diffbot
+Allow: /
+
+"""
+
 def assets_and_meta():
     src = os.path.join(ROOT, "assets")
     dst = os.path.join(DIST, "assets")
@@ -1441,7 +1554,14 @@ def assets_and_meta():
   <p class="cw-sec__lead" style="margin:0 auto 24px">That page has moved or doesn't exist. Try one of these:</p>
   <p><a class="cw-btn cw-btn--p" href="{u('/')}">Back to home</a> <a class="cw-btn cw-btn--g" href="{u('/products')}">Plywood catalogue</a> <a class="cw-btn cw-btn--g" href="{u('/blogs')}">Blog</a> <a class="cw-btn cw-btn--g" href="{u('/contact')}">Request a quote</a></p>
 </div></section>'''))
-    write("robots.txt", f"User-agent: *\nAllow: /\n\nSitemap: {LIVE}/sitemap.xml\n")
+    # Carried from live VERBATIM (git show origin/cf-live:robots.txt, read 31 Aug
+    # 2026), not regenerated: the 19 explicit Allow blocks for named AI crawlers
+    # are a deliberate courtesy list -- this site courts AI readers (it has an
+    # llms page) -- and the first cut of this builder silently dropped them for a
+    # functionally-identical two-liner. Only the Sitemap line is templated on
+    # LIVE, so it can never disagree with where the sitemap actually is; today
+    # that renders byte-for-byte what live serves, trailing no-newline included.
+    write("robots.txt", ROBOTS_TXT + f"Sitemap: {LIVE}/sitemap.xml")
 
 def main():
     if os.path.exists(DIST): shutil.rmtree(DIST)
