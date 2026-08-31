@@ -606,32 +606,184 @@ def products():
         "/products", body, crumbs=[("Home", "/"), ("Products", None)]))
 
 # ---------------- CONTACT ----------------
-PRODUCT_INTEREST = ["Commercial/Packing Grade","Wooden/Plywood Packing Case","Film Faced/Shuttering",
-    "Premium/ISI/303/710","Calibrated/Modular","Container Flooring","Block Board/Flush Door","Timber/Runners/Planks"]
+# (posted value, visible label). The VALUE is what the Worker stores, so it is the live page's
+# vocabulary verbatim and not ours to tidy. Live splits BWP marine (IS 710) from BWR hardwood
+# (IS 303); the retired CRM webform had one "Premium/ISI/303/710" picklist entry that collapsed the
+# two, and the IS 710 / IS 303 distinction was lost on every lead that used it.
+PRODUCT_INTEREST = [
+    ("Commercial/Packing Grade",      "Commercial / packing-grade ply"),
+    ("Wooden/Plywood Packing Case",   "Boxes, crates &amp; pallets"),
+    ("Film Faced/Shuttering",         "Film-faced shuttering"),
+    ("BWP Marine Plywood - IS 710",   "BWP marine plywood"),
+    ("BWR Hardwood Plywood - IS 303", "BWR hardwood plywood"),
+    ("Calibrated/Modular",            "Calibrated furniture ply"),
+    ("Container Flooring",            "Container flooring"),
+    ("Block Board/Flush Door",        "Block board &amp; flush doors"),
+    ("Timber/Runners/Planks",         "Sawn timber &amp; runners"),
+]
+
+INCOTERMS = ["Delivered within India", "Ex-works Perumbavoor", "FCA Cochin", "FOB Cochin",
+             "CFR destination port", "CIF destination port"]
+
+# PUBLIC by design -- a Turnstile sitekey is meant to be read out of the page, and this is the same
+# key the live page serves. The matching secret lives only in the Worker (env.TURNSTILE_SECRET) and
+# is the only half that decides anything; nothing on this page is trusted by the server on its own.
+TURNSTILE_SITEKEY = "0x4AAAAAAEC9o-zON82Wc-NR"
+
+# Ported from the live page (git show origin/cf-live:contact.html). Every branch is load-bearing and
+# none of the reasons are guessable from the code alone:
+#
+#   * cwq2TsFail / the /ts-fail beacon is the ONLY thing that can report Turnstile refusing real
+#     buyers. The hourly server-side probe is waved past the Turnstile gate on purpose, and an
+#     automated browser is never issued a token, so no server-side check can see this.
+#   * The noload block covers what the error-callback cannot: if challenges.cloudflare.com never
+#     serves at all, the callback is never registered and the page would report nothing. onerror
+#     CALLS noload rather than setting a flag -- the inline block runs in the same task as the async
+#     tag above it, so a flag would read undefined every time and the branch would be dead.
+#   * The submit gate STOPS a post that has no Turnstile token. Without it the buyer submits, the
+#     Worker rejects, and the page still shows "Request received": the success card keys off nothing
+#     but ?sent=1, so a server-side rejection has no way to reach the buyer.
+#
+# NOT ported: live still carries an unreachable `configured = false` WhatsApp-fallback branch that
+# reads the retired CRM field names (Last Name / Company / Email / Phone). It cannot run -- the
+# endpoint is ours and always answers -- and every field it reads is gone from this form, so
+# carrying it across would reimport the exact stale vocabulary this rebuild exists to remove.
+QUOTE_JS = r'''<script>
+  /* Global because Turnstile resolves the callback by name off window. Says nothing to the buyer
+     and returns nothing, so Turnstile's own retry behaviour is left exactly as it was -- this
+     reports, it does not interfere. sendBeacon so a page the visitor is leaving still sends it.
+     Nothing personal is sent: the error code and nothing else. */
+  window.cwq2TsFail = function (code) {
+    try {
+      var u = 'https://www.cochinwood.in/ts-fail?c=' +
+              encodeURIComponent(String(code == null ? 'unknown' : code).slice(0, 24));
+      if (navigator.sendBeacon) navigator.sendBeacon(u);
+      else fetch(u, { method: 'POST', mode: 'no-cors', keepalive: true });
+    } catch (e) { /* a monitor must never break the form it is watching */ }
+  };
+  /* Fifteen seconds rather than something snappier: the alarm this feeds judges over a day, and a
+     buyer on 3G in a yard is a real visitor whose script is merely slow. A false "did not load" is
+     worse than a late one. `noload` (conclusive, from onerror) and `noload_to` (a timeout, which an
+     ad-blocker also produces) are deliberately different codes -- telling a blocked visitor apart
+     from a CDN outage is the server's job, and folding them together would train the alarm to be
+     ignored. */
+  (function () {
+    var sent = false;
+    function noload(why) { if (sent) return; sent = true; window.cwq2TsFail(why); }
+    window.cwq2TsNoload = function () { noload('noload'); };
+    if (window.cwq2TsDead) noload('noload');
+    else setTimeout(function () {
+      if (window.turnstile) return;                     // it loaded; nothing to report
+      noload(window.cwq2TsDead ? 'noload' : 'noload_to');
+    }, 15000);
+  })();
+</script>
+<script>
+  (function () {
+    var f = document.getElementById('cwq2-form');
+    if (!f) return;
+    var loadedAt = Date.now();
+
+    /* The Worker answers a saved enquiry with a 302 to /contact?sent=1#quote, so this is what the
+       buyer sees after submitting. A FAILED save is answered by the Worker's own page instead and
+       never redirects here, which is why this branch can assume success. */
+    if (/[?&]sent=1/.test(window.location.search)) {
+      f.innerHTML = '<div class="cw-form__ok" aria-live="polite">' +
+        '<h2>Request received.</h2>' +
+        '<p>Our export desk replies within one business day. In a hurry?</p>' +
+        '<a class="cw-btn cw-btn--p" href="https://wa.me/919567410175">Message the desk on WhatsApp</a></div>';
+      var q = document.getElementById('quote');
+      if (q) q.scrollIntoView();
+      return;
+    }
+
+    f.addEventListener('submit', function (e) {
+      var err = document.getElementById('cwq2-error');
+      err.style.display = 'none';
+
+      // spam gates: honeypot + minimum fill time
+      if (f.querySelector('[name="cwq2_website"]').value || (Date.now() - loadedAt) < 3000) {
+        e.preventDefault();
+        err.textContent = 'Please review your details and try again.';
+        err.style.display = 'block';
+        return;
+      }
+
+      /* Verification gate. Turnstile's error callback only fires a beacon: it never tells the buyer
+         and never blocks the post. Stop before a rejected submission is thanked, say so plainly,
+         and offer a channel that always works. */
+      var ts = f.querySelector('[name="cf-turnstile-response"]');
+      if (!ts || !ts.value) {
+        e.preventDefault();
+        err.innerHTML = 'Verification has not finished, so this cannot be sent yet. ' +
+          'Give it a moment and press the button again — or reach the export desk ' +
+          'directly on <a href="https://wa.me/919567410175">WhatsApp</a> or ' +
+          '<a href="mailto:sales@cochinwood.in">sales@cochinwood.in</a>.';
+        err.style.display = 'block';
+        try { err.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (x) {}
+        return;
+      }
+
+      /* Fold the packed fields into description. The Worker reads name, company, email, phone,
+         products, destination and description and NOTHING ELSE -- spec_grade, quantity and incoterm
+         are posted and dropped on the floor without this, so this loop is the only reason thickness,
+         quantity and quote basis reach the lead book at all. */
+      var desc = f.querySelector('[name="description"]');
+      var extra = [];
+      f.querySelectorAll('[data-pack]').forEach(function (el) {
+        if (el.value.trim()) extra.push(el.getAttribute('data-pack') + ': ' + el.value.trim());
+      });
+      var other = f.querySelector('[data-other]');
+      if (other && other.checked) extra.push('Product: other / not sure');
+      if (extra.length) desc.value = extra.join('\n') + (desc.value ? '\n\n' + desc.value : '');
+    });
+  })();
+</script>'''
+
 def contact():
-    checks = "".join(f'<label><input type="checkbox" name="LEADCF35" value="{v}">{v}</label>' for v in PRODUCT_INTEREST)
-    form = f'''<form action="https://crm.zoho.in/crm/WebToLeadForm" method="POST" accept-charset="UTF-8" class="cw-form" id="quote">
-  <input type="hidden" name="xnQsjsdp" value="8c1293748fe2bcc59321f7d8a9f9f3bb0b51755eb854438a34">
-  <input type="hidden" name="xmIwtLD" value="d40b1aef750a96dbf59cc4499048e10c3650bd8d72a9ade4a4">
-  <input type="hidden" name="actionType" value="TGVhZHM=">
-  <input type="hidden" name="returnURL" value="https://www.cochinwood.in/contact?sent=1#quote">
-  <input class="cw-hp" type="text" name="cwq2_website" tabindex="-1" autocomplete="off" aria-hidden="true">
+    checks = "".join(f'<label><input type="checkbox" name="products" value="{v}">{lab}</label>'
+                     for v, lab in PRODUCT_INTEREST)
+    # No name attribute, on purpose: "other" is a hint for the packer above, never a posted product.
+    checks += '<label><input type="checkbox" data-other>Other / not sure</label>'
+    incoterms = "".join(f"<option>{i}</option>" for i in INCOTERMS)
+    # ABSOLUTE, not root-relative, and matched by tools/check_site.py. The Worker is bound to
+    # www.cochinwood.in/web-lead and cochinwood.in/web-lead as explicit routes; a plain form POST is
+    # a top-level navigation and not subject to CORS, so this keeps working from a preview origin
+    # (the buyer simply lands back on the production contact page).
+    form = f'''<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer onerror="window.cwq2TsDead=1;window.cwq2TsNoload&amp;&amp;window.cwq2TsNoload()"></script>
+<form class="cw-form" id="cwq2-form" method="POST" action="https://www.cochinwood.in/web-lead" accept-charset="UTF-8">
+  <!-- honeypot: real buyers never see this -->
+  <div class="cw-hp" aria-hidden="true"><label for="q-web">Leave this field empty</label><input id="q-web" type="text" name="cwq2_website" tabindex="-1" autocomplete="off"></div>
   <div class="cw-row">
-    <div><label for="q-name">Name *</label><input id="q-name" type="text" name="Last Name" required></div>
-    <div><label for="q-co">Company</label><input id="q-co" type="text" name="Company"></div>
+    <div><label for="q-name">Name *</label><input id="q-name" type="text" name="name" autocomplete="name" required></div>
+    <div><label for="q-co">Company *</label><input id="q-co" type="text" name="company" autocomplete="organization" required></div>
   </div>
   <div class="cw-row">
-    <div><label for="q-em">Work email *</label><input id="q-em" type="email" name="Email" required></div>
-    <div><label for="q-ph">WhatsApp / phone *</label><input id="q-ph" type="tel" name="Phone" required></div>
+    <div><label for="q-em">Work email *</label><input id="q-em" type="email" name="email" autocomplete="email" required></div>
+    <div><label for="q-ph">WhatsApp / phone *</label><input id="q-ph" type="tel" name="phone" autocomplete="tel" required></div>
   </div>
-  <div><label>Product interest</label><div class="cw-checks">{checks}</div></div>
-  <div><label for="q-port">Delivery location / port</label><input id="q-port" type="text" name="LEADCF4" placeholder="e.g. Kochi, or Jebel Ali, UAE"></div>
-  <div><label for="q-msg">What do you need?</label><textarea id="q-msg" name="Description" placeholder="Grade, thickness, size, monthly quantity, delivery location"></textarea></div>
+  <div><label>What do you need?</label><div class="cw-checks">{checks}</div></div>
+  <div class="cw-row">
+    <div><label for="q-spec">Thickness / grade *</label><input id="q-spec" type="text" name="spec_grade" placeholder="e.g. 18 mm BWP, IS 710" data-pack="Thickness / grade" required></div>
+    <div><label for="q-qty">Quantity *</label><input id="q-qty" type="text" name="quantity" placeholder="e.g. 2 &times; 40ft containers" data-pack="Quantity" required></div>
+  </div>
+  <div class="cw-row">
+    <div><label for="q-port">Delivery city / destination port *</label><input id="q-port" type="text" name="destination" placeholder="e.g. Kochi, or Jebel Ali, UAE" required></div>
+    <div><label for="q-inco">Quote basis</label><select id="q-inco" name="incoterm" data-pack="Quote basis"><option value="">Not sure — advise me</option>{incoterms}</select></div>
+  </div>
+  <div><label for="q-msg">Anything else</label><textarea id="q-msg" name="description" placeholder="Sizes, monthly volume, timing…"></textarea></div>
+  <div class="cf-turnstile" data-sitekey="{TURNSTILE_SITEKEY}" data-theme="light" data-error-callback="cwq2TsFail" style="margin:0 0 14px"></div>
+  <p class="cw-form__err" id="cwq2-error" role="alert"></p>
   <div><button class="cw-btn cw-btn--p" type="submit">Send enquiry</button>
   <p class="cw-note" style="margin:10px 0 0">Goes straight to our sales desk. We reply within one business day.</p></div>
-</form>'''
+</form>
+{QUOTE_JS}'''
+    # id="quote" lives on the SECTION, exactly as live has it: ~20 pages link to /contact#quote, and
+    # the Worker's own 302 target ends in #quote. It used to sit on the <form>, which the success
+    # handler replaces the innards of -- and getElementById('quote').scrollIntoView() has to survive
+    # that swap to put the confirmation in front of the buyer.
     body = f'''
-<section class="cw-sec"><div class="cw-wrap" style="max-width:820px">
+<section class="cw-sec" id="quote"><div class="cw-wrap" style="max-width:820px">
   <p class="cw-hero__ey" style="color:var(--cw-green-600)">Get in touch</p>
   <h1 class="cw-sec__h" style="font-size:clamp(1.9rem,4vw,2.8rem)">Request a quote</h1>
   <p class="cw-sec__lead">Tell us the product, grade, thickness, quantity and delivery location — we reply within one business day with a price and lead time.</p>
