@@ -793,6 +793,14 @@ PAGE_SNIPPETS = {
     "perumbavoor-plywood-price-tracker":"perumbavoor-plywood-price-tracker.html",
     "company-verification":"company-verification.html",
     "export-process":"export-process.html",
+    # The two legal pages cf-live serves that this build was missing (their meta
+    # was already in pages_meta.json, bodies never ported). Each body is the
+    # visible <section> of the live page (git show origin/cf-live:<slug>.html),
+    # lifted verbatim 2026-08-31. cf-live also injects these same sections into
+    # other pages for Google Merchant Center transparency, so the URLs matter.
+    # /return-policy -> /return-refund-policy 301 comes back to life with this.
+    "return-refund-policy":"return-refund-policy.html",
+    "shipping-policy":"shipping-policy.html",
     # /blogs/gcc-export is the one blog taxonomy URL that is ported rather than
     # dropped: it is live, indexed, and linked from the /export hub, uae and oman
     # bodies. The file is the live page's content column lifted verbatim (H1,
@@ -815,7 +823,11 @@ def build_content_pages():
     n = 0
     for slug, fname in PAGE_SNIPPETS.items():
         fp = os.path.join(sdir, fname)
-        if not os.path.exists(fp): continue
+        if not os.path.exists(fp):
+            warn(f"page /{slug} NOT BUILT: content/pages/{fname} is missing or "
+                 f"unreadable -- a URL this build is supposed to serve would "
+                 f"silently vanish at cutover")
+            continue
         meta = PAGE_META.get(slug, {})
         content = process_content(open(fp, encoding="utf-8").read(), slug)
         title = meta.get("title") or slug.replace("-", " ").title() + " | Cochin Wood Industries"
@@ -838,6 +850,7 @@ def build_about():
     for f in ("about-history.html", "about-operation.html"):
         fp = os.path.join(sdir, f)
         if os.path.exists(fp): parts.append(process_content(open(fp, encoding="utf-8").read()))
+        else: warn(f"/about is missing its {f} section -- content/pages/{f} not found")
     if not parts: return 0
     meta = PAGE_META.get("about", {})
     # The page opens on the "Our history" section label, so it carried no <h1> at
@@ -859,7 +872,9 @@ BLOG_SRC = os.path.join("content", "blog", "posts.json")
 
 def build_blog():
     fp = os.path.join(ROOT, BLOG_SRC)
-    if not os.path.exists(fp): return 0
+    if not os.path.exists(fp):
+        warn(f"{BLOG_SRC} is missing -- the ENTIRE blog (157 live URLs) was "
+             f"skipped, not built"); return 0
     posts = json.load(open(fp, encoding="utf-8"))
     live = [p for p in posts if p.get("html")]
     n, undated = 0, []
@@ -933,10 +948,23 @@ def build_blog():
     <p id="cw-blogempty" hidden>No posts match that search. <a href="{u('/contact')}">Ask us directly</a> — we'll answer it.</p>
   </div>
 </div></section>'''
-    if undated:
-        warn(f"{len(undated)} of {len(live)} posts have no \"date\" — BlogPosting omits "
-             f"datePublished, which Google wants for article rich results. Add "
-             f"\"date\": \"YYYY-MM-DD\" to entries in {BLOG_SRC} to fill it in.")
+    # Posts allowed to have no "date", each with the why. Anything undated and
+    # NOT in this dict is a mistake and gets the loud generic warning below.
+    EXPECTED_UNDATED = {
+        "okoume-plywood": 'expected: the post is new in this build (never live, so '
+                          'there is no real datePublished to inherit and inventing '
+                          'one would read to Google as false). Set "date" to the '
+                          'go-live day at cutover — or drop the post entirely; see '
+                          'the okoume consolidation note above PORTED_REDIRECTS.',
+    }
+    for slug in undated:
+        why = EXPECTED_UNDATED.get(slug)
+        if why:
+            warn(f'post {slug} has no "date" — {why}')
+        else:
+            warn(f'post {slug} has no "date" — BlogPosting omits datePublished, which '
+                 f'Google wants for article rich results. Add "date": "YYYY-MM-DD" to '
+                 f'its entry in {BLOG_SRC}.')
     write("blogs/index.html", src=BLOG_SRC, content=base("Blog — Plywood Guides, Specs & Supply | Cochin Wood",
           "Plywood guides, standards, export-packing notes and city-by-city supply from Cochin Wood Industries.",
           "/blogs", body, crumbs=[("Home", "/"), ("Blog", None)]))
@@ -1144,7 +1172,9 @@ PORTED_REDIRECTS = """
 """
 
 # Rules NOT carried across from cf-live, and why. Recorded so the next person can
-# see they were considered rather than missed.
+# see they were considered rather than missed. Settled entries print as ONE
+# summary warning; an entry whose reason starts with "NEEDS OWNER" prints its
+# own line until the owner rules on it.
 DROPPED_FROM_LIVE = {
     "/CLAUDE.md /": "cf-live is served verbatim so its CLAUDE.md was downloadable; "
                     "the cutover serves dist/, which contains no such file",
@@ -1166,7 +1196,29 @@ DROPPED_FROM_LIVE = {
     "/blogs/north-india/feed /blogs/north-india":
         "target never built; /blogs/*/feed catches it",
     "/blogs/buyer-guides/page/* /blogs/buyer-guides":
-        "target never built and NOTHING else catches it -- those URLs will 404",
+        "NEEDS OWNER: target never built and NOTHING else catches it -- those URLs "
+        "will 404. The same question hangs over the five live category pages this "
+        "build neither emits nor redirects (/blogs/buyer-guides, /blogs/north-india, "
+        "/blogs/south-india, /blogs/west-india, /blogs/central-east-india; only "
+        "/blogs/gcc-export was ported). Rescuing all of them to /blogs costs ~6 "
+        "rules against the 100-rule cap -- or the owner rules they 404",
+}
+
+# The seven sources where cf-live's 301 target and LEGACY_REDIRECTS disagree.
+# Resolved, not open: LEGACY_REDIRECTS wins BY DESIGN, because it also rewrites
+# the in-content links, and a page's links and its slug's 301 must agree (the
+# 2026-07-07 audit's cf-live targets were nearest-page approximations; LEGACY's
+# are the exact posts). Keyed by source -> the target cf-live sends today; if
+# cf-live ever changes one, the stored value stops matching and the build goes
+# back to warning loudly about that source.
+EXPECTED_OVERRIDDEN = {
+    "/guide-bwp-bwr-plywood-explained": "/blogs/post/bwr-vs-bwp-for-export-packing-when-mr-grade-will-fail-at-sea",
+    "/guide-is-710-vs-is-303": "/blogs/post/how-to-read-a-plywood-grade-stamp",
+    "/guide-ispm-15-crate-cost": "/plywood-boxes-crates",
+    "/guide-plywood-boxes-ispm-15": "/blogs/post/ispm-15-heat-treatment-vs-methyl-bromide",
+    "/guide-plywood-cable-drum-specifications": "/plywood-cable-drums",
+    "/guide-plywood-for-packing-cases": "/commercial-plywood",
+    "/guide-rubberwood-plywood-explained": "/woods-we-use",
 }
 
 REDIRECT_LIMIT = 100          # Cloudflare Pages honours only the first N rules
@@ -1211,6 +1263,7 @@ def build_redirects():
     # LEGACY_REDIRECTS also rewrites in-content links, so where it and the live
     # file disagree on a source the in-content target has to win -- otherwise a
     # link on the page and the 301 for the same slug lead to different places.
+    overridden = []
     for src in sorted(LEGACY_REDIRECTS):
         dst = LEGACY_REDIRECTS[src]
         if src.startswith("/blogs/post/wood-"):
@@ -1218,9 +1271,13 @@ def build_redirects():
         if src in have:
             for i, it in enumerate(items):
                 if it[0] == "r" and it[1] == src and it[2] != dst:
-                    warn(f"redirect conflict on {src}: cf-live sends it to {it[2]}, "
-                         f"LEGACY_REDIRECTS to {dst} -- using {dst}, which is what the "
-                         f"in-content links already say")
+                    if EXPECTED_OVERRIDDEN.get(src) == it[2]:
+                        overridden.append(src)     # known and resolved: one line below
+                    else:
+                        warn(f"redirect conflict on {src}: cf-live sends it to {it[2]}, "
+                             f"LEGACY_REDIRECTS to {dst} -- using {dst}, which is what the "
+                             f"in-content links already say. If that is the settled call, "
+                             f"record it in EXPECTED_OVERRIDDEN")
                     items[i] = ("r", src, dst, "301")
         else:
             if not added:
@@ -1228,6 +1285,12 @@ def build_redirects():
                 items.append(("#", "# --- LEGACY_REDIRECTS slugs cf-live never had a rule for ---"))
                 added = True
             items.append(("r", src, dst, "301"))
+    if overridden:
+        warn(f"{len(overridden)} cf-live 301 targets rewritten to LEGACY_REDIRECTS' -- "
+             f"by design, not drift: LEGACY_REDIRECTS also rewrites the in-content "
+             f"links, and a page's links and its slug's 301 must agree. "
+             f"EXPECTED_OVERRIDDEN in build.py lists each pair; a change on the "
+             f"cf-live side turns the loud per-slug warning back on")
 
     served, out, seen, dropped = _served_paths(), [], set(), []
     def resolve(t):
@@ -1251,9 +1314,29 @@ def build_redirects():
         seen.add(src); out.append(f"{src} {dst} {code}")
 
     n = sum(1 for l in out if l and not l.startswith("#"))
+    # Drops that are the machinery working as designed, with the why to print.
+    # Keyed (src, dst); anything not listed here still warns bare, as a surprise.
+    EXPECTED_DROPPED = {
+        ("/blogs/post/okoume-plywood", "/okoume-plywood"):
+            "expected: this consolidation 301 idles while posts.json still carries "
+            "the okoume-plywood post (416 words next to the 1471-word money page). "
+            "Owner's call pending -- drop the post and the rule fires, or keep both "
+            "pages and delete the rule; see the note above it in PORTED_REDIRECTS",
+    }
     for src, dst, why in dropped:
-        warn(f"redirect dropped: {src} -> {dst}  ({why})")
-    for rule, why in sorted(DROPPED_FROM_LIVE.items()):
+        note = EXPECTED_DROPPED.get((src, dst))
+        warn(f"redirect dropped: {src} -> {dst}  ({why})"
+             + (f" -- {note}" if note else ""))
+    open_drops = {r: w for r, w in DROPPED_FROM_LIVE.items()
+                  if w.startswith("NEEDS OWNER")}
+    settled = len(DROPPED_FROM_LIVE) - len(open_drops)
+    if settled:
+        warn(f"{settled} cf-live rules deliberately not carried across -- each was "
+             f"considered, not missed: DROPPED_FROM_LIVE in build.py records every "
+             f"one with its reason (target never built and a wildcard catches it, "
+             f"subsumed by a new wildcard, or the rule would hide a file this "
+             f"build serves)")
+    for rule, why in sorted(open_drops.items()):
         warn(f"cf-live rule not carried across: {rule}  ({why})")
     if n > REDIRECT_LIMIT:
         warn(f"_redirects has {n} rules; Cloudflare Pages honours only the first "
