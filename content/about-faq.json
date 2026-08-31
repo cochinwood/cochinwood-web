@@ -1,0 +1,92 @@
+{
+  "_source": "git show origin/cf-live:about.html -- section 8 accordion + the static FAQPage block",
+  "_note": "Answers are VERBATIM from live. Where live's schema text differs from its visible text, both are kept: 'a' is what a buyer reads, 'schema' is what Googlebot reads, exactly as live serves them. 'schema' absent means the two agree and the schema text is derived from 'a'; 'schema': null means live displays the question but never listed it in the FAQPage block.",
+  "eyebrow": "Frequently asked",
+  "h2": "Questions, answered.",
+  "lede": "The questions buyers, specifiers and exporters most commonly ask — about grades, MOQs, lead-times, certifications and shipments.",
+  "items": [
+    {
+      "q": "What is the difference between BWR and BWP plywood?",
+      "a": [
+        "<strong>BWR</strong> (Boiling Water Resistant) plywood is bonded with melamine-fortified urea-formaldehyde or phenolic resin as confirmed per order, and is commonly specified against IS 303 — the usual choice for general furniture, panelling and dry interior joinery.",
+        "<strong>BWP</strong> (Boiling Water Proof) plywood is bonded with phenol-formaldehyde resin, conforms to IS 710, and survives prolonged exposure to boiling water. Specify BWP for kitchens, bathrooms, exterior joinery, marine applications and any humid environment."
+      ],
+      "schema": "BWR is bonded with a melamine-fortified urea-formaldehyde or phenolic resin as confirmed per order, and is the usual choice for general furniture, panelling and dry interior joinery. BWP is bonded with phenol-formaldehyde resin and survives prolonged exposure to boiling water. Our BWP marine plywood is IS 710 and our BWR commercial plywood is IS 303, both produced under the BIS licence of the mill that makes it. We work with several approved mills and each holds its own licence, so the CM/L number that applies to your order is named on the quotation — check its status and scope in BIS Care before you confirm. The licence number and scope are stated on the quotation. Specify BWP for kitchens, bathrooms, exterior joinery, marine applications and any humid environment."
+    },
+    {
+      "q": "What thicknesses do you stock?",
+      "a": [
+        "Standard plywood is manufactured in 4, 6, 9, 12, 16, 19 and 25 mm thicknesses. Block boards run 18, 22, 25, 30, 35 and 40 mm. Container flooring ships at 28 mm. Shuttering plywood is most commonly produced at 12 and 18 mm.",
+        "Custom thicknesses and dimensions are available by arrangement — talk to our technical desk."
+      ],
+      "schema": "Standard plywood is manufactured in 4, 6, 9, 12, 16, 19 and 25 mm thicknesses. Block boards run 18, 22, 25, 30, 35 and 40 mm. Container flooring ships at 28 mm. Shuttering plywood is most commonly produced at 12 and 18 mm. Custom thicknesses and dimensions are available by arrangement; ask the technical desk."
+    },
+    {
+      "q": "Do you supply ISI / BIS-marked plywood?",
+      "a": [
+        "Our plywood is produced under the BIS licence of the mill that makes it — several approved mills, each with its own licence, and the applicable CM/L named on your quotation: IS 710 for BWP marine grade and IS 303 for BWR commercial grade. Block board and flush doors are quoted against IS 1659 or IS 2202 where a buyer specifies them. ISI (BIS) marking is supplied only where a valid licence covers that exact product and grade; the licence holder, number and scope are stated on the quotation. Where no licence applies, no marking or conformity claim is made."
+      ]
+    },
+    {
+      "q": "What is your minimum order quantity?",
+      "a": [
+        "A full load may be mixed across thicknesses, grades and product lines. Part-loads within India and LCL consolidation for export are available where the route and quantity allow; the practical minimum for your destination is confirmed on the quotation."
+      ],
+      "schema": "Part-loads within India and LCL consolidation for export are available where the route and quantity allow; the practical minimum for your destination is confirmed on the quotation."
+    },
+    {
+      "q": "What are your lead-times?",
+      "a": [
+        "Catalogue items in stock thicknesses load on the schedule we confirm at quotation. Made-to-order runs (custom thickness, surface treatment or large quantities) are scheduled against the order and confirmed on the PI. Export containers, including ISPM-15 treatment and documentation, load on the date set when the PO is confirmed."
+      ],
+      "schema": "Standard catalogue items held in stock load within 7–10 working days of your advance reaching us. Made-to-order panels and fabricated crates load within 15–20 working days of your advance. The dispatch date is confirmed on the PI."
+    },
+    {
+      "q": "Do you provide samples?",
+      "a": [
+        "Yes. We send 6″ × 6″ sample swatches by courier free of charge for buyers in India, and at cost for international buyers — quoted with the sample request. Larger physical samples and full-sheet evaluations are available against a quoted fee."
+      ],
+      "schema": "Yes. We send sample swatches by courier free of charge for buyers in India, and at cost for international buyers, quoted with the sample request. Larger physical samples and full-sheet evaluations are available against a quoted fee."
+    },
+    {
+      "q": "What payment terms do you offer for export buyers?",
+      "a": [
+        "Standard products transact on <strong>50% advance, balance before dispatch</strong>; custom production on <strong>100% advance</strong> — by <strong>bank transfer (T/T)</strong>. We do not transact on open account."
+      ],
+      "schema": "Standard products transact on 50% advance, balance before dispatch; custom production on 100% advance - by bank transfer (T/T). We do not transact on open account."
+    },
+    {
+      "q": "Which export markets do you currently ship to?",
+      "a": [
+        "We supply India domestically and export to Sri Lanka, Turkey and the GCC (the UAE, Saudi Arabia, Qatar, Oman, Kuwait and Bahrain) in Asia; South Africa, Nigeria and Kenya in Africa; the Netherlands in Europe; the United States, Haiti, Puerto Rico and the Dominican Republic in North America; and Chile in South America."
+      ]
+    },
+    {
+      "q": "Do your packaging products meet ISPM-15?",
+      "a": [
+        "Plywood and other processed panels are exempt from ISPM-15. Where packaging contains regulated solid-wood components and the destination requires it, those components are treated and IPPC-marked &mdash; at our own works or through an approved treatment provider, depending on the order &mdash; and the treatment certificate is supplied with the shipment."
+      ],
+      "schema": "Plywood and other processed panels are exempt from ISPM-15. Where packaging contains regulated solid-wood components and the destination requires it, those components are treated and IPPC-marked - at our own works or through an approved treatment provider, depending on the order - and the treatment certificate is supplied with the shipment."
+    },
+    {
+      "q": "Can I visit the operations in Perumbavoor?",
+      "a": [
+        "Absolutely. We welcome buyers, specifiers and trade partners to walk our group's Perumbavoor operations. Drop us an email at <a href=\"mailto:sales@cochinwood.in\">sales@cochinwood.in</a> with your dates and we'll arrange a pickup from Cochin International Airport."
+      ]
+    },
+    {
+      "q": "Do you guarantee the material?",
+      "a": [
+        "We back every order with a <strong>material guarantee</strong>: the grade, construction and face you ordered are exactly what gets loaded, checked before dispatch. Every consignment ships with its <strong>technical data sheet</strong>, and we can share feedback from buyers running the same material in service."
+      ],
+      "schema": "The grade, construction and face stated on your proforma invoice are what we load, and the load is checked before dispatch. Any technical data sheet or supporting document included is stated on the quotation, and we can share feedback from buyers running the same material in service."
+    },
+    {
+      "q": "How do I get a price?",
+      "a": [
+        "The fastest path: visit our <a href=\"/contact\">Contact</a> page, or write to <a href=\"mailto:sales@cochinwood.in\">sales@cochinwood.in</a> with product, thickness, quantity and destination port. Our export desk replies within one business day."
+      ],
+      "schema": null
+    }
+  ]
+}

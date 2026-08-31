@@ -43,6 +43,13 @@ body{margin:0;background:#fff;font-family:Poppins,system-ui,sans-serif;color:#14
 .cwg__faq-item{border-bottom:1px solid var(--cw-ink-200,#D9D9D9);padding:18px 0}
 .cwg__faq-item h3{font-family:'Bree Serif',Georgia,serif;font-size:1.08rem;margin:0 0 6px;color:#0E1F18}
 .cwg__faq-item p{margin:0;color:#3a4a52}
+/* the nine /export lanes answer in one paragraph each; the /about buyer FAQ does
+   not, and with margin:0 a two-paragraph answer runs into itself as one block */
+.cwg__faq-item p+p{margin-top:10px}
+/* /about opens its FAQ with the live eyebrow + lede; the lanes open with a bare
+   "FAQ" heading and are unaffected */
+.cwg__faq .cwg__eyebrow{margin-bottom:8px}
+.cwg__faq .cw__lede{font-size:1.02rem;margin:0 0 8px}
 
 /* cta band */
 .cwg__cta{padding:56px 0;background:var(--cw-ink-900,#141414);color:#fff;margin-top:24px}

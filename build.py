@@ -1032,6 +1032,89 @@ def build_content_pages():
         n += 1
     return n
 
+# ---------------- /about buyer FAQ ----------------
+#
+# Eleven answered buyer questions and their FAQPage rich-result eligibility. Live
+# carries them twice -- a visible accordion AND a static FAQPage block -- and the
+# two texts are NOT the same on 7 of the 11. Both are commercial and technical
+# commitments (payment terms, lead-times, BIS licence wording, ISPM-15), so both
+# are carried across verbatim rather than one being reworded into the other:
+# `a` is what a buyer reads, `schema` is what Googlebot reads, exactly as live
+# serves them. Where the item has no `schema` key the two agree and the schema
+# text is derived from `a`; `schema: null` marks the one question live displays
+# but never listed in its FAQPage block.
+#
+# THE ONE ANSWER THAT CHANGED is "Which export markets do you currently ship to?".
+# Live answers it twice and the two disagree -- the visible list named Bangladesh,
+# Malaysia, Singapore, Vietnam, Maldives, Mauritius, Tanzania, Australia, Germany
+# and the UK and no Americas at all, while the JSON-LD named the GCC, Turkey,
+# three African markets, the Netherlands, four North American markets and Chile.
+# Edwin ruled on 1 Sep 2026 that the JSON-LD list is the correct one: the visible
+# list named markets we do not serve and omitted the Americas, where we do. That
+# one text now serves both, so the page cannot contradict itself on it, and the
+# list spans Asia, Africa, Europe, North and South America -- which is what makes
+# the "five continents" claim on /about, /industries and /marine-plywood true.
+# tools/check_site.py derives the continent count from this answer; moving the
+# number without the list, or the list without the number, is what that check
+# exists to stop.
+#
+# Presentation is the build's own .cwg__faq/.cwg__faq-item, already in the CSS
+# bundle and already used by the nine /export lanes -- for the reason
+# export_section.py gives: live's .cw__about-faq-* classes came from the Zoho
+# theme and do not exist here, and its accordion ran on an inline <script> that
+# process_content strips. Nothing new is invented for one page.
+ABOUT_FAQ_SRC = os.path.join("content", "about-faq.json")
+
+def _faq_text(frag):
+    """Visible text of an HTML fragment, for JSON-LD. Same rule export_section uses."""
+    return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", "", frag))).strip()
+
+def about_faq():
+    """(visible section html, FAQPage ld+json) for /about, from one data file."""
+    fp = os.path.join(ROOT, ABOUT_FAQ_SRC)
+    if not os.path.exists(fp):
+        warn(f"/about has no FAQ: {ABOUT_FAQ_SRC} is missing -- eleven answered buyer "
+             f"questions and their FAQPage rich-result eligibility would go silently")
+        return "", ""
+    d = json.load(open(fp, encoding="utf-8"))
+    items = d.get("items") or []
+    if not items:
+        warn(f"{ABOUT_FAQ_SRC} lists no questions")
+        return "", ""
+
+    blocks, entities = [], []
+    for it in items:
+        q, paras = it["q"], it["a"]
+        blocks.append('<div class="cwg__faq-item"><h3>' + q + "</h3>"
+                      + "".join(f"<p>{p}</p>" for p in paras) + "</div>")
+        if "schema" in it and it["schema"] is None:
+            continue                       # displayed on the page, never in the block
+        text = it.get("schema") or _faq_text(" ".join(paras))
+        entities.append({"@type": "Question", "name": q,
+                         "acceptedAnswer": {"@type": "Answer", "text": text}})
+
+    # Google's FAQPage rule is that the answer must appear on the page. The two
+    # texts are allowed to differ in wording; a fact stated only in the schema is
+    # a page contradicting itself, which is what check_site.py's faq-answer check
+    # fails on. Catch it here too, at the source, rather than only in the checker.
+    visible = _faq_text(" ".join(b for b in blocks))
+    for e in entities:
+        for tok in re.findall(r"\b(?:IS|ISO|ISPM|IICL)[ -]?\d[\w-]*\b",
+                              e["acceptedAnswer"]["text"]):
+            if tok not in visible:
+                warn(f'/about FAQ: the schema answer to "{e["name"][:48]}" states {tok}, '
+                     f"which the visible answer does not -- Googlebot would read a fact "
+                     f"a buyer cannot see")
+
+    html_out = ('<section class="cwg__faq"><div class="cwg__container">'
+                f'<p class="cwg__eyebrow">{d["eyebrow"]}</p><h2>{d["h2"]}</h2>'
+                f'<p class="cw__lede">{d["lede"]}</p>' + "".join(blocks) + "</div></section>")
+    ld = ('<script type="application/ld+json">'
+          + json.dumps({"@context": "https://schema.org", "@type": "FAQPage",
+                        "mainEntity": entities},
+                       separators=(",", ":"), ensure_ascii=False) + "</script>")
+    return html_out, ld
+
 def build_about():
     sdir = os.path.join(ROOT, "content", "pages")
     parts = []
@@ -1041,14 +1124,16 @@ def build_about():
         else: warn(f"/about is missing its {f} section -- content/pages/{f} not found")
     if not parts: return 0
     meta = PAGE_META.get("about", {})
+    faq_html, faq_ld = about_faq()
     # The page opens on the "Our history" section label, so it carried no <h1> at
     # all — the only page on the site without one. The heading is hidden rather
     # than drawn so the layout is untouched.
     h1 = '<h1 class="cw-sr-only">About Cochin Wood Industries</h1>'
-    body = f'<main class="cw-page"><div class="cw-wrap">{h1}{"".join(parts)}</div></main>'
+    body = (f'<main class="cw-page"><div class="cw-wrap">{h1}{"".join(parts)}</div>'
+            f'{faq_html}</main>')
     write("about/index.html", src=os.path.join("content","pages","about-operation.html"), content=base(meta.get("title","About Cochin Wood Industries"),
           meta.get("desc",""), "/about", body, body_class="cw-contentpage",
-          crumbs=[("Home", "/"), ("About", None)]))
+          crumbs=[("Home", "/"), ("About", None)], extra_head=faq_ld))
     return 1
 
 def _blog_content(body):
