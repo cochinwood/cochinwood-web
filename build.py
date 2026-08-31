@@ -41,11 +41,66 @@ LEGACY_REDIRECTS = {
     "/guide-rubberwood-plywood-explained":     "/blogs/post/rubberwood-plywood-explained",
     "/okoume-plywood":                         "/blogs/post/okoume-plywood",
     "/packing-grade-plywood-spec-sheet":       "/blogs/post/packing-grade-plywood-spec-sheet",
-    # encyclopedia moved out of /blogs/post/ into its own section
-    "/blogs/post/wood-okoume-aucoumea-klaineana":     "/wood-encyclopedia/okoume",
-    "/blogs/post/wood-eucalyptus":                    "/wood-encyclopedia/eucalyptus",
-    "/blogs/post/wood-gurjan-keruing-dipterocarpus":  "/wood-encyclopedia/gurjan",
 }
+
+# ---------------- the wood section ----------------
+# The live site serves this section at /woods-we-use, and cf-live's hand-written
+# _redirects already 301s /wood-encyclopedia and /wood-encyclopedia/* there. So
+# the URL stays /woods-we-use and only the visible LABEL reads "Wood
+# Encyclopedia" — the build does not move a URL that is already earning.
+WOOD_PATH  = "/woods-we-use"          # the emitted path — do not change lightly
+WOOD_LABEL = "Wood Encyclopedia"      # what a visitor reads in nav, crumbs, titles
+
+ENC_DIR  = os.path.join(ROOT, "content", "encyclopedia")
+HUB_SRC  = os.path.join(ENC_DIR, "_hub.html")
+WAVE3_DIR = os.path.join(ROOT, "content", "encyclopedia-wave3")
+
+def _load_manifest(path):
+    if not os.path.exists(path):
+        warn(f"species manifest missing: {os.path.relpath(path, ROOT)}"); return []
+    return json.load(open(path, encoding="utf-8"))
+
+def _species_manifest():
+    """[(file stem, live /blogs/post/ slug, manifest entry, content subdir)] for
+    every species, read off disk rather than typed out here -- a new species is
+    wired in by dropping its file in and listing it, nothing else.
+
+    Wave 1/2 (content/encyclopedia/<f>.html) are whole HTML pages. Their live
+    slug comes from the hub's data-slug attributes, which cover all twenty;
+    posts.json lists only fifteen and each page's own <link rel=canonical> is
+    wrong for semul, so neither of those can be the source.
+
+    Wave 3 (content/encyclopedia-wave3/<f>.body.html) are body fragments whose
+    title and description live in posts3.json."""
+    out, seen = [], set()
+    meta = {e["file"]: e for e in _load_manifest(os.path.join(ENC_DIR, "posts.json"))}
+    hub  = open(HUB_SRC, encoding="utf-8").read() if os.path.exists(HUB_SRC) else ""
+    for f, slug in re.findall(
+            r'<a class="cwe__card" href="([^"/]+)\.html" data-slug="/blogs/post/([^"]+)"', hub):
+        if not os.path.exists(os.path.join(ENC_DIR, f + ".html")):
+            warn(f"hub links {f}.html but content/encyclopedia/{f}.html does not exist")
+            continue
+        out.append((f, slug, meta.get(f, {}), "encyclopedia")); seen.add(f)
+    for fp in sorted(os.listdir(ENC_DIR) if os.path.isdir(ENC_DIR) else []):
+        f = fp[:-5]
+        if fp.endswith(".html") and not fp.startswith("_") and f not in seen:
+            warn(f"content/encyclopedia/{fp} is not on the hub -- it would build unlinked")
+            out.append((f, "", meta.get(f, {}), "encyclopedia"))
+    for e in _load_manifest(os.path.join(WAVE3_DIR, "posts3.json")):
+        if os.path.exists(os.path.join(WAVE3_DIR, e["file"] + ".body.html")):
+            out.append((e["file"], e.get("slug", ""), e, "encyclopedia-wave3"))
+        else:
+            warn(f"posts3.json lists {e['file']} but {e['file']}.body.html is missing")
+    return out
+
+SPECIES       = _species_manifest()
+SPECIES_SLUGS = [f for f, _s, _e, _d in SPECIES]
+
+# All 28 species are live today at /blogs/post/wood-<slug>. Moving them under the
+# hub means every one of those URLs needs retargeting in content and a 301 on the
+# way out; three were listed by hand, which left 25 stale cross-links shipping.
+LEGACY_REDIRECTS.update({f"/blogs/post/{slug}": f"{WOOD_PATH}/{f}"
+                         for f, slug, _e, _d in SPECIES if slug})
 
 CONTACT = dict(email="sales@cochinwood.in", phone_disp="+91 95674 10175",
                phone_href="+919567410175", addr="Kuruppampady, Ernakulam, Kerala 683545",
@@ -221,7 +276,7 @@ PRODUCTS = [
 ]
 
 NAV = [("Products", "/products", False), ("Industries", "/industries", False),
-       ("Wood Encyclopedia", "/wood-encyclopedia/", False),
+       (WOOD_LABEL, WOOD_PATH, False),
        ("Blog", "/blogs", False), ("Contact", "/contact", False)]
 
 def header(path="/"):
@@ -247,7 +302,7 @@ def footer():
   <div class="cw-ft__cols">
     <div class="cw-ft__brand"><b>Cochin Wood Industries</b><p>Plywood manufacturer in Kochi, Kerala — packing, Okoume and shuttering ply, shipped across India and exported. Part of a group manufacturing in Perumbavoor since 1986.</p></div>
     <div><h2 class="cw-ft__h">Products</h2>{prod}</div>
-    <div><h2 class="cw-ft__h">Explore</h2><a href="{u('/products')}">All products</a><a href="{u('/wood-encyclopedia/')}">Wood Encyclopedia</a><a href="{u('/resources')}">Resources</a><a href="{u('/industries')}">Industries</a><a href="{u('/about')}">About</a><a href="{u('/faq')}">FAQ</a></div>
+    <div><h2 class="cw-ft__h">Explore</h2><a href="{u('/products')}">All products</a><a href="{u(WOOD_PATH)}">{WOOD_LABEL}</a><a href="{u('/resources')}">Resources</a><a href="{u('/industries')}">Industries</a><a href="{u('/about')}">About</a><a href="{u('/faq')}">FAQ</a></div>
     <div><h2 class="cw-ft__h">Contact</h2><a href="tel:{CONTACT['phone_href']}">{CONTACT['phone_disp']}</a><a href="mailto:{CONTACT['email']}">{CONTACT['email']}</a><a href="https://maps.google.com/?q=Kuruppampady+Kerala" target="_blank" rel="noopener">{CONTACT['addr']}</a></div>
   </div>
   <div class="cw-ft__bar"><span>&copy; 2026 Cochin Wood Industries Pvt Ltd. Group established 1986.</span>
@@ -493,7 +548,7 @@ def home():
 <section class="cw-sec"><div class="cw-wrap">
   <h2 class="cw-sec__h">Wood Encyclopedia</h2>
   <p class="cw-sec__lead">A working reference to the species behind plywood, packing and timber — density, hardness, workability and use, independently researched and cross-checked, with sources on every page.</p>
-  <a class="cw-btn cw-btn--p" href="{u('/wood-encyclopedia/')}" style="background:var(--cw-green-700)">Open the encyclopedia &rarr;</a>
+  <a class="cw-btn cw-btn--p" href="{u(WOOD_PATH)}" style="background:var(--cw-green-700)">Open the encyclopedia &rarr;</a>
 </div></section>
 
 <section class="cw-band"><div class="cw-wrap cw-band__in">
@@ -569,6 +624,7 @@ def contact():
         "/contact", body, crumbs=[("Home", "/"), ("Contact", None)]))
 
 # ---------------- WOOD ENCYCLOPEDIA (wrap existing clean pages in shared chrome) ----------------
+# Served at WOOD_PATH (/woods-we-use); labelled "Wood Encyclopedia" throughout.
 def enc_extract(src):
     t = open(src, encoding="utf-8").read()
     title = re.search(r"<title>(.*?)</title>", t, re.S).group(1).strip()
@@ -578,35 +634,130 @@ def enc_extract(src):
     body  = body.split("<body>",1)[1].rsplit("</body>",1)[0]
     return title, desc, body
 
-def enc_rewrite(body, slug_map):
-    # hub cards: okoume.html -> /wood-encyclopedia/okoume ; species crumbs/related handled below
-    for fslug in slug_map:
-        body = body.replace(f'href="{fslug}.html"', f'href="{u("/wood-encyclopedia/"+fslug)}"')
-    body = body.replace('href="/wood-encyclopedia"', f'href="{u("/wood-encyclopedia/")}"')
-    body = body.replace('href="index.html"', f'href="{u("/wood-encyclopedia/")}"')
-    return rewrite_links(prune_images(body))
+_ENC_URLS = None
+def enc_url_map():
+    """Old URL -> new URL for every hard-coded reference inside the imported
+    pages. These live in JSON-LD (`mainEntityOfPage`, BreadcrumbList `item`) and
+    in the hub's `data-slug` attributes -- none of which is an href or a src, so
+    rewrite_links() never sees them and they were shipping stale."""
+    global _ENC_URLS
+    if _ENC_URLS is None:
+        m = {"/wood-encyclopedia": WOOD_PATH}
+        for f, slug, _e, _d in SPECIES:
+            if slug: m["/blogs/post/" + slug] = f"{WOOD_PATH}/{f}"
+            m["/wood-encyclopedia/" + f] = f"{WOOD_PATH}/{f}"   # deep links in the copy
+        _ENC_URLS = sorted(m.items(), key=lambda kv: len(kv[0]), reverse=True)
+    return _ENC_URLS
+
+def enc_rewrite(body):
+    # hub cards: okoume.html -> /woods-we-use/okoume
+    for fslug in SPECIES_SLUGS:
+        body = body.replace(f'href="{fslug}.html"', f'href="{WOOD_PATH}/{fslug}"')
+    body = body.replace('href="index.html"', f'href="{WOOD_PATH}"')
+    # absolute and root-relative forms, wherever they appear (JSON-LD included)
+    for old, new in enc_url_map():
+        body = body.replace(LIVE + old, LIVE + new)
+        body = body.replace('"' + old + '"', '"' + new + '"')
+    return rewrite_links(prune_images(body))       # rewrite_links() adds SITE_BASE
+
+# --- wave 3: eight species that ship as body fragments, not whole pages -------
+# content/encyclopedia-wave3/<file>.body.html has no <head>, no hero and no <h1>;
+# title and description come from posts3.json. Everything below is assembled from
+# those two sources -- none of it is authored copy.
+_SCI_RE = re.compile(r'^(.*?) Wood \((.+?)\): ', re.S)
+
+def _species_names(title):
+    """'Anjili (Wild Jack) Wood (Artocarpus hirsutus): Properties...'
+        -> ('Anjili (Wild Jack)', 'Artocarpus hirsutus')"""
+    m = _SCI_RE.match(html.unescape(title))
+    if not m:
+        warn(f"wave3: cannot read a species name out of {title[:60]!r}")
+        return title.split(":")[0].strip(), ""
+    return m.group(1).strip(), m.group(2).strip()
+
+def wave3_page(entry, sub):
+    """(title, desc, body) for a wave-3 species, with the hero the fragment lacks."""
+    fp = os.path.join(ROOT, "content", sub, entry["file"] + ".body.html")
+    body = open(fp, encoding="utf-8").read()
+    name, sci = _species_names(entry["title"])
+    refs = len(re.findall(r'<li id="ref\d+"', body))
+    meta = "Cochin Wood Industries"
+    if refs: meta += f" &middot; Reviewed against {refs} sources"
+    sci_html = ""
+    if sci:
+        sci_html = (' <span style="font-style:italic;font-weight:400;font-size:.62em;'
+                    'color:#6b7a82">(' + esc(sci) + ')</span>')
+    hero = (
+      '<header class="cwg__hero">\n'
+      '  <div class="cwg__container">\n'
+      '    <nav class="cwg__crumb" aria-label="Breadcrumb"><a href="/">Home</a>'
+      '<span class="cwg__crumb-sep" aria-hidden="true">&rsaquo;</span>'
+      f'<a href="{WOOD_PATH}">{WOOD_LABEL}</a>'
+      '<span class="cwg__crumb-sep" aria-hidden="true">&rsaquo;</span>'
+      f'<span aria-current="page">{esc(name)}</span></nav>\n'
+      f'    <p class="cwg__eyebrow">{WOOD_LABEL}</p>\n'
+      f'    <h1 class="cwg__h1">{esc(name)}{sci_html}</h1>\n'
+      f'    <p class="cwg__meta">{meta}</p>\n'
+      '  </div>\n'
+      '</header>\n\n')
+    # the brand suffix every wave-1/2 <title> carries; seo_title() trims it back
+    return entry["title"] + " | Cochin Wood", entry["summary"], hero + body
+
+# --- hub cards for the wave-3 species ----------------------------------------
+# The hub HTML predates these eight, so its grids hold no card for them and the
+# pages would build with nothing linking to them. Which group each belongs to is
+# taken from the lead use in its own posts3.json summary: kadam leads "plywood
+# core veneer", venteak is "a teak substitute", the other six lead with packing
+# cases, pallets or packing timber. Each value is the last card of that grid.
+WAVE3_GROUP = {"kadam": "acacia-mangium",                        # veneer grid
+               "casuarina": "pine", "subabul": "pine", "anjili": "pine",
+               "matti": "pine", "irul": "pine", "pala": "pine",  # packing grid
+               "venteak": "mahogany"}                            # Indian timbers grid
+
+def _hub_add_cards(body, entries):
+    """Insert a card for each wave-3 species after the last card of its group,
+    anchored on that card's own href, which is unique in the file."""
+    for f, entry in entries:
+        anchor = WAVE3_GROUP.get(f)
+        i = body.find(f'<a class="cwe__card" href="{anchor}.html"') if anchor else -1
+        if i < 0:
+            warn(f"hub: no anchor card for {f} -- it would build with nothing linking to it")
+            continue
+        j = body.index("</a>", i) + len("</a>")
+        name, sci = _species_names(entry["title"])
+        card = ('\n        <a class="cwe__card" href="' + f + '.html">\n'
+                '          <p class="cwe__card-name">' + esc(name) + '</p>\n'
+                '          <p class="cwe__card-sci">' + esc(sci) + '</p>\n'
+                '          <span class="cwe__card-tag">Read</span>\n'
+                '        </a>')
+        body = body[:j] + card + body[j:]
+    return body
 
 def encyclopedia():
-    slugs = ["okoume","gurjan","rubberwood","eucalyptus","poplar","birch",
-             "meranti","gmelina","melia-dubia","acacia-mangium",
-             "jackwood","mango","silver-oak","pine","semul",
-             "teak","sheesham","sal","neem","mahogany"]
     encdir = os.path.join(ROOT, "content", "encyclopedia")
+    wave3  = [(f, e) for f, _s, e, d in SPECIES if d == "encyclopedia-wave3"]
     # hub
-    title, desc, body = enc_extract(os.path.join(encdir, "_hub.html"))
-    body = enc_rewrite(body, slugs)
-    write("wood-encyclopedia/index.html", src=os.path.join("content","encyclopedia","_hub.html"), content=base(title, desc, "/wood-encyclopedia", body,
-          body_class="cw-encbody", crumbs=[("Home", "/"), ("Wood Encyclopedia", None)]))
-    # species — the imported pages carry their own visible crumb, so emit schema only
-    for s in slugs:
-        title, desc, body = enc_extract(os.path.join(encdir, f"{s}.html"))
-        body = enc_rewrite(body, slugs)
-        write(f"wood-encyclopedia/{s}/index.html", src=os.path.join("content","encyclopedia",f"{s}.html"), content=
-              base(title, desc, f"/wood-encyclopedia/{s}", body, body_class="cw-encbody",
+    hub_src = os.path.join("content", "encyclopedia", "_hub.html")
+    title, desc, body = enc_extract(os.path.join(ROOT, hub_src))
+    body = enc_rewrite(_hub_add_cards(body, wave3))
+    write(WOOD_PATH.strip("/") + "/index.html", src=hub_src,
+          content=base(title, desc, WOOD_PATH, body, body_class="cw-encbody",
+                       crumbs=[("Home", "/"), (WOOD_LABEL, None)]))
+    # species -- the imported pages carry their own visible crumb, so emit schema only
+    for f, _slug, entry, sub in SPECIES:
+        if sub == "encyclopedia-wave3":
+            src = os.path.join("content", sub, f + ".body.html")
+            title, desc, body = wave3_page(entry, sub)
+        else:
+            src = os.path.join("content", sub, f + ".html")
+            title, desc, body = enc_extract(os.path.join(encdir, f + ".html"))
+        body = enc_rewrite(body)
+        write(f"{WOOD_PATH.strip('/')}/{f}/index.html", src=src, content=
+              base(title, desc, f"{WOOD_PATH}/{f}", body, body_class="cw-encbody",
                    show_crumbs=False,
-                   crumbs=[("Home", "/"), ("Wood Encyclopedia", "/wood-encyclopedia/"),
+                   crumbs=[("Home", "/"), (WOOD_LABEL, WOOD_PATH),
                            (title.split("|")[0].split("—")[0].strip(), None)]))
-    return len(slugs)+1
+    return len(SPECIES) + 1
 
 # ---------------- content pages (product + core, from clean snippets) ----------------
 PAGE_META = json.load(open(os.path.join(ROOT, "content", "pages_meta.json"), encoding="utf-8"))
