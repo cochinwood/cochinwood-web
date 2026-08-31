@@ -9,7 +9,7 @@ domain root (Cloudflare Pages at cochinwood.in).
     python build.py          # builds to dist/ at root ("")
     SITE_BASE=/cochinwood-web python build.py
 """
-import os, re, json, shutil, html, urllib.parse, datetime, struct, hashlib
+import os, re, json, shutil, html, urllib.parse, datetime, struct, hashlib, sys
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 DIST = os.path.join(ROOT, "dist")
@@ -279,8 +279,12 @@ PRODUCTS = [
     ("sawn-timber","Sawn Timber","Kiln-conditioned hardwood runners, scantlings and packing timber."),
 ]
 
+# cf-live carries "Export" in the primary nav (between Industries and Resources)
+# and in the footer's Company column. Both are kept: /export and its eight lanes
+# are the commercial core, and without a nav entry they would be reachable only
+# from the handful of commercial pages that happen to cross-link them.
 NAV = [("Products", "/products", False), ("Industries", "/industries", False),
-       (WOOD_LABEL, WOOD_PATH, False),
+       ("Export", "/export", False), (WOOD_LABEL, WOOD_PATH, False),
        ("Blog", "/blogs", False), ("Contact", "/contact", False)]
 
 def header(path="/"):
@@ -306,7 +310,7 @@ def footer():
   <div class="cw-ft__cols">
     <div class="cw-ft__brand"><b>Cochin Wood Industries</b><p>Plywood manufacturer in Kochi, Kerala — packing, Okoume and shuttering ply, shipped across India and exported. Part of a group manufacturing in Perumbavoor since 1986.</p></div>
     <div><h2 class="cw-ft__h">Products</h2>{prod}</div>
-    <div><h2 class="cw-ft__h">Explore</h2><a href="{u('/products')}">All products</a><a href="{u(WOOD_PATH)}">{WOOD_LABEL}</a><a href="{u('/resources')}">Resources</a><a href="{u('/industries')}">Industries</a><a href="{u('/about')}">About</a><a href="{u('/faq')}">FAQ</a></div>
+    <div><h2 class="cw-ft__h">Explore</h2><a href="{u('/products')}">All products</a><a href="{u(WOOD_PATH)}">{WOOD_LABEL}</a><a href="{u('/resources')}">Resources</a><a href="{u('/industries')}">Industries</a><a href="{u('/export')}">Export</a><a href="{u('/about')}">About</a><a href="{u('/faq')}">FAQ</a></div>
     <div><h2 class="cw-ft__h">Contact</h2><a href="tel:{CONTACT['phone_href']}">{CONTACT['phone_disp']}</a><a href="mailto:{CONTACT['email']}">{CONTACT['email']}</a><a href="https://maps.google.com/?q=Kuruppampady+Kerala" target="_blank" rel="noopener">{CONTACT['addr']}</a></div>
   </div>
   <div class="cw-ft__bar"><span>&copy; 2026 Cochin Wood Industries Pvt Ltd. Group established 1986.</span>
@@ -931,6 +935,31 @@ def build_blog():
           "/blogs", body, crumbs=[("Home", "/"), ("Blog", None)]))
     return n
 
+# ---------------- the export section ----------------
+# /export plus eight country lanes. The pages are assembled in export_section.py
+# rather than here -- they landed while four sessions were editing this file, and
+# a hook merges where 250 lines would conflict. That module reads content/export/
+# exactly the way wave3_page() reads content/encyclopedia-wave3/: a body fragment
+# per page carrying no <head>, no hero and no <h1>, with the title, description,
+# hero, H1, breadcrumb, canonical and schema all coming from export.json the way
+# wave3 takes them from posts3.json. It renders through this module's base() and
+# write(), so the pages land in the sitemap and _page_source like any other.
+
+def build_export():
+    """Render /export and its eight country lanes. Returns the page count.
+
+    export_section says `import build`. Run as `python build.py`, this module is
+    "__main__", so that import would execute build.py a SECOND time under the
+    name "build" and hand export_section a module whose ASSETS had never been
+    fingerprinted -- measured before this guard was added: the nine pages came
+    out linking /assets/bundle.css, which no build emits, so all nine shipped
+    unstyled. Publishing this module under its own name first makes both names
+    resolve to the one live module. No-op when build.py is imported normally.
+    """
+    sys.modules.setdefault("build", sys.modules[__name__])
+    import export_section
+    return export_section.build()
+
 def build_sitemap():
     urls = []
     for r, _, fs in os.walk(DIST):
@@ -1326,6 +1355,7 @@ def main():
     p = build_content_pages()
     p += build_about()
     b = build_blog()
+    x = build_export()
     assets_and_meta()            # also discovers /files/ refs inside the CSS
     f = copy_referenced_files()  # so this must run after it
     for ref in sorted(_files_missing):
@@ -1335,7 +1365,7 @@ def main():
     # /files/ assets included, so everything has to be on disk first
     rd = build_redirects()
     cnt = sum(len(fs) for _,_,fs in os.walk(DIST))
-    print(f"BUILD OK  base='{BASE or '(root)'}'  {p} content pages + {n} wood pages + {b} blog posts + {f} images  sitemap:{sm}  redirects:{rd}/{REDIRECT_LIMIT}  files: {cnt}")
+    print(f"BUILD OK  base='{BASE or '(root)'}'  {p} content pages + {n} wood pages + {x} export pages + {b} blog posts + {f} images  sitemap:{sm}  redirects:{rd}/{REDIRECT_LIMIT}  files: {cnt}")
     if WARNINGS:
         print(f"\n{len(WARNINGS)} WARNING(S):")
         for w in WARNINGS: print("  ! " + w)

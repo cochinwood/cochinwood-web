@@ -39,9 +39,10 @@ onto the build's own design system (.cwg__* / .cwp__*, both already in the CSS
 bundle) because the live class names came from the Zoho theme and do not exist
 here.
 
-    python export_section.py     full site build + this section, into dist/
+    python build.py              full site build, this section included
 
-build.py does not call this yet; see the note at the bottom of build().
+build.py calls build() below, from build_export() in its main(). Running this
+file directly still works and is equivalent -- it just calls build.py's main().
 """
 import os, re, json, html
 
@@ -210,10 +211,11 @@ def page(shared, d, path, prose, crumbs, src):
 def build():
     """Render /export and the eight lanes. Returns the page count.
 
-    build.py does not know about this module. To wire it in, main() needs one
-    line — `x = export_section.build()` before build_sitemap(), and `x` in the
-    banner. It was left out on purpose: four sessions are editing build.py this
-    week and a two-line hook is easier to merge than a conflict.
+    Called by build.py's build_export(), which runs it with the other section
+    builders -- before assets_and_meta(), so any /files/ photo a lane grows
+    later is copied, and before build_sitemap() and build_redirects(), so the
+    nine URLs reach sitemap.xml and the five cf-live rules that point into
+    /export stop being dropped as "target is not a page this build emits".
     """
     data = _load()
     shared = data["shared"]
@@ -235,10 +237,10 @@ def build():
 
 
 def main():
-    B.main()                       # the rest of the site, into a fresh dist/
-    n = build()
-    sm = B.build_sitemap()         # re-run so the nine lanes are in sitemap.xml
-    print(f"EXPORT OK  {n} export pages (1 hub + {n-1} country lanes)  sitemap:{sm}")
+    # build.py builds this section itself now, in the right order, so there is
+    # nothing left to do here but hand over. Kept so the documented command in
+    # tools/verify_export_vs_live.py keeps working.
+    B.main()
 
 
 if __name__ == "__main__":

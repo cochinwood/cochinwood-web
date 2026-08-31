@@ -19,6 +19,8 @@ removed from the markup and reported.
 - `assets/photos/` — **drop site photography here** (see below)
 - `content/encyclopedia/` — the 20 wood-species pages (wrapped in site chrome at build)
 - `content/pages/`, `content/blog/posts.json` — page and post content
+- `content/export/`, `export_section.py` — the nine `/export` pages: one body
+  fragment each plus `export.json`, assembled by `build_export()` in `build.py`
 - `dist/` — build output (gitignored on `master`; published on `gh-pages` / `cf-live`)
 
 ### Photography
