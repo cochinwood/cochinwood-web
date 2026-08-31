@@ -1053,30 +1053,20 @@ PORTED_REDIRECTS = """
 # precedence, but so four more additions cannot push it past the 100-rule cut.
 /404 / 301
 
-# 21 doubled-segment URLs from GSC. Written explicitly because Cloudflare Pages
-# silently drops the :splat form on this project (static destinations work fine).
+# The 21 doubled-segment URLs from GSC, consolidated to one wildcard. cf-live's
+# file said Pages "silently drops the :splat form" here; re-measured 31 Aug 2026
+# on the throwaway project cwi-redirect-lab (fixture deployment
+# adcd5f41.cwi-redirect-lab.pages.dev): two cache-busted passes a minute apart,
+# on both the project URL and the pinned deployment URL, and every :splat form
+# was honoured verbatim -- including this exact doubled-segment trailing-* form,
+# with the splat spanning slashes. The August negative was the stale-edge-cache
+# confound a later commit already suspected. GSC_DOUBLED_SLUGS in build.py still
+# pins all 21 known sources: the build verifies each one's target is a page it
+# emits, so the per-slug guarantee survives the consolidation. The wildcard also
+# catches doubled URLs the explicit list never covered (they now 301 to the
+# clean form; an unknown slug then lands on the 404 instead of 404ing directly).
 # MUST STAY FIRST among the /blogs rules: _redirects is first-match-wins.
-/blogs/post/post/plywood-supply-to-bengaluru /blogs/post/plywood-supply-to-bengaluru 301
-/blogs/post/post/plywood-supply-to-chennai /blogs/post/plywood-supply-to-chennai 301
-/blogs/post/post/plywood-supply-to-coimbatore /blogs/post/plywood-supply-to-coimbatore 301
-/blogs/post/post/plywood-supply-to-davangere /blogs/post/plywood-supply-to-davangere 301
-/blogs/post/post/plywood-supply-to-guntur /blogs/post/plywood-supply-to-guntur 301
-/blogs/post/post/plywood-supply-to-hosur /blogs/post/plywood-supply-to-hosur 301
-/blogs/post/post/plywood-supply-to-hubli-dharwad /blogs/post/plywood-supply-to-hubli-dharwad 301
-/blogs/post/post/plywood-supply-to-hyderabad /blogs/post/plywood-supply-to-hyderabad 301
-/blogs/post/post/plywood-supply-to-jeddah /blogs/post/plywood-supply-to-jeddah 301
-/blogs/post/post/plywood-supply-to-jubail /blogs/post/plywood-supply-to-jubail 301
-/blogs/post/post/plywood-supply-to-kakinada /blogs/post/plywood-supply-to-kakinada 301
-/blogs/post/post/plywood-supply-to-karur /blogs/post/plywood-supply-to-karur 301
-/blogs/post/post/plywood-supply-to-khammam /blogs/post/plywood-supply-to-khammam 301
-/blogs/post/post/plywood-supply-to-khobar /blogs/post/plywood-supply-to-khobar 301
-/blogs/post/post/plywood-supply-to-nellore /blogs/post/plywood-supply-to-nellore 301
-/blogs/post/post/plywood-supply-to-riyadh /blogs/post/plywood-supply-to-riyadh 301
-/blogs/post/post/plywood-supply-to-salem /blogs/post/plywood-supply-to-salem 301
-/blogs/post/post/plywood-supply-to-sivakasi /blogs/post/plywood-supply-to-sivakasi 301
-/blogs/post/post/plywood-supply-to-sohar /blogs/post/plywood-supply-to-sohar 301
-/blogs/post/post/plywood-supply-to-tirupati /blogs/post/plywood-supply-to-tirupati 301
-/blogs/post/post/plywood-supply-to-vizag /blogs/post/plywood-supply-to-vizag 301
+/blogs/post/post/* /blogs/post/:splat 301
 
 # The wood section. /woods-we-use is the live URL and this build now emits it, so
 # both live rules still hold. The species pages move under the hub with it: all
@@ -1176,13 +1166,45 @@ PORTED_REDIRECTS = """
 /blogs/post/okoume-plywood /okoume-plywood 301
 
 # 603 explicit /dist/ rules once silently became 404s past the 100-rule cut. One
-# wildcard costs one rule. :splat was tested live here and every path still 404'd.
+# wildcard costs one rule. The August ":splat tested live and every path still
+# 404'd" claim did not survive the 31 Aug cwi-redirect-lab re-test (stale edge
+# cache confound; /dist/* /:splat IS honoured). The static target stays anyway:
+# these are dead asset paths with no page behind them, so home is the right
+# destination, not a 301 into a 404.
 /dist/* / 301
 
 # /index.html is a duplicate of /. build.py exempts *.html sources from its
 # "this source is a real page" check, because sending this one home is the point.
 /index.html / 301
 """
+
+# The 21 doubled-segment /blogs/post/post/<slug> URLs GSC reports, formerly 21
+# explicit rules. The /blogs/post/post/* wildcard above covers them (measured on
+# cwi-redirect-lab, 31 Aug 2026); this list keeps the old per-slug guarantee:
+# the build still checks that every known source's target is a page it emits,
+# and warns per slug the day one goes missing, instead of shipping a 301 into
+# the 404 silently.
+GSC_DOUBLED_SLUGS = [
+    "plywood-supply-to-bengaluru", "plywood-supply-to-chennai",
+    "plywood-supply-to-coimbatore", "plywood-supply-to-davangere",
+    "plywood-supply-to-guntur", "plywood-supply-to-hosur",
+    "plywood-supply-to-hubli-dharwad", "plywood-supply-to-hyderabad",
+    "plywood-supply-to-jeddah", "plywood-supply-to-jubail",
+    "plywood-supply-to-kakinada", "plywood-supply-to-karur",
+    "plywood-supply-to-khammam", "plywood-supply-to-khobar",
+    "plywood-supply-to-nellore", "plywood-supply-to-riyadh",
+    "plywood-supply-to-salem", "plywood-supply-to-sivakasi",
+    "plywood-supply-to-sohar", "plywood-supply-to-tirupati",
+    "plywood-supply-to-vizag",
+]
+
+# A :splat destination cannot be checked against served pages the way a static
+# one is, so every rule using one must pin the known sources that prove its
+# targets exist: src -> the values :splat is known to take (from GSC). A :splat
+# rule with no entry here is dropped loudly rather than trusted blindly.
+SPLAT_RULE_PROOF = {
+    "/blogs/post/post/*": GSC_DOUBLED_SLUGS,
+}
 
 # Rules NOT carried across from cf-live, and why. Recorded so the next person can
 # see they were considered rather than missed. Settled entries print as ONE
@@ -1313,7 +1335,22 @@ def build_redirects():
         _k, src, dst, code = it
         if src in seen:
             dropped.append((src, dst, "duplicate source -- the earlier rule wins")); continue
-        if not resolve(dst):
+        if ":splat" in dst:
+            # Request-dependent target: check it against the pinned sources that
+            # justify the rule (SPLAT_RULE_PROOF) instead of a static lookup.
+            pinned = SPLAT_RULE_PROOF.get(src)
+            if pinned is None:
+                dropped.append((src, dst, ":splat destination with no pinned "
+                                          "sources in SPLAT_RULE_PROOF")); continue
+            misses = [s for s in pinned if not resolve(dst.replace(":splat", s))]
+            for s in misses:
+                warn(f"splat rule {src}: known source {src.replace('*', s)} will "
+                     f"301 to {dst.replace(':splat', s)}, which this build does "
+                     f"not emit -- that now lands on the 404")
+            if misses and len(misses) == len(pinned):
+                dropped.append((src, dst, "no pinned source resolves to a page "
+                                          "this build emits")); continue
+        elif not resolve(dst):
             dropped.append((src, dst, "target is not a page this build emits")); continue
         # a rule matching something we serve would take that page off the site
         if not src.endswith(".html"):
