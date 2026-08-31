@@ -1,9 +1,25 @@
 # Cloudflare Pages cutover — step-by-step runbook
 
 The whole site is built and verified. This is the final production cutover for
-`cochinwood.in`. It has **two interactive steps only I can't do headlessly**
-(a dashboard OAuth and the DNS flip). Zoho stays fully live until step 5, so
-rollback at any point is a single DNS change.
+`cochinwood.in`. It has **one interactive step I can't do headlessly** — the
+production-branch change in the Cloudflare dashboard (step 5).
+
+> **Rollback corrected 2026-08-31 — there is no DNS step and no Zoho fallback.**
+> This paragraph used to read: *"Zoho stays fully live until step 5, so rollback at any point
+> is a single DNS change."* **Both halves are false, and following it in an incident would
+> point `cochinwood.in` at nothing.** Zoho Sites is gone. `cochinwood.in` and
+> `www.cochinwood.in` are already custom domains on the Cloudflare Pages project
+> `cochinwood-web`, which serves the `cf-live` branch verbatim — so the domain has no origin
+> to "revert" to.
+>
+> **The rollback is: set the Pages production branch back to `cf-live`, clear the build
+> command, restore output directory `/`, redeploy.** Full detail in step 5. DNS is never
+> touched, and the custom domains are never removed.
+>
+> Verified 2026-08-31: `cochinwood.in` 301s to `https://www.cochinwood.in/`, which returns
+> 200 from `Server: cloudflare` carrying the enforced CSP that only `cf-live`'s `_headers`
+> defines, and `/wood-encyclopedia` 301s to `/woods-we-use` exactly as `cf-live`'s
+> `_redirects` specifies.
 
 ## 0. Pre-flight (done)
 - ✅ Repo `cochinwood/cochinwood-web`, `master` = source, builds with `python build.py`.
@@ -32,9 +48,13 @@ rollback at any point is a single DNS change.
 - Spot-check home, a product page, a blog post, the encyclopedia, `/sitemap.xml`, the quote form.
 - (I can run this verification for you against the pages.dev URL.)
 
-## 3. Add the custom domain  *(you, in the Pages project)*
-1. Pages project → **Custom domains** → **Set up a custom domain** → `cochinwood.in`, then `www.cochinwood.in`.
-2. Cloudflare auto-creates the CNAME/route because DNS is already on Cloudflare.
+## 3. Add the custom domain — ✅ done
+- ✅ `cochinwood.in` and `www.cochinwood.in` are already attached as custom domains on the
+  Pages project `cochinwood-web`. **Nothing to do in this step.**
+- Confirmed live 2026-08-31: apex 301s to `https://www.cochinwood.in/`; `www` returns 200;
+  both served by `Server: cloudflare` with `cf-live`'s `_headers` CSP.
+- ⚠️ **Do not remove these custom domains to roll back.** That takes the site offline — it
+  does not fall back to anything. See the rollback in step 5.
 
 ## 4. Update `returnURL` on the form (optional)
 The quote form's `returnURL` currently points to the live Zoho contact page — fine
@@ -67,4 +87,6 @@ during transition. No change needed; it resolves to whatever serves `cochinwood.
 ## What I can do vs. you
 - **I can:** build/verify, generate a `cf-live` prebuilt branch if needed, verify the
   pages.dev + custom-domain builds, purge cache (with the CF token), run the test-lead check.
-- **You must:** the GitHub↔Cloudflare OAuth (step 1) and authorizing the domain/DNS flip (steps 3, 5).
+- **You must:** authorize the production-branch change in step 5 — that is the only
+  interactive step left. Step 1's GitHub↔Cloudflare OAuth and step 3's custom domains are
+  already done, and **no step in this runbook changes DNS.**
