@@ -793,6 +793,13 @@ PAGE_SNIPPETS = {
     "perumbavoor-plywood-price-tracker":"perumbavoor-plywood-price-tracker.html",
     "company-verification":"company-verification.html",
     "export-process":"export-process.html",
+    # /blogs/gcc-export is the one blog taxonomy URL that is ported rather than
+    # dropped: it is live, indexed, and linked from the /export hub, uae and oman
+    # bodies. The file is the live page's content column lifted verbatim (H1,
+    # intro snippet, all 21 post excerpts); the Zoho category/tag sidebar is
+    # engine chrome and stays out -- five of its links (/blogs/south-india etc.)
+    # point at taxonomy pages this build neither emits nor redirects.
+    "blogs/gcc-export":"gcc-export.html",
 }
 def process_content(body, slug=None):
     # a couple of imported snippets carry their own <main>; the page shell provides
