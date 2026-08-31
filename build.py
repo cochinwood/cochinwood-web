@@ -39,7 +39,11 @@ LEGACY_REDIRECTS = {
     "/guide-plywood-cable-drum-specifications":"/blogs/post/plywood-cable-drum-specifications",
     "/guide-plywood-for-packing-cases":        "/blogs/post/plywood-for-packing-cases",
     "/guide-rubberwood-plywood-explained":     "/blogs/post/rubberwood-plywood-explained",
-    "/okoume-plywood":                         "/blogs/post/okoume-plywood",
+    # NOTE: "/okoume-plywood" -> "/blogs/post/okoume-plywood" was removed. /okoume-plywood
+    # is a live, indexed commercial page; the blog post it pointed at exists only in this
+    # build and has never been live. The redirect both hid the ported page and rewrote all
+    # 14 in-content links away from it. Restore this line only if the owner decides that
+    # URL really should move.
     "/packing-grade-plywood-spec-sheet":       "/blogs/post/packing-grade-plywood-spec-sheet",
     # encyclopedia moved out of /blogs/post/ into its own section
     "/blogs/post/wood-okoume-aucoumea-klaineana":     "/wood-encyclopedia/okoume",
@@ -621,6 +625,19 @@ PAGE_SNIPPETS = {
     "sawn-timber":"sawn-timber.html","faq":"faq.html","resources":"resources.html",
     "industries":"industries-LIVE-2026-06-11.html","privacy-policy":"privacy.html",
     "terms-and-conditions":"terms.html","llms":"llms.html",
+    # Commercial pages that exist on cf-live and were missing from this build.
+    # Ported verbatim from each live page's Zoho code-snippet body; URLs unchanged.
+    "packing-plywood":"packing-plywood.html",
+    "rubberwood-plywood":"rubberwood-plywood.html",
+    "rubberwood-plywood-container-weight":"rubberwood-plywood-container-weight.html",
+    "okoume-plywood":"okoume-plywood.html",
+    "plywood-factory":"plywood-factory.html",
+    "plywood-manufacturer-india":"plywood-manufacturer-india.html",
+    "plywood-manufacturer-kerala":"plywood-manufacturer-kerala.html",
+    "plywood-price-guide":"plywood-price-guide.html",
+    "perumbavoor-plywood-price-tracker":"perumbavoor-plywood-price-tracker.html",
+    "company-verification":"company-verification.html",
+    "export-process":"export-process.html",
 }
 def process_content(body, slug=None):
     # a couple of imported snippets carry their own <main>; the page shell provides
