@@ -1332,8 +1332,9 @@ PORTED_REDIRECTS = """
 # page is served there with a 200 -- a page reading "This page isn't here" that
 # tells every crawler it is fine. A 404 STATUS IN THIS FILE IS IGNORED (measured
 # on cf-live: Pages honours 301/302/303/307/308 and nothing else), so the error
-# page's own URL is sent home instead. FIRST IN THE FILE ON PURPOSE -- not for
-# precedence, but so four more additions cannot push it past the 100-rule cut.
+# page's own URL is sent home instead. FIRST IN THE FILE ON PURPOSE -- and, since
+# it sits above the first wildcard rule, it is outside the 100-rule window
+# entirely, so no number of additions below can push it off the end.
 /404 / 301
 
 # The 21 doubled-segment URLs from GSC, consolidated to one wildcard. cf-live's
@@ -1348,14 +1349,24 @@ PORTED_REDIRECTS = """
 # emits, so the per-slug guarantee survives the consolidation. The wildcard also
 # catches doubled URLs the explicit list never covered (they now 301 to the
 # clean form; an unknown slug then lands on the 404 instead of 404ing directly).
-# MUST STAY FIRST among the /blogs rules: _redirects is first-match-wins.
+# MUST STAY FIRST among the /blogs WILDCARD rules: _redirects is first-match-wins.
+# (The 28 exact species rules sit above it. They are exact paths, so none of them
+# can match a doubled /blogs/post/post/... URL and the invariant is untouched.)
 /blogs/post/post/* /blogs/post/:splat 301
 
 # The wood section. /woods-we-use is the live URL and this build now emits it, so
-# both live rules still hold. The species pages move under the hub with it: all
-# 28 are live at /blogs/post/wood-<slug> and would otherwise 404. One wildcard
-# costs one rule; 28 explicit rules do not fit under the 100-rule cut. It has to
-# sit above the generic /blogs rules further down.
+# both live rules still hold. It has to sit above the generic /blogs rules below.
+#
+# /blogs/post/wood-* is now a CATCH-ALL, not the whole answer. The 28 exact
+# per-slug 301s are injected ABOVE the first wildcard rule by build_redirects()
+# (see the SPECIES block there), so first-match-wins sends every indexed species
+# URL to its own page and this rule only picks up wood- slugs the 28 do not name.
+# The note that used to sit here said 28 explicit rules "do not fit under the
+# 100-rule cut". Measured on cwi-redirect-lab 1 Sep 2026, that was wrong: the cut
+# is 100 rules counted FROM THE FIRST WILDCARD RULE ONWARD, and rules above that
+# point are not counted at all -- 150 static rules ahead of a wildcard all fired.
+# Kept rather than dropped: it costs one rule and it is the only thing standing
+# between an unlisted /blogs/post/wood-<x> and a 404.
 /wood-encyclopedia /woods-we-use 301
 /wood-encyclopedia/* /woods-we-use 301
 /blogs/post/wood-* /woods-we-use 301
@@ -1536,7 +1547,33 @@ EXPECTED_OVERRIDDEN = {
     "/guide-rubberwood-plywood-explained": "/woods-we-use",
 }
 
-REDIRECT_LIMIT = 100          # Cloudflare Pages honours only the first N rules
+# ---- how many rules Cloudflare Pages actually honours -------------------------
+# MEASURED 1 Sep 2026 on the throwaway project cwi-redirect-lab, four fixtures,
+# each swept rule-by-rule twice a minute apart, cache-busted, on both the pinned
+# deployment URL and the project URL (the August measurement in this repo was
+# wrong from stale edge cache, so nothing here is taken on trust):
+#
+#   B  130 static, no wildcard at all      -> all 130 fired
+#      https://54526de2.cwi-redirect-lab.pages.dev
+#   C  2 wildcard, 130 static, 3 wildcard  -> first 100 rules fired, rest dead
+#      https://b5183417.cwi-redirect-lab.pages.dev
+#   A  1 static, 2 wildcard, 200 static, 3 wildcard -> the 1 free static fired,
+#      then 100 more from the first wildcard; 105 rules dead
+#      https://f1357f1a.cwi-redirect-lab.pages.dev
+#   D  150 static | 1 wildcard | 150 static | 1 wildcard  (prediction made first)
+#      -> all 150 leading statics fired, then the wildcard + 99 statics = 100,
+#         then f099..f149 and the trailing wildcard dead. Exactly as predicted.
+#      https://f23aa0f4.cwi-redirect-lab.pages.dev
+#
+# So the cap is NOT "the first 100 rules in the file", and it is NOT "100 rules
+# of any kind". It is: rules BEFORE the first wildcard rule are uncounted (>=150
+# verified; Cloudflare documents 2,000 static), and from the first wildcard rule
+# onward exactly 100 further rules are honoured -- static and wildcard alike.
+# Ordering is therefore a budget decision as well as a precedence one: a static
+# rule written below a wildcard spends one of the 100, the same rule written
+# above it spends nothing.
+STATIC_REDIRECT_LIMIT = 2000   # rules ahead of the first wildcard; >=150 measured
+DYNAMIC_WINDOW_LIMIT  = 100    # rules honoured from the first wildcard onward
 
 def _served_paths():
     """Every URL this build actually serves: each file, plus the clean directory
@@ -1579,6 +1616,40 @@ def build_redirects():
     """Merge the ported live rules with LEGACY_REDIRECTS, drop whatever no longer
     holds, report every drop, and emit. Returns the number of rules emitted."""
     items = _parse_redirects(PORTED_REDIRECTS)
+
+    # The 28 indexed species URLs get their EXACT equivalent, not the hub. Every
+    # one of /blogs/post/wood-<slug> is a page Google has ranked; 301ing all 28 to
+    # /woods-we-use is a redirect to a generic hub, which Google treats as a soft
+    # 404 and passes no ranking signal through -- 28 pages' equity thrown away for
+    # a redirect that is technically a 301 and practically a dead end.
+    #
+    # Injected here rather than written into PORTED_REDIRECTS by hand, and injected
+    # immediately BEFORE THE FIRST WILDCARD RULE, because that position is what
+    # makes them free: see STATIC_REDIRECT_LIMIT / DYNAMIC_WINDOW_LIMIT above for
+    # the measurement. Doing it in code means the invariant cannot rot the next
+    # time someone reorders the file -- the anchor is "first wildcard", found live.
+    # Precedence is the same argument from the other side: first-match-wins, so an
+    # exact rule above /blogs/post/wood-* wins, and the wildcard stays below as the
+    # catch-all for any wood- slug not in the 28.
+    # Safe against the "/blogs/post/post/* MUST STAY FIRST among the /blogs rules"
+    # invariant directly above it: these 28 sources are exact paths, and none of
+    # them can match a doubled /blogs/post/post/... URL.
+    species = [("r", src, LEGACY_REDIRECTS[src], "301")
+               for src in (f"/blogs/post/{slug}" for _f, slug, _e, _d in SPECIES if slug)]
+    first_wild = next((i for i, it in enumerate(items)
+                       if it[0] == "r" and "*" in it[1]), len(items))
+    # back up over that rule's own comment header so the block goes above the
+    # whole thing rather than between a comment and the rule it explains
+    while first_wild and items[first_wild - 1][0] == "#":
+        first_wild -= 1
+    items[first_wild:first_wild] = (
+        [("#", ""),
+         ("#", f"# --- the {len(species)} indexed species URLs, each to its own page ---"),
+         ("#", "# Above the first wildcard rule on purpose: that is both what gives"),
+         ("#", "# them precedence over /blogs/post/wood-* and what keeps them out of"),
+         ("#", "# the 100-rule window that starts at the first wildcard.")]
+        + species + [("#", "")])
+
     have  = {it[1] for it in items if it[0] == "r"}
     added = False
 
@@ -1588,8 +1659,6 @@ def build_redirects():
     overridden = []
     for src in sorted(LEGACY_REDIRECTS):
         dst = LEGACY_REDIRECTS[src]
-        if src.startswith("/blogs/post/wood-"):
-            continue                      # the /blogs/post/wood-* wildcard covers these
         if src in have:
             for i, it in enumerate(items):
                 if it[0] == "r" and it[1] == src and it[2] != dst:
@@ -1672,19 +1741,40 @@ def build_redirects():
              f"build serves)")
     for rule, why in sorted(open_drops.items()):
         warn(f"cf-live rule not carried across: {rule}  ({why})")
-    if n > REDIRECT_LIMIT:
-        warn(f"_redirects has {n} rules; Cloudflare Pages honours only the first "
-             f"{REDIRECT_LIMIT}, so the last {n - REDIRECT_LIMIT} will never fire")
-    elif n > REDIRECT_LIMIT - 5:
+    # Two budgets, counted separately, because that is how Pages actually behaves
+    # (STATIC_REDIRECT_LIMIT / DYNAMIC_WINDOW_LIMIT above carry the measurement).
+    # The old single "n of 100" number described a budget that does not exist: it
+    # counted rules above the first wildcard, which are free, against a cap that
+    # only starts there.
+    rules = [l for l in out if l and not l.startswith("#")]
+    wild  = next((i for i, l in enumerate(rules) if "*" in l.split()[0]), len(rules))
+    free, window = wild, len(rules) - wild
+    if window > DYNAMIC_WINDOW_LIMIT:
+        warn(f"_redirects: {window} rules sit at or below the first wildcard rule "
+             f"({rules[wild].split()[0] if wild < len(rules) else '-'}); Cloudflare "
+             f"Pages honours only {DYNAMIC_WINDOW_LIMIT} from there, so the last "
+             f"{window - DYNAMIC_WINDOW_LIMIT} will never fire. Moving any static "
+             f"rule above the first wildcard costs nothing and frees a slot")
+    elif window > DYNAMIC_WINDOW_LIMIT - 5:
         # cf-live sat at 99 of 100 and 603 rules had already fallen off the end
         # once. Say so while there is still room to do something about it.
-        warn(f"_redirects is at {n} of the {REDIRECT_LIMIT} rules Cloudflare Pages "
-             f"honours — {REDIRECT_LIMIT - n} left before rules start being ignored")
+        warn(f"_redirects: {window} of the {DYNAMIC_WINDOW_LIMIT} rules Pages "
+             f"honours from the first wildcard onward — "
+             f"{DYNAMIC_WINDOW_LIMIT - window} left before rules start being "
+             f"ignored (static rules can be moved above the first wildcard instead)")
+    if free > STATIC_REDIRECT_LIMIT:
+        warn(f"_redirects: {free} static rules ahead of the first wildcard; "
+             f"Cloudflare documents {STATIC_REDIRECT_LIMIT}, so the last "
+             f"{free - STATIC_REDIRECT_LIMIT} will never fire")
     header = (f"# Generated by build.py -- do not hand-edit; change PORTED_REDIRECTS\n"
-              f"# or LEGACY_REDIRECTS instead. {n} rules, of the {REDIRECT_LIMIT}\n"
-              f"# Cloudflare Pages honours. Order is load-bearing: first match wins.\n")
+              f"# or LEGACY_REDIRECTS instead. {len(rules)} rules: {free} static ahead\n"
+              f"# of the first wildcard (of {STATIC_REDIRECT_LIMIT} Cloudflare Pages\n"
+              f"# honours there) and {window} from that wildcard onward (of "
+              f"{DYNAMIC_WINDOW_LIMIT}).\n"
+              f"# Order is load-bearing twice over: first match wins, AND the 100-rule\n"
+              f"# window starts at the first wildcard rule.\n")
     write("_redirects", header + "\n".join(out).strip("\n") + "\n")
-    return n
+    return n, free, window
 
 # ---------------- assets + meta ----------------
 # One request instead of five; order preserved so cascade behaviour is unchanged.
@@ -1885,9 +1975,9 @@ def main():
     sm = build_sitemap()
     # last: it checks every rule against the pages this build actually emitted,
     # /files/ assets included, so everything has to be on disk first
-    rd = build_redirects()
+    rd, rd_free, rd_window = build_redirects()
     cnt = sum(len(fs) for _,_,fs in os.walk(DIST))
-    print(f"BUILD OK  base='{BASE or '(root)'}'  {p} content pages + {n} wood pages + {x} export pages + {b} blog posts + {f} images  sitemap:{sm}  redirects:{rd}/{REDIRECT_LIMIT}  files: {cnt}")
+    print(f"BUILD OK  base='{BASE or '(root)'}'  {p} content pages + {n} wood pages + {x} export pages + {b} blog posts + {f} images  sitemap:{sm}  redirects:{rd} ({rd_free} static/{STATIC_REDIRECT_LIMIT} + {rd_window} from first wildcard/{DYNAMIC_WINDOW_LIMIT})  files: {cnt}")
     if WARNINGS:
         print(f"\n{len(WARNINGS)} WARNING(S):")
         for w in WARNINGS: print("  ! " + w)
