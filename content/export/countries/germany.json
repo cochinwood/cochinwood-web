@@ -1,0 +1,67 @@
+{
+ "_wiring": [
+  "NOT YET READ BY THE BUILDER. export_section.py:_load() reads content/export/export.json only;",
+  "its build() iterates data['countries']. To wire this lane up: append this object (minus the",
+  "keys prefixed with an underscore) to `countries` in export.json, and add \"germany\" to",
+  "shared.related.order so the other lanes back-link to it. Nothing else is needed -- the hero,",
+  "breadcrumbs, WebPage/FAQPage schema, sitemap entry and related strip all derive from this.",
+  "Prose lives in content/export/germany.body.html.",
+  "",
+  "NO `import` KEY ON PURPOSE. import_essentials() builds its HS-code, customs-duty,",
+  "landed-cost-note, documents and ISPM-15 rows from shared['import'], and shared['import']",
+  "['customs_duty'] is hardcoded '5% GCC Common External Tariff on CIF value'. Rendering that",
+  "on a German page would be a false tariff claim. The lane therefore carries its own",
+  "<section id=\"import\"> table inside germany.body.html, the way Sri Lanka and Israel carry no",
+  "import block at all.",
+  "",
+  "faq_boiler is ['warehouse'] only: the 'hs', 'duty', 'standards' and 'documents' templates in",
+  "shared.faq_templates are GCC-specific and interpolate keys that only exist inside `import`."
+ ],
+ "_placeholders": [
+  "[RATE TO CONFIRM] x2 in germany.body.html -- customs duty and Einfuhrumsatzsteuer. Nothing on",
+  "the site states an EU duty rate or a German import-VAT rate, so none is stated here."
+ ],
+ "slug": "germany",
+ "name_the": "Germany",
+ "name_plain": "Germany",
+ "title": "Indian Plywood Exporter to Germany - FOB Cochin | Cochin Wood",
+ "desc": "Import plywood from India to Germany: packing ply, export crates and commercial panels, Kochi to Hamburg on a typical 22-28 day sail. FOB Cochin, USD quotes.",
+ "schema_name": "Indian Plywood Factory Exporting to Germany",
+ "crumb_leaf": "Indian plywood exporter to Germany, shipping Kochi to Hamburg",
+ "kicker": "Export &middot; Germany",
+ "h1": "Indian plywood exporter to Germany, shipping Kochi to Hamburg",
+ "lede": "Packing-grade plywood, export crates and commercial panels from Perumbavoor, Kerala, made by a group manufacturing since 1986. USD quotes, FOB Cochin, on a typical 22 to 28 day sail to Hamburg.",
+ "tldr": "<strong>In short:</strong> Cochin Wood Industries is an Indian plywood factory shipping FOB Cochin to Hamburg on a typical 22&ndash;28 day sail. Packing-grade MR (IS 303), commercial and BWR panels, container-flooring ply, and plywood boxes, crates and pallets for engineering exporters. On this lane we quote BWR for dry cargo and BWP for machinery and pharma. Species and country-of-harvest declarations are issued with the quote for EU-bound orders. Quote replies within one business day.",
+ "ports_ship": "Hamburg",
+ "faq": [
+  [
+   "How long does shipping take from Kochi to Hamburg?",
+   "A typical 22 to 28 days port to port, mixed weather on passage and cold-wet at arrival. Add production and stuffing time at our end, plus your own clearance and haulage, to plan door to door."
+  ],
+  [
+   "Which bond grade should I specify for the Hamburg lane?",
+   "BWR for dry cargo and BWP for machinery and pharma. Where the cargo travels as a crate rather than as sheets, a 21-day-plus deep-sea voyage is one of the conditions under which we spec a triple-wall build rather than reinforced single-wall."
+  ],
+  [
+   "Do you quote FOB Cochin or CIF Hamburg?",
+   "Both. FOB Cochin is the default; CIF Hamburg is available on request, priced against current freight. All export quotes are issued in USD, and we reply within one business day."
+  ],
+  [
+   "Can you supply a CE Declaration of Performance for construction panels?",
+   "For construction use, wood-based panels travel under the harmonised standard for wood-based panels in construction, with a Declaration of Performance and CE marking, and formaldehyde declared by class. We do not hold one certification that covers everything we sell &mdash; each mill holds its own licences. Name the requirement at enquiry: it decides which mill the order is placed with, and it cannot be added after the panels are pressed. Original certificates are submitted on request."
+  ],
+  [
+   "What ISPM-15 problem actually stops containers at Hamburg?",
+   "Mixed-timber repair. A crate where one replaced runner carries no visible IPPC mark costs a full container offload, an inspection fee, and possibly re-export of the non-compliant wood. Plywood panels themselves are exempt from ISPM-15; our solid-wood members are heat-treated and stencilled with the IPPC mark, country code IN, treatment code HT and the registered facility number."
+  ],
+  [
+   "What are your payment terms for German buyers?",
+   "Standard products ship against 50 percent advance with the balance before dispatch. Custom specifications are 100 percent advance. We accept bank transfer (T/T)."
+  ]
+ ],
+ "faq_boiler": [
+  "warehouse"
+ ],
+ "cta_h2": "Get a Germany quote in one business day",
+ "cta_p": "Send thickness, sheet size, grade, quantity and whether you want FOB Cochin or CIF Hamburg. We reply with a written USD quote within one business day. sales@cochinwood.in or +91 95674 10175."
+}
