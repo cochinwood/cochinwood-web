@@ -1,0 +1,61 @@
+{
+  "_note": "NOT YET WIRED. export_section.py reads only content/export/export.json; it does not read this directory. To publish this lane: append this object (minus the keys starting with an underscore) to `countries` in content/export/export.json, and add \"mauritius\" to shared.related.order so the other lanes link back to it. Nothing else is needed - the hero, breadcrumb, canonical, schema, sitemap entry and back-links all follow. The prose lives in content/export/mauritius.body.html. Written 3 September 2026.",
+  "_needs_edwin": [
+    "ports_ship / \"Clears at\" is set to Port Louis, the market's principal container port. Confirm that is where CWI shipments to Mauritius actually discharge, and whether any other port should be named.",
+    "Customs duty and import taxes for Mauritius: no rate is stated anywhere on the site, so the table row is a marked placeholder.",
+    "Conformity / pre-shipment inspection requirement for Mauritius: the site claims no scheme for this market, so the table row is a marked placeholder.",
+    "Port-to-port transit time Kochi to Port Louis: not published anywhere on the site."
+  ],
+  "slug": "mauritius",
+  "name_the": "Mauritius",
+  "name_plain": "Mauritius",
+  "title": "Indian Plywood Exporter to Mauritius — FOB Cochin | Cochin Wood",
+  "desc": "Import plywood from India to Mauritius — marine, commercial, packing and shuttering grades, FOB Cochin to Port Louis. USD quotes in one business day.",
+  "schema_name": "Indian Plywood Factory Exporting to Mauritius",
+  "crumb_leaf": "Import plywood from India to Mauritius, direct from Kochi",
+  "kicker": "Export — Mauritius",
+  "h1": "Import plywood from India to Mauritius, direct from Kochi",
+  "lede": "Marine, commercial, packing and shuttering plywood, pressed in Perumbavoor and loaded 40 km from Cochin Port for Port Louis. USD quotes on FOB Cochin terms, answered within one business day.",
+  "tldr": "<strong>TL;DR:</strong> Cochin Wood Industries is an Indian plywood factory exporting to Mauritius. Marine plywood to IS 710 BWP, commercial and BWR panels, packing grade and film-faced shuttering ship FOB Cochin to Port Louis. A single 20 ft box, mixed across grades, is a normal order here. Written reply within one business day.",
+  "ports_ship": "Port Louis",
+  "faq": [
+    [
+      "Which port do you ship to for Mauritius?",
+      "Port Louis, unless you tell us otherwise. The discharge port is named on the quotation. We ship full-container loads from Cochin and hold no stock in Mauritius."
+    ],
+    [
+      "How long does a container take from Kochi to Port Louis?",
+      "It depends on the carrier and the service, and we would rather confirm it for your booking than print a figure the next schedule change makes wrong. The sailing is confirmed alongside the quote, and shipping documents are shared before the vessel sails."
+    ],
+    [
+      "Is there a minimum order for Mauritius?",
+      "A full container. A single 20 ft box mixed across two or three grades is a normal order on this lane, not a special request, so you do not have to commit to a 40 ft of one thickness to get a price. We do not ship part loads."
+    ],
+    [
+      "Which grade should I order for coastal and wet-area work?",
+      "Marine plywood to IS 710 in a BWP bond is the panel built for permanent exposure to moisture; BWR sits below it and MR grade below that. Our note on <a href=\"/blogs/post/bwr-vs-bwp-for-export-packing-when-mr-grade-will-fail-at-sea\">BWR versus BWP</a> sets out where each one stops. Tell us the application in the enquiry and we will say which bond we would ship, and why."
+    ],
+    [
+      "What import duty will I pay on plywood in Mauritius?",
+      "We do not state a rate for Mauritius. We have never published one, and a wrong tariff is an expensive thing for a buyer to be handed. Duty and any import tax are set by the destination schedule against the line your goods are classified under, and applied at import. We state the HS code on the commercial invoice and issue the certificate of origin; your clearing agent confirms the line and the rate in force. We do not give customs rulings and will not promise a duty outcome."
+    ],
+    [
+      "Do you supply certification for import into Mauritius?",
+      "Tell us what your import needs at enquiry, not after the goods are pressed. A certificate, test report or pre-shipment inspection decides which mill the order is placed with, and it cannot be added retrospectively. Each mill holds its own BIS licence; whatever applies to your order is named on the quotation by holder, number and product scope. Inspection by you or an agency you appoint is welcome and we hold the goods for it."
+    ],
+    [
+      "Do the plywood sheets need ISPM-15 treatment or fumigation for Mauritius?",
+      "No. Plywood is a processed wood product and is exempt from ISPM-15, so the panels carry no heat-treatment stamp and need no fumigation certificate. The standard covers solid-wood packaging &mdash; pallets, crates, dunnage. Where we supply those, they are produced under an ISPM-15 compliant process with the marks and paperwork in order."
+    ],
+    [
+      "What are your payment terms for Mauritius orders?",
+      "Standard products ship against 50% advance with the balance payable before dispatch; custom builds are 100% advance. We accept bank transfer (T/T), and all export invoicing is in US dollars. If you have not traded with us before, <a href=\"/company-verification\">company verification</a> lists every registration we hold and the government portal you can check it on."
+    ]
+  ],
+  "faq_boiler": [
+    "hs",
+    "warehouse"
+  ],
+  "cta_h2": "Get a written quote for Mauritius",
+  "cta_p": "Send thickness, sheet size, grade, quantity and discharge port. A USD quote on FOB Cochin terms comes back within one business day. Write to sales@cochinwood.in or call +91&nbsp;95674&nbsp;10175."
+}
