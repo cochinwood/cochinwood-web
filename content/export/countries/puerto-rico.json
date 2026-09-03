@@ -1,0 +1,44 @@
+{
+  "_wiring": "NOT YET READ BY THE BUILD. export_section.py loads content/export/export.json and nothing else; it does not scan this directory. To ship this lane: append this object (minus the keys whose names start with an underscore) to `countries` in export.json, and add \"puerto-rico\" to shared.related.order. WIRE IT TOGETHER WITH united-states: puerto-rico.body.html links to /export/united-states, and tools/check_site.py fails a link whose target the build does not emit. If united-states is not going in, drop that one anchor from the body first.",
+  "_no_import_block_on_purpose": "This entry deliberately has no `import` block. export_section.import_essentials() renders shared.import.customs_duty verbatim, and that string is \"5% GCC Common External Tariff on CIF value\" - true for the six Gulf lanes and false for Puerto Rico. Rather than emit a wrong tariff to a real buyer, this lane carries its own import-essentials table inside puerto-rico.body.html, the way Sri Lanka and Israel carry no table at all.",
+  "_needs_edwin": [
+    "Duty / tax position for HS 4412 plywood entering Puerto Rico - the body table carries a [TO CONFIRM] cell. Nothing on this site states one.",
+    "Whether Puerto Rico entries should simply be treated as US customs territory (so CARB / TSCA Title VI always applies and the ~20-tonne US highway cap always applies). The page does NOT assert this: it tells the buyer to confirm the regime with their broker, and makes the weight cap conditional on the buyer saying their inland leg runs under US highway rules. If Edwin confirms it, both passages can be stated flatly instead.",
+    "Whether CWI wants to name a usual discharge port for Puerto Rico. Nothing on the site names one, so the page says FOB Cochin to the port the buyer nominates."
+  ],
+  "slug": "puerto-rico",
+  "name_the": "Puerto Rico",
+  "name_plain": "Puerto Rico",
+  "title": "Indian Plywood Exporter to Puerto Rico — FOB Cochin | Cochin Wood",
+  "desc": "Import plywood from India to Puerto Rico: commercial, BWR, marine and packing ply, FOB Cochin in USD. Name CARB or TSCA Title VI at enquiry.",
+  "schema_name": "Indian Plywood Factory Exporting to Puerto Rico",
+  "crumb_leaf": "Plywood exporter from India to Puerto Rico, shipped FOB Cochin",
+  "kicker": "Export &middot; Puerto Rico",
+  "h1": "Plywood exporter from India to Puerto Rico, shipped FOB Cochin",
+  "lede": "Commercial, BWR, marine and packing-grade plywood from Perumbavoor, Kerala, made by a group that has manufactured plywood since 1986. Quoted in USD at the factory gate. If your broker says the entry needs CARB or TSCA Title VI, name it at enquiry.",
+  "tldr": "<strong>TL;DR:</strong> We are an Indian plywood factory shipping to Puerto Rico from Cochin Port, with no local stock on the island. Commercial, BWR, IS 710 marine and packing-grade plywood, plus Okoume-faced panels. Quotes in USD, FOB Cochin by default. Ask your customs broker which regime your entry falls under; if the answer is CARB or TSCA Title VI, tell us at enquiry, because it decides which mill presses the panels. Quote replies within one business day.",
+  "ports_ship": "the discharge port you nominate in Puerto Rico",
+  "faq": [
+    [
+      "Do you supply CARB Phase 2 or TSCA Title VI certified plywood for Puerto Rico?",
+      "We make no blanket claim, and we will not tell you which regime your entry falls under - ask your customs broker. If the answer is CARB or TSCA Title VI, name it at enquiry: it decides which mill your order is placed with and cannot be added after the panels are pressed. The certificate that applies to your order is identified on the quotation by holder, number and product scope."
+    ],
+    [
+      "What HS code do you ship plywood to Puerto Rico under?",
+      "Plywood falls under HS heading 4412 (sub-headings 4412.31, 4412.33, 4412.34 and 4412.39 by face species); finished cases, pallets and drums are generally considered under 4415. We state the code we ship under on the commercial invoice, and your broker confirms the national tariff line and the rate in force."
+    ],
+    [
+      "Which bond grade suits an island climate?",
+      "MR is moisture-resistant, not waterproof. Where the panel will sit in damp air after it lands, specify BWR; where it will be wet, IS 710 BWP marine. We confirm the bond on the proforma invoice and every grade ships with its technical data sheet."
+    ],
+    [
+      "How heavy will you load the container?",
+      "To the lower of the ship-line payload, about 26.7 tonnes, and the road limit at your end. Tell us which limit applies on your inland leg when you enquire - if it runs under US highway rules we cap the container at about 20 tonnes, the same figure we use for the mainland, and state it on the proforma invoice with the sheet count."
+    ]
+  ],
+  "faq_boiler": [
+    "warehouse"
+  ],
+  "cta_h2": "Get a Puerto Rico quote in one business day",
+  "cta_p": "Send thickness, sheet size, grade or bond, quantity, your discharge port and any certification your broker requires. Email sales@cochinwood.in or WhatsApp +91 95674 10175 and a USD quote with a loading plan comes back within one business day."
+}

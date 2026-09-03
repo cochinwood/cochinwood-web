@@ -1,0 +1,44 @@
+{
+  "_wiring": "NOT YET READ BY THE BUILD. export_section.py loads content/export/export.json and nothing else; it does not scan this directory. To ship this lane: append this object (minus the keys whose names start with an underscore) to `countries` in export.json, and add \"haiti\" to shared.related.order. Nothing else is needed - the hero, the crumb, the canonical, the schema, the sitemap entry and the back-links from the other lanes all follow.",
+  "_no_import_block_on_purpose": "This entry deliberately has no `import` block. export_section.import_essentials() renders shared.import.customs_duty verbatim, and that string is \"5% GCC Common External Tariff on CIF value\" - true for the six Gulf lanes and false for Haiti. Rather than emit a wrong tariff to a real buyer, this lane carries its own import-essentials table inside haiti.body.html, the way Sri Lanka and Israel carry no table at all.",
+  "_needs_edwin": [
+    "Haitian customs duty / import tax position for HS 4412 plywood - the body table carries a [TO CONFIRM] cell. Nothing on this site states one.",
+    "Whether CWI wants to name a usual discharge port for Haiti. Nothing on the site names one, so the page says FOB Cochin to the port the buyer nominates.",
+    "Whether a typical transit time can be published for this lane. The page states plainly that no transit figure is published because the buyer chooses the routing - if Edwin has real sailing data, that paragraph should be replaced with it."
+  ],
+  "slug": "haiti",
+  "name_the": "Haiti",
+  "name_plain": "Haiti",
+  "title": "Indian Plywood Exporter to Haiti — FOB Cochin | Cochin Wood",
+  "desc": "Import plywood from India to Haiti: packing, commercial, BWR and marine ply from Kochi, FOB Cochin in USD. Factory-direct, no local stock. Request a quote.",
+  "schema_name": "Indian Plywood Factory Exporting to Haiti",
+  "crumb_leaf": "Plywood exporter from India to Haiti, shipped FOB Cochin",
+  "kicker": "Export &middot; Haiti",
+  "h1": "Plywood exporter from India to Haiti, shipped FOB Cochin",
+  "lede": "Packing-grade, commercial, BWR and marine plywood from Perumbavoor, Kerala, made by a group that has manufactured plywood since 1986. Quoted in USD at the factory gate; you nominate the vessel and the discharge port.",
+  "tldr": "<strong>TL;DR:</strong> We are an Indian plywood factory shipping to Haiti from Cochin Port, not a stockist in the Caribbean. Packing-grade, commercial, BWR and IS 710 marine plywood, plus boxes and crates. Quotes in USD, FOB Cochin by default, CFR or CIF where agreed. We do not publish a transit time for this lane because your forwarder chooses the routing. Quote replies within one business day.",
+  "ports_ship": "the Haitian discharge port you nominate",
+  "faq": [
+    [
+      "How long does a container take from Kochi to Haiti?",
+      "We do not publish a transit time for this lane. The service and any transhipment your forwarder books is what decides it, and a figure we invented would be worth nothing to you. What we do put in writing is the schedule at our end: production lead time, the inspection window before loading, stuffing at the factory 40 km from Cochin Port, and gate-in."
+    ],
+    [
+      "Do you quote CIF Haiti, or only FOB Cochin?",
+      "FOB Cochin is the default, in USD under Incoterms 2020. FCA Cochin, CFR or CIF are quoted where agreed, against the freight the routing you choose actually attracts. On a lane where you pick the vessel, a landed figure from us would be a guess at your own freight."
+    ],
+    [
+      "Which bond grade should I order for a long sea leg into a humid climate?",
+      "MR is moisture-resistant, not waterproof. Where the panel will sit in damp air after it lands, specify BWR; where it will be wet, IS 710 BWP marine. We confirm the bond on the proforma invoice and every grade ships with its technical data sheet."
+    ],
+    [
+      "What documents come with the shipment?",
+      "Commercial invoice, packing list with bundle-wise net and gross weights, Bill of Lading and certificate of origin, with every shipment. Fumigation and phytosanitary certificates are issued where the destination requires them, confirmed against your country's rules at proforma-invoice stage. Send us your clearing agent's checklist when you confirm the order."
+    ]
+  ],
+  "faq_boiler": [
+    "warehouse"
+  ],
+  "cta_h2": "Get a Haiti quote in one business day",
+  "cta_p": "Send thickness, sheet size, grade or bond, quantity and your discharge port to sales@cochinwood.in or WhatsApp +91 95674 10175. A USD quote with a loading plan comes back within one business day."
+}
