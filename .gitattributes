@@ -1,16 +1,40 @@
-# THE BEACON IS SERVED VERBATIM, SO GIT MUST NOT REWRITE ITS LINE ENDINGS.
-# assets/cw-events.js is a byte-for-byte carry of what cf-live serves at
-# /js/cw-events.js, and build.py hashes the working-tree bytes to name it
-# /assets/cw-events.<hash>.js. This machine has core.autocrlf=true, which is why
-# every other tracked text asset in this checkout is CRLF in the working tree
-# while its blob is LF: a fresh Windows clone would therefore serve a
-# 6,194-byte CRLF beacon under a different hash from CI's 6,080-byte LF one --
-# the same file, two URLs, and neither of them matching what production serves
-# today. -text pins it.
+# THE BUILD, NOT THIS FILE, IS NOW WHAT GUARANTEES LF IN THE PUBLISHED BYTES.
+# build.py's lf() folds CRLF to LF in every text byte it writes into dist/ -- the
+# hashed scripts, the copied stylesheets, the carried blobs and the 253 rendered
+# pages alike -- and hashes the LF form, so the working-tree line endings of the
+# sources no longer reach the output at all. That closes the hole this rule was
+# holding open with one finger:
 #
-# DELIBERATELY SCOPED TO THIS ONE FILE. assets/site.js and the six CSS bundle
-# sources have the same problem and it is older than this line; widening the
-# rule changes their bytes, therefore the bundle hash, therefore every page,
-# and that is a content change for the owner to approve rather than a fix to
-# smuggle in beside a beacon.
+#   * The published bytes now equal the built bytes. dist/ is committed into
+#     cf-live, cf-live has no .gitattributes of its own, and this machine has
+#     core.autocrlf=true system-wide, so `git add -A` used to renormalise on the
+#     way into the index. Measured on 8fc64aad, that quietly rewrote two of the
+#     607 files: assets/site.f14bf457.js 3,801 -> 3,704 bytes and
+#     assets/fonts.css 6,560 -> 6,407. A dist/ that is already LF cannot be
+#     rewritten, so the tree the preflight certifies is the tree Pages serves.
+#
+#   * The build stopped being machine-local. site.js was hashed from its
+#     working-tree bytes, which are CRLF here and LF on any autocrlf=false clone;
+#     one commit therefore built site.f14bf457.js on Windows and site.96278e59.js
+#     on CI, with a different _headers and 253 different pages behind each.
+#
+# THE SCOPING ARGUMENT THIS FILE USED TO MAKE WAS RIGHT, AND HAS NOW BEEN ACTED
+# ON DELIBERATELY. It said that pulling site.js and the CSS bundle sources into
+# this rule "changes their bytes, therefore the bundle hash, therefore every
+# page, and that is a content change for the owner to approve rather than a fix
+# to smuggle in beside a beacon". It is exactly that content change, made on
+# purpose and named in the runbook: /assets/site.f14bf457.js becomes
+# /assets/site.96278e59.js, and all 253 pages plus _headers move with it. The
+# bundle hash does NOT move (bundle.07f23879.css both before and after), because
+# css_bundle_content() has always read its six sources in text mode, where
+# Python's universal newlines had already been doing lf()'s job.
+#
+# The rule below is now belt-and-braces rather than the only guard, and it is
+# kept for two reasons: it keeps assets/cw-events.js byte-identical to the
+# /js/cw-events.js cf-live serves today (blob and working tree both 6,080 bytes,
+# so the hash is cw-events.853632c8.js on every platform), and it documents at
+# the file that the beacon is a verbatim carry rather than something this repo
+# authors. Do not widen it to the other assets: normalising them is build.py's
+# job now, and a second mechanism doing the same thing is a second thing to keep
+# in agreement.
 /assets/cw-events.js -text

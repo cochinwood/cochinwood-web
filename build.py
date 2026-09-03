@@ -22,6 +22,50 @@ WARNINGS = []
 def warn(msg):
     if msg not in WARNINGS: WARNINGS.append(msg)
 
+# ---- EVERY TEXT BYTE THIS BUILD EMITS IS LF, ON EVERY PLATFORM ---------------
+#
+# THE PUBLISHED BYTES MUST BE THE BUILT BYTES, and until this block existed they
+# were not. dist/ is committed to cf-live, cf-live carries no .gitattributes, and
+# this machine has core.autocrlf=true set system-wide (C:/Program Files/Git/etc/
+# gitconfig), so `git add -A` renormalised every CRLF text file on the way into
+# the index. Measured on 8fc64aad: of 607 files, dist/assets/site.f14bf457.js
+# went in 3,801 -> 3,704 bytes (97 CRLF) and dist/assets/fonts.css 6,560 -> 6,407
+# (153 CRLF). Cloudflare Pages then served the 3,704-byte file under a name whose
+# hash describes the 3,801-byte one, pinned max-age=31536000, immutable, from all
+# 253 pages -- and the tree the preflight had certified was not the tree that got
+# published.
+#
+# THE SAME DEFECT MADE THE BUILD MACHINE-LOCAL. The two files above are copied
+# and hashed as raw bytes, and their raw bytes are a property of how the checkout
+# was made: CRLF here, LF on any autocrlf=false clone (Linux, CI, a colleague's
+# machine). Same commit, two different asset names, two different _headers, 253
+# different pages -- a different 607-file tree from the reviewed one. The
+# preflight's "two builds byte-identical" check runs both builds on ONE machine,
+# so it can never see this; check 12 below now can.
+#
+# The rule is git's own, deliberately, so that `git add` has nothing left to do:
+# a file with a NUL byte in its first 8,000 is binary and passes through
+# untouched, everything else has CRLF folded to LF. That NUL test is not
+# pedantry -- assets/logo.png, assets/og/cwi-og-share-1200x630.png and four
+# .woff2 faces contain incidental CR LF byte pairs inside compressed data, and
+# rewriting those would corrupt the file while leaving it looking present.
+# Lone CR is left alone for the same reason: git does not touch it either, and
+# matching git exactly is the whole point.
+def is_binary(data):
+    """git's own text/binary test: NUL in the first 8,000 bytes."""
+    return b"\x00" in data[:8000]
+
+def lf(data):
+    """The bytes git would store for `data` -- i.e. what Pages will serve."""
+    return data if is_binary(data) else data.replace(b"\r\n", b"\n")
+
+def read_lf(path):
+    with open(path, "rb") as fh: return lf(fh.read())
+
+def copy_lf(src, dst):
+    """shutil.copy's contract, minus the platform in the output bytes."""
+    with open(dst, "wb") as fh: fh.write(read_lf(src))
+
 # ---------------- WHERE THE COMPANY SHIPS: one list, one place ----------------
 #
 # content/export-markets.json is the ONLY place the country list, the country
@@ -1425,7 +1469,7 @@ def copy_referenced_files():
     for ref, src in sorted(_files_used.items()):
         dst = os.path.join(DIST, urllib.parse.unquote(ref.lstrip("/")))
         os.makedirs(os.path.dirname(dst), exist_ok=True)
-        shutil.copy(src, dst); copied += 1
+        copy_lf(src, dst); copied += 1
     return copied
 
 # ---------------- what cf-live serves that no new page links ------------------
@@ -1598,7 +1642,7 @@ def carry_live_assets():
         for rel, data in sorted(blobs.items()):
             fp = os.path.join(DIST, rel.replace("/", os.sep))
             os.makedirs(os.path.dirname(fp), exist_ok=True)
-            with open(fp, "wb") as f: f.write(data)
+            with open(fp, "wb") as f: f.write(lf(data))
             n += 1
     for rel, _why in sorted(CARRIED_ROOT_FILES.items()):
         blobs = _live_tree(rel)
@@ -1607,7 +1651,7 @@ def carry_live_assets():
                  f"build would 404 it -- see CARRIED_ROOT_FILES for what that "
                  f"costs")
             continue
-        with open(os.path.join(DIST, rel), "wb") as f: f.write(blobs[rel])
+        with open(os.path.join(DIST, rel), "wb") as f: f.write(lf(blobs[rel]))
         n += 1
     return n
 
@@ -2137,6 +2181,12 @@ def css_bundle_content():
             fp = os.path.join(src, name)
             if not os.path.exists(fp):
                 warn(f"css bundle: missing {name}"); continue
+            # TEXT MODE ON PURPOSE, DO NOT "OPTIMISE" THIS TO A BINARY READ.
+            # Python's universal newlines fold the six sources' CRLF to \n on the
+            # way in and write() pins \n on the way out, which is why bundle.css
+            # was already the same bytes and the same hash on every platform
+            # while site.js and fonts.css were not. A raw read here would put
+            # this file in the same trap they were in.
             parts.append(f"/* --- {name} --- */\n" + _css_fix_urls(open(fp, encoding="utf-8").read(), name))
         _bundle_css = "\n".join(parts)
     return _bundle_css
@@ -2165,7 +2215,12 @@ def fingerprint_assets():
     ASSETS["bundle.css"] = f"bundle.{_digest(css_bundle_content())}.css"
     jp = os.path.join(ROOT, "assets", "site.js")
     if os.path.exists(jp):
-        ASSETS["site.js"] = f"site.{_digest(open(jp, 'rb').read())}.js"
+        # read_lf, not a raw read: the name must be the digest of the bytes that
+        # get PUBLISHED, and what gets published is the LF form. Hashing the
+        # working-tree bytes instead made the name a property of the checkout --
+        # site.f14bf457.js here, site.96278e59.js on any autocrlf=false clone,
+        # for one unchanged commit.
+        ASSETS["site.js"] = f"site.{_digest(read_lf(jp))}.js"
     # THE BEACON IS THE ONLY SOURCE OF WEBSITE CONVERSION NUMBERS. Every one of
     # cf-live's 293 pages loads it and POSTs tel_click, whatsapp_click,
     # quote_click and form_submit_success to /cw-event; the zone route stays
@@ -2178,7 +2233,7 @@ def fingerprint_assets():
     #   git show origin/cf-live:js/cw-events.js > assets/cw-events.js
     ep = os.path.join(ROOT, "assets", "cw-events.js")
     if os.path.exists(ep):
-        ASSETS["cw-events.js"] = f"cw-events.{_digest(open(ep, 'rb').read())}.js"
+        ASSETS["cw-events.js"] = f"cw-events.{_digest(read_lf(ep))}.js"
     else:
         ASSETS["cw-events.js"] = None      # no tag rather than 253 script 404s
         warn("assets/cw-events.js is missing: no page will load the /cw-event "
@@ -2278,7 +2333,12 @@ def assets_and_meta():
     # cache rule in the live _headers), so dropping it would turn a URL that
     # answers 200 today into a 404 at cutover.
     dead_bundle_sources = [n for n in CSS_BUNDLE if n != "fonts.css"]
-    shutil.copytree(src, dst,
+    # copy_function, not the default copy2: assets/fonts.css is served verbatim
+    # at a URL cf-live already answers, and a byte-exact copy of it out of THIS
+    # checkout is a copy of 153 CRLF pairs that git would then undo in the index.
+    # The font faces, the logo, the icons and the og card go through untouched --
+    # copy_lf's NUL test sees them as binary.
+    shutil.copytree(src, dst, copy_function=copy_lf,
                     ignore=shutil.ignore_patterns("photos", *dead_bundle_sources))
     # Publish the two fingerprinted scripts under their hashed names, so the
     # year-long immutable header below is only ever attached to a name that

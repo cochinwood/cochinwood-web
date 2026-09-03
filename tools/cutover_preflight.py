@@ -898,6 +898,57 @@ def main():
             for u in missing[:10]:
                 print("         %s" % u)
 
+    # 12. THE PUBLISHED BYTES ARE THE BUILT BYTES. Every check above this line
+    #    reads dist/ off the disk, but the cutover does not publish dist/ off the
+    #    disk -- step 5 copies it into a clone of cf-live and runs `git add -A`,
+    #    and `git add` is not a copy. This machine has core.autocrlf=true set in
+    #    C:/Program Files/Git/etc/gitconfig, cf-live carries no .gitattributes,
+    #    and so every CRLF text file in dist/ used to be rewritten to LF on the
+    #    way into the index. On 8fc64aad that silently changed two of the 607:
+    #    assets/site.f14bf457.js 3,801 -> 3,704 bytes and assets/fonts.css
+    #    6,560 -> 6,407. The first is linked by all 253 pages under
+    #    max-age=31536000, immutable, with a hash in its name that then described
+    #    bytes nobody serves. Checks 3 and 4 are blind to this by construction:
+    #    they compare dist/ to dist/, and both sides get the same wrong bytes.
+    #
+    #    THE SAME TEST ALSO CATCHES THE MACHINE-LOCALITY. A dist/ that is already
+    #    LF is a dist/ that no autocrlf setting can alter, on this machine or on
+    #    CI, which is the same statement as "this commit builds one tree
+    #    everywhere". Simulating `git add` here rather than trusting build.py to
+    #    have normalised is deliberate: the check must be able to fail if a
+    #    future write site forgets lf(), which is exactly how this arrived.
+    renormalised = []
+    for rel in sorted(second):
+        with open(os.path.join(DIST, rel), "rb") as fh:
+            raw = fh.read()
+        if b"\x00" in raw[:8000]:
+            continue                      # git calls it binary and leaves it
+        if b"\r\n" in raw:
+            renormalised.append((rel, len(raw), len(raw.replace(b"\r\n", b"\n"))))
+    check("git add -A would change nothing in dist/", not renormalised,
+          "%d text file(s) LF-clean" % len(second) if not renormalised else
+          "%d file(s) would be rewritten by the index, e.g. %s -- these are the "
+          "bytes the operator would publish INSTEAD of the ones reviewed here. "
+          "Fix build.py's write site (see lf() in build.py), not cf-live"
+          % (len(renormalised),
+             "; ".join("%s %d->%d" % r for r in renormalised[:3])))
+
+    # 13. The two hashed asset names, stated out loud. Their whole job is to
+    #    change when the bytes change, and a year-long immutable pin means a
+    #    wrong one is not correctable for returning visitors. Printing them makes
+    #    the rename visible in the transcript on the run where it happens instead
+    #    of being discovered in a diff of 253 pages.
+    hashed = sorted(r for r in second
+                    if r.startswith("assets/") and re.match(
+                        r"assets/(site|cw-events|bundle)\.[0-9a-f]{8}\.(js|css)$", r))
+    for rel in hashed:
+        with open(os.path.join(DIST, rel), "rb") as fh:
+            raw = fh.read()
+        want = hashlib.sha256(raw).hexdigest()[:8]
+        got = rel.rsplit(".", 2)[1]
+        check("%s is named for its own bytes" % rel, want == got,
+              "%d bytes, sha256[:8]=%s" % (len(raw), want))
+
     print("\n%d passed, %d failed" % (len(PASSED), len(FAILED)))
     if FAILED:
         print("\nDO NOT START THE CUTOVER. Failed: %s\n" % ", ".join(FAILED))
