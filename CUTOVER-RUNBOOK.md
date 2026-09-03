@@ -1,9 +1,9 @@
 # Cloudflare Pages cutover — runbook
 
 **What is being published:** the build reviewed as commit
-**`8fc64aad5af0c66bae4c2b08d68ecde776f51dc9`** (`8fc64aad`) on `cutover-ready-2026-09-04`.
+**`ce24ab154bcd6fdba171b0f76698d68c14837524`** (`ce24ab15`) on `cutover-ready-2026-09-04`.
 You will check out a *later* commit on that branch — this re-pin is one — and step 1 proves
-it builds a `dist/` **byte-identical to `8fc64aad`'s across all 607 files** before you are
+it builds a `dist/` **byte-identical to `ce24ab15`'s across all 607 files** before you are
 allowed to continue. The sha is the thing verified; the branch tip is merely where you find it.
 **How it reaches production:** built locally into `dist/`, pushed as the **contents** of the
 `cf-live` branch. **No Cloudflare setting is changed. There is no build command.**
@@ -30,7 +30,7 @@ the fifth is this document.
 | # | What was wrong | What it would have cost | Now gated by |
 |---|---|---|---|
 | 1 | The coverage check compared only `.html`, on both sides | `293/293 covered` while **328 live URLs would 404** — 306 indexed and hotlinked photos under `/files/`, plus the root files | check 13, `620/620 covered, 27 reviewed-ignore`; every ignore carries a written reason |
-| 2 | The runbook pinned a sha 13 commits behind, predating all of the above | The operator verifies a tree nobody reviewed, and the checks below it read as passing | this section, and step 1's re-pin at `8fc64aad` |
+| 2 | The runbook pinned a sha 13 commits behind, predating all of the above | The operator verifies a tree nobody reviewed, and the checks below it read as passing | this section, and step 1's re-pin — moved again on 4 Sep to `ce24ab15`, the commit that first produces the tree now being published |
 | 3 | The conversion beacon shipped on **0 of 253** pages | The dashboard reports **zero website conversions** — a *wrong* answer, not a missing one, and indistinguishable from the truth until someone compares it against WhatsApp | check 7, `253/253 pages, bytes match c59adae9ee7d`; `.gitattributes` pins `assets/cw-events.js` `-text` so `core.autocrlf=true` cannot rename its hashed URL |
 | 4 | `_headers` claimed `max-age=31536000, immutable` on `/assets/*` and `/files/*` | **24 URLs whose names never change** pinned in visitors' browsers for a year; replace the hero photo after cutover and returning visitors keep the old one until September 2027 | only the three content-addressed names carry the year; the rest get a day, which is what `cf-live` serves today |
 | 5 | `dist/` omitted `.github/workflows/site-checks.yml` | **The publishing push deletes the required check that gates it.** The check cannot run on the push that removed it, and every later publish repeats the removal in silence | check 8, byte-compared against the pinned live blob — *not* delegated to coverage, which is blind here because the `/.github/*` rule matches the URL whether or not the file exists |
@@ -47,13 +47,77 @@ being *served* is the requirement itself: IndexNow verifies ownership by fetchin
 path and comparing the body with the filename, so a 301 fails verification and every submission
 to Bing, Yandex and Seznam stops while the site goes on looking fine.
 
-**What a reviewer must check before authorising step 5.** Five things, in this order; the first
-four are commands, and none of them touches production.
+### The sixth blocker, found by executing the publish rather than the build
 
-1. `python tools/cutover_preflight.py 8fc64aad` prints **`13 passed, 0 failed`** and
+**Every check listed above reads `dist/` off the disk, and the cutover does not publish `dist/`
+off the disk.** Step 5 copies it into a clone of `cf-live` and runs `git add -A`, and `git add`
+is not a copy: this machine has `core.autocrlf=true` set system-wide in
+`C:/Program Files/Git/etc/gitconfig`, `dist/` carries no `.gitattributes` and neither does
+`cf-live`, so every CRLF text file was renormalised on the way into the index. An auditor ran
+the real sequence against `8fc64aad` and returned NOT_READY. It tracked 607 files and carried
+the gate and `.nojekyll` correctly, and **two of the 607 committed blobs were not the reviewed
+bytes**:
+
+| file | `dist/` | committed blob | difference |
+|---|---|---|---|
+| `assets/site.f14bf457.js` | 3,801 bytes | 3,704 bytes | 97 CRLF folded to LF |
+| `assets/fonts.css` | 6,560 bytes | 6,407 bytes | 153 CRLF folded to LF |
+
+`/assets/site.f14bf457.js` is linked by all 253 pages and pinned `max-age=31536000, immutable`.
+Its **name** was the sha256 prefix of the 3,801-byte bytes while its **content** was the
+3,704-byte bytes, so the fingerprint no longer described what visitors were served, and it could
+not be corrected for a returning browser for a year. That is blocker 2 again, one layer down:
+the tree the preflight certified was not the tree that would have been published.
+
+**The same defect made the whole build machine-local.** `build.py` hashed the *working-tree*
+bytes of `assets/site.js`, and those bytes are a property of how the checkout was made — CRLF
+here, LF on any `autocrlf=false` clone. One unchanged commit therefore emitted
+`assets/site.f14bf457.js` on this machine and `assets/site.96278e59.js` on Linux or CI, with a
+different `_headers` and 253 different pages behind each: **a different 607-file tree from the
+one reviewed.** Checks 3 and 4 cannot see it, because they run both builds on the same machine
+and compare `dist/` to `dist/`.
+
+**Fixed by removing the hazard, not by documenting it.** `build.py` now folds CRLF to LF in
+every text byte it writes into `dist/` — the hashed scripts, the copied stylesheets, the blobs
+carried out of `cf-live` and the 253 rendered pages alike — and fingerprints the LF form, using
+git's own binary test (a NUL in the first 8,000 bytes) so that the PNGs, the OG card and the
+`.woff2` faces, which contain incidental `CR LF` byte pairs inside compressed data, pass through
+untouched. The working-tree bytes, the hashed name, the index blob and what Pages serves are now
+the same bytes on every platform. Four new preflight checks make a regression visible rather than
+publishable: **check 14** simulates `git add` over all 607 files and fails naming any whose bytes
+the index would rewrite, and **checks 15–17** re-derive each content-addressed name from the
+bytes sitting under it, which is the property the year-long `immutable` pin rests on and which
+nothing previously asserted.
+
+> **THIS IS A CONTENT CHANGE, AND IT IS THE POINT OF THE COMMIT — do not read the diff as
+> documentation.** Against `8fc64aad`'s tree, 607 files in and 607 out:
+>
+> | | before | after |
+> |---|---|---|
+> | the hashed script | `/assets/site.f14bf457.js` (3,801 bytes) | **`/assets/site.96278e59.js` (3,704 bytes)** |
+> | `assets/fonts.css` | 6,560 bytes | **6,407 bytes** |
+> | pages referencing the new name | — | **253** |
+> | `_headers` | pins `f14bf457` | **pins `96278e59`** |
+> | `/assets/bundle.07f23879.css` | unchanged | unchanged |
+> | `/assets/cw-events.853632c8.js` | unchanged | unchanged |
+>
+> 255 files changed in place plus the one rename; nothing else in the 607 moved. The CSS bundle
+> hash does **not** move because `css_bundle_content()` has always read its six sources in text
+> mode, where Python's universal newlines were already doing this job. The `.gitattributes`
+> comment added in `8fc64aad` argued that widening its rule to `site.js` and the CSS bundle
+> "changes their bytes, therefore the bundle hash, therefore every page, and that is a content
+> change for the owner to approve rather than a fix to smuggle in beside a beacon". That
+> reasoning was right, and this is that change made deliberately and in the open, in `build.py`
+> rather than in `.gitattributes` so that it holds on machines that never see this repo's
+> attributes file at all.
+
+**What a reviewer must check before authorising step 5.** Six things, in this order; the first
+five are commands, and none of them touches production.
+
+1. `python tools/cutover_preflight.py ce24ab15` prints **`17 passed, 0 failed`** and
    `Preflight clean.`, and exits 0. Read the banner line under check 4: it is the build's own
    account of what it emitted, and it is the number every other claim here is checked against.
-2. `git log --oneline 8fc64aad..HEAD` lists **only documentation commits**. If it lists a
+2. `git log --oneline ce24ab15..HEAD` lists **only documentation commits**. If it lists a
    commit that touches `build.py`, the beacon, or anything else `dist/` is made of, then the
    sha above is stale again and this section has to be redone, not the sha alone.
 3. The gate is being **carried**, not rewritten. This repo does not track the workflow at all;
@@ -70,7 +134,19 @@ four are commands, and none of them touches production.
    nothing of the kind — the file is simply untracked on this branch and only ever exists in
    `dist/`.
 4. From inside `dist/`, `python ../tools/check_site.py` exits 0 (step 2 below).
-5. The rollback target is written down **before** anything moves:
+5. **No file in `dist/` would be rewritten by `git add`.** This is what preflight check 14
+   asserts, and it is the one property the whole document rests on — the operator publishes an
+   index, not a directory. It is one line if you want to see it for yourself, and it must print
+   nothing:
+
+   ```
+   grep -rlIU $'\r' dist | head
+   ```
+
+   `-I` skips binaries, so the PNGs and `.woff2` faces that legitimately contain `CR LF` inside
+   compressed data do not appear. Any path that does appear is a file whose published bytes
+   would differ from the reviewed ones; the fix belongs in `build.py`, not in `cf-live`.
+6. The rollback target is written down **before** anything moves:
    **`52b41125-0e5e-4ecc-9fda-ba88974f85bd`**, production, `cf-live` @ `c59adae9`, deployed
    2026-08-28T12:38:00Z. It exists, it is retained, and it is still what visitors are served
    right now — established when this runbook was written on 1 September and unchanged since,
@@ -91,21 +167,29 @@ next person who reads a Cloudflare settings page.
 Step 5 used to say *"change the production branch to `master`"*. The reviewed,
 preview-deployed work is not on `master`.
 
+Re-measured 4 Sep 2026 against the reviewed sha rather than the superseded prep branch — the
+`49 files / 4,826 insertions` figure this block used to quote was taken on 31 August and no
+longer reproduces on any ref:
+
 ```
-$ git merge-base origin/master origin/cutover-prep-2026-08-31
+$ git merge-base origin/master ce24ab15
 7dd9b5070d3a1266cc186cb240c3b620e1813ef3          # == master. master IS the merge base.
 
-$ git diff --shortstat origin/master origin/cutover-prep-2026-08-31
- 49 files changed, 4826 insertions(+), 195 deletions(-)
+$ git diff --shortstat origin/master ce24ab15
+ 99 files changed, 9620 insertions(+), 382 deletions(-)
+
+$ git diff --shortstat origin/master origin/cutover-prep-2026-08-31    # the old comparison, re-run
+ 97 files changed, 8163 insertions(+), 368 deletions(-)
 ```
 
-`master` is not a different line of work, it is **49 files behind**. Publishing it would have:
+`master` is not a different line of work, it is **99 files behind** the reviewed tree. Publishing
+it would have:
 
 | consequence | measured how |
 |---|---|
 | **404s 109 of the 293 live URLs** — all blog pagination, the 5 category pages, 27 tag pages, the 9 `/export/*` market pages, `/woods-we-use`, both policy pages | `python tools/cutover_preflight.py 7dd9b507` on a `master` checkout → `184/293 covered` |
-| **restores the quote form that posts to the CRM webform** — cancelled **3 September**, two days away. A buyer sees a success page; the enquiry reaches nobody. | `origin/master:build.py:534` → `action="https://crm.zoho.in/crm/WebToLeadForm"` vs `origin/cutover-prep-2026-08-31:build.py:774` → `action="https://www.cochinwood.in/web-lead"` |
-| **drops the Content-Security-Policy** | `git grep -c Content-Security-Policy origin/master` → **0 hits anywhere in the tree**. Live today: `curl -sI https://www.cochinwood.in/` → `content-security-policy: base-uri 'self'; object-src 'none'; frame-ancestors 'self'`, which `origin/cutover-prep-2026-08-31:build.py:1850` reproduces verbatim. |
+| **restores the quote form that posts to the CRM webform** — cancelled **3 September**. A buyer sees a success page; the enquiry reaches nobody. | `origin/master:build.py:534` → `action="https://crm.zoho.in/crm/WebToLeadForm"` vs `ce24ab15:build.py:925` → `action="https://www.cochinwood.in/web-lead"`. Cited at the reviewed sha, not at `origin/cutover-prep-2026-08-31:build.py:774`, which this block used to name: line 774 on that branch is a comment, and the branch is superseded. The same statement is `build.py:881` on `8fc64aad`. |
+| **drops the Content-Security-Policy** | `git grep -c Content-Security-Policy origin/master` → **0 hits anywhere in the tree**. Live today: `curl -sI https://www.cochinwood.in/` → `content-security-policy: base-uri 'self'; object-src 'none'; frame-ancestors 'self'`, which `ce24ab15:build.py:2469` reproduces verbatim — re-located, because `origin/cutover-prep-2026-08-31:build.py:1850`, which this line used to cite, is an unrelated warning string on a superseded branch. |
 
 **A branch name cannot be verified. A sha that must reproduce a measured result can.** That is
 why step 1 below is a script that names a sha and re-measures all three, and why it exits 1
@@ -165,13 +249,13 @@ cutover, the first time `build.py` ever runs in Cloudflare's image is the cutove
 
 ---
 
-## The decision: two ways to publish `8fc64aad`
+## The decision: two ways to publish `ce24ab15`
 
 Both paths end with the same bytes in front of visitors. They differ in what has to go right.
 
 ### Path A — teach Cloudflare to build (rejected for this cutover)
 
-Set production branch to a branch containing `8fc64aad`, build command `python build.py`,
+Set production branch to a branch containing `ce24ab15`, build command `python build.py`,
 output directory `dist`.
 
 *For:* one source of truth; a `git push` rebuilds the site; no built artefacts in git.
@@ -184,9 +268,9 @@ output directory `dist`.
 3. **The Python version is unpinned and unknown.** The `dist/` verified below was produced by
    **Python 3.13.14**. Cloudflare's build image ships a different default; nothing in the repo
    pins `PYTHON_VERSION`.
-4. **`build.py:134` reaches outside the repo.**
+4. **`build.py:273` reaches outside the repo.**
    `MIRROR_DIR = os.environ.get("MIRROR_DIR", os.path.join(os.path.dirname(ROOT), "cochinwood-site"))`
-   — a **sibling checkout of a different repository**, used as a photo root at `build.py:135`.
+   — a **sibling checkout of a different repository**, used as a photo root at `build.py:274`.
    That directory will not exist in the build image. The reviewed tree happens not to need it
    (the verified build below ran with no such sibling present and emitted no photo warnings),
    but nothing enforces that, and the failure is a silently missing image rather than an error.
@@ -210,8 +294,19 @@ Build `dist/` locally from the verified checkout, push its contents as `cf-live`
 3. **The source-exposure class of bug disappears by construction.** `dist/` contains no `.py`
    and no `.md` at all (checked in preflight step 4). `cf-live` today needs two redirect rules
    to hide `CLAUDE.md` and `.github/`; the built tree needs none.
-4. **Redirect headroom improves.** `cf-live` sits at 99 of the 100 rules Pages honours. The
-   built `_redirects` carries **108 rules, and only 79 of them are counted** — measured on
+4. **Redirect headroom improves.** `cf-live`'s `_redirects` has 99 rules, but **only 76 of them
+   are charged**: its first wildcard is `/wood-encyclopedia/* /woods-we-use 301` at rule index
+   23, and the 23 rules above it are free under the very rule stated two sentences below. So
+   the live file sits at **76 of 100**, not 99 of 100 — the tighter number this document used to
+   quote, which would have made the headroom argument look like a rescue rather than an
+   improvement.
+   ```
+   $ git show c59adae9ee7d:_redirects | grep -vE '^\s*(#|$)' | wc -l
+   99
+   $ git show c59adae9ee7d:_redirects | grep -vE '^\s*(#|$)' | grep -n '\*' | head -1
+   24:/wood-encyclopedia/* /woods-we-use 301          # rule index 23, so 23 free above it
+   ```
+   The built `_redirects` carries **108 rules, and only 79 of them are counted** — measured on
    `cwi-redirect-lab`, rules written *above* the first wildcard are not charged against the
    100 (Cloudflare documents 2,000 static), and from the first wildcard onward exactly 100
    further rules are honoured. The build banner states the split: `redirects:108 (29
@@ -224,9 +319,13 @@ Build `dist/` locally from the verified checkout, push its contents as `cf-live`
 
 - **No auto-rebuild.** Every future content change needs a local `python build.py` and a push
   of the built tree. This is the status quo and the team already works this way.
-- **One enormous commit.** ~293 hand-maintained files are replaced by a 607-file built tree —
-  253 pages, 108 redirect rules, and 311 files carried verbatim out of
-  `origin/cf-live@c59adae9ee7d` — in a single push. That diff cannot be reviewed file by file.
+- **One enormous commit.** The **647** files tracked on `cf-live` today
+  (`git ls-tree -r --name-only c59adae9ee7d | wc -l` → `647`) are replaced by a 607-file built
+  tree — 253 pages, 108 redirect rules, and 311 files carried verbatim out of
+  `origin/cf-live@c59adae9ee7d` — in a single push. This bullet used to say "~293
+  hand-maintained files"; 293 is the retired HTML-only live-URL count, which this same document
+  declares off-scale everywhere else, and it understated the tree being replaced by 354 files.
+  That diff cannot be reviewed file by file.
   It is reviewed instead by the `620/620 covered` URL-coverage check in step 1, which is the
   property that actually matters.
 - **`cf-live` is branch-protected** — the `The site says one thing` check must pass before a
@@ -251,21 +350,43 @@ recorded in `CUTOVER-PLAN.md` for whenever it is adopted on purpose.
 
 ## Step 1 — verify the tree, before touching anything
 
-One action. Run this and read the last line.
+### What the machine you run this on must be
+
+**The build no longer has an opinion about your line endings, and that is a recent change.**
+State the environment anyway, because two of these three are still assumptions the tree cannot
+enforce for you:
+
+| assumption | why it matters | how to check |
+|---|---|---|
+| **Python 3.13.14** | the `dist/` verified below was produced by it; nothing in the repo pins a version | `python -V` |
+| **git ≥ 2.30, any `core.autocrlf`** | **no longer load-bearing, and that was tested rather than assumed.** `build.py` writes LF for every text byte it emits and hashes the LF form, so the setting cannot reach the output. Building `ce24ab15` in a clone pinned to `core.autocrlf=false` — where `assets/site.js` checks out at 3,704 bytes instead of this checkout's 3,801 — gives the same 607 files with the same sha256 for every one. Before that change the same commit built `site.f14bf457.js` here and `site.96278e59.js` there; see the box in step 5. | `git config --show-origin --get core.autocrlf` → informational only |
+| **`MIRROR_DIR` points at the photo repo** | `build.py:273` resolves it from the *parent* of this checkout. The build does **not** fail without it; it silently emits fewer images, which is the kind of difference this step exists to make impossible. | set it explicitly in the command below |
+
+### The one action
+
+Run this and read the last line.
 
 ```
 git fetch origin
 git checkout cutover-ready-2026-09-04
-MIRROR_DIR="C:/Users/Edwin David/cochinwood-site" python tools/cutover_preflight.py 8fc64aad
+MIRROR_DIR="C:/Users/Edwin David/cochinwood-site" python tools/cutover_preflight.py ce24ab15
 ```
 
-`MIRROR_DIR` is the sibling checkout of the photo repo that `build.py:134` resolves from the
-parent of this checkout. Set it explicitly if your checkout does not sit beside
-`cochinwood-site`; the build does not fail without it, it silently emits fewer images, which is
-the kind of difference this step exists to make impossible.
+> **`git checkout` may refuse, and that is a prep artifact rather than a defect in the commit.**
+> `cutover-ready-2026-09-04` is currently checked out in a preparation worktree, so the checkout
+> above fails with `fatal: 'cutover-ready-2026-09-04' is already used by worktree at ...`.
+> Nothing is wrong with the branch. Either work in the worktree the message names, or release it
+> in one line and retry the checkout:
+>
+> ```
+> git worktree list                    # find the path holding the branch
+> git worktree remove --force <that path>
+> ```
+>
+> Every later step is unaffected either way; the preflight reads `HEAD`, not the branch name.
 
 **Verification:** the script must print `Preflight clean.` and **exit 0**. Pasted output,
-4 Sep 2026 — `13 passed, 0 failed`:
+4 Sep 2026 — `17 passed, 0 failed`:
 
 ```
   PASS  worktree is clean
@@ -273,7 +394,7 @@ the kind of difference this step exists to make impossible.
   PASS  build exits 0, twice                           exit 0 / 0
   PASS  two builds byte-identical                      607 files
        banner: BUILD OK  base='(root)'  34 content pages + 29 wood pages + 29 export pages + 156 blog posts + 18 images + 311 carried from origin/cf-live@c59adae9ee7d  sitemap:252(96cms+156post)  redirects:108 (29 static/2000 + 79 from first wildcard/100)  files: 607
-  PASS  HEAD publishes the reviewed bytes              HEAD=<yours> is a descendant of 8fc64aad; dist/ byte-identical (607 files)
+  PASS  HEAD publishes the reviewed bytes              HEAD=<yours> is a descendant of ce24ab15; dist/ byte-identical (607 files)
   PASS  no source or config files in dist/
   PASS  conversion beacon ships on every page          dist/assets/cw-events.853632c8.js on 253/253 pages, bytes match c59adae9ee7d:js/cw-events.js
   PASS  required-check workflow ships in dist/         dist/.github/workflows/site-checks.yml matches c59adae9ee7d:.github/workflows/site-checks.yml (2933 bytes), pins CHECKER_SHA=4678a8f5
@@ -282,8 +403,18 @@ the kind of difference this step exists to make impossible.
   PASS  no page posts to crm.zoho.in                   0 hit(s)
   PASS  dist/_headers enforces a CSP                   base-uri 'self'; object-src 'none'; frame-ancestors 'self'
   PASS  every live URL served or redirected            620/620 covered, 27 reviewed-ignore
-13 passed, 0 failed
+  PASS  git add -A would change nothing in dist/       607 text file(s) LF-clean
+  PASS  assets/bundle.07f23879.css is named for its own bytes 59077 bytes, sha256[:8]=07f23879
+  PASS  assets/cw-events.853632c8.js is named for its own bytes 6080 bytes, sha256[:8]=853632c8
+  PASS  assets/site.96278e59.js is named for its own bytes 3704 bytes, sha256[:8]=96278e59
+17 passed, 0 failed
 ```
+
+Checks 14–17 are the ones added on 4 September, and they are the only ones in the list that
+describe the **published** tree rather than the built one. Check 14 folds CRLF to LF exactly as
+`git add` would, over all 607 files, and fails naming any whose bytes the index would change.
+Checks 15–17 re-derive each content-addressed name from the bytes sitting under it, which is
+the property the year-long `immutable` pin depends on and which nothing previously asserted.
 
 **If any line says FAIL, stop. Do not open Cloudflare.** The script exits 1 and names what
 failed. It is deliberately the same script that, run against `master`, reported `184/293
@@ -297,8 +428,8 @@ loudly on the wrong tree — is unchanged; the two numbers are simply not on the
 > commit that contains it: pinning "publish exactly this sha" breaks the moment anyone edits
 > this runbook. So the argument is the **reviewed** sha, and the check is the property that
 > actually matters — *the tree you are about to publish builds the same bytes as the tree that
-> was reviewed*. The script accepts `HEAD == 8fc64aad`, or `HEAD` a descendant of it, which it
-> then **proves** by checking out `8fc64aad` into a throwaway worktree, building it, and
+> was reviewed*. The script accepts `HEAD == ce24ab15`, or `HEAD` a descendant of it, which it
+> then **proves** by checking out `ce24ab15` into a throwaway worktree, building it, and
 > comparing every file. A documentation commit passes. A commit that changes one character of
 > output fails and names the files. If review lands new *content*, that content must be
 > reviewed and the sha in this step updated to the new reviewed commit.
@@ -317,7 +448,7 @@ cd ..
 
 **Verification:** last line reads
 `OK - the site says one thing, and every link goes somewhere.` and it **exits 0**.
-Expected shape, pasted from the run on `8fc64aad`'s `dist/` (4 Sep 2026):
+Expected shape, pasted from the run on `ce24ab15`'s `dist/` (4 Sep 2026):
 
 ```
 pages          : 253
@@ -415,12 +546,25 @@ git clean -qfdx                       # untracked leftovers: cf-live has no .git
                                       # stray __pycache__/ WILL be committed otherwise (measured)
 cp -a ../cwi-cutover-dist/. .         # the trailing "/." is what carries the dot-paths
 
-# 4. Look before you commit. All three must hold.
+# 4. STAGE FIRST, THEN LOOK. `git ls-files` reads the INDEX, and step 3 emptied it, so this
+#    block has to run AFTER `git add -A`, not before it. Measured 4 Sep 2026 in the throwaway
+#    clone: `git ls-files | wc -l` reads 0 before the add and 607 after. The earlier ordering
+#    put the count above the add, where it printed 0 and read as catastrophe on a tree that was
+#    in fact perfect.
+git add -A
+
 git ls-files | wc -l                                            # 607 - the build banner's "files:" count
 test -f .github/workflows/site-checks.yml && echo "gate carried"
 test -f .nojekyll && echo "nojekyll carried"
 
-git add -A && git commit -m "Publish the reviewed build (8fc64aad) as the served tree"
+# The one that matters: every staged blob against the dist/ file it came from. `git add` is not
+# a copy, and this is the only place the difference is visible. It must print NOTHING.
+git ls-files -s | while read -r _mode sha _stage path; do
+  git cat-file -p "$sha" | cmp -s - "../cwi-cutover-dist/$path" \
+    || echo "PUBLISHED BYTES DIFFER: $path"
+done
+
+git commit -m "Publish the reviewed build (ce24ab15) as the served tree"
 git push origin cf-live
 ```
 
@@ -457,12 +601,54 @@ git push origin cf-live
 > 605
 > ```
 >
-> Nothing was pushed and the clone was deleted. `git add -A` also prints a wall of
-> `LF will be replaced by CRLF` warnings on a `core.autocrlf=true` machine; they are not a
-> problem here — the index keeps LF, which is what Pages serves, and
-> `git cat-file -p :_redirects | wc -c` matches `wc -c < _redirects` at 12,122 bytes. Do not
-> "fix" them by adding a `.gitattributes` to `cf-live`: `dist/` does not contain one, so it
-> would be deleted by the next publish anyway.
+> Nothing was pushed and the clone was deleted.
+
+> **`git add` is not a copy, and the old canary here could not have told you so.** This block
+> used to wave away the `LF will be replaced by CRLF` warnings by comparing one file:
+> `git cat-file -p :_redirects | wc -c` against `wc -c < _redirects`, both 12,122. That
+> comparison passes and **can never fail** — `_redirects` is written by `build.py`'s `write()`,
+> which has always pinned `newline="\n"`, so it is LF on both sides no matter what git does to
+> anything else. A canary chosen from the files that cannot vary is not a canary. Executed for
+> real on **8fc64aad**, the same sequence tracked all 607 files and still changed two of them
+> on the way into the index: `assets/site.f14bf457.js` **3,801 → 3,704** bytes (97 CRLF) and
+> `assets/fonts.css` **6,560 → 6,407** (153 CRLF). The first is linked by all 253 pages under
+> `max-age=31536000, immutable`, so Pages would have served 3,704 bytes under a name that is the
+> hash of the 3,801-byte version — and the tree step 1 certified would not have been the tree
+> that shipped. `build.py` now emits LF for every text byte it writes (see `lf()` there, and the
+> content change it caused in the box above), so there is nothing left for the index to rewrite.
+>
+> **Check every blob, not one file.** Run this after `git add -A` and before `git commit`; it
+> compares each of the 607 staged blobs against the `dist/` file it came from and names any that
+> differ:
+>
+> ```
+> git diff --cached --numstat | wc -l          # 607 - one line per staged file
+>
+> git ls-files -s | while read -r _ sha _ path; do
+>   if ! git cat-file -p "$sha" | cmp -s - "../cwi-cutover-dist/$path"; then
+>     echo "PUBLISHED BYTES DIFFER: $path"
+>   fi
+> done
+> ```
+>
+> **The second command must print nothing at all.** One line of output means the operator is
+> about to publish bytes that were never reviewed, and the fix is in `build.py`, not here — stop
+> and report it. Executed on this tree, 4 Sep 2026: 607 blobs compared, 0 differences.
+>
+> **The `LF will be replaced by CRLF` warnings still appear, and they are now provably about
+> nothing.** They are a *checkout*-direction notice — `core.autocrlf=true` will CRLF these files
+> the next time git writes them into a working tree — not a report that the index was changed.
+> Measured in the same run: 607 warnings, 607 staged blobs, 0 differing from `dist/`. Pages
+> serves the committed blobs, not anyone's working copy, so the warning describes a conversion
+> that never reaches production.
+>
+> **Do not add a `.gitattributes` to `cf-live` to silence them.** The earlier instruction to
+> leave it alone was right for the reason it gave — `dist/` contains no `.gitattributes`, so the
+> next publish's `git rm -r -f .` deletes it and the fix lasts exactly one deploy — but it was
+> also forbidding the only remedy the document then offered, which left the operator with a
+> known-wrong tree and no sanctioned way to fix it. The remedy now sits upstream in `build.py`,
+> where it survives every publish and every machine, and the comparison above is how you confirm
+> it held.
 
 `cf-live` requires the `The site says one thing` check to pass. Let it run. **Do not bypass it**
 — the admin bypass exists so a broken checker cannot stop a *rollback*, not so it can wave a
@@ -654,18 +840,32 @@ the rule first.)*
 
 ## What is verified, and what is not
 
-**Verified by measurement for the 4 Sep 2026 re-pin at `8fc64aad`:**
+**Verified by measurement for the 4 Sep 2026 re-pin at `ce24ab15`:**
 
-- Build determinism: two consecutive builds, **607 files**, byte-identical; `13 passed,
+- **The published bytes, not the built ones.** The step 5 sequence executed end to end in a
+  throwaway clone of `cf-live@c59adae9ee7d` with its remote removed, then **all 607 committed
+  blobs compared byte for byte against the `dist/` files they came from: 0 differ.** The same
+  comparison against `8fc64aad`'s `dist/` returned two — `assets/site.f14bf457.js` and
+  `assets/fonts.css` — which is why this commit exists.
+- **Machine independence, executed rather than argued.** A second clone with
+  `core.autocrlf=false` checks `assets/site.js` out at **3,704** bytes and `assets/fonts.css` at
+  **6,407** — the LF blobs, where this checkout has 3,801 and 6,560 — and building `ce24ab15`
+  there produces **the same 607 files with the same sha256 for every one of them**: 0 paths in
+  one tree only, 0 differing in content, `assets/site.96278e59.js` under both. Before this
+  commit the two settings produced different asset names and 253 different pages.
+- Build determinism: two consecutive builds, **607 files**, byte-identical; `17 passed,
   0 failed`; coverage `620/620 covered, 27 reviewed-ignore`; beacon on `253/253` pages; the
-  four carried root files byte-equal to `c59adae9ee7d`.
+  four carried root files byte-equal to `c59adae9ee7d`; `git add -A would change nothing in
+  dist/` with **607 text files LF-clean**; all three content-addressed names re-derived from
+  their own bytes.
 - `python build.py` exit 0; `tools/check_site.py` from inside `dist/` exit 0 at `pages : 253`,
   `internal links : 10660`.
-- **The step 5 copy sequence, run end to end in a throwaway clone of `cf-live`.**
-  `git rm -r -f .` → `git clean -qfdx` → `cp -a ../cwi-cutover-dist/. .` → `git add -A` gives
-  `git ls-files | wc -l` = **607**, with `.github/workflows/site-checks.yml` and `.nojekyll`
-  both present. The same dist/ through `cp -r dist/* .` gives **605** and neither of those two.
-  Nothing was pushed; the clone was deleted.
+- **The copy sequence and its two traps.** `git rm -r -f .` → `git clean -qfdx` →
+  `cp -a ../cwi-cutover-dist/. .` → `git add -A` gives `git ls-files | wc -l` = **607**, with
+  `.github/workflows/site-checks.yml` and `.nojekyll` both present. The same `dist/` through
+  `cp -r dist/* .` gives **605** and neither of those two. The count reads **0**, not 607, if it
+  is taken before `git add -A`, because `git ls-files` reads the index and step 3 empties it —
+  the command block in step 5 is ordered accordingly. Nothing was pushed; the clone was deleted.
 - **The gate itself, by mutation.** Deleting a carried root file, corrupting one at the same
   length, and shadowing one behind a wildcard 301 with a `SHADOW_ALLOWED` waiver each now fail
   the preflight by name. The third of those passed at 12/1 before this commit.
