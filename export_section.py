@@ -55,7 +55,33 @@ SRC_JSON = os.path.join("content", "export", "export.json")
 
 def _load():
     with open(os.path.join(CDIR, "export.json"), encoding="utf-8") as f:
-        return json.load(f)
+        data = json.load(f)
+
+    # Lanes added after the first eight live one-per-file under content/export/countries/, and
+    # are merged here. The split is not decoration: four agents wrote twenty of these at once,
+    # and a shared array in one file is a merge conflict per country. It also means adding the
+    # twenty-ninth lane is dropping in a file, which is the whole point of a data-driven section.
+    #
+    # A per-file lane may omit "import": shared["import"] hard-codes the 5% GCC Common External
+    # Tariff, which is true for the Gulf lanes and false everywhere else, so the non-GCC lanes
+    # carry their own import table in their body instead. page() already treats it as optional.
+    cdir = os.path.join(CDIR, "countries")
+    if os.path.isdir(cdir):
+        have = {c["slug"] for c in data["countries"]}
+        for fn in sorted(os.listdir(cdir)):
+            if not fn.endswith(".json"):
+                continue
+            with open(os.path.join(cdir, fn), encoding="utf-8") as f:
+                c = json.load(f)
+            c.setdefault("slug", fn[:-5])
+            if c["slug"] in have:
+                raise SystemExit(
+                    f"export: {fn} duplicates the slug {c['slug']!r} already in export.json. "
+                    "Two sources for one lane is how they drift apart -- delete one.")
+            # keys beginning _ are notes to the next reader, not page data
+            data["countries"].append({k: v for k, v in c.items() if not k.startswith("_")})
+            have.add(c["slug"])
+    return data
 
 
 def _prose(name):
