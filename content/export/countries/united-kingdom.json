@@ -1,0 +1,72 @@
+{
+ "_wiring": [
+  "NOT YET READ BY THE BUILDER. export_section.py:_load() reads content/export/export.json only;",
+  "its build() iterates data['countries']. To wire this lane up: append this object (minus the",
+  "keys prefixed with an underscore) to `countries` in export.json, and add \"united-kingdom\" to",
+  "shared.related.order so the other lanes back-link to it. Nothing else is needed -- the hero,",
+  "breadcrumbs, WebPage/FAQPage schema, sitemap entry and related strip all derive from this.",
+  "Prose lives in content/export/united-kingdom.body.html.",
+  "",
+  "NO `import` KEY ON PURPOSE. import_essentials() builds its HS-code, customs-duty,",
+  "landed-cost-note, documents and ISPM-15 rows from shared['import'], and shared['import']",
+  "['customs_duty'] is hardcoded '5% GCC Common External Tariff on CIF value'. Rendering that",
+  "on a UK page would be a false tariff claim. The lane therefore carries its own",
+  "<section id=\"import\"> table inside united-kingdom.body.html, the way Sri Lanka and Israel",
+  "carry no import block at all.",
+  "",
+  "faq_boiler is ['warehouse'] only: the 'hs', 'duty', 'standards' and 'documents' templates in",
+  "shared.faq_templates are GCC-specific and interpolate keys that only exist inside `import`."
+ ],
+ "_placeholders": [
+  "[RATE TO CONFIRM] x2 -- UK customs duty and import VAT. [TRANSIT TO CONFIRM] x1 -- no",
+  "Cochin-to-UK port-to-port figure exists anywhere on the site. [TO CONFIRM] x2 -- the",
+  "conformity-marking route for panels sold into Great Britain for construction use. The site",
+  "claims a CE Declaration of Performance (company-verification.html, and the formaldehyde-",
+  "compliance post) but says nothing about UKCA or any post-Brexit GB equivalent, and nothing",
+  "about a UK timber due-diligence regime, so this page claims neither.",
+  "All five are in united-kingdom.body.html."
+ ],
+ "slug": "united-kingdom",
+ "name_the": "the UK",
+ "name_plain": "UK",
+ "title": "Indian Plywood Exporter to the UK - FOB Cochin | Cochin Wood",
+ "desc": "Import plywood from India to the United Kingdom: packing, commercial and marine ply, boxes, crates and pallets. FOB Cochin, USD quotes, factory-direct.",
+ "schema_name": "Indian Plywood Factory Exporting to the United Kingdom",
+ "crumb_leaf": "Indian plywood exporter to the United Kingdom, FOB Cochin",
+ "kicker": "Export &middot; United Kingdom",
+ "h1": "Indian plywood exporter to the United Kingdom, FOB Cochin",
+ "lede": "Packing-grade, commercial and marine plywood, plus export boxes, crates and pallets, from Perumbavoor, Kerala. Made by a group manufacturing since 1986, quoted in USD, FOB Cochin to the UK port you nominate.",
+ "tldr": "<strong>TL;DR:</strong> We are an Indian plywood factory, not a UK stockist &mdash; there is no British warehouse and no local stock behind this page. Packing-grade MR (IS 303), commercial and BWR panels, marine ply, film-faced shuttering, and boxes, crates and pallets. FOB Cochin in USD; you or your forwarder carry the ocean leg to the UK port you nominate. Species and country-of-harvest declarations are issued with the quote. Quote replies within one business day.",
+ "ports_ship": "the UK port you nominate",
+ "faq": [
+  [
+   "What do I get buying from the factory rather than a UK importer's yard?",
+   "Factory pricing, a specification agreed in writing before the panels are pressed, and a loading plan built to the container's weight limit rather than to a merchant's pallet count. What you do not get is next-day collection &mdash; there is no British warehouse behind this page."
+  ],
+  [
+   "Do you quote FOB Cochin or CIF for UK buyers?",
+   "FOB Cochin is our default term. A CIF figure to your nominated UK port is available on request, priced against current freight. All export quotes are issued in USD, and we reply within one business day."
+  ],
+  [
+   "What face veneer should I specify for a UK buyer?",
+   "Okoume or birch rather than gurjan. European inspectors are stricter on face-veneer cosmetic defects than Middle East or African inspectors, which is what our face-veneer guide bases that recommendation on."
+  ],
+  [
+   "What origin documentation do you supply?",
+   "Species and country of harvest for the timber in the panel, faces and cores both, plus legality documentation for harvest and trade in the country of origin, issued with the quote. Much of what we press is plantation timber, rubberwood above all, which traces to plots far more readily than mixed natural-forest material."
+  ],
+  [
+   "Do plywood panels need ISPM-15 treatment for the UK?",
+   "Plywood panels are processed wood and exempt from ISPM-15, so bare sheets need no heat-treatment stamp. Solid-wood packaging is treated: we heat-treat at registered facilities and stencil the IPPC mark, country code IN, treatment code HT and the registered facility number, which is the standard for exports to the EU, the UK and most other destinations we ship to."
+  ],
+  [
+   "What are your payment terms for UK buyers?",
+   "Standard products ship against 50 percent advance with the balance before dispatch. Custom specifications are 100 percent advance. We accept bank transfer (T/T)."
+  ]
+ ],
+ "faq_boiler": [
+  "warehouse"
+ ],
+ "cta_h2": "Get a UK quote in one business day",
+ "cta_p": "Send thickness, sheet size, grade, quantity and your discharge port. A written USD FOB Cochin quote comes back within one business day. sales@cochinwood.in or +91 95674 10175."
+}

@@ -1,0 +1,70 @@
+{
+ "_wiring": [
+  "NOT YET READ BY THE BUILDER. export_section.py:_load() reads content/export/export.json only;",
+  "its build() iterates data['countries']. To wire this lane up: append this object (minus the",
+  "keys prefixed with an underscore) to `countries` in export.json, and add \"netherlands\" to",
+  "shared.related.order so the other lanes back-link to it. Nothing else is needed -- the hero,",
+  "breadcrumbs, WebPage/FAQPage schema, sitemap entry and related strip all derive from this.",
+  "Prose lives in content/export/netherlands.body.html.",
+  "",
+  "NO `import` KEY ON PURPOSE. import_essentials() builds its HS-code, customs-duty,",
+  "landed-cost-note, documents and ISPM-15 rows from shared['import'], and shared['import']",
+  "['customs_duty'] is hardcoded '5% GCC Common External Tariff on CIF value'. Rendering that",
+  "on a Dutch page would be a false tariff claim. The lane therefore carries its own",
+  "<section id=\"import\"> table inside netherlands.body.html, the way Sri Lanka and Israel carry",
+  "no import block at all. If someone later makes hs_code/customs_duty/ispm15/landed_cost_note",
+  "per-country-overridable (they are not today; only `documents` is), this table can move back",
+  "into JSON.",
+  "",
+  "faq_boiler is ['warehouse'] only: the 'hs', 'duty', 'standards' and 'documents' templates in",
+  "shared.faq_templates are GCC-specific (the duty one states the GCC Common External Tariff)",
+  "and the last three interpolate keys that only exist inside an `import` block."
+ ],
+ "_placeholders": [
+  "[RATE TO CONFIRM] x2 in netherlands.body.html -- customs duty and import VAT. Nothing on the",
+  "site states an EU duty rate or a Dutch VAT rate, so none is stated here."
+ ],
+ "slug": "netherlands",
+ "name_the": "the Netherlands",
+ "name_plain": "Netherlands",
+ "title": "Indian Plywood Exporter to the Netherlands | Cochin Wood",
+ "desc": "Import plywood from India to the Netherlands: packing, commercial and marine ply, Kochi to Rotterdam on a typical 24-30 day sail. FOB Cochin, USD quotes.",
+ "schema_name": "Indian Plywood Factory Exporting to the Netherlands",
+ "crumb_leaf": "Indian plywood exporter to the Netherlands, shipping Kochi to Rotterdam",
+ "kicker": "Export &middot; Netherlands",
+ "h1": "Indian plywood exporter to the Netherlands, shipping Kochi to Rotterdam",
+ "lede": "Packing-grade, commercial and marine plywood from Perumbavoor, Kerala, made by a group that has manufactured plywood since 1986. Quoted in USD, FOB Cochin, on a typical 24 to 30 day sail to Rotterdam.",
+ "tldr": "<strong>TL;DR:</strong> We are an Indian plywood factory, not a Dutch stockist. Packing-grade MR (IS 303), commercial and BWR panels, marine ply, boxes, crates and pallets, shipped FOB Cochin to Rotterdam on a typical 24&ndash;30 day sail. Quotes in USD within one business day. For EU-bound orders we issue species and country-of-harvest declarations with the quote and support your EUDR due diligence; the EUDR obligation itself sits on you as the importer.",
+ "ports_ship": "Rotterdam",
+ "faq": [
+  [
+   "How long does shipping take from Kochi to Rotterdam?",
+   "A typical 24 to 30 days port to port &mdash; an Atlantic crossing ending in a wet European arrival. Add production and stuffing time at our end, plus your own clearance and haulage, to plan door to door."
+  ],
+  [
+   "Do you quote FOB Cochin or CIF Rotterdam?",
+   "Both. FOB Cochin is the default; CIF Rotterdam is available on request, priced against current freight. All export quotes are issued in USD, and we reply within one business day."
+  ],
+  [
+   "Who holds the EUDR obligation, and what do you supply for it?",
+   "The obligation sits on the EU operator placing the product on the market &mdash; typically you, the importer. Our job is to make your due-diligence statement possible: species and country of harvest for the timber in the panel, faces and cores both, issued with the quote, plus legality documentation for harvest and trade in the country of origin. Application is phased in by operator size, so check the current dates for your own company category."
+  ],
+  [
+   "Is your plywood FSC certified?",
+   "We do not hold one certification that covers everything we sell &mdash; each mill holds its own licences. FSC is voluntary, and a claim is only valid if every link in the chain holds a chain-of-custody certificate and the claim appears on the sales documents with a code you can verify in the FSC public database. If your tender needs FSC chain of custody, tell us at enquiry: it decides which mill your order is placed with, and it cannot be added after the panels are pressed."
+  ],
+  [
+   "What face veneer should I specify for a Dutch buyer?",
+   "Okoume or birch. European inspectors are stricter on face-veneer cosmetic defects than Middle East or African inspectors, and gurjan-faced packing crates have been flagged at Rotterdam for a splinter-prone surface that would have cleared Jebel Ali without comment."
+  ],
+  [
+   "Does plywood from India need ISPM-15 treatment for the Netherlands?",
+   "Plywood panels are processed wood and exempt from ISPM-15, so bare sheets need no heat-treatment stamp. Solid-wood packaging is different: ours is heat-treated at registered facilities and stencilled with the IPPC mark, country code IN, treatment code HT and the registered facility number. Methyl bromide is the other approved treatment, but it is being phased out in most EU destinations, so we default to heat treatment."
+  ]
+ ],
+ "faq_boiler": [
+  "warehouse"
+ ],
+ "cta_h2": "Get a Netherlands quote within one business day",
+ "cta_p": "Send thickness, sheet size, grade, quantity and whether you want FOB Cochin or CIF Rotterdam. A written USD quote comes back within one business day. sales@cochinwood.in or WhatsApp +91 95674 10175."
+}
