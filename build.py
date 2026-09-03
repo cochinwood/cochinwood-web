@@ -22,6 +22,101 @@ WARNINGS = []
 def warn(msg):
     if msg not in WARNINGS: WARNINGS.append(msg)
 
+# ---------------- WHERE THE COMPANY SHIPS: one list, one place ----------------
+#
+# content/export-markets.json is the ONLY place the country list, the country
+# count and the continent count are written down. Every page that states or
+# implies where Cochin Wood ships now carries a token instead of a typed number
+# or a typed list, and this block expands them at write() time.
+#
+# WHY IT EXISTS. Before this the same fact was typed out in a dozen places --
+# the /about FAQ, the Organization schema's areaServed, the home trust strip,
+# /export-process, /faq, /industries, /marine-plywood, four product and
+# capability pages and two meta descriptions -- and no two agreed. The audit of
+# 2 Sep 2026 found the ruled list in exactly one of them. Copy said "five
+# continents", the schema named three countries, /export-process dropped Kuwait
+# and Bahrain, and four pages sold "Southeast Asia" as a region rather than
+# naming the markets in it. A sixth version of the list is now impossible to
+# create by editing copy, because the copy no longer has a list in it to edit.
+#
+# tools/check_site.py independently derives the continent count from the FAQ
+# answer's own words and enforces it against every page's copy, so the data and
+# the prose are checked against each other on every run rather than trusted.
+EXPORT_MARKETS_SRC = os.path.join("content", "export-markets.json")
+
+def _load_export_markets():
+    fp = os.path.join(ROOT, EXPORT_MARKETS_SRC)
+    if not os.path.exists(fp):
+        warn(f"{EXPORT_MARKETS_SRC} is missing -- every page's export-market claim, the "
+             f"Organization schema's areaServed and the continent count all come from it")
+        return {"domestic": {"name": "India", "iso": "IN"}, "groups": []}
+    return json.load(open(fp, encoding="utf-8"))
+
+EXPORT_MARKETS = _load_export_markets()
+
+def _prose(c):    return c.get("prose") or c["name"]
+def _oxford(xs):
+    """a, b and c -- the house style everywhere else on the site."""
+    xs = list(xs)
+    if not xs: return ""
+    if len(xs) == 1: return xs[0]
+    return ", ".join(xs[:-1]) + " and " + xs[-1]
+
+EXPORT_GROUPS    = EXPORT_MARKETS.get("groups", [])
+EXPORT_COUNTRIES = [c for g in EXPORT_GROUPS for c in g.get("countries", [])]
+EXPORT_ISO       = ([EXPORT_MARKETS["domestic"]["iso"]]
+                    + [c["iso"] for c in EXPORT_COUNTRIES])
+CONTINENT_COUNT  = len(EXPORT_GROUPS)
+_NUMWORD = {1: "one", 2: "two", 3: "three", 4: "four",
+            5: "five", 6: "six", 7: "seven", 8: "eight"}
+
+def _group_phrase(g):
+    names = _oxford(_prose(c) for c in g.get("countries", []))
+    # "Australia in Australia" is silly, and naming Oceania alongside Australia
+    # would count that one continent twice in check_site.py -- see the JSON's
+    # _why_no_oceania note. The flag is set on that group and only that group.
+    if g.get("sole_country_is_the_continent"): return names
+    return f"{names} in {g['continent']}"
+
+def _export_sentence():
+    if not EXPORT_GROUPS: return ""
+    dom = EXPORT_MARKETS["domestic"]["name"]
+    return (f"We supply {dom} domestically and export to "
+            + "; ".join(_group_phrase(g) for g in EXPORT_GROUPS[:-1])
+            + "; and " + _group_phrase(EXPORT_GROUPS[-1]) + ".")
+
+# Named for use INSIDE build.py's own f-strings. A {{CWI_...}} token written in
+# an f-string collapses to single braces before write() ever sees it, so the
+# token silently ships to the page -- which is exactly what happened to the home
+# trust strip on the first cut of this. Interpolate these instead; the tokens are
+# for the content files, which are not f-strings.
+N_EXPORT_COUNTRIES = str(len(EXPORT_COUNTRIES))
+N_CONTINENTS_WORD  = _NUMWORD.get(CONTINENT_COUNT, str(CONTINENT_COUNT))
+
+CANON = {
+    "{{CWI_EXPORT_MARKETS}}":       _export_sentence(),
+    "{{CWI_EXPORT_COUNTRY_LIST}}":  _oxford(_prose(c) for c in EXPORT_COUNTRIES),
+    "{{CWI_EXPORT_COUNTRY_COUNT}}": N_EXPORT_COUNTRIES,
+    "{{CWI_EXPORT_CONTINENTS}}":    N_CONTINENTS_WORD,
+}
+
+# Both brace depths on purpose: `{{CWI_X}}` is an unknown token, and `{CWI_X}` is
+# a known one that an f-string ate on the way here. Either would reach a buyer as
+# literal braces, and neither is visible to check_site.py.
+_UNEXPANDED = re.compile(r"\{\{?CWI_[A-Z_]+\}?\}")
+
+def expand_canon(text, where=""):
+    """Substitute the canonical export-market tokens. Called from write(), so it
+    reaches page copy, meta descriptions and JSON-LD alike from one place."""
+    for tok, val in CANON.items():
+        if tok in text: text = text.replace(tok, val)
+    left = _UNEXPANDED.search(text)
+    if left:
+        warn(f"{where or '(output)'} still contains {left.group(0)} -- either the token is not "
+             f"in build.py's CANON map or an f-string halved its braces; the page would ship "
+             f"the literal braces to a buyer")
+    return text
+
 # Legacy Zoho slugs that inbound links, old sitemaps and in-content cross-links
 # still point at. Rewritten in content at build time AND served as 301s so
 # external inbound links keep their SEO value.
@@ -335,8 +430,15 @@ def footer():
 
 OG_IMAGE = LIVE + "/assets/og/cwi-og-share-1200x630.png"   # 1200x630 share card
 
+# areaServed is the machine-readable half of the same fact the copy states, so
+# it comes off the same list. It used to read ["IN","AE","VN"] on all 233 pages
+# -- India, the UAE and Vietnam -- which told Google the company serves three
+# countries while the page beside it claimed five continents. ISO 3166-1
+# alpha-2, one code per market, India first.
+AREA_SERVED = json.dumps(EXPORT_ISO, separators=(",", ":"))
+
 ORG_SCHEMA = '''<script type="application/ld+json">
-{"@context":"https://schema.org","@type":["Organization","LocalBusiness"],"@id":"https://www.cochinwood.in/#organization","name":"Cochin Wood Industries","url":"https://www.cochinwood.in/","logo":"https://www.cochinwood.in/assets/logo.png","image":"https://www.cochinwood.in/assets/logo.png","email":"sales@cochinwood.in","telephone":"+919567410175","address":{"@type":"PostalAddress","streetAddress":"Kuruppampady","addressLocality":"Ernakulam","addressRegion":"Kerala","postalCode":"683545","addressCountry":"IN"},"parentOrganization":{"@type":"Organization","name":"Cochin Wood Group","foundingDate":"1986"},"areaServed":["IN","AE","VN"],"description":"Plywood manufacturer in Kochi, Kerala - packing, Okoume, marine and film-faced shuttering plywood, sawn timber and export crates."}
+{"@context":"https://schema.org","@type":["Organization","LocalBusiness"],"@id":"https://www.cochinwood.in/#organization","name":"Cochin Wood Industries","url":"https://www.cochinwood.in/","logo":"https://www.cochinwood.in/assets/logo.png","image":"https://www.cochinwood.in/assets/logo.png","email":"sales@cochinwood.in","telephone":"+919567410175","address":{"@type":"PostalAddress","streetAddress":"Kuruppampady","addressLocality":"Ernakulam","addressRegion":"Kerala","postalCode":"683545","addressCountry":"IN"},"parentOrganization":{"@type":"Organization","name":"Cochin Wood Group","foundingDate":"1986"},"areaServed":''' + AREA_SERVED + ''',"description":"Plywood manufacturer in Kochi, Kerala - packing, Okoume, marine and film-faced shuttering plywood, sawn timber and export crates."}
 </script>'''
 
 # Fonts used above the fold on every page — preloaded so the header does not reflow.
@@ -451,7 +553,7 @@ def product_schema(slug):
             "offers": {"@type": "Offer", "url": LIVE + "/contact",
                        "priceCurrency": "INR",
                        "availability": "https://schema.org/InStock",
-                       "areaServed": ["IN", "AE", "VN"],
+                       "areaServed": EXPORT_ISO,
                        "seller": {"@id": LIVE + "/#organization"}}}
     return ('<script type="application/ld+json">'
             + json.dumps(data, separators=(",", ":")) + '</script>')
@@ -530,6 +632,11 @@ def write(path, content, src=None):
     # <slug>.html. Only the site root keeps index.html.
     if path.endswith("/index.html"):
         path = path[:-len("/index.html")] + ".html"
+    # The single choke point for the canonical export-market list. Every byte
+    # this build emits passes through here, so page copy, meta descriptions and
+    # JSON-LD all get the same expansion from the same data with no call site
+    # able to forget.
+    content = expand_canon(content, path)
     fp = os.path.join(DIST, path)
     os.makedirs(os.path.dirname(fp) or DIST, exist_ok=True)
     # newline pinned: in text mode a Windows build silently CRLFs every emitted
@@ -567,7 +674,7 @@ def home():
   <div class="cw-hero__cta"><a class="cw-btn cw-btn--p" href="{u('/contact')}">Request a quote</a><a class="cw-btn cw-btn--g" href="{u('/products')}">See the range</a></div>
   <div class="cw-hero__strip">
     <div><b>40+ yrs</b><span>Group manufacturing since 1986</span></div>
-    <div><b>Pan-India</b><span>Delivery + export (UAE, Vietnam)</span></div>
+    <div><b>Pan-India</b><span>Delivery + export to {N_EXPORT_COUNTRIES} countries</span></div>
     <div><b>IS 710 / 303</b><span>Boil-proof &amp; MR grades</span></div>
   </div>
 </div></section>
@@ -1044,19 +1151,24 @@ def build_content_pages():
 # text is derived from `a`; `schema: null` marks the one question live displays
 # but never listed in its FAQPage block.
 #
-# THE ONE ANSWER THAT CHANGED is "Which export markets do you currently ship to?".
-# Live answers it twice and the two disagree -- the visible list named Bangladesh,
-# Malaysia, Singapore, Vietnam, Maldives, Mauritius, Tanzania, Australia, Germany
-# and the UK and no Americas at all, while the JSON-LD named the GCC, Turkey,
-# three African markets, the Netherlands, four North American markets and Chile.
-# Edwin ruled on 1 Sep 2026 that the JSON-LD list is the correct one: the visible
-# list named markets we do not serve and omitted the Americas, where we do. That
-# one text now serves both, so the page cannot contradict itself on it, and the
-# list spans Asia, Africa, Europe, North and South America -- which is what makes
-# the "five continents" claim on /about, /industries and /marine-plywood true.
-# tools/check_site.py derives the continent count from this answer; moving the
-# number without the list, or the list without the number, is what that check
-# exists to stop.
+# THE ONE ANSWER THAT IS NOT TYPED OUT HERE is "Which export markets do you
+# currently ship to?". Live answers it twice and the two disagree -- the visible
+# list named Bangladesh, Malaysia, Singapore, Vietnam, Maldives, Mauritius,
+# Tanzania, Australia, Germany and the UK and no Americas at all, while the
+# JSON-LD named the GCC, Turkey, three African markets, the Netherlands, four
+# North American markets and Chile. On 1 Sep 2026 the JSON-LD list was picked
+# and written into content/about-faq.json (commit 4e9f3253); Edwin overruled that
+# on 2 Sep 2026 -- the visible list was the MORE complete of the two, and Israel
+# and Vietnam were on neither, so the truth is the union of both plus those two:
+# 28 countries across six continents.
+#
+# So the answer is no longer typed into content/about-faq.json at all. Both its
+# visible and its schema copy carry {{CWI_EXPORT_MARKETS}}, which write() expands
+# from content/export-markets.json -- one list, one place, and the page cannot
+# contradict itself because both halves are the same substitution.
+# tools/check_site.py derives the continent count from this answer's own words
+# and enforces it against every page's copy; moving the number without the list,
+# or the list without the number, is what that check exists to stop.
 #
 # Presentation is the build's own .cwg__faq/.cwg__faq-item, already in the CSS
 # bundle and already used by the nine /export lanes -- for the reason

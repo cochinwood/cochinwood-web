@@ -1,7 +1,7 @@
 {
  "": {
   "title": "Plywood Manufacturer in Kerala | Cochin Wood Group Since 1986",
-  "desc": "Marine, shuttering and engineered plywood — manufactured by the Cochin Wood group in Perumbavoor, Kerala since 1986. Exported to five continents.",
+  "desc": "Marine, shuttering and engineered plywood — manufactured by the Cochin Wood group in Perumbavoor, Kerala since 1986. Exported to {{CWI_EXPORT_CONTINENTS}} continents.",
   "canonical": "https://www.cochinwood.in/",
   "og_image": "https://www.cochinwood.in/files/Logo/og/og-home.jpg"
  },
@@ -13,7 +13,7 @@
  },
  "about": {
   "title": "About Cochin Wood Industries — 40 Years of Group Heritage",
-  "desc": "Forty years of group plywood manufacturing in Perumbavoor, Kerala — our group's 1986 origins grew into a 20-product catalogue exported to five continents.",
+  "desc": "Forty years of group plywood manufacturing in Perumbavoor, Kerala — our group's 1986 origins grew into a 20-product catalogue exported to {{CWI_EXPORT_CONTINENTS}} continents.",
   "canonical": "https://www.cochinwood.in/about",
   "og_image": "https://www.cochinwood.in/files/Logo/og/og-about.jpg"
  },
@@ -193,7 +193,7 @@
  },
  "plywood-manufacturer-india": {
   "title": "Plywood Supplier in India — Pan-India Dispatch from Kerala",
-  "desc": "Plywood supplied across India: packing, commercial, marine and shuttering grades from Kerala. Pan-India dispatch, GCC and Sri Lanka export. Request a quote.",
+  "desc": "Plywood supplied across India: packing, commercial, marine and shuttering grades from Kerala. Pan-India dispatch, export to {{CWI_EXPORT_COUNTRY_COUNT}} countries. Request a quote.",
   "canonical": "https://www.cochinwood.in/plywood-manufacturer-india",
   "og_image": "https://www.cochinwood.in/cwi-og-share-1200x630.png"
  },

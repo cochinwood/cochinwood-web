@@ -56,9 +56,10 @@
       "schema": "Standard products transact on 50% advance, balance before dispatch; custom production on 100% advance - by bank transfer (T/T). We do not transact on open account."
     },
     {
+      "_answer_note": "THE LIST IS NOT TYPED HERE, ON PURPOSE. It lives in content/export-markets.json and build.py substitutes it into the visible answer and the FAQPage schema from that one file, so the two halves of this page can never disagree and a won or lost market is one edit, not twelve. On 1 Sep 2026 this answer was set to live's incomplete JSON-LD list (commit 4e9f3253); Edwin overruled that on 2 Sep 2026 - the canonical list is the union of both of live's lists plus Israel and Vietnam, 28 countries across six continents. tools/check_site.py reads this answer to derive the continent count it then enforces on every page.",
       "q": "Which export markets do you currently ship to?",
       "a": [
-        "We supply India domestically and export to Sri Lanka, Turkey and the GCC (the UAE, Saudi Arabia, Qatar, Oman, Kuwait and Bahrain) in Asia; South Africa, Nigeria and Kenya in Africa; the Netherlands in Europe; the United States, Haiti, Puerto Rico and the Dominican Republic in North America; and Chile in South America."
+        "{{CWI_EXPORT_MARKETS}}"
       ]
     },
     {

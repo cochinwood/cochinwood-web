@@ -1,0 +1,80 @@
+{
+  "_what": "THE canonical list of where Cochin Wood Industries ships. Ruled by Edwin, the owner, on 2 September 2026. This file is the ONLY place the list, the country count and the continent count are written down. build.py reads it, derives every number and every sentence from it, and substitutes them into the pages through the {{CWI_...}} tokens listed in _tokens. If a market is won or lost, edit THIS FILE and nothing else.",
+
+  "_history": "Two earlier lists disagreed. The visible copy on live /about named Bangladesh, Malaysia, Singapore, Vietnam, Maldives, Mauritius, Tanzania, Australia, Germany and the UK and no Americas; the JSON-LD on the same page named the GCC, Turkey, three African markets, the Netherlands, four North American markets and Chile. On 1 Sep 2026 the JSON-LD list was picked and written into content/about-faq.json (commit 4e9f3253). That was WRONG: the visible list was the more complete one, and Israel and Vietnam were on neither. The truth is the UNION of the two plus those two, which is what is below.",
+
+  "_tokens": {
+    "{{CWI_EXPORT_MARKETS}}": "the whole answer sentence, India included -- what /about's export-markets FAQ says in both its visible and its schema copy",
+    "{{CWI_EXPORT_COUNTRY_LIST}}": "the 28 export countries in prose, no leading verb and no full stop",
+    "{{CWI_EXPORT_COUNTRY_COUNT}}": "28",
+    "{{CWI_EXPORT_CONTINENTS}}": "the continent count as a word -- 'six'"
+  },
+
+  "_why_no_oceania": "READ THIS BEFORE RENAMING THE LAST GROUP. tools/check_site.py derives the canonical continent count by counting how many names from its own CONTINENTS list appear in the export-market answer, and that list holds BOTH 'Oceania' AND 'Australia' so either naming convention is accepted. Naming both in one sentence therefore counts the same continent twice and would make the derived count seven, at which point every page on the site would be required to claim seven continents. So the sixth group is called Australia -- which is a standard name for that continent -- and the word Oceania is deliberately kept out of the generated prose. `sole_country_is_the_continent` is what tells build.py to write 'and Australia' rather than 'Australia in Australia'.",
+
+  "domestic": { "name": "India", "iso": "IN" },
+
+  "groups": [
+    {
+      "continent": "Asia",
+      "countries": [
+        { "name": "Sri Lanka",    "iso": "LK" },
+        { "name": "Turkey",       "iso": "TR" },
+        { "name": "UAE",          "iso": "AE", "prose": "the UAE" },
+        { "name": "Saudi Arabia", "iso": "SA" },
+        { "name": "Qatar",        "iso": "QA" },
+        { "name": "Oman",         "iso": "OM" },
+        { "name": "Kuwait",       "iso": "KW" },
+        { "name": "Bahrain",      "iso": "BH" },
+        { "name": "Israel",       "iso": "IL" },
+        { "name": "Vietnam",      "iso": "VN" },
+        { "name": "Bangladesh",   "iso": "BD" },
+        { "name": "Malaysia",     "iso": "MY" },
+        { "name": "Singapore",    "iso": "SG" },
+        { "name": "Maldives",     "iso": "MV", "prose": "the Maldives" }
+      ]
+    },
+    {
+      "continent": "Africa",
+      "countries": [
+        { "name": "South Africa", "iso": "ZA" },
+        { "name": "Nigeria",      "iso": "NG" },
+        { "name": "Kenya",        "iso": "KE" },
+        { "name": "Tanzania",     "iso": "TZ" },
+        { "name": "Mauritius",    "iso": "MU" }
+      ]
+    },
+    {
+      "continent": "Europe",
+      "countries": [
+        { "name": "Netherlands",    "iso": "NL", "prose": "the Netherlands" },
+        { "name": "Germany",        "iso": "DE" },
+        { "name": "United Kingdom", "iso": "GB", "prose": "the United Kingdom" }
+      ]
+    },
+    {
+      "continent": "North America",
+      "countries": [
+        { "name": "United States",      "iso": "US", "prose": "the United States" },
+        { "name": "Haiti",              "iso": "HT" },
+        { "name": "Puerto Rico",        "iso": "PR" },
+        { "name": "Dominican Republic", "iso": "DO", "prose": "the Dominican Republic" }
+      ]
+    },
+    {
+      "continent": "South America",
+      "_note": "Chile is the whole of it. check_site.py fails the build if the answer claims South America without naming Chile -- the Caribbean lanes above are NORTH America and reading them as South is what produced the earlier false continent count.",
+      "countries": [
+        { "name": "Chile", "iso": "CL" }
+      ]
+    },
+    {
+      "continent": "Australia",
+      "also_known_as": "Oceania",
+      "sole_country_is_the_continent": true,
+      "countries": [
+        { "name": "Australia", "iso": "AU" }
+      ]
+    }
+  ]
+}
