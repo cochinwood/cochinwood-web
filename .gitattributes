@@ -1,0 +1,16 @@
+# THE BEACON IS SERVED VERBATIM, SO GIT MUST NOT REWRITE ITS LINE ENDINGS.
+# assets/cw-events.js is a byte-for-byte carry of what cf-live serves at
+# /js/cw-events.js, and build.py hashes the working-tree bytes to name it
+# /assets/cw-events.<hash>.js. This machine has core.autocrlf=true, which is why
+# every other tracked text asset in this checkout is CRLF in the working tree
+# while its blob is LF: a fresh Windows clone would therefore serve a
+# 6,194-byte CRLF beacon under a different hash from CI's 6,080-byte LF one --
+# the same file, two URLs, and neither of them matching what production serves
+# today. -text pins it.
+#
+# DELIBERATELY SCOPED TO THIS ONE FILE. assets/site.js and the six CSS bundle
+# sources have the same problem and it is older than this line; widening the
+# rule changes their bytes, therefore the bundle hash, therefore every page,
+# and that is a content change for the owner to approve rather than a fix to
+# smuggle in beside a beacon.
+/assets/cw-events.js -text
