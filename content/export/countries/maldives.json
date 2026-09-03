@@ -1,0 +1,44 @@
+{
+ "_note": "NOT YET WIRED. export_section.py::_load() reads content/export/export.json only; it does not read this directory, so this lane does not build yet. To ship it: append this object (minus the keys prefixed with _) to `countries` in export.json and add its slug to shared.related.order, OR extend _load() to merge content/export/countries/*.json into data['countries']. Deliberately NO `import` block: import_essentials() takes customs_duty from shared.import, which reads '5% GCC Common External Tariff', and the duty/standards/documents faq_templates are GCC-worded too. Giving a non-GCC lane that block would print a wrong tariff. The import table for this lane lives in <slug>.body.html instead, the way Sri Lanka and Israel carry theirs in prose.",
+ "slug": "maldives",
+ "name_the": "the Maldives",
+ "name_plain": "the Maldives",
+ "title": "Indian Plywood Exporter to the Maldives — FOB Cochin",
+ "desc": "Plywood exporter to the Maldives — IS 710 marine, BWR and Okoume-faced panels from Kochi, India. FOB Cochin, USD quotes, short sea lane. Request a quote.",
+ "schema_name": "Indian Plywood Factory Exporting to the Maldives",
+ "crumb_leaf": "Plywood exporter to the Maldives: marine, BWR and Okoume-faced panels from Kochi",
+ "kicker": "Export — the Maldives",
+ "h1": "Plywood exporter to the Maldives: marine, BWR and Okoume-faced panels from Kochi",
+ "lede": "Island work is bought by sea and used in humidity, so the bond matters more here than on a dry inland job. We press IS 710 BWP marine plywood, BWR board and calibrated Okoume-faced panels in Perumbavoor, Kerala, 40&nbsp;km from Cochin Port, and quote FOB Cochin in USD.",
+ "tldr": "<strong>In short:</strong> Cochin Wood Industries is a plywood manufacturer in Kerala, India, shipping to the Maldives on a short sea lane. IS 710 BWP <a href=\"/marine-plywood\">marine plywood</a> for boat work and wet areas, <a href=\"/bwr-hardwood-plywood\">BWR</a> for interiors, calibrated Okoume-faced panels for fit-out, film-faced ply for formwork. USD quotes, FOB Cochin, replies within one business day.",
+ "ports_ship": "the discharge port you nominate",
+ "faq": [
+  [
+   "What HS code does plywood ship under to the Maldives?",
+   "Heading 4412. The item within 4412.31, 4412.33, 4412.34 and 4412.39 turns on panel construction and individual ply thickness as well as face species, and finished cases, pallets and drums are generally considered under 4415. We state the code we ship under on the commercial invoice; your broker confirms the national line."
+  ],
+  [
+   "Which grade should I specify for a resort or jetty project?",
+   "Exposure decides it, not budget. IS 710 BWP marine plywood for boat work, jetties and wet areas; BWR for interiors and joinery that will meet moisture; MR-bonded packing plywood only for dry, one-trip use. MR is not a wet-service grade and no coating turns it into one."
+  ],
+  [
+   "Which port in the Maldives do you ship to?",
+   "The one you nominate. We sell FOB Cochin, so your forwarder books the ocean carriage and names the discharge port, and onward handling to an island site is arranged by you. Tell us the port at enquiry and it goes on the proforma invoice."
+  ],
+  [
+   "What are your payment terms for buyers in the Maldives?",
+   "50% advance with the order and the balance before dispatch for standard products; 100% advance for custom specifications. Payment is by bank transfer (T/T), and quotes are in USD."
+  ]
+ ],
+ "faq_boiler": [
+  "warehouse"
+ ],
+ "cta_h2": "Get a Maldives quote",
+ "cta_p": "Send thickness, sheet size, grade and quantity, and tell us where the panels will be used. A USD FOB Cochin quotation comes back within one business day. sales@cochinwood.in — +91 95674 10175.",
+ "_to_confirm": [
+  "Maldivian customs duty and GST rates",
+  "the Maldives' conformity requirement for imported plywood",
+  "typical Cochin-Maldives sailing time",
+  "the default discharge port for this lane"
+ ]
+}

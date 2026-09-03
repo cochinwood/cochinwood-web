@@ -1,0 +1,43 @@
+{
+ "_note": "NOT YET WIRED. export_section.py::_load() reads content/export/export.json only; it does not read this directory, so this lane does not build yet. To ship it: append this object (minus the keys prefixed with _) to `countries` in export.json and add its slug to shared.related.order, OR extend _load() to merge content/export/countries/*.json into data['countries']. Deliberately NO `import` block: import_essentials() takes customs_duty from shared.import, which reads '5% GCC Common External Tariff', and the duty/standards/documents faq_templates are GCC-worded too. Giving a non-GCC lane that block would print a wrong tariff. The import table for this lane lives in <slug>.body.html instead, the way Sri Lanka and Israel carry theirs in prose.",
+ "slug": "singapore",
+ "name_the": "Singapore",
+ "name_plain": "Singapore",
+ "title": "Indian Plywood Exporter to Singapore — FOB Cochin",
+ "desc": "Plywood exporter to Singapore — BWR and IS 710 BWP panels from Kochi, India. Cochin to Singapore 8-12 days, FOB Cochin, USD quotes. Request a quote.",
+ "schema_name": "Indian Plywood Factory Exporting to Singapore",
+ "crumb_leaf": "Plywood exporter to Singapore: an 8-12 day lane, and cargo that keeps going",
+ "kicker": "Export — Singapore",
+ "h1": "Plywood exporter to Singapore: an 8-12 day lane, and cargo that keeps going",
+ "lede": "Cochin to Singapore is 8 to 12 days port to port, hot and humid the whole way, and much of what lands there ships on again. That is a bond-specification conversation before it is a price one. We press the panels in Perumbavoor, Kerala and quote FOB Cochin in USD.",
+ "tldr": "<strong>In short:</strong> Cochin Wood Industries is a plywood manufacturer in Kerala, India. Cochin to Singapore is 8 to 12 days on a hot, humid lane, so <a href=\"/bwr-hardwood-plywood\">BWR</a> is our baseline for general cargo and IS 710 BWP <a href=\"/marine-plywood\">marine plywood</a> for anything trans-shipping onward. USD quotes, FOB Cochin, replies within one business day.",
+ "ports_ship": "Singapore",
+ "faq": [
+  [
+   "How long does shipping take from Cochin to Singapore?",
+   "8 to 12 days port to port for a full container load. The lane is hot, humid and tropical, which is why BWR is our baseline recommendation on it for general cargo. Add your own clearance and haulage to plan door to door."
+  ],
+  [
+   "Which grade should I specify if the cargo trans-ships onward from Singapore?",
+   "A boil-proof bond. The panel has to survive the leg after Singapore as well as the leg to it, and the rule our packing operators use is that under ten days in a dry lane BWR is enough, while over twenty days, or anything routed through monsoon Southeast Asia, calls for BWP unless the cargo is low-value and replaceable."
+  ],
+  [
+   "What holds a wood-packaging shipment at Singapore?",
+   "Documentation more often than treatment. A discrepancy between the phytosanitary paperwork and the facility number in the physical stamp holds the box pending clarification, typically 48 to 72 hours. Send your customs broker's checklist when you confirm the order and we will make the documents and the marks agree before the container sails."
+  ],
+  [
+   "What are your payment terms for buyers in Singapore?",
+   "50% advance with the order and the balance before dispatch for standard products; 100% advance for custom specifications. Payment is by bank transfer (T/T), and quotes are in USD."
+  ]
+ ],
+ "faq_boiler": [
+  "hs",
+  "warehouse"
+ ],
+ "cta_h2": "Get a Singapore quote",
+ "cta_p": "Send thickness, sheet size, bond and monthly quantity — and tell us where the cargo goes after Singapore. A USD FOB Cochin quotation comes back within one business day. sales@cochinwood.in — +91 95674 10175.",
+ "_to_confirm": [
+  "Singapore customs duty and GST position on plywood imports",
+  "Singapore's conformity requirement for imported plywood"
+ ]
+}
