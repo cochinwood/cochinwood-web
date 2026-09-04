@@ -296,12 +296,46 @@ One action: push the built tree as the contents of `cf-live`. Pages deploys the 
 `cf-live` moves; the push **is** the deploy.
 
 ```
+# 1. Move dist/ OUT of the checkout first. cf-live has no .gitignore of its own,
+#    so a dist/ sitting inside the checkout is swept up by `git add -A` below and
+#    published at /dist/*. That has happened for real - the `/dist/* / 301` rule
+#    in _redirects is the scar left by it.
+mv dist ../cwi-cutover-dist
+
+# 2. Land on the branch Pages deploys, and write down where to roll back to.
 git checkout cf-live && git pull --ff-only
 git rev-parse HEAD                    # record this - it is your git-side rollback point
-# replace the tracked tree with dist/, keeping .git, then:
+
+# 3. Replace the tracked tree with dist/, keeping .git. Three commands, this order.
+git rm -r --quiet -f .                # every tracked file, index and worktree; .git untouched
+git clean -qfdx                       # untracked leftovers: cf-live has no .gitignore, so a
+                                      # stray __pycache__/ WILL be committed otherwise (measured)
+cp -a ../cwi-cutover-dist/. .         # the trailing "/." is what carries the dot-paths
+
+# 4. Look before you commit. All three must hold.
+git ls-files | wc -l                                            # 607 - the build banner's "files:" count
+test -f .github/workflows/site-checks.yml && echo "gate carried"
+test -f .nojekyll && echo "nojekyll carried"
+
 git add -A && git commit -m "Publish the reviewed build (eaa832da) as the served tree"
 git push origin cf-live
 ```
+
+> **`cp -r dist/* .` is the wrong command, and it fails silently.** A shell glob never matches a
+> leading dot, so it copies **605 of dist/'s 607 files** (measured 4 Sep 2026 against this build)
+> and drops exactly the two the cutover depends on:
+>
+> - `.github/workflows/site-checks.yml` — without it this very push **deletes** cf-live's required
+>   check `The site says one thing`. The check cannot run on the push that removed it, every later
+>   publish repeats the removal, and nothing anywhere reports that the gate has gone.
+> - `.nojekyll` — committed on cf-live and served today (`/.nojekyll` answers **200**, probed
+>   4 Sep 2026). It is what keeps the underscore-prefixed paths — `_headers` and `_redirects`,
+>   i.e. the CSP and all 108 redirect rules — from being dropped on the GitHub Pages deploy path
+>   this repo also builds for. Dropping a file the reviewed dist/ contains is a difference the
+>   preflight has already signed off on and cannot re-check after the copy.
+>
+> `cp -a dist/. .` copies all 607, dot-entries included; `git ls-files | wc -l` reading 607 after
+> step 4 is the proof, and it is the number to check rather than the copy's own silence.
 
 `cf-live` requires the `The site says one thing` check to pass. Let it run. **Do not bypass it**
 — the admin bypass exists so a broken checker cannot stop a *rollback*, not so it can wave a
