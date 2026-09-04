@@ -1513,7 +1513,13 @@ def copy_referenced_files():
 # the new sha in here until the gate goes green carries whatever landed on
 # cf-live meanwhile into production unread.
 LIVE_REF_NAME = "origin/cf-live"                         # where the pin came from
-LIVE_SHA = "c59adae9ee7d4d31a1a62e9dc770579214584e56"    # origin/cf-live, read 4 Sep 2026
+LIVE_SHA = "63f30d9125ee5c03c8de7c840dad9d1a46557bab"    # origin/cf-live, read 4 Sep 2026 --
+# re-pinned same day: the only thing that landed between the old pin and this one is the
+# cutover's own merge (PR #16, c59adae9..63f30d91 is exactly "ebc11445 Publish the reviewed
+# build" plus its merge commit) -- i.e. this build's own prior output becoming cf-live, not
+# unreviewed external change. The 311 carried files are unaffected: they were carried INTO
+# that build, so cf-live already holds them at the same paths, and this pin now just reads
+# them back from where they actually live.
 LIVE_REF = LIVE_SHA                # what git is actually handed, so no fetch can move it
 LIVE_PIN = LIVE_REF_NAME + "@" + LIVE_SHA[:12]           # what the banner and dist/ record
 

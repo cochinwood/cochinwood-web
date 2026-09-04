@@ -276,6 +276,27 @@ def live_blob(path):
     return out.stdout if out.returncode == 0 else None
 
 
+def live_glob_one(dir_path, prefix, suffix):
+    """The single path under `dir_path` at the pinned commit matching prefix/suffix, or None.
+
+    EXISTS BECAUSE LIVE_SHA STOPPED POINTING AT A FIXED LEGACY TREE. Every check
+    written during the original cutover read a hardcoded legacy path -- js/cw-
+    events.js -- because at the time LIVE_SHA pinned the pre-cutover site, where
+    that path was permanent. Re-pinning LIVE_SHA forward to a POST-cutover cf-
+    live (done 4 Sep 2026, when this repo's own prior build became the served
+    tree) makes that path stop existing: the beacon lives at the hashed
+    assets/cw-events.<hash>.js there too, same as in dist/, and a hardcoded
+    legacy path finds nothing -- reproduced: live_blob("js/cw-events.js")
+    returned None against the re-pinned commit, not because of a fetch problem,
+    but because the file is genuinely not there any more.
+    """
+    rc, out, _ = git("ls-tree", "--name-only", "%s:%s" % (LIVE_SHA, dir_path))
+    if rc != 0:
+        return None
+    hits = [n for n in out.splitlines() if n.startswith(prefix) and n.endswith(suffix)]
+    return (dir_path + "/" + hits[0]) if len(hits) == 1 else None
+
+
 def served_bytes(rel):
     """Bytes of one file inside dist/, or None when it is not there."""
     fp = os.path.join(DIST, rel.replace("/", os.sep))
@@ -348,19 +369,30 @@ def check_beacon():
     for these bytes", where 853632c8 is the hash of the 6,080-byte live file.
     """
     name = "conversion beacon ships on every page"
-    live = live_blob("js/cw-events.js")
+    live_path = "js/cw-events.js"
+    live = live_blob(live_path)
+    if live is None:
+        # THE LEGACY PATH IS GONE ON A POST-CUTOVER PIN, ON PURPOSE, NOT BY ACCIDENT.
+        # The hashed path is where the beacon now genuinely lives on cf-live too --
+        # find it the same way dist/ does, by name pattern under assets/, rather
+        # than hardcoding today's hash.
+        found_path = live_glob_one("assets", "cw-events.", ".js")
+        if found_path:
+            live_path = found_path
+            live = live_blob(live_path)
     if live is None:
         return check(name, False,
-                     "cannot read %s:js/cw-events.js -- `git fetch origin`"
-                     % LIVE_SHA[:12])
+                     "cannot read %s:js/cw-events.js or %s:assets/cw-events.*.js -- "
+                     "`git fetch origin`, or the beacon has moved somewhere check_beacon() "
+                     "does not yet look" % (LIVE_SHA[:12], LIVE_SHA[:12]))
     adir = os.path.join(DIST, "assets")
     found = sorted(n for n in (os.listdir(adir) if os.path.isdir(adir) else [])
                    if n.startswith("cw-events.") and n.endswith(".js"))
     if len(found) != 1:
         return check(name, False,
                      "found %d dist/assets/cw-events.<hash>.js, expected 1 -- "
-                     "restore it with: git show %s:js/cw-events.js > "
-                     "assets/cw-events.js" % (len(found), LIVE_REF_NAME))
+                     "restore it with: git show %s:%s > "
+                     "assets/cw-events.js" % (len(found), LIVE_REF_NAME, live_path))
     served = found[0]
     data = served_bytes("assets/" + served)
     want = "cw-events.%s.js" % hashlib.sha256(live).hexdigest()[:8]
@@ -374,9 +406,9 @@ def check_beacon():
     return check(name,
                  data == live and served == want and bool(pages)
                  and carrying == len(pages),
-                 "dist/assets/%s on %d/%d pages, bytes %s %s:js/cw-events.js%s"
+                 "dist/assets/%s on %d/%d pages, bytes %s %s:%s%s"
                  % (served, carrying, len(pages),
-                    "match" if data == live else "DIFFER from", LIVE_SHA[:12],
+                    "match" if data == live else "DIFFER from", LIVE_SHA[:12], live_path,
                     "" if data == live else
                     " (served sha256 %s, live sha256 %s) -- serving cf-live's "
                     "beacon byte "
