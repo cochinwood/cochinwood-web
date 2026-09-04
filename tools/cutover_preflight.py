@@ -89,8 +89,8 @@ LIVE_PIN = _build.LIVE_PIN   # "origin/cf-live@<12>", for anything a human reads
 CARRIED_WORKFLOW = _build.CARRIED_WORKFLOW
 CARRIED_ROOT_FILES = _build.CARRIED_ROOT_FILES
 
-# build.py:134 defaults MIRROR_DIR to a SIBLING checkout of a different repo
-# (../cochinwood-site) and uses it as a photo root at build.py:135. That makes
+# build.py:273 defaults MIRROR_DIR to a SIBLING checkout of a different repo
+# (../cochinwood-site) and uses it as a photo root at build.py:274. That makes
 # the build's output a function of where the checkout sits on disk. Pin it, so
 # this script compares commits rather than directory layouts.
 MIRROR = os.environ.get("MIRROR_DIR",
@@ -732,7 +732,7 @@ def main():
             check("HEAD publishes the reviewed bytes", False,
                   "HEAD=%s is NOT a descendant of %s" % (head[:12], want[:12]))
         else:
-            # OUTSIDE ROOT, deliberately. build.py:134 resolves MIRROR_DIR from
+            # OUTSIDE ROOT, deliberately. build.py:273 resolves MIRROR_DIR from
             # the PARENT of the checkout, so where the baseline sits on disk is
             # an input to the build. Both builds also get MIRROR_DIR pinned to
             # the same absolute path below, so the comparison measures the
@@ -917,21 +917,52 @@ def main():
     #    everywhere". Simulating `git add` here rather than trusting build.py to
     #    have normalised is deliberate: the check must be able to fail if a
     #    future write site forgets lf(), which is exactly how this arrived.
+    #
+    #    REPORT THE SCOPE ACTUALLY INSPECTED, NOT THE SIZE OF dist/. This slot
+    #    used to format len(second) -- all 607 files -- into a sentence that
+    #    says "text file(s) LF-clean", overstating what was examined by the 340
+    #    binaries the loop skips on the line below. A check that misreports its
+    #    own scope is how an unexamined canary starts: the reader who trusts
+    #    "607 text files" has been told the binaries were vetted for line
+    #    endings, and they were not, correctly, because git does not convert
+    #    them either.
+    #
+    #    AND FAIL, RATHER THAN PASS, ON AN EMPTY TEXT SET. `not renormalised` is
+    #    true of a dist/ with no text files in it at all, so the check as written
+    #    passed vacuously: a certifier running against a dist/ that a concurrent
+    #    build had emptied read `PASS ... 0 text file(s) LF-clean` and a roster
+    #    of 14 rather than 17 checks. Nothing was wrong with the commit, and the
+    #    green line said so about a directory that had nothing in it. A vacuous
+    #    pass on the LF check is the exact shape of the canary this round was
+    #    convened to remove, so an empty text set is now a failure and names
+    #    itself as one.
     renormalised = []
+    text_files = binary_files = 0
     for rel in sorted(second):
         with open(os.path.join(DIST, rel), "rb") as fh:
             raw = fh.read()
         if b"\x00" in raw[:8000]:
-            continue                      # git calls it binary and leaves it
+            binary_files += 1             # git calls it binary and leaves it
+            continue
+        text_files += 1
         if b"\r\n" in raw:
             renormalised.append((rel, len(raw), len(raw.replace(b"\r\n", b"\n"))))
-    check("git add -A would change nothing in dist/", not renormalised,
-          "%d text file(s) LF-clean" % len(second) if not renormalised else
-          "%d file(s) would be rewritten by the index, e.g. %s -- these are the "
-          "bytes the operator would publish INSTEAD of the ones reviewed here. "
-          "Fix build.py's write site (see lf() in build.py), not cf-live"
-          % (len(renormalised),
-             "; ".join("%s %d->%d" % r for r in renormalised[:3])))
+    if not text_files:
+        check("git add -A would change nothing in dist/", False,
+              "0 text file(s) inspected out of %d file(s) in dist/ -- this check "
+              "asserts NOTHING about an empty text set and must not report that "
+              "as clean. Either dist/ is missing or a concurrent build emptied "
+              "it; rebuild and re-run" % len(second))
+    else:
+        check("git add -A would change nothing in dist/", not renormalised,
+              "%d text file(s) LF-clean, %d binary skipped"
+              % (text_files, binary_files) if not renormalised else
+              "%d of %d text file(s) would be rewritten by the index, e.g. %s -- "
+              "these are the bytes the operator would publish INSTEAD of the ones "
+              "reviewed here. Fix build.py's write site (see lf() in build.py), "
+              "not cf-live"
+              % (len(renormalised), text_files,
+                 "; ".join("%s %d->%d" % r for r in renormalised[:3])))
 
     # 13. The two hashed asset names, stated out loud. Their whole job is to
     #    change when the bytes change, and a year-long immutable pin means a

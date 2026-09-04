@@ -32,7 +32,7 @@ the fifth is this document.
 | 1 | The coverage check compared only `.html`, on both sides | `293/293 covered` while **328 live URLs would 404** — 306 indexed and hotlinked photos under `/files/`, plus the root files | check 13, `620/620 covered, 27 reviewed-ignore`; every ignore carries a written reason |
 | 2 | The runbook pinned a sha 13 commits behind, predating all of the above | The operator verifies a tree nobody reviewed, and the checks below it read as passing | this section, and step 1's re-pin — moved again on 4 Sep to `ce24ab15`, the commit that first produces the tree now being published |
 | 3 | The conversion beacon shipped on **0 of 253** pages | The dashboard reports **zero website conversions** — a *wrong* answer, not a missing one, and indistinguishable from the truth until someone compares it against WhatsApp | check 7, `253/253 pages, bytes match c59adae9ee7d`; `.gitattributes` pins `assets/cw-events.js` `-text` so `core.autocrlf=true` cannot rename its hashed URL |
-| 4 | `_headers` claimed `max-age=31536000, immutable` on `/assets/*` and `/files/*` | **24 URLs whose names never change** pinned in visitors' browsers for a year; replace the hero photo after cutover and returning visitors keep the old one until September 2027 | only the three content-addressed names carry the year; the rest get a day, which is what `cf-live` serves today |
+| 4 | `_headers` claimed `max-age=31536000, immutable` on `/assets/*` and `/files/*` | **24 URLs whose names never change** pinned in visitors' browsers for a year; replace the hero photo after cutover and returning visitors keep the old one until September 2027 | no blanket `/assets/*` or `/files/*` rule survives — that is the fix, and it is in the built file. **Four** rules carry the year, not three: the three content-addressed names **plus `/assets/fonts/*`**, a wildcard over **17 `.woff2` faces** this build does not fingerprint because Google already did — the hash is in the filename Google issues, so a changed face is a changed URL and the year is honest. `cf-live` pins that same path identically today. `/assets/fonts.css` is **`max-age=3600, must-revalidate`** — an hour, then revalidate, not a day — because its name never changes; `cf-live` gives it exactly that. Only the **7** fixed-name images (`/assets/og/*` 1, `/assets/icons/*` 4, `/assets/logo.png`, `/favicon.png`) and the **315** files under `/files/*` get the day, which is what `cf-live` serves today |
 | 5 | `dist/` omitted `.github/workflows/site-checks.yml` | **The publishing push deletes the required check that gates it.** The check cannot run on the push that removed it, and every later publish repeats the removal in silence | check 8, byte-compared against the pinned live blob — *not* delegated to coverage, which is blind here because the `/.github/*` rule matches the URL whether or not the file exists |
 
 **Three rounds of mutation testing were run against the gate itself**, because a check that
@@ -84,8 +84,9 @@ git's own binary test (a NUL in the first 8,000 bytes) so that the PNGs, the OG 
 `.woff2` faces, which contain incidental `CR LF` byte pairs inside compressed data, pass through
 untouched. The working-tree bytes, the hashed name, the index blob and what Pages serves are now
 the same bytes on every platform. Four new preflight checks make a regression visible rather than
-publishable: **check 14** simulates `git add` over all 607 files and fails naming any whose bytes
-the index would rewrite, and **checks 15–17** re-derive each content-addressed name from the
+publishable: **check 14** simulates `git add` over the **267** files in `dist/` that git treats
+as text — skipping the 340 it calls binary, exactly as `git add` does — and fails naming any whose
+bytes the index would rewrite, and **checks 15–17** re-derive each content-addressed name from the
 bytes sitting under it, which is the property the year-long `immutable` pin rests on and which
 nothing previously asserted.
 
@@ -403,7 +404,7 @@ MIRROR_DIR="C:/Users/Edwin David/cochinwood-site" python tools/cutover_preflight
   PASS  no page posts to crm.zoho.in                   0 hit(s)
   PASS  dist/_headers enforces a CSP                   base-uri 'self'; object-src 'none'; frame-ancestors 'self'
   PASS  every live URL served or redirected            620/620 covered, 27 reviewed-ignore
-  PASS  git add -A would change nothing in dist/       607 text file(s) LF-clean
+  PASS  git add -A would change nothing in dist/       267 text file(s) LF-clean, 340 binary skipped
   PASS  assets/bundle.07f23879.css is named for its own bytes 59077 bytes, sha256[:8]=07f23879
   PASS  assets/cw-events.853632c8.js is named for its own bytes 6080 bytes, sha256[:8]=853632c8
   PASS  assets/site.96278e59.js is named for its own bytes 3704 bytes, sha256[:8]=96278e59
@@ -412,9 +413,32 @@ MIRROR_DIR="C:/Users/Edwin David/cochinwood-site" python tools/cutover_preflight
 
 Checks 14–17 are the ones added on 4 September, and they are the only ones in the list that
 describe the **published** tree rather than the built one. Check 14 folds CRLF to LF exactly as
-`git add` would, over all 607 files, and fails naming any whose bytes the index would change.
+`git add` would and fails naming any file whose bytes the index would change. It reports the
+scope it actually inspected — **`267 text file(s) LF-clean, 340 binary skipped`** — rather than
+the size of `dist/`: it applies git's own binary test, a NUL in the first 8,000 bytes, and skips
+the 340 binaries because `git add` does not convert those either. That line used to read
+`607 text file(s) LF-clean`, which overstated what had been examined by exactly the 340 files it
+never opened for line endings.
 Checks 15–17 re-derive each content-addressed name from the bytes sitting under it, which is
 the property the year-long `immutable` pin depends on and which nothing previously asserted.
+
+> **The roster is 17 on this tree, but it is conditional, and `17 passed, 0 failed` is still the
+> line to read.** Checks 15–17 are emitted once per content-addressed asset that exists, so a
+> build that stopped emitting one would print `16 passed, 0 failed` — green, and one check
+> lighter. Demanding the literal 17 is what protects the operator here, so keep reading it that
+> way: **a count below 17 is a failure even when nothing says FAIL.**
+>
+> Check 14 was the one place that could go further, and it now does. `not renormalised` is also
+> true of a `dist/` with no text files in it at all, so the check passed vacuously on an empty
+> set: a certifier running while a concurrent build had emptied `dist/` read
+> `PASS git add -A would change nothing in dist/  0 text file(s) LF-clean` on a 14-check roster.
+> Nothing was wrong with the commit, and the green line said so about a directory holding
+> nothing. **An empty text set is now a FAIL that names itself**, because a vacuous pass on the
+> LF check is the exact shape of the canary this round was convened to remove. Verified by
+> executing the shipped block against four synthetic trees: 2 text + 1 binary all-LF passes
+> reporting `2 text file(s) LF-clean, 1 binary skipped`; one CRLF file fails naming it
+> `a.html 10->9`; **binaries-only fails**; **empty fails**. The first two were already true; the
+> last two used to pass.
 
 **If any line says FAIL, stop. Do not open Cloudflare.** The script exits 1 and names what
 failed. It is deliberately the same script that, run against `master`, reported `184/293
@@ -622,8 +646,6 @@ git push origin cf-live
 > differ:
 >
 > ```
-> git diff --cached --numstat | wc -l          # 607 - one line per staged file
->
 > git ls-files -s | while read -r _ sha _ path; do
 >   if ! git cat-file -p "$sha" | cmp -s - "../cwi-cutover-dist/$path"; then
 >     echo "PUBLISHED BYTES DIFFER: $path"
@@ -631,16 +653,64 @@ git push origin cf-live
 > done
 > ```
 >
-> **The second command must print nothing at all.** One line of output means the operator is
-> about to publish bytes that were never reviewed, and the fix is in `build.py`, not here — stop
-> and report it. Executed on this tree, 4 Sep 2026: 607 blobs compared, 0 differences.
+> **It must print nothing at all.** One line of output means the operator is about to publish
+> bytes that were never reviewed, and the fix is in `build.py`, not here — stop and report it.
+> Executed on this tree, 4 Sep 2026: 607 blobs compared, 0 differences.
+>
+> **Do not reach for `git diff --cached --numstat | wc -l` here, and do not expect 607 from it.**
+> This block used to carry that line labelled "607 — one line per staged file", and **no correct
+> tree can ever make it print 607**, because `git diff --cached` diffs the **index against
+> `HEAD`** and therefore lists only paths that *changed*. The 315 blobs `cf-live` and `dist/`
+> already share — the carried `/files/` photos, the workflow, `llms.txt`, `robots.txt` — are
+> staged and identical, so they never appear. Measured at exactly that point, 4 Sep 2026:
+>
+> ```
+> $ git diff --cached --numstat | wc -l
+> 405
+> $ git diff --cached --name-status | cut -c1 | sort | uniq -c
+>      73 A     113 D     218 M       1 R      # 73+113+218+1 = 405
+> ```
+>
+> 607 staged − (73 added + 218 modified + 1 renamed) = **315** that never appear, and the
+> accounting closes from the other side too: 647 tracked on `cf-live` − 113 deleted − 1 rename
+> source = 533 survivors, which is 218 modified + 315 untouched. An operator who ran that
+> line on a **perfect** tree would read 405 where the document promised 607 and reasonably
+> conclude 202 files had gone missing, one command before the irreversible commit — and the
+> command immediately below it is the only check that catches the byte-corruption class this
+> whole round exists to close. That is the same fault corrected 70 lines earlier at the count
+> that read `0` before `git add -A`, and it is worse here. **`git ls-files | wc -l` is the
+> count that legitimately reads 607**, because it counts the index rather than diffing it.
 >
 > **The `LF will be replaced by CRLF` warnings still appear, and they are now provably about
 > nothing.** They are a *checkout*-direction notice — `core.autocrlf=true` will CRLF these files
 > the next time git writes them into a working tree — not a report that the index was changed.
-> Measured in the same run: 607 warnings, 607 staged blobs, 0 differing from `dist/`. Pages
-> serves the committed blobs, not anyone's working copy, so the warning describes a conversion
-> that never reaches production.
+> Pages serves the committed blobs, not anyone's working copy, so the warning describes a
+> conversion that never reaches production.
+>
+> **Expect roughly 265 of them, not 607, and do not treat the count as an invariant.** This
+> paragraph used to read "607 warnings, 607 staged blobs, 0 differing" and rest its whole
+> persuasive force on the three matching numbers. Two of the three were never measured. **Git
+> only warns about text**, and by git's own binary test — a NUL in the first 8,000 bytes —
+> `dist/` is **267 text files and 340 binary**, so 607 was never a possible answer. Two of the
+> 267 contain no `LF` at all for git to convert: `.nojekyll` at 0 bytes and the 32-byte IndexNow
+> key. **267 − 2 = 265**, and 265 is what the first `git add -A` printed:
+>
+> ```
+> $ git add -A 2>add.err ; wc -l < add.err
+> 265
+> $ git reset -q ; git add -A 2>add2.err ; wc -l < add2.err
+> 262
+> ```
+>
+> **The count is not stable run to run**, which is the reason not to quote it as a check. A
+> repeat `add` warns 262 times: the three paths that drop out are
+> `.github/workflows/site-checks.yml`, `llms.txt` and `robots.txt` — measured, not inferred.
+> Those 315 untouched blobs include exactly five text files, and those three are the ones
+> carrying an `LF` for git to convert — the other two are `.nojekyll` and the IndexNow key,
+> which never warn in the first place. Once the index carries an entry matching `HEAD`, git
+> stops re-reading the file and stops re-warning about it. **The number to
+> check is `git ls-files | wc -l` = 607 and the blob comparison above printing nothing**, both of
+> which hold on every run. Executed 4 Sep 2026: 607 staged blobs, 0 differing from `dist/`.
 >
 > **Do not add a `.gitattributes` to `cf-live` to silence them.** The earlier instruction to
 > leave it alone was right for the reason it gave — `dist/` contains no `.gitattributes`, so the
@@ -856,8 +926,9 @@ the rule first.)*
 - Build determinism: two consecutive builds, **607 files**, byte-identical; `17 passed,
   0 failed`; coverage `620/620 covered, 27 reviewed-ignore`; beacon on `253/253` pages; the
   four carried root files byte-equal to `c59adae9ee7d`; `git add -A would change nothing in
-  dist/` with **607 text files LF-clean**; all three content-addressed names re-derived from
-  their own bytes.
+  dist/` with **267 text file(s) LF-clean, 340 binary skipped** — 267 + 340 = the 607, and the
+  340 are skipped because git does not convert them either; all three content-addressed names
+  re-derived from their own bytes.
 - `python build.py` exit 0; `tools/check_site.py` from inside `dist/` exit 0 at `pages : 253`,
   `internal links : 10660`.
 - **The copy sequence and its two traps.** `git rm -r -f .` → `git clean -qfdx` →
