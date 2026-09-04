@@ -1513,14 +1513,14 @@ def copy_referenced_files():
 # the new sha in here until the gate goes green carries whatever landed on
 # cf-live meanwhile into production unread.
 LIVE_REF_NAME = "origin/cf-live"                         # where the pin came from
-LIVE_SHA = "af085db562c8f60bf6c05d90308bb53245802839"    # origin/cf-live, read 4 Sep 2026 --
-# re-pinned same day, second time: `git diff --stat 63f30d91 af085db5` is exactly 8 files --
-# _headers (pin-comment line only), sitemap-cms.xml (lastmod dates) and the six export
-# .html pages the customs-data merge (PR #17) touched. None of the carried files (favicon,
-# IndexNow key, llms.txt, og-image, site-checks.yml, /files/*) are in that diff, so they are
-# unaffected: carried INTO that build already, cf-live holds them at the same paths, and
-# this pin just reads them back from where they actually live -- same reasoning as the
-# previous re-pin, applied to the next merge.
+LIVE_SHA = "b63bbd2e2e82e4677ea6b8d48770f81672b1e584"    # origin/cf-live, read 4 Sep 2026 --
+# re-pinned same day, third time: `git diff --stat af085db5 b63bbd2e` is exactly 5 files --
+# _headers (pin-comment line only) and the four export .html pages the sailing-time merge
+# (PR #18) touched. None of the carried files (favicon, IndexNow key, llms.txt, og-image,
+# site-checks.yml, /files/*) are in that diff, so they are unaffected: carried INTO that
+# build already, cf-live holds them at the same paths, and this pin just reads them back
+# from where they actually live. Third application of the same check -- run `git diff
+# --stat <old pin> origin/cf-live` and read it before moving this, every time.
 LIVE_REF = LIVE_SHA                # what git is actually handed, so no fetch can move it
 LIVE_PIN = LIVE_REF_NAME + "@" + LIVE_SHA[:12]           # what the banner and dist/ record
 
