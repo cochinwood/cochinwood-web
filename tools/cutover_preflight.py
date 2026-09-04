@@ -32,7 +32,9 @@ Checks, in the order a failure is cheapest to fix:
   4. dist/ carries no source files        - .py/.md at the doc root is a leak
   5. quote form posts to /web-lead        - and NOT to crm.zoho.in
   6. dist/_headers enforces a CSP         - matching what production serves now
-  7. every live URL is served or 301s     - 293/293 against origin/cf-live
+  7. every live URL is served or 301s     - all 647 paths on origin/cf-live,
+                                            HTML and not, minus a reviewed
+                                            ignore-list that states its reasons
 
 Exit 0 = every check passed. Exit 1 = do not start the cutover.
 """
@@ -60,6 +62,90 @@ MIRROR = os.environ.get("MIRROR_DIR",
 # enquiry reaches nobody, which is worse than an error.
 GOOD_FORM = "/web-lead"
 DEAD_FORM = "crm.zoho.in"
+
+# ---- live paths check 7 is allowed to skip, and why for each one -------------
+#
+# A SILENCED CHECK MUST SAY WHY IT IS SILENT. build.py's DROPPED_FROM_LIVE set
+# this precedent for redirect rules that were considered and not carried; this is
+# the same idea for URLs. Everything NOT in here has to be served or redirected,
+# so the only way to make this check green is to fix the build or to add a line
+# here with a reason someone can argue with. 27 entries against 647 live paths.
+#
+# Two kinds only. NEVER-A-URL: files that are in the repo because Pages serves
+# the repo, not because anyone should fetch them. RETIRED WITH THE OLD THEME:
+# Zoho-era assets that only the old markup ever referenced, and no page in the
+# rebuild does.
+_IGNORED = {
+    # --- never a URL ---
+    "/CLAUDE.md":
+        "the working guide for whoever edits cf-live; it is at the web root only "
+        "because Claude Code loads it from the repo root and Pages serves the "
+        "repo verbatim. dist/ has no such file, so nothing to serve.",
+    "/.github/workflows/site-checks.yml":
+        "the definition of cf-live's required check. build.py DOES ship it in "
+        "dist/ -- otherwise the publishing push deletes the gate -- but it is "
+        "infrastructure, not a page: _redirects sends /.github/* home and "
+        "_headers marks it noindex, no-store. Do not count it as coverage.",
+
+    # --- retired with the old Zoho theme; 0 of the 253 rebuilt pages link any ---
+    "/template/55562362302e4b8a8860fffaee39d549/js/eventhandler.js":
+        "Zoho theme bundle, referenced only by Zoho-generated markup that no "
+        "longer exists.",
+    "/template/55562362302e4b8a8860fffaee39d549/js/header.js": "same theme bundle.",
+    "/template/55562362302e4b8a8860fffaee39d549/js/language-list.js": "same theme bundle.",
+    "/template/55562362302e4b8a8860fffaee39d549/js/megamenu.js": "same theme bundle.",
+    "/template/55562362302e4b8a8860fffaee39d549/stylesheets/blog-style.css":
+        "same theme bundle.",
+    "/template/55562362302e4b8a8860fffaee39d549/stylesheets/style.css": "same theme bundle.",
+    "/template/55562362302e4b8a8860fffaee39d549/stylesheets/sub-style.css":
+        "same theme bundle.",
+    "/zs-customcss.css":
+        "the Zoho per-site override sheet, loaded as /zs-customcss.css?v=... by "
+        "the old template only. The rebuild's CSS is one hashed bundle.",
+    "/zs-lang_en_US.js": "Zoho's UI string table for the old template.",
+    "/css/zsite-core.css": "Zoho platform CSS, superseded by /assets/bundle.<hash>.css.",
+    "/js/zsite-core.js": "Zoho platform JS, superseded by /assets/site.<hash>.js.",
+    "/js/cw-events.js":
+        "REPUBLISHED, NOT RETIRED: this is the /cw-event conversion beacon, and "
+        "the build now serves the identical bytes at "
+        "/assets/cw-events.<hash>.js on all 253 pages. It moves because /js/* is "
+        "cached for an hour and /assets/ pins content-addressed names for a "
+        "year. Only the old path is skipped here; losing the beacon itself makes "
+        "the conversion dashboard read zero, so it is checked in build.py "
+        "instead, which warns if assets/cw-events.js is missing.",
+    "/assets/js/cw-hero-art.60842a8585.js":
+        "the 58 KB base64 hero-art blob the 109 old city posts shared. Those "
+        "posts are rebuilt without it and nothing else ever loaded it.",
+    "/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js":
+        "injected by Cloudflare's own email obfuscation and committed by "
+        "accident; Cloudflare serves it from the edge when it is wanted.",
+    "/site-conf.json":
+        'an empty Zoho stub -- the whole file is {"apps":{}}. Nothing reads it '
+        "and there is nothing in it to lose.",
+    # The 10 superseded webfonts. The rebuilt pages load Poppins and Bree Serif
+    # only; Cormorant and Heebo went with the old theme, and each hashed name is
+    # requested by nothing that still exists.
+    "/assets/fonts/cormorant-co3bmX5slCNuHLi8bLeY9MK7whWMhyjYp3tKgS4.woff2":
+        "Cormorant, dropped with the old theme.",
+    "/assets/fonts/cormorant-co3bmX5slCNuHLi8bLeY9MK7whWMhyjYpHtKgS4.woff2":
+        "Cormorant, dropped with the old theme.",
+    "/assets/fonts/cormorant-co3bmX5slCNuHLi8bLeY9MK7whWMhyjYpntKgS4.woff2":
+        "Cormorant, dropped with the old theme.",
+    "/assets/fonts/cormorant-co3bmX5slCNuHLi8bLeY9MK7whWMhyjYqXtK.woff2":
+        "Cormorant, dropped with the old theme.",
+    "/assets/fonts/cormorant-co3bmX5slCNuHLi8bLeY9MK7whWMhyjYrXtKgS4.woff2":
+        "Cormorant, dropped with the old theme.",
+    "/assets/fonts/heebo-NGS6v5_NC0k9P9GKTbFzsQ.woff2":
+        "Heebo, dropped with the old theme.",
+    "/assets/fonts/heebo-NGS6v5_NC0k9P9GYTbFzsQ.woff2":
+        "Heebo, dropped with the old theme.",
+    "/assets/fonts/heebo-NGS6v5_NC0k9P9H0TbFzsQ.woff2":
+        "Heebo, dropped with the old theme.",
+    "/assets/fonts/heebo-NGS6v5_NC0k9P9H2TbE.woff2":
+        "Heebo, dropped with the old theme.",
+    "/assets/fonts/heebo-NGS6v5_NC0k9P9H4TbFzsQ.woff2":
+        "Heebo, dropped with the old theme.",
+}
 
 FAILED = []
 PASSED = []
@@ -90,6 +176,9 @@ def canonical(path):
         p = p[:-5]
     p = "/" + p.strip("/")
     return p if p != "/" else "/"
+
+
+IGNORED_LIVE_PATHS = {canonical(p) for p in _IGNORED}
 
 
 def tree_hashes():
@@ -227,14 +316,23 @@ def main():
     check("dist/_headers enforces a CSP", bool(csp), csp[:60])
 
     # 7. The whole point. Every URL a visitor can reach today must still resolve.
+    #
+    # THIS CHECK USED TO BUILD BOTH OF ITS SETS FROM .html ONLY, on both sides,
+    # and so reported a green "293/293 covered" for a tree in which 328 live URLs
+    # would have 404'd -- all 328 non-HTML, which is precisely what the filters
+    # made invisible. A check that can only fail on the class of file it already
+    # covers is not a check. Both filters are gone; the live set is now all 647
+    # paths on cf-live and the served set is all of dist/. canonical() stays,
+    # because /about is still about.html on one side and about/index.html on the
+    # other.
     rc, listing, err = git("ls-tree", "-r", "--name-only", LIVE_REF)
     if rc != 0:
         check("live URL set readable (%s)" % LIVE_REF, False, err[:80])
     else:
-        live = sorted({canonical(l) for l in listing.splitlines()
-                       if l.endswith(".html")})
+        live = sorted({canonical(l) for l in listing.splitlines() if l.strip()}
+                      - IGNORED_LIVE_PATHS)
         served = {canonical(os.path.join(b, n).replace(DIST, "").lstrip("\\/"))
-                  for b, _d, ns in os.walk(DIST) for n in ns if n.endswith(".html")}
+                  for b, _d, ns in os.walk(DIST) for n in ns}
         rules = []
         red = os.path.join(DIST, "_redirects")
         if os.path.exists(red):
@@ -254,8 +352,9 @@ def main():
             missing.append(u)
         check("every live URL served or redirected",
               not missing,
-              "%d/%d covered%s" % (len(live) - len(missing), len(live),
-                                   ("; first missing " + missing[0]) if missing else ""))
+              "%d/%d covered, %d reviewed-ignore%s"
+              % (len(live) - len(missing), len(live), len(IGNORED_LIVE_PATHS),
+                 ("; first missing " + missing[0]) if missing else ""))
         if missing:
             print("       %d live URL(s) would 404. First 10:" % len(missing))
             for u in missing[:10]:

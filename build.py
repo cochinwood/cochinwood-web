@@ -614,7 +614,7 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
 {footer()}
 <a class="cw-wa" href="https://wa.me/{CONTACT['wa']}" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" focusable="false"><path fill="currentColor" d="M.06 24l1.68-6.16A11.87 11.87 0 010 11.9C0 5.33 5.36 0 11.95 0a11.9 11.9 0 018.42 3.48 11.75 11.75 0 013.49 8.37c0 6.56-5.36 11.9-11.96 11.9-2 0-3.96-.5-5.7-1.45L.06 24zm6.6-3.8c1.68.99 3.28 1.58 5.4 1.58 5.45 0 9.9-4.42 9.9-9.87a9.8 9.8 0 00-2.9-6.99 9.9 9.9 0 00-7-2.9C6.6 2.02 2.15 6.44 2.15 11.9c0 2.2.62 3.85 1.67 5.57l-.99 3.6 3.83-.87zm11.6-5.5c-.08-.13-.28-.2-.58-.35-.3-.15-1.76-.86-2.03-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.14-.14.3-.36.45-.53.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41z"/></svg></a>
 <button class="cw-top" type="button" aria-label="Back to top" hidden>&uarr;</button>
-<script src="{u('/assets/' + ASSETS['site.js'])}" defer></script>
+<script src="{u('/assets/' + ASSETS['site.js'])}" defer></script>{beacon_tag()}
 </body>
 </html>'''
 
@@ -1428,6 +1428,129 @@ def copy_referenced_files():
         shutil.copy(src, dst); copied += 1
     return copied
 
+# ---------------- what cf-live serves that no new page links ------------------
+# THE REBUILD IS A REPLACEMENT FOR A SITE THAT IS ALREADY INDEXED, so "no page in
+# the new build links this" is not the same question as "nothing on the internet
+# asks for this". Measured against origin/cf-live: dropping the .html filter from
+# both sides of the preflight's coverage check turns a green "293/293 covered"
+# into 328 live URLs that would 404, and every one of the 328 is a non-HTML file
+# the old check could not see. The 301 of them handled here are:
+#
+#   306 under /files/  -- the product, factory and process photography. Google
+#        Images has these paths indexed, the app and third-party listings hotlink
+#        them, and cf-live serves them with Access-Control-Allow-Origin: *. Nine
+#        are also emitted by copy_referenced_files() below; the other 297 have no
+#        referrer inside this build at all, which is exactly why they were lost.
+#   4 root files, each of which fails in its own way if it goes missing:
+#        see CARRIED_ROOT_FILES for the reason on each one.
+#
+# Carried from the git object store rather than from a working directory, so the
+# bytes are cf-live's bytes and the build stays reproducible on a fresh clone.
+LIVE_REF = "origin/cf-live"
+
+CARRIED_ROOT_FILES = {
+    "015ad99674249c7dc418af21415b06bc.txt":
+        "THE INDEXNOW KEY (commit 004a8020). IndexNow verifies ownership by "
+        "fetching this exact path and checking the body equals the filename, so "
+        "it is the one file here a 301 cannot stand in for -- a redirect fails "
+        "verification and every submission to Bing, Yandex and Seznam stops "
+        "silently, with the site still looking fine.",
+    "llms.txt":
+        "11,918 bytes of hand-written copy that exists nowhere else in this "
+        "repo. dist/llms.html is a different artifact and does not cover it: AI "
+        "crawlers fetch /llms.txt by convention, and robots.txt here goes out of "
+        "its way to court them with 19 named Allow blocks.",
+    "favicon.png":
+        "the root favicon browsers and feed readers request by convention even "
+        "when the <link rel=icon> tags point elsewhere. Copied to its old path "
+        "rather than redirected because a copy costs no redirect slot.",
+    "cwi-og-share-1200x630.png":
+        "THE SITE-WIDE og:image on 283 of cf-live's 293 pages. Every share card "
+        "already sitting in a WhatsApp thread, a LinkedIn post or a Slack "
+        "unfurl points at this path; losing it turns those into blank cards. "
+        "The rebuild's own pages use /assets/og/<same file>, so this is the old "
+        "path kept alive alongside the new one.",
+}
+
+# Blocker 5: the required check ships WITH the artifact, not beside it.
+# cf-live's required status check "The site says one thing" is defined by this
+# file, and the file exists on no other ref. The cutover replaces the tracked
+# tree with dist/ wholesale, so a dist/ without .github DELETES the workflow on
+# the publishing push: the check cannot run on that push, and because every
+# later publish repeats the same replace, it never runs again -- the gate
+# removes itself and nothing reports that it has. Copying it in here makes the
+# gate part of the build output, so no runbook step and no tired operator at
+# 11pm on cutover night can leave it out. It is hidden from visitors twice
+# over: /.github/* 301 in PORTED_REDIRECTS, and the noindex/no-store block in
+# _headers for the case where Pages prefers the committed file to the rule.
+CARRIED_WORKFLOW = ".github/workflows/site-checks.yml"
+
+def _live_tree(prefix):
+    """{path: bytes} for every blob under `prefix` on LIVE_REF.
+
+    RAW OBJECT BYTES, NOT A CHECKOUT. `git archive` and `git checkout` both run
+    the eol filters, so on a Windows machine with core.autocrlf=true they hand
+    back llms.txt 124 bytes longer than the blob and site-checks.yml 59 bytes
+    longer -- CRLF where cf-live serves LF. That is a wrong answer twice: the
+    file stops matching what production serves, and the build stops being
+    deterministic across platforms, which is the one property the preflight's
+    byte-for-byte comparison is built on. `cat-file --batch` bypasses the
+    filters. -z on ls-tree keeps the paths intact: 306 of these live under
+    "files/Process Illustrations/" and friends, with spaces in every one."""
+    import subprocess
+    ls = subprocess.run(["git", "ls-tree", "-r", "-z", LIVE_REF, "--", prefix],
+                        cwd=ROOT, capture_output=True, timeout=300)
+    if ls.returncode != 0 or not ls.stdout:
+        return None
+    entries = []
+    for rec in ls.stdout.split(b"\0"):
+        if not rec: continue
+        meta, path = rec.split(b"\t", 1)
+        _mode, typ, sha = meta.split(b" ")
+        if typ == b"blob":
+            entries.append((sha.decode("ascii"), path.decode("utf-8")))
+    if not entries:
+        return None
+    cat = subprocess.run(["git", "cat-file", "--batch"], cwd=ROOT, timeout=300,
+                         input=("".join(s + "\n" for s, _ in entries)).encode("ascii"),
+                         capture_output=True)
+    if cat.returncode != 0:
+        return None
+    out, buf, i = {}, cat.stdout, 0
+    for _sha, path in entries:
+        nl = buf.index(b"\n", i)
+        size = int(buf[i:nl].split(b" ")[2])
+        out[path] = buf[nl + 1: nl + 1 + size]
+        i = nl + 1 + size + 1          # trailing newline git adds after each blob
+    return out
+
+def carry_live_assets():
+    """Put cf-live's non-HTML files into dist/ so cutover breaks no old URL."""
+    n = 0
+    for prefix, label in (("files", "media"),
+                          (CARRIED_WORKFLOW, "the required-check workflow")):
+        blobs = _live_tree(prefix)
+        if blobs is None:
+            warn(f"cannot read {label} from {LIVE_REF} -- `git fetch origin` and "
+                 f"rebuild. Publishing this dist/ as it stands 404s every "
+                 f"/{prefix} URL cf-live serves today")
+            continue
+        for rel, data in sorted(blobs.items()):
+            fp = os.path.join(DIST, rel.replace("/", os.sep))
+            os.makedirs(os.path.dirname(fp), exist_ok=True)
+            with open(fp, "wb") as f: f.write(data)
+            n += 1
+    for rel, _why in sorted(CARRIED_ROOT_FILES.items()):
+        blobs = _live_tree(rel)
+        if not blobs:
+            warn(f"{rel} is not on {LIVE_REF}: cf-live serves it today and this "
+                 f"build would 404 it -- see CARRIED_ROOT_FILES for what that "
+                 f"costs")
+            continue
+        with open(os.path.join(DIST, rel), "wb") as f: f.write(blobs[rel])
+        n += 1
+    return n
+
 # ---------------- redirects ----------------
 # cf-live's _redirects is 99 hand-maintained rules; regenerating this file from
 # LEGACY_REDIRECTS alone dropped 77 of them, silently, on the day of the cutover.
@@ -1582,6 +1705,18 @@ PORTED_REDIRECTS = """
 # /index.html is a duplicate of /. build.py exempts *.html sources from its
 # "this source is a real page" check, because sending this one home is the point.
 /index.html / 301
+
+# Carried back from cf-live (commit 6bc28e5a, "Stop serving the two files that
+# describe how this site is built"). dist/ NOW CONTAINS .github/workflows/
+# site-checks.yml -- carry_live_assets() puts it there so the required check
+# survives a cutover that replaces the tracked tree with dist/ -- and that file
+# answered 200 on live once already. It names the required check, the sha it is
+# pinned to, and by omission what the gate does NOT verify, which is the more
+# useful half to anybody probing the site. LAST IN THE FILE, as it is on live,
+# because everything above it is a real buyer-facing URL and this is not.
+# Listed in SHADOW_ALLOWED below, which is the only reason the shadow check does
+# not drop it: hiding a file this build serves is the entire purpose here.
+/.github/* / 301
 """
 
 # The 21 doubled-segment /blogs/post/post/<slug> URLs GSC reports, formerly 21
@@ -1612,6 +1747,22 @@ SPLAT_RULE_PROOF = {
     "/blogs/post/post/*": GSC_DOUBLED_SLUGS,
 }
 
+# The shadow check below drops any rule that matches a path this build serves,
+# because such a rule takes real content off the site. These are the sources
+# where taking the file off the site is the WHOLE POINT, so the check would be
+# refusing to do the thing it was asked for. Each entry needs a reason for the
+# same purpose DROPPED_FROM_LIVE's do: a silenced check must say why it is silent.
+SHADOW_ALLOWED = {
+    "/.github/*":
+        "dist/ ships .github/workflows/site-checks.yml so that cf-live's "
+        "required check 'The site says one thing' survives a publish that "
+        "replaces the whole tracked tree -- but the file is infrastructure, not "
+        "a page, and it answered 200 to the public once already (cf-live commit "
+        "6bc28e5a). Shadowing it is the intended effect. The _headers block adds "
+        "noindex + no-store for the case where Pages serves the committed file "
+        "in preference to this rule, which cf-live's own _headers says it does.",
+}
+
 # Rules NOT carried across from cf-live, and why. Recorded so the next person can
 # see they were considered rather than missed. Settled entries print as ONE
 # summary warning; an entry whose reason starts with "NEEDS OWNER" prints its
@@ -1619,7 +1770,6 @@ SPLAT_RULE_PROOF = {
 DROPPED_FROM_LIVE = {
     "/CLAUDE.md /": "cf-live is served verbatim so its CLAUDE.md was downloadable; "
                     "the cutover serves dist/, which contains no such file",
-    "/.github/* /": "same -- dist/ has no .github, so there is nothing to hide",
     "/files/Home/* /": "cf-live served nothing under /files/Home/; this build SERVES "
                        "/files/Home/home-1-hero.jpg there and the rule would 301 it away",
     "/files/home/* /": "the lowercase twin of the above, left out for the same reason",
@@ -1824,7 +1974,7 @@ def build_redirects():
         elif not resolve(dst):
             dropped.append((src, dst, "target is not a page this build emits")); continue
         # a rule matching something we serve would take that page off the site
-        if not src.endswith(".html"):
+        if not src.endswith(".html") and src not in SHADOW_ALLOWED:
             hit = next((p for p in sorted(served) if _rule_re(src).match(p)), None)
             if hit:
                 dropped.append((src, dst, f"would shadow {hit}, which this build serves"))
@@ -1919,11 +2069,21 @@ def css_bundle_content():
         _bundle_css = "\n".join(parts)
     return _bundle_css
 
-# /assets/* is served immutable for a year, so the two files that actually change
-# between deploys carry a content hash in their name. Without it a returning
-# visitor keeps the old CSS/JS until the cache expires. Fonts already ship with
-# hashed names; the logo and icons are versioned by hand when they change.
-ASSETS = {"bundle.css": "bundle.css", "site.js": "site.js"}
+# ONLY A CONTENT-ADDRESSED NAME MAY CARRY THE IMMUTABLE HEADER, so these three --
+# the only files here whose bytes change from deploy to deploy -- carry a content
+# hash in their name and nothing else under /assets/ does. Without the hash a
+# returning visitor keeps the old CSS/JS until the cache expires, and the _headers
+# block written in assets_and_meta() below names exactly these three plus
+# /assets/fonts/* for the year-long pin; the logo, the icons and the og card are
+# NOT content-addressed, so they get a day instead (see that block for the whole
+# argument, and for why a blanket /assets/* rule cannot be used to say it).
+#
+# cw-events.js is hashed for that reason and one sharper. cf-live serves the
+# conversion beacon from /js/cw-events.js at max-age=3600, must-revalidate; this
+# build serves it from /assets/ where the pin is a year. Publish it under a fixed
+# name and a broken beacon is frozen in every returning buyer's browser until
+# September 2027, with no URL left to push a fix through.
+ASSETS = {"bundle.css": "bundle.css", "site.js": "site.js", "cw-events.js": "cw-events.js"}
 
 def _digest(data):
     if isinstance(data, str): data = data.encode("utf-8")
@@ -1934,6 +2094,35 @@ def fingerprint_assets():
     jp = os.path.join(ROOT, "assets", "site.js")
     if os.path.exists(jp):
         ASSETS["site.js"] = f"site.{_digest(open(jp, 'rb').read())}.js"
+    # THE BEACON IS THE ONLY SOURCE OF WEBSITE CONVERSION NUMBERS. Every one of
+    # cf-live's 293 pages loads it and POSTs tel_click, whatsapp_click,
+    # quote_click and form_submit_success to /cw-event; the zone route stays
+    # bound after cutover, so a build that omits the file raises no error
+    # anywhere -- the dashboard simply reports ZERO conversions for a site that
+    # is still producing enquiries, which is a wrong answer rather than a
+    # missing one, and the first cut of this builder shipped exactly that on 0
+    # of 253 pages. Commit 09476b27 paid for this file once; do not lose it
+    # again. Restore with:
+    #   git show origin/cf-live:js/cw-events.js > assets/cw-events.js
+    ep = os.path.join(ROOT, "assets", "cw-events.js")
+    if os.path.exists(ep):
+        ASSETS["cw-events.js"] = f"cw-events.{_digest(open(ep, 'rb').read())}.js"
+    else:
+        ASSETS["cw-events.js"] = None      # no tag rather than 253 script 404s
+        warn("assets/cw-events.js is missing: no page will load the /cw-event "
+             "beacon, so every tel, WhatsApp, quote-intent and form-success "
+             "click on all pages goes uncounted and the conversion dashboard "
+             "reads zero. Run: git show origin/cf-live:js/cw-events.js > "
+             "assets/cw-events.js")
+
+def beacon_tag():
+    """The /cw-event beacon script tag -- on every page, or (only if the source
+    file has gone missing) on none. Deliberately a separate file from site.js:
+    site.js opens by promising "No dependencies, no tracking", and burying a
+    page-level conversion counter inside it would make that header a lie for
+    every reader who checks."""
+    name = ASSETS.get("cw-events.js")
+    return f'\n<script src="{u("/assets/" + name)}" defer></script>' if name else ""
 
 def build_css_bundle():
     write("assets/" + ASSETS["bundle.css"], css_bundle_content())
@@ -2009,12 +2198,26 @@ def assets_and_meta():
     src = os.path.join(ROOT, "assets")
     dst = os.path.join(DIST, "assets")
     if os.path.exists(dst): shutil.rmtree(dst)
-    shutil.copytree(src, dst, ignore=shutil.ignore_patterns("photos"))
-    # publish site.js under its fingerprinted name so the immutable header is safe
-    if ASSETS["site.js"] != "site.js":
-        plain = os.path.join(dst, "site.js")
-        if os.path.exists(plain):
-            os.replace(plain, os.path.join(dst, ASSETS["site.js"]))
+    # The six bundle sources are CSS_BUNDLE INPUTS, not URLs: every page links
+    # /assets/bundle.<hash>.css and 0 of the 253 link these, so copytree was
+    # publishing six dead stylesheets that any reader would take for the live
+    # ones. fonts.css is deliberately NOT in this list even though it is also a
+    # bundle input: cf-live serves /assets/fonts.css for real (it has its own
+    # cache rule in the live _headers), so dropping it would turn a URL that
+    # answers 200 today into a 404 at cutover.
+    dead_bundle_sources = [n for n in CSS_BUNDLE if n != "fonts.css"]
+    shutil.copytree(src, dst,
+                    ignore=shutil.ignore_patterns("photos", *dead_bundle_sources))
+    # Publish the two fingerprinted scripts under their hashed names, so the
+    # year-long immutable header below is only ever attached to a name that
+    # changes when the bytes do.
+    for key, plain_name in (("site.js", "site.js"), ("cw-events.js", "cw-events.js")):
+        hashed = ASSETS.get(key)
+        plain = os.path.join(dst, plain_name)
+        if hashed and hashed != plain_name and os.path.exists(plain):
+            os.replace(plain, os.path.join(dst, hashed))
+        elif not hashed and os.path.exists(plain):
+            os.remove(plain)      # unhashed leftover would get pinned for a year
     build_css_bundle()
     open(os.path.join(DIST, ".nojekyll"), "w").close()
     # Cloudflare Pages headers (ignored by GitHub Pages, honoured by CF Pages).
@@ -2041,11 +2244,63 @@ def assets_and_meta():
     # is why this policy is safe to enforce unchanged. The pages also still carry inline
     # JS, so any script-src short of 'unsafe-inline' would break them anyway. Tighten
     # only with a policy that has been tested against a real Turnstile submission.
+    #
+    # ---- CACHE RULES: NAME THE CONTENT-ADDRESSED FILES, NEVER A BLANKET /assets/* ----
+    #
+    # "immutable" tells a browser not to revalidate even on a hard reload, so it is
+    # only ever true of a URL that changes when its bytes change. This block used to
+    # say `/assets/*  max-age=31536000, immutable`, which pinned six files whose names
+    # never change -- logo.png, og/cwi-og-share-1200x630.png and the four icons -- on
+    # all 253 pages, for a year. That is the exact claim audit commit c3961d74 ("Stop
+    # claiming assets are immutable when their filenames never change") was written to
+    # remove, so shipping it again would have silently reversed a fix that is already
+    # paid for. The same rule on /files/* was worse than a reversal: cf-live serves
+    # /files/* at max-age=86400 both before and after that audit, so a year there was a
+    # NEW escalation, and it would have frozen 18 referenced media files -- the 17 in
+    # the pages plus /files/Home/home-1-hero.jpg, which bundle.css loads as the
+    # homepage hero background. Replace the hero photo after cutover and returning
+    # visitors keep the old one until September 2027.
+    #
+    # WHY EACH HASHED FILE IS NAMED INDIVIDUALLY INSTEAD OF ONE /assets/* RULE:
+    # Cloudflare Pages MERGES every matching rule into a single header rather than
+    # letting the most specific rule win. A blanket /assets/* beside the narrower rules
+    # below would emit two conflicting max-age values on the same response and leave
+    # the browser to pick. That merge behaviour is why cf-live's own _headers has no
+    # /assets/* rule at all and names /assets/fonts.css, /assets/og/* and
+    # /assets/fonts/* one at a time -- see the note above its fonts block. Never add a
+    # blanket rule that overlaps a narrower one here.
+    #
+    # fingerprint_assets() runs at the top of main(), well before this write, so the
+    # three hashed names below are already settled and can be interpolated.
+    immutable = "  Cache-Control: public, max-age=31536000, immutable\n"
+    day       = "  Cache-Control: public, max-age=86400\n"
+    hashed_rules = "".join(
+        f"/assets/{ASSETS[k]}\n" + immutable
+        for k in ("bundle.css", "site.js", "cw-events.js") if ASSETS.get(k))
     write("_headers",
-        "/assets/*\n"
-        "  Cache-Control: public, max-age=31536000, immutable\n"
+        hashed_rules +
+        "/assets/fonts/*\n" + immutable +
+        # Not content-addressed: same filename forever. An hour, then revalidate --
+        # carried from cf-live, which gives this exact file exactly this rule.
+        "/assets/fonts.css\n"
+        "  Cache-Control: public, max-age=3600, must-revalidate\n"
+        # Six binaries with fixed names, referenced by all 253 pages. A day means a
+        # replaced logo or share card reaches everyone the same day instead of next year.
+        "/assets/og/*\n" + day +
+        "/assets/icons/*\n" + day +
+        "/assets/logo.png\n" + day +
+        # Restored VERBATIM from cf-live, both lines. The CORS header is load-bearing:
+        # these are the images other sites and the app hotlink, and dropping
+        # Access-Control-Allow-Origin breaks every canvas/fetch consumer of them.
         "/files/*\n"
-        "  Cache-Control: public, max-age=31536000, immutable\n"
+        "  Access-Control-Allow-Origin: *\n" + day +
+        # Carried from cf-live for the same reason it exists there: the workflow file
+        # has to sit in the published tree or the required check cannot run, and this
+        # keeps it out of search results and out of caches even on the request where
+        # the 301 in _redirects loses to the committed file.
+        "/.github/*\n"
+        "  X-Robots-Tag: noindex, nofollow\n"
+        "  Cache-Control: no-store\n"
         "/*\n"
         "  X-Content-Type-Options: nosniff\n"
         "  Referrer-Policy: strict-origin-when-cross-origin\n"
@@ -2081,6 +2336,10 @@ def main():
     b = build_blog()
     x = build_export()
     assets_and_meta()            # also discovers /files/ refs inside the CSS
+    # Before copy_referenced_files() on purpose: where cf-live and this repo both
+    # have a photo at the same /files/ path, the one the new pages actually
+    # reference must be the one on disk, so it is written last and wins.
+    c = carry_live_assets()
     f = copy_referenced_files()  # so this must run after it
     for ref in sorted(_files_missing):
         warn(f"photo missing, reference removed: {ref}")
@@ -2089,7 +2348,7 @@ def main():
     # /files/ assets included, so everything has to be on disk first
     rd, rd_free, rd_window = build_redirects()
     cnt = sum(len(fs) for _,_,fs in os.walk(DIST))
-    print(f"BUILD OK  base='{BASE or '(root)'}'  {p} content pages + {n} wood pages + {x} export pages + {b} blog posts + {f} images  sitemap:{sm}  redirects:{rd} ({rd_free} static/{STATIC_REDIRECT_LIMIT} + {rd_window} from first wildcard/{DYNAMIC_WINDOW_LIMIT})  files: {cnt}")
+    print(f"BUILD OK  base='{BASE or '(root)'}'  {p} content pages + {n} wood pages + {x} export pages + {b} blog posts + {f} images + {c} carried from {LIVE_REF}  sitemap:{sm}  redirects:{rd} ({rd_free} static/{STATIC_REDIRECT_LIMIT} + {rd_window} from first wildcard/{DYNAMIC_WINDOW_LIMIT})  files: {cnt}")
     if WARNINGS:
         print(f"\n{len(WARNINGS)} WARNING(S):")
         for w in WARNINGS: print("  ! " + w)
