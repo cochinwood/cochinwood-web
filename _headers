@@ -1,94 +1,33 @@
-# --- 2026-08-25 audit: an enforced CSP, finally ---
-# The Content-Security-Policy-Report-Only header enforces nothing AND names no reporting
-# endpoint, so it has been buying neither protection nor telemetry. This is the part that can
-# be enforced today without touching a line of markup: no <object>, <embed> or <base> exists
-# anywhere in the 293 pages (checked), and frame-ancestors only restates the intent the
-# report-only policy already declared. script-src is deliberately ABSENT — the site still
-# carries ~58 KB of inline JS per page, so any script-src short of 'unsafe-inline' would break
-# it. Tighten this once the inline chrome moves into external files.
+# built from origin/cf-live@c59adae9ee7d -- the pin lives in build.py as LIVE_SHA
+/assets/bundle.07f23879.css
+  Cache-Control: public, max-age=31536000, immutable
+/assets/site.96278e59.js
+  Cache-Control: public, max-age=31536000, immutable
+/assets/cw-events.853632c8.js
+  Cache-Control: public, max-age=31536000, immutable
+/assets/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+/assets/fonts.css
+  Cache-Control: public, max-age=3600, must-revalidate
+/assets/og/*
+  Cache-Control: public, max-age=86400
+/assets/icons/*
+  Cache-Control: public, max-age=86400
+/assets/logo.png
+  Cache-Control: public, max-age=86400
+/favicon.png
+  Cache-Control: public, max-age=86400
+/files/*
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=86400
+/.github/*
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Content-Security-Policy: base-uri 'self'; object-src 'none'; frame-ancestors 'self'
-
-# Repo docs. Cloudflare Pages serves any committed file and prefers it over every
-# _redirects rule, so a redirect cannot hide this - a 404 rule for /CLAUDE.md was
-# tried on 2026-08-15 and the file was still served. It cannot be moved either:
-# Claude Code loads CLAUDE.md from the repo root, which is also the web root.
-# Keeping search engines off it is the part that is actually achievable. Nothing
-# in it is secret; it describes the branch layout.
-/CLAUDE.md
-  X-Robots-Tag: noindex, nofollow
-  Cache-Control: no-store
-
-# The CI workflow, same situation as CLAUDE.md above and for the same reason: Pages publishes every
-# committed file on this branch — `.nojekyll` is committed and answers 200 — and GitHub only runs a
-# workflow that is on the branch it triggers from, so this one cannot live anywhere else. Nothing in
-# it is secret; it names two pinned action shas and fetches the checker from `master`. Keeping it
-# out of the index is the part that is achievable. The checker itself is NOT here, deliberately.
-/.github/*
-  X-Robots-Tag: noindex, nofollow
-  Cache-Control: no-store
-
-/files/*
-  Access-Control-Allow-Origin: *
-  Cache-Control: public, max-age=86400
-
-/favicon.png
-  Cache-Control: public, max-age=86400
-
-# --- 2026-08-15 audit: correct the immutable claim ---
-# These paths were served "max-age=31536000, immutable". Nothing under them is
-# content-addressed: /assets/fonts.css, /css/zsite-core.css, /js/zsite-core.js
-# and the /template/<id>/ stylesheets and scripts all keep the same filename
-# when their contents change, and every page references them with no version
-# query. "immutable" told browsers not to revalidate even on a hard reload, so
-# an edit to any of them could go unseen by a returning visitor for a year.
-# One hour, then revalidate: still cached for normal browsing, but a change
-# reaches everyone the same day. See CLAUDE.md.
-/assets/fonts.css
-  Cache-Control: public, max-age=3600, must-revalidate
-
-/assets/og/*
-  Cache-Control: public, max-age=86400
-
-/css/*
-  Cache-Control: public, max-age=3600, must-revalidate
-
-# --- 2026-08-25 audit: the cache policy was inverted ---
-# This is the ONE stylesheet that carries a version stamp: every page references it as
-# /zs-customcss.css?v=YYYYMMDD, so a changed file is a changed URL. It was nevertheless
-# falling through to the Pages default of "max-age=0, must-revalidate" while the UNVERSIONED
-# css under /css/ got an hour — exactly backwards. It is also render-blocking, so that
-# revalidation round trip sat on the critical path of every single page view.
-# A day rather than a year: the stamp is bumped by hand, so a forgotten bump should cost
-# hours, not months. BUMP ?v= ON EVERY EDIT TO THIS FILE.
-/zs-customcss.css
-  Cache-Control: public, max-age=86400, must-revalidate
-
-/js/*
-  Cache-Control: public, max-age=3600, must-revalidate
-
-/template/*
-  Cache-Control: public, max-age=3600, must-revalidate
-
-# The fonts are the one genuinely content-addressed set — the hash is in the
-# filename, so a changed font is a changed URL. Safe to pin for a year. Note the
-# rules above name /assets/fonts.css and /assets/og/* individually rather than
-# using /assets/*: Cloudflare Pages MERGES every matching rule into one header
-# rather than letting the most specific win, so an /assets/* rule would append a
-# second, conflicting max-age to this one.
-/assets/fonts/*
-  Cache-Control: public, max-age=31536000, immutable
-
-# --- 2026-08-25 audit: the hero-art blob, lifted out of the HTML ---
-# window.__CWSVGZ was 58,599 bytes of base64-encoded gzip inlined into all 109 city posts —
-# byte-identical on every one, and re-downloaded on every one, because inline content cannot
-# be cached across navigations. Base64 of already-compressed data does not re-compress either,
-# which is why those pages managed only 2.2x gzip while the homepage managed 3.9x, and why a
-# post cost 76.8 KB over the wire against the homepage's 30.7 KB.
-# Now one shared file, fetched once and reused by all 109. The sha256 is IN THE FILENAME, so
-# this is content-addressed in the same sense the fonts are: a changed file is a changed URL,
-# and a year is safe. Regenerate the name when the content changes.
-/assets/js/*
-  Cache-Control: public, max-age=31536000, immutable
+  X-Frame-Options: SAMEORIGIN
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Permissions-Policy: geolocation=(), camera=(), microphone=(), interest-cohort=()
+  Cross-Origin-Opener-Policy: same-origin
