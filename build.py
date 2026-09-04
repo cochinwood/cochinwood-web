@@ -1513,14 +1513,16 @@ def copy_referenced_files():
 # the new sha in here until the gate goes green carries whatever landed on
 # cf-live meanwhile into production unread.
 LIVE_REF_NAME = "origin/cf-live"                         # where the pin came from
-LIVE_SHA = "b63bbd2e2e82e4677ea6b8d48770f81672b1e584"    # origin/cf-live, read 4 Sep 2026 --
-# re-pinned same day, third time: `git diff --stat af085db5 b63bbd2e` is exactly 5 files --
-# _headers (pin-comment line only) and the four export .html pages the sailing-time merge
-# (PR #18) touched. None of the carried files (favicon, IndexNow key, llms.txt, og-image,
-# site-checks.yml, /files/*) are in that diff, so they are unaffected: carried INTO that
-# build already, cf-live holds them at the same paths, and this pin just reads them back
-# from where they actually live. Third application of the same check -- run `git diff
-# --stat <old pin> origin/cf-live` and read it before moving this, every time.
+LIVE_SHA = "109f5188ef01e501ad722f1825074877c4034bc2"    # origin/cf-live, read 4 Sep 2026 --
+# re-pinned same day, fourth time: `git diff --stat b63bbd2e 109f5188` is exactly 16 files --
+# _headers (pin-comment line only), sitemap-cms.xml (lastmod dates) and the fourteen export
+# .html pages the customs/conformity/transit merge (PR #19) touched. None of the carried
+# files (favicon, IndexNow key, llms.txt, og-image, site-checks.yml, /files/*) are in that
+# diff, so they are unaffected: carried INTO that build already, cf-live holds them at the
+# same paths, and this pin just reads them back from where they actually live. Fourth
+# application of the same check -- run `git diff --stat <old pin> origin/cf-live` and READ
+# it before moving this, every time. Every move so far has been this build's own output
+# becoming cf-live; the check exists for the move that is not.
 LIVE_REF = LIVE_SHA                # what git is actually handed, so no fetch can move it
 LIVE_PIN = LIVE_REF_NAME + "@" + LIVE_SHA[:12]           # what the banner and dist/ record
 

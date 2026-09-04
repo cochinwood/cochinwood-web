@@ -61,16 +61,7 @@
   "documents_faq": "Commercial invoice, packing list, certificate of origin and bill of lading",
   "related": {
    "label": "Other export destinations",
-   "order": [
-    "uae",
-    "saudi-arabia",
-    "qatar",
-    "oman",
-    "kuwait",
-    "bahrain",
-    "sri-lanka",
-    "israel"
-   ],
+   "_groups_note": "The lane list is NOT kept here. export_section._lane_groups() derives it from content/export-markets.json, which already rules the country list, the country count and the continent count -- a hand-kept order list here was how twenty lanes stayed unlinked, and that JSON's own _history is two market lists drifting apart. Only the label and the tail links live here.",
    "tail": [
     [
      "/export-process",
@@ -85,13 +76,13 @@
  },
  "hub": {
   "title": "Plywood Exporter in India — FOB Cochin | Cochin Wood",
-  "desc": "Indian plywood exporter shipping packing, shuttering and Okoume plywood from Cochin Port to the GCC, Sri Lanka and Israel. FOB, USD terms. Request a quote.",
+  "desc": "Indian plywood exporter shipping packing, shuttering and Okoume plywood from Cochin Port to {{CWI_EXPORT_COUNTRY_COUNT}} markets across {{CWI_EXPORT_CONTINENTS}} continents. FOB, USD terms. Request a quote.",
   "schema_name": "Plywood Exporter in India — FOB Cochin",
-  "crumb_leaf": "Plywood exporter in India — FOB Cochin to the GCC, Sri Lanka and Israel",
+  "crumb_leaf": "Plywood exporter in India — FOB Cochin to {{CWI_EXPORT_COUNTRY_COUNT}} markets across {{CWI_EXPORT_CONTINENTS}} continents",
   "kicker": "Plywood export from India",
-  "h1": "Plywood exporter in India — FOB Cochin to the GCC, Sri Lanka and Israel",
+  "h1": "Plywood exporter in India — FOB Cochin to {{CWI_EXPORT_COUNTRY_COUNT}} markets across {{CWI_EXPORT_CONTINENTS}} continents",
   "lede": "Packing, shuttering and Okoume plywood made by a group manufacturing in Perumbavoor since 1986, forty kilometres from Cochin Port. Quoted in USD, loaded to the weight limit, papers ready before cut-off.",
-  "tldr": "<strong>In short:</strong> Cochin Wood Industries is an Indian plywood exporter. We ship packing-grade, film-faced shuttering, Okoume-faced and marine plywood, plus boxes, crates and pallets, from Cochin to six GCC countries, Sri Lanka and Israel. USD quotes, FOB Cochin, 50% advance with balance before dispatch, by bank transfer (T/T). Quote replies within one business day.",
+  "tldr": "<strong>In short:</strong> Cochin Wood Industries is an Indian plywood exporter. We ship packing-grade, film-faced shuttering, Okoume-faced and marine plywood, plus boxes, crates and pallets, from Cochin to {{CWI_EXPORT_COUNTRY_COUNT}} markets across {{CWI_EXPORT_CONTINENTS}} continents. USD quotes, FOB Cochin, 50% advance with balance before dispatch, by bank transfer (T/T). Quote replies within one business day.",
   "faq": [
    [
     "Does plywood need ISPM-15 treatment for export?",

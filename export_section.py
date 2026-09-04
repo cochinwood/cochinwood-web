@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
-"""The /export section: one hub and eight country lanes, from data + a template.
+"""The /export section: one hub and twenty-eight country lanes, data + a template.
 
-The nine pages are the commercial core of the site and every one of their URLs
-is indexed, so the URLs are fixed:
+The pages are the commercial core of the site and every one of their URLs is
+indexed, so the URLs are fixed. The first eight, which live in export.json:
 
     /export            /export/uae         /export/saudi-arabia   /export/qatar
     /export/oman       /export/kuwait      /export/bahrain
     /export/sri-lanka  /export/israel
+
+and twenty more added later, one JSON file each under content/export/countries/,
+listed in content/export-markets.json alongside them.
 
 On the live site these are nine near-identical Zoho exports. Roughly half of
 each page is boilerplate repeated nine times: the hero scaffolding, the byline,
@@ -20,17 +23,24 @@ genuinely per-lane lives in content/export/:
     hub.body.html      the hub's own prose
     export.raw.json    the verbatim live capture the other two were cut from
 
-Adding a tenth country is two edits and no copy-paste:
+Adding the twenty-ninth country is two edits and no copy-paste:
 
-  1. one object appended to `countries` in export.json — slug, the two forms of
-     the name, title/desc/schema_name/crumb_leaf, kicker/h1/lede/tldr, the lane's
-     own FAQ, cta_h2/cta_p, ports_ship, and (only if that market gets one) the
-     `import` block: vat, vat_faq, conformity, ports_clear, landed_cost_note;
+  1. one content/export/countries/<slug>.json — slug, the two forms of the name,
+     title/desc/schema_name/crumb_leaf, kicker/h1/lede/tldr, the lane's own FAQ,
+     cta_h2/cta_p, ports_ship, and (only if that market gets one) the `import`
+     block: vat, vat_faq, conformity, ports_clear, landed_cost_note;
   2. one content/export/<slug>.body.html holding its prose.
 
-Then add the slug to shared.related.order. The templated FAQs, the import table,
-the hero, the schema, the sitemap entry and the back-links from the other nine
-pages all follow from that. No existing page is touched.
+AND THE MARKET MUST BE IN content/export-markets.json, which is where the lane
+list, the country count and the continent count all come from. There is no order
+list to append to here any more: _lane_groups() reads that file, so a market
+named there with a body file to match is linked from the hub and from every other
+lane automatically, and one that is missing from it is reported by name at build
+time. It used to be a hand-kept `shared.related.order` of eight, which is exactly
+how twenty lanes shipped linked from nothing but the sitemap.
+
+The templated FAQs, the import table, the hero, the schema, the sitemap entry and
+the back-links from every other lane all follow. No existing page is touched.
 
 The copy is unchanged: tools/compose_export_json.py asserted every shared string
 byte-identical across all nine live pages before it was allowed into `shared`,
@@ -176,18 +186,38 @@ def faq_block(items):
 
 
 def related(shared, d):
-    """Every other lane, in one fixed order, then the two standing links.
+    """Every other lane, grouped by continent, then the two standing links.
 
-    On live this list is written out by hand on each page; here it is derived,
-    so a tenth country appears on the other nine without touching them."""
+    THIS BLOCK USED TO BE A FLAT LIST OF EIGHT, AND THAT IS EXACTLY HOW TWENTY OF
+    THE TWENTY-EIGHT LANES ENDED UP REACHABLE FROM NOTHING BUT THE SITEMAP. The
+    eight were the original Gulf-plus lanes named in export.json; the twenty that
+    landed later, one JSON file each, were never added to the order list, so this
+    block -- the only cross-lane navigation the section has -- linked none of them,
+    and neither did the hub. `git grep href=\"/export/australia\"` over the served
+    tree returned nothing but australia.html's own canonical.
+
+    The grouping is derived from content/export-markets.json, the file that already
+    rules the country list, the country count and the continent count, so a market
+    added there with a body file to match appears on the other twenty-seven without
+    anyone touching this function. Deriving it is the point: that JSON's own
+    _history records two market lists drifting apart, and a hand-kept order list
+    here would have been the third copy.
+    """
     if "related" in d:                       # the hub keeps its own list
-        label, links = d["related"]["label"], d["related"]["links"]
+        label = d["related"]["label"]
+        body = "".join(f'<a href="{href}">{text}</a>'
+                       for href, text in d["related"]["links"])
     else:
         label = shared["related"]["label"]
-        links = ([["/export/" + s, "Plywood export to " + n]
-                  for s, n in shared["related"]["names"] if s != d["slug"]]
-                 + shared["related"]["tail"])
-    body = "".join(f'<a href="{href}">{text}</a>' for href, text in links)
+        parts = []
+        for continent, entries in shared["related"]["groups"]:
+            pills = "".join(f'<a href="/export/{s}">Plywood export to {n}</a>'
+                            for s, n, _list_name in entries if s != d["slug"])
+            if pills:                        # the lane's own continent, alone, would be empty
+                parts.append(f"<h3>{continent}</h3>{pills}")
+        parts.append("".join(f'<a href="{href}">{text}</a>'
+                             for href, text in shared["related"]["tail"]))
+        body = "".join(parts)
     return (f'<section class="cwg__related"><div class="cwg__wide">'
             f'<h2>{label}</h2>{body}</div></section>')
 
@@ -234,23 +264,92 @@ def page(shared, d, path, prose, crumbs, src):
     B.write(path.lstrip("/") + "/index.html", html_, src=src)
 
 
+HUB_MARKETS_TOKEN = "{{CWI_EXPORT_LANE_GROUPS}}"
+
+
+def _lane_groups(data):
+    """[[continent, [[slug, pill_name, list_name], ...]], ...] -- every lane, canonical order.
+
+    The continents and their order come from content/export-markets.json. TWO NAMES
+    PER LANE, ON PURPOSE: the pill reads "Plywood export to <pill_name>" and wants
+    the lane's own name_plain, which carries the article the sentence needs ("the
+    Maldives", "the United States"); the hub's list wants the canonical bare name
+    from export-markets.json, because "Singapore, the Maldives" in a comma list is
+    the article leaking out of a sentence it is no longer in. A market's slug is its
+    name lowercased with spaces hyphenated, exact for all twenty-eight today,
+    checked both ways below.
+
+    Both mismatches are reported rather than swallowed, and they are different
+    failures: a market with no lane page is a gap in the section, while a lane page
+    the canonical list does not name is a page for a market we do not claim to
+    serve. The stray lane is still grouped and linked -- this function exists
+    because unlinked lanes are the bug, so it must not create one while reporting.
+    """
+    names = {c["slug"]: c["name_plain"] for c in data["countries"]}
+    groups, placed = [], set()
+    for g in getattr(B, "EXPORT_GROUPS", []):
+        entries = []
+        for c in g["countries"]:
+            slug = c["name"].lower().replace(" ", "-")
+            if slug in names:
+                entries.append([slug, names[slug], c["name"]])
+                placed.add(slug)
+            else:
+                B.warn("export: content/export-markets.json names %s, but there is no "
+                       "lane at content/export/%s.body.html -- nothing links to that "
+                       "market" % (c["name"], slug))
+        if entries:
+            groups.append([g["continent"], entries])
+    stray = sorted(s for s in names if s not in placed)
+    if stray:
+        B.warn("export: %d lane page(s) are not in content/export-markets.json (%s) -- "
+               "the canonical market list and the lanes disagree; they are linked under "
+               "'Other markets' so they stay reachable, but one of the two is wrong"
+               % (len(stray), ", ".join(stray)))
+        groups.append(["Other markets", [[s, names[s], names[s]] for s in stray]])
+    return groups
+
+
+def _hub_market_table(groups):
+    """The hub's own market list: every lane, linked, grouped by continent.
+
+    Replaces a hand-written eight-row table that had drifted twenty markets behind
+    the section it introduces. Uses cwg__table, already styled, so this adds no CSS
+    -- which matters more than it looks: assets are content-hashed, and changing one
+    renames it, at which point the hash the live tree still carries is a URL this
+    build no longer serves and cutover_preflight's coverage check fails.
+    """
+    rows = "".join(
+        "<tr><td>%s</td><td>%s</td></tr>"
+        % (continent, ", ".join('<a href="/export/%s">%s</a>' % (s, list_name)
+                                for s, _pill, list_name in entries))
+        for continent, entries in groups)
+    return ('<table class="cwg__table"><thead><tr><th>Region</th><th>Markets</th>'
+            '</tr></thead><tbody>%s</tbody></table>' % rows)
+
+
 def build():
-    """Render /export and the eight lanes. Returns the page count.
+    """Render /export and its twenty-eight lanes. Returns the page count.
 
     Called by build.py's build_export(), which runs it with the other section
     builders -- before assets_and_meta(), so any /files/ photo a lane grows
     later is copied, and before build_sitemap() and build_redirects(), so the
-    nine URLs reach sitemap.xml and the five cf-live rules that point into
+    URLs reach sitemap.xml and the five cf-live rules that point into
     /export stop being dropped as "target is not a page this build emits".
     """
     data = _load()
     shared = data["shared"]
-    # the related-block order, as slug + the name the link text uses
-    names = {c["slug"]: c["name_plain"] for c in data["countries"]}
-    shared["related"]["names"] = [[s, names[s]] for s in shared["related"]["order"]]
+    # the related block, grouped by continent -- see related() for why it is derived
+    shared["related"]["groups"] = _lane_groups(data)
 
     hub = data["hub"]
-    page(shared, hub, "/export", _prose("hub.body.html"),
+    hub_body = _prose("hub.body.html")
+    if HUB_MARKETS_TOKEN not in hub_body:
+        raise SystemExit("export: hub.body.html no longer carries %s, so the hub would "
+                         "ship without its market list" % HUB_MARKETS_TOKEN)
+    hub_body = hub_body.replace(HUB_MARKETS_TOKEN,
+                                _hub_market_table(shared["related"]["groups"]))
+    page(shared, hub, "/export", hub_body,
          [("Home", "/"), (hub["crumb_leaf"], "/export")],
          os.path.join("content", "export", "hub.body.html"))
     n = 1
