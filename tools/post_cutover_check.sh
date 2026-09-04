@@ -35,14 +35,23 @@ check() {   # path  expected_status  expected_bytes  what
   fi
 }
 
-redirects_home() {  # path — must 301 to /, NOT serve the file
+not_served() {  # path — must never come back as the file itself
+  # THE CONTRACT IS "NOT SERVED", NOT "301". Before the cutover both paths answered
+  # 301 -> / because the files WERE committed on cf-live and a redirect hid them. The
+  # rebuilt tree does not contain CLAUDE.md at all, so it answers 404 - nothing to hide
+  # rather than something hidden, which is the better outcome and was failed by an
+  # earlier version of this check that asserted what live happened to do. .github/ IS
+  # in the tree deliberately (it carries the required status check), so that one still
+  # redirects. Both are correct; a 200 carrying the file is the only wrong answer.
   local path="$1" code loc
   code=$(curl -sS --max-time 25 -o /dev/null -w "%{http_code}" "$SITE$path" 2>/dev/null)
   loc=$(curl -sS --max-time 25 -o /dev/null -D - "$SITE$path" 2>/dev/null | tr -d '\r' | awk 'tolower($1)=="location:"{print $2}')
   if [ "$code" = "301" ] && [ "$loc" = "/" ]; then
     printf "  ok    %-46s 301 -> /   hidden, not served\n" "$path"
+  elif [ "$code" = "404" ]; then
+    printf "  ok    %-46s 404        absent from the tree, nothing to hide\n" "$path"
   else
-    printf "  FAIL  %-46s %s -> %s   (expected 301 -> /)\n" "$path" "$code" "${loc:-none}"
+    printf "  FAIL  %-46s %s -> %s   (must be 301 -> / or 404, never served)\n" "$path" "$code" "${loc:-none}"
     fails=$((fails+1))
   fi
 }
@@ -74,10 +83,10 @@ else
   echo "  FAIL  the homepage does NOT reference the beacon - conversions will read zero"; fails=$((fails+1))
 fi
 echo
-echo "STILL HIDDEN FROM VISITORS (the redirect wins over the committed file - measured, 4 Sep 2026,"
-echo "contradicting the older note in live's _headers that said it could not):"
-redirects_home /.github/workflows/site-checks.yml
-redirects_home /CLAUDE.md
+echo "NEITHER OF THESE MAY BE SERVED (301 to / or 404 both qualify; measured 4 Sep 2026, the"
+echo "redirect DOES win over a committed file, contradicting the older note in live's _headers):"
+not_served /.github/workflows/site-checks.yml
+not_served /CLAUDE.md
 echo
 if [ "$fails" -eq 0 ]; then
   echo "All checks passed. Nothing the cutover had to preserve is missing."
