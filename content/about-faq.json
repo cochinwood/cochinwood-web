@@ -28,11 +28,12 @@
       ]
     },
     {
+      "_answer_note": "DELIBERATELY NOT LIVE'S TEXT. Live opens on 'A full load may be mixed...' and never says what the load is, so the one thing the question asks — the minimum — was the one thing neither the visible answer nor the schema answer stated. The opening sentence is /faq's answer to the same question (content/pages/faq.html), so the two pages now give the buyer the same number; the mixing and part-load detail follows it unchanged. Keep the two openings in step if either is reworded.",
       "q": "What is your minimum order quantity?",
       "a": [
-        "A full load may be mixed across thicknesses, grades and product lines. Part-loads within India and LCL consolidation for export are available where the route and quantity allow; the practical minimum for your destination is confirmed on the quotation."
+        "We work at bulk and container scale — typically by the 20'/40' container load. A full load may be mixed across thicknesses, grades and product lines. Part-loads within India and LCL consolidation for export are available where the route and quantity allow; the practical minimum for your destination is confirmed on the quotation."
       ],
-      "schema": "Part-loads within India and LCL consolidation for export are available where the route and quantity allow; the practical minimum for your destination is confirmed on the quotation."
+      "schema": "We work at bulk and container scale, typically by the 20 or 40 foot container load. A full load may be mixed across thicknesses, grades and product lines. Part-loads within India and LCL consolidation for export are available where the route and quantity allow; the practical minimum for your destination is confirmed on the quotation."
     },
     {
       "q": "What are your lead-times?",

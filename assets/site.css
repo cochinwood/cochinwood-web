@@ -355,7 +355,11 @@ body {margin:0;background:#fff;font-family:Poppins,system-ui,sans-serif;color:#1
 .cwp__cta {padding:80px 0;background:var(--cw-teal,#007A5E);color:#fff}
 .cwp__cta-row {display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:center}
 .cwp__cta h2 {font-family:'Bree Serif',Georgia,serif;color:#fff;font-size:clamp(1.8rem,3vw,2.5rem);line-height:1.2;margin:10px 0 0}
-.cwp__cta p {color:rgba(255,255,255,.78);margin:14px 0 0;line-height:1.6;max-width:560px}
+/* Solid white, not .78 alpha: faded white over the brand green computed to 3.89:1,
+   under the 4.5:1 AA floor, on all 13 product pages. /container-flooring-plywood
+   still carries its own copy of this sheet in a page <style> that loads after
+   bundle.css, so the row class is named too, to out-weigh it. */
+.cwp__cta p, .cwp__cta .cwp__cta-row p {color:#fff;margin:14px 0 0;line-height:1.6;max-width:560px}
 .cwp__cta-actions {display:flex;flex-direction:column;gap:14px}
 .cwp__cta .cwp__btn {justify-content:center;background:var(--cw-green-100,#E5EFE9);color:var(--cw-green-700,#1B4332)}
 .cwp__cta .cwp__btn:hover {background:#fff}
@@ -513,6 +517,11 @@ p a, li a {min-height:0;min-width:0;display:inline;}
 @media (prefers-reduced-motion:reduce) {*, *::before, *::after {animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important;}html {scroll-behavior:auto !important;}
 }
 .cw__eyebrow, .eyebrow, figcaption, small {color:#4a575e !important;}
+/* ...but that grey is an AAA choice for dark-on-light only. On the teal ground of
+   an ink section it forced the /industries CTA eyebrow to 1.40:1 — the A+ layer
+   breaking the thing it was added for. Re-assert white here, after the rule that
+   set it, because only !important beats !important. */
+.cw__section--ink .cw__eyebrow {color:rgba(255,255,255,.92) !important;}
 
 /* === Responsive audit fixes 2026-06-15: mobile hero stacking + footer font === */
 @media(max-width:1024px) {
