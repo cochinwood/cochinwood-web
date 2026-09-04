@@ -1,0 +1,1111 @@
+/* --- fonts.css --- */
+/* latin-ext */
+@font-face {
+  font-family: 'Bree Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/breeserif-4UaHrEJCrhhnVA3DgluA96Tp56N1.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Bree Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/breeserif-4UaHrEJCrhhnVA3DgluA96rp5w.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* devanagari */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(fonts/poppins-pxiByp8kv8JHgFVrLDz8Z11lFc-K.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(fonts/poppins-pxiByp8kv8JHgFVrLDz8Z1JlFc-K.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(fonts/poppins-pxiByp8kv8JHgFVrLDz8Z1xlFQ.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* devanagari */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/poppins-pxiEyp8kv8JHgFVrJJbecmNE.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/poppins-pxiEyp8kv8JHgFVrJJnecmNE.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/poppins-pxiEyp8kv8JHgFVrJJfecg.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* devanagari */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(fonts/poppins-pxiByp8kv8JHgFVrLGT9Z11lFc-K.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(fonts/poppins-pxiByp8kv8JHgFVrLGT9Z1JlFc-K.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(fonts/poppins-pxiByp8kv8JHgFVrLGT9Z1xlFQ.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* devanagari */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(fonts/poppins-pxiByp8kv8JHgFVrLEj6Z11lFc-K.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(fonts/poppins-pxiByp8kv8JHgFVrLEj6Z1JlFc-K.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(fonts/poppins-pxiByp8kv8JHgFVrLEj6Z1xlFQ.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* devanagari */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(fonts/poppins-pxiByp8kv8JHgFVrLCz7Z11lFc-K.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(fonts/poppins-pxiByp8kv8JHgFVrLCz7Z1JlFc-K.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(fonts/poppins-pxiByp8kv8JHgFVrLCz7Z1xlFQ.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* --- site.css --- */
+/* ============================================================
+   Cochin Wood Industries — site-wide overrides
+   Beats Zoho's anchor/button stylesheet specificity
+   ============================================================ */
+
+/* ---------- Buttons (Zoho forces all <a> children to white) ---------- */
+a.cw__btn, .cw__btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding: 14px 26px !important;
+  border-radius: 999px !important;
+  font-weight: 600 !important;
+  font-size: .95rem !important;
+  text-decoration: none !important;
+  transition: transform .16s, box-shadow .16s, background .16s, color .16s !important;
+}
+a.cw__btn:hover { transform: translateY(-2px) !important; }
+
+a.cw__btn--secondary, .cw__btn--secondary {
+  background: #ffffff !important;
+  color: #163E30 !important;
+  border: 1.5px solid #E1DDD3 !important;
+}
+a.cw__btn--secondary:hover {
+  border-color: #1B4332 !important;
+  color: #163E30 !important;
+  background: #ffffff !important;
+}
+
+/* ---------- CTA banner — force solid background & visible text ---------- */
+
+/* ---------- Form submit button (also <button> tag) ---------- */
+
+/* ---------- Page hero text colors (in case Zoho overrides) ---------- */
+
+/* Stats section */
+
+/* Showcase / hero card text */
+
+/* Industry card text */
+
+/* Director quote section (ink bg) */
+
+/* ---------- Hide Zoho default social-icon sidebar (right edge) ---------- */
+
+/* ---------- Compact Zoho default header (was 564px) ---------- */
+[class*="theme-header"]:not([class*="topbar"]) {
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+  min-height: 0 !important;
+}
+[class*="theme-logo"] img {
+  max-height: 64px !important;
+  width: auto !important;
+}
+
+/* Site title — keep tight */
+
+/* Tighten the white gap between header and snippet */
+
+/* ---------- Smooth scroll site-wide ---------- */
+html { scroll-behavior: smooth; }
+
+/* ============================================================
+   Editor-only labels
+   ============================================================
+   Drop a Zoho "Text" element above each Code Snippet on a page,
+   class it `cw-editor-label`, and write a description of what
+   the snippet contains. Hidden on the published site, visible
+   inside Zoho’s edit mode (which renders the page in an iframe).
+*/
+
+/* ============================================================
+   ABOUT PAGE STYLES — extracted from original "About" snippet
+   on 2026-05-06 to restore styling after splitting into 9 sections.
+   These rules style .cw__page-hero, .cw__section, .cw__container,
+   .cw__pillar, .cw__h1/h2/h3/h4, .cw__two-col, etc. that the
+   about-1 through about-9 snippets reference.
+   ============================================================ */
+
+.cw__container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+.cw__h1, .cw__h2 { font-family: var(--cw-display); font-weight: 500; letter-spacing: -.015em; line-height: 1.1; margin: 0 0 .5em; color: var(--cw-ink-900); }
+.cw__h1 { font-size: clamp(2.4rem, 4vw + 1rem, 3.6rem); }
+.cw__h2 { font-size: clamp(2rem, 2.6vw + 1rem, 3rem); font-weight: 600; }
+
+.cw__lede { font-size: 1.15rem; line-height: 1.6; color: var(--cw-ink-600); margin: 0 0 1.5em; }
+.cw__eyebrow { font-size: .8rem; font-weight: 600; letter-spacing: .18em; text-transform: none; color: var(--cw-teal); display: inline-flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.cw__eyebrow::before { content: ''; width: 28px; height: 1.5px; background: var(--cw-teal); }
+.cw__btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 26px; border-radius: 999px; font-weight: 600; font-size: .95rem; transition: transform .16s; }
+.cw__btn:hover { transform: translateY(-2px); }
+.cw__btn--secondary { background: #fff; color: var(--cw-teal); border: 1.5px solid #E1DDD3; }
+
+.cw__page-hero { padding: 96px 0 80px; text-align: center; color: var(--cw-ink-900); position: relative; overflow: hidden; background: linear-gradient(180deg, #fff 0%, var(--cw-bg-soft) 100%); }
+.cw__page-hero::before { content: ''; position: absolute; inset: 0; opacity: .6;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><path d='M0 50 Q25 25 50 50 T100 50' stroke='rgba(255,255,255,.04)' stroke-width='1' fill='none'/></svg>"); }
+.cw__page-hero .cw__container { position: relative; }
+.cw__page-hero .cw__h1 { color: var(--cw-ink-900); }
+.cw__page-hero .cw__h1 em { font-style: italic; color: var(--cw-teal); font-weight: 500; }
+.cw__page-hero p { color: #3a4a52; max-width: 640px; margin: 0 auto; font-size: 1.1rem; }
+.cw__crumb { display: inline-flex; align-items: center; gap: 8px; font-size: .82rem; color: #5f6e76; margin-bottom: 16px; }
+
+.cw__section { padding: 96px 0; }
+
+.cw__section--ink { background: var(--cw-teal); color: rgba(255,255,255,.92); }
+.cw__section--ink .cw__h2 { color: #fff; }
+
+/* FAQ accordion */
+
+.cw__cta-actions { display: flex; gap: 12px; justify-content: flex-end; }
+@media (max-width: 760px) { .cw__cta-actions { justify-content: flex-start; } 
+}
+
+/* Defeat site-wide Custom CSS dark-hero overrides */
+
+/* ============================================================
+   ABOUT PAGE — VE IMAGE ELEMENT CUSTOM CLASSES
+   Apply these as Custom Class on Visual Editor Image elements
+   to give them the right shape, size, and border styling.
+   ============================================================ */
+
+/* Hero band — wide cinematic image, full container width */
+
+/* Story panel — right column of 2-col founding story (~514x385) */
+
+/* Mission band — wide image above pillar grid */
+
+/* Director avatar — circular 300x300 portrait */
+
+/* Compliance band — wide image above standards grid */
+
+/* Community band — wide image above community content */
+
+/* ============================================================
+   ABOUT PAGE — SIDE-BY-SIDE PAIRS via CSS Grid
+   When the column contains story-panel or director-avatar images,
+   apply a 2-col grid and pair specific snippets with their photo.
+   ============================================================ */
+
+/* Story pair: snippet immediately before story-panel sits in left column */
+
+/* Director pair: avatar in left, snippet immediately after in right */
+
+/* Tighten section padding when in a grid pair so it doesn't feel disjointed */
+
+/* ============================================================
+   ROOT VARIABLES — mirror of .cw vars on :root so they work
+   even without a .cw ancestor (after section split, snippets
+   no longer have a .cw wrapper).
+   ============================================================ */
+:root {
+  --cw-green-900: #0E2B22; --cw-green-800: #163E30; --cw-green-700: #1B4332; --cw-green-600: #2D6A4F; --cw-green-100: #E5EFE9;
+  --cw-wood-700: #6B3F1D; --cw-wood-500: #A66833; --cw-wood-200: #E8C9A8;
+  --cw-cream-100: #FBF7F0; --cw-cream-200: #F5EFE6;
+  --cw-ink-900: #141414; --cw-ink-600: #4A4A4A; --cw-ink-100: #EFEFEF; --cw-ink-200: #D9D9D9;
+  --cw-display: 'Bree Serif', Georgia, serif;
+  --cw-body: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --cw-teal: #007A5E; --cw-teal-600: #007f66; --cw-teal-700: #006652; --cw-teal-50: #e6f5f1; --cw-teal-900: #003d33;
+  --cw-bg: #ffffff; --cw-bg-soft: #f6f9f8;
+}
+/* Make .cw__section--ink legible without .cw wrapper */
+.cw__section--ink, .cw__section--ink * { color: rgba(255,255,255,0.95); }
+.cw__section--ink .cw__h2, .cw__section--ink h2, .cw__section--ink strong { color: #ffffff; }
+.cw__section--ink .cw__eyebrow { color: rgba(255,255,255,0.92); }
+.cw__section--ink .cw__eyebrow::before { background: rgba(255,255,255,0.4); }
+
+/* ============================================================
+   FIX: Override Zoho Image element max-width:500px so our band
+   placeholders fill their proper width (1240px hero/mission/etc.)
+   ============================================================ */
+
+/* The wrapping div should also be wide enough so the image can fill it */
+
+/* FIX 2: figure.zpimage-data-ref display:table shrinks to content. Force block+100% width */
+
+/* FIX 4: Cormorant Garamond display font */
+/* (Cormorant @import removed 2026-06-14 — font-lock below) */
+:root { --cw-display: 'Bree Serif', Georgia, serif !important; }
+.cw__h1, .cw__h2, h1, h2 { font-family: 'Bree Serif', Georgia, serif !important; }
+
+/* FIX 5: Shrink empty (default.jpg) placeholders so they don't dominate the page. Real photos still go to full 16:9. */
+
+/* FIX 6: Hero 2-col so photo sits beside the headline. Pair page-hero snippet with hero-band image. */
+
+/* Phase 0 fix (2026-05-07): prevent hidden POI checkboxes inside .cw__poi-chip from inheriting width:100% from .cw__field input rule, which combined with position:absolute pushed the document scrollWidth to 2568px on desktop. Reduces them to a 1px visually-hidden box. */
+
+/* === CWI: collapse header→hero gap (2026-05-15) === */
+/* The custom .cw-hd already provides the full header. Hide Zoho's residual theme header chrome. */
+
+/* Hide empty placeholder <p><br></p> sections that Zoho inserts above the first real snippet (home, industries) */
+
+/* Flush the first content section against the header — zero the Zoho wrapper's top padding/margin (snippet keeps its own design padding) */
+
+/* === Restore home hero photo (2026-05-15) === */
+/* Snippet img src points at lowercase /files/home/ which 404s; the real upload lives at /files/Home/. Mask via CSS background until the snippet can be edited. */
+.cw__hero-img { background: url('/files/Home/home-1-hero.jpg') center/cover no-repeat; }
+.cw__hero-img img { color: transparent; font-size: 0 !important; opacity: 0; }
+
+/* Global dark-section override - use brand teal instead of ink-900 */
+.cw__section--ink {
+  background: var(--cw-teal) !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* Case-card image fallbacks - masks broken <img>s in cases section */
+
+/* FIX 5: Body Poppins override (added 2026-05-17) */
+body, p, input, textarea, select, button { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, system-ui, sans-serif !important; }
+
+/* ============================================================
+   P0 #2 (added 2026-05-18) — de-claim certification badges
+   Stamps stay decorative; framing labels make the claim honest.
+   ============================================================ */
+
+/* Cards 1-3: Indian Standards — these we genuinely manufacture to */
+
+/* Cards 4-6: FSC, CARB/EPA/CE, ISO 9001 — these are on-request / aligned, not held */
+
+/* Tone down the round-seal visual so it reads as a spec icon, not a certificate */
+
+/* ============================================================
+   2026-05-18 bundle — audit P1 #7 + P1 #9 + P2 #12/19
+   Breadcrumb colour, Zoho footer branding, section padding,
+   duplicate header brand link.
+   ============================================================ */
+
+/* P1 #7: Breadcrumb visited-link colour fix */
+.cw__crumb a, .cw__crumb a:visited, .cw__crumb a:link {
+  color: var(--cw-text-2, #3a4a52) !important;
+  text-decoration: none;
+}
+.cw__crumb a:hover { color: var(--cw-teal, #007A5E) !important; }
+
+/* P1 #9: Hide Zoho footer branding link */
+a[title*="Zoho Sites" i], a[aria-label*="Zoho Sites" i], [class*="zsiteBranding" i], [id*="zsiteBranding" i] {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+}
+
+/* P2 #12: Tighten inter-section padding ~40% */
+.cw__section, section.cw__section {
+  padding-block: 60px !important;
+}
+@media (max-width: 768px) {
+  .cw__section, section.cw__section { padding-block: 44px !important; }
+
+}
+
+/* P2 #19: Hide the duplicate empty <a class="cw-hd-brand"> for a11y */
+
+/* ============================================================
+   P1 #13 / P1 #14 / P2 #19 (added 2026-05-18, audit follow-up)
+   Sticky-header anchor padding + nav font override + hide Zoho badge
+   ============================================================ */
+
+html { scroll-padding-top: 120px; }
+
+[class*="zspowered"], [class*="zsite-powered"] { display: none !important; }
+
+/* P1 #11: Hide JS-injected duplicate quote nav CTA (keep the pill button only) */
+
+/* P2 #16 follow-up: eyebrows in sentence-case site-wide */
+.cw__eyebrow, [class*="__eyebrow"] { text-transform: none !important; letter-spacing: 0.04em !important; }
+
+/* ============================================================
+   Quote Request form (Zoho native zpform) — brand theming
+   Added 2026-05-29, audit follow-up (lead-capture)
+   ============================================================ */
+
+/* Checkbox/radio fix — box inline-left of label (Products of interest) */
+
+/* Force hero banner backgrounds (beats snippet !important bg) */
+
+/* Hero banner-bg pages: white text (high-spec, beats --industries) */
+
+/* Home hero: visible image is the .cw__hero-img background (not the <img>) — point it at the Home banner */
+
+/* === CW UNIFORM HERO FIX 2026-05 (high-spec, beats forced bg) === */
+.cw__hero-grid.cw__hero-grid.cw__hero-grid {align-items:flex-start!important}
+.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img {background:none!important;background-image:none!important}
+.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img img {height:auto!important;width:100%!important;max-width:100%!important;object-fit:initial!important;display:block!important;position:relative!important;opacity:1!important;visibility:visible!important}
+
+/* CWHEROPOLISH */
+.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img {border-radius:24px!important;overflow:hidden!important;box-shadow:0 24px 64px rgba(20,20,20,.14)!important}
+@media(min-width:1025px) {.cw__hero-grid.cw__hero-grid.cw__hero-grid {grid-template-columns:1fr 1.35fr!important;gap:48px!important}
+}
+
+/* CWHEROFINAL uniform full-height image, no gap */
+@media(min-width:1025px) {
+.cw__hero-grid.cw__hero-grid.cw__hero-grid {align-items:stretch!important;grid-template-columns:1.05fr 1fr!important;gap:48px!important}
+.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img {height:100%!important}
+.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img img {height:100%!important;width:100%!important;object-fit:cover!important}
+
+}
+
+/* ===== CWI product-page (.cwp__*) + guide (.cwg__*) styles — appended by Claude ===== */
+/* ============================================================
+   Cochin Wood Industries â€” shared PRODUCT-PAGE styles (.cwp__*)
+   Linked by every /products-rebuild/*.html product page.
+   For Zoho: paste these rules once into site-wide Custom CSS,
+   or inline the relevant block into each snippet's <style>.
+   Depends on the global cw__ CSS variables from site.css.
+   ============================================================ */
+body {margin:0;background:#fff;font-family:Poppins,system-ui,sans-serif;color:#141414}
+.cwp__container {max-width:1240px;margin:0 auto;padding:0 24px}
+.cwp__eyebrow {color:var(--cw-green-700,#1B4332);font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin:0}
+.cwp__h2 {font-family:'Bree Serif',Georgia,serif;font-size:clamp(1.8rem,3vw,2.5rem);line-height:1.15;color:#0E1F18;margin:10px 0 12px}
+.cwp__lede {color:#4a4a4a;font-size:1.08rem;line-height:1.6;max-width:660px;margin:0 0 8px}
+
+/* 1 Â· hero */
+.cwp__hero {padding:32px 0 72px;background:var(--cw-bg,#FAF9F7)}
+.cwp__hero-grid {display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center}
+.cwp__crumb {font-size:13px;color:#4a4a4a;margin-bottom:22px}
+.cwp__crumb a {color:#4a4a4a;text-decoration:none}
+.cwp__crumb-sep {margin:0 8px;opacity:.5}
+.cwp__h1 {font-family:'Bree Serif',Georgia,serif;line-height:1.1;margin:12px 0 18px;font-size:clamp(2.1rem,4.2vw,3.2rem);color:#0E1F18}
+.cwp__hero-actions {display:flex;gap:14px;flex-wrap:wrap;margin:0 0 28px}
+.cwp__btn {background:var(--cw-green-700,#1B4332);color:#fff;border:none;padding:15px 26px;border-radius:999px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:transform .16s,background .16s}
+.cwp__btn:hover {transform:translateY(-2px);background:var(--cw-ink-900,#141414)}
+.cwp__btn--secondary {background:transparent;color:var(--cw-ink-900,#141414);border:1.5px solid var(--cw-ink-200,#D9D9D9)}
+.cwp__btn--secondary:hover {background:#fff;border-color:var(--cw-green-700,#1B4332)}
+.cwp__hero-meta {display:flex;flex-wrap:wrap;gap:14px;color:#4a4a4a;font-size:.95rem;padding-top:20px;border-top:1.5px dashed var(--cw-ink-200,#D9D9D9)}
+.cwp__hero-meta strong {color:#141414;font-weight:700}
+.cwp__hero-meta .sep {color:#9aa29c}
+.cwp__hero-img {border-radius:24px;overflow:hidden;box-shadow:0 24px 64px rgba(20,20,20,.14)}
+.cwp__hero-img img {display:block;width:100%;height:520px;object-fit:cover}
+
+/* 2 Â· spec table */
+.cwp__spec {padding:72px 0}
+.cwp__table {width:100%;border-collapse:collapse;margin-top:32px;font-size:.98rem}
+.cwp__table th, .cwp__table td {text-align:left;padding:14px 16px;border-bottom:1px solid var(--cw-ink-200,#D9D9D9);vertical-align:top}
+.cwp__table th {width:34%;color:#0E1F18;font-weight:600;background:var(--cw-green-100,#E5EFE9)}
+.cwp__table tr:last-child td, .cwp__table tr:last-child th {border-bottom:none}
+.cwp__note {margin-top:14px;font-size:.85rem;color:#5f6e76}
+
+/* 3 Â· why (pillars) */
+.cwp__why {padding:72px 0;background:var(--cw-bg,#FAF9F7)}
+.cwp__pillars {display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+.cwp__pillar {background:#fff;border:1.5px solid var(--cw-ink-200,#D9D9D9);border-radius:16px;padding:28px}
+.cwp__pillar-icon {width:52px;height:52px;display:grid;place-items:center;border-radius:14px;background:var(--cw-green-100,#E5EFE9);color:var(--cw-green-700,#1B4332);margin-bottom:16px}
+.cwp__pillar h3 {font-family:'Bree Serif',Georgia,serif;margin:0 0 8px;font-size:1.2rem;color:#0E1F18}
+.cwp__pillar p {margin:0;color:#4a4a4a;line-height:1.6}
+
+/* 4 Â· faq */
+.cwp__faq {padding:72px 0}
+.cwp__faq-list {margin-top:36px;border-top:1px solid var(--cw-ink-200,#D9D9D9)}
+.cwp__faq-item {border-bottom:1px solid var(--cw-ink-200,#D9D9D9);padding:22px 0}
+.cwp__faq-item h3 {font-family:'Bree Serif',Georgia,serif;font-size:1.12rem;margin:0 0 8px;color:#0E1F18}
+.cwp__faq-item p {margin:0;color:#4a4a4a;line-height:1.62}
+
+/* 5 Â· cta band */
+.cwp__cta {padding:80px 0;background:var(--cw-teal,#007A5E);color:#fff}
+.cwp__cta-row {display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:center}
+.cwp__cta h2 {font-family:'Bree Serif',Georgia,serif;color:#fff;font-size:clamp(1.8rem,3vw,2.5rem);line-height:1.2;margin:10px 0 0}
+.cwp__cta p {color:rgba(255,255,255,.78);margin:14px 0 0;line-height:1.6;max-width:560px}
+.cwp__cta-actions {display:flex;flex-direction:column;gap:14px}
+.cwp__cta .cwp__btn {justify-content:center;background:var(--cw-green-100,#E5EFE9);color:var(--cw-green-700,#1B4332)}
+.cwp__cta .cwp__btn:hover {background:#fff}
+.cwp__cta .cwp__btn--secondary {background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.3)}
+
+@media (max-width:1024px) {.cwp__hero-grid {grid-template-columns:1fr;gap:40px}.cwp__hero-img img {height:360px}.cwp__pillars {grid-template-columns:1fr}.cwp__cta-row {grid-template-columns:1fr;gap:28px}
+}
+@media (max-width:640px) {.cwp__table th {width:44%}
+}
+
+/* ============================================================
+   Cochin Wood Industries â€” shared GUIDE / ARTICLE styles (.cwg__*)
+   Linked by every /guides/*.html resource article.
+   Self-contained (includes hero + faq + cta) so the Resources
+   hub reads consistently. Depends on cw__ variables in site.css.
+   ============================================================ */
+body {margin:0;background:#fff;font-family:Poppins,system-ui,sans-serif;color:#141414;line-height:1.65}
+.cwg__container {max-width:820px;margin:0 auto;padding:0 24px}
+.cwg__wide {max-width:1100px;margin:0 auto;padding:0 24px}
+
+/* hero / header */
+.cwg__hero {padding:40px 0 28px;background:var(--cw-bg,#FAF9F7);border-bottom:1px solid var(--cw-ink-200,#D9D9D9)}
+.cwg__crumb {font-size:13px;color:#4a4a4a;margin-bottom:18px}
+.cwg__crumb a {color:#4a4a4a;text-decoration:none}
+.cwg__crumb-sep {margin:0 8px;opacity:.5}
+.cwg__eyebrow {color:var(--cw-green-700,#1B4332);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin:0}
+.cwg__h1 {font-family:'Bree Serif',Georgia,serif;font-size:clamp(1.9rem,3.6vw,2.7rem);line-height:1.15;color:#0E1F18;margin:10px 0 14px}
+.cwg__meta {font-size:.84rem;color:#5f6e76}
+
+/* the answer-first summary box (the bit AI engines lift) */
+.cwg__tldr {margin:36px 0;padding:22px 24px;background:var(--cw-green-100,#E5EFE9);border-left:4px solid var(--cw-green-700,#1B4332);border-radius:8px}
+.cwg__tldr p {margin:0;font-size:1.05rem;color:#0E1F18}
+.cwg__tldr strong {font-weight:700}
+
+/* body prose */
+.cwg__body {padding:8px 0 16px}
+.cwg__body h2 {font-family:'Bree Serif',Georgia,serif;font-size:clamp(1.4rem,2.4vw,1.9rem);color:#0E1F18;margin:40px 0 12px;line-height:1.2}
+.cwg__body h3 {font-family:'Bree Serif',Georgia,serif;font-size:1.18rem;color:#0E1F18;margin:26px 0 8px}
+.cwg__body p {color:#3a4a52;margin:0 0 16px}
+.cwg__body ul, .cwg__body ol {color:#3a4a52;margin:0 0 16px;padding-left:22px}
+.cwg__body li {margin:6px 0}
+.cwg__body a {color:var(--cw-green-700,#1B4332);text-decoration:underline}
+
+/* comparison table */
+.cwg__table {width:100%;border-collapse:collapse;margin:22px 0;font-size:.95rem}
+.cwg__table th, .cwg__table td {text-align:left;padding:12px 14px;border:1px solid var(--cw-ink-200,#D9D9D9);vertical-align:top}
+.cwg__table thead th {background:var(--cw-green-100,#E5EFE9);color:#0E1F18;font-weight:600}
+.cwg__table td:first-child {font-weight:600;color:#0E1F18}
+
+/* faq */
+.cwg__faq {padding:8px 0 40px}
+.cwg__faq h2 {font-family:'Bree Serif',Georgia,serif;font-size:1.5rem;color:#0E1F18;margin:0 0 8px}
+.cwg__faq-item {border-bottom:1px solid var(--cw-ink-200,#D9D9D9);padding:18px 0}
+.cwg__faq-item h3 {font-family:'Bree Serif',Georgia,serif;font-size:1.08rem;margin:0 0 6px;color:#0E1F18}
+.cwg__faq-item p {margin:0;color:#3a4a52}
+
+/* cta band */
+.cwg__cta {padding:56px 0;background:var(--cw-teal,#007A5E);color:#fff;margin-top:24px}
+.cwg__cta-inner {display:flex;justify-content:space-between;align-items:center;gap:28px;flex-wrap:wrap}
+.cwg__cta h2 {font-family:'Bree Serif',Georgia,serif;color:#fff;font-size:1.6rem;margin:0;line-height:1.25}
+.cwg__cta p {margin:8px 0 0;color:rgba(255,255,255,.78)}
+.cwg__btn {background:var(--cw-green-100,#E5EFE9);color:var(--cw-green-700,#1B4332);border:none;padding:15px 26px;border-radius:999px;font-weight:600;text-decoration:none;white-space:nowrap;display:inline-flex;align-items:center;gap:8px}
+.cwg__btn:hover {background:#fff}
+
+/* related links */
+.cwg__related {padding:40px 0;background:var(--cw-bg,#FAF9F7)}
+.cwg__related h2 {font-family:'Bree Serif',Georgia,serif;font-size:1.3rem;color:#0E1F18;margin:0 0 16px}
+.cwg__related a {display:inline-block;margin:0 10px 10px 0;padding:8px 16px;border:1.5px solid var(--cw-ink-200,#D9D9D9);border-radius:999px;color:var(--cw-green-700,#1B4332);text-decoration:none;font-size:.92rem}
+.cwg__related a:hover {border-color:var(--cw-green-700,#1B4332)}
+
+@media (max-width:640px) {.cwg__cta-inner {flex-direction:column;align-items:flex-start}
+}
+
+/* ======================================================================
+   CWI — brand restyle of the NATIVE Zoho "Quote Request" form (/contact)
+   Append to: Zoho Sites ▸ Settings ▸ Code ▸ Custom CSS
+   (URL: /zcms/<id>/settings/code/customcss)
+   Targets Zoho's own form classes, so it restyles the REAL working form.
+   Assumes brand vars (--cw-*) already exist in Custom CSS (they do).
+   Pairing the first two fields (First/Last name) side-by-side assumes
+   they remain fields 1 and 2 in the form builder.
+   ====================================================================== */
+
+/* grid: everything full-width; first two fields (names) share a row */
+
+/* labels */
+
+/* inputs / textarea / select */
+
+/* product checkboxes -> branded pill-chips */
+
+/* captcha row */
+
+/* buttons */
+
+   /* hide Zoho's default Reset button */
+
+/* ===== Mobile/tablet nav drawer fix (added 2026-06-03) =====
+   Header .cw-hd uses backdrop-filter, which makes the fixed
+   .cw-hd-nav.is-open drawer resolve against the ~105px header
+   instead of the viewport, so inset:72px 0 0 0 collapsed it to a
+   ~56px sliver that clipped the nav links. Force full viewport height. */
+
+/* Mobile drawer: re-show the Request-a-quote CTA (the unscoped .cw-hd-nav .cw-hd-nav-cta{display:none!important} hides it on mobile too) */
+
+/* Footer legal line: keep the copyright/Privacy/Terms links inline so the middot separators read on one line and don't orphan (global .cw-ft a is display:block for the column nav). Paired with nowrap spans in the footer markup. */
+
+/* Font unification 2026-06-04: brand pairing only (Bree Serif display + Poppins body); removes stray Cormorant Garamond & Lora */
+
+/* ============================================================
+   City / SEO blog posts — match home-page theme (2026-06-08)
+   Scoped to .theme-single-post so ONLY blog post pages are touched.
+   Replaces the Zoho blog template's purple headings, Cormorant h3
+   and magenta links with the Cochin Wood home palette
+   (Bree Serif headings #141414, Poppins body, #007A5E green accent).
+   ============================================================ */
+
+/* City blog posts with cwp__ hero: hide duplicate blog title/byline/social/comments (2026-06-08) */
+
+/* cwp__ pill buttons on blog posts: re-assert text colour (blog theme link-override hijacks it to green = low contrast) 2026-06-09 */
+
+/* Blog author block: CWI emblem as avatar + de-purple the author name (2026-06-09) */
+
+/* cwp__ hero 2-col + per-place art (2026-06-09) — :has guard = no-op until art embedded */
+
+/* Guide posts (cwg__) migrated from pages: hide duplicate blog chrome + keep button colours (2026-06-10) */
+
+/* Comments container sits OUTSIDE .theme-single-post in this theme - hide at body level for cwp+cwg posts (2026-06-10) */
+
+/* hide Zoho dead template button on blog posts (2026-06-11) */
+body:has(.theme-single-post) .zpelem-button:has(a.zpbutton[href="javascript:;"]) {display:none!important}
+
+/* ============================================================
+   FONT LOCK 2026-06-14 — Bree Serif (display) + Poppins (body) only.
+   Eliminates theme Heebo + Cormorant. Theme style.css not editable,
+   so override its exact selectors. No icon-font risk (SVG icons).
+   ============================================================ */
+:root {--cw-display:'Bree Serif',Georgia,serif !important;--cw-body:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif !important;}
+h1, h2, h3, h4, h5, h6 {font-family:'Bree Serif',Georgia,serif !important;}
+body, input[type=submit], input[type=button] {font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif !important;}
+
+/* ============================================================
+   ACCESSIBILITY A+ LAYER 2026-06-14 — focus-visible rings, skip link,
+   44px tap targets, reduced-motion, AAA eyebrow greys. Keyboard/AT only;
+   no visual change for mouse/touch users. Brand teal #007a5e.
+   ============================================================ */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, summary:focus-visible, [tabindex]:focus-visible, [role="button"]:focus-visible, [role="link"]:focus-visible {outline:2px solid #007a5e !important;outline-offset:2px !important;box-shadow:0 0 0 4px rgba(255,255,255,0.85) !important;border-radius:3px;}
+@supports selector(:focus-visible){a:focus:not(:focus-visible),button:focus:not(:focus-visible),input:focus:not(:focus-visible),select:focus:not(:focus-visible),textarea:focus:not(:focus-visible),summary:focus:not(:focus-visible),[tabindex]:focus:not(:focus-visible),[role="button"]:focus:not(:focus-visible){outline:none;box-shadow:none;}}
+input:focus-visible, select:focus-visible, textarea:focus-visible {border-color:#007a5e !important;}
+
+#main {scroll-margin-top:90px;}
+header nav a, header nav button, footer a, a[href^="tel:"], a[href^="mailto:"], a[aria-label] {min-height:44px;min-width:44px;display:inline-flex;align-items:center;justify-content:center;}
+
+p a, li a {min-height:0;min-width:0;display:inline;}
+@media (prefers-reduced-motion:reduce) {*, *::before, *::after {animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important;}html {scroll-behavior:auto !important;}
+}
+.cw__eyebrow, .eyebrow, figcaption, small {color:#4a575e !important;}
+
+/* === Responsive audit fixes 2026-06-15: mobile hero stacking + footer font === */
+@media(max-width:1024px) {
+  .cw__hero-grid.cw__hero-grid.cw__hero-grid {grid-template-columns:1fr!important;gap:26px!important}
+  .cw__page-hero .cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img {height:auto!important}
+  .cw__page-hero .cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img.cw__hero-img img {height:auto!important;width:100%!important;max-height:340px!important;object-fit:cover!important}
+
+}
+
+/* === Responsive polish 2026-06-15: stack tight 2-up grids + readable tags on phones === */
+@media(max-width:600px) {
+  
+  .cwop-flow {grid-template-columns:1fr!important}
+  
+
+}
+
+/* --- guide.css --- */
+/* ============================================================
+   Cochin Wood Industries — shared GUIDE / ARTICLE styles (.cwg__*)
+   Linked by every /guides/*.html resource article.
+   Self-contained (includes hero + faq + cta) so the Resources
+   hub reads consistently. Depends on cw__ variables in site.css.
+   ============================================================ */
+body{margin:0;background:#fff;font-family:Poppins,system-ui,sans-serif;color:#141414;line-height:1.65}
+.cwg__container{max-width:820px;margin:0 auto;padding:0 24px}
+.cwg__wide{max-width:1100px;margin:0 auto;padding:0 24px}
+
+/* hero / header */
+.cwg__hero{padding:40px 0 28px;background:var(--cw-bg,#FAF9F7);border-bottom:1px solid var(--cw-ink-200,#D9D9D9)}
+.cwg__crumb{font-size:13px;color:#4a4a4a;margin-bottom:18px}
+.cwg__crumb a{color:#4a4a4a;text-decoration:none}
+.cwg__crumb-sep{margin:0 8px;opacity:.5}
+.cwg__eyebrow{color:var(--cw-green-700,#1B4332);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin:0}
+.cwg__h1{font-family:'Bree Serif',Georgia,serif;font-size:clamp(1.9rem,3.6vw,2.7rem);line-height:1.15;color:#0E1F18;margin:10px 0 14px}
+.cwg__meta{font-size:.84rem;color:#5a6a72}
+
+/* the answer-first summary box (the bit AI engines lift) */
+.cwg__tldr{margin:36px 0;padding:22px 24px;background:var(--cw-green-100,#E5EFE9);border-left:4px solid var(--cw-green-700,#1B4332);border-radius:8px}
+.cwg__tldr p{margin:0;font-size:1.05rem;color:#0E1F18}
+.cwg__tldr strong{font-weight:700}
+
+/* body prose */
+.cwg__body{padding:8px 0 16px}
+.cwg__body h2{font-family:'Bree Serif',Georgia,serif;font-size:clamp(1.4rem,2.4vw,1.9rem);color:#0E1F18;margin:40px 0 12px;line-height:1.2}
+.cwg__body h3{font-family:'Bree Serif',Georgia,serif;font-size:1.18rem;color:#0E1F18;margin:26px 0 8px}
+.cwg__body p{color:#3a4a52;margin:0 0 16px}
+.cwg__body ul,.cwg__body ol{color:#3a4a52;margin:0 0 16px;padding-left:22px}
+.cwg__body li{margin:6px 0}
+.cwg__body a{color:var(--cw-green-700,#1B4332);text-decoration:underline}
+
+/* comparison table */
+.cwg__table{width:100%;border-collapse:collapse;margin:22px 0;font-size:.95rem}
+.cwg__table th,.cwg__table td{text-align:left;padding:12px 14px;border:1px solid var(--cw-ink-200,#D9D9D9);vertical-align:top}
+.cwg__table thead th{background:var(--cw-green-100,#E5EFE9);color:#0E1F18;font-weight:600}
+.cwg__table td:first-child{font-weight:600;color:#0E1F18}
+
+/* faq */
+.cwg__faq{padding:8px 0 40px}
+.cwg__faq h2{font-family:'Bree Serif',Georgia,serif;font-size:1.5rem;color:#0E1F18;margin:0 0 8px}
+.cwg__faq-item{border-bottom:1px solid var(--cw-ink-200,#D9D9D9);padding:18px 0}
+.cwg__faq-item h3{font-family:'Bree Serif',Georgia,serif;font-size:1.08rem;margin:0 0 6px;color:#0E1F18}
+.cwg__faq-item p{margin:0;color:#3a4a52}
+/* the nine /export lanes answer in one paragraph each; the /about buyer FAQ does
+   not, and with margin:0 a two-paragraph answer runs into itself as one block */
+.cwg__faq-item p+p{margin-top:10px}
+/* /about opens its FAQ with the live eyebrow + lede; the lanes open with a bare
+   "FAQ" heading and are unaffected */
+.cwg__faq .cwg__eyebrow{margin-bottom:8px}
+.cwg__faq .cw__lede{font-size:1.02rem;margin:0 0 8px}
+
+/* cta band */
+.cwg__cta{padding:56px 0;background:var(--cw-ink-900,#141414);color:#fff;margin-top:24px}
+.cwg__cta-inner{display:flex;justify-content:space-between;align-items:center;gap:28px;flex-wrap:wrap}
+.cwg__cta h2{font-family:'Bree Serif',Georgia,serif;color:#fff;font-size:1.6rem;margin:0;line-height:1.25}
+.cwg__cta p{margin:8px 0 0;color:rgba(255,255,255,.78)}
+.cwg__btn{background:var(--cw-green-100,#E5EFE9);color:var(--cw-green-700,#1B4332);border:none;padding:15px 26px;border-radius:999px;font-weight:600;text-decoration:none;white-space:nowrap;display:inline-flex;align-items:center;gap:8px}
+.cwg__btn:hover{background:#fff}
+
+/* related links */
+.cwg__related{padding:40px 0;background:var(--cw-bg,#FAF9F7)}
+.cwg__related h2{font-family:'Bree Serif',Georgia,serif;font-size:1.3rem;color:#0E1F18;margin:0 0 16px}
+.cwg__related a{display:inline-block;margin:0 10px 10px 0;padding:8px 16px;border:1.5px solid var(--cw-ink-200,#D9D9D9);border-radius:999px;color:var(--cw-green-700,#1B4332);text-decoration:none;font-size:.92rem}
+.cwg__related a:hover{border-color:var(--cw-green-700,#1B4332)}
+
+@media (max-width:640px){.cwg__cta-inner{flex-direction:column;align-items:flex-start}}
+
+/* export lane pages: the "shipping direct from our factory, no local stock in X"
+   note that sits under the hero lede on /export/<country>. */
+.cwg__note{font-size:.9rem;font-weight:600;color:var(--cw-teal,#007A5E);margin:12px 0 0}
+.cwg__note a{color:inherit;text-decoration:underline}
+
+/* --- wood-enc.css --- */
+/* ============================================================
+   Cochin Wood Industries — WOOD ENCYCLOPEDIA styles (.cwe__*)
+   Extends guide.css (.cwg__*). Adds: spec-data card, references
+   block, hub species grid. Depends on cw__ vars in site.css.
+   ============================================================ */
+
+/* ---- spec-data card (the quick-stats box, our own layout) ---- */
+.cwe__spec{margin:34px 0;border:1px solid var(--cw-ink-200,#D9D9D9);border-radius:12px;overflow:hidden}
+.cwe__spec-head{background:var(--cw-green-700,#1B4332);color:#fff;padding:14px 20px;font-family:'Bree Serif',Georgia,serif;font-size:1.05rem;letter-spacing:.01em}
+.cwe__spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.cwe__spec-row{display:flex;justify-content:space-between;gap:16px;padding:12px 20px;border-top:1px solid var(--cw-ink-200,#E4E4E4);font-size:.92rem}
+.cwe__spec-row:nth-child(-n+2){border-top:none}
+.cwe__spec-k{color:#5a6a72;flex:0 0 auto}
+.cwe__spec-v{color:#0E1F18;font-weight:600;text-align:right}
+.cwe__spec-note{padding:10px 20px;background:var(--cw-bg,#FAF9F7);border-top:1px solid var(--cw-ink-200,#E4E4E4);font-size:.8rem;color:#5a6a72}
+@media (max-width:620px){.cwe__spec-grid{grid-template-columns:1fr}.cwe__spec-row:nth-child(2){border-top:1px solid var(--cw-ink-200,#E4E4E4)}}
+
+/* ---- references block (numbered, cited sources) ---- */
+.cwe__refs{padding:32px 0 8px}
+.cwe__refs h2{font-family:'Bree Serif',Georgia,serif;font-size:1.4rem;color:#0E1F18;margin:0 0 6px}
+.cwe__refs-lead{font-size:.9rem;color:#5a6a72;margin:0 0 14px}
+.cwe__refs ol{margin:0;padding-left:20px;font-size:.9rem;color:#3a4a52}
+.cwe__refs li{margin:9px 0;line-height:1.55}
+.cwe__refs a{color:var(--cw-green-700,#1B4332);text-decoration:underline;word-break:break-word}
+.cwe__refs sup{color:var(--cw-green-700,#1B4332);font-weight:700}
+
+/* inline citation marker in body prose */
+.cwe__cite{font-size:.72em;vertical-align:super;line-height:0;color:var(--cw-green-700,#1B4332);font-weight:700;text-decoration:none;margin-left:1px}
+
+/* originality / accuracy note ribbon */
+.cwe__note{margin:26px 0;padding:14px 18px;background:var(--cw-bg,#FAF9F7);border:1px dashed var(--cw-ink-200,#CfCfCf);border-radius:8px;font-size:.86rem;color:#5a6a72}
+
+/* ---- hub species grid ---- */
+.cwe__hub-intro{padding:24px 0 8px}
+.cwe__group{padding:14px 0 6px}
+.cwe__group h2{font-family:'Bree Serif',Georgia,serif;font-size:1.35rem;color:#0E1F18;margin:22px 0 4px}
+.cwe__group p{color:#5a6a72;font-size:.92rem;margin:0 0 14px}
+.cwe__grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.cwe__card{display:block;border:1px solid var(--cw-ink-200,#D9D9D9);border-radius:12px;padding:18px 18px 16px;text-decoration:none;background:#fff;transition:border-color .15s,box-shadow .15s}
+.cwe__card:hover{border-color:var(--cw-green-700,#1B4332);box-shadow:0 4px 18px rgba(27,67,50,.08)}
+.cwe__card-name{font-family:'Bree Serif',Georgia,serif;font-size:1.12rem;color:#0E1F18;margin:0 0 2px}
+.cwe__card-sci{font-style:italic;font-size:.82rem;color:#5a6a72;margin:0 0 8px}
+.cwe__card-tag{display:inline-block;font-size:.72rem;font-weight:600;color:var(--cw-green-700,#1B4332);background:var(--cw-green-100,#E5EFE9);padding:3px 9px;border-radius:999px}
+.cwe__card--soon{opacity:.6;pointer-events:none}
+.cwe__card--soon .cwe__card-tag{background:#Eee;color:#8a8a8a}
+
+/* --- shell.css --- */
+/* ============================================================
+   Cochin Wood Industries — clean site shell (header, footer, home)
+   Uses the brand tokens defined in site.css (var(--cw-*)).
+   Part of the git-based static-site rebuild.
+   ============================================================ */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--cw-body,'Poppins',sans-serif);color:var(--cw-ink-900,#141414);line-height:1.6;background:#fff}
+a{color:var(--cw-green-700,#1B4332)}
+img{max-width:100%;display:block}
+.cw-wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+
+/* ---- header ---- */
+.cw-hd{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid var(--cw-ink-200,#D9D9D9)}
+.cw-hd__in{display:flex;align-items:center;justify-content:space-between;height:68px}
+.cw-hd__brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--cw-green-800,#163E30)}
+.cw-hd__brand img{height:38px;width:38px;border-radius:50%}
+.cw-hd__brand b{font-family:var(--cw-display,'Bree Serif',serif);font-size:1.12rem;line-height:1.05;font-weight:400}
+.cw-hd__brand span{display:block;font-size:.64rem;letter-spacing:.13em;text-transform:uppercase;color:var(--cw-ink-600,#4A4A4A)}
+.cw-nav{display:flex;align-items:center;gap:26px}
+.cw-nav a{color:var(--cw-ink-900,#141414);text-decoration:none;font-size:.93rem;font-weight:500}
+.cw-nav a:hover{color:var(--cw-green-700,#1B4332)}
+.cw-nav .cw-cta{background:var(--cw-green-700,#1B4332);color:#fff;padding:9px 18px;border-radius:999px}
+.cw-nav .cw-cta:hover{background:var(--cw-green-800,#163E30);color:#fff}
+.cw-burger{display:none;background:none;border:0;font-size:1.5rem;cursor:pointer;color:var(--cw-green-800)}
+@media(max-width:860px){
+  .cw-nav{position:fixed;inset:68px 0 auto 0;flex-direction:column;align-items:stretch;gap:0;background:#fff;border-bottom:1px solid var(--cw-ink-200);padding:8px 0;display:none;box-shadow:0 12px 24px rgba(0,0,0,.08)}
+  .cw-nav.open{display:flex}
+  .cw-nav a{padding:13px 24px;border-top:1px solid var(--cw-ink-100)}
+  .cw-nav .cw-cta{margin:10px 24px;text-align:center}
+  .cw-burger{display:block}
+}
+
+/* ---- hero ---- */
+.cw-hero{background:linear-gradient(160deg,var(--cw-green-800,#163E30),var(--cw-green-700,#1B4332) 55%,#12352a);color:#fff;padding:72px 0 64px}
+.cw-hero__ey{color:var(--cw-wood-200,#E8C9A8);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin:0 0 14px}
+.cw-hero h1{font-family:var(--cw-display,'Bree Serif',serif);font-weight:400;font-size:clamp(2rem,4.6vw,3.3rem);line-height:1.12;margin:0 0 18px;max-width:15ch}
+.cw-hero p{font-size:1.12rem;color:rgba(255,255,255,.86);max-width:56ch;margin:0 0 28px}
+.cw-hero__cta{display:flex;gap:14px;flex-wrap:wrap}
+.cw-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 26px;border-radius:999px;font-weight:600;text-decoration:none;border:0;cursor:pointer;font-size:.98rem}
+.cw-btn--p{background:var(--cw-wood-500,#A66833);color:#fff}
+.cw-btn--p:hover{background:var(--cw-wood-700,#6B3F1D);color:#fff}
+.cw-btn--g{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.4)}
+.cw-btn--g:hover{background:rgba(255,255,255,.22);color:#fff}
+.cw-hero__strip{display:flex;gap:28px;flex-wrap:wrap;margin-top:40px;padding-top:26px;border-top:1px solid rgba(255,255,255,.16)}
+.cw-hero__strip div{color:rgba(255,255,255,.9)}
+.cw-hero__strip b{display:block;font-family:var(--cw-display,serif);font-size:1.5rem;color:#fff}
+.cw-hero__strip span{font-size:.85rem;color:rgba(255,255,255,.7)}
+
+/* ---- sections ---- */
+.cw-sec{padding:64px 0}
+.cw-sec--soft{background:var(--cw-cream-100,#FBF7F0)}
+.cw-sec__h{font-family:var(--cw-display,serif);font-weight:400;font-size:clamp(1.6rem,3vw,2.3rem);color:var(--cw-green-800,#163E30);margin:0 0 10px}
+.cw-sec__lead{color:var(--cw-ink-600,#4A4A4A);max-width:62ch;margin:0 0 34px;font-size:1.05rem}
+
+/* ---- product / card grid ---- */
+.cw-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+.cw-card{display:block;text-decoration:none;color:inherit;border:1px solid var(--cw-ink-200,#D9D9D9);border-radius:14px;padding:22px;background:#fff;transition:transform .15s,box-shadow .15s,border-color .15s}
+.cw-card:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(27,67,50,.10);border-color:var(--cw-green-600,#2D6A4F)}
+.cw-card h2{font-family:var(--cw-display,serif);font-weight:400;font-size:1.18rem;color:var(--cw-green-800,#163E30);margin:0 0 6px}
+.cw-card p{margin:0;color:var(--cw-ink-600,#4A4A4A);font-size:.92rem}
+.cw-card__tag{display:inline-block;margin-top:14px;font-size:.82rem;font-weight:600;color:var(--cw-green-700,#1B4332)}
+
+/* ---- feature rows ---- */
+.cw-feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:26px}
+.cw-feat h3{font-family:var(--cw-display,serif);font-weight:400;font-size:1.16rem;color:var(--cw-green-800);margin:0 0 6px}
+.cw-feat p{margin:0;color:var(--cw-ink-600);font-size:.95rem}
+
+/* ---- CTA band ---- */
+.cw-band{background:var(--cw-ink-900,#141414);color:#fff;padding:56px 0}
+.cw-band__in{display:flex;justify-content:space-between;align-items:center;gap:26px;flex-wrap:wrap}
+.cw-band h2{font-family:var(--cw-display,serif);font-weight:400;font-size:1.7rem;margin:0}
+.cw-band p{margin:6px 0 0;color:rgba(255,255,255,.75)}
+
+/* ---- footer ---- */
+.cw-ft{background:var(--cw-green-900,#0E2B22);color:rgba(255,255,255,.82);padding:52px 0 26px;font-size:.92rem}
+.cw-ft__cols{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:30px}
+.cw-ft .cw-ft__h{color:#fff;font-family:var(--cw-display,serif);font-weight:400;font-size:1.05rem;margin:0 0 12px}
+.cw-ft a{color:rgba(255,255,255,.82);text-decoration:none;display:block;padding:4px 0}
+.cw-ft a:hover{color:#fff}
+.cw-ft__brand b{font-family:var(--cw-display,serif);color:#fff;font-size:1.15rem}
+.cw-ft__brand p{margin:8px 0 0;color:rgba(255,255,255,.66);max-width:34ch}
+.cw-ft__bar{margin-top:34px;padding-top:18px;border-top:1px solid rgba(255,255,255,.14);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:rgba(255,255,255,.6);font-size:.85rem}
+@media(max-width:760px){.cw-ft__cols{grid-template-columns:1fr 1fr}.cw-ft__brand{grid-column:1/-1}}
+
+/* encyclopedia page: shared chrome sits above the guide hero, so trim its top pad */
+.cw-encbody .cwg__hero{padding-top:26px}
+
+/* ---- blog ---- */
+.cw-blogindex{padding:14px 0}
+.cw-blogindex h2{font-family:var(--cw-display,serif);font-weight:400;font-size:1.35rem;color:var(--cw-green-800);margin:26px 0 6px}
+.cw-bloglist{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.cw-bloglist a{display:block;text-decoration:none;border:1px solid var(--cw-ink-200,#D9D9D9);border-radius:12px;padding:16px 18px;color:inherit;transition:border-color .15s,box-shadow .15s}
+.cw-bloglist a:hover{border-color:var(--cw-green-600);box-shadow:0 6px 18px rgba(27,67,50,.08)}
+.cw-bloglist b{display:block;font-family:var(--cw-display,serif);font-weight:400;color:var(--cw-green-800);font-size:1.02rem;line-height:1.25;margin-bottom:5px}
+.cw-bloglist span{color:var(--cw-ink-600);font-size:.86rem;line-height:1.45}
+/* prose fallbacks for plain-HTML article bodies inside .cwg__body */
+.cwg__body table{width:100%;border-collapse:collapse;margin:20px 0;font-size:.94rem}
+.cwg__body th,.cwg__body td{border:1px solid var(--cw-ink-200,#D9D9D9);padding:10px 12px;text-align:left;vertical-align:top}
+.cwg__body thead th,.cwg__body tr:first-child th{background:var(--cw-green-100,#E5EFE9);color:#0E1F18}
+.cwg__body img{border-radius:8px;margin:16px 0}
+.cwg__body h2{margin-top:34px}
+
+/* ---- quote form ---- */
+.cw-form{margin:26px 0 0;display:grid;gap:16px}
+.cw-form .cw-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.cw-form label{display:block;font-size:.86rem;font-weight:600;color:var(--cw-green-800);margin:0 0 6px}
+.cw-form input[type=text],.cw-form input[type=email],.cw-form input[type=tel],.cw-form textarea,.cw-form select{
+  width:100%;padding:12px 14px;border:1px solid var(--cw-ink-200,#D9D9D9);border-radius:10px;font:inherit;font-size:.95rem;background:#fff}
+.cw-form input:focus,.cw-form textarea:focus,.cw-form select:focus{outline:none;border-color:var(--cw-green-600);box-shadow:0 0 0 3px var(--cw-green-100)}
+.cw-form textarea{min-height:120px;resize:vertical}
+.cw-form .cw-checks{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px 16px;margin-top:4px}
+.cw-form .cw-checks label{display:flex;align-items:center;gap:8px;font-weight:400;font-size:.9rem;color:var(--cw-ink-900);margin:0}
+.cw-form .cw-checks input{width:auto}
+.cw-form .cw-hp{position:absolute;left:-9999px}
+.cw-form .cw-note{font-size:.82rem;color:var(--cw-ink-600)}
+/* Hidden until the submit gate has something to say. It is shown by setting an inline display:block,
+   so this rule only has to supply the resting state and the colour. */
+.cw-form__err{display:none;margin:0;font-size:.86rem;color:#b23b3b}
+.cw-form__err a{color:#b23b3b}
+/* Replaces the whole form after the Worker redirects back with ?sent=1. */
+.cw-form__ok{text-align:center;padding:32px 8px}
+.cw-form__ok h2{margin:0 0 10px}
+.cw-form__ok p{margin:0 0 18px;color:var(--cw-ink-600)}
+@media(max-width:620px){.cw-form .cw-row{grid-template-columns:1fr}}
+
+/* --- components.css --- */
+/* Cochin Wood Industries — shared UI added in the site upgrade.
+   Loaded last in bundle.css so it can settle the older Zoho-era rules. */
+
+/* ---- skip link ---------------------------------------------------------- */
+.cw-skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 999;
+  padding: 12px 20px;
+  background: var(--cw-green-700, #1f5132);
+  color: #fff;
+  font: 600 15px/1.2 Poppins, system-ui, sans-serif;
+  border-radius: 0 0 8px 0;
+  text-decoration: none;
+}
+.cw-skip:focus { left: 0; }
+
+/* ---- visually hidden ----------------------------------------------------
+   Read by screen readers and search engines, painted nowhere. Used where a
+   page's design opens on a section label rather than a document heading. */
+.cw-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Visible keyboard focus everywhere — the Zoho theme suppressed it. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #b7791f;
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* ---- current-section nav ------------------------------------------------ */
+.cw-nav a[aria-current="page"] {
+  color: var(--cw-green-600, #2a6b41);
+  font-weight: 600;
+  box-shadow: inset 0 -2px 0 currentColor;
+}
+.cw-nav a.cw-cta[aria-current="page"] { box-shadow: none; }
+
+/* ---- breadcrumbs -------------------------------------------------------- */
+.cw-crumb {
+  border-bottom: 1px solid rgba(20, 20, 20, .08);
+  background: #fbfaf7;
+  font: 400 14px/1.5 Poppins, system-ui, sans-serif;
+}
+.cw-crumb > .cw-wrap { padding: 10px 0; }
+.cw-crumb a { color: #55606a; text-decoration: none; }
+.cw-crumb a:hover { color: var(--cw-green-600, #2a6b41); text-decoration: underline; }
+.cw-crumb [aria-current="page"] { color: #14181c; font-weight: 500; }
+.cw-crumb__sep { color: #7c8790; padding: 0 2px; }
+
+/* ---- hero without a photo ----------------------------------------------
+   Product/industry heroes are two-column with the photo on the right. When the
+   photo has no source file the build removes it, so collapse to one column
+   instead of leaving a half-empty band. Drops out on its own once art exists. */
+.cwp__hero-grid:not(:has(.cwp__hero-img)),
+.cw__hero-grid:not(:has(.cw__hero-img)) {
+  grid-template-columns: 1fr !important;
+  gap: 0 !important;
+}
+.cwp__hero-grid:not(:has(.cwp__hero-img)) .cwp__hero-text,
+.cw__hero-grid:not(:has(.cw__hero-img)) .cw__hero-text {
+  max-width: 46rem;
+}
+
+/* ---- floating WhatsApp -------------------------------------------------- */
+.cw-wa {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 90;
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .22);
+  transition: transform .15s ease;
+}
+.cw-wa:hover, .cw-wa:focus-visible { transform: scale(1.07); }
+
+/* ---- back to top -------------------------------------------------------- */
+.cw-top {
+  position: fixed;
+  right: 18px;
+  bottom: 84px;
+  z-index: 90;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(20, 20, 20, .12);
+  border-radius: 50%;
+  background: #fff;
+  color: #14181c;
+  font-size: 19px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .14);
+}
+.cw-top[hidden] { display: none; }
+.cw-top:hover { background: #f3f1ec; }
+
+/* ---- blog search -------------------------------------------------------- */
+.cw-blogtools { margin: 8px 0 30px; }
+.cw-blogtools label {
+  display: block;
+  font: 600 14px/1.4 Poppins, system-ui, sans-serif;
+  margin-bottom: 8px;
+  color: #3d474f;
+}
+.cw-blogtools input {
+  width: 100%;
+  max-width: 460px;
+  padding: 12px 16px;
+  font: 400 16px/1.4 Poppins, system-ui, sans-serif;
+  border: 1px solid rgba(20, 20, 20, .18);
+  border-radius: 10px;
+  background: #fff;
+}
+.cw-blogcount {
+  margin: 10px 0 0;
+  font: 400 14px/1.5 Poppins, system-ui, sans-serif;
+  color: #55606a;
+  min-height: 1.5em;
+}
+.cw-bloglist > a[hidden] { display: none; }
+
+/* ---- print -------------------------------------------------------------- */
+@media print {
+  .cw-hd, .cw-ft, .cw-wa, .cw-top, .cw-skip, .cw-crumb, .cw-blogtools { display: none !important; }
+  body { background: #fff; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .85em; word-break: break-all; }
+}
+
+/* ---- motion ------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Hero meta separators shipped at #D9D9D9 on an off-white ground — about 1.3:1,
+   which reads as a gap rather than a separator. */
+.cw__hero-meta-sep, .cwp__hero-meta .sep,
+/* a surviving Zoho rule sets this at (0,3,0) via .cwind-rb .cw__page-hero--industries,
+   so match that weight rather than reach for !important */
+.cw__page-hero .cw__hero-meta .cw__hero-meta-sep { color: #9aa29c; }
+
+/* Contact's feature row sits directly under the h1, so its headings are h2
+   there; keep them looking identical to the h3s used elsewhere. */
+.cw-feat h2 { font: inherit; font-weight: 600; margin: 0 0 6px; }
+
+/* Resources cards are top-level entries under the page h1, so they are h2;
+   inherit whatever the card previously gave its h3. */
+.cwr__card h2 { font: inherit; font-weight: 600; margin: 0 0 6px; }
