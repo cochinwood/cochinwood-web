@@ -261,9 +261,22 @@ LEGACY_REDIRECTS.update({
     "/blogs/central-east-india": "/blogs",
 })
 
+# addr is the principal place of business exactly as it reads on the GST
+# certificate, and word for word as /company-verification already publishes it.
+# It used to say "Kuruppampady, Ernakulam, Kerala 683545" here and in the
+# Organization schema below -- a different place, on all 252 pages, against the
+# one address a buyer can actually check on the GST portal.
 CONTACT = dict(email="sales@cochinwood.in", phone_disp="+91 95674 10175",
-               phone_href="+919567410175", addr="Kuruppampady, Ernakulam, Kerala 683545",
+               phone_href="+919567410175",
+               addr="15-236/B, Thoppilan Building, Vattakattupady, Rayamangalam, "
+                    "Perumbavoor, Ernakulam, Kerala 683542, India",
                wa="919567410175")
+
+# Copied from /company-verification (content/pages/company-verification.html),
+# which is where the site publishes them for a buyer to check on the MCA and GST
+# portals. Kept here so /contact can state them without the two pages drifting.
+GSTIN = "32AAJCC9689H1Z5"
+CIN   = "U20219KL2021PTC072862"
 
 # ---------------- photography ----------------
 # Site photography is referenced as /files/... (the old Zoho paths). Look for the
@@ -314,7 +327,36 @@ def resolve_file(ref):
 
 # Catalogue pages whose hero slot held a Zoho stock placeholder and for which we
 # have real product photography. Anything not listed keeps no hero image.
+# hero_image() reads this same map for the Product schema's "image" and for the
+# page's og:image, so a page that already carries its own photo is listed here
+# too even though it needs no swap.
+# The "Plywood Product Photos" refs are %20-encoded because that is the form the
+# already-shipping /bwr-hardwood-plywood hero uses, and copy_referenced_files()
+# unquotes the ref again on the way to dist.
+# Still heroless: container-flooring-plywood (never photographed), and
+# packing/okoume/rubberwood-plywood -- their photos exist beside these, but those
+# three bodies are cwg__hero pages with no <img> for this map to swap.
 PRODUCT_HERO = {
+    # The three mirror-built pages (packing, okoume, rubberwood) carry no <img> of
+    # their own: their cwg__ template has no image slot, so _fix_img has nothing to
+    # swap. They are named here anyway, because hero_image() registers the file
+    # independently of the body -- that is what puts the real product photo into
+    # their Product schema and og:image instead of the generic share banner. The
+    # visible on-page photo still needs an image slot adding to that template.
+    "packing-plywood":         "/files/Plywood%20Product%20Photos/cwi-packing-plywood.webp",
+    "okoume-plywood":          "/files/Plywood%20Product%20Photos/cwi-okoume-plywood.webp",
+    "rubberwood-plywood":      "/files/Plywood%20Product%20Photos/cwi-rubberwood-plywood.webp",
+    "marine-plywood":          "/files/Plywood%20Product%20Photos/cwi-marine-plywood.webp",
+    "commercial-plywood":      "/files/Plywood%20Product%20Photos/cwi-commercial-plywood.webp",
+    # brown film face rather than the red alternative shot: it is the default
+    # shuttering face buyers picture, and it does not read as the same panel as
+    # the maroon chequered hero below.
+    "film-faced-shuttering-plywood": "/files/Plywood%20Product%20Photos/cwi-film-faced-brown.webp",
+    "chequered-anti-skid-plywood":   "/files/Plywood%20Product%20Photos/cwi-anti-skid.webp",
+    # Not a placeholder swap: /bwr-hardwood-plywood's body already carries this
+    # exact file. It is named here so the schema and the share card get the
+    # photo the page shows, like every other row.
+    "bwr-hardwood-plywood":    "/files/Plywood%20Product%20Photos/cwi-bwr-hardwood-plywood.webp",
     "block-board-flush-doors": "/files/Product/block-board.jpg",
     "plywood-cable-drums":     "/files/Product/cable-drums.jpg",
     "plywood-boxes-crates":    "/files/Product/crates.jpg",
@@ -323,6 +365,56 @@ PRODUCT_HERO = {
     "particle-board":          "/files/Product/particle-board.jpg",
     "sawn-timber":             "/files/Product/specialty-timbers.jpg",
 }
+
+# THE THREE PAGES PRODUCT_HERO COULD NOT REACH, AND WHY THEY GET A FIGURE INSTEAD
+# OF A SWAP. packing, okoume and rubberwood are built from the Zoho mirror and
+# open with <header class="cwg__hero">, which -- unlike the cwp__ hero on
+# /bwr-hardwood-plywood -- has no <img> for _fix_img to swap. So PRODUCT_HERO put
+# their real photograph into the Product schema and the share card while the page
+# itself showed the buyer nothing. Two of the three are the lines Cochin Wood
+# sells most of, so the share card had a photo and the sales page did not.
+#
+# Written from the photographs themselves, not from the page's own copy: the alt
+# text has to describe what is in the frame, and inventing a description of a
+# picture is the same fault as inventing a fact about the business.
+CWG_HERO_ALT = {
+    "packing-plywood":
+        "A stack of packing-grade plywood sheets on the mill floor, pale hardwood "
+        "faces with the core layers visible along the cut edges, strapped bundles "
+        "stacked behind",
+    "okoume-plywood":
+        "A stack of Okoume-faced plywood on the mill floor, smooth pinkish-brown "
+        "face, with bundled panels stacked behind",
+    "rubberwood-plywood":
+        "A stack of rubberwood plywood on the mill floor, pale cream face, with "
+        "strapped bundles on pallets behind",
+}
+
+_CWG_HERO_RE = re.compile(r'<header class="cwg__hero">.*?</header>', re.S | re.I)
+
+def add_cwg_hero_photo(body, slug):
+    """Give a cwg__ catalogue page the photograph it already claims to have.
+
+    Injected here rather than written into content/pages/*.html because the file
+    it points at is already named once, in PRODUCT_HERO, and a second copy of the
+    path in three hand-edited bodies is a second thing to keep in step. Injected
+    BEFORE prune_images so the ordinary machinery still owns it: _fix_img resolves
+    the ref, registers the file so it ships, and _set_dims measures it -- so this
+    <img> gets true width and height like every other one and reserves its box.
+
+    Skipped where the body already references that file, so a page that later
+    grows its own hero does not print the same photograph twice."""
+    alt = CWG_HERO_ALT.get(slug)
+    ref = PRODUCT_HERO.get(slug)
+    if not alt or not ref: return body
+    if ref in body: return body
+    m = _CWG_HERO_RE.search(body)
+    if not m: return body
+    fig = (f'<figure class="cwg__hero-img"><img src="{ref}" alt="{alt}"'
+           # eager + high priority: this is the LCP element on these three pages,
+           # exactly as the cwp__ hero is on the pages that already carry one.
+           f' loading="eager" fetchpriority="high"></figure>')
+    return body[:m.end()] + "\n" + fig + body[m.end():]
 
 def image_size(path):
     """(width, height) for PNG/JPEG/WebP, or None. Used to correct the width and
@@ -365,6 +457,29 @@ def _set_dims(tag, path):
     w, h = size
     tag = re.sub(r'\s(width|height)="[^"]*"', '', tag)
     return tag[:-1].rstrip() + f' width="{w}" height="{h}"' + ('/>' if tag.endswith('/>') else '>')
+
+def hero_image(slug):
+    """(absolute url, width, height) of the photo a product page actually shows.
+
+    One generic share card used to be the og:image on all 252 pages AND the
+    "image" inside every Product block, so /plywood-pallets handed Google and
+    every chat unfurl a banner while the page beside it rendered a real
+    photograph of pallets. PRODUCT_HERO already names that photograph; this
+    turns it into the absolute URL the schema and og:image need, and measures it
+    so og:image:width and og:image:height are stated rather than guessed.
+    Returns None where the page has no photo of its own -- the generic card is
+    the honest fallback there, not somebody else's product."""
+    ref = PRODUCT_HERO.get(slug)
+    if not ref: return None
+    path = resolve_file(ref)
+    if not path:
+        _files_missing.add(ref)
+        return None
+    # registered here as well as in prune_images, so the file still ships if the
+    # page body ever stops carrying the <img> that referenced it
+    pub = register_file(ref, path)
+    w, h = image_size(path) or (None, None)
+    return (LIVE + pub, w, h)
 
 # Wrappers that exist only to hold one photo. Once a dead image is removed the
 # wrapper is empty, and the CSS would leave a sized blank panel — so drop it too.
@@ -418,7 +533,14 @@ def rewrite_links(body):
     body = re.sub(r'((?:src|href)=")/(?!/)', r'\1' + BASE + '/', body)
     return body
 
+# The catalogue, the homepage grid (first 9) and the footer column (first 7) all
+# read this list, so order is editorial: the biggest lines lead. Packing, Okoume
+# and rubberwood ply were built as pages but left off this list, which meant the
+# three grades the copy calls our largest were reachable from no index at all.
 PRODUCTS = [
+    ("packing-plywood","Packing Plywood","MR packing grade to IS 303 in 6-18mm for cases, crates and pallets."),
+    ("okoume-plywood","Okoume Plywood","Pale Okoume-faced packing panels and calibrated E1 board for joinery."),
+    ("rubberwood-plywood","Rubberwood Plywood","Plantation-hardwood MR panels, lighter per container than dense ply."),
     ("commercial-plywood","Commercial Plywood","MR-grade plywood for furniture and general interior work."),
     ("marine-plywood","Marine Plywood","IS 710 BWP boil-proof plywood for boatyards and wet service."),
     ("film-faced-shuttering-plywood","Film-Faced Shuttering Plywood","Smooth phenolic-film ply for concrete formwork and repeat pours."),
@@ -459,20 +581,80 @@ def header(path="/"):
   </nav>
 </div></header>'''
 
+# The one company profile that exists. It is written once and used twice -- the
+# Organization schema's sameAs and the footer link -- because a profile Google is
+# told about but a reader cannot reach is half a fact. A LinkedIn company page
+# and a Google Business Profile were both recommended by the 4 Sep 2026 audit and
+# NEITHER HAS BEEN CREATED: a sameAs pointing at a 404 is worse than an absent
+# one, so nothing is guessed here until those pages actually exist.
+INSTAGRAM_URL = "https://www.instagram.com/cochinwood/"
+
 def footer():
     prod = "".join(f'<a href="{u("/"+s)}">{n}</a>' for s,n,_ in PRODUCTS[:7])
+    # The three column labels used to be <h2>. That put three headings into the
+    # outline of all 252 pages that describe no content -- on the homepage they
+    # were 3 of its 16 H2s -- and a screen reader reading the heading list heard
+    # "Products / Explore / Contact" as if they ranked with the page's own
+    # sections. They are labels for link groups, so each column is a <nav> named
+    # by aria-label and the label itself is a <p>. .cw-ft__h is a class rule
+    # (font, size, weight and margin are all set on it), so the <p> renders
+    # exactly as the <h2> did.
+    #
+    # THE EXPLORE COLUMN CARRIES THE TWO TRUST PAGES, because it is the only
+    # link list on all 252 pages. /company-verification -- the registrations a
+    # buyer can check on the MCA and GST portals without asking us -- was linked
+    # from no top-level page at all; the case-studies post had exactly one
+    # inbound link, from /blogs, so the only customer proof on the site was
+    # three clicks from anywhere. Nine links is the most this column should
+    # carry; anything further needs a trim first, not another entry.
+    #
+    # THE CLAIMS POLICY IS IN THE BOTTOM BAR NOW, AND ITS ABSENCE WAS THE REAL DEFECT
+    # (5 Sep 2026). Twenty-two source files promise a "material guarantee" and not one of
+    # them linked to where that guarantee is written down. The terms are NOT missing -- they
+    # were reported as undefined and that was wrong. /return-refund-policy states what can be
+    # claimed, 3 days for visible damage or shortage, 14 days for grade and specification
+    # before the goods are processed, and replace / repair / credit at our option limited to
+    # the affected quantity; /terms-and-conditions adds latent defects at 30 days from
+    # discovery and no later than 90 from delivery, plus a verdict within ten business days
+    # of complete evidence. A guarantee a buyer cannot read is worth less than a modest one
+    # they can, so the fix is a LINK and not a rewrite.
+    # Site-wide from the footer rather than page by page, because that reaches all 254 pages
+    # -- including the fourteen export lanes another session owns -- without touching a file
+    # this branch does not own. Shipping rides along: it is the other policy the proforma
+    # invoice incorporates by reference and it was equally unreachable.
     return f'''<footer class="cw-ft"><div class="cw-wrap">
   <div class="cw-ft__cols">
     <div class="cw-ft__brand"><b>Cochin Wood Industries</b><p>Plywood manufacturer in Kochi, Kerala — packing, Okoume and shuttering ply, shipped across India and exported. Part of a group manufacturing in Perumbavoor since 1986.</p></div>
-    <div><h2 class="cw-ft__h">Products</h2>{prod}</div>
-    <div><h2 class="cw-ft__h">Explore</h2><a href="{u('/products')}">All products</a><a href="{u(WOOD_PATH)}">{WOOD_LABEL}</a><a href="{u('/resources')}">Resources</a><a href="{u('/industries')}">Industries</a><a href="{u('/export')}">Export</a><a href="{u('/about')}">About</a><a href="{u('/faq')}">FAQ</a></div>
-    <div><h2 class="cw-ft__h">Contact</h2><a href="tel:{CONTACT['phone_href']}">{CONTACT['phone_disp']}</a><a href="mailto:{CONTACT['email']}">{CONTACT['email']}</a><a href="https://maps.google.com/?q=Kuruppampady+Kerala" target="_blank" rel="noopener">{CONTACT['addr']}</a></div>
+    <nav aria-label="Products"><p class="cw-ft__h">Products</p>{prod}</nav>
+    <nav aria-label="Explore"><p class="cw-ft__h">Explore</p><a href="{u('/products')}">All products</a><a href="{u(WOOD_PATH)}">{WOOD_LABEL}</a><a href="{u('/resources')}">Resources</a><a href="{u('/blogs/post/case-studies')}">Case studies</a><a href="{u('/industries')}">Industries</a><a href="{u('/export')}">Export</a><a href="{u('/about')}">About</a><a href="{u('/company-verification')}">Company verification</a><a href="{u('/faq')}">FAQ</a></nav>
+    <nav aria-label="Contact"><p class="cw-ft__h">Contact</p><a href="tel:{CONTACT['phone_href']}">{CONTACT['phone_disp']}</a><a href="mailto:{CONTACT['email']}">{CONTACT['email']}</a><a href="https://maps.google.com/?q=Thoppilan+Building+Vattakattupady+Rayamangalam+Perumbavoor+Kerala+683542" target="_blank" rel="noopener">{CONTACT['addr']}</a><a href="{INSTAGRAM_URL}" target="_blank" rel="noopener">Instagram</a></nav>
   </div>
   <div class="cw-ft__bar"><span>&copy; 2026 Cochin Wood Industries Pvt Ltd. Group established 1986.</span>
-  <span><a href="{u('/privacy-policy')}" style="display:inline">Privacy</a> &middot; <a href="{u('/terms-and-conditions')}" style="display:inline">Terms</a></span></div>
+  <span><a href="{u('/privacy-policy')}" style="display:inline">Privacy</a> &middot; <a href="{u('/terms-and-conditions')}" style="display:inline">Terms</a> &middot; <a href="{u('/return-refund-policy')}" style="display:inline">Claims &amp; returns</a> &middot; <a href="{u('/shipping-policy')}" style="display:inline">Shipping</a></span></div>
 </div></footer>'''
 
 OG_IMAGE = LIVE + "/assets/og/cwi-og-share-1200x630.png"   # 1200x630 share card
+# Measured, not read off the filename: og:image:width and og:image:height were
+# absent on all 252 pages, and an unfurl that has to fetch the image before it
+# can size the card often just drops the card. (None, None) emits neither tag
+# rather than stating a size we could not confirm.
+OG_IMAGE_SIZE = image_size(os.path.join(ROOT, "assets", "og",
+                                        "cwi-og-share-1200x630.png")) or (None, None)
+
+# The LocalBusiness "image" was the same PNG as its "logo" -- a mark on a white
+# square, which is what Google shows when it wants a picture of the premises.
+# This is the warehouse aisle already published on /about, so the schema and the
+# page agree and copy_referenced_files() already ships the file.
+ORG_IMAGE_REF = "/files/Enhanced%20Factory%20Photos/factory_08.jpg"
+_org_img_src = resolve_file(ORG_IMAGE_REF)
+if _org_img_src:
+    # registered independently of /about's markup: the schema names this file on
+    # every one of the 252 pages, so it must ship even if that page's photo set
+    # is ever re-cut
+    register_file(ORG_IMAGE_REF, _org_img_src)
+else:
+    warn(f"the Organization schema's image {ORG_IMAGE_REF} is not on disk -- "
+         f"every page would declare a LocalBusiness photo that 404s")
 
 # areaServed is the machine-readable half of the same fact the copy states, so
 # it comes off the same list. It used to read ["IN","AE","VN"] on all 233 pages
@@ -481,8 +663,16 @@ OG_IMAGE = LIVE + "/assets/og/cwi-og-share-1200x630.png"   # 1200x630 share card
 # alpha-2, one code per market, India first.
 AREA_SERVED = json.dumps(EXPORT_ISO, separators=(",", ":"))
 
+# The PostalAddress was wrong twice over: the wrong place (Kuruppampady 683545,
+# not the address on the GST certificate) and the wrong shape -- "Kuruppampady"
+# is a locality, not a street, and Ernakulam is the district, not the locality.
+# streetAddress now carries the building and the village it stands in,
+# addressLocality is the town a courier or a Google Business listing matches on,
+# and addressRegion stays the state. Ernakulam is dropped rather than
+# mis-slotted: the district is not a PostalAddress field, and the human-readable
+# line in the footer still says it.
 ORG_SCHEMA = '''<script type="application/ld+json">
-{"@context":"https://schema.org","@type":["Organization","LocalBusiness"],"@id":"https://www.cochinwood.in/#organization","name":"Cochin Wood Industries","url":"https://www.cochinwood.in/","logo":"https://www.cochinwood.in/assets/logo.png","image":"https://www.cochinwood.in/assets/logo.png","email":"sales@cochinwood.in","telephone":"+919567410175","address":{"@type":"PostalAddress","streetAddress":"Kuruppampady","addressLocality":"Ernakulam","addressRegion":"Kerala","postalCode":"683545","addressCountry":"IN"},"parentOrganization":{"@type":"Organization","name":"Cochin Wood Group","foundingDate":"1986"},"areaServed":''' + AREA_SERVED + ''',"description":"Plywood manufacturer in Kochi, Kerala - packing, Okoume, marine and film-faced shuttering plywood, sawn timber and export crates."}
+{"@context":"https://schema.org","@type":["Organization","LocalBusiness"],"@id":"https://www.cochinwood.in/#organization","name":"Cochin Wood Industries","url":"https://www.cochinwood.in/","logo":"https://www.cochinwood.in/assets/logo.png","image":"''' + LIVE + ORG_IMAGE_REF + '''","email":"sales@cochinwood.in","telephone":"+919567410175","address":{"@type":"PostalAddress","streetAddress":"15-236/B, Thoppilan Building, Vattakattupady, Rayamangalam","addressLocality":"Perumbavoor","addressRegion":"Kerala","postalCode":"683542","addressCountry":"IN"},"parentOrganization":{"@type":"Organization","name":"Cochin Wood Group","foundingDate":"1986"},"areaServed":''' + AREA_SERVED + ''',"sameAs":["''' + INSTAGRAM_URL + '''"],"description":"Plywood manufacturer in Kochi, Kerala - packing, Okoume, marine and film-faced shuttering plywood, sawn timber and export crates."}
 </script>'''
 
 # Fonts used above the fold on every page — preloaded so the header does not reflow.
@@ -497,7 +687,12 @@ def breadcrumbs(crumbs):
         last = i == len(crumbs) - 1
         parts.append(f'<span aria-current="page">{esc(label)}</span>' if last or not p
                      else f'<a href="{u(p)}">{esc(label)}</a>')
-        item = {"@type": "ListItem", "position": i + 1, "name": label}
+        # RAW text for the JSON-LD, HTML-escaped text only for the visible span
+        # above. json.dumps does its own escaping, so a label that arrived
+        # already escaped -- pages_meta.json and posts.json both carry '&amp;' --
+        # shipped a literal "Packing Plywood Factory &amp; Manufacturer" inside
+        # the block on ten pages.
+        item = {"@type": "ListItem", "position": i + 1, "name": html.unescape(label)}
         if p: item["item"] = LIVE + p
         items.append(item)
     nav = ('<nav class="cw-crumb" aria-label="Breadcrumb"><div class="cw-wrap">'
@@ -583,29 +778,51 @@ def seo_title(title):
     return head
 
 def product_schema(slug):
-    """Product + Offer markup so the 13 catalogue pages are eligible for rich results."""
+    """Product markup so every catalogue page is eligible for rich results.
+
+    THERE IS DELIBERATELY NO offers NODE. It used to declare priceCurrency INR
+    and InStock with no price, priceSpecification or sku beside them, which the
+    Rich Results Test and Search Console both score as an ERROR, not a warning:
+    all 13 Product blocks failed validation, so the markup bought nothing. Cochin
+    Wood quotes every order and publishes no list price, so there is no number to
+    put there, and inventing one to satisfy a validator would put a false price
+    on the page. A bare Product -- name, description, image, brand, category,
+    url -- is valid, and it is everything we can honestly state."""
     row = next((r for r in PRODUCTS if r[0] == slug), None)
     if not row: return ""
     _, name, desc = row
+    hero = hero_image(slug)
     data = {"@context": "https://schema.org", "@type": "Product",
             "name": name, "description": desc,
             "url": LIVE + "/" + slug,
-            "image": OG_IMAGE,
+            # the photograph this page shows, falling back to the share card only
+            # where the page has no photo of its own
+            "image": hero[0] if hero else OG_IMAGE,
             "category": "Plywood, board and timber",
             "brand": {"@type": "Brand", "name": "Cochin Wood Industries"},
-            "manufacturer": {"@id": LIVE + "/#organization"},
-            "offers": {"@type": "Offer", "url": LIVE + "/contact",
-                       "priceCurrency": "INR",
-                       "availability": "https://schema.org/InStock",
-                       "areaServed": EXPORT_ISO,
-                       "seller": {"@id": LIVE + "/#organization"}}}
+            "manufacturer": {"@id": LIVE + "/#organization"}}
     return ('<script type="application/ld+json">'
             + json.dumps(data, separators=(",", ":")) + '</script>')
 
 def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
-         og_type="website", show_crumbs=True):
+         og_type="website", show_crumbs=True, self_url=True):
     canonical = LIVE + path
     page_title = seo_title(title)      # <title> is trimmed; og/twitter keep the full headline
+    # A page that shows a real photograph shares that photograph. The generic card
+    # is the fallback, not the default -- see hero_image().
+    hero = hero_image(path.strip("/"))
+    og_image, og_w, og_h = hero if hero else (OG_IMAGE, *OG_IMAGE_SIZE)
+    dims = ""
+    if og_w and og_h:
+        dims = (f'\n<meta property="og:image:width" content="{og_w}">'
+                f'\n<meta property="og:image:height" content="{og_h}">')
+    # /404 is served at every unknown path AND redirected to / at its own address,
+    # so it has no URL of its own to claim: a canonical and an og:url naming /404
+    # both point at a 301. noindex says the same thing to a crawler that ignores
+    # the status code.
+    self_tags = (f'<link rel="canonical" href="{canonical}">'
+                 if self_url else '<meta name="robots" content="noindex, follow">')
+    og_url_tag = f'\n<meta property="og:url" content="{canonical}">' if self_url else ""
     crumb_nav, crumb_ld = breadcrumbs(crumbs)
     # Several imported pages already render their own trail (cwp__crumb, cwg__crumb…);
     # drop our duplicate bar in that case.
@@ -630,7 +847,7 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{esc(page_title)}</title>
 <meta name="description" content="{esc(desc)}">
-<link rel="canonical" href="{canonical}">
+{self_tags}
 <link rel="icon" type="image/png" sizes="32x32" href="{u('/assets/icons/favicon-32.png')}">
 <link rel="icon" type="image/png" sizes="16x16" href="{u('/assets/icons/favicon-16.png')}">
 <link rel="apple-touch-icon" href="{u('/assets/icons/apple-touch-icon.png')}">
@@ -638,14 +855,13 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
 <meta property="og:site_name" content="Cochin Wood Industries">
 <meta property="og:locale" content="en_IN">
 <meta property="og:title" content="{esc(title)}">
-<meta property="og:description" content="{esc(desc)}">
-<meta property="og:url" content="{canonical}">
-<meta property="og:image" content="{OG_IMAGE}">
+<meta property="og:description" content="{esc(desc)}">{og_url_tag}
+<meta property="og:image" content="{og_image}">{dims}
 <meta property="og:image:alt" content="Cochin Wood Industries">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{esc(title)}">
 <meta name="twitter:description" content="{esc(desc)}">
-<meta name="twitter:image" content="{OG_IMAGE}">
+<meta name="twitter:image" content="{og_image}">
 <meta name="theme-color" content="#1f5132">
 {preloads}
 <link rel="stylesheet" href="{u('/assets/' + ASSETS['bundle.css'])}">
@@ -664,6 +880,47 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
 
 _page_source = {}      # output path -> source file it was generated from
 
+# Three accessibility repairs that belong to no single page. Every table, icon
+# and separator on this site arrives inside imported HTML -- product snippets,
+# export bodies, blog posts -- so there is no one template to fix: the 1,031
+# <th> live in ~60 source files and the icons in 26 more. Doing it here, on the
+# way out, is the one edit that reaches all of them, and each rule is written so
+# that running it twice changes nothing.
+#
+# The \b is load-bearing: without it "<th" also matches the "<thead>" the header
+# cells are nested in, and every table on the site loses its head.
+_TH_NO_SCOPE  = re.compile(r'<th\b(?![^>]*\bscope=)([^>]*)>')
+_ROW_TH       = re.compile(r'(<tr\b[^>]*>\s*)<th\b(?![^>]*\bscope=)([^>]*)>')
+_THEAD        = re.compile(r'<thead\b.*?</thead>', re.S)
+# An <svg> that opens a link or a button may be that control's only content, and
+# hiding it would leave the control with no name at all. There is none today --
+# the WhatsApp float is the one such icon and it is already labelled -- so this
+# is a guard against a future one, not a fix for a present one.
+_SVG_OPENS_CONTROL = re.compile(r'<(?:a|button)\b[^>]*>\s*$')
+_SVG_NO_ARIA       = re.compile(r'<svg\b(?![^>]*\baria-)([^>]*)>')
+# The separators the imported heroes draw between meta items: a bullet a screen
+# reader otherwise reads aloud between every pair. Same fix the breadcrumb
+# separators already carry.
+_META_SEP = re.compile(r'<span class="(sep|cw__hero-meta-sep)">')
+
+def a11y_fixups(doc):
+    # a <th> in the head names its column; anywhere else it opens its row and
+    # names the cells beside it. Both table shapes on this site are covered:
+    # .cwg__table has a <thead>, .cwp__table is all row headers.
+    doc = _THEAD.sub(lambda m: _TH_NO_SCOPE.sub(r'<th scope="col"\1>', m.group(0)), doc)
+    doc = _ROW_TH.sub(r'\1<th scope="row"\2>', doc)
+    out, i = [], 0
+    for m in _SVG_NO_ARIA.finditer(doc):
+        out.append(doc[i:m.start()])
+        if _SVG_OPENS_CONTROL.search(doc[max(0, m.start() - 400):m.start()]):
+            out.append(m.group(0))     # leave it: it may be the control's name
+        else:
+            attrs = m.group(1).replace(' focusable="false"', '')
+            out.append(f'<svg aria-hidden="true" focusable="false"{attrs}>')
+        i = m.end()
+    doc = "".join(out) + doc[i:]
+    return _META_SEP.sub(r'<span class="\1" aria-hidden="true">', doc)
+
 def write(path, content, src=None):
     # cf-live commits FLAT files -- about.html, export/qatar.html,
     # blogs/post/<slug>.html -- so live answers /about with a direct 200. A
@@ -681,6 +938,8 @@ def write(path, content, src=None):
     # JSON-LD all get the same expansion from the same data with no call site
     # able to forget.
     content = expand_canon(content, path)
+    if path.endswith(".html"):
+        content = a11y_fixups(content)
     fp = os.path.join(DIST, path)
     os.makedirs(os.path.dirname(fp) or DIST, exist_ok=True)
     # newline pinned: in text mode a Windows build silently CRLFs every emitted
@@ -707,14 +966,21 @@ def git_date(relpath):
 
 # ---------------- HOME ----------------
 def home():
+    # The nine cards sit inside the "Our plywood range" section, whose own <h2>
+    # is their heading -- so each card title is one level below it, not beside
+    # it. As <h2> they were 9 of the homepage's 16 H2s and buried the three that
+    # actually name sections.
     cards = "".join(
-        f'<a class="cw-card" href="{u("/"+s)}"><h2>{n}</h2><p>{d}</p><span class="cw-card__tag">View &rarr;</span></a>'
+        f'<a class="cw-card" href="{u("/"+s)}"><h3>{n}</h3><p>{d}</p><span class="cw-card__tag">View &rarr;</span></a>'
         for s,n,d in PRODUCTS[:9])
+    # The H1 states what the company is; the slogan opens the lede. It was the
+    # other way round -- "Plywood, built to your spec." carried the whole
+    # heading weight of the homepage while the term the page is actually
+    # searched for sat in an eyebrow paragraph, which is not a heading at all.
     body = f'''
 <section class="cw-hero"><div class="cw-wrap">
-  <p class="cw-hero__ey">Plywood manufacturer &middot; Kochi, Kerala</p>
-  <h1>Plywood, built to your spec.</h1>
-  <p>Packing-grade, Okoume and film-faced shuttering plywood, sawn timber and export crates — manufactured to Cochin Wood specifications and shipped across India and abroad. Backed by a group manufacturing in Perumbavoor since 1986.</p>
+  <h1>Plywood manufacturer in Kochi, Kerala</h1>
+  <p>Plywood, built to your spec. Packing-grade, Okoume and film-faced shuttering plywood, sawn timber and export crates — manufactured to Cochin Wood specifications and shipped across India and abroad. Backed by a group manufacturing in Perumbavoor since 1986.</p>
   <div class="cw-hero__cta"><a class="cw-btn cw-btn--p" href="{u('/contact')}">Request a quote</a><a class="cw-btn cw-btn--g" href="{u('/products')}">See the range</a></div>
   <div class="cw-hero__strip">
     <div><b>40+ yrs</b><span>Group manufacturing since 1986</span></div>
@@ -727,7 +993,7 @@ def home():
   <h2 class="cw-sec__h">Our plywood range</h2>
   <p class="cw-sec__lead">From bulk packing and Okoume panels to marine, shuttering and container-flooring plywood — sized, graded and pressed for the job.</p>
   <div class="cw-grid">{cards}</div>
-  <p style="margin-top:24px"><a class="cw-card__tag" href="{u('/products')}">All 13 product lines &rarr;</a></p>
+  <p style="margin-top:24px"><a class="cw-card__tag" href="{u('/products')}">All 16 product lines &rarr;</a></p>
 </div></section>
 
 <section class="cw-sec cw-sec--soft"><div class="cw-wrap">
@@ -760,21 +1026,43 @@ def products():
     cards = "".join(
         f'<a class="cw-card" href="{u("/"+s)}"><h2>{n}</h2><p>{d}</p><span class="cw-card__tag">View &rarr;</span></a>'
         for s,n,d in PRODUCTS)
+    # Same swap as the homepage: the H1 names the page ("Plywood catalogue"),
+    # the label that used to be the eyebrow is gone and the old H1 opens the
+    # lede. The cards keep their <h2> here -- on this page they ARE the
+    # sections, sitting directly under the H1 with no section heading above
+    # them, which is not true of the homepage.
     body = f'''
 <section class="cw-sec"><div class="cw-wrap">
-  <p class="cw-hero__ey" style="color:var(--cw-green-600)">Catalogue</p>
-  <h1 class="cw-sec__h" style="font-size:clamp(1.9rem,4vw,2.8rem)">Plywood, board &amp; timber</h1>
-  <p class="cw-sec__lead">Thirteen product lines, each manufactured to Cochin Wood specifications. Tell us the grade, thickness and quantity and we'll quote.</p>
+  <h1 class="cw-sec__h" style="font-size:clamp(1.9rem,4vw,2.8rem)">Plywood catalogue — marine, shuttering, packing and more</h1>
+  <p class="cw-sec__lead">Plywood, board &amp; timber. Sixteen product lines, each manufactured to Cochin Wood specifications. Tell us the grade, thickness and quantity and we'll quote.</p>
   <div class="cw-grid">{cards}</div>
 </div></section>
 <section class="cw-band"><div class="cw-wrap cw-band__in">
   <div><h2>Not sure which grade you need?</h2><p>Send the application and destination — we'll recommend the panel and price it.</p></div>
   <a class="cw-btn cw-btn--p" href="{u('/contact')}">Request a quote</a>
 </div></section>'''
+    # Every one of the sixteen product pages describes itself as a Product and the
+    # page that indexes them said nothing at all, so nothing in the markup joined
+    # them into one catalogue. Names and URLs only, in the editorial order the
+    # cards are drawn in, and read from PRODUCTS -- the same list the cards come
+    # from, so the schema and the page cannot fall out of step. No prices here for
+    # the same reason product_schema() gives none: there are none to state.
+    ld = ('<script type="application/ld+json">' + json.dumps(
+            {"@context": "https://schema.org", "@type": "ItemList",
+             "name": "Plywood catalogue",
+             "itemListOrder": "https://schema.org/ItemListOrderAscending",
+             "numberOfItems": len(PRODUCTS),
+             "itemListElement": [{"@type": "ListItem", "position": i + 1,
+                                  "name": html.unescape(n), "url": LIVE + "/" + s}
+                                 for i, (s, n, _d) in enumerate(PRODUCTS)]},
+            separators=(",", ":")) + '</script>')
     write("products/index.html", base(
         "Plywood Catalogue — Marine, Shuttering, Packing & More | Cochin Wood",
-        "Cochin Wood Industries' full plywood catalogue: commercial, marine (IS 710), film-faced shuttering, container flooring, BWR hardwood, packing crates, pallets, block board and sawn timber.",
-        "/products", body, crumbs=[("Home", "/"), ("Products", None)]))
+        # Leads with packing and Okoume because they lead the catalogue now; the
+        # old text listed neither and ran to 187 rendered characters, past where
+        # Google truncates a description.
+        "Cochin Wood Industries' plywood catalogue: packing, Okoume, commercial, marine (IS 710), film-faced shuttering, BWR hardwood and sawn timber.",
+        "/products", body, crumbs=[("Home", "/"), ("Products", None)], extra_head=ld))
 
 # ---------------- CONTACT ----------------
 # (posted value, visible label). The VALUE is what the Worker stores, so it is the live page's
@@ -914,17 +1202,40 @@ QUOTE_JS = r'''<script>
 def contact():
     checks = "".join(f'<label><input type="checkbox" name="products" value="{v}">{lab}</label>'
                      for v, lab in PRODUCT_INTEREST)
-    # No name attribute, on purpose: "other" is a hint for the packer above, never a posted product.
-    checks += '<label><input type="checkbox" data-other>Other / not sure</label>'
+    # NAMED, so the tick survives a native post. This box used to carry data-other and nothing else,
+    # which made it the one product answer that existed only if JavaScript ran: the packer in
+    # QUOTE_JS folds it into `description`, so with JS blocked, broken or still parsing, the buyer
+    # ticked a box that reached nobody and got the ordinary thank-you for it.
+    # `products` is the name the other nine post under, and the Worker joins every repeat of it into
+    # one "Products:" line (api-worker.js webLead(), the gAll() helper) -- free text at that end, not
+    # a picklist, so an unrecognised value cannot fail a lead. The nine chips joined are 223
+    # characters against the Worker's 300-char cap and this adds 18, so a buyer who ticks everything
+    # is still not truncated. data-other stays for the packer, whose line is now belt-and-braces
+    # rather than the only carrier.
+    checks += ('<label><input type="checkbox" name="products" value="Other / not sure" data-other>'
+               'Other / not sure</label>')
     incoterms = "".join(f"<option>{i}</option>" for i in INCOTERMS)
     # ABSOLUTE, not root-relative, and matched by tools/check_site.py. The Worker is bound to
     # www.cochinwood.in/web-lead and cochinwood.in/web-lead as explicit routes; a plain form POST is
     # a top-level navigation and not subject to CORS, so this keeps working from a preview origin
     # (the buyer simply lands back on the production contact page).
+    #
+    # THE TEN TICK BOXES ARE ONE QUESTION, so they are one <fieldset> with a <legend> that says
+    # which. They used to sit in a plain <div> under an orphan <label> -- a <label> with no `for`
+    # and no control inside it labels nothing at all -- and with no role=group or aria-labelledby
+    # anywhere else on the page, so a screen reader announced ten unrelated checkboxes and never
+    # said what the group was asking. The inline reset is not decoration: a fieldset arrives with a
+    # 2px groove border, its own side margins and padding, and a min-width of min-content that can
+    # stop this grid column shrinking on a phone. The legend repeats by hand what `.cw-form label`
+    # already gives every other question, because that rule selects labels and a legend is not one.
+    #
+    # And the asterisk is explained once, above the fields it applies to: seven labels carry one and
+    # nothing on the page said what it meant.
     form = f'''<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer onerror="window.cwq2TsDead=1;window.cwq2TsNoload&amp;&amp;window.cwq2TsNoload()"></script>
 <form class="cw-form" id="cwq2-form" method="POST" action="https://www.cochinwood.in/web-lead" accept-charset="UTF-8">
   <!-- honeypot: real buyers never see this -->
   <div class="cw-hp" aria-hidden="true"><label for="q-web">Leave this field empty</label><input id="q-web" type="text" name="cwq2_website" tabindex="-1" autocomplete="off"></div>
+  <p class="cw-note" style="margin:0">Fields marked * are required.</p>
   <div class="cw-row">
     <div><label for="q-name">Name *</label><input id="q-name" type="text" name="name" autocomplete="name" required></div>
     <div><label for="q-co">Company *</label><input id="q-co" type="text" name="company" autocomplete="organization" required></div>
@@ -933,7 +1244,7 @@ def contact():
     <div><label for="q-em">Work email *</label><input id="q-em" type="email" name="email" autocomplete="email" required></div>
     <div><label for="q-ph">WhatsApp / phone *</label><input id="q-ph" type="tel" name="phone" autocomplete="tel" required></div>
   </div>
-  <div><label>What do you need?</label><div class="cw-checks">{checks}</div></div>
+  <fieldset style="border:0;margin:0;padding:0;min-width:0"><legend style="font-size:.86rem;font-weight:600;color:var(--cw-green-800);margin:0 0 6px;padding:0">What do you need?</legend><div class="cw-checks">{checks}</div></fieldset>
   <div class="cw-row">
     <div><label for="q-spec">Thickness / grade *</label><input id="q-spec" type="text" name="spec_grade" placeholder="e.g. 18 mm BWP, IS 710" data-pack="Thickness / grade" required></div>
     <div><label for="q-qty">Quantity *</label><input id="q-qty" type="text" name="quantity" placeholder="e.g. 2 &times; 40ft containers" data-pack="Quantity" required></div>
@@ -953,6 +1264,16 @@ def contact():
     # the Worker's own 302 target ends in #quote. It used to sit on the <form>, which the success
     # handler replaces the innards of -- and getElementById('quote').scrollIntoView() has to survive
     # that swap to put the confirmation in front of the buyer.
+    #
+    # THE PAGE NOW IDENTIFIES THE SELLER. A buyer asked for a 50% advance reads /contact before
+    # anything else, and it carried a phone number, an email and a town: no street address, no
+    # GSTIN, no CIN and no route to /company-verification, which is where all of that is already
+    # published and checkable on the MCA and GST portals. GSTIN and CIN are the constants copied
+    # from that page, not new claims, and the heading matches its wording -- "principal place of
+    # business", which is what the GST certificate calls this address. No opening hours: none have
+    # been given, and inventing them here would be the same defect in a new place.
+    # The registration line is styled inline because .cw-note is only dressed by `.cw-form .cw-note`
+    # and this paragraph sits outside the form.
     body = f'''
 <section class="cw-sec" id="quote"><div class="cw-wrap" style="max-width:820px">
   <p class="cw-hero__ey" style="color:var(--cw-green-600)">Get in touch</p>
@@ -961,13 +1282,14 @@ def contact():
   <div class="cw-feat" style="margin-bottom:8px">
     <div><h2>WhatsApp / Phone</h2><p><a href="tel:{CONTACT['phone_href']}">{CONTACT['phone_disp']}</a></p></div>
     <div><h2>Email</h2><p><a href="mailto:{CONTACT['email']}">{CONTACT['email']}</a></p></div>
-    <div><h2>Works &amp; office</h2><p>{CONTACT['addr']}</p></div>
+    <div><h2>Principal place of business</h2><p>{CONTACT['addr']}</p></div>
   </div>
+  <p class="cw-note" style="margin:0 0 18px;font-size:.82rem;color:var(--cw-ink-600,#4A4A4A)">Cochin Wood Industries Private Limited &middot; GSTIN {GSTIN} &middot; CIN {CIN} &middot; <a href="{u('/company-verification')}">Verify our registrations</a></p>
   {form}
 </div></section>'''
     write("contact/index.html", base(
         "Request a Plywood Quote · Cochin Wood Industries",
-        "Contact Cochin Wood Industries, Kuruppampady, Ernakulam, Kerala. WhatsApp/phone +91 95674 10175 or sales@cochinwood.in for plywood quotes, pan-India and export.",
+        "Contact Cochin Wood Industries, Perumbavoor, Ernakulam, Kerala. WhatsApp/phone +91 95674 10175 or sales@cochinwood.in for plywood quotes, pan-India and export.",
         "/contact", body, crumbs=[("Home", "/"), ("Contact", None)]))
 
 # ---------------- WOOD ENCYCLOPEDIA (wrap existing clean pages in shared chrome) ----------------
@@ -1018,9 +1340,44 @@ def _species_names(title):
         -> ('Anjili (Wild Jack)', 'Artocarpus hirsutus')"""
     m = _SCI_RE.match(html.unescape(title))
     if not m:
-        warn(f"wave3: cannot read a species name out of {title[:60]!r}")
+        warn(f"cannot read a species name out of {title[:60]!r}")
         return title.split(":")[0].strip(), ""
     return m.group(1).strip(), m.group(2).strip()
+
+# One formula for all 28 species <title> tags. Half of them used to reach the
+# search results with words their own og:title still carried, because eight are
+# longer than TITLE_MAX and seo_title()'s generic shortener picked a different
+# casualty on each: "Wood" and "Density" on rubberwood, the BOTANICAL NAME on
+# matti and pala -- the one thing a species page is looked up by. Deciding the
+# trim order here means every species is trimmed the same way, and because the
+# result already fits, seo_title() passes it through untouched and og:title (the
+# same string) can no longer say something the <title> does not.
+SPECIES_TITLE_TAIL = ": Properties, Density & Uses"
+
+def species_title(raw):
+    """'<Common name> Wood (<Botanical>): Properties, Density & Uses'.
+
+    Trimmed, in this order, only as far as it must be to fit TITLE_MAX: the
+    doubled word where the common name already ends in "wood" (Rubberwood,
+    Jackwood); then the second common name in brackets ("Anjili (Wild Jack)"
+    -> "Anjili"), which is the only part no one searches on its own; then
+    ", Density". The botanical name is never dropped."""
+    name, sci = _species_names(raw)
+    if not sci:
+        return raw                       # _species_names() has already warned
+
+    def build(n, tail):
+        # "Rubberwood Wood", "Jackwood Wood" -- the source titles say it twice
+        return f'{n}{"" if n.lower().endswith("wood") else " Wood"} ({sci}){tail}'
+
+    alias_free = re.sub(r'\s*\([^()]*\)\s*$', '', name)
+    for cand in (build(name, SPECIES_TITLE_TAIL),
+                 build(alias_free, SPECIES_TITLE_TAIL),
+                 build(alias_free, ": Properties & Uses")):
+        if len(cand) <= TITLE_MAX:
+            return cand
+    warn(f"species title is {len(cand)} chars after every trim: {cand}")
+    return cand
 
 def wave3_page(entry, sub):
     """(title, desc, body) for a wave-3 species, with the hero the fragment lacks."""
@@ -1049,6 +1406,40 @@ def wave3_page(entry, sub):
       '</header>\n\n')
     # the brand suffix every wave-1/2 <title> carries; seo_title() trims it back
     return entry["title"] + " | Cochin Wood", entry["summary"], hero + body
+
+def wave3_article_ld(entry, src, title):
+    """The Article + about:Thing block a wave-3 page has no way to carry itself.
+
+    All twenty wave-1/2 species ship one inside the page they are imported from.
+    The eight fragments are body-only and carry nothing but their FAQPage, so
+    eight of the twenty-eight species reached a machine reader as an untyped
+    page -- the same content, described as if it were nothing in particular.
+
+    Built from the two sources the page itself is built from, so it cannot state
+    something the page does not: the headline is the <title> as emitted, the
+    description is the meta description, and the Thing is the botanical name the
+    hero already prints. The org @id is the one ORG_SCHEMA defines on every page.
+
+    NO datePublished: posts3.json records none, and inventing one would put a
+    false date on a data sheet. The one date this repository does know is when
+    the fragment last changed, which is dateModified and which comes from the
+    same git_date() the sitemap's <lastmod> uses -- so the two can never
+    disagree about the same file."""
+    # _SCI_RE directly rather than _species_names(): this title has already been
+    # through that function twice by the time we get here, and a third pass would
+    # only repeat its warning on a species it cannot read a name out of.
+    m = _SCI_RE.match(html.unescape(entry["title"]))
+    data = {"@context": "https://schema.org", "@type": "Article",
+            "headline": html.unescape(title),
+            "description": html.unescape(entry["summary"]),
+            "dateModified": git_date(src),
+            "author":    {"@id": LIVE + "/#organization"},
+            "publisher": {"@id": LIVE + "/#organization"},
+            "mainEntityOfPage": f"{LIVE}{WOOD_PATH}/{entry['file']}"}
+    if m:
+        data["about"] = {"@type": "Thing", "name": m.group(2).strip()}
+    return ('<script type="application/ld+json">'
+            + json.dumps(data, separators=(",", ":")) + '</script>')
 
 # --- hub cards for the wave-3 species ----------------------------------------
 # The hub HTML predates these eight, so its grids hold no card for them and the
@@ -1098,10 +1489,16 @@ def encyclopedia():
         else:
             src = os.path.join("content", sub, f + ".html")
             title, desc, body = enc_extract(os.path.join(encdir, f + ".html"))
+        # both waves state the title the same way, and short enough that
+        # seo_title() has nothing left to cut -- see species_title()
+        title = species_title(title)
         body = enc_rewrite(body)
+        # The twenty imported pages bring their own Article+Thing with them; the
+        # eight fragments cannot, so theirs is emitted here. All 28 carry one.
+        art = wave3_article_ld(entry, src, title) if sub == "encyclopedia-wave3" else ""
         write(f"{WOOD_PATH.strip('/')}/{f}/index.html", src=src, content=
               base(title, desc, f"{WOOD_PATH}/{f}", body, body_class="cw-encbody",
-                   show_crumbs=False,
+                   show_crumbs=False, extra_head=art,
                    crumbs=[("Home", "/"), (WOOD_LABEL, WOOD_PATH),
                            (title.split("|")[0].split("—")[0].strip(), None)]))
     return len(SPECIES) + 1
@@ -1155,7 +1552,34 @@ def process_content(body, slug=None):
     body = body.replace('</main>', '</section>')
     body = re.sub(r'<script\b[^>]*>.*?</script>', '', body, flags=re.S)   # drop any inline scripts
     body = re.sub(r'\son\w+="[^"]*"', '', body)                            # drop inline handlers
+    # before prune_images, so the figure's <img> is resolved, registered and
+    # measured by the same pass that handles every other image on the page
+    body = add_cwg_hero_photo(body, slug)
     return rewrite_links(prune_images(body, slug))
+
+_LD_BLOCK = re.compile(r'<script type="application/ld\+json">(.*?)</script>', re.S)
+
+def faq_ld(raw, where):
+    """The FAQPage block out of an imported page body, ready for extra_head.
+
+    Parsed and re-serialised rather than copied across: a block that does not
+    parse would ship as broken JSON-LD on a live page with nothing to say so,
+    and this turns that into a build warning instead. The {{CWI_...}} tokens
+    inside it survive the round trip as text -- write() expands them on the way
+    out like every other byte this build emits."""
+    for m in _LD_BLOCK.finditer(raw):
+        if '"FAQPage"' not in m.group(1):
+            continue
+        try:
+            data = json.loads(m.group(1))
+        except ValueError as e:
+            warn(f"{where}: its FAQPage block is not valid JSON ({e}) -- the page "
+                 f"ships with no FAQ schema")
+            return ""
+        return ('<script type="application/ld+json">'
+                + json.dumps(data, separators=(",", ":")) + '</script>')
+    warn(f"{where}: no FAQPage block in the source -- the page ships with no FAQ schema")
+    return ""
 
 def build_content_pages():
     sdir = os.path.join(ROOT, "content", "pages")
@@ -1168,7 +1592,8 @@ def build_content_pages():
                  f"silently vanish at cutover")
             continue
         meta = PAGE_META.get(slug, {})
-        content = process_content(open(fp, encoding="utf-8").read(), slug)
+        raw = open(fp, encoding="utf-8").read()
+        content = process_content(raw, slug)
         title = meta.get("title") or slug.replace("-", " ").title() + " | Cochin Wood Industries"
         desc  = meta.get("desc") or ""
         body = f'<main class="cw-page"><div class="cw-wrap">{content}</div></main>'
@@ -1177,9 +1602,18 @@ def build_content_pages():
             crumbs = [("Home", "/"), ("Products", "/products"), (pname, None)]
         else:
             crumbs = [("Home", "/"), (title.split("|")[0].strip(), None)]
+        # /faq's own FAQPage block has been in the source file since the page was
+        # ported and has never reached a built page: process_content() strips every
+        # <script> out of an imported body, and that strip stays -- it is what keeps
+        # the live product snippets' Product blocks (the invalid ones, offers with
+        # no price, that product_schema() was written to replace) off the product
+        # pages. So the one block worth keeping is lifted into the head instead,
+        # matched by type and only on the page whose thirteen answers it states.
+        extra = product_schema(slug) if pname else ""
+        if slug == "faq":
+            extra += faq_ld(raw, "/" + slug)
         write(f"{slug}/index.html", src=os.path.join("content","pages",fname), content=base(title, desc, "/"+slug, body,
-              body_class="cw-contentpage", crumbs=crumbs,
-              extra_head=product_schema(slug) if pname else ""))
+              body_class="cw-contentpage", crumbs=crumbs, extra_head=extra))
         n += 1
     return n
 
@@ -1245,8 +1679,11 @@ def about_faq():
                       + "".join(f"<p>{p}</p>" for p in paras) + "</div>")
         if "schema" in it and it["schema"] is None:
             continue                       # displayed on the page, never in the block
-        text = it.get("schema") or _faq_text(" ".join(paras))
-        entities.append({"@type": "Question", "name": q,
+        # RAW text for the block. `q` and a hand-written `schema` are both HTML
+        # source -- they go into the visible markup above as-is -- so they are
+        # unescaped here; _faq_text already unescapes what it derives.
+        text = html.unescape(it["schema"]) if it.get("schema") else _faq_text(" ".join(paras))
+        entities.append({"@type": "Question", "name": html.unescape(q),
                          "acceptedAnswer": {"@type": "Answer", "text": text}})
 
     # Google's FAQPage rule is that the answer must appear on the page. The two
@@ -1340,7 +1777,11 @@ def build_blog():
 <section class="cwg__cta"><div class="cwg__wide cwg__cta-inner"><div><h2>Need a plywood quote?</h2><p>Tell us the grade, size and quantity — we'll price it within one business day.</p></div><a class="cwg__btn" href="{u('/contact')}">Request a quote</a></div></section>'''
         ld = ('<script type="application/ld+json">' + json.dumps({
                 "@context": "https://schema.org", "@type": "BlogPosting",
-                "headline": title.split("|")[0].strip(), "description": desc,
+                # RAW, not the escaped `short` used for the visible H1: json.dumps
+                # escapes for JSON itself, so an '&amp;' carried in from posts.json
+                # would ship inside the headline a crawler reads.
+                "headline": html.unescape(title.split("|")[0].strip()),
+                "description": html.unescape(desc or ""),
                 "author": {"@id": LIVE + "/#organization"},
                 "publisher": {"@id": LIVE + "/#organization"},
                 "image": OG_IMAGE,
@@ -2377,6 +2818,52 @@ def assets_and_meta():
     # JS, so any script-src short of 'unsafe-inline' would break them anyway. Tighten
     # only with a policy that has been tested against a real Turnstile submission.
     #
+    # ---- THE POLICY THAT WOULD REPLACE IT IS STAGED IN REPORT-ONLY, NOT ENFORCED ----
+    #
+    # This repository publishes on merge, and a wrong script-src takes the JavaScript
+    # down on all 253 pages while every one of them still looks healthy. So the real
+    # policy goes into Content-Security-Policy-Report-Only first: the browser evaluates
+    # it, says what it WOULD have blocked, and blocks nothing.
+    #
+    # The origin list is counted, not guessed -- it is every external thing the built
+    # tree actually loads. challenges.cloudflare.com serves the Turnstile script on
+    # /contact, opens the widget's iframe and is called back by it, which is three
+    # directives (script-src, frame-src, connect-src). static.cloudflareinsights.com
+    # serves the page-view beacon Cloudflare injects at the edge and posts to
+    # cloudflareinsights.com -- it is in no source file, which is exactly why it is easy
+    # to leave out (assets/cw-events.js names Insights as the thing it supplements).
+    # Everything else the site loads -- the CSS bundle, both scripts, every font file,
+    # every image, the /cw-event and /ts-fail beacons -- is same-origin, which is what
+    # makes default-src 'self' the right floor. The data: in img-src is the one non-file
+    # image: the SVG wave bundle.css draws as a background.
+    #
+    # WHERE IT WILL FIRE, so the reports are read as expected rather than as news:
+    #   * /contact. Its two inline <script> blocks (QUOTE_JS) and the inline onerror= on
+    #     the Turnstile tag are the whole of the site's inline JavaScript, and script-src
+    #     without 'unsafe-inline' refuses all three. JSON-LD is a data block, never
+    #     executed, and is not reported. Promotion needs a nonce or hashes for those
+    #     three, or the code moves into a file -- that is the work this staging is for.
+    #   * Nowhere for styles: style-src carries 'unsafe-inline' rather than staging a
+    #     failure already known. 19 pages ship a <style> block (21 of them) and 863
+    #     elements a style attribute, nearly all of it inside imported bodies and some
+    #     of it emitted here. Removing that is a content project, not a header change,
+    #     and reporting 884 style violations would bury the three script findings.
+    #   * www.cochinwood.in is named beside 'self' in form-action and connect-src on
+    #     purpose. The form action and the /ts-fail beacon are ABSOLUTE by design (see
+    #     the comment above the form): served from a preview origin, 'self' alone would
+    #     block the submission and the beacon, and the preview is where this gets tested.
+    #
+    # NOTHING COLLECTS THESE YET. No report-uri/report-to, because there is no endpoint
+    # to name and pointing one at a URL that does not collect is worse than admitting it:
+    # violations appear in the browser console and nowhere else, so observing them means
+    # opening the pages, /contact first. PROMOTE THE ENFORCED HEADER ONLY ONCE THIS ONE
+    # HAS RUN CLEAN -- moving the same directive list up one header name is the whole
+    # change, and until then nothing about what the site serves today is altered.
+    # Production also carries a permissive Content-Security-Policy-Report-Only from a
+    # Cloudflare zone rule (audit, 4 Sep 2026). This does not replace it: two
+    # report-only policies are evaluated independently, and that one can only be removed
+    # from the dashboard.
+    #
     # ---- CACHE RULES: NAME THE CONTENT-ADDRESSED FILES, NEVER A BLANKET /assets/* ----
     #
     # "immutable" tells a browser not to revalidate even on a hard reload, so it is
@@ -2467,6 +2954,19 @@ def assets_and_meta():
         "  X-Content-Type-Options: nosniff\n"
         "  Referrer-Policy: strict-origin-when-cross-origin\n"
         "  Content-Security-Policy: base-uri 'self'; object-src 'none'; frame-ancestors 'self'\n"
+        # Staged, not enforced -- it reports and blocks nothing. Same three directives as
+        # the enforced line above, so promoting it later is a rename, not a rewrite.
+        "  Content-Security-Policy-Report-Only: "
+        "default-src 'self'; "
+        "script-src 'self' https://challenges.cloudflare.com https://static.cloudflareinsights.com; "
+        "style-src 'self' 'unsafe-inline'; "
+        "img-src 'self' data:; "
+        "font-src 'self'; "
+        "connect-src 'self' https://www.cochinwood.in https://challenges.cloudflare.com "
+        "https://cloudflareinsights.com; "
+        "frame-src https://challenges.cloudflare.com; "
+        "form-action 'self' https://www.cochinwood.in; "
+        "base-uri 'self'; object-src 'none'; frame-ancestors 'self'\n"
         "  X-Frame-Options: SAMEORIGIN\n"
         "  Strict-Transport-Security: max-age=31536000; includeSubDomains\n"
         "  Permissions-Policy: geolocation=(), camera=(), microphone=(), interest-cohort=()\n"
@@ -2477,7 +2977,7 @@ def assets_and_meta():
   <h1 class="cw-sec__h">Page not found</h1>
   <p class="cw-sec__lead" style="margin:0 auto 24px">That page has moved or doesn't exist. Try one of these:</p>
   <p><a class="cw-btn cw-btn--p" href="{u('/')}">Back to home</a> <a class="cw-btn cw-btn--g" href="{u('/products')}">Plywood catalogue</a> <a class="cw-btn cw-btn--g" href="{u('/blogs')}">Blog</a> <a class="cw-btn cw-btn--g" href="{u('/contact')}">Request a quote</a></p>
-</div></section>'''))
+</div></section>''', self_url=False))
     # Carried from live VERBATIM (git show origin/cf-live:robots.txt, read 31 Aug
     # 2026), not regenerated: the 19 explicit Allow blocks for named AI crawlers
     # are a deliberate courtesy list -- this site courts AI readers (it has an

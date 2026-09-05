@@ -158,11 +158,19 @@ textarea:focus-visible {
 }
 
 /* Hero meta separators shipped at #D9D9D9 on an off-white ground — about 1.3:1,
-   which reads as a gap rather than a separator. */
+   which reads as a gap rather than a separator. #9aa29c only reached 2.49:1, still
+   short of the 4.5:1 that a visible text node has to clear; #5f6e76 is the muted
+   grey the rest of the site already uses for secondary text and clears 5:1 on both
+   the white and the #faf9f7 hero grounds. The dots are still announced by screen
+   readers — the aria-hidden half lives on the spans in content/, out of CSS reach. */
 .cw__hero-meta-sep, .cwp__hero-meta .sep,
-/* a surviving Zoho rule sets this at (0,3,0) via .cwind-rb .cw__page-hero--industries,
-   so match that weight rather than reach for !important */
-.cw__page-hero .cw__hero-meta .cw__hero-meta-sep { color: #9aa29c; }
+/* Both are also set by a page <style>, which ships AFTER bundle.css and so wins
+   every tie: .cwind-rb .cw__page-hero--industries (0,3,0) on /industries, and a
+   surviving copy of this sheet (0,2,0) on /container-flooring-plywood. Matching
+   their weight loses on document order, so take one more class from the same
+   markup rather than reach for !important. */
+.cw__page-hero .cw__hero-text .cw__hero-meta .cw__hero-meta-sep,
+.cwp__hero .cwp__hero-text .cwp__hero-meta .sep { color: #5f6e76; }
 
 /* Contact's feature row sits directly under the h1, so its headings are h2
    there; keep them looking identical to the h3s used elsewhere. */

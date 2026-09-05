@@ -17,6 +17,24 @@ body{margin:0;background:#fff;font-family:Poppins,system-ui,sans-serif;color:#14
 .cwg__h1{font-family:'Bree Serif',Georgia,serif;font-size:clamp(1.9rem,3.6vw,2.7rem);line-height:1.15;color:#0E1F18;margin:10px 0 14px}
 .cwg__meta{font-size:.84rem;color:#5a6a72}
 
+/* product photo under a cwg__ hero — the same 24px / soft-shadow treatment the
+   cwp__ hero already uses on /bwr-hardwood-plywood, so a catalogue page reads the
+   same whichever template it was built from. The cwp__ hero is a two-column grid
+   and can afford a tall portrait crop; this one is a single full-width column, so
+   the photo is banded rather than square.
+
+   HEIGHT AND object-position ARE MEASURED AGAINST THE THREE PHOTOGRAPHS, not
+   picked. All three are 1200×1200 with the sheet's top face around 35–50% down
+   and the stacked edges below it, so a band only keeps height/width of the frame:
+   520px across 1100px keeps 47%, and centring that at 48% spans roughly a quarter
+   to three-quarters — the top face, the edges, and enough of the shed behind to
+   place it. Dropping the window lower (62% was tried first) slices the top face
+   off and leaves an abstract slab of edges. */
+.cwg__hero-img{max-width:1100px;margin:26px auto 0;padding:0 24px}
+.cwg__hero-img img{display:block;width:100%;height:520px;object-fit:cover;object-position:center 48%;border-radius:24px;box-shadow:0 24px 64px rgba(20,20,20,.14)}
+@media (max-width:1024px){.cwg__hero-img img{height:360px}}
+@media (max-width:640px){.cwg__hero-img{padding:0 20px}.cwg__hero-img img{height:260px;border-radius:18px}}
+
 /* the answer-first summary box (the bit AI engines lift) */
 .cwg__tldr{margin:36px 0;padding:22px 24px;background:var(--cw-green-100,#E5EFE9);border-left:4px solid var(--cw-green-700,#1B4332);border-radius:8px}
 .cwg__tldr p{margin:0;font-size:1.05rem;color:#0E1F18}

@@ -28,7 +28,11 @@ img{max-width:100%;display:block}
   .cw-nav.open{display:flex}
   .cw-nav a{padding:13px 24px;border-top:1px solid var(--cw-ink-100)}
   .cw-nav .cw-cta{margin:10px 24px;text-align:center}
-  .cw-burger{display:block}
+  /* The site-wide 44px tap-target rule only reaches "header nav a" / "header nav
+     button", and the burger is a SIBLING of <nav>, so it shipped at 34x37 — the
+     only nav control below 860px that missed the minimum. .cw-hd__in is a fixed
+     68px bar, so a 44px button grows nothing. */
+  .cw-burger{display:block;padding:10px;min-width:44px;min-height:44px}
 }
 
 /* ---- hero ---- */

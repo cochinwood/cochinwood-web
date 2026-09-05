@@ -1,43 +1,74 @@
 # Branch map — read this before changing anything
 
-## You are on `master`. This branch is NOT deployed.
+## The cutover HAS happened. `cf-live` is generated output now.
 
-`master` is the clean, dependency-free Python SSG rebuild (`build.py` → `dist/`).
-It is intended to replace the live site — see `CUTOVER-PLAN.md` — but **that
-cutover has not happened.** Nothing you fix here reaches a visitor until Phase 6
-of that plan is carried out.
+This file said the opposite until 5 September 2026, and it was wrong for a day —
+it told two agents that `cf-live` was ~293 hand-maintained `.html` files and that
+"nothing you fix here reaches a visitor". Both statements are now false, and
+hand-editing HTML on the strength of them is wasted work that ships nothing.
 
-**The live site at https://www.cochinwood.in is served from the `cf-live` branch**,
-which Cloudflare Pages publishes verbatim with no build step.
+**What is true, verified 5 Sep 2026 by counting rather than by reading a doc:**
 
-Verified 2026-08-15 by diffing the live homepage against `cf-live:index.html` —
-byte-identical apart from Cloudflare's own email-obfuscation injection.
+| | |
+|---|---|
+| **Production** | branch `cf-live`, published verbatim by Cloudflare Pages at https://www.cochinwood.in |
+| **What `cf-live` contains** | the **output** of `python build.py` — 607 files, 253 `.html`. Not hand-written. |
+| **Source** | this lineage: `content/` + `build.py` on `cutover-ready-2026-09-04` |
+| **The cutover** | `ebc11445`, 4 Sep 2026 07:03 IST, *"Publish the reviewed build (ce24ab15) as the served tree"* |
 
-If you are here because a visitor reported a problem with the live site, you are on
-the wrong branch:
+`ce24ab15` — the commit whose build was published — is an ancestor of
+`cutover-ready-2026-09-04`, and `python build.py` on this branch still reports
+`files: 607` with 253 `.html`. That match is the evidence, not this sentence.
 
-    git checkout cf-live
+Re-verify it yourself in three commands:
+
+    git log -1 --format='%h %ad %s' ebc11445          # the cutover
+    git ls-tree -r --name-only origin/cf-live | wc -l # 607
+    python build.py                                   # "files: 607"
+
+### So: edit the source, never the output
+
+    content/**, build.py   ->  python build.py  ->  dist/  ->  published as cf-live
+
+Editing a `.html` file expecting it to ship is the one mistake this page exists to
+prevent. The next build overwrites it.
+
+### `cf-live` has run ahead of the source, and that is a real thing to check
+
+Four PRs (#17–#20) landed export-market data **directly on `cf-live`** after the
+cutover. `build.py` is pinned to `LIVE_SHA = c59adae9` and carries 311 files from
+it, so a build made today republishes that older snapshot over whatever those PRs
+added. That is exactly what the first of the build's three standing warnings says.
+**Read it. Do not move `LIVE_SHA` without re-reviewing what landed in between.**
 
 ## Branches
 
 | Branch | What it is | Deployed |
 |---|---|---|
-| `cf-live` | The live site. ~293 hand-maintained `.html` files, no build step. | **yes — production** |
-| `master` | This branch. Python SSG rebuild, the planned successor. | no |
+| `cf-live` | **Production.** Build output, served verbatim. Do not hand-edit; do not push casually — a push here IS a deploy. | **yes** |
+| `cutover-ready-2026-09-04` | The source: `content/` + `build.py`. Work here. | no — via a build |
+| `master` | The original SSG rebuild, now an ancestor of the branch above. Superseded. | no |
 
 ## A note on the Zoho references
 
-Both branches carry vocabulary inherited from CWI's former Zoho Sites site — the
-`cf-live` HTML still contains `zsite-core.css` and similar, and `build.py` here
-resolves photography by its original `/files/...` Zoho paths. **CWI is fully off
-Zoho Sites.** Those are historical artefacts of the migration, not a live
-dependency on Zoho.
+Vocabulary inherited from CWI's former Zoho Sites site survives in the markup and
+in `build.py`, which still resolves photography by its original `/files/...` Zoho
+paths. **CWI is fully off Zoho Sites.** Those are historical artefacts of the
+migration, not a live dependency. Reading "zsite" and concluding the site still
+runs on Zoho is a mistake that has already been made once.
 
 ## Build
 
     python build.py                             # -> dist/ for the domain root
     SITE_BASE=/cochinwood-web python build.py   # -> dist/ for GitHub project Pages
     STRICT=1 python build.py                    # fail the build on any warning
+
+A clean build exits 0, prints `BUILD OK`, and emits exactly **three** warnings —
+the `cf-live` drift pin, 7 rewritten 301 targets, and 13 rules deliberately not
+carried. Those three are expected. A fourth is yours.
+
+`STRICT=1` exits 1 on the three above, so it fails on an untouched checkout too;
+that is not a regression you introduced.
 
 See `README.md` for the full generator documentation.
 
@@ -52,33 +83,18 @@ Reason: the live URL is already indexed. Moving it costs a ranking dip and a fre
 words on the page. Renaming is reversible; losing rankings is not. **Generalise it: when in
 doubt, do not move a URL.**
 
-This closes a conflict the 25 Aug audit raised and deliberately left open — blocker 2 and
-recommendation 3 in `cochinwood-audit-2026-08-25/CUTOVER-ASSESSMENT.md`, in the shared
-workspace repo (`Claude Code`). The two sides were:
+The code change landed on this lineage on 31 Aug 2026 (`WOOD_PATH` / `WOOD_LABEL` in
+`build.py`), so the generator and this decision now agree. The conflict it closes was
+raised as blocker 2 / recommendation 3 in
+`cochinwood-audit-2026-08-25/CUTOVER-ASSESSMENT.md`, in the shared workspace repo
+(`Claude Code`): `cf-live` served one page, `woods-we-use.html`, while `build.py` built a
+whole section at the redirected path and emitted no `/woods-we-use` page at all. The
+generator was the side that changed.
 
-- `cf-live` serves one page, `woods-we-use.html`, and `_redirects` lines 28–29 send the
-  other name to it:
+## One more stale copy, on another branch
 
-      /wood-encyclopedia /woods-we-use 301
-      /wood-encyclopedia/* /woods-we-use 301
-
-- `master`'s `build.py` builds the opposite — a whole section at the redirected path.
-  `build.py:598` writes `wood-encyclopedia/index.html`; `build.py:604` writes
-  `wood-encyclopedia/<slug>/index.html` for the 20 species listed at `build.py:590`;
-  `build.py:224` puts `("Wood Encyclopedia", "/wood-encyclopedia/", False)` in the nav.
-  It emits no `/woods-we-use` page at all.
-
-So `master` is the side that is wrong, and **the generator changes, not the live URL.**
-
-**On this branch that code change HAS been made** (WOOD_PATH/WOOD_LABEL in build.py, 31 Aug 2026) — the paragraph below is kept for branches that predate it. It is a real change with consequences and needs its
-own review, so until it lands `build.py` still contradicts this section — that is known, not
-an oversight. Whoever picks it up: the target is `/woods-we-use` as the canonical path with
-the *Wood Encyclopedia* label kept, and two more things fall out of it —
-
-- `build.py:857-859` regenerates `_redirects` wholesale from `LEGACY_REDIRECTS`: 19 rules
-  against the 96 live on `cf-live`, and the map at `build.py:28-48` does not contain the two
-  `/wood-encyclopedia` rules above. Cutting over as written replaces the live redirect file
-  with the short one and drops them.
-- `LEGACY_REDIRECTS` at `build.py:45-47` points three old `/blogs/post/wood-*` slugs at
-  `/wood-encyclopedia/...`; those targets have to move too.
-
+`master` and `dedupe-2026-08-27` still carry their own `CLAUDE.md` opening *"You are on
+`cf-live`. This is production … There is no build step … You edit the `.html` files
+directly."* That was true before 4 Sep and is not true now. It is not fixed here because
+those are a different lineage and this branch cannot speak for them — but anyone landing
+there will be misled the same way, so it is worth fixing at the same time.
