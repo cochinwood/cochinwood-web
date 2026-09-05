@@ -58,7 +58,7 @@ textarea:focus-visible {
   font: 400 14px/1.5 Poppins, system-ui, sans-serif;
 }
 .cw-crumb > .cw-wrap { padding: 10px 0; }
-.cw-crumb a { color: #55606a; text-decoration: none; }
+.cw-crumb a { color: #55606a; text-decoration: underline; text-underline-offset: .15em; }
 .cw-crumb a:hover { color: var(--cw-green-600, #2a6b41); text-decoration: underline; }
 .cw-crumb [aria-current="page"] { color: #14181c; font-weight: 500; }
 .cw-crumb__sep { color: #7c8790; padding: 0 2px; }

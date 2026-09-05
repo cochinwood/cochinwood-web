@@ -5,7 +5,7 @@
  * "which of these pages earns its keep", the question behind half the SEO findings in that audit,
  * had no answer.
  *
- * WHAT IS SENT, in full: an event name from a list of four, and the path of the page it happened
+ * WHAT IS SENT, in full: an allowlisted event name and the path of the page it happened
  * on. Nothing else. No cookie is set, no identifier is generated, no address is recorded at the
  * other end, and the counter it lands in is keyed only by (day, event, page). Two events cannot be
  * linked back to one person because nothing here says who anybody is — which is what keeps this
@@ -101,4 +101,26 @@
 
   // Accepted enquiries are counted by the server after persistence. A success URL can
   // be reloaded, bookmarked or typed by anyone and is never evidence of an accepted enquiry.
+  // These are page-view events, not people or completed enquiries. Each kind fires at most
+  // once per load; no field value, validation message or visitor identifier leaves the form.
+  if (isContact(page())) {
+    var form = document.querySelector('form');
+    if (form && !/[?&]sent=1(?:&|$)/.test(location.search || '')) {
+      var counted = {};
+      function formEvent(name) {
+        if (counted[name]) return;
+        counted[name] = true;
+        var from = page();
+        try {
+          var saved = sessionStorage.getItem(ORIGIN_KEY);
+          if (saved && /^\/(?!\/)/.test(saved) && !/[?#]/.test(saved)) from = saved;
+        } catch (e) {}
+        send(name, from);
+      }
+      formEvent('form_view');
+      form.addEventListener('input', function () { formEvent('form_start'); }, true);
+      form.addEventListener('change', function () { formEvent('form_start'); }, true);
+      form.addEventListener('invalid', function () { formEvent('form_validation_error'); }, true);
+    }
+  }
 })();

@@ -763,7 +763,7 @@ def seo_title(title):
     return head
 
 def product_schema(slug):
-    """Product markup so every catalogue page is eligible for rich results.
+    """Factual Product markup, without claiming Google rich-result eligibility.
 
     THERE IS DELIBERATELY NO offers NODE. It used to declare priceCurrency INR
     and InStock with no price, priceSpecification or sku beside them, which the
@@ -772,7 +772,9 @@ def product_schema(slug):
     Wood quotes every order and publishes no list price, so there is no number to
     put there, and inventing one to satisfy a validator would put a false price
     on the page. A bare Product -- name, description, image, brand, category,
-    url -- is valid, and it is everything we can honestly state."""
+    url -- is valid Schema.org, and it is everything we can honestly state.
+    Google product snippets additionally require offers, review or aggregateRating;
+    these quote-only pages deliberately do not claim that eligibility."""
     row = next((r for r in PRODUCTS if r[0] == slug), None)
     if not row: return ""
     _, name, desc = row
@@ -1991,7 +1993,7 @@ def copy_referenced_files():
 # the new sha in here until the gate goes green carries whatever landed on
 # cf-live meanwhile into production unread.
 LIVE_REF_NAME = "origin/cf-live"                         # where the pin came from
-LIVE_SHA = "0581611a1bf6c1bc9278c93223c9d677b16708bd"    # Reviewed 5 Sep: tools/check_published_preservation.py
+LIVE_SHA = "ab5656e283b68c9be36205f5b7890cdfd32576ca"    # Reviewed PR24: same 320 carried files, source 022c9280
 LIVE_REF = LIVE_SHA                # what git is actually handed, so no fetch can move it
 LIVE_PIN = LIVE_REF_NAME + "@" + LIVE_SHA[:12]           # what the banner and dist/ record
 
