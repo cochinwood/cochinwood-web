@@ -366,6 +366,56 @@ PRODUCT_HERO = {
     "sawn-timber":             "/files/Product/specialty-timbers.jpg",
 }
 
+# THE THREE PAGES PRODUCT_HERO COULD NOT REACH, AND WHY THEY GET A FIGURE INSTEAD
+# OF A SWAP. packing, okoume and rubberwood are built from the Zoho mirror and
+# open with <header class="cwg__hero">, which -- unlike the cwp__ hero on
+# /bwr-hardwood-plywood -- has no <img> for _fix_img to swap. So PRODUCT_HERO put
+# their real photograph into the Product schema and the share card while the page
+# itself showed the buyer nothing. Two of the three are the lines Cochin Wood
+# sells most of, so the share card had a photo and the sales page did not.
+#
+# Written from the photographs themselves, not from the page's own copy: the alt
+# text has to describe what is in the frame, and inventing a description of a
+# picture is the same fault as inventing a fact about the business.
+CWG_HERO_ALT = {
+    "packing-plywood":
+        "A stack of packing-grade plywood sheets on the mill floor, pale hardwood "
+        "faces with the core layers visible along the cut edges, strapped bundles "
+        "stacked behind",
+    "okoume-plywood":
+        "A stack of Okoume-faced plywood on the mill floor, smooth pinkish-brown "
+        "face, with bundled panels stacked behind",
+    "rubberwood-plywood":
+        "A stack of rubberwood plywood on the mill floor, pale cream face, with "
+        "strapped bundles on pallets behind",
+}
+
+_CWG_HERO_RE = re.compile(r'<header class="cwg__hero">.*?</header>', re.S | re.I)
+
+def add_cwg_hero_photo(body, slug):
+    """Give a cwg__ catalogue page the photograph it already claims to have.
+
+    Injected here rather than written into content/pages/*.html because the file
+    it points at is already named once, in PRODUCT_HERO, and a second copy of the
+    path in three hand-edited bodies is a second thing to keep in step. Injected
+    BEFORE prune_images so the ordinary machinery still owns it: _fix_img resolves
+    the ref, registers the file so it ships, and _set_dims measures it -- so this
+    <img> gets true width and height like every other one and reserves its box.
+
+    Skipped where the body already references that file, so a page that later
+    grows its own hero does not print the same photograph twice."""
+    alt = CWG_HERO_ALT.get(slug)
+    ref = PRODUCT_HERO.get(slug)
+    if not alt or not ref: return body
+    if ref in body: return body
+    m = _CWG_HERO_RE.search(body)
+    if not m: return body
+    fig = (f'<figure class="cwg__hero-img"><img src="{ref}" alt="{alt}"'
+           # eager + high priority: this is the LCP element on these three pages,
+           # exactly as the cwp__ hero is on the pages that already carry one.
+           f' loading="eager" fetchpriority="high"></figure>')
+    return body[:m.end()] + "\n" + fig + body[m.end():]
+
 def image_size(path):
     """(width, height) for PNG/JPEG/WebP, or None. Used to correct the width and
     height attributes so the browser reserves the right box and nothing shifts."""
@@ -1487,6 +1537,9 @@ def process_content(body, slug=None):
     body = body.replace('</main>', '</section>')
     body = re.sub(r'<script\b[^>]*>.*?</script>', '', body, flags=re.S)   # drop any inline scripts
     body = re.sub(r'\son\w+="[^"]*"', '', body)                            # drop inline handlers
+    # before prune_images, so the figure's <img> is resolved, registered and
+    # measured by the same pass that handles every other image on the page
+    body = add_cwg_hero_photo(body, slug)
     return rewrite_links(prune_images(body, slug))
 
 _LD_BLOCK = re.compile(r'<script type="application/ld\+json">(.*?)</script>', re.S)
