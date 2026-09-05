@@ -1,15 +1,30 @@
 # Branch map — read this before changing anything
 
-## You are on `cf-live`. This is production.
+## `cf-live` is production. It is GENERATED now — do not hand-edit it.
 
-Cloudflare Pages serves this branch **verbatim** at https://www.cochinwood.in.
-What is committed here is exactly what a visitor receives. There is no build step,
-no generator, no package manager, no `dist/`. You edit the `.html` files directly.
+Cloudflare Pages serves `cf-live` **verbatim** at https://www.cochinwood.in, and what
+is committed there is exactly what a visitor receives. Both of those are still true,
+and most of this file is still good.
 
-Verified 2026-08-15: the live homepage is byte-identical to `index.html` on this
-branch, apart from Cloudflare's own edge injection — it rewrites `mailto:` links
-into `/cdn-cgi/l/email-protection` and adds `email-decode.min.js`. That difference
-is Cloudflare's, not ours, and must never be "fixed".
+**What changed on 4 September 2026, and what this section used to say.** It read:
+*"There is no build step, no generator, no package manager, no `dist/`. You edit the
+`.html` files directly."* That was true when written and is false now. `cf-live` is
+the **output** of `python build.py`, published at commit `ebc11445` —
+*"Publish the reviewed build (ce24ab15) as the served tree"*. Editing a `.html` file
+on it gets overwritten by the next build.
+
+**The source is `content/` + `build.py` on `cutover-ready-2026-09-04`.** Work there,
+build, and publish the result. Verify all of that by counting rather than by trusting
+this paragraph:
+
+    git log -1 --format='%h %ad %s' ebc11445             # the cutover
+    git ls-tree -r --name-only origin/cf-live | wc -l    # 607, and 253 .html
+    git checkout cutover-ready-2026-09-04 && python build.py   # "files: 607"
+
+Verified 2026-08-15, and still the reason not to "fix" a diff you will see: the live
+homepage is byte-identical to `index.html` on `cf-live` apart from Cloudflare's own
+edge injection — it rewrites `mailto:` links into `/cdn-cgi/l/email-protection` and
+adds `email-decode.min.js`. That difference is Cloudflare's, not ours.
 
 Re-verify at any time:
 
@@ -39,10 +54,21 @@ before and after, at both 375px and 1280px.
 
 | Branch | What it is | Deployed |
 |---|---|---|
-| `cf-live` | The live site. ~293 hand-maintained `.html` files, no build step. | **yes — production** |
-| `master` | A clean Python SSG rebuild (`build.py` → `dist/`) intended to replace this branch. See `CUTOVER-PLAN.md` there. | no |
+| `cf-live` | **Production.** The build's output — 607 files, 253 `.html` — served verbatim. Do not hand-edit. | **yes — production** |
+| `cutover-ready-2026-09-04` | **The source.** `content/` + `build.py`. This is where work goes. | no — via a build |
+| `master` | The original SSG rebuild, now an ancestor of the source branch. Behind. | no |
+| `dedupe-2026-08-27` | This branch. A feature branch from 31 Aug, kept because the local `cochinwood-web` checkout sits on it. | no |
 
-Work landed on `master` reaches no users today.
+Work landed on `master` still reaches no users, and now it is not the successor either.
+
+**`cf-live` has run ahead of the source.** Four pull requests (#17–#20) landed
+export-market data directly on `cf-live` after the cutover, and that work is **not**
+on `cutover-ready-2026-09-04` — its copies of those files still read `[TO CONFIRM]`
+where production carries sourced duty and VAT figures. `build.py` is pinned to
+`LIVE_SHA = c59adae9` and carries 311 files from it, so a build published today would
+put the older snapshot over them. That is the first of the build's three standing
+warnings. Read it before you build, and do not move `LIVE_SHA` without re-reviewing
+what landed in between.
 
 ## `cf-live` is gated, because on this branch a push IS a deploy
 
@@ -260,6 +286,21 @@ actual file before fixing, and opens no PR when nothing survives verification.
 say *"four continents, not five — never write five continents."* That card is
 STALE. Edwin confirmed Chile as a live South American market on 15 Aug 2026 and
 the site was updated in `810e7b5b`. This file is the authority; the skill loses.
+
+**Two more cards in that skill are stale the same way, found 5 Sep 2026.** It says
+*"50+ countries"* and describes CWI as a *"vertically-integrated manufacturer"*. The
+audit settled both the other way and the site now says otherwise:
+
+- **28 countries**, not 50+. The old figure was removed as unsupported.
+- The manufacturer answer is `/company-verification`'s: Cochin Wood Industries is the
+  selling and exporting entity, registered with FIEO as a **merchant exporter**;
+  depending on grade and volume an order is pressed at the group's own unit at
+  Perumbavoor, which makes the bulk of what we sell, with some grades and overflow
+  from approved mills in the same cluster. The producing unit is named on every
+  quotation. Phrases like *"the industries we own"* were removed for this reason.
+
+Same rule as the continents card: **the site is the authority, the skill loses.** When
+they disagree, check `/company-verification` and fix the skill, not the page.
 
 | Continent | Markets |
 |---|---|
