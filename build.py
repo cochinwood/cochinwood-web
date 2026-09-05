@@ -607,6 +607,21 @@ def footer():
     # inbound link, from /blogs, so the only customer proof on the site was
     # three clicks from anywhere. Nine links is the most this column should
     # carry; anything further needs a trim first, not another entry.
+    #
+    # THE CLAIMS POLICY IS IN THE BOTTOM BAR NOW, AND ITS ABSENCE WAS THE REAL DEFECT
+    # (5 Sep 2026). Twenty-two source files promise a "material guarantee" and not one of
+    # them linked to where that guarantee is written down. The terms are NOT missing -- they
+    # were reported as undefined and that was wrong. /return-refund-policy states what can be
+    # claimed, 3 days for visible damage or shortage, 14 days for grade and specification
+    # before the goods are processed, and replace / repair / credit at our option limited to
+    # the affected quantity; /terms-and-conditions adds latent defects at 30 days from
+    # discovery and no later than 90 from delivery, plus a verdict within ten business days
+    # of complete evidence. A guarantee a buyer cannot read is worth less than a modest one
+    # they can, so the fix is a LINK and not a rewrite.
+    # Site-wide from the footer rather than page by page, because that reaches all 254 pages
+    # -- including the fourteen export lanes another session owns -- without touching a file
+    # this branch does not own. Shipping rides along: it is the other policy the proforma
+    # invoice incorporates by reference and it was equally unreachable.
     return f'''<footer class="cw-ft"><div class="cw-wrap">
   <div class="cw-ft__cols">
     <div class="cw-ft__brand"><b>Cochin Wood Industries</b><p>Plywood manufacturer in Kochi, Kerala — packing, Okoume and shuttering ply, shipped across India and exported. Part of a group manufacturing in Perumbavoor since 1986.</p></div>
@@ -615,7 +630,7 @@ def footer():
     <nav aria-label="Contact"><p class="cw-ft__h">Contact</p><a href="tel:{CONTACT['phone_href']}">{CONTACT['phone_disp']}</a><a href="mailto:{CONTACT['email']}">{CONTACT['email']}</a><a href="https://maps.google.com/?q=Thoppilan+Building+Vattakattupady+Rayamangalam+Perumbavoor+Kerala+683542" target="_blank" rel="noopener">{CONTACT['addr']}</a><a href="{INSTAGRAM_URL}" target="_blank" rel="noopener">Instagram</a></nav>
   </div>
   <div class="cw-ft__bar"><span>&copy; 2026 Cochin Wood Industries Pvt Ltd. Group established 1986.</span>
-  <span><a href="{u('/privacy-policy')}" style="display:inline">Privacy</a> &middot; <a href="{u('/terms-and-conditions')}" style="display:inline">Terms</a></span></div>
+  <span><a href="{u('/privacy-policy')}" style="display:inline">Privacy</a> &middot; <a href="{u('/terms-and-conditions')}" style="display:inline">Terms</a> &middot; <a href="{u('/return-refund-policy')}" style="display:inline">Claims &amp; returns</a> &middot; <a href="{u('/shipping-policy')}" style="display:inline">Shipping</a></span></div>
 </div></footer>'''
 
 OG_IMAGE = LIVE + "/assets/og/cwi-og-share-1200x630.png"   # 1200x630 share card
