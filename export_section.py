@@ -228,6 +228,16 @@ def page(shared, d, path, prose, crumbs, src):
             + "</div></article>\n" + faq + "\n"
             # live puts the CTA before the lane-links strip; keep that order
             + cta(shared, d) + "\n" + related(shared, d))
+    # Preserve published export research that landed directly on cf-live after
+    # this source lineage's cutover. Exact matching makes stale patches fail loudly.
+    with open(os.path.join(CDIR, 'published-patches.json'), encoding='utf8') as f:
+        patches = json.load(f)['patches'].get(path.lstrip('/'), [])
+    for patch in patches:
+        if patch['after'] in body:
+            continue  # already migrated into the underlying source
+        if body.count(patch['before']) != 1:
+            raise ValueError('Published export preservation patch drift: ' + path)
+        body = body.replace(patch['before'], patch['after'], 1)
     html_ = B.base(d["title"], d["desc"], path, B.rewrite_links(body),
                    body_class="cw-encbody", extra_head=webpage_ld(shared, d, path) + faq_ld,
                    crumbs=crumbs, show_crumbs=False)

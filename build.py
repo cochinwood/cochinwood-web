@@ -963,14 +963,16 @@ def home():
     # heading weight of the homepage while the term the page is actually
     # searched for sat in an eyebrow paragraph, which is not a heading at all.
     body = f'''
-<section class="cw-hero"><div class="cw-wrap">
+<section class="cw-hero"><div class="cw-wrap"><div class="cw-hero__layout"><div>
   <h1>Plywood manufacturer in Kochi, Kerala</h1>
-  <p>Plywood, built to your spec. Packing-grade, Okoume and film-faced shuttering plywood, sawn timber and export crates — manufactured to Cochin Wood specifications and shipped across India and abroad. Backed by a group manufacturing in Perumbavoor since 1986.</p>
+  <p>Packing, Okoume and shuttering plywood, built to your spec. For delivery across India and export. Backed by a group manufacturing in Perumbavoor since 1986.</p>
   <div class="cw-hero__cta"><a class="cw-btn cw-btn--p" href="{u('/contact')}">Request a quote</a><a class="cw-btn cw-btn--g" href="{u('/products')}">See the range</a></div>
+  <a class="cw-hero__proof" href="{u('/company-verification')}">Company details you can verify &rarr;</a>
+  </div><figure class="cw-hero__photo"><img src="{u(PRODUCT_HERO['packing-plywood'])}" width="1200" height="1200" alt="Packing plywood panels showing their layered edges" fetchpriority="high" decoding="async"><figcaption><a href="{u('/packing-plywood')}">Explore packing plywood &rarr;</a></figcaption></figure></div>
   <div class="cw-hero__strip">
     <div><b>40+ yrs</b><span>Group manufacturing since 1986</span></div>
     <div><b>Pan-India</b><span>Delivery + export to {N_EXPORT_COUNTRIES} countries</span></div>
-    <div><b>IS 710 / 303</b><span>Boil-proof &amp; MR grades</span></div>
+    <div><b>To your spec</b><span>Grade, size and delivery agreed in writing</span></div>
   </div>
 </div></section>
 
@@ -1055,6 +1057,8 @@ def products():
 # (IS 303); the retired CRM webform had one "Premium/ISI/303/710" picklist entry that collapsed the
 # two, and the IS 710 / IS 303 distinction was lost on every lead that used it.
 PRODUCT_INTEREST = [
+    ("Okoume Plywood",                "Okoume plywood"),
+    ("Rubberwood Plywood",            "Rubberwood plywood"),
     ("Commercial/Packing Grade",      "Commercial / packing-grade ply"),
     ("Wooden/Plywood Packing Case",   "Boxes, crates &amp; pallets"),
     ("Film Faced/Shuttering",         "Film-faced shuttering"),
@@ -1064,6 +1068,10 @@ PRODUCT_INTEREST = [
     ("Container Flooring",            "Container flooring"),
     ("Block Board/Flush Door",        "Block board &amp; flush doors"),
     ("Timber/Runners/Planks",         "Sawn timber &amp; runners"),
+    ("Chequered Anti-Skid Plywood",   "Chequered anti-skid plywood"),
+    ("Finger-Joint Board",           "Finger-joint board"),
+    ("Particle Board",               "Particle board"),
+    ("Plywood Cable Drums",           "Plywood cable drums"),
 ]
 
 INCOTERMS = ["Delivered within India", "Ex-works Perumbavoor", "FCA Cochin", "FOB Cochin",
@@ -1127,11 +1135,30 @@ QUOTE_JS = r'''<script>
     var f = document.getElementById('cwq2-form');
     if (!f) return;
     var loadedAt = Date.now();
+    var params = new URLSearchParams(window.location.search);
+    var presets = {
+      'packing-plywood':'Commercial/Packing Grade', 'commercial-plywood':'Commercial/Packing Grade',
+      'okoume-plywood':'Okoume Plywood', 'rubberwood-plywood':'Rubberwood Plywood',
+      'film-faced-shuttering-plywood':'Film Faced/Shuttering',
+      'marine-plywood':'BWP Marine Plywood - IS 710', 'bwr-hardwood-plywood':'BWR Hardwood Plywood - IS 303',
+      'container-flooring-plywood':'Container Flooring', 'block-board-flush-doors':'Block Board/Flush Door',
+      'plywood-boxes-crates':'Wooden/Plywood Packing Case', 'plywood-pallets':'Wooden/Plywood Packing Case',
+      'sawn-timber':'Timber/Runners/Planks', 'chequered-anti-skid-plywood':'Chequered Anti-Skid Plywood',
+      'finger-joint-board':'Finger-Joint Board', 'particle-board':'Particle Board',
+      'plywood-cable-drums':'Plywood Cable Drums'
+    };
+    var preset = presets[params.get('product')];
+    f.querySelectorAll('[name="products"]').forEach(function (el) { if (el.value === preset) el.checked = true; });
+    var retryKey = '';
+    try { retryKey = sessionStorage.getItem('cwq_retry') || ''; } catch (e) {}
+    if (!retryKey && window.crypto && crypto.randomUUID) retryKey = crypto.randomUUID();
+    f.elements.enquiry_id.value = retryKey;
 
     /* The Worker answers a saved enquiry with a 302 to /contact?sent=1#quote, so this is what the
        buyer sees after submitting. A FAILED save is answered by the Worker's own page instead and
        never redirects here, which is why this branch can assume success. */
     if (/[?&]sent=1/.test(window.location.search)) {
+      try { sessionStorage.removeItem('cwq_retry'); } catch (e) {}
       f.innerHTML = '<div class="cw-form__ok" aria-live="polite">' +
         '<h2>Request received.</h2>' +
         '<p>Our export desk replies within one business day. In a hurry?</p>' +
@@ -1168,11 +1195,20 @@ QUOTE_JS = r'''<script>
         return;
       }
 
-      /* Fold the packed fields into description. The Worker reads name, company, email, phone,
-         products, destination and description and NOTHING ELSE -- spec_grade, quantity and incoterm
-         are posted and dropped on the floor without this, so this loop is the only reason thickness,
-         quantity and quote basis reach the lead book at all. */
+      // Preserve the buyer's original text separately from the legacy readable summary.
       var desc = f.querySelector('[name="description"]');
+      var original = desc.value;
+      function value(name) { return f.elements[name].value.trim(); }
+      var selected = Array.from(f.querySelectorAll('[name="products"]:checked')).map(function (el) { return el.value; });
+      var source = preset ? '/' + params.get('product') : window.location.pathname;
+      try { source = sessionStorage.getItem('cwq_from') || source; } catch (e) {}
+      f.elements.enquiry.value = JSON.stringify({version:1, product:selected.join(', '),
+        grade:value('grade'), thickness:value('thickness'), dimensions:value('dimensions'),
+        quantity:value('quantity'), unit:value('unit'), destination:value('destination'),
+        incoterm:value('incoterm'), source_page:source, original_text:original,
+        help_me_choose:f.elements.help_me_choose.checked});
+      f.elements.spec_grade.value = [value('thickness'), value('grade')].filter(Boolean).join(' ');
+      try { if (retryKey) sessionStorage.setItem('cwq_retry', retryKey); } catch (e) {}
       var extra = [];
       f.querySelectorAll('[data-pack]').forEach(function (el) {
         if (el.value.trim()) extra.push(el.getAttribute('data-pack') + ': ' + el.value.trim());
@@ -1180,6 +1216,8 @@ QUOTE_JS = r'''<script>
       var other = f.querySelector('[data-other]');
       if (other && other.checked) extra.push('Product: other / not sure');
       if (extra.length) desc.value = extra.join('\n') + (desc.value ? '\n\n' + desc.value : '');
+      // The native POST has captured these values before this task runs. Restore for browser-back/retry.
+      setTimeout(function () { desc.value = original; }, 0);
     });
   })();
 </script>'''
@@ -1197,8 +1235,8 @@ def contact():
     # characters against the Worker's 300-char cap and this adds 18, so a buyer who ticks everything
     # is still not truncated. data-other stays for the packer, whose line is now belt-and-braces
     # rather than the only carrier.
-    checks += ('<label><input type="checkbox" name="products" value="Other / not sure" data-other>'
-               'Other / not sure</label>')
+    checks += ('<label><input type="checkbox" name="help_me_choose" value="1" data-other>'
+               'Help me choose a suitable product / specification</label>')
     incoterms = "".join(f"<option>{i}</option>" for i in INCOTERMS)
     # ABSOLUTE, not root-relative, and matched by tools/check_site.py. The Worker is bound to
     # www.cochinwood.in/web-lead and cochinwood.in/web-lead as explicit routes; a plain form POST is
@@ -1218,6 +1256,9 @@ def contact():
     # nothing on the page said what it meant.
     form = f'''<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer onerror="window.cwq2TsDead=1;window.cwq2TsNoload&amp;&amp;window.cwq2TsNoload()"></script>
 <form class="cw-form" id="cwq2-form" method="POST" action="https://www.cochinwood.in/web-lead" accept-charset="UTF-8">
+  <input type="hidden" name="enquiry" value="">
+  <input type="hidden" name="enquiry_id" value="">
+  <input type="hidden" name="spec_grade" value="">
   <!-- honeypot: real buyers never see this -->
   <div class="cw-hp" aria-hidden="true"><label for="q-web">Leave this field empty</label><input id="q-web" type="text" name="cwq2_website" tabindex="-1" autocomplete="off"></div>
   <p class="cw-note" style="margin:0">Fields marked * are required.</p>
@@ -1231,15 +1272,22 @@ def contact():
   </div>
   <fieldset style="border:0;margin:0;padding:0;min-width:0"><legend style="font-size:.86rem;font-weight:600;color:var(--cw-green-800);margin:0 0 6px;padding:0">What do you need?</legend><div class="cw-checks">{checks}</div></fieldset>
   <div class="cw-row">
-    <div><label for="q-spec">Thickness / grade *</label><input id="q-spec" type="text" name="spec_grade" placeholder="e.g. 18 mm BWP, IS 710" data-pack="Thickness / grade" required></div>
-    <div><label for="q-qty">Quantity *</label><input id="q-qty" type="text" name="quantity" placeholder="e.g. 2 &times; 40ft containers" data-pack="Quantity" required></div>
+    <div><label for="q-spec">Grade, if known</label><input id="q-spec" type="text" name="grade" placeholder="e.g. BWP, IS 710" data-pack="Grade"></div>
+    <div><label for="q-thickness">Thickness, if known</label><input id="q-thickness" type="text" name="thickness" placeholder="e.g. 18 mm" data-pack="Thickness"></div>
+  </div>
+  <p class="cw-note" id="q-guidance">Not sure of the grade or thickness? Select “Help me choose” and tell us what you will use it for below.</p>
+  <div class="cw-row">
+    <div><label for="q-size">Panel dimensions, if known</label><input id="q-size" type="text" name="dimensions" placeholder="e.g. 2440 × 1220 mm" data-pack="Dimensions"></div>
+    <div><label for="q-qty">Quantity, if known</label><input id="q-qty" type="text" name="quantity" placeholder="e.g. 500" data-pack="Quantity"></div>
+  </div>
+  <div><label for="q-unit">Quantity unit</label><select id="q-unit" name="unit" data-pack="Unit"><option value="">Not sure</option><option>Sheets</option><option>Pieces</option><option>CBM</option><option>20ft containers</option><option>40ft containers</option></select>
   </div>
   <div class="cw-row">
     <div><label for="q-port">Delivery city / destination port *</label><input id="q-port" type="text" name="destination" placeholder="e.g. Kochi, or Jebel Ali, UAE" required></div>
     <div><label for="q-inco">Quote basis</label><select id="q-inco" name="incoterm" data-pack="Quote basis"><option value="">Not sure — advise me</option>{incoterms}</select></div>
   </div>
-  <div><label for="q-msg">Anything else</label><textarea id="q-msg" name="description" placeholder="Sizes, monthly volume, timing…"></textarea></div>
-  <div class="cf-turnstile" data-sitekey="{TURNSTILE_SITEKEY}" data-theme="light" data-error-callback="cwq2TsFail" style="margin:0 0 14px"></div>
+  <div><label for="q-msg">Application / requirements</label><textarea id="q-msg" name="description" aria-describedby="q-guidance" placeholder="What are you making or packing? Add delivery timing and any requirements you already know."></textarea></div>
+  <div class="cf-turnstile" data-sitekey="{TURNSTILE_SITEKEY}" data-size="flexible" data-theme="light" data-error-callback="cwq2TsFail" style="margin:0 0 14px"></div>
   <p class="cw-form__err" id="cwq2-error" role="alert"></p>
   <div><button class="cw-btn cw-btn--p" type="submit">Send enquiry</button>
   <p class="cw-note" style="margin:10px 0 0">Goes straight to our sales desk. We reply within one business day.</p></div>
@@ -1263,13 +1311,14 @@ def contact():
 <section class="cw-sec" id="quote"><div class="cw-wrap" style="max-width:820px">
   <p class="cw-hero__ey" style="color:var(--cw-green-600)">Get in touch</p>
   <h1 class="cw-sec__h" style="font-size:clamp(1.9rem,4vw,2.8rem)">Request a quote</h1>
-  <p class="cw-sec__lead">Tell us the product, grade, thickness, quantity and delivery location — we reply within one business day with a price and lead time.</p>
+  <p class="cw-sec__lead">Tell us what you need and where it should arrive. Share the specifications you know, or ask our desk to help you choose.</p>
   <div class="cw-feat" style="margin-bottom:8px">
     <div><h2>WhatsApp / Phone</h2><p><a href="tel:{CONTACT['phone_href']}">{CONTACT['phone_disp']}</a></p></div>
     <div><h2>Email</h2><p><a href="mailto:{CONTACT['email']}">{CONTACT['email']}</a></p></div>
     <div><h2>Principal place of business</h2><p>{CONTACT['addr']}</p></div>
   </div>
   <p class="cw-note" style="margin:0 0 18px;font-size:.82rem;color:var(--cw-ink-600,#4A4A4A)">Cochin Wood Industries Private Limited &middot; GSTIN {GSTIN} &middot; CIN {CIN} &middot; <a href="{u('/company-verification')}">Verify our registrations</a></p>
+  <p class="cw-note">The address above identifies the legal seller. For factory visits or collection, contact the desk to confirm the works location and loading instructions.</p>
   {form}
 </div></section>'''
     write("contact/index.html", base(
@@ -1540,6 +1589,9 @@ def process_content(body, slug=None):
     # before prune_images, so the figure's <img> is resolved, registered and
     # measured by the same pass that handles every other image on the page
     body = add_cwg_hero_photo(body, slug)
+    if slug in {s for s, _, _ in PRODUCTS}:
+        body = re.sub(r'href="/contact(?:#quote)?"',
+                      'href="/contact?product=' + urllib.parse.quote(slug) + '#quote"', body)
     return rewrite_links(prune_images(body, slug))
 
 _LD_BLOCK = re.compile(r'<script type="application/ld\+json">(.*?)</script>', re.S)
@@ -1939,7 +1991,7 @@ def copy_referenced_files():
 # the new sha in here until the gate goes green carries whatever landed on
 # cf-live meanwhile into production unread.
 LIVE_REF_NAME = "origin/cf-live"                         # where the pin came from
-LIVE_SHA = "c59adae9ee7d4d31a1a62e9dc770579214584e56"    # origin/cf-live, read 4 Sep 2026
+LIVE_SHA = "0581611a1bf6c1bc9278c93223c9d677b16708bd"    # Reviewed 5 Sep: tools/check_published_preservation.py
 LIVE_REF = LIVE_SHA                # what git is actually handed, so no fetch can move it
 LIVE_PIN = LIVE_REF_NAME + "@" + LIVE_SHA[:12]           # what the banner and dist/ record
 

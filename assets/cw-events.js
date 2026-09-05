@@ -99,16 +99,6 @@
     } catch (e) {}
   }, true);
 
-  /* The form posts to a Worker which redirects back with ?sent=1, so a successful submission is a
-     page load and not an event this file can hear. Read once, on load. */
-  try {
-    if (/[?&]sent=1(&|$)/.test(location.search) && isContact(page())) {
-      var from = null;
-      try { from = sessionStorage.getItem(ORIGIN_KEY); } catch (e) {}
-      try { sessionStorage.removeItem(ORIGIN_KEY); } catch (e) {}
-      /* Credited to the page the buyer set off from where that is known, and to /contact where they
-         arrived directly — which is itself worth being able to tell apart. */
-      send("form_submit_success", from || page());
-    }
-  } catch (e) {}
+  // Accepted enquiries are counted by the server after persistence. A success URL can
+  // be reloaded, bookmarked or typed by anyone and is never evidence of an accepted enquiry.
 })();
