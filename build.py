@@ -971,7 +971,7 @@ def home():
   </div><figure class="cw-hero__photo"><img src="{u(PRODUCT_HERO['packing-plywood'])}" width="1200" height="1200" alt="Packing plywood panels showing their layered edges" fetchpriority="high" decoding="async"><figcaption><a href="{u('/packing-plywood')}">Explore packing plywood &rarr;</a></figcaption></figure></div>
   <div class="cw-hero__strip">
     <div><b>40+ yrs</b><span>Group manufacturing since 1986</span></div>
-    <div><b>Pan-India</b><span>Delivery + export to {N_EXPORT_COUNTRIES} countries</span></div>
+    <div><b>India + export</b><span>Domestic and overseas enquiries</span></div>
     <div><b>To your spec</b><span>Grade, size and delivery agreed in writing</span></div>
   </div>
 </div></section>
