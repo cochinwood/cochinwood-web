@@ -261,9 +261,22 @@ LEGACY_REDIRECTS.update({
     "/blogs/central-east-india": "/blogs",
 })
 
+# addr is the principal place of business exactly as it reads on the GST
+# certificate, and word for word as /company-verification already publishes it.
+# It used to say "Kuruppampady, Ernakulam, Kerala 683545" here and in the
+# Organization schema below -- a different place, on all 252 pages, against the
+# one address a buyer can actually check on the GST portal.
 CONTACT = dict(email="sales@cochinwood.in", phone_disp="+91 95674 10175",
-               phone_href="+919567410175", addr="Kuruppampady, Ernakulam, Kerala 683545",
+               phone_href="+919567410175",
+               addr="15-236/B, Thoppilan Building, Vattakattupady, Rayamangalam, "
+                    "Perumbavoor, Ernakulam, Kerala 683542, India",
                wa="919567410175")
+
+# Copied from /company-verification (content/pages/company-verification.html),
+# which is where the site publishes them for a buyer to check on the MCA and GST
+# portals. Kept here so /contact can state them without the two pages drifting.
+GSTIN = "32AAJCC9689H1Z5"
+CIN   = "U20219KL2021PTC072862"
 
 # ---------------- photography ----------------
 # Site photography is referenced as /files/... (the old Zoho paths). Look for the
@@ -536,12 +549,20 @@ def footer():
     # by aria-label and the label itself is a <p>. .cw-ft__h is a class rule
     # (font, size, weight and margin are all set on it), so the <p> renders
     # exactly as the <h2> did.
+    #
+    # THE EXPLORE COLUMN CARRIES THE TWO TRUST PAGES, because it is the only
+    # link list on all 252 pages. /company-verification -- the registrations a
+    # buyer can check on the MCA and GST portals without asking us -- was linked
+    # from no top-level page at all; the case-studies post had exactly one
+    # inbound link, from /blogs, so the only customer proof on the site was
+    # three clicks from anywhere. Nine links is the most this column should
+    # carry; anything further needs a trim first, not another entry.
     return f'''<footer class="cw-ft"><div class="cw-wrap">
   <div class="cw-ft__cols">
     <div class="cw-ft__brand"><b>Cochin Wood Industries</b><p>Plywood manufacturer in Kochi, Kerala — packing, Okoume and shuttering ply, shipped across India and exported. Part of a group manufacturing in Perumbavoor since 1986.</p></div>
     <nav aria-label="Products"><p class="cw-ft__h">Products</p>{prod}</nav>
-    <nav aria-label="Explore"><p class="cw-ft__h">Explore</p><a href="{u('/products')}">All products</a><a href="{u(WOOD_PATH)}">{WOOD_LABEL}</a><a href="{u('/resources')}">Resources</a><a href="{u('/industries')}">Industries</a><a href="{u('/export')}">Export</a><a href="{u('/about')}">About</a><a href="{u('/faq')}">FAQ</a></nav>
-    <nav aria-label="Contact"><p class="cw-ft__h">Contact</p><a href="tel:{CONTACT['phone_href']}">{CONTACT['phone_disp']}</a><a href="mailto:{CONTACT['email']}">{CONTACT['email']}</a><a href="https://maps.google.com/?q=Kuruppampady+Kerala" target="_blank" rel="noopener">{CONTACT['addr']}</a><a href="{INSTAGRAM_URL}" target="_blank" rel="noopener">Instagram</a></nav>
+    <nav aria-label="Explore"><p class="cw-ft__h">Explore</p><a href="{u('/products')}">All products</a><a href="{u(WOOD_PATH)}">{WOOD_LABEL}</a><a href="{u('/resources')}">Resources</a><a href="{u('/blogs/post/case-studies')}">Case studies</a><a href="{u('/industries')}">Industries</a><a href="{u('/export')}">Export</a><a href="{u('/about')}">About</a><a href="{u('/company-verification')}">Company verification</a><a href="{u('/faq')}">FAQ</a></nav>
+    <nav aria-label="Contact"><p class="cw-ft__h">Contact</p><a href="tel:{CONTACT['phone_href']}">{CONTACT['phone_disp']}</a><a href="mailto:{CONTACT['email']}">{CONTACT['email']}</a><a href="https://maps.google.com/?q=Thoppilan+Building+Vattakattupady+Rayamangalam+Perumbavoor+Kerala+683542" target="_blank" rel="noopener">{CONTACT['addr']}</a><a href="{INSTAGRAM_URL}" target="_blank" rel="noopener">Instagram</a></nav>
   </div>
   <div class="cw-ft__bar"><span>&copy; 2026 Cochin Wood Industries Pvt Ltd. Group established 1986.</span>
   <span><a href="{u('/privacy-policy')}" style="display:inline">Privacy</a> &middot; <a href="{u('/terms-and-conditions')}" style="display:inline">Terms</a></span></div>
@@ -577,8 +598,16 @@ else:
 # alpha-2, one code per market, India first.
 AREA_SERVED = json.dumps(EXPORT_ISO, separators=(",", ":"))
 
+# The PostalAddress was wrong twice over: the wrong place (Kuruppampady 683545,
+# not the address on the GST certificate) and the wrong shape -- "Kuruppampady"
+# is a locality, not a street, and Ernakulam is the district, not the locality.
+# streetAddress now carries the building and the village it stands in,
+# addressLocality is the town a courier or a Google Business listing matches on,
+# and addressRegion stays the state. Ernakulam is dropped rather than
+# mis-slotted: the district is not a PostalAddress field, and the human-readable
+# line in the footer still says it.
 ORG_SCHEMA = '''<script type="application/ld+json">
-{"@context":"https://schema.org","@type":["Organization","LocalBusiness"],"@id":"https://www.cochinwood.in/#organization","name":"Cochin Wood Industries","url":"https://www.cochinwood.in/","logo":"https://www.cochinwood.in/assets/logo.png","image":"''' + LIVE + ORG_IMAGE_REF + '''","email":"sales@cochinwood.in","telephone":"+919567410175","address":{"@type":"PostalAddress","streetAddress":"Kuruppampady","addressLocality":"Ernakulam","addressRegion":"Kerala","postalCode":"683545","addressCountry":"IN"},"parentOrganization":{"@type":"Organization","name":"Cochin Wood Group","foundingDate":"1986"},"areaServed":''' + AREA_SERVED + ''',"sameAs":["''' + INSTAGRAM_URL + '''"],"description":"Plywood manufacturer in Kochi, Kerala - packing, Okoume, marine and film-faced shuttering plywood, sawn timber and export crates."}
+{"@context":"https://schema.org","@type":["Organization","LocalBusiness"],"@id":"https://www.cochinwood.in/#organization","name":"Cochin Wood Industries","url":"https://www.cochinwood.in/","logo":"https://www.cochinwood.in/assets/logo.png","image":"''' + LIVE + ORG_IMAGE_REF + '''","email":"sales@cochinwood.in","telephone":"+919567410175","address":{"@type":"PostalAddress","streetAddress":"15-236/B, Thoppilan Building, Vattakattupady, Rayamangalam","addressLocality":"Perumbavoor","addressRegion":"Kerala","postalCode":"683542","addressCountry":"IN"},"parentOrganization":{"@type":"Organization","name":"Cochin Wood Group","foundingDate":"1986"},"areaServed":''' + AREA_SERVED + ''',"sameAs":["''' + INSTAGRAM_URL + '''"],"description":"Plywood manufacturer in Kochi, Kerala - packing, Okoume, marine and film-faced shuttering plywood, sawn timber and export crates."}
 </script>'''
 
 # Fonts used above the fold on every page — preloaded so the header does not reflow.
@@ -1170,6 +1199,16 @@ def contact():
     # the Worker's own 302 target ends in #quote. It used to sit on the <form>, which the success
     # handler replaces the innards of -- and getElementById('quote').scrollIntoView() has to survive
     # that swap to put the confirmation in front of the buyer.
+    #
+    # THE PAGE NOW IDENTIFIES THE SELLER. A buyer asked for a 50% advance reads /contact before
+    # anything else, and it carried a phone number, an email and a town: no street address, no
+    # GSTIN, no CIN and no route to /company-verification, which is where all of that is already
+    # published and checkable on the MCA and GST portals. GSTIN and CIN are the constants copied
+    # from that page, not new claims, and the heading matches its wording -- "principal place of
+    # business", which is what the GST certificate calls this address. No opening hours: none have
+    # been given, and inventing them here would be the same defect in a new place.
+    # The registration line is styled inline because .cw-note is only dressed by `.cw-form .cw-note`
+    # and this paragraph sits outside the form.
     body = f'''
 <section class="cw-sec" id="quote"><div class="cw-wrap" style="max-width:820px">
   <p class="cw-hero__ey" style="color:var(--cw-green-600)">Get in touch</p>
@@ -1178,13 +1217,14 @@ def contact():
   <div class="cw-feat" style="margin-bottom:8px">
     <div><h2>WhatsApp / Phone</h2><p><a href="tel:{CONTACT['phone_href']}">{CONTACT['phone_disp']}</a></p></div>
     <div><h2>Email</h2><p><a href="mailto:{CONTACT['email']}">{CONTACT['email']}</a></p></div>
-    <div><h2>Works &amp; office</h2><p>{CONTACT['addr']}</p></div>
+    <div><h2>Principal place of business</h2><p>{CONTACT['addr']}</p></div>
   </div>
+  <p class="cw-note" style="margin:0 0 18px;font-size:.82rem;color:var(--cw-ink-600,#4A4A4A)">Cochin Wood Industries Private Limited &middot; GSTIN {GSTIN} &middot; CIN {CIN} &middot; <a href="{u('/company-verification')}">Verify our registrations</a></p>
   {form}
 </div></section>'''
     write("contact/index.html", base(
         "Request a Plywood Quote · Cochin Wood Industries",
-        "Contact Cochin Wood Industries, Kuruppampady, Ernakulam, Kerala. WhatsApp/phone +91 95674 10175 or sales@cochinwood.in for plywood quotes, pan-India and export.",
+        "Contact Cochin Wood Industries, Perumbavoor, Ernakulam, Kerala. WhatsApp/phone +91 95674 10175 or sales@cochinwood.in for plywood quotes, pan-India and export.",
         "/contact", body, crumbs=[("Home", "/"), ("Contact", None)]))
 
 # ---------------- WOOD ENCYCLOPEDIA (wrap existing clean pages in shared chrome) ----------------
