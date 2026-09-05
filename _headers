@@ -1,9 +1,9 @@
-# built from origin/cf-live@0581611a1bf6 -- the pin lives in build.py as LIVE_SHA
-/assets/bundle.4ced00cc.css
+# built from origin/cf-live@ab5656e283b6 -- the pin lives in build.py as LIVE_SHA
+/assets/bundle.97cc6a36.css
   Cache-Control: public, max-age=31536000, immutable
 /assets/site.96278e59.js
   Cache-Control: public, max-age=31536000, immutable
-/assets/cw-events.c0437c56.js
+/assets/cw-events.753cba69.js
   Cache-Control: public, max-age=31536000, immutable
 /assets/fonts/*
   Cache-Control: public, max-age=31536000, immutable
