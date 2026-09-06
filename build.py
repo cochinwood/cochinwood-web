@@ -636,20 +636,9 @@ OG_IMAGE = LIVE + "/assets/og/cwi-og-share-1200x630.png"   # 1200x630 share card
 OG_IMAGE_SIZE = image_size(os.path.join(ROOT, "assets", "og",
                                         "cwi-og-share-1200x630.png")) or (None, None)
 
-# The LocalBusiness "image" was the same PNG as its "logo" -- a mark on a white
-# square, which is what Google shows when it wants a picture of the premises.
-# This is the warehouse aisle already published on /about, so the schema and the
-# page agree and copy_referenced_files() already ships the file.
-ORG_IMAGE_REF = "/files/Enhanced%20Factory%20Photos/factory_08.jpg"
-_org_img_src = resolve_file(ORG_IMAGE_REF)
-if _org_img_src:
-    # registered independently of /about's markup: the schema names this file on
-    # every one of the 252 pages, so it must ship even if that page's photo set
-    # is ever re-cut
-    register_file(ORG_IMAGE_REF, _org_img_src)
-else:
-    warn(f"the Organization schema's image {ORG_IMAGE_REF} is not on disk -- "
-         f"every page would declare a LocalBusiness photo that 404s")
+# The owner confirmed the legacy warehouse gallery is not their factory.
+# Use the published company mark until a verified premises photograph exists.
+ORG_IMAGE_REF = "/assets/logo.png"
 
 # areaServed is the machine-readable half of the same fact the copy states, so
 # it comes off the same list. It used to read ["IN","AE","VN"] on all 233 pages
@@ -1985,6 +1974,16 @@ def build_sitemap():
     return f"{len(paths)}({len(cms)}cms+{len(posts)}post)"
 
 def copy_referenced_files():
+    # Retiring a gallery must not break already-published image URLs. These
+    # reviewed files remain available without putting them back into any page.
+    retention = json.load(open(os.path.join(ROOT, "content", "preserved-media.json"), encoding="utf-8"))
+    for name, expected in retention["files"].items():
+        if not name.startswith("files/") or ".." in name.split("/"):
+            raise SystemExit(f"Invalid preserved media path: {name}")
+        source = resolve_file("/" + name)
+        if not source or hashlib.sha256(open(source, "rb").read()).hexdigest() != expected["sha256"]:
+            raise SystemExit(f"Preserved media is missing or changed: {name}")
+        register_file("/" + name, source)
     copied = 0
     for ref, src in sorted(_files_used.items()):
         dst = os.path.join(DIST, urllib.parse.unquote(ref.lstrip("/")))
@@ -2676,7 +2675,7 @@ def build_redirects():
 
 # ---------------- assets + meta ----------------
 # One request instead of five; order preserved so cascade behaviour is unchanged.
-CSS_BUNDLE = ["fonts.css", "site.css", "guide.css", "wood-enc.css", "shell.css", "components.css", "visual-system.css", "experience.css", "experience-inner.css", "experience-motion.css", "blog-index.css", "blog-navigation.css", "catalogue-navigation.css", "inner-hero.css", "page-navigation.css", "encyclopedia-navigation.css", "privacy-choices.css", "regional-navigation.css", "viewport-heroes.css", "quote-form.css"]
+CSS_BUNDLE = ["fonts.css", "site.css", "guide.css", "wood-enc.css", "shell.css", "components.css", "visual-system.css", "experience.css", "experience-inner.css", "experience-motion.css", "blog-index.css", "blog-navigation.css", "catalogue-navigation.css", "inner-hero.css", "page-navigation.css", "encyclopedia-navigation.css", "privacy-choices.css", "regional-navigation.css", "viewport-heroes.css", "quote-form.css", "brand-consistency.css"]
 
 def _css_fix_urls(css, name):
     """Resolve /files/... backgrounds; neutralise the ones with no source file."""

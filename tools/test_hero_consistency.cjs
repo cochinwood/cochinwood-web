@@ -195,7 +195,10 @@ function median(values) {
               if (fraction < .58 || fraction > .65) fail('Desktop imagery does not occupy the intended large visual share', {fraction, image: result.image, usableWidth});
             }
             if ([...result.frameRadius, ...result.imageRadius].some(radius => parseFloat(radius) > 0.1)) fail('Hero image corners differ from the square shared frame', {frameRadius: result.frameRadius, imageRadius: result.imageRadius});
-            if (result.objectFit !== 'cover') fail('Hero image does not use cover sizing', {objectFit: result.objectFit});
+            // Preserve the full container-flooring panel: cover hid its corner
+            // profiles. Its outer media stage still follows every shared check.
+            const expectedFit = task.route === '/container-flooring-plywood' ? 'contain' : 'cover';
+            if (result.objectFit !== expectedFit) fail('Hero image uses the wrong crop mode', {expectedFit, objectFit: result.objectFit});
           }
           if (EXPECTED_IMAGES[task.route]) {
             const expected = EXPECTED_IMAGES[task.route];

@@ -11,7 +11,7 @@ from hero_layout import hero_end
 
 
 SECTION_LABELS = {
-    '/industries': ['Sectors', 'Manufacturing', 'Capabilities', 'Applications', 'Gallery', 'Enquire'],
+    '/industries': ['Sectors', 'Manufacturing', 'Capabilities', 'Applications', 'Enquire'],
     '/export': ['Destinations', 'Products', 'Container loading', 'ISPM 15', 'Terms & documents', 'FAQs', 'Request quote', 'Order process'],
 }
 SPECIES_LABELS = {
@@ -48,6 +48,20 @@ def _section_links(listing, path):
     return ''.join(items), len(items)
 
 
+
+def render_section_bar(links, *, label='Sections', nav_label='On this page', nav_class='', mode='sections'):
+    """Shared shell for native section anchors or the blog's existing topic filters."""
+    return ('<div class="cw-section-bar" data-section-mode="' + escape(mode, quote=True)
+            + '"><div class="cw-section-bar__inner"><details class="cw-section-menu" open>'
+            + '<summary><span>' + escape(label) + '</span><span class="cw-section-current">'
+            + ('All posts' if mode == 'filters' else 'Choose a section') + '</span></summary>'
+            + '<div class="cw-section-scroll"><button type="button" class="cw-section-scroll__button" data-section-direction="-1" aria-label="Previous sections" hidden>←</button>'
+            + '<nav aria-label="' + escape(nav_label, quote=True) + '" class="' + escape(nav_class, quote=True)
+            + '"><ol class="cw-section-links">' + links + '</ol></nav>'
+            + '<button type="button" class="cw-section-scroll__button" data-section-direction="1" aria-label="More sections" hidden>→</button>'
+            + '</div></details></div></div>')
+
+
 def _context_markup(context):
     return ('<div class="cw-page-navigation"><div class="cw-page-navigation__inner">'
             + context + '</div></div>')
@@ -59,6 +73,14 @@ def add_page_navigation(body, path, *, context=""):
 Indexes and blog articles already have their own discovery/contents navigation.
 Contact stays focused on its form. Native details and anchors work without JS.
 """
+    if path == '/products' and hero_end(body) is not None:
+        families = [('#plywood-boards', 'Plywood & boards'), ('#packing-packaging', 'Packing cases & packaging'), ('#timber', 'Timber')]
+        # Move the existing hero family choices into the same sticky shell.
+        # Their destination IDs and the catalogue's subcollection anchors remain.
+        body = re.sub(r'<nav\b[^>]*\bclass="cw-catalogue-jumps"[^>]*>.*?</nav>', '', body, count=1, flags=re.S)
+        links = ''.join('<li><a href="' + href + '">' + escape(label) + '</a></li>' for href, label in families)
+        end = hero_end(body)
+        return body[:end] + (_context_markup(context) if context else '') + render_section_bar(links) + body[end:]
     excluded = path in {"/", "/products", "/blogs", "/woods-we-use", "/contact", "/404"} or path.startswith("/blogs/post/")
     end = hero_end(body)
     if excluded or end is None:
@@ -71,14 +93,7 @@ Contact stays focused on its form. Native details and anchors work without JS.
     links, count = _section_links(listing.group(1), path) if listing else ('', 0)
     menu = ''
     if count >= 2:
-        menu = ('<div class="cw-section-bar"><div class="cw-section-bar__inner">'
-                '<details class="cw-section-menu" open><summary><span>Sections</span>'
-                '<span class="cw-section-current">Choose a section</span></summary>'
-                '<div class="cw-section-scroll">'
-                '<button type="button" class="cw-section-scroll__button" data-section-direction="-1" aria-label="Previous sections" hidden>←</button>'
-                '<nav aria-label="On this page"><ol class="cw-section-links">' + links + '</ol></nav>'
-                '<button type="button" class="cw-section-scroll__button" data-section-direction="1" aria-label="More sections" hidden>→</button>'
-                '</div></details></div></div>')
+        menu = render_section_bar(links)
     if not context and not menu:
         return enriched
     end = hero_end(enriched)

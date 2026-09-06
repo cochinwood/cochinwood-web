@@ -321,6 +321,14 @@
       "caption": "Flush-door faces and finished joinery.",
       "kind": "existing application presentation",
       "provenance": "Previously reviewed site asset; original generation/capture provenance unverified."
+    },
+    "moisture-check": {
+      "src": "/files/Process%20Illustrations/cwi-process-moisture.jpg",
+      "kind": "process illustration",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
+      "sha256": "2d26cfd93d3bd68d9a81f260576e30555759bc26fedc9956098bdbcd530248cb",
+      "alt": "A two-pin moisture probe against the edge of a plywood panel",
+      "caption": "Moisture measurement at a plywood edge."
     }
   },
   "posts": {
@@ -771,8 +779,9 @@
       "selection_basis": "Title-reviewed substantive topic match."
     },
     "marine-plywood-thickness-guide": {
-      "lead": "panel-dimensions",
-      "selection_basis": "Title-reviewed substantive topic match."
+      "lead": "marine-plywood",
+      "diagram": "panel-dimensions",
+      "selection_basis": "Marine panel photo establishes the product; the existing dimensions diagram explicitly identifies thickness alongside length and width."
     },
     "plywood-for-packing-cases": {
       "lead": "packing-case",
@@ -946,8 +955,8 @@
       "selection_basis": "Title-reviewed substantive topic match."
     },
     "plywood-moisture-content-and-warping": {
-      "lead": "plywood-layers",
-      "selection_basis": "Title-reviewed substantive topic match."
+      "lead": "moisture-check",
+      "selection_basis": "Reviewed against the article on moisture, storage and warping; the close-up shows a material check without claiming a test result or a company facility."
     },
     "ispm-15-heat-treatment-vs-methyl-bromide": {
       "lead": "packing-structure",

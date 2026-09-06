@@ -1,0 +1,32 @@
+/* The shared brand typography also covers headings inherited from old snippets.
+   Bree Serif remains the deliberate accent on hero emphasis and the wordmark. */
+body #main :is(h1, h2, h3, h4) {
+  font-family: Poppins, sans-serif !important;
+  font-weight: 500 !important;
+}
+
+/* Main-content actions share one readable size and corner treatment.
+   Header navigation and small utility controls keep their separate roles. */
+body #main :is(.cwp__btn, .cwg__btn, .cw__btn, .cwf__btn, .cw-btn, .cx-button) {
+  font-family: Poppins, sans-serif !important;
+  font-size: .875rem !important;
+  font-weight: 500 !important;
+  line-height: 1.55;
+  min-height: 48px;
+  border-radius: 2px !important;
+}
+body #main .cw__industries-cta .cw__btn--secondary {
+  background: transparent;
+  color: #fff;
+  border-color: #b6c5b4;
+}
+body #main :is(.cwp__btn, .cwg__btn, .cw__btn, .cwf__btn, .cw-btn, .cx-button):focus-visible {
+  outline: 2px solid #007A5E;
+  outline-offset: 4px;
+}
+
+/* This isolated panel needs all four corners visible to explain its shape. */
+body #main img[src$="/og-container-flooring.jpg"] {
+  object-fit: contain !important;
+  background: #f2f2ec;
+}

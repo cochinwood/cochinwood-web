@@ -1,5 +1,6 @@
 """Material-led homepage. All commercial destinations remain ordinary links."""
 
+from page_navigation import render_section_bar
 
 def render_home(link, image, media, wood_path):
     families = [
@@ -37,6 +38,7 @@ def render_home(link, image, media, wood_path):
     # about 960 source pixels across the covered image to keep the grain sharp.
     hero = image(media["experience_hero"], eager=True, sizes="(max-width: 860px) 960px, 100vw").replace('<img ', '<img data-parallax ')
     wood = image(media["encyclopedia_hero"]).replace('<img ', '<img data-parallax ')
+    section_nav = render_section_bar(''.join('<li><a href="#' + target + '">' + label + '</a></li>' for target, label in [('materials', 'Cochin Wood'), ('cx-materials-title', 'Products'), ('cx-applications-title', 'Applications'), ('cx-process-title', 'Order process'), ('wood-guide', 'Wood guide'), ('enquire', 'Enquire')]))
     return f'''
 <section class="cx-hero" aria-labelledby="cx-hero-title">
   <div class="cx-hero__image">{hero}</div>
@@ -48,6 +50,7 @@ def render_home(link, image, media, wood_path):
   </div>
   <div class="cw-wrap cx-hero__base"><a href="#materials">Discover Cochin Wood <span aria-hidden="true">↓</span></a><span>Perumbavoor, Kerala · India &amp; export</span><span class="cx-hero__credit">Warehouse illustration</span></div>
 </section>
+{section_nav}
 <section class="cx-intro cw-wrap" id="materials">
   <div data-reveal><p class="cx-kicker">Rooted in Kerala. Built on experience.</p><h2>Good work begins<br>with the <em>right material.</em></h2></div>
   <div class="cx-intro__detail" data-reveal><p>From the panel inside a finished room to the case protecting a shipment, the material has a job to do. We help you specify it.</p><a class="cx-text-link" href="{link('/about')}">Get to know Cochin Wood <span aria-hidden="true">↗</span></a><div class="cx-intro__facts"><span><b>1986</b>Our group’s manufacturing roots</span><span><b>16</b>Product lines to work with</span></div></div>
@@ -66,9 +69,9 @@ def render_home(link, image, media, wood_path):
   <div class="cx-process__layout"><div class="cx-process__visual"><div class="cx-process__images">{process_images}</div></div><div class="cx-process__steps">{process_steps}</div></div>
   <a class="cx-text-link" href="{link('/plywood-factory')}">Explore the production process <span aria-hidden="true">↗</span></a>
 </section>
-<section class="cx-knowledge"><div class="cw-wrap cx-knowledge__layout">
+<section class="cx-knowledge" id="wood-guide"><div class="cw-wrap cx-knowledge__layout">
   <div class="cx-knowledge__image" data-reveal="image">{wood}<span class="cx-knowledge__label">Grain. Density. Character.</span></div>
   <div class="cx-knowledge__copy" data-reveal><p class="cx-kicker">The Wood Encyclopedia</p><h2>Every wood<br>has a <em>character.</em></h2><p>Understand the grain, weight and working properties behind your material choices. Explore practical species notes and cited research.</p><a class="cx-button" href="{link(wood_path)}">Know your wood <span aria-hidden="true">↗</span></a></div>
 </div></section>
-<section class="cx-next"><div class="cw-wrap"><div data-reveal><p class="cx-kicker">Let’s put your plans into material</p><h2>Tell us what<br>you’re making.</h2></div><div class="cx-next__action" data-reveal><p>Share the application, quantity and destination. We’ll help with the next step.</p><a class="cx-button cx-button--light" href="{link('/contact#quote')}">Get a quote <span aria-hidden="true">↗</span></a><a class="cx-next__export" href="{link('/export')}">Planning an export order? Explore destinations ↗</a></div></div></section>
+<section class="cx-next" id="enquire"><div class="cw-wrap"><div data-reveal><p class="cx-kicker">Let’s put your plans into material</p><h2>Tell us what<br>you’re making.</h2></div><div class="cx-next__action" data-reveal><p>Share the application, quantity and destination. We’ll help with the next step.</p><a class="cx-button cx-button--light" href="{link('/contact#quote')}">Get a quote <span aria-hidden="true">↗</span></a><a class="cx-next__export" href="{link('/export')}">Planning an export order? Explore destinations ↗</a></div></div></section>
 '''

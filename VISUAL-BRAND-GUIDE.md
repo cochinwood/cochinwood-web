@@ -11,7 +11,9 @@ Edwin rejected the initial visual restoration and asked for a stronger site, usi
 
 ## Source and motion
 
-`experience_home.py` owns the homepage composition. `assets/experience.css` owns the shell, homepage and catalogue. `assets/experience-inner.css` refines the preserved inner templates. These follow `visual-system.css`; `experience-motion.css` is last. The deferred, content-addressed `experience-motion.js` supplies optional IntersectionObserver/rAF effects without scroll hijacking or dependencies.
+`experience_home.py` owns the homepage composition. `assets/experience.css` owns the shell, homepage and catalogue. `assets/experience-inner.css` refines the preserved inner templates. These follow `visual-system.css`. The final `brand-consistency.css` layer normalizes legacy section headings and action shapes while preserving the wordmark and selective hero accents. The deferred, content-addressed `experience-motion.js` supplies optional IntersectionObserver/rAF effects without scroll hijacking or dependencies.
+
+Home, Products, Industries, Export and Blog use the shared section bar from `page_navigation.py`. Blog uses the same shell for topic filters and keeps query/topic choices in the URL. The city-guide directory uses compact text entries; the individual articles retain their material imagery. Retired gallery files remain available under their published URLs through `content/preserved-media.json`.
 
 `data-reveal` is always visible at rest. `data-parallax` is a gentle image translation inside a clipped visual frame. Matched `data-process-step` and `data-process-image` values activate the desktop process illustration. On narrow screens and with reduced motion, each step carries its own static image. Page text never depends on the animation.
 
