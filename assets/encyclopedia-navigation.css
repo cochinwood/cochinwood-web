@@ -1,0 +1,50 @@
+/* Wood reference navigation, kept independent from commercial product cards. */
+.cw-wood-navigation { margin: 0 0 40px; scroll-margin-top: 110px; }
+.cw-wood-search label { display: block; font-size: 1rem; color: #1b4332; margin-bottom: 12px; }
+.cw-wood-search-row { display: flex; gap: 14px; max-width: 700px; }
+.cw-wood-search-row input { min-width: 0; flex: 1; padding: 14px 16px; font: inherit; font-size: 16px; border: 1px solid #9daf9b; border-radius: 2px; background: white; }
+.cw-wood-search-row button { min-height: 44px; padding: 8px 12px; font: inherit; font-size: .875rem; color: #1b4332; background: transparent; border: 1px solid #9daf9b; cursor: pointer; }
+#cw-wood-count { margin: 14px 0 24px; font-size: .875rem; color: #56664f; }
+.cw-wood-filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+.cw-wood-filters a { display: inline-flex; align-items: center; min-height: 44px; padding: 10px 15px; border: 1px solid #b5c2af; color: #1b4332; font-size: .875rem; text-decoration: none; }
+.cw-wood-filters a[aria-current="true"] { background: #1b4332; color: white; border-color: #1b4332; }
+.cw-wood-navigation :focus-visible, .cw-species-context a:focus-visible, .cw-species-neighbours a:focus-visible { outline: 2px solid #007a5e; outline-offset: 4px; }
+.cw-wood-az { padding: 16px 0; border-block: 1px solid #c9d1c3; }
+.cw-wood-az summary { cursor: pointer; min-height: 28px; color: #1b4332; font-size: .9rem; }
+.cw-wood-az ul { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px 24px; list-style: none; padding: 18px 0 0; margin: 0; }
+.cw-wood-az a { display: inline-block; padding: 8px 0; color: #1b4332; text-underline-offset: 4px; font-size: .875rem; }
+[data-wood-group] { scroll-margin-top: 110px; }
+[data-wood-group][hidden], [data-wood-card][hidden], .cw-wood-navigation [hidden] { display: none !important; }
+#cw-wood-empty { padding: 20px 0; font-size: .95rem; }
+.cw-species-context { display: flex; flex-wrap: wrap; gap: 14px 28px; margin: 28px 0; }
+.cw-species-context a { display: inline-flex; align-items: center; min-height: 44px; font-size: .875rem; color: #1b4332; text-underline-offset: 5px; }
+.cw-species-neighbours { display: flex; justify-content: space-between; gap: 24px; border-top: 1px solid #c4cebd; padding: 24px 0; margin-top: 28px; }
+.cw-species-neighbours a { flex: 1; min-width: 0; color: #1b4332; text-decoration: none; }
+.cw-species-neighbours span { display: block; font-size: .75rem; color: #586b52; margin-bottom: 8px; }
+.cw-species-neighbours b { display: block; font-size: 1rem; font-weight: 500; }
+@media (max-width: 620px) {
+  .cw-wood-az ul { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 18px; }
+  .cw-wood-search-row { flex-wrap: wrap; }
+  .cw-wood-search-row input { flex-basis: 100%; }
+  .cw-wood-filters a { font-size: .8rem; }
+  .cw-wood-navigation, [data-wood-group] { scroll-margin-top: 95px; }
+}
+@media (max-width: 380px) { .cw-wood-az ul { grid-template-columns: 1fr; } }
+@media print { [data-wood-group][hidden], [data-wood-card][hidden] { display: block !important; } }
+/* Compact placement within the shared after-hero navigation strip. */
+.cw-page-navigation__inner > .cw-species-context { flex-basis: 100%; margin: 0; gap: 8px 28px; }
+.cw-page-navigation__inner > .cw-species-context a { min-height: 32px; }
+.cw-page-navigation__inner > .cw-species-neighbours { flex: 1; margin: 0; padding: 0; border: 0; gap: 32px; }
+.cw-page-navigation__inner > .cw-species-neighbours a { max-width: 300px; }
+@media (max-width: 620px) {
+  .cw-page-navigation__inner > .cw-species-context { margin-bottom: 12px; }
+  .cw-page-navigation__inner > .cw-species-neighbours { margin: 0 0 16px; gap: 20px; }
+}
+
+/* Keep the index on the shared site grid, with one deliberate spacing rhythm. */
+body.cw-wood-index #main .cwg__body>:is(.cwg__container,.cwg__wide){width:100%;max-width:var(--cw-page-width,1440px);padding-inline:var(--cw-page-gutter,clamp(24px,5.5vw,88px));box-sizing:border-box}
+body.cw-wood-index #main .cwe__group{margin-block:32px 48px}
+body.cw-wood-index #main .cwe__group h2{margin-top:24px;margin-bottom:16px}
+body.cw-wood-index #main .cw-wood-navigation{margin-bottom:24px}
+/* Filtering must not let browser scroll anchoring move the search field. */
+body.cw-wood-index,body.cw-blog-directory-page{overflow-anchor:none}

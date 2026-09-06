@@ -1,75 +1,96 @@
 # Cochin Wood image selection, 6 September 2026
 
-`content/visual-media.json` is the reviewed placement map: five page introductions,
-16 product families, four application cards and four order-process steps. These
-29 placements use 25 distinct images. The source contact sheet is
-`docs/visual-media-contact-sheet.html`; open it from a server rooted at this source
-checkout to see the exact files referred to by the map.
+`content/visual-media.json` records page introductions, 16 product lines, four
+application cards, four order-process steps and seven timber choices. Its 38
+references use 33 distinct images, including the earlier `home_hero` retained
+for compatibility and the current `experience_hero`. The separate
+`content/responsive-media.json` maps 19 originals to 98 verified candidates,
+including the original full-size files.
 
-The map describes the visible subject, records a conservative media category and
-includes the SHA-256 of the actual inspected source bytes. Descriptions do not
-establish wood species, bond grade, certification, current stock, a customer
-project, a shipment or ownership of a facility. Process and application scenes
-are illustrations and should remain visibly identified as such in their section.
+Each entry describes the inspected subject, records a conservative category
+and includes a SHA-256 hash. Imagery does not independently establish species,
+bond grade, certification, stock, customer work, a shipment or facility
+ownership. Keep relevant representative-image and process captions visible.
 
-## Restored material introductions
+## Page identity and appropriate reuse
 
-The earlier mirror and later published site reuse some filenames for different
-images. An initial selection confused those versions; the delivered selection
-was corrected by inspecting the actual source files and assigning the earlier
-material compositions separate URLs:
-
-| New URL | Actual subject | Original local mirror source |
+| Placement | Source | Reason |
 | --- | --- | --- |
-| `/files/Brand/home-materials.webp` | Leaning plywood samples beside a sunlit window | `files/Hero Optimized/Home.jpg` (WebP bytes) |
-| `/files/Brand/contact-materials.jpg` | Small plywood panels stacked on a timber table | `files/Hero Optimized/Contact.jpg` |
-| `/files/Brand/solid-wood-materials.jpg` | Smooth solid-wood boards stacked beside a window | `files/Product/rubberwood.jpg` |
+| Current homepage | `/files/Hero%20Optimized/Home.webp` | Existing deep warehouse-aisle illustration. |
+| Catalogue | `/files/Hero%20Optimized/Products.jpg` | Material flatlay represents the range. |
+| Blog directory | `/files/Brand/home-materials.webp` | Warm window-side plywood samples distinguish guides from the catalogue. |
+| Encyclopedia | `/files/Product/specialty-timbers.jpg` | Upright sample fan supports comparison of wood character. |
+| Sawn-timber hero and card | `/files/Product/acacia.jpg` | Rough-sawn planks communicate timber rather than borrowing the encyclopedia image. |
+| Container-flooring hero and card | `/files/Logo/og/og-container-flooring.jpg` | Thick brown-faced panel with its layered edge visible; no overlaid logo or text. |
+| Export family | `/files/Process%20Illustrations/cwi-process-loading.jpg` | Loading is relevant to export; reuse within the destination family is intentional. |
 
-These three files are copied unchanged into `assets/photos/files/Brand/`.
-Existing `/files/` URLs retain their published bytes, including the warehouse
-aisle at `Hero Optimized/Home.webp`, loading scene at `Hero Optimized/Contact.jpg`
-and rough-sawn material at `Product/rubberwood.jpg`.
+The earlier statement that only a loading illustration was available for
+container flooring was incomplete. An appropriate existing representative panel
+image was found in the legacy `Logo/og` directory. Its caption is
+“Representative panel; grade, thickness and treatment are confirmed in the
+specification.” The image does not prove the ordered panel's grade or dimensions.
 
-The catalogue flat lay, product presentations, industry applications and process
-illustrations use existing published files. Every existing-URL source input in
-this change was byte-compared with `origin/cf-live`; none was changed. The
-additional eucalyptus input is the published image of rough-sawn slabs on a
-warehouse floor, not the different version in the earlier mirror.
+A product image can usefully repeat between its catalogue card and detail page.
+Unrelated page introductions should have their own appropriate scene. Desktop
+and mobile copies of homepage process figures are alternative layouts, not two
+simultaneously displayed uses.
 
-## Contextual product choices
+## Timber choices and responsive coverage
 
-There is no verified container-floor product photograph in the preserved image
-library. Its loading illustration supplies context and has an explicit caption:
-“Container loading illustration; flooring grade and treatment are confirmed in
-the specification.” It must not be described as a photograph of the specified
-floor panel.
+`timber_species` is ordered: `eucalyptus`, `rubberwood`, `acacia`, `mahogany`,
+`jackwood`, `silverwood`, `specialty-timbers`. Entries include both `name` and
+`label`, plus the normal source, alt text, kind, provenance and hash fields.
+The first six scenes show rough-sawn boards with varied colour, grain and cuts;
+the final scene is the current upright sample fan beside a window. Labels follow
+the earlier catalogue; the images alone cannot establish botanical identity.
 
-The previous `Product/finger-joint.jpg` depicts a stylised triangular joint,
-which does not reliably demonstrate the finished finger-joint board offered.
-The replacement is a material illustration, labelled “Representative solid-wood
-board samples; joint layout is confirmed with your specification.”
+The six named-species originals match historical catalogue revision `c59adae9`
+byte for byte. All seven current originals also match published revision
+`39a4d2c46c3ca6abe2239d93e0e2f7373f86b6da`. Each named species has matching
+320, 480, 640 and 960 pixel variants plus its measured original width: 30 newly
+registered candidates in addition to the previous 68. Original/320 pairs were
+visually compared; intermediate sizes were checked for matching proportions and
+scene content. Every candidate's bytes match the pinned published revision.
 
-## Checks before publication
+**Never attach legacy `specialty-timbers-320/480/640/960.jpg` candidates to the
+current `specialty-timbers.jpg`.** The current original shows upright samples
+beside a window; the older candidates show four blocks on a warehouse bench.
+That family is intentionally absent from the responsive map. No matching smaller
+files exist for the selected blog or container-flooring image in the reviewed
+set; those images currently use their originals.
 
-Run `python tools/check_visual_coverage.py` after `python build.py`. It checks:
+## Preserved bytes and source inputs
 
-- Every page family loads the same fingerprinted brand stylesheet, with the
-  approved fonts, colours and reduced-motion treatment present.
-- Local image files and responsive candidates exist; content images have alt
-  text and dimensions to reserve their layout space.
-- Every promised image ships with the exact bytes visually inspected here.
-- The home, catalogue, contact, encyclopedia and export introductions include
-  images; each of the 16 product families has an image in its own page and an
-  illustrated link from the catalogue.
-- The homepage retains imagery throughout its product, application and process
-  story, rather than passing because the logo or one photograph still exists.
-- Narrow checks catch previously removed, unsupported marketing claims.
+Earlier mirror and later published files can share a filename while containing
+different scenes. Three restored warm compositions therefore use distinct URLs:
 
-The unmodified source baseline fails this check for the missing home sections,
-text-only catalogue, missing catalogue/contact/encyclopedia/export introductions
-and absent container-floor product imagery. This is the intended negative
-control for the regression that prompted the upgrade.
+| Preserved distinct URL | Earlier mirror source |
+| --- | --- |
+| `/files/Brand/home-materials.webp` | `files/Hero Optimized/Home.jpg`, containing WebP bytes |
+| `/files/Brand/contact-materials.jpg` | `files/Hero Optimized/Contact.jpg` |
+| `/files/Brand/solid-wood-materials.jpg` | `files/Product/rubberwood.jpg` |
 
-Also run the existing site, published-preservation and quote journey checks.
-Static image coverage does not establish aesthetic quality: inspect each page
-template on desktop and mobile before publishing.
+These are unchanged source copies. Existing published URLs retain their bytes.
+The latest update adds explicit source inputs for acacia, mahogany, jackwood,
+silverwood and the container-flooring panel. This prevents a different earlier
+mirror image from silently replacing the selected scene. No image was
+re-encoded or generated.
+
+The finger-joint board continues to use representative solid-wood material,
+with joint layout confirmed in the specification. The older
+`Product/finger-joint.jpg` depicts a stylised triangular joint and should not be
+presented as proof of the finished layout offered.
+
+## Verification before publication
+
+After integrating the map and building, run the existing visual-coverage, site,
+published-preservation and quote-journey checks. Verify local originals and
+responsive candidates resolve with the recorded bytes and measured dimensions.
+The preservation check must retain existing URL bytes.
+
+Inspect the homepage, blog directory, catalogue, sawn-timber page,
+container-flooring page and encyclopedia at desktop and mobile widths. Confirm
+the intended scene at each responsive size: a valid URL alone cannot detect a
+same-name/different-scene mistake. The historical source contact sheet at
+`docs/visual-media-contact-sheet.html` predates the latest placements; use the
+current JSON and rendered pages as the placement authority.

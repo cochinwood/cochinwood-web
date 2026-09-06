@@ -592,7 +592,10 @@ def header(path="/"):
 INSTAGRAM_URL = "https://www.instagram.com/cochinwood/"
 
 def footer():
-    prod = "".join(f'<a href="{u("/"+s)}">{n}</a>' for s,n,_ in PRODUCTS[:7])
+    prod = (f'<a href="{u("/products#plywood-boards")}">Plywood &amp; boards</a>'
+            f'<a href="{u("/products#packing-packaging")}">Packing cases &amp; packaging</a>'
+            f'<a href="{u("/products#timber")}">Timber</a>'
+            + "".join(f'<a href="{u("/"+s)}">{n}</a>' for s,n,_ in PRODUCTS[:4]))
     # The three column labels used to be <h2>. That put three headings into the
     # outline of all 252 pages that describe no content -- on the homepage they
     # were 3 of its 16 H2s -- and a screen reader reading the heading list heard
@@ -813,6 +816,31 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
                  if self_url else '<meta name="robots" content="noindex, follow">')
     og_url_tag = f'\n<meta property="og:url" content="{canonical}">' if self_url else ""
     crumb_nav, crumb_ld = breadcrumbs(crumbs)
+    from hero_layout import normalize_page_hero, parse_fragment
+    from page_navigation import add_page_navigation, parent_navigation
+    body, consumed_crumb = normalize_page_hero(body, path, crumb_nav)
+    # The reviewed product map owns both catalogue and detail imagery. Imported
+    # snippets may still name an earlier scene even after their schema is updated.
+    product_media = VISUAL_MEDIA["products"].get(path.strip("/"))
+    if product_media:
+        tree = parse_fragment(body)
+        media_node = next((node for node in tree.nodes if "cw-page-hero__media" in node.classes), None)
+        if media_node:
+            caption = ('<figcaption class="cw-page-hero__caption">' + esc(product_media["caption"]) + '</figcaption>'
+                       if product_media.get("caption") else "")
+            body = (body[:media_node.open_end] + visual_image(product_media, eager=True)
+                    + caption + body[media_node.close_start:])
+    if consumed_crumb:
+        crumb_nav = ""
+    context_nav = ""
+    if path.strip("/") in {item[0] for item in PRODUCTS}:
+        context_nav = parent_navigation("All products", u("/products"))
+    elif path.startswith(WOOD_PATH + "/") and globals().get("WOOD_NAV"):
+        from encyclopedia_navigation import render_species_navigation
+        context_nav = render_species_navigation(WOOD_NAV, path, u, WOOD_PATH)
+    elif path.startswith("/export/"):
+        context_nav = parent_navigation("All export markets", u("/export"))
+    body = add_page_navigation(body, path, context=context_nav)
     # Several imported pages already render their own trail (cwp__crumb, cwg__crumb…);
     # drop our duplicate bar in that case.
     if not show_crumbs or re.search(r'class="[^"]*\b\w*__crumb\b', body):
@@ -1012,26 +1040,8 @@ def home():
 
 # ---------------- PRODUCTS ----------------
 def products():
-    groups = [
-        ("packing", "Packing & logistics", "Panels, cases and timber made for protecting goods in transit.",
-         ["packing-plywood", "okoume-plywood", "rubberwood-plywood", "plywood-boxes-crates", "plywood-pallets", "plywood-cable-drums"]),
-        ("construction", "Construction & demanding use", "Choose the glue line, surface and core for the conditions the panel will face.",
-         ["marine-plywood", "film-faced-shuttering-plywood", "container-flooring-plywood", "bwr-hardwood-plywood", "chequered-anti-skid-plywood"]),
-        ("interiors", "Interiors, joinery & timber", "Materials for furniture, shutters, partitions and solid-wood work.",
-         ["commercial-plywood", "block-board-flush-doors", "finger-joint-board", "particle-board", "sawn-timber"])]
-    sections = "".join(
-        f'<section class="cw-section" id="{key}"><div class="cw-wrap"><div class="cw-section__head">'
-        f'<div data-reveal><p class="cw-eyebrow">The collection</p><h2>{label}</h2></div><p>{intro}</p></div>'
-        f'<div class="cw-product-grid">{"".join(visual_product_card(slug) for slug in slugs)}</div></div></section>'
-        for key, label, intro, slugs in groups)
-    jumps = "".join(f'<a href="#{key}">{label} &darr;</a>' for key, label, _intro, _slugs in groups)
-    body = f'''<section class="cw-hero cw-hero--light"><div class="cw-wrap"><div class="cw-hero__layout">
-  <div class="cw-hero__content"><p class="cw-hero__ey">Plywood, board &amp; timber</p><h1>The full <em>catalogue.</em></h1><p>Sixteen product lines. One place to choose the material, grade and finish your work needs.</p><div class="cw-hero__cta"><a class="cw-btn cw-btn--p" href="#packing">Browse the range &darr;</a><a class="cw-btn cw-btn--g" href="{u('/contact#quote')}">Help me choose</a></div></div>
-  <figure class="cw-hero__media">{visual_image(VISUAL_MEDIA['catalogue_hero'], eager=True)}</figure>
-</div></div></section>
-<nav class="cw-collection-nav" aria-label="Product families"><div class="cw-wrap">{jumps}</div></nav>
-{sections}
-<section class="cw-band"><div class="cw-wrap cw-band__in"><div><h2>Start with what you’re making.</h2><p>Send the application and destination. We’ll help you choose a suitable material.</p></div><a class="cw-btn cw-btn--p" href="{u('/contact#quote')}">Ask our desk &rarr;</a></div></section>'''
+    from catalogue_sections import render_catalogue
+    body = render_catalogue(u, visual_image, VISUAL_MEDIA, PRODUCTS, visual_product_card)
     # Every one of the sixteen product pages describes itself as a Product and the
     # page that indexes them said nothing at all, so nothing in the markup joined
     # them into one catalogue. Names and URLs only, in the editorial order the
@@ -1509,7 +1519,10 @@ def _hub_add_cards(body, entries):
         body = body[:j] + card + body[j:]
     return body
 
+WOOD_NAV = []
+
 def encyclopedia():
+    global WOOD_NAV
     encdir = os.path.join(ROOT, "content", "encyclopedia")
     wave3  = [(f, e) for f, _s, e, d in SPECIES if d == "encyclopedia-wave3"]
     # hub
@@ -1525,8 +1538,11 @@ def encyclopedia():
     body = re.sub(r'<header class="cwg__hero">.*?</header>', lambda _m: hub_hero, body, count=1, flags=re.S)
     body = re.sub(r'<div class="cwg__container">\s*<div class="cwg__tldr">.*?</div>\s*</div>', '', body, count=1, flags=re.S)
     body = body.replace('<article class="cwg__body">', '<article class="cwg__body" id="species">', 1)
+    from encyclopedia_navigation import enhance_wood_hub
+    body, WOOD_NAV = enhance_wood_hub(body, u, WOOD_PATH)
+    wood_script = '<script src="' + u('/assets/' + ASSETS['encyclopedia-navigation.js']) + '" defer></script>'
     write(WOOD_PATH.strip("/") + "/index.html", src=hub_src,
-          content=base(title, desc, WOOD_PATH, body, body_class="cw-encbody",
+          content=base(title, desc, WOOD_PATH, body, body_class="cw-encbody cw-wood-index", extra_head=wood_script,
                        crumbs=[("Home", "/"), (WOOD_LABEL, None)]))
     # species -- the imported pages carry their own visible crumb, so emit schema only
     for f, _slug, entry, sub in SPECIES:
@@ -1544,7 +1560,7 @@ def encyclopedia():
         # eight fragments cannot, so theirs is emitted here. All 28 carry one.
         art = wave3_article_ld(entry, src, title) if sub == "encyclopedia-wave3" else ""
         write(f"{WOOD_PATH.strip('/')}/{f}/index.html", src=src, content=
-              base(title, desc, f"{WOOD_PATH}/{f}", body, body_class="cw-encbody",
+              base(title, desc, f"{WOOD_PATH}/{f}", body, body_class="cw-encbody cw-wood-species",
                    show_crumbs=False, extra_head=art,
                    crumbs=[("Home", "/"), (WOOD_LABEL, WOOD_PATH),
                            (title.split("|")[0].split("—")[0].strip(), None)]))
@@ -1866,7 +1882,7 @@ def build_blog():
         n += 1
     # Native topic anchors work without JS; the search progressively filters
     # these same groups and keeps q/topic in the URL for return visits.
-    body = render_directory(live, taxonomy, u, visual_image(VISUAL_MEDIA['catalogue_hero'], eager=True))
+    body = render_directory(live, taxonomy, u, visual_image(VISUAL_MEDIA['blog_hero'], eager=True))
     # Posts allowed to have no "date", each with the why. Anything undated and
     # NOT in this dict is a mistake and gets the loud generic warning below.
     # Empty since 31 Aug 2026: the okoume-plywood post was dropped by owner decision -- one of
@@ -2646,7 +2662,7 @@ def build_redirects():
 
 # ---------------- assets + meta ----------------
 # One request instead of five; order preserved so cascade behaviour is unchanged.
-CSS_BUNDLE = ["fonts.css", "site.css", "guide.css", "wood-enc.css", "shell.css", "components.css", "visual-system.css", "experience.css", "experience-inner.css", "experience-motion.css", "blog-index.css", "blog-navigation.css"]
+CSS_BUNDLE = ["fonts.css", "site.css", "guide.css", "wood-enc.css", "shell.css", "components.css", "visual-system.css", "experience.css", "experience-inner.css", "experience-motion.css", "blog-index.css", "blog-navigation.css", "catalogue-navigation.css", "inner-hero.css", "page-navigation.css", "encyclopedia-navigation.css"]
 
 def _css_fix_urls(css, name):
     """Resolve /files/... backgrounds; neutralise the ones with no source file."""
@@ -2695,13 +2711,14 @@ def css_bundle_content():
 # build serves it from /assets/ where the pin is a year. Publish it under a fixed
 # name and a broken beacon is frozen in every returning buyer's browser until
 # September 2027, with no URL left to push a fix through.
-ASSETS = {"experience-motion.js": "experience-motion.js", "bundle.css": "bundle.css", "site.js": "site.js", "cw-events.js": "cw-events.js"}
+ASSETS = {"encyclopedia-navigation.js": "encyclopedia-navigation.js", "experience-motion.js": "experience-motion.js", "bundle.css": "bundle.css", "site.js": "site.js", "cw-events.js": "cw-events.js"}
 
 def _digest(data):
     if isinstance(data, str): data = data.encode("utf-8")
     return hashlib.sha256(data).hexdigest()[:8]
 
 def fingerprint_assets():
+    ASSETS["encyclopedia-navigation.js"] = f"encyclopedia-navigation.{_digest(read_lf(os.path.join(ROOT, 'assets', 'encyclopedia-navigation.js')))}.js"
     ASSETS["bundle.css"] = f"bundle.{_digest(css_bundle_content())}.css"
     motion_path = os.path.join(ROOT, "assets", "experience-motion.js")
     ASSETS["experience-motion.js"] = f"experience-motion.{_digest(read_lf(motion_path))}.js"
@@ -2835,7 +2852,7 @@ def assets_and_meta():
     # Publish the two fingerprinted scripts under their hashed names, so the
     # year-long immutable header below is only ever attached to a name that
     # changes when the bytes do.
-    for key, plain_name in (("site.js", "site.js"), ("cw-events.js", "cw-events.js"), ("experience-motion.js", "experience-motion.js")):
+    for key, plain_name in (("site.js", "site.js"), ("cw-events.js", "cw-events.js"), ("experience-motion.js", "experience-motion.js"), ("encyclopedia-navigation.js", "encyclopedia-navigation.js")):
         hashed = ASSETS.get(key)
         plain = os.path.join(dst, plain_name)
         if hashed and hashed != plain_name and os.path.exists(plain):
@@ -2946,7 +2963,7 @@ def assets_and_meta():
     day       = "  Cache-Control: public, max-age=86400\n"
     hashed_rules = "".join(
         f"/assets/{ASSETS[k]}\n" + immutable
-        for k in ("bundle.css", "site.js", "cw-events.js", "experience-motion.js") if ASSETS.get(k))
+        for k in ("bundle.css", "site.js", "cw-events.js", "experience-motion.js", "encyclopedia-navigation.js") if ASSETS.get(k))
     # THE PUBLISHED TREE MUST SAY WHICH COMMIT IT WAS BUILT FROM. 311 of dist/'s
     # 607 files are copied out of cf-live's object store, and a dist/ that does
     # not name that commit cannot be audited once the terminal that printed the

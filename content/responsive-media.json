@@ -364,5 +364,167 @@
       "width": 1600,
       "sha256": "ad44f5ad1160bdae55162d7362080832973d853d894c5d70347646db14661dba"
     }
+  ],
+  "/files/Product/eucalyptus.jpg": [
+    {
+      "src": "/files/Product/eucalyptus-320.jpg",
+      "width": 320,
+      "sha256": "0e785a122676da89ba5917e4d196f89f464368b7902d72ef54c1619e9b80cc7d"
+    },
+    {
+      "src": "/files/Product/eucalyptus-480.jpg",
+      "width": 480,
+      "sha256": "22c6dc744eaa020e097e8e1ea75aeafee397ca5916eb33ecf8d7f528ad6f5157"
+    },
+    {
+      "src": "/files/Product/eucalyptus-640.jpg",
+      "width": 640,
+      "sha256": "2244c6918dd1b9379e53c9cd10598e2f502fd14c9388467f7ba33b356701d4f2"
+    },
+    {
+      "src": "/files/Product/eucalyptus-960.jpg",
+      "width": 960,
+      "sha256": "179dff4595dcb1f91fafbe9f238693f251d784cdc2e947e9c215655dc4a58a51"
+    },
+    {
+      "src": "/files/Product/eucalyptus.jpg",
+      "width": 1024,
+      "sha256": "c25a3ff09b7c1c5aeddb5cb830f720a22067a40a07cfdeff373c0a03a78882f7"
+    }
+  ],
+  "/files/Product/rubberwood.jpg": [
+    {
+      "src": "/files/Product/rubberwood-320.jpg",
+      "width": 320,
+      "sha256": "5e96b2d3dd5610a58595628e041e500cc53aa6c473f02ace5bb4a11b155b30ca"
+    },
+    {
+      "src": "/files/Product/rubberwood-480.jpg",
+      "width": 480,
+      "sha256": "4cc709f0fed6a41ab63a54d3488c1b08ea6c4edad32de596c8f72d19ae2eacce"
+    },
+    {
+      "src": "/files/Product/rubberwood-640.jpg",
+      "width": 640,
+      "sha256": "38fee83b3d72434db041be72c134c2a59691bd09caef07b726fef4aa613112ba"
+    },
+    {
+      "src": "/files/Product/rubberwood-960.jpg",
+      "width": 960,
+      "sha256": "cad24a0c5b32b0262642babb95e17d61e009acefbc6c9aeb10c9370c8e34824c"
+    },
+    {
+      "src": "/files/Product/rubberwood.jpg",
+      "width": 1024,
+      "sha256": "2dcc24c420902be81f71b6e1c26b797116f7b182677029bd4b313cef9bc661f2"
+    }
+  ],
+  "/files/Product/acacia.jpg": [
+    {
+      "src": "/files/Product/acacia-320.jpg",
+      "width": 320,
+      "sha256": "180c070e5efe0785a7b6ca8f89b5ffadf1118b8d712c40a82bc71d7cb32d9ab3"
+    },
+    {
+      "src": "/files/Product/acacia-480.jpg",
+      "width": 480,
+      "sha256": "5425a0e60736dae3a883a2247c6b0b3699e49ee97453bc8d95c4201f35977cc2"
+    },
+    {
+      "src": "/files/Product/acacia-640.jpg",
+      "width": 640,
+      "sha256": "4f6341782c21c9e67fe90a3dfe293d4cd07049dbc940ef7a7ffe34c1cf5ddc10"
+    },
+    {
+      "src": "/files/Product/acacia-960.jpg",
+      "width": 960,
+      "sha256": "198b697f8baddee671d1c6f37fd29da2b6c4a7228867ef605b71ecb9fb1fb07e"
+    },
+    {
+      "src": "/files/Product/acacia.jpg",
+      "width": 1024,
+      "sha256": "d4d92617db5032f3ea382bdfaa09d1b8d02d45ea88eb2ef10d1488af2148e6b1"
+    }
+  ],
+  "/files/Product/mahogany.jpg": [
+    {
+      "src": "/files/Product/mahogany-320.jpg",
+      "width": 320,
+      "sha256": "6bb7a965b8fce911fb7654d9602f542e79d55b261f67963465441feb7b6152bf"
+    },
+    {
+      "src": "/files/Product/mahogany-480.jpg",
+      "width": 480,
+      "sha256": "7659527d781b0b863b92f8b9105e547a1032e1ed663c3500d91357a6cce658cb"
+    },
+    {
+      "src": "/files/Product/mahogany-640.jpg",
+      "width": 640,
+      "sha256": "ab147ba230ad4ac7a79f12d494761c7ca4e433a8388a83578bf65051ffbd3690"
+    },
+    {
+      "src": "/files/Product/mahogany-960.jpg",
+      "width": 960,
+      "sha256": "7e466aa97f729d5011eb199617d3bcfd6c174bf011a7d83633957059e8cfba64"
+    },
+    {
+      "src": "/files/Product/mahogany.jpg",
+      "width": 1024,
+      "sha256": "af186313747753130239f69e4c0e958136bcbd243a5fc705a9b5747df4e62024"
+    }
+  ],
+  "/files/Product/jackwood.jpg": [
+    {
+      "src": "/files/Product/jackwood-320.jpg",
+      "width": 320,
+      "sha256": "519c2d6876c4f0a38e96e013f0e66abde413bff6e8da314f7cf808a4894f5ada"
+    },
+    {
+      "src": "/files/Product/jackwood-480.jpg",
+      "width": 480,
+      "sha256": "e4cf6a642c679b9efb12d6d4b2e845ea7be0e12c256f4a5576e0a4fe348ed243"
+    },
+    {
+      "src": "/files/Product/jackwood-640.jpg",
+      "width": 640,
+      "sha256": "7494c8e743ff103f58fc0b96828009ccf0f5efff98df5014f42d979381660cda"
+    },
+    {
+      "src": "/files/Product/jackwood-960.jpg",
+      "width": 960,
+      "sha256": "876c659c57d32731ff262d09ab42801b46b4a2056ce81f307b24e27fd3b979c1"
+    },
+    {
+      "src": "/files/Product/jackwood.jpg",
+      "width": 1024,
+      "sha256": "1f4fb6bf177a7d4deec3946cc7ecf6a6954bace55906f5652a7857f97deddfe2"
+    }
+  ],
+  "/files/Product/silverwood.jpg": [
+    {
+      "src": "/files/Product/silverwood-320.jpg",
+      "width": 320,
+      "sha256": "959710204ea9a327e7b59bb56217a837bb4a37cc15786825d2df3d2c13dd4dbf"
+    },
+    {
+      "src": "/files/Product/silverwood-480.jpg",
+      "width": 480,
+      "sha256": "3b770ad041237cf81064a1e91b453acf4f2ecea1133955e541a6358fc9a200fb"
+    },
+    {
+      "src": "/files/Product/silverwood-640.jpg",
+      "width": 640,
+      "sha256": "22a52a248eac95228e2472e346be2c0156a30661915f6651fe07d1986fb5248f"
+    },
+    {
+      "src": "/files/Product/silverwood-960.jpg",
+      "width": 960,
+      "sha256": "fa9967e2b0f43ab105e5bf602242c34c6c1573e48e8b2dbb69bc09e291277337"
+    },
+    {
+      "src": "/files/Product/silverwood.jpg",
+      "width": 1024,
+      "sha256": "0f6b53edec2bd8d327410b821b9c8e284fa1e98a4bc7ac0cb413788d8411a0c2"
+    }
   ]
 }

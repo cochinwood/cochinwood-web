@@ -1,0 +1,22 @@
+/* A consistent native contents menu for product, industry and reference pages. */
+.cw-page-navigation{background:#FAF9F7;border-bottom:1px solid #d5ded2}
+.cw-page-navigation__inner{width:100%;max-width:var(--cw-page-width,1440px);margin-inline:auto;padding:18px var(--cw-page-gutter,clamp(24px,5.5vw,88px));box-sizing:border-box;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px 32px}
+.cw-section-parent a{display:inline-flex;align-items:center;gap:10px;min-height:44px;font:500 .875rem/1.6 Poppins,sans-serif;color:#1B4332;text-underline-offset:5px}
+.cw-section-menu{flex:1;min-width:0;max-width:820px;border:1px solid #bbcbb9;background:#f1f4ed}
+.cw-section-menu summary{padding:12px 18px;font:500 .875rem/1.7 Poppins,sans-serif;color:#1B4332;cursor:pointer;min-height:46px}
+.cw-section-menu summary>span{font-weight:400;color:#5c6c5a;font-size:.8125rem;margin-left:12px}
+.cw-section-links{list-style:none;padding:4px 18px 18px;margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 28px;max-height:390px;overflow:auto;overscroll-behavior:contain}
+.cw-section-links li{padding:0;margin:0;border-bottom:1px solid #d4ddd0;min-width:0}
+.cw-section-links a{display:block;padding:12px 0;min-height:44px;font:400 .875rem/1.7 Poppins,sans-serif;color:#1B4332;text-decoration:none;overflow-wrap:anywhere}
+.cw-section-links a:hover{text-decoration:underline;text-underline-offset:4px}
+.cw-section-menu:only-child{max-width:none;width:100%}
+/* html already reserves the fixed header; do not add a second anchor offset. */
+body #main [id]{scroll-margin-top:0!important}
+
+@media(max-width:620px){.cw-page-navigation__inner{display:block;padding-block:14px}.cw-section-parent{margin-bottom:10px}.cw-section-links{grid-template-columns:1fr;max-height:45svh}.cw-section-menu{width:100%}.cw-section-menu summary{padding:12px 14px}}
+@media print{.cw-page-navigation{display:none}}
+
+/* Article reading columns begin on the same grid as their shared headings. */
+.cw-blog-post #main .cw-reading-layout{width:100%;max-width:var(--cw-page-width,1440px);box-sizing:border-box;padding-inline:var(--cw-page-gutter,clamp(24px,5.5vw,88px))}
+@media(max-width:1099px){.cw-blog-post #main .cw-reading-layout{max-width:var(--cw-page-width,1440px)}}
+@media(max-width:620px){.cw-blog-post #main .cw-reading-layout{padding-inline:24px}}

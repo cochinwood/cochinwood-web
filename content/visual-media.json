@@ -86,12 +86,12 @@
       "sha256": "0539a5cd8c26f7ab9017d52ee50aeed6e5fc6e363085d11cbdab60570170deec"
     },
     "container-flooring-plywood": {
-      "src": "/files/Process%20Illustrations/cwi-process-loading.jpg",
-      "alt": "Illustration of plywood bundles being loaded into a shipping container",
-      "kind": "application illustration",
-      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
-      "caption": "Container loading illustration; flooring grade and treatment are confirmed in the specification.",
-      "sha256": "ad44f5ad1160bdae55162d7362080832973d853d894c5d70347646db14661dba"
+      "src": "/files/Logo/og/og-container-flooring.jpg",
+      "alt": "A thick brown-faced plywood panel with its layered edge visible against a plain background",
+      "kind": "product presentation",
+      "provenance": "Existing published Cochin Wood panel image from files/Logo/og/og-container-flooring.jpg. Visually inspected: no overlaid logo or text. Original capture or generation provenance is unverified; the image does not establish a grade, certification, thickness or treatment.",
+      "caption": "Representative panel; grade, thickness and treatment are confirmed in the specification.",
+      "sha256": "21d0d5c02e9a951fc86dc278e3bf6acb9d533165a38cf5d516b4a31f69315d15"
     },
     "bwr-hardwood-plywood": {
       "src": "/files/Plywood%20Product%20Photos/cwi-bwr-hardwood-plywood.webp",
@@ -151,11 +151,12 @@
       "sha256": "5466607c4733ac0a3752f7ff3bf4987f1e4d24d49496e837976f0c39ab381079"
     },
     "sawn-timber": {
-      "src": "/files/Product/specialty-timbers.jpg",
-      "alt": "Wood samples in several warm tones arranged upright on a desk",
+      "src": "/files/Product/acacia.jpg",
+      "alt": "Rough-sawn brown timber planks stacked with their end grain visible",
       "kind": "material illustration",
-      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
-      "sha256": "46918a71fc5394494b1686724cf21c97c9a65b4c50719b4505ef78f2ac85b333"
+      "provenance": "Existing published Cochin Wood site media, verified against production revision 39a4d2c46c3ca6abe2239d93e0e2f7373f86b6da. Original capture or generation provenance is unverified; representative material imagery does not independently establish species, grade or stock.",
+      "caption": "Representative sawn timber; species and dimensions are confirmed with your specification.",
+      "sha256": "d4d92617db5032f3ea382bdfaa09d1b8d02d45ea88eb2ef10d1488af2148e6b1"
     }
   },
   "applications": [
@@ -244,5 +245,77 @@
     "kind": "brand illustration",
     "provenance": "Existing published Cochin Wood site asset; original capture or generation provenance is unverified. Illustrative brand imagery, not evidence of a particular owned facility or stock position.",
     "sha256": "1b7d40e886e96f805d20298b5b150f750fac51dd5838a49fce3e1f3184a15835"
+  },
+  "blog_hero": {
+    "src": "/files/Brand/home-materials.webp",
+    "alt": "Plywood samples leaning beside a sunlit window in a warm timber interior",
+    "kind": "brand illustration",
+    "provenance": "Earlier Cochin Wood site mirror: files/Hero Optimized/Home.jpg. Reused unchanged at a distinct Brand URL; original generation/capture provenance unverified. Selected for the blog introduction to distinguish it from the catalogue flatlay.",
+    "sha256": "4961fa242f68827e6e66673bbb0d2d36dcf91af220e1559cb03a2c86df1da0b1"
+  },
+  "timber_species": {
+    "eucalyptus": {
+      "name": "Eucalyptus",
+      "label": "Eucalyptus",
+      "src": "/files/Product/eucalyptus.jpg",
+      "alt": "Three thick rough-sawn tan planks with their end grain visible",
+      "kind": "material illustration",
+      "provenance": "Existing published Cochin Wood site media, verified against production revision 39a4d2c46c3ca6abe2239d93e0e2f7373f86b6da. Original capture or generation provenance is unverified; representative material imagery does not independently establish species, grade or stock.",
+      "sha256": "c25a3ff09b7c1c5aeddb5cb830f720a22067a40a07cfdeff373c0a03a78882f7"
+    },
+    "rubberwood": {
+      "name": "Rubberwood",
+      "label": "Rubberwood",
+      "src": "/files/Product/rubberwood.jpg",
+      "alt": "Three pale rough-sawn timber planks stacked in a workshop",
+      "kind": "material illustration",
+      "provenance": "Existing published Cochin Wood site media, verified against production revision 39a4d2c46c3ca6abe2239d93e0e2f7373f86b6da. Original capture or generation provenance is unverified; representative material imagery does not independently establish species, grade or stock.",
+      "sha256": "2dcc24c420902be81f71b6e1c26b797116f7b182677029bd4b313cef9bc661f2"
+    },
+    "acacia": {
+      "name": "Acacia",
+      "label": "Acacia",
+      "src": "/files/Product/acacia.jpg",
+      "alt": "Brown rough-sawn timber planks stacked with prominent end grain",
+      "kind": "material illustration",
+      "provenance": "Existing published Cochin Wood site media, verified against production revision 39a4d2c46c3ca6abe2239d93e0e2f7373f86b6da. Original capture or generation provenance is unverified; representative material imagery does not independently establish species, grade or stock.",
+      "sha256": "d4d92617db5032f3ea382bdfaa09d1b8d02d45ea88eb2ef10d1488af2148e6b1"
+    },
+    "mahogany": {
+      "name": "Mahogany",
+      "label": "Mahogany",
+      "src": "/files/Product/mahogany.jpg",
+      "alt": "Long reddish-brown timber planks arranged in an overlapping stack",
+      "kind": "material illustration",
+      "provenance": "Existing published Cochin Wood site media, verified against production revision 39a4d2c46c3ca6abe2239d93e0e2f7373f86b6da. Original capture or generation provenance is unverified; representative material imagery does not independently establish species, grade or stock.",
+      "sha256": "af186313747753130239f69e4c0e958136bcbd243a5fc705a9b5747df4e62024"
+    },
+    "jackwood": {
+      "name": "Jackwood",
+      "label": "Jackwood",
+      "src": "/files/Product/jackwood.jpg",
+      "alt": "Long pale rough-sawn timber boards stacked in a workshop",
+      "kind": "material illustration",
+      "provenance": "Existing published Cochin Wood site media, verified against production revision 39a4d2c46c3ca6abe2239d93e0e2f7373f86b6da. Original capture or generation provenance is unverified; representative material imagery does not independently establish species, grade or stock.",
+      "sha256": "1f4fb6bf177a7d4deec3946cc7ecf6a6954bace55906f5652a7857f97deddfe2"
+    },
+    "silverwood": {
+      "name": "Silverwood",
+      "label": "Silverwood",
+      "src": "/files/Product/silverwood.jpg",
+      "alt": "A wide brown timber plank showing pale flecked grain",
+      "kind": "material illustration",
+      "provenance": "Existing published Cochin Wood site media, verified against production revision 39a4d2c46c3ca6abe2239d93e0e2f7373f86b6da. Original capture or generation provenance is unverified; representative material imagery does not independently establish species, grade or stock.",
+      "sha256": "0f6b53edec2bd8d327410b821b9c8e284fa1e98a4bc7ac0cb413788d8411a0c2"
+    },
+    "specialty-timbers": {
+      "name": "Specialty timbers",
+      "label": "Specialty timbers",
+      "src": "/files/Product/specialty-timbers.jpg",
+      "alt": "A fan of upright wood samples in several warm tones beside a window",
+      "kind": "material illustration",
+      "provenance": "Existing published Cochin Wood site media, verified against production revision 39a4d2c46c3ca6abe2239d93e0e2f7373f86b6da. Original capture or generation provenance is unverified; representative material imagery does not independently establish species, grade or stock.",
+      "sha256": "46918a71fc5394494b1686724cf21c97c9a65b4c50719b4505ef78f2ac85b333"
+    }
   }
 }

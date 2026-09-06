@@ -40,7 +40,8 @@ def media_entries(value):
 
 
 class Page(HTMLParser):
-    def __init__(self, source):
+    def __init__(self, source, reviewed_images=()):
+        self.reviewed_images = set(reviewed_images)
         super().__init__(convert_charrefs=True)
         self.images = []
         self.styles = []
@@ -79,7 +80,8 @@ class Page(HTMLParser):
     @property
     def content_images(self):
         return [i for i in self.images if i["in_main"]
-                and "/logo" not in i.get("src", "").lower()]
+                and ("/logo" not in i.get("src", "").lower()
+                     or local_path(i.get("src", "")) in self.reviewed_images)]
 
 
 def main():
@@ -91,6 +93,7 @@ def main():
         parser.error(f"No built homepage at {dist}; run build.py first")
     manifest = json.loads((ROOT / "content/visual-media.json").read_text(encoding="utf-8"))
     responsive = json.loads((ROOT / "content/responsive-media.json").read_text(encoding="utf-8"))
+    reviewed_images = {local_path(entry["src"]) for entry in media_entries(manifest)}
     errors = []
     pages = {}
     linked_image_count = 0
@@ -101,7 +104,7 @@ def main():
         key = path.relative_to(dist).as_posix().removesuffix(".html")
         if key == "index":
             key = ""
-        page = Page(path.read_text(encoding="utf-8"))
+        page = Page(path.read_text(encoding="utf-8"), reviewed_images)
         pages[key] = page
         # Every generated page must load the same local design-system bundle.
         bundles = [s for s in page.styles if re.search(r"/assets/(?:bundle|site)\.[a-f0-9]+\.css(?:\?|$)", s)]
@@ -183,11 +186,20 @@ def main():
             errors.append(f"/products: {slug} has no linked product-card image")
         linked_image_count += bool(card_images)
 
+    # Species choices belong to one timber product, but all seven reviewed
+    # material images must remain individually discoverable in the catalogue.
+    timber_images = [] if not catalogue else [image for image in catalogue.content_images
+        if local_path(image["link"]) in {"sawn-timber", "sawn-timber.html", "sawn-timber/"}]
+    actual_timber = Counter(local_path(image["src"]) for image in timber_images)
+    for species, entry in manifest.get("timber_species", {}).items():
+        if actual_timber[local_path(entry["src"])] != 1:
+            errors.append(f"/products: {species} needs exactly one reviewed linked timber image")
+
     # Narrow known false marketing claims; do not ban factual country counts
     # in export research or the group's accurately qualified 1986 heritage.
     forbidden = (
         r"(?:ship(?:ping)?|export(?:ing|s)?)\s+(?:to\s+)?50\+?\s+countries",
-        r"800\s*m[³3]\s*(?:shipment|shipped)",
+        r"800\s*m[Â³3]\s*(?:shipment|shipped)",
         r"private\s+limited\s+(?:company\s+)?(?:since|established\s+in)\s+1986",
     )
     for route in ("", "products", "about", "plywood-factory", "contact"):
