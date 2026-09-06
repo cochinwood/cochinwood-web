@@ -3,21 +3,6 @@
   <url>
     <loc>https://www.cochinwood.in/about</loc>
     <image:image>
-      <image:loc>https://www.cochinwood.in/files/Enhanced%20Factory%20Photos/factory_42.jpg</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Enhanced%20Factory%20Photos/factory_08.jpg</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Enhanced%20Factory%20Photos/factory_24.jpg</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Enhanced%20Factory%20Photos/factory_05.webp</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Enhanced%20Factory%20Photos/factory_44.webp</image:loc>
-    </image:image>
-    <image:image>
       <image:loc>https://www.cochinwood.in/files/Enhanced%20Factory%20Photos/factory_45.webp</image:loc>
     </image:image>
   </url>
@@ -246,6 +231,9 @@
   <url>
     <loc>https://www.cochinwood.in/blogs/post/marine-plywood-thickness-guide</loc>
     <image:image>
+      <image:loc>https://www.cochinwood.in/files/Plywood%20Product%20Photos/cwi-marine-plywood.webp</image:loc>
+    </image:image>
+    <image:image>
       <image:loc>https://www.cochinwood.in/files/Editorial/panel-dimensions.svg</image:loc>
     </image:image>
   </url>
@@ -339,7 +327,7 @@
   <url>
     <loc>https://www.cochinwood.in/blogs/post/plywood-moisture-content-and-warping</loc>
     <image:image>
-      <image:loc>https://www.cochinwood.in/files/Editorial/plywood-layers.svg</image:loc>
+      <image:loc>https://www.cochinwood.in/files/Process%20Illustrations/cwi-process-moisture.jpg</image:loc>
     </image:image>
   </url>
   <url>
@@ -1023,9 +1011,6 @@
       <image:loc>https://www.cochinwood.in/files/Plywood%20Product%20Photos/cwi-okoume-plywood.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>https://www.cochinwood.in/files/Hero%20Optimized/Products.jpg</image:loc>
-    </image:image>
-    <image:image>
       <image:loc>https://www.cochinwood.in/files/Plywood%20Product%20Photos/cwi-rubberwood-plywood.webp</image:loc>
     </image:image>
     <image:image>
@@ -1033,6 +1018,12 @@
     </image:image>
     <image:image>
       <image:loc>https://www.cochinwood.in/files/Plywood%20Product%20Photos/cwi-commercial-plywood.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cochinwood.in/files/Hero%20Optimized/Products.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cochinwood.in/files/Process%20Illustrations/cwi-process-moisture.jpg</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://www.cochinwood.in/files/Editorial/packing-case.webp</image:loc>
@@ -1385,18 +1376,6 @@
     <image:image>
       <image:loc>https://www.cochinwood.in/files/Product/crates.jpg</image:loc>
     </image:image>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Enhanced%20Factory%20Photos/factory_05.webp</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Enhanced%20Factory%20Photos/factory_06.webp</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Enhanced%20Factory%20Photos/factory_07.jpg</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Enhanced%20Factory%20Photos/factory_08.jpg</image:loc>
-    </image:image>
   </url>
   <url>
     <loc>https://www.cochinwood.in/marine-plywood</loc>
@@ -1494,7 +1473,7 @@
   <url>
     <loc>https://www.cochinwood.in/plywood-factory</loc>
     <image:image>
-      <image:loc>https://www.cochinwood.in/files/Enhanced%20Factory%20Photos/factory_08.jpg</image:loc>
+      <image:loc>https://www.cochinwood.in/files/Enhanced%20Factory%20Photos/factory_24.jpg</image:loc>
     </image:image>
   </url>
   <url>
@@ -1506,7 +1485,7 @@
   <url>
     <loc>https://www.cochinwood.in/plywood-manufacturer-kerala</loc>
     <image:image>
-      <image:loc>https://www.cochinwood.in/files/Enhanced%20Factory%20Photos/factory_44.webp</image:loc>
+      <image:loc>https://www.cochinwood.in/files/Brand/contact-materials.jpg</image:loc>
     </image:image>
   </url>
   <url>
