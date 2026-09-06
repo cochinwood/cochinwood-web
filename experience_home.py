@@ -33,7 +33,9 @@ def render_home(link, image, media, wood_path):
         f'<span class="cx-index">0{i+1} / From enquiry to delivery</span><h3>{title}</h3><p>{description}</p>'
         f'<figure class="cx-process__mobile">{image(item)}<figcaption>Process illustration</figcaption></figure></div>'
         for i, ((key, title, description), item) in enumerate(zip(steps, media["process"])))
-    hero = image(media["experience_hero"], eager=True, sizes="100vw").replace('<img ', '<img data-parallax ')
+    # The tall phone crop fills its height: a 390px-wide screen still needs
+    # about 960 source pixels across the covered image to keep the grain sharp.
+    hero = image(media["experience_hero"], eager=True, sizes="(max-width: 860px) 960px, 100vw").replace('<img ', '<img data-parallax ')
     wood = image(media["encyclopedia_hero"]).replace('<img ', '<img data-parallax ')
     return f'''
 <section class="cx-hero" aria-labelledby="cx-hero-title">
