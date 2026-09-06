@@ -2389,7 +2389,7 @@ body #main [id]{scroll-margin-top:0!important}
 @media(max-width:760px){
  :root{--cw-section-bar-height:52px}
  .cw-section-menu summary{display:flex;align-items:center;gap:16px;min-height:52px;padding:0;color:#1B4332;font:500 .8125rem/1.5 Poppins,sans-serif}
- .cw-section-menu summary::after{content:'+';font-size:1.25rem;margin-left:auto}
+ .cw-section-menu summary::after{content:'+';font-size:1.25rem;margin-left:0;order:-1;flex:0 0 16px}
  .cw-section-menu[open] summary::after{content:'−'}
  .cw-section-current{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#637363;font-weight:400}
  .cw-section-menu .cw-section-scroll{position:absolute;top:100%;left:0;right:0;display:block;padding:8px var(--cw-page-gutter,24px) 16px;background:#FAF9F7;border-bottom:1px solid #c9d5c7;box-shadow:0 10px 20px #1b433210;box-sizing:border-box}
@@ -2707,4 +2707,46 @@ body #main .cw-blog-directory .cw-blog-group:last-of-type { margin-bottom: 0; }
   body.cw-home #main .cx-process { padding-top: 64px; padding-bottom: 64px; }
   body.cw-home #main .cx-knowledge { padding-top: 64px; padding-bottom: 64px; }
   body.cw-home #main .cx-next { padding-top: 64px; padding-bottom: 64px; }
+}
+
+/* --- export-guides.css --- */
+/* Destination research guides: shared brand, compact introduction, no placeholder art.
+   Scope excludes /export, product pages, articles and the encyclopedia. */
+body.cw-export-country #main .cw-page-hero--compact .cw-page-hero__inner {
+  min-height: 0;
+  padding-bottom: 34px;
+}
+body.cw-export-country #main .cw-page-hero__breadcrumbs { margin-bottom: 28px; }
+body.cw-export-country #main .cw-page-hero__heading { max-width: none; }
+body.cw-export-country #main .cw-page-hero h1.cw-page-hero__title {
+  max-width: 24ch;
+  font-size: clamp(2rem, 3.2vw, 2.85rem);
+  line-height: 1.17;
+  margin-bottom: 22px;
+}
+body.cw-export-country #main .cw-page-hero__support { max-width: none; }
+body.cw-export-country #main .cw-page-hero__support p { max-width: 66ch; margin-bottom: 18px; }
+body.cw-export-country #main .cw-page-hero__actions { gap: 10px; margin-top: 20px; }
+body.cw-export-country #main .cw-page-hero__actions .cw-page-hero__button { min-height: 48px; }
+body.cw-export-country #main .cw-export-byline { margin-block: 20px; }
+@media (min-width: 761px) {
+  body.cw-export-country #main .cw-page-hero__text {
+    display: grid;
+    grid-template-columns: minmax(0, .9fr) minmax(0, 1.2fr);
+    grid-template-areas: "heading support";
+    align-items: start;
+    gap: clamp(28px, 5vw, 72px);
+  }
+  body.cw-export-country #main .cw-page-hero__support { padding-top: 1px; }
+}
+@media (max-width: 760px) {
+  body.cw-export-country #main .cw-page-hero__inner { padding-bottom: 28px; }
+  body.cw-export-country #main .cw-page-hero h1.cw-page-hero__title { font-size: clamp(1.85rem, 7.8vw, 2.5rem); }
+  body.cw-export-country #main .cw-page-hero__support p { font-size: .9375rem; line-height: 1.8; }
+  body.cw-export-country #main .cw-page-hero__actions { align-items: stretch; }
+  body.cw-export-country #main .cw-page-hero__actions a { justify-content: flex-start; }
+}
+@media print {
+  body.cw-export-country #main .cw-page-hero__inner { padding: 0; }
+  body.cw-export-country #main .cw-page-hero__text { display: block; }
 }
