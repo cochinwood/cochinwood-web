@@ -1,42 +1,48 @@
-# Commerce preparation completed — 7 September 2026
+# Commerce staging progress — 7 September 2026
 
-This receipt covers the work that can be prepared and tested without approved selling prices or ICICI API access. It is a **local staging delivery**, not a public shop launch. The production website and staff app have not been deployed or changed in this run.
+The isolated commerce implementation is deployed and verified on the authenticated staff staging application through **build 597**, including the corrected catalogue approval labels. The customer shop remains a local preview; production commerce and real payments remain disabled. This is a staging receipt, not a public shop launch.
+
+The first proposed launch is **Premium Hardwood in 12 mm and 18 mm, nominal 8 × 4 ft sheets**. Both Marine variants are inactive until their exact core construction is confirmed. They are excluded from the actual shop selection and future Merchant export. The separate four-variant synthetic fixture remains available for multi-item and concurrency tests; it does not approve any commercial offer.
 
 ## Review now
 
 - [Shop preview](http://127.0.0.1:8891/commerce-preview/)
-- [Staff order preview](http://127.0.0.1:8891/commerce-preview/staff.html)
+- [Authenticated staff staging app](https://staging-app.cochinwood.in/)
+- [Local staff test preview](http://127.0.0.1:8891/commerce-preview/staff.html)
 - [Catalogue and launch review](http://127.0.0.1:8891/commerce-preview/readiness/)
 
-The preview runs on this PC only. Use **Test checkout** for fictional prices/stock and the example contact details. **Actual setup** deliberately has blank commercial values and refuses checkout. Existing product-family images demonstrate layout; exact sold-product image approval remains part of launch review.
+The customer preview runs on this PC only. Use **Test checkout** for fictional prices/stock and the example contact details. **Actual setup** contains the two unapproved Hardwood options and refuses checkout. The remote staff staging app uses existing staff authentication and an isolated commerce database. Existing product-family images demonstrate layout; exact sold-product image approval remains part of launch review.
 
 ## Delivered
 
 | Area | Completed preparation |
 |---|---|
-| Shop | Two premium families/four variants, deep links, multiple-product/thickness basket, quantity changes/removal, item-only draft persistence, delivery eligibility/charge/window, contact/address and optional GSTIN, review and recorded order |
-| Orders | Durable SQLite using D1-shaped service statements; server-calculated prices; atomic stock reservations; immutable catalogue, policy, delivery and price snapshots; order access tokens; safe retries and duplicate protection |
+| Shop preview | Two active proposed Hardwood thicknesses, Marine purchase hold, deep links, multiple-product/thickness basket, quantity changes/removal, item-only draft persistence, delivery eligibility/charge/window, contact/address and optional GSTIN, review and recorded synthetic order |
+| Orders | Dedicated remote Cloudflare D1 staging ledger and a shared local test core; server-calculated prices; atomic stock reservations; immutable catalogue, policy, delivery and price snapshots; transaction guards for concurrent catalogue changes; order access tokens and safe retries |
 | Payment rehearsal | Simulated success, failure, cancellation, expiry and full refund; late/conflicting results rejected; recovery after a committed response is lost; no bank calls or payment links |
-| Stock | Concurrent last-sheet protection, all-or-nothing mixed-order reservation, unpaid hold expiry; refunds require stock review rather than automatic restocking |
-| Staff review | Owner, assigned Sales, unrelated Sales and Purchase test views; server-enforced visibility and simulation permissions; local notification outbox for the two owners, assigned salesperson and synthetic buyer |
+| Stock | Concurrent last-sheet protection, all-or-nothing mixed-order reservation and verified scheduled staging hold expiry; refunds require stock review rather than automatic restocking |
+| Authenticated staff review | Online orders integrated with the actual staff shell in staging; editable role permissions, assigned-order and alias scopes, oversight permissions, audited assignment and owner-only synthetic payment rehearsal |
+| Notification adapter | Existing company mail transport integrated with a separate durable commerce delivery ledger; recipient/claim guards, bounded retry of known failures and no automatic retry of unconfirmed sends; staging and synthetic events cannot send email |
 | Commercial configuration | Separate incomplete company proposal and fictional test fixture; review table, explicit approval requirements, postcode/quantity bands and policy drafting structure |
 | Merchant preparation | Local XML/TSV exporter plus matching Product/Offer data from one catalogue; default review-only output; synthetic/missing/unapproved/undeliverable offers blocked; stale export invalidated on malformed configuration |
 | SEO | Current sitemap/robots and sampled canonical checks, authenticated Google/Bing/Analytics report review with actual report dates; no new issue found in that bounded live technical sample |
 | Image sourcing | Additional identified/rights review for four wood-grain gaps; no unsuitable or unlicensed replacement added |
 
-The staff review is a separate local preview. It is **not installed in `app.cochinwood.in`**. Its outbox contains notification previews; **no emails were sent**. Real staff authentication, assignment, delivery transport and production order integration are recorded as launch work, not represented as complete.
+The authenticated integration is available in **staging**, with synthetic records separate from both staff databases. Production commerce remains off. Its outbox records are notification previews; **no commerce emails were sent**. The production notification adapter still needs its controlled delivery review and deliberate production configuration before it can be enabled.
 
 ## Verification
 
-- **190 backend assertions** passed, including eight separate SQLite connections contending for the final sheet, multi-item rollback, duplicate/conflicting events, exact postcode validation, role isolation, durable reopen and full server restart.
-- **19 Merchant preparation tests** passed. An independent reviewer reproduced and verified fixes for stale feeds after invalid input, undeliverable minimum quantities and whitespace-only identifiers.
-- **12 Chrome browser journey groups** passed, including mixed baskets, stale-response races, input validation, GSTIN roundtrip, uncertain payment recovery, role scopes, refund stock review, keyboard use and responsive layouts at **320, 390, 768, 1229 and 1440 pixels**.
+- **217 core assertions** and **102 actual-Worker integration assertions** passed in the current app source receipt. Coverage includes eight separate SQLite connections contending for the final sheet, multi-item rollback, catalogue-change races, immutable snapshots, signed staff identities, role/alias isolation, production simulation refusal and notification batches beyond 100 events. The app suite also passes without a sibling website checkout by using bundled fixtures.
+- **13 remote D1 rehearsal checks** passed. Subsequent SELECT-only verification confirms all **11 expected database triggers** and the staging environment marker. The staging cron receipt confirms an unpaid synthetic order expired and its held stock was released without a manual expiry call or external notification.
+- **20 Merchant preparation tests** passed, including exclusion of held Marine offers. An independent reviewer reproduced and verified fixes for stale feeds after invalid input, undeliverable minimum quantities and whitespace-only identifiers.
+- The updated local preview passed **12 Chrome browser journey groups**, including the Marine hold, mixed baskets, stale-response races, input validation, GSTIN roundtrip, uncertain payment recovery, role scopes, refund stock review, keyboard use and responsive layouts. The actual staff shell passed **11 Chrome scenario groups**, including the backend's real readiness response shape. Build 597 was separately verified in the authenticated remote staging Chrome session: order records, readiness labels and the Marine-held configuration loaded correctly after the new cached shell was adopted.
+- Both build-597 deployment phases passed **221 Node suites and 1,153 Python tests**, with all **66 historical export-order price comparisons** unchanged. Source `235675edd6456e93395aaef1130c76600e973996` is recorded in the private staff-app release receipt. Staging deployment does not enable public checkout.
 - Screenshots were inspected. Product-image fixed-height stretching was corrected and aspect ratios are now measured by the browser checks.
-- Browser external requests: **0**. Browser exceptions: **0**. Bank calls: **0**. Emails sent: **0**.
-- Production staff-app collector: **68 allowlisted files; zero commerce files**. Production `webapp/` has no diff from its starting commit.
-- Production website builder, content, images, navigation and quotation source have no diff from starting source `d539232ca7957852749d3194e7923c1a042fd43a`; current `dist/` contains no commerce or Merchant feed files. Existing production pages were not rebuilt or published by this task.
+- The local browser baseline recorded **zero external requests and zero browser exceptions**. Commerce tests and staging rehearsal made **zero bank calls and zero real email sends**. Remote staging verification does use the staging application and dedicated Cloudflare D1; it must not be described as entirely local.
+- The production deployment configuration keeps commerce disabled and has no commerce database binding. Production checkout, payment and notification enablement remain separate launch steps.
+- The customer commerce preview and prepared Merchant exports have not been published to the production website. Existing public product, enquiry and reference pages retain their current purpose.
 
-Backend source is in `C:/Users/Edwin David/cochin-wood-document-studio/prepared-commerce/`; its runbook, API contract and verification receipt are in that repository's `docs/commerce/`. The backend preparation was saved in commit `cf96eef` on branch `prepare/kerala-commerce-2026-09-07`. Website preview source is in this repository's `commerce-preview/`, on the same branch name. Both are isolated source branches; they are not production releases.
+The canonical backend core is in the staff app's `webapp/routes/commerce-core.js`; the local harness shares that implementation through `prepared-commerce/service.mjs`. Its API contract, staging infrastructure, current integration verification and cron receipt are maintained in the private staff-app repository under `docs/commerce/`. Website preview source remains in this repository's `commerce-preview/`. Company rate evidence and the approval packet are kept in private staff-app documentation, not copied into this public website repository.
 
 Browser proof and screenshots are saved in:
 
@@ -46,13 +52,12 @@ Browser proof and screenshots are saved in:
 
 ## Still needed for launch
 
-1. Company confirmation of the four exact variants, tax-inclusive prices, tax treatment, online stock, order limits and actual product photos/identifiers.
+1. Company confirmation of the **two Hardwood variants**: exact construction/dimensions, tax-inclusive prices, selling entity and tax treatment, allocated online stock, order limits and actual product photographs/identifiers. Marine remains held and needs no approval to finish the initial Hardwood launch.
 2. Actual Kerala serviceable PIN codes, freight and arrival windows, unloading, damage, cancellation and refund terms. The commercial review is in `docs/commerce-launch-review.md`.
-3. ICICI activation, official technical specifications, credentials, UAT and written commercial terms. The bank's **E099605724** acknowledgement does not establish API access or zero total fees.
-4. The actual bank adapter, staging D1 and authenticated staff-app integration, production notification transport/expiry scheduling and final launch checks. The tested local service provides the order foundation; it does not yet implement these production connections, partial fulfilment or partial bank refunds.
+3. ICICI activation, official payment/callback/status/refund specifications, credentials, UAT and approved written commercial terms. The existing bank acknowledgement does not establish API access or zero total fees.
+4. The real payment endpoint/bank adapter and production launch integration, including the production ledger, reviewed role grants, expiry configuration, controlled commerce-email delivery review and final end-to-end payment/reconciliation/refund checks. Staging D1, authenticated staff integration, the notification adapter and scheduled staging expiry are already implemented and verified. Partial fulfilment and partial bank refunds are not implemented by the synthetic full-refund rehearsal.
 5. Publish only approved purchasable products, verify page/checkout/feed parity, then submit to Merchant Center and await review. The prepared exporter has not submitted anything.
-6. Google Business case **1-6734000040756** remains awaiting the verification route/support response and authorised on-site verification.
-7. Verified commercial-use wood-grain photographs for **Melia dubia, Neem, Sal and Kadam**. Botanical references remain available. The completed search does not prove no suitable source exists elsewhere.
-8. Complete post-release reporting periods for meaningful search/enquiry comparisons. The daily monitoring automation is already active; current dated findings are in `docs/commerce-preparation-seo-image-check-2026-09-07.md`.
 
-An MCQ was asked about preparing proposed online prices from the current staff selling rate card versus separate online prices or holding launch. Until the answer and subsequent price approval, no historical quoting rate is promoted to a live retail offer.
+Separate from the Hardwood checkout launch: Google Business still needs an available verification route and authorised on-site participation; natural wood-grain references for **Melia dubia, Neem, Sal and Kadam** need verified samples or commercial rights; and meaningful search/enquiry comparisons need complete reporting periods. Existing botanical references remain available. These do not reopen the already completed public imagery, navigation or sitemap work. Current dated search findings are in `docs/commerce-preparation-seo-image-check-2026-09-07.md`.
+
+Current rate evidence has been prepared privately for owner review. No stored reference rate is promoted to a live retail offer without explicit commercial approval.

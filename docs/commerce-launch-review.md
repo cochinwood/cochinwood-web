@@ -6,15 +6,23 @@ Prepared 7 September 2026. This is an internal review document, not published cu
 
 Selected standard plywood sheets, Kerala delivery initially, with custom/bulk/export orders remaining quotations. Commercial/packing plywood is excluded from the proposed online catalogue. Investigate the existing ICICI merchant UPI relationship first. Google Pay can be a customer UPI option only through the bank-supported flow. No fees, bank activation or live checkout are represented as approved.
 
-The four proposed options are Premium Hardwood Gurjan BWR (MUF), 8 × 4 ft, in 12 mm and 18 mm, and Premium Marine Gurjan BWP (PF), 8 × 4 ft, in 12 mm and 18 mm. Exact finished dimensions, tolerances and grade/certification claims need confirmation for each sold variant.
+The initial proposed purchase options are **Premium Hardwood, nominal 8 × 4 ft, in 12 mm and 18 mm**. The proposed Gurjan BWR (MUF) construction, exact finished dimensions, tolerances and any grade/certification claims still need confirmation for these sold variants.
+
+**Both Marine variants are held inactive until their exact core construction is confirmed.** They are excluded from the actual shop selection and future Merchant export. No Marine price, stock or photograph approval is required for the initial Hardwood launch. The separate synthetic four-variant fixture remains solely for test coverage.
+
+## Implementation status
+
+**Build 597 is deployed and verified in the authenticated staff staging app, including the corrected catalogue approval labels.** The isolated remote D1 ledger, staff identity and role integration, audited assignment, immutable order/price snapshots, stock reservations, scheduled staging expiry and durable notification adapter are implemented. Staging suppresses real email and cannot accept real payments.
+
+The customer shop remains a local preview. The actual ICICI payment endpoint and UAT, production commerce configuration, controlled production email review and final public launch verification remain pending. A synthetic paid/refunded status is not a bank transaction or approval of commercial terms.
 
 ## Company inputs needed
 
 | Input | Review decision / value required | Current configuration |
 |---|---|---|
-| Exact four launch variants | Confirm identities, finished dimensions and tolerances, face/core/bond and evidence for any claims | Proposed; identity approval false |
-| Selling price | Tax-inclusive INR per sheet for each variant | Blank; historical quote rates have not been copied |
-| Tax | Approved tax treatment and rate; freight treatment and invoice requirements | Blank |
+| Two Hardwood launch variants | Confirm identities, finished dimensions and tolerances, face/core/bond and evidence for any claims | Two active proposals; identity approval false; Marine held |
+| Selling price | Approved tax-inclusive INR per sheet for 12 mm and 18 mm Hardwood | Blank; current reference-rate evidence is maintained privately and is not an approved online price |
+| Tax and seller | Confirm legal selling/invoice entity, tax treatment and rate, freight treatment and invoice requirements | Awaiting company approval |
 | Stock | Sheets reserved for online orders; restocking responsibility | Blank |
 | Quantity limits | Minimum and maximum per variant; mixed basket limits | Blank |
 | Exact product imagery | Photographs of the actual sold variant, with commercial rights | Pending; preview uses existing family images only |
@@ -25,7 +33,7 @@ The four proposed options are Premium Hardwood Gurjan BWR (MUF), 8 × 4 ft, in 1
 | Damage handling | What customers record at delivery, how to report, resolution process | Draft awaiting company terms |
 | Cancellation/refunds | Permitted cancellation stage, refund eligibility, times and costs | Draft awaiting company terms |
 
-Edit `commerce-preview/config/catalogue.proposed.json` after review, including approver, date and configuration version. Use `python tools/prepare_commerce.py` to regenerate the readable review and readiness report. Null means unknown. Zero freight must be an explicit free-delivery decision, not a missing value.
+The company approval packet and detailed rate/source evidence are maintained in the private staff-app documentation. Keep those commercial details out of this public repository until an approved customer offer is ready. After review, update `commerce-preview/config/catalogue.proposed.json` with the approved offer values, approver, date and configuration version. Use `python tools/prepare_commerce.py` to regenerate the readable review and readiness report. Null means unknown. Zero freight must be an explicit free-delivery decision, not a missing value.
 
 ## Customer policy copy structure to complete
 
@@ -45,7 +53,7 @@ These structures are not legal advice or approved policy language. Final online 
 
 `tools/prepare_commerce.py` produces an internal HTML review and JSON readiness report. With `--release`, it can generate local XML/TSV feed and matching Product/Offer JSON only when all company, image, policy, payment and checkout review gates pass. It never submits to Google. Synthetic fixtures always fail the release gate, even if other flags are changed to approved. A failed run removes stale feed artifacts in its specified output folder.
 
-The feed and structured offers share the same catalogue records. Prices use integer paise and INR. Minimum purchasable quantities are reflected in both the title and total price. Availability uses allocated stock relative to that minimum. The feed's `kerala-approved-postcodes` shipping label requires corresponding reviewed Merchant Center shipping settings; a label by itself does not enforce delivery restrictions.
+The feed and structured offers share the same active catalogue records. The initial export scope is the **two Hardwood variants only**; held Marine records remain excluded. Prices use integer paise and INR. Minimum purchasable quantities are reflected in both the title and total price. Availability uses allocated stock relative to that minimum. The feed's `kerala-approved-postcodes` shipping label requires corresponding reviewed Merchant Center shipping settings; a label by itself does not enforce delivery restrictions.
 
 The exporter evaluates a reviewed configuration; it is not evidence that a bank or Google approved the account. Production `checkout_verified`, `landing_pages_verified`, `shipping_verified` and `returns_verified` must be backed by actual launch checks. Product URLs still need to be published as real buyable pages and compared against the feed at launch.
 
@@ -53,6 +61,6 @@ Primary references reviewed 7 September 2026: [Google product data specification
 
 ## Bank and account dependencies
 
-ICICI acknowledged the authorised request under **E099605724** on 6 September 2026 at 22:12 IST. That message is an acknowledgement only; no API activation, official schemas, test credentials or written fees were supplied. Keep real payment implementation disabled until those are received and tested.
+ICICI has acknowledged the authorised request. The correspondence and reference are recorded privately. An acknowledgement alone does not supply API activation, official schemas, test credentials or written charges. The real payment adapter must be implemented against the bank's actual contract, pass UAT and satisfy the approved terms before production payments are enabled.
 
-Google Business case **1-6734000040756** remains separate from checkout. The authorised follow-up was sent; verification still needs Google's route to become available and the required authorised on-site business verification.
+Google Business verification remains separate from checkout. The authorised follow-up is already sent under the existing support case; verification still needs Google's route to become available and the required authorised on-site participation. Existing sitemap submissions and the Merchant business-address correction are complete; do not repeat them as launch blockers. Merchant offer submission waits for the approved, functioning purchase pages and checkout, and Google controls its later review outcome.
