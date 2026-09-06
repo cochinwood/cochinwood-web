@@ -59,6 +59,29 @@ class LocationGuideTests(unittest.TestCase):
         self.assertIn('Tamil Nadu · India', output)
         self.assertIn('United Arab Emirates', output)
 
+    def test_owned_blog_and_resource_replacements_keep_their_layout_sizes(self):
+        from html import escape
+        from unittest.mock import patch
+        approved = {'src': '/files/test/approved.webp', 'alt': 'Approved material image'}
+        hint = '(max-width: 560px) calc(100vw - 48px), 615px'
+        for page in ('/blogs', '/resources'):
+            for picture, sizes in ((False, hint), (True, hint), (False, None)):
+                with self.subTest(page=page, picture=picture, sizes=sizes):
+                    old = '<img src="/old.webp"' + (f' sizes="{hint}"' if sizes is not None else '') + '>'
+                    if picture:
+                        old = '<picture><source srcset="/old-small.webp">' + old + '</picture>'
+                    source = '<a href="/blogs/post/approved">' + old + '<b>Retained article title</b></a>'
+                    calls = []
+                    def render(item, **options):
+                        calls.append(options)
+                        return '<img src="' + item['src'] + '" sizes="' + escape(options.get('sizes', 'default-size'), quote=True) + '">'
+                    with patch('editorial_media.owner_image', return_value=approved):
+                        output = enhance_editorial_media(source, page, render, lambda p: p)
+                    self.assertEqual(calls, [{'sizes': hint}] if sizes is not None else [{}])
+                    self.assertIn('sizes="' + (hint if sizes is not None else 'default-size') + '"', output)
+                    self.assertIn('<b>Retained article title</b>', output)
+                    self.assertIn('href="/blogs/post/approved"', output)
+
 
 if __name__ == '__main__':
     unittest.main()

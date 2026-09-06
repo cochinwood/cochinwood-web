@@ -231,7 +231,11 @@ def enhance_editorial_media(body, path, image, link):
             continue
         visual = next((n for n in tree.nodes if n.tag in ('picture', 'img') and anchor.contains(n)), None)
         if visual:
-            replacements.append((visual.start, visual.end, image(approved)))
+            original_image = visual if visual.tag == 'img' else next(
+                (n for n in tree.nodes if n.tag == 'img' and visual.contains(n)), None)
+            sizes = original_image.attrs.get('sizes') if original_image else None
+            replacement = image(approved, sizes=sizes) if sizes is not None else image(approved)
+            replacements.append((visual.start, visual.end, replacement))
     for start, end, replacement in sorted(replacements, reverse=True):
         body = body[:start] + replacement + body[end:]
     return body + '<!-- data-editorial-pass="1" -->'
