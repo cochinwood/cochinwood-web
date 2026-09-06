@@ -214,6 +214,9 @@ def normalize_page_hero(body: str, path: str, breadcrumb_html: str = '') -> tupl
                   + '<div class="cw-page-hero__heading">' + kicker + title + '</div>'
                   + image + '<div class="cw-page-hero__support">' + _clean(supporting)
                   + _clean(extras) + '</div></div></' + outer_tag + '>')
+    # Removed hero nodes leave indentation-only lines in this new markup.
+    # Clean only the assembled hero; the original article body stays untouched.
+    normalized = re.sub(r'(?m)^[ \t]+$', '', normalized)
     if contact:
         quote = hero.parent
         while quote and quote.attrs.get('id') != 'quote':
