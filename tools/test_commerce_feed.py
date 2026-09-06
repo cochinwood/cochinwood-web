@@ -23,6 +23,17 @@ def approved_fixture():
 
 
 class MerchantPreparationTests(unittest.TestCase):
+    def test_held_unapproved_marine_variants_cannot_enter_feed(self):
+        c = approved_fixture()
+        for p in c['products']:
+            if p['staff_product_key'] == 'prem_marine_gurjan':
+                p.update(active=False, product_identity_approved=False, unit_price_paise=None,
+                         stock=None, actual_product_photo_url=None, image_approved=False)
+        self.assertEqual(issues(c), [])
+        offered, _ = records(c)
+        self.assertEqual(len(offered), 2)
+        self.assertTrue(all(row['id'].startswith('prem_hw_gurjan') for row in offered))
+
     def test_real_configuration_refuses_missing_commercial_values(self):
         c = json.loads((ROOT/'commerce-preview/config/catalogue.proposed.json').read_text(encoding='utf-8'))
         fields = {i['field'] for i in issues(c)}

@@ -91,86 +91,6 @@
       "required": "Approved exact-product photograph, not a generic preview"
     },
     {
-      "field": "products.prem_marine_gurjan_12.identity",
-      "required": "Exact product identity approved"
-    },
-    {
-      "field": "products.prem_marine_gurjan_12.dimensions",
-      "required": "Confirmed finished dimensions"
-    },
-    {
-      "field": "products.prem_marine_gurjan_12.tolerance_mm",
-      "required": "Confirmed dimensional tolerance"
-    },
-    {
-      "field": "products.prem_marine_gurjan_12.unit_price_paise",
-      "required": "Positive tax-inclusive price in paise"
-    },
-    {
-      "field": "products.prem_marine_gurjan_12.stock",
-      "required": "Actual stock allocated to online sales, within supported limits"
-    },
-    {
-      "field": "products.prem_marine_gurjan_12.quantity_limits",
-      "required": "Approved minimum and maximum sheet quantity"
-    },
-    {
-      "field": "products.prem_marine_gurjan_12.identifiers",
-      "required": "Review real GTIN/MPN; never invent identifiers"
-    },
-    {
-      "field": "products.prem_marine_gurjan_12.identifier_exists",
-      "required": "Confirm identifiers are not assigned when absent"
-    },
-    {
-      "field": "products.prem_marine_gurjan_12.product_url",
-      "required": "Live purchasable product URL on company domain"
-    },
-    {
-      "field": "products.prem_marine_gurjan_12.actual_product_photo_url",
-      "required": "Approved exact-product photograph, not a generic preview"
-    },
-    {
-      "field": "products.prem_marine_gurjan_18.identity",
-      "required": "Exact product identity approved"
-    },
-    {
-      "field": "products.prem_marine_gurjan_18.dimensions",
-      "required": "Confirmed finished dimensions"
-    },
-    {
-      "field": "products.prem_marine_gurjan_18.tolerance_mm",
-      "required": "Confirmed dimensional tolerance"
-    },
-    {
-      "field": "products.prem_marine_gurjan_18.unit_price_paise",
-      "required": "Positive tax-inclusive price in paise"
-    },
-    {
-      "field": "products.prem_marine_gurjan_18.stock",
-      "required": "Actual stock allocated to online sales, within supported limits"
-    },
-    {
-      "field": "products.prem_marine_gurjan_18.quantity_limits",
-      "required": "Approved minimum and maximum sheet quantity"
-    },
-    {
-      "field": "products.prem_marine_gurjan_18.identifiers",
-      "required": "Review real GTIN/MPN; never invent identifiers"
-    },
-    {
-      "field": "products.prem_marine_gurjan_18.identifier_exists",
-      "required": "Confirm identifiers are not assigned when absent"
-    },
-    {
-      "field": "products.prem_marine_gurjan_18.product_url",
-      "required": "Live purchasable product URL on company domain"
-    },
-    {
-      "field": "products.prem_marine_gurjan_18.actual_product_photo_url",
-      "required": "Approved exact-product photograph, not a generic preview"
-    },
-    {
       "field": "delivery.approval",
       "required": "Approved Kerala-only delivery rules"
     },
@@ -243,8 +163,8 @@
       "required": "Recorded live launch verification"
     }
   ],
-  "config_sha256": "5f7b10c5a21421f016d70e00c54de8480a4b191ecaa57ba5ba58c87b4390064b",
-  "version": "proposal-2026-09-07",
+  "config_sha256": "84762141d4eb6980f6af7377429a6f91a339a49e7ace331fe8ec75bb832083c0",
+  "version": "proposal-2026-09-07-marine-on-hold",
   "synthetic": false,
   "proposed_variants": 4
 }

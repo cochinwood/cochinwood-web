@@ -98,12 +98,16 @@ def issues(config, release=True):
         need(isinstance(sku, str) and bool(re.fullmatch(r'[a-z0-9_]{3,50}', sku)) and sku not in seen,
              prefix + '.sku', 'Unique stable SKU, up to 50 characters')
         if isinstance(sku, str): seen.add(sku)
+        need(type(p.get('active')) is bool, prefix + '.active', 'Explicit active or inactive selection')
+        # Held variants remain documented internally but cannot enter the release
+        # feed or prevent otherwise approved active products from being reviewed.
+        if p.get('active') is False:
+            continue
         need(p.get('staff_product_key') in FAMILIES, prefix + '.staff_product_key', 'Approved proposed product family; no commercial/packing')
         need(p.get('product_identity_approved') is True, prefix + '.identity', 'Exact product identity approved')
         need(words(p.get('name'), 100) and words(p.get('description'), 5000) and words(p.get('brand'), 70),
              prefix + '.copy', 'Product name, description and genuine brand')
         need(words(p.get('size'), 100), prefix + '.size', 'Confirmed sheet size')
-        need(type(p.get('active')) is bool, prefix + '.active', 'Explicit active or inactive selection')
         need(p.get('thickness_mm') in (12, 18) and type(p.get('thickness_mm')) is int
              and sku == f"{p.get('staff_product_key')}_{p.get('thickness_mm')}",
              prefix + '.thickness_mm', 'Selected 12 mm or 18 mm variant with matching SKU')
@@ -227,7 +231,7 @@ def feed_xml(rows):
 def review_html(config, errors):
     esc = lambda v: html.escape(str(v if v is not None else 'Needs confirmation'))
     rows = ''.join('<tr>' + ''.join(f'<td>{esc(v)}</td>' for v in (
-        p['sku'], p['name'], f"{p['size']} / {p['thickness_mm']} mm",
+        p['sku'], p['name'], 'Proposed for launch' if p.get('active') is True else p.get('purchase_hold_reason', 'Unavailable for purchase'), f"{p['size']} / {p['thickness_mm']} mm",
         '₹' + money(p['unit_price_paise']) if integer(p.get('unit_price_paise'), 1) else None,
         p.get('stock'), p.get('min_quantity'), p.get('max_quantity'))) + '</tr>' for p in config['products'])
     blockers = ''.join(f"<li><strong>{esc(e['field'])}</strong><br>{esc(e['required'])}</li>" for e in errors)
@@ -237,7 +241,7 @@ def review_html(config, errors):
 <main><nav><a href="/commerce-preview/">Shop preview</a><a href="/commerce-preview/staff.html">Staff preview</a></nav>
 <h1>Review the online catalogue.</h1><p class="notice">Internal preparation. Purchasing and Google Shopping are disabled. Blank fields need company confirmation.</p>
 <p>Premium Hardwood and Premium Marine plywood only. Proposed 8 × 4 ft sheets in 12 mm and 18 mm. Kerala delivery initially. Custom, bulk and export enquiries keep the quotation journey.</p>
-<div class="table" role="region" aria-label="Proposed catalogue" tabindex="0"><table><thead><tr><th>SKU</th><th>Product</th><th>Proposed size</th><th>Price including tax</th><th>Online stock</th><th>Minimum</th><th>Maximum</th></tr></thead><tbody>''' + rows + '''</tbody></table></div>
+<div class="table" role="region" aria-label="Proposed catalogue" tabindex="0"><table><thead><tr><th>SKU</th><th>Product</th><th>Selection status</th><th>Proposed size</th><th>Price including tax</th><th>Online stock</th><th>Minimum</th><th>Maximum</th></tr></thead><tbody>''' + rows + '''</tbody></table></div>
 <h2>Delivery and service terms</h2><p>Confirm exact postcodes, delivery charges by quantity, delivery windows, unloading responsibility, damage reporting, cancellation and refunds. A Kerala label alone does not establish serviceability.</p>
 <h2>Launch requirements</h2><ul>''' + blockers + '''</ul><p>This checklist evaluates the supplied configuration. It does not certify bank activation, legal terms or Google's approval.</p></main></html>'''
 
