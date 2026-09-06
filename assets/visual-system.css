@@ -1,6 +1,18 @@
 /* Final shared visual layer: established Bree Serif / Poppins brand, 6 Sep 2026.
    Append after all legacy components. No content, navigation or form behavior changes. */
 :root{--cw-visual-paper:#FAF9F7;--cw-visual-forest:#1B4332;--cw-visual-teal:#007A5E;--cw-visual-line:#dce4dd;--cw-visual-muted:#526057}
+.cw-hero--light h1 em,.cw-section__head h2 em{font-style:normal}
+.cw-hero--light h1 em,.cw-section__head h2 em{color:#007A5E}
+.cw-media-caption{font-size:.76rem!important;line-height:1.6;color:#667168;margin:18px 0 0}
+.cw-step{display:block;font-size:.76rem;letter-spacing:.08em;color:#007A5E;margin-bottom:10px}
+.cw-band .cw-eyebrow{color:#bbd8c6}
+.cw-contact-main .cw-form{margin-top:0}
+.cw-contact-aside>h2,.cw-contact-aside>p,.cw-contact-aside>hr{margin-left:24px;margin-right:24px}
+.cw-contact-aside>h2{margin-top:26px}
+.cw-contact-aside>p:last-child{margin-bottom:28px}
+.cw-export-byline{margin:24px 0;font-size:.78rem}
+.cw-page>p,.cw-page>h2,.cw-page>ul{max-width:1184px;margin-left:auto;margin-right:auto}
+.cw-hero--light .cwg__note{background:transparent;border:0;padding:0;font-size:.85rem}
 body{background:var(--cw-visual-paper);color:#141414}
 .cw-wrap{max-width:1240px;padding-inline:28px}
 .cw-hd{background:#fff;border-bottom:1px solid #e6ebe7;backdrop-filter:none}

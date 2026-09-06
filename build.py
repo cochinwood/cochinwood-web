@@ -571,10 +571,12 @@ def header(path="/"):
         # mark the section the current page belongs to
         section = p.rstrip("/")
         cur = path == p or (section and (path == section or path.startswith(section + "/")))
+        if p == "/products" and path.strip("/") in {s for s, _n, _d in PRODUCTS}:
+            cur = True
         aria = ' aria-current="page"' if cur else ""
         links += f'<a href="{href}"{aria}>{label}</a>\n'
     return f'''<header class="cw-hd"><div class="cw-wrap cw-hd__in">
-  <a class="cw-hd__brand" href="{u('/')}"><img src="{u('/assets/icons/logo-80.png')}" alt="Cochin Wood Industries logo" width="40" height="40" decoding="async"><span style="display:block"><b>Cochin Wood Industries</b><span>Plywood Manufacturer &middot; Kochi</span></span></a>
+  <a class="cw-hd__brand" href="{u('/')}"><img src="{u('/assets/icons/logo-80.png')}" alt="Cochin Wood Industries logo" width="80" height="80" decoding="async"><span class="cw-hd__wordmark"><b>Cochin Wood</b><span>Industries</span></span></a>
   <button class="cw-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav">&#9776;</button>
   <nav class="cw-nav" id="nav" aria-label="Primary">
     {links}<a class="cw-cta" href="{u('/contact')}">Get a quote</a>
@@ -609,7 +611,7 @@ def footer():
     # carry; anything further needs a trim first, not another entry.
     return f'''<footer class="cw-ft"><div class="cw-wrap">
   <div class="cw-ft__cols">
-    <div class="cw-ft__brand"><b>Cochin Wood Industries</b><p>Plywood manufacturer in Kochi, Kerala — packing, Okoume and shuttering ply, shipped across India and exported. Part of a group manufacturing in Perumbavoor since 1986.</p></div>
+    <div class="cw-ft__brand"><a class="cw-hd__brand" href="{u('/')}"><img src="{u('/assets/icons/logo-80.png')}" alt="" width="80" height="80" loading="lazy"><span class="cw-hd__wordmark"><b>Cochin Wood</b><span>Industries</span></span></a><p>Plywood, board and timber from Kerala. Made to specification, for India and export.</p><p>Part of a group manufacturing in Perumbavoor since 1986.</p></div>
     <nav aria-label="Products"><p class="cw-ft__h">Products</p>{prod}</nav>
     <nav aria-label="Explore"><p class="cw-ft__h">Explore</p><a href="{u('/products')}">All products</a><a href="{u(WOOD_PATH)}">{WOOD_LABEL}</a><a href="{u('/resources')}">Resources</a><a href="{u('/blogs/post/case-studies')}">Case studies</a><a href="{u('/industries')}">Industries</a><a href="{u('/export')}">Export</a><a href="{u('/about')}">About</a><a href="{u('/company-verification')}">Company verification</a><a href="{u('/faq')}">FAQ</a></nav>
     <nav aria-label="Contact"><p class="cw-ft__h">Contact</p><a href="tel:{CONTACT['phone_href']}">{CONTACT['phone_disp']}</a><a href="mailto:{CONTACT['email']}">{CONTACT['email']}</a><a href="https://maps.google.com/?q=Thoppilan+Building+Vattakattupady+Rayamangalam+Perumbavoor+Kerala+683542" target="_blank" rel="noopener">{CONTACT['addr']}</a><a href="{INSTAGRAM_URL}" target="_blank" rel="noopener">Instagram</a></nav>
@@ -951,85 +953,113 @@ def git_date(relpath):
         _gitdate_cache[relpath] = out or datetime.date.today().isoformat()
     return _gitdate_cache[relpath]
 
+# ---------------- SHARED VISUAL MEDIA ----------------
+VISUAL_MEDIA = json.load(open(os.path.join(ROOT, "content", "visual-media.json"), encoding="utf-8"))
+PRODUCT_HERO.update({slug: item["src"] for slug, item in VISUAL_MEDIA["products"].items()})
+
+def visual_image(item, *, eager=False):
+    """Resolve curated media through the same measured, registered asset pipeline.
+
+    An explicitly selected image is a build requirement, not an optional
+    placeholder: fail rather than quietly publish another image-free layout.
+    """
+    tag = (f'<img src="{esc(item["src"])}" alt="{esc(item["alt"])}" '
+           + ('loading="eager" fetchpriority="high" ' if eager else 'loading="lazy" ')
+           + 'decoding="async">')
+    resolved = prune_images(tag)
+    if not resolved:
+        raise SystemExit(f"Required visual media is unavailable: {item['src']}")
+    return rewrite_links(resolved)
+
+def visual_product_card(slug, level=3):
+    _s, name, description = next(p for p in PRODUCTS if p[0] == slug)
+    photo = visual_image(VISUAL_MEDIA["products"][slug])
+    caption = (f'<p class="cw-media-caption">{esc(VISUAL_MEDIA["products"][slug]["caption"])}</p>'
+               if VISUAL_MEDIA["products"][slug].get("caption") else "")
+    return (f'<a class="cw-product-card" href="{u("/"+slug)}">'
+            f'<div class="cw-product-card__image">{photo}</div>'
+            f'<div class="cw-product-card__body"><h{level}>{name}</h{level}>'
+            f'<p>{description}</p>{caption}<span class="cw-card__tag">Explore product &rarr;</span></div></a>')
+
 # ---------------- HOME ----------------
 def home():
-    # The nine cards sit inside the "Our plywood range" section, whose own <h2>
-    # is their heading -- so each card title is one level below it, not beside
-    # it. As <h2> they were 9 of the homepage's 16 H2s and buried the three that
-    # actually name sections.
-    cards = "".join(
-        f'<a class="cw-card" href="{u("/"+s)}"><h3>{n}</h3><p>{d}</p><span class="cw-card__tag">View &rarr;</span></a>'
-        for s,n,d in PRODUCTS[:9])
-    # The H1 states what the company is; the slogan opens the lede. It was the
-    # other way round -- "Plywood, built to your spec." carried the whole
-    # heading weight of the homepage while the term the page is actually
-    # searched for sat in an eyebrow paragraph, which is not a heading at all.
-    body = f'''
-<section class="cw-hero"><div class="cw-wrap"><div class="cw-hero__layout"><div>
-  <h1>Plywood manufacturer in Kochi, Kerala</h1>
-  <p>Packing, Okoume and shuttering plywood, built to your spec. For delivery across India and export. Backed by a group manufacturing in Perumbavoor since 1986.</p>
-  <div class="cw-hero__cta"><a class="cw-btn cw-btn--p" href="{u('/contact')}">Request a quote</a><a class="cw-btn cw-btn--g" href="{u('/products')}">See the range</a></div>
-  <a class="cw-hero__proof" href="{u('/company-verification')}">Company details you can verify &rarr;</a>
-  </div><figure class="cw-hero__photo"><img src="{u(PRODUCT_HERO['packing-plywood'])}" width="1200" height="1200" alt="Packing plywood panels showing their layered edges" fetchpriority="high" decoding="async"><figcaption><a href="{u('/packing-plywood')}">Explore packing plywood &rarr;</a></figcaption></figure></div>
+    featured = ["packing-plywood", "okoume-plywood", "marine-plywood",
+                "film-faced-shuttering-plywood", "plywood-boxes-crates", "block-board-flush-doors"]
+    cards = "".join(visual_product_card(s) for s in featured)
+    applications = "".join(
+        f'<a class="cw-application-card" href="{u(item["href"])}">'
+        f'{visual_image(item)}<div class="cw-application-card__body"><h3>{esc(item["title"])}</h3>'
+        f'<p>{esc(item["description"])}</p><span class="cw-card__tag">Find the right material &rarr;</span></div></a>'
+        for item in VISUAL_MEDIA["applications"])
+    process = "".join(
+        f'<li class="cw-process-card">{visual_image(item)}<div class="cw-process-card__body">'
+        f'<span class="cw-step">0{i+1}</span><h3>{esc(item["title"])}</h3>'
+        f'<p>{esc(item["description"])}</p></div></li>'
+        for i, item in enumerate(VISUAL_MEDIA["process"]))
+    body = f'''<section class="cw-hero cw-hero--light"><div class="cw-wrap">
+  <div class="cw-hero__layout"><div class="cw-hero__content">
+    <p class="cw-hero__ey">Plywood manufacturer · Kochi, Kerala</p>
+    <h1>Plywood, built to <em>your spec.</em></h1>
+    <p>Packing, interiors or construction. Find the right plywood, board and timber for your work — with specifications agreed before production.</p>
+    <div class="cw-hero__cta"><a class="cw-btn cw-btn--p" href="{u('/products')}">Explore our products &rarr;</a><a class="cw-btn cw-btn--g" href="{u('/contact#quote')}">Request a quote</a></div>
+    <a class="cw-hero__proof" href="{u('/about')}">Rooted in Kerala. Group manufacturing since 1986.</a>
+  </div><figure class="cw-hero__media">{visual_image(VISUAL_MEDIA['home_hero'], eager=True)}</figure></div>
   <div class="cw-hero__strip">
-    <div><b>40+ yrs</b><span>Group manufacturing since 1986</span></div>
-    <div><b>India + export</b><span>Domestic and overseas enquiries</span></div>
-    <div><b>To your spec</b><span>Grade, size and delivery agreed in writing</span></div>
+    <div><b>Since 1986</b><span>Our group's manufacturing heritage</span></div>
+    <div><b>Made to specification</b><span>Grade, thickness and finish agreed in writing</span></div>
+    <div><b>India &amp; export</b><span>Delivery planned around your destination</span></div>
   </div>
 </div></section>
-
-<section class="cw-sec"><div class="cw-wrap">
-  <h2 class="cw-sec__h">Our plywood range</h2>
-  <p class="cw-sec__lead">From bulk packing and Okoume panels to marine, shuttering and container-flooring plywood — sized, graded and pressed for the job.</p>
-  <div class="cw-grid">{cards}</div>
-  <p style="margin-top:24px"><a class="cw-card__tag" href="{u('/products')}">All 16 product lines &rarr;</a></p>
+<section class="cw-section"><div class="cw-wrap">
+  <div class="cw-section__head"><div><p class="cw-eyebrow">Our materials</p><h2>The right panel.<br><em>For every purpose.</em></h2></div><p>From a packing case to a finished interior, start with the application. We’ll help you choose the grade, dimensions and finish.</p></div>
+  <div class="cw-product-grid">{cards}</div>
+  <div class="cw-section__link"><a class="cw-btn cw-btn--g" href="{u('/products')}">View all 16 product lines &rarr;</a></div>
 </div></section>
-
-<section class="cw-sec cw-sec--soft"><div class="cw-wrap">
-  <h2 class="cw-sec__h">Why Cochin Wood</h2>
-  <div class="cw-feat">
-    <div><h3>Made to specification</h3><p>Thickness, grade, glue line and face veneer built to your order — not off-the-shelf approximations.</p></div>
-    <div><h3>Bulk &amp; export ready</h3><p>Container-load quantities, ISPM-15 packing and FOB Cochin pricing for overseas buyers.</p></div>
-    <div><h3>Group since 1986</h3><p>Four decades of plywood manufacturing behind every order, out of Perumbavoor and Kochi.</p></div>
-    <div><h3>Material guarantee</h3><p>Boil-proof and MR grades to IS 710 / IS 303, with test certificates and honest specs.</p></div>
-  </div>
+<section class="cw-section cw-section--soft"><div class="cw-wrap">
+  <div class="cw-section__head"><div><p class="cw-eyebrow">Built around your work</p><h2>Materials at work.</h2></div><p>Different jobs ask different things of wood. Explore the products suited to your industry.</p></div>
+  <div class="cw-application-grid">{applications}</div>
+  <p class="cw-media-caption">Illustrations of typical applications.</p>
 </div></section>
-
-<section class="cw-sec"><div class="cw-wrap">
-  <h2 class="cw-sec__h">Wood Encyclopedia</h2>
-  <p class="cw-sec__lead">A working reference to the species behind plywood, packing and timber — density, hardness, workability and use, independently researched and cross-checked, with sources on every page.</p>
-  <a class="cw-btn cw-btn--p" href="{u(WOOD_PATH)}" style="background:var(--cw-green-700)">Open the encyclopedia &rarr;</a>
+<section class="cw-section"><div class="cw-wrap">
+  <div class="cw-section__head"><div><p class="cw-eyebrow">From enquiry to delivery</p><h2>A clear process.<br><em>At every step.</em></h2></div><p>One conversation about your requirements, followed by a written specification, quote and delivery plan.</p></div>
+  <ol class="cw-process-grid">{process}</ol>
+  <p class="cw-media-caption">Process illustrations. The producing works and checks are confirmed for each order.</p>
 </div></section>
-
+<section class="cw-section cw-section--soft"><div class="cw-wrap cw-story">
+  <figure class="cw-story__media">{visual_image(VISUAL_MEDIA['encyclopedia_hero'])}</figure>
+  <div class="cw-story__content"><p class="cw-eyebrow">Know your material</p><h2>Good choices begin<br>with understanding wood.</h2><p>What changes when you choose Okoume, rubberwood or a denser hardwood core? Our Wood Encyclopedia brings together practical species notes, properties and cited research.</p><a class="cw-btn cw-btn--p" href="{u(WOOD_PATH)}">Explore the wood encyclopedia &rarr;</a><p class="cw-story__note"><a href="{u('/company-verification')}">Get to know Cochin Wood and verify our company details &rarr;</a></p></div>
+</div></section>
 <section class="cw-band"><div class="cw-wrap cw-band__in">
-  <div><h2>Tell us the grade, size and quantity.</h2><p>We'll quote within one business day — pan-India delivery or FOB Cochin for export.</p></div>
-  <a class="cw-btn cw-btn--p" href="{u('/contact')}">Request a quote</a>
+  <div><p class="cw-eyebrow">Let’s make it to specification</p><h2>What are you working on?</h2><p>Share your application, quantity and destination. We’ll reply within one business day.</p></div>
+  <a class="cw-btn cw-btn--p" href="{u('/contact#quote')}">Request a quote &rarr;</a>
 </div></section>'''
     write("index.html", base(
         "Plywood Manufacturer & Exporter in India | Cochin Wood",
         "Marine, shuttering, packing and Okoume plywood from the Cochin Wood group in Perumbavoor, Kerala — factory-direct, pan-India delivery and export.",
-        "/", body))
+        "/", body, body_class="cw-home"))
 
 # ---------------- PRODUCTS ----------------
 def products():
-    cards = "".join(
-        f'<a class="cw-card" href="{u("/"+s)}"><h2>{n}</h2><p>{d}</p><span class="cw-card__tag">View &rarr;</span></a>'
-        for s,n,d in PRODUCTS)
-    # Same swap as the homepage: the H1 names the page ("Plywood catalogue"),
-    # the label that used to be the eyebrow is gone and the old H1 opens the
-    # lede. The cards keep their <h2> here -- on this page they ARE the
-    # sections, sitting directly under the H1 with no section heading above
-    # them, which is not true of the homepage.
-    body = f'''
-<section class="cw-sec"><div class="cw-wrap">
-  <h1 class="cw-sec__h" style="font-size:clamp(1.9rem,4vw,2.8rem)">Plywood catalogue — marine, shuttering, packing and more</h1>
-  <p class="cw-sec__lead">Plywood, board &amp; timber. Sixteen product lines, each manufactured to Cochin Wood specifications. Tell us the grade, thickness and quantity and we'll quote.</p>
-  <div class="cw-grid">{cards}</div>
-</div></section>
-<section class="cw-band"><div class="cw-wrap cw-band__in">
-  <div><h2>Not sure which grade you need?</h2><p>Send the application and destination — we'll recommend the panel and price it.</p></div>
-  <a class="cw-btn cw-btn--p" href="{u('/contact')}">Request a quote</a>
-</div></section>'''
+    groups = [
+        ("packing", "Packing & logistics", "Panels, cases and timber made for protecting goods in transit.",
+         ["packing-plywood", "okoume-plywood", "rubberwood-plywood", "plywood-boxes-crates", "plywood-pallets", "plywood-cable-drums"]),
+        ("construction", "Construction & demanding use", "Choose the glue line, surface and core for the conditions the panel will face.",
+         ["marine-plywood", "film-faced-shuttering-plywood", "container-flooring-plywood", "bwr-hardwood-plywood", "chequered-anti-skid-plywood"]),
+        ("interiors", "Interiors, joinery & timber", "Materials for furniture, shutters, partitions and solid-wood work.",
+         ["commercial-plywood", "block-board-flush-doors", "finger-joint-board", "particle-board", "sawn-timber"])]
+    sections = "".join(
+        f'<section class="cw-section" id="{key}"><div class="cw-wrap"><div class="cw-section__head">'
+        f'<div><p class="cw-eyebrow">The collection</p><h2>{label}</h2></div><p>{intro}</p></div>'
+        f'<div class="cw-product-grid">{"".join(visual_product_card(slug) for slug in slugs)}</div></div></section>'
+        for key, label, intro, slugs in groups)
+    jumps = "".join(f'<a href="#{key}">{label} &darr;</a>' for key, label, _intro, _slugs in groups)
+    body = f'''<section class="cw-hero cw-hero--light"><div class="cw-wrap"><div class="cw-hero__layout">
+  <div class="cw-hero__content"><p class="cw-hero__ey">Plywood, board &amp; timber</p><h1>The full <em>catalogue.</em></h1><p>Sixteen product lines. One place to choose the material, grade and finish your work needs.</p><div class="cw-hero__cta"><a class="cw-btn cw-btn--p" href="#packing">Browse the range &darr;</a><a class="cw-btn cw-btn--g" href="{u('/contact#quote')}">Help me choose</a></div></div>
+  <figure class="cw-hero__media">{visual_image(VISUAL_MEDIA['catalogue_hero'], eager=True)}</figure>
+</div></div></section>
+<nav class="cw-collection-nav" aria-label="Product families"><div class="cw-wrap">{jumps}</div></nav>
+{sections}
+<section class="cw-band"><div class="cw-wrap cw-band__in"><div><h2>Start with what you’re making.</h2><p>Send the application and destination. We’ll help you choose a suitable material.</p></div><a class="cw-btn cw-btn--p" href="{u('/contact#quote')}">Ask our desk &rarr;</a></div></section>'''
     # Every one of the sixteen product pages describes itself as a Product and the
     # page that indexes them said nothing at all, so nothing in the markup joined
     # them into one catalogue. Names and URLs only, in the editorial order the
@@ -1310,18 +1340,18 @@ def contact():
     # The registration line is styled inline because .cw-note is only dressed by `.cw-form .cw-note`
     # and this paragraph sits outside the form.
     body = f'''
-<section class="cw-sec" id="quote"><div class="cw-wrap" style="max-width:820px">
-  <p class="cw-hero__ey" style="color:var(--cw-green-600)">Get in touch</p>
-  <h1 class="cw-sec__h" style="font-size:clamp(1.9rem,4vw,2.8rem)">Request a quote</h1>
-  <p class="cw-sec__lead">Tell us what you need and where it should arrive. Share the specifications you know, or ask our desk to help you choose.</p>
-  <div class="cw-feat" style="margin-bottom:8px">
-    <div><h2>WhatsApp / Phone</h2><p><a href="tel:{CONTACT['phone_href']}">{CONTACT['phone_disp']}</a></p></div>
-    <div><h2>Email</h2><p><a href="mailto:{CONTACT['email']}">{CONTACT['email']}</a></p></div>
-    <div><h2>Principal place of business</h2><p>{CONTACT['addr']}</p></div>
-  </div>
-  <p class="cw-note" style="margin:0 0 18px;font-size:.82rem;color:var(--cw-ink-600,#4A4A4A)">Cochin Wood Industries Private Limited &middot; GSTIN {GSTIN} &middot; CIN {CIN} &middot; <a href="{u('/company-verification')}">Verify our registrations</a></p>
-  <p class="cw-note">The address above identifies the legal seller. For factory visits or collection, contact the desk to confirm the works location and loading instructions.</p>
-  {form}
+<section class="cw-section" id="quote"><div class="cw-wrap">
+  <div class="cw-section__head"><div><p class="cw-eyebrow">Talk to our desk</p><h1 class="cw-sec__h">Let’s build your quote.</h1></div><p>Tell us what you need and where it should arrive. Share the specifications you know, or ask us to help you choose.</p></div>
+  <div class="cw-contact-grid"><div class="cw-contact-main">{form}</div>
+  <aside class="cw-contact-aside" aria-label="Contact and company details">
+    <figure class="cw-hero__media">{visual_image(VISUAL_MEDIA['contact_hero'])}</figure>
+    <h2>Prefer a conversation?</h2><p>Our sales desk can help with the product, specification and delivery plan.</p>
+    <p><a href="tel:{CONTACT['phone_href']}">{CONTACT['phone_disp']}</a><br><a href="mailto:{CONTACT['email']}">{CONTACT['email']}</a></p>
+    <p class="cw-note">We reply within one business day.</p>
+    <hr><h2>Company details</h2><p><strong>Principal place of business</strong><br>{CONTACT['addr']}</p>
+    <p class="cw-note">Cochin Wood Industries Private Limited<br>GSTIN {GSTIN}<br>CIN {CIN}<br><a href="{u('/company-verification')}">Verify our registrations &rarr;</a></p>
+    <p class="cw-note">For factory visits or collection, contact the desk to confirm the producing works, appointment and loading instructions.</p>
+  </aside></div>
 </div></section>'''
     write("contact/index.html", base(
         "Request a Plywood Quote · Cochin Wood Industries",
@@ -1514,6 +1544,15 @@ def encyclopedia():
     hub_src = os.path.join("content", "encyclopedia", "_hub.html")
     title, desc, body = enc_extract(os.path.join(ROOT, hub_src))
     body = enc_rewrite(_hub_add_cards(body, wave3))
+    # Give the reference hub a material-led introduction while keeping every
+    # researched species entry, its links and canonical address intact.
+    hub_hero = f'''<section class="cw-hero cw-hero--light"><div class="cw-wrap"><div class="cw-hero__layout">
+      <div class="cw-hero__content"><p class="cw-hero__ey">The Wood Encyclopedia</p><h1>Know the wood.<br><em>Choose with care.</em></h1><p>A practical reference to the species behind plywood, packing and timber. Compare properties, understand the trade-offs and follow the sources.</p><a class="cw-btn cw-btn--p" href="#species">Explore the species &darr;</a></div>
+      <figure class="cw-hero__media">{visual_image(VISUAL_MEDIA['encyclopedia_hero'], eager=True)}</figure>
+    </div></div></section>'''
+    body = re.sub(r'<header class="cwg__hero">.*?</header>', lambda _m: hub_hero, body, count=1, flags=re.S)
+    body = re.sub(r'<div class="cwg__container">\s*<div class="cwg__tldr">.*?</div>\s*</div>', '', body, count=1, flags=re.S)
+    body = body.replace('<article class="cwg__body">', '<article class="cwg__body" id="species">', 1)
     write(WOOD_PATH.strip("/") + "/index.html", src=hub_src,
           content=base(title, desc, WOOD_PATH, body, body_class="cw-encbody",
                        crumbs=[("Home", "/"), (WOOD_LABEL, None)]))
@@ -1635,7 +1674,12 @@ def build_content_pages():
         content = process_content(raw, slug)
         title = meta.get("title") or slug.replace("-", " ").title() + " | Cochin Wood Industries"
         desc  = meta.get("desc") or ""
-        body = f'<main class="cw-page"><div class="cw-wrap">{content}</div></main>'
+        # Composed fragments own their section containers. A second outer
+        # container used to indent their heroes and make every family look like
+        # a different site. Plain policy fragments keep a comfortable wrapper.
+        composed = re.search(r'class="[^"]*(?:cwp__container|cwg__container|cw__container|cwind-rb)', content)
+        inner = content if composed else f'<div class="cw-wrap">{content}</div>'
+        body = f'<main class="cw-page">{inner}</main>'
         pname = dict((s, n_) for s, n_, _ in PRODUCTS).get(slug)
         if pname:
             crumbs = [("Home", "/"), ("Products", "/products"), (pname, None)]
@@ -1757,11 +1801,8 @@ def build_about():
     if not parts: return 0
     meta = PAGE_META.get("about", {})
     faq_html, faq_ld = about_faq()
-    # The page opens on the "Our history" section label, so it carried no <h1> at
-    # all — the only page on the site without one. The heading is hidden rather
-    # than drawn so the layout is untouched.
-    h1 = '<h1 class="cw-sr-only">About Cochin Wood Industries</h1>'
-    body = (f'<main class="cw-page"><div class="cw-wrap">{h1}{"".join(parts)}</div>'
+    # The restored history fragment supplies the visible page heading.
+    body = (f'<main class="cw-page">{"".join(parts)}'
             f'{faq_html}</main>')
     write("about/index.html", src=os.path.join("content","pages","about-operation.html"), content=base(meta.get("title","About Cochin Wood Industries"),
           meta.get("desc",""), "/about", body, body_class="cw-contentpage",
@@ -1840,10 +1881,11 @@ def build_blog():
         return f'<a href="{u("/blogs/post/"+p["slug"])}"><b>{esc(t)}</b><span>{esc((p.get("desc") or "")[:120])}</span></a>'
     cities = [p for p in live if p["slug"].startswith("plywood-supply")]
     articles = [p for p in live if not p["slug"].startswith("plywood-supply")]
-    body = f'''<section class="cw-sec"><div class="cw-wrap">
-  <p class="cw-hero__ey" style="color:var(--cw-green-600)">Blog</p>
-  <h1 class="cw-sec__h" style="font-size:clamp(1.9rem,4vw,2.8rem)">Plywood guides, specs &amp; supply</h1>
-  <p class="cw-sec__lead">Field notes on grades, standards, export packing and city-by-city supply from the Cochin Wood desk.</p>
+    body = f'''<section class="cw-hero cw-hero--light"><div class="cw-wrap"><div class="cw-hero__layout">
+  <div class="cw-hero__content"><p class="cw-hero__ey">From the Cochin Wood desk</p><h1>Material knowledge.<br><em>Made practical.</em></h1><p>Field notes on plywood grades, standards, export packing and supply. Find a clear answer before you choose a panel.</p><a class="cw-btn cw-btn--p" href="#articles">Browse the guides &darr;</a></div>
+  <figure class="cw-hero__media">{visual_image(VISUAL_MEDIA['catalogue_hero'], eager=True)}</figure>
+</div></div></section>
+<section class="cw-sec" id="articles"><div class="cw-wrap">
   <div class="cw-blogtools">
     <label for="cw-blogsearch">Search {len(live)} posts</label>
     <input id="cw-blogsearch" type="search" autocomplete="off" placeholder="e.g. marine, ISPM-15, Kochi, IS 710">
@@ -1993,7 +2035,7 @@ def copy_referenced_files():
 # the new sha in here until the gate goes green carries whatever landed on
 # cf-live meanwhile into production unread.
 LIVE_REF_NAME = "origin/cf-live"                         # where the pin came from
-LIVE_SHA = "ab5656e283b68c9be36205f5b7890cdfd32576ca"    # Reviewed PR24: same 320 carried files, source 022c9280
+LIVE_SHA = "549ab430d24265f772b128c441d1225ece83aba0"    # Reviewed PR25: source 848117c6; carried media/root files unchanged
 LIVE_REF = LIVE_SHA                # what git is actually handed, so no fetch can move it
 LIVE_PIN = LIVE_REF_NAME + "@" + LIVE_SHA[:12]           # what the banner and dist/ record
 
@@ -2636,7 +2678,7 @@ def build_redirects():
 
 # ---------------- assets + meta ----------------
 # One request instead of five; order preserved so cascade behaviour is unchanged.
-CSS_BUNDLE = ["fonts.css", "site.css", "guide.css", "wood-enc.css", "shell.css", "components.css"]
+CSS_BUNDLE = ["fonts.css", "site.css", "guide.css", "wood-enc.css", "shell.css", "components.css", "visual-system.css"]
 
 def _css_fix_urls(css, name):
     """Resolve /files/... backgrounds; neutralise the ones with no source file."""

@@ -102,18 +102,20 @@ def hero(shared, d):
     Identical on all nine pages except for the four strings it interpolates.
     """
     acts = "".join(
-        f'<a class="cwp__btn{"" if primary else " cwp__btn--secondary"}" href="{href}">{label}</a>'
+        f'<a class="cw-btn cw-btn--{"p" if primary else "g"}" href="{B.u(href)}">{label}</a>'
         for href, label, primary in shared["hero_actions"])
     badge = (f'<p class="cwg__note">{shared["badge"].format(**d)}</p>'
              if d.get("name_the") else "")
-    return f'''<header class="cwg__hero"><div class="cwg__container">
-  <p class="cwp__eyebrow">{d["kicker"]}</p>
-  <h1 class="cwg__h1">{d["h1"]}</h1>
-  <p class="cwp__lede">{d["lede"]}</p>
+    heading = (f'Plywood exports<br>to <em>{html.escape(d["name_plain"])}.</em>'
+               if d.get("name_plain") else 'From Kerala.<br><em>To your market.</em>')
+    return f'''<header class="cw-hero cw-hero--light"><div class="cw-wrap"><div class="cw-hero__layout"><div class="cw-hero__content">
+  <p class="cw-hero__ey">{d["kicker"]}</p>
+  <h1>{heading}</h1>
+  <p>{d["lede"]}</p>
   {badge}
-  <div class="cwp__hero-actions">{acts}</div>
-  <p class="cwg__meta">{shared["eeat"]}</p>
-</div></header>'''
+  <div class="cw-hero__cta">{acts}</div>
+</div><figure class="cw-hero__media">{B.visual_image(B.VISUAL_MEDIA['export_hero'], eager=True)}<figcaption>Illustration of container loading.</figcaption></figure>
+</div></div></header><div class="cw-wrap"><p class="cwg__meta cw-export-byline">{shared["eeat"]}</p></div>'''
 
 
 def tldr(d):
