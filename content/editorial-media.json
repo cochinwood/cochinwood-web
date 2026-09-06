@@ -989,7 +989,6 @@
       "panel-dimensions"
     ],
     "bwr-hardwood-plywood": [
-      "cabinetry",
       "plywood-layers"
     ],
     "chequered-anti-skid-plywood": [
@@ -1001,19 +1000,16 @@
       "board-cores"
     ],
     "finger-joint-board": [
-      "cabinetry",
       "panel-dimensions"
     ],
     "particle-board": [
-      "board-cores",
-      "cabinetry"
+      "board-cores"
     ],
     "plywood-boxes-crates": [
       "packing-case",
       "packing-structure"
     ],
     "plywood-pallets": [
-      "packing-case",
       "load-planning"
     ],
     "plywood-cable-drums": [
@@ -1028,11 +1024,9 @@
       "packing-structure"
     ],
     "rubberwood-plywood": [
-      "plywood-layers",
-      "cabinetry"
+      "plywood-layers"
     ],
     "okoume-plywood": [
-      "cabinetry",
       "panel-dimensions"
     ]
   },

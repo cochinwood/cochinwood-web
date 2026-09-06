@@ -66,6 +66,21 @@ class ScopeTests(unittest.TestCase):
         self.save()
         self.assertTrue(any('Same original' in error for error in scope_report(self.root, 'blog')['errors']))
 
+    def test_full_completion_requires_all_28_source_backed_country_decisions(self):
+        (self.root / 'content/export').mkdir()
+        (self.root / 'content/export/export.json').write_text(json.dumps({'countries': [{'slug': str(i)} for i in range(28)]}), encoding='utf-8')
+        for i in range(28):
+            self.owners['/export/' + str(i)].update(kind='text_guide', status='approved', reason='Reviewed compact country guide')
+        self.save()
+        report = scope_report(self.root)
+        self.assertTrue(report['passed'])
+        self.assertEqual(report['required_owners'], 185)
+        self.assertTrue(report['full_migration_complete'])
+        self.assertEqual(scope_report(self.root, 'blog')['required_owners'], 157)
+        self.owners['/export/unregistered'] = self.owners.pop('/export/27')
+        self.save()
+        self.assertFalse(scope_report(self.root)['passed'])
+
 
 if __name__ == '__main__':
     unittest.main()

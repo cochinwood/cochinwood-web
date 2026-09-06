@@ -67,10 +67,22 @@ def is_text_guide(path, root=ROOT):
     assignment = read_manifest(root)['owners'].get(owner, {})
     if assignment.get('kind') != 'text_guide':
         return False
-    taxonomy = json.loads((root / 'content/blog/topics.json').read_text(encoding='utf-8'))
-    slug = owner.removeprefix('/blogs/post/')
-    if not owner.startswith('/blogs/post/') or taxonomy['posts'].get(slug) != 'city-supply':
-        raise ValueError('Text-first exception is restricted to existing location guides')
+    if owner.startswith('/blogs/post/'):
+        taxonomy = json.loads((root / 'content/blog/topics.json').read_text(encoding='utf-8'))
+        allowed = taxonomy['posts'].get(owner.removeprefix('/blogs/post/')) == 'city-supply'
+    elif owner.startswith('/export/'):
+        # Only actual, source-backed country pages qualify. A blanket /export/*
+        # exemption would conceal missing media for invented or unrelated routes.
+        data = json.loads((root / 'content/export/export.json').read_text(encoding='utf-8'))
+        countries = {c['slug'] for c in data['countries']}
+        for source in (root / 'content/export/countries').glob('*.json'):
+            countries.add(json.loads(source.read_text(encoding='utf-8')).get('slug', source.stem))
+        allowed = (owner.removeprefix('/export/') in countries
+                   and assignment.get('category') == 'country-export')
+    else:
+        allowed = False
+    if not allowed:
+        raise ValueError('Text-first exception is restricted to existing location and country-export guides')
     if assignment.get('status') != 'approved' or not assignment.get('reason', '').strip():
         raise ValueError('Text-first exception requires explicit approval and reason')
     return True

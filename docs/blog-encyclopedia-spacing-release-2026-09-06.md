@@ -1,6 +1,6 @@
 # Blog, encyclopedia, product images and spacing review
 
-Status: release candidate under review. Publication receipt is recorded after the exact build passes local checks, GitHub checks and the Cloudflare preview.
+Status: published and verified in PR34, merge `4dd77b462955e332dd4802d0b1997324e7f21c74`. All 1,122 staged files matched the reviewed build; all 491 checked preview and production paths matched, including 254 canonical pages. The destination-guide follow-up is documented in `destination-guides-completion-2026-09-07.md`.
 
 This phase addresses Edwin's repeated Blog photographs, missing encyclopedia thumbnails, five requested product/application replacements and excessive blank space. It preserves the existing brand, URLs, article content, products and enquiry behavior.
 
@@ -10,7 +10,7 @@ The Blog phase requires exactly 157 existing articles: 48 distinct article-owned
 
 Four article images come from the user-authorized raw Indian industry archive. The other 44 are separately generated for their specific article subjects, with Indian industrial settings, observed material descriptions and original generation records. They are marketing or educational scenes, not documentation of company facilities, certification, stock or customer projects. Source originals and prompts are kept outside the published build. Compressed responsive WebPs preserve generated-media metadata.
 
-Run `python tools/check_unique_images.py --scope blog` for this explicit phase. Its report lists every included and excluded owner and states `full_migration_complete: false` while country-export assignments remain pending. The default unscoped gate continues to require all 185 editorial/export owners. A Blog pass must never be reported as whole-site photographic uniqueness.
+Run `python tools/check_unique_images.py --scope blog` for the Blog scope. At PR34 release it correctly reported the 28 pending country guides. The approved destination-guide follow-up now makes the default full 185-owner check pass as well. This is an editorial ownership check, not a claim that no photograph can recur in a directly linked product or article preview.
 
 ## Products and encyclopedia
 
@@ -26,7 +26,7 @@ The carry pin advances to reviewed production PR33, `b4962022cbeee7f9a08865b4e7a
 
 ## Remaining outside this phase
 
-- Twenty-eight country-export image ownership assignments and other repeats in the wider Home/product/application inventory remain in the full-site review.
+- The 28 country-export assignments and six redundant product-gallery placements are addressed in the destination-guide follow-up. Directly linked product previews, article thumbnails and alternate responsive markup intentionally reuse their corresponding owner image.
 - Four verified species grain references remain unavailable, as named above.
 - ICICI API terms/activation and approved online catalogue prices, stock and freight are separate commercial dependencies. No checkout or Merchant product feed is activated by this visual release.
 

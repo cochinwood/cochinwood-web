@@ -16,7 +16,8 @@ class LocationGuideTests(unittest.TestCase):
     def test_only_exact_existing_location_guides_are_text_first(self):
         taxonomy = json.loads((ROOT / 'content/blog/topics.json').read_text(encoding='utf-8'))
         expected = {'/blogs/post/' + s for s, topic in taxonomy['posts'].items() if topic == 'city-supply'}
-        actual = {p for p, value in read_manifest()['owners'].items() if value.get('kind') == 'text_guide'}
+        actual = {p for p, value in read_manifest()['owners'].items()
+                  if p.startswith('/blogs/post/') and value.get('kind') == 'text_guide'}
         self.assertEqual(len(expected), 109)
         self.assertEqual(actual, expected)
         for path in sorted(actual):

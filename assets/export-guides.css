@@ -1,0 +1,40 @@
+/* Destination research guides: shared brand, compact introduction, no placeholder art.
+   Scope excludes /export, product pages, articles and the encyclopedia. */
+body.cw-export-country #main .cw-page-hero--compact .cw-page-hero__inner {
+  min-height: 0;
+  padding-bottom: 34px;
+}
+body.cw-export-country #main .cw-page-hero__breadcrumbs { margin-bottom: 28px; }
+body.cw-export-country #main .cw-page-hero__heading { max-width: none; }
+body.cw-export-country #main .cw-page-hero h1.cw-page-hero__title {
+  max-width: 24ch;
+  font-size: clamp(2rem, 3.2vw, 2.85rem);
+  line-height: 1.17;
+  margin-bottom: 22px;
+}
+body.cw-export-country #main .cw-page-hero__support { max-width: none; }
+body.cw-export-country #main .cw-page-hero__support p { max-width: 66ch; margin-bottom: 18px; }
+body.cw-export-country #main .cw-page-hero__actions { gap: 10px; margin-top: 20px; }
+body.cw-export-country #main .cw-page-hero__actions .cw-page-hero__button { min-height: 48px; }
+body.cw-export-country #main .cw-export-byline { margin-block: 20px; }
+@media (min-width: 761px) {
+  body.cw-export-country #main .cw-page-hero__text {
+    display: grid;
+    grid-template-columns: minmax(0, .9fr) minmax(0, 1.2fr);
+    grid-template-areas: "heading support";
+    align-items: start;
+    gap: clamp(28px, 5vw, 72px);
+  }
+  body.cw-export-country #main .cw-page-hero__support { padding-top: 1px; }
+}
+@media (max-width: 760px) {
+  body.cw-export-country #main .cw-page-hero__inner { padding-bottom: 28px; }
+  body.cw-export-country #main .cw-page-hero h1.cw-page-hero__title { font-size: clamp(1.85rem, 7.8vw, 2.5rem); }
+  body.cw-export-country #main .cw-page-hero__support p { font-size: .9375rem; line-height: 1.8; }
+  body.cw-export-country #main .cw-page-hero__actions { align-items: stretch; }
+  body.cw-export-country #main .cw-page-hero__actions a { justify-content: flex-start; }
+}
+@media print {
+  body.cw-export-country #main .cw-page-hero__inner { padding: 0; }
+  body.cw-export-country #main .cw-page-hero__text { display: block; }
+}

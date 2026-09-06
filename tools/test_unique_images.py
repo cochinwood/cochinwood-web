@@ -7,7 +7,7 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from unique_imagery import owner_image, validate_ownership, read_manifest, read_assets
+from unique_imagery import owner_image, validate_ownership, read_manifest, read_assets, is_text_guide
 
 
 class OwnershipTests(unittest.TestCase):
@@ -70,6 +70,31 @@ class OwnershipTests(unittest.TestCase):
         self.manifest['owners']['/blogs/post/a'].update(kind='text_guide', reason='Attempted exemption')
         self.save()
         self.assertIn('restricted', validate_ownership(self.root)[0])
+
+    def test_country_text_exception_requires_registered_source_and_category(self):
+        (self.root / 'content/export/countries').mkdir(parents=True)
+        (self.root / 'content/export/export.json').write_text(json.dumps({'countries': [{'slug': 'uae'}]}), encoding='utf-8')
+        (self.root / 'content/export/countries/qatar.json').write_text(json.dumps({'slug': 'qatar'}), encoding='utf-8')
+        for route in ('/export/uae', '/export/qatar'):
+            self.manifest['owners'][route] = {'kind': 'text_guide', 'status': 'approved', 'category': 'country-export', 'reason': 'Approved source destination guide'}
+        self.save()
+        self.assertTrue(is_text_guide('/export/uae', self.root))
+        self.assertTrue(is_text_guide('/export/qatar', self.root))
+        self.assertEqual(validate_ownership(self.root), [])
+        for route, category in (('/export/unregistered', 'country-export'), ('/export/uae', 'other'), ('/export', 'country-export')):
+            with self.subTest(route=route, category=category):
+                self.manifest['owners'][route] = {'kind': 'text_guide', 'status': 'approved', 'category': category, 'reason': 'Invalid exception'}
+                self.save()
+                self.assertTrue(any('restricted' in e for e in validate_ownership(self.root)))
+                del self.manifest['owners'][route]
+
+    def test_country_text_exception_requires_explicit_approval(self):
+        (self.root / 'content/export').mkdir()
+        (self.root / 'content/export/export.json').write_text(json.dumps({'countries': [{'slug': 'uae'}]}), encoding='utf-8')
+        for status, reason in (('pending', 'Awaiting review'), ('approved', '')):
+            self.manifest['owners']['/export/uae'] = {'kind': 'text_guide', 'status': status, 'category': 'country-export', 'reason': reason}
+            self.save()
+            self.assertTrue(any('approval and reason' in e for e in validate_ownership(self.root)))
 
 
 if __name__ == '__main__':

@@ -1,5 +1,36 @@
 # Cochin Wood image system — 6 September 2026
 
+## Current ownership and guide treatment
+
+PR34 published the Blog, species references, five requested image replacements
+and spacing update. The latest placement policy is in
+`content/unique-imagery.json` and `content/unique-imagery-assets.json`; these
+override legacy editorial defaults described below. The 48 technical Blog
+articles each own a distinct image. The 109 location Blog guides preserve their
+complete copy without the former repeated decorative packing photograph.
+
+The follow-up country-guide treatment is explicitly approved by Edwin: all 28
+country subpages use compact destination introductions and retain existing trade
+information. The main Export page keeps its image hero. Six redundant product
+gallery figures are removed; product heroes and useful technical diagrams remain.
+Directory-to-detail reuse of an image is intentional and must not be counted as
+an unrelated decorative duplicate.
+
+The encyclopedia has 28 reference thumbnails and 52 full reference images.
+Melia dubia, Neem, Sal and Kadam still use identified tree/botanical references
+pending verified wood-grain photographs. Do not generate a species-identification
+sample or call the botanical reference a grain photograph.
+
+New generated originals and prompts are archived in `docs/imagery-review` and
+`docs/imagery-sources`, outside the website build. New responsive web assets live
+under `files/Editorial-2026` and `files/Requested-2026-09`; image production
+metadata is retained. These scenes must not be described as records of owned
+factory premises, certification, stock or customer shipments.
+
+The source working branch is excluded from Cloudflare preview deployment.
+Publish only the reviewed `dist/` tree on a publication branch; preserve source
+commit provenance and exact staged-file checks in the release receipt.
+
 ## Current presentation and integration
 
 The public presentation uses direct subject descriptions and useful specification

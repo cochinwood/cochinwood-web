@@ -97,9 +97,10 @@ def _text(frag):
 # ---------------- shared blocks ----------------
 
 def hero(shared, d):
-    """Kicker, H1, lede, factory badge, the two hero buttons, the byline.
+    """Preserved introduction and actions; country guides omit decorative media.
 
-    Identical on all nine pages except for the four strings it interpolates.
+    The Export hub retains its image-led shared hero. Country introductions use
+    the existing compact normalization path, with no photo-shaped empty column.
     """
     acts = "".join(
         f'<a class="cw-btn cw-btn--{"p" if primary else "g"}" href="{B.u(href)}">{label}</a>'
@@ -108,13 +109,17 @@ def hero(shared, d):
              if d.get("name_the") else "")
     heading = (f'Plywood exports<br>to <em>{html.escape(d["name_plain"])}.</em>'
                if d.get("name_plain") else 'From Kerala.<br><em>To your market.</em>')
-    return f'''<header class="cw-hero cw-hero--light"><div class="cw-wrap"><div class="cw-hero__layout"><div class="cw-hero__content">
+    country_guide = bool(d.get("name_plain"))
+    media = ('' if country_guide else
+             f'<figure class="cw-hero__media">{B.visual_image(B.VISUAL_MEDIA["export_hero"], eager=True)}<figcaption>Illustration of container loading.</figcaption></figure>')
+    guide_attribute = ' data-export-guide="true"' if country_guide else ''
+    return f'''<header class="cw-hero cw-hero--light"{guide_attribute}><div class="cw-wrap"><div class="cw-hero__layout"><div class="cw-hero__content">
   <p class="cw-hero__ey">{d["kicker"]}</p>
   <h1>{heading}</h1>
   <p>{d["lede"]}</p>
   {badge}
   <div class="cw-hero__cta">{acts}</div>
-</div><figure class="cw-hero__media">{B.visual_image(B.VISUAL_MEDIA['export_hero'], eager=True)}<figcaption>Illustration of container loading.</figcaption></figure>
+</div>{media}
 </div></div></header><div class="cw-wrap"><p class="cwg__meta cw-export-byline">{shared["eeat"]}</p></div>'''
 
 
@@ -241,7 +246,8 @@ def page(shared, d, path, prose, crumbs, src):
             raise ValueError('Published export preservation patch drift: ' + path)
         body = body.replace(patch['before'], patch['after'], 1)
     html_ = B.base(d["title"], d["desc"], path, B.rewrite_links(body),
-                   body_class="cw-encbody", extra_head=webpage_ld(shared, d, path) + faq_ld,
+                   body_class="cw-encbody" + (" cw-export-country" if d.get("name_plain") else ""),
+                   extra_head=webpage_ld(shared, d, path) + faq_ld,
                    crumbs=crumbs, show_crumbs=False)
     B.write(path.lstrip("/") + "/index.html", html_, src=src)
 

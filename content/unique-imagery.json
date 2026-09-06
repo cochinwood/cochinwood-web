@@ -1061,172 +1061,200 @@
       "reason": "Reviewed raw company photograph in its own scene family. Bulk road-transport context for comparing supplier and dealer arrangements. This is a lorry, not a shipping container; no destination, exact works or ownership is asserted."
     },
     "/export/australia": {
-      "asset_key": "export-australia",
-      "status": "pending",
+      "status": "approved",
       "category": "country-export",
-      "title": "Plywood exports to Australia."
+      "title": "Plywood exports to Australia.",
+      "kind": "text_guide",
+      "reason": "Approved compact destination guide: preserve source trade information and actions without repeating the Export hub loading photograph. Sharing uses the existing Cochin Wood brand image."
     },
     "/export/bahrain": {
-      "asset_key": "export-bahrain",
-      "status": "pending",
+      "status": "approved",
       "category": "country-export",
-      "title": "Plywood exports to Bahrain."
+      "title": "Plywood exports to Bahrain.",
+      "kind": "text_guide",
+      "reason": "Approved compact destination guide: preserve source trade information and actions without repeating the Export hub loading photograph. Sharing uses the existing Cochin Wood brand image."
     },
     "/export/bangladesh": {
-      "asset_key": "export-bangladesh",
-      "status": "pending",
+      "status": "approved",
       "category": "country-export",
-      "title": "Plywood exports to Bangladesh."
+      "title": "Plywood exports to Bangladesh.",
+      "kind": "text_guide",
+      "reason": "Approved compact destination guide: preserve source trade information and actions without repeating the Export hub loading photograph. Sharing uses the existing Cochin Wood brand image."
     },
     "/export/chile": {
-      "asset_key": "export-chile",
-      "status": "pending",
+      "status": "approved",
       "category": "country-export",
-      "title": "Plywood exports to Chile."
+      "title": "Plywood exports to Chile.",
+      "kind": "text_guide",
+      "reason": "Approved compact destination guide: preserve source trade information and actions without repeating the Export hub loading photograph. Sharing uses the existing Cochin Wood brand image."
     },
     "/export/dominican-republic": {
-      "asset_key": "export-dominican-republic",
-      "status": "pending",
+      "status": "approved",
       "category": "country-export",
-      "title": "Plywood exports to the Dominican Republic."
+      "title": "Plywood exports to the Dominican Republic.",
+      "kind": "text_guide",
+      "reason": "Approved compact destination guide: preserve source trade information and actions without repeating the Export hub loading photograph. Sharing uses the existing Cochin Wood brand image."
     },
     "/export/germany": {
-      "asset_key": "export-germany",
-      "status": "pending",
+      "status": "approved",
       "category": "country-export",
-      "title": "Plywood exports to Germany."
+      "title": "Plywood exports to Germany.",
+      "kind": "text_guide",
+      "reason": "Approved compact destination guide: preserve source trade information and actions without repeating the Export hub loading photograph. Sharing uses the existing Cochin Wood brand image."
     },
     "/export/haiti": {
-      "asset_key": "export-haiti",
-      "status": "pending",
+      "status": "approved",
       "category": "country-export",
-      "title": "Plywood exports to Haiti."
+      "title": "Plywood exports to Haiti.",
+      "kind": "text_guide",
+      "reason": "Approved compact destination guide: preserve source trade information and actions without repeating the Export hub loading photograph. Sharing uses the existing Cochin Wood brand image."
     },
     "/export/israel": {
-      "asset_key": "export-israel",
-      "status": "pending",
+      "status": "approved",
       "category": "country-export",
-      "title": "Plywood exports to Israel."
+      "title": "Plywood exports to Israel.",
+      "kind": "text_guide",
+      "reason": "Approved compact destination guide: preserve source trade information and actions without repeating the Export hub loading photograph. Sharing uses the existing Cochin Wood brand image."
     },
     "/export/kenya": {
-      "asset_key": "export-kenya",
-      "status": "pending",
+      "status": "approved",
       "category": "country-export",
-      "title": "Plywood exports to Kenya."
+      "title": "Plywood exports to Kenya.",
+      "kind": "text_guide",
+      "reason": "Approved compact destination guide: preserve source trade information and actions without repeating the Export hub loading photograph. Sharing uses the existing Cochin Wood brand image."
     },
     "/export/kuwait": {
-      "asset_key": "export-kuwait",
-      "status": "pending",
+      "status": "approved",
       "category": "country-export",
-      "title": "Plywood exports to Kuwait."
+      "title": "Plywood exports to Kuwait.",
+      "kind": "text_guide",
+      "reason": "Approved compact destination guide: preserve source trade information and actions without repeating the Export hub loading photograph. Sharing uses the existing Cochin Wood brand image."
     },
     "/export/malaysia": {
-      "asset_key": "export-malaysia",
-      "status": "pending",
+      "status": "approved",
       "category": "country-export",
-      "title": "Plywood exports to Malaysia."
+      "title": "Plywood exports to Malaysia.",
+      "kind": "text_guide",
+      "reason": "Approved compact destination guide: preserve source trade information and actions without repeating the Export hub loading photograph. Sharing uses the existing Cochin Wood brand image."
     },
     "/export/maldives": {
-      "asset_key": "export-maldives",
-      "status": "pending",
+      "status": "approved",
       "category": "country-export",
-      "title": "Plywood exports to the Maldives."
+      "title": "Plywood exports to the Maldives.",
+      "kind": "text_guide",
+      "reason": "Approved compact destination guide: preserve source trade information and actions without repeating the Export hub loading photograph. Sharing uses the existing Cochin Wood brand image."
     },
     "/export/mauritius": {
-      "asset_key": "export-mauritius",
-      "status": "pending",
+      "status": "approved",
       "category": "country-export",
-      "title": "Plywood exports to Mauritius."
+      "title": "Plywood exports to Mauritius.",
+      "kind": "text_guide",
+      "reason": "Approved compact destination guide: preserve source trade information and actions without repeating the Export hub loading photograph. Sharing uses the existing Cochin Wood brand image."
     },
     "/export/netherlands": {
-      "asset_key": "export-netherlands",
-      "status": "pending",
+      "status": "approved",
       "category": "country-export",
-      "title": "Plywood exports to Netherlands."
+      "title": "Plywood exports to Netherlands.",
+      "kind": "text_guide",
+      "reason": "Approved compact destination guide: preserve source trade information and actions without repeating the Export hub loading photograph. Sharing uses the existing Cochin Wood brand image."
     },
     "/export/nigeria": {
-      "asset_key": "export-nigeria",
-      "status": "pending",
+      "status": "approved",
       "category": "country-export",
-      "title": "Plywood exports to Nigeria."
+      "title": "Plywood exports to Nigeria.",
+      "kind": "text_guide",
+      "reason": "Approved compact destination guide: preserve source trade information and actions without repeating the Export hub loading photograph. Sharing uses the existing Cochin Wood brand image."
     },
     "/export/oman": {
-      "asset_key": "export-oman",
-      "status": "pending",
+      "status": "approved",
       "category": "country-export",
-      "title": "Plywood exports to Oman."
+      "title": "Plywood exports to Oman.",
+      "kind": "text_guide",
+      "reason": "Approved compact destination guide: preserve source trade information and actions without repeating the Export hub loading photograph. Sharing uses the existing Cochin Wood brand image."
     },
     "/export/puerto-rico": {
-      "asset_key": "export-puerto-rico",
-      "status": "pending",
+      "status": "approved",
       "category": "country-export",
-      "title": "Plywood exports to Puerto Rico."
+      "title": "Plywood exports to Puerto Rico.",
+      "kind": "text_guide",
+      "reason": "Approved compact destination guide: preserve source trade information and actions without repeating the Export hub loading photograph. Sharing uses the existing Cochin Wood brand image."
     },
     "/export/qatar": {
-      "asset_key": "export-qatar",
-      "status": "pending",
+      "status": "approved",
       "category": "country-export",
-      "title": "Plywood exports to Qatar."
+      "title": "Plywood exports to Qatar.",
+      "kind": "text_guide",
+      "reason": "Approved compact destination guide: preserve source trade information and actions without repeating the Export hub loading photograph. Sharing uses the existing Cochin Wood brand image."
     },
     "/export/saudi-arabia": {
-      "asset_key": "export-saudi-arabia",
-      "status": "pending",
+      "status": "approved",
       "category": "country-export",
-      "title": "Plywood exports to Saudi Arabia."
+      "title": "Plywood exports to Saudi Arabia.",
+      "kind": "text_guide",
+      "reason": "Approved compact destination guide: preserve source trade information and actions without repeating the Export hub loading photograph. Sharing uses the existing Cochin Wood brand image."
     },
     "/export/singapore": {
-      "asset_key": "export-singapore",
-      "status": "pending",
+      "status": "approved",
       "category": "country-export",
-      "title": "Plywood exports to Singapore."
+      "title": "Plywood exports to Singapore.",
+      "kind": "text_guide",
+      "reason": "Approved compact destination guide: preserve source trade information and actions without repeating the Export hub loading photograph. Sharing uses the existing Cochin Wood brand image."
     },
     "/export/south-africa": {
-      "asset_key": "export-south-africa",
-      "status": "pending",
+      "status": "approved",
       "category": "country-export",
-      "title": "Plywood exports to South Africa."
+      "title": "Plywood exports to South Africa.",
+      "kind": "text_guide",
+      "reason": "Approved compact destination guide: preserve source trade information and actions without repeating the Export hub loading photograph. Sharing uses the existing Cochin Wood brand image."
     },
     "/export/sri-lanka": {
-      "asset_key": "export-sri-lanka",
-      "status": "pending",
+      "status": "approved",
       "category": "country-export",
-      "title": "Plywood exports to Sri Lanka."
+      "title": "Plywood exports to Sri Lanka.",
+      "kind": "text_guide",
+      "reason": "Approved compact destination guide: preserve source trade information and actions without repeating the Export hub loading photograph. Sharing uses the existing Cochin Wood brand image."
     },
     "/export/tanzania": {
-      "asset_key": "export-tanzania",
-      "status": "pending",
+      "status": "approved",
       "category": "country-export",
-      "title": "Plywood exports to Tanzania."
+      "title": "Plywood exports to Tanzania.",
+      "kind": "text_guide",
+      "reason": "Approved compact destination guide: preserve source trade information and actions without repeating the Export hub loading photograph. Sharing uses the existing Cochin Wood brand image."
     },
     "/export/turkey": {
-      "asset_key": "export-turkey",
-      "status": "pending",
+      "status": "approved",
       "category": "country-export",
-      "title": "Plywood exports to Turkey."
+      "title": "Plywood exports to Turkey.",
+      "kind": "text_guide",
+      "reason": "Approved compact destination guide: preserve source trade information and actions without repeating the Export hub loading photograph. Sharing uses the existing Cochin Wood brand image."
     },
     "/export/uae": {
-      "asset_key": "export-uae",
-      "status": "pending",
+      "status": "approved",
       "category": "country-export",
-      "title": "Plywood exports to UAE."
+      "title": "Plywood exports to UAE.",
+      "kind": "text_guide",
+      "reason": "Approved compact destination guide: preserve source trade information and actions without repeating the Export hub loading photograph. Sharing uses the existing Cochin Wood brand image."
     },
     "/export/united-kingdom": {
-      "asset_key": "export-united-kingdom",
-      "status": "pending",
+      "status": "approved",
       "category": "country-export",
-      "title": "Plywood exports to UK."
+      "title": "Plywood exports to UK.",
+      "kind": "text_guide",
+      "reason": "Approved compact destination guide: preserve source trade information and actions without repeating the Export hub loading photograph. Sharing uses the existing Cochin Wood brand image."
     },
     "/export/united-states": {
-      "asset_key": "export-united-states",
-      "status": "pending",
+      "status": "approved",
       "category": "country-export",
-      "title": "Plywood exports to the United States."
+      "title": "Plywood exports to the United States.",
+      "kind": "text_guide",
+      "reason": "Approved compact destination guide: preserve source trade information and actions without repeating the Export hub loading photograph. Sharing uses the existing Cochin Wood brand image."
     },
     "/export/vietnam": {
-      "asset_key": "export-vietnam",
-      "status": "pending",
+      "status": "approved",
       "category": "country-export",
-      "title": "Plywood exports to Vietnam."
+      "title": "Plywood exports to Vietnam.",
+      "kind": "text_guide",
+      "reason": "Approved compact destination guide: preserve source trade information and actions without repeating the Export hub loading photograph. Sharing uses the existing Cochin Wood brand image."
     }
   }
 }

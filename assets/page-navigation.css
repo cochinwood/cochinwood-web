@@ -27,7 +27,7 @@ body #main [id]{scroll-margin-top:0!important}
 @media(max-width:760px){
  :root{--cw-section-bar-height:52px}
  .cw-section-menu summary{display:flex;align-items:center;gap:16px;min-height:52px;padding:0;color:#1B4332;font:500 .8125rem/1.5 Poppins,sans-serif}
- .cw-section-menu summary::after{content:'+';font-size:1.25rem;margin-left:auto}
+ .cw-section-menu summary::after{content:'+';font-size:1.25rem;margin-left:0;order:-1;flex:0 0 16px}
  .cw-section-menu[open] summary::after{content:'−'}
  .cw-section-current{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#637363;font-weight:400}
  .cw-section-menu .cw-section-scroll{position:absolute;top:100%;left:0;right:0;display:block;padding:8px var(--cw-page-gutter,24px) 16px;background:#FAF9F7;border-bottom:1px solid #c9d5c7;box-shadow:0 10px 20px #1b433210;box-sizing:border-box}
