@@ -48,50 +48,61 @@
     });
   }
 
-  /* ---- blog filter ------------------------------------------------------ */
+  /* ---- blog topics and search ------------------------------------------ */
   var box = document.getElementById("cw-blogsearch");
   if (box) {
-    var lists = Array.prototype.slice.call(document.querySelectorAll(".cw-bloglist"));
-    var cards = Array.prototype.slice.call(document.querySelectorAll(".cw-bloglist > a"));
+    var cards = Array.from(document.querySelectorAll(".cw-bloglist > a"));
+    var groups = Array.from(document.querySelectorAll("[data-blog-group]"));
+    var topics = Array.from(document.querySelectorAll("[data-blog-topic-filter]"));
     var count = document.getElementById("cw-blogcount");
     var empty = document.getElementById("cw-blogempty");
-
-    cards.forEach(function (c) {
-      c.dataset.hay = (c.textContent || "").toLowerCase();
-    });
-
-    var apply = function () {
-      var q = box.value.trim().toLowerCase();
-      var shown = 0;
-      cards.forEach(function (c) {
-        var hit = !q || c.dataset.hay.indexOf(q) !== -1;
-        c.hidden = !hit;
-        if (hit) shown++;
+    var clear = document.getElementById("cw-blogclear");
+    var selected = "all";
+    cards.forEach(function (card) { card.dataset.hay = (card.textContent || "").toLowerCase(); });
+    function apply(updateUrl) {
+      var q = box.value.trim().toLowerCase(), shown = 0;
+      cards.forEach(function (card) {
+        var hit = (selected === "all" || card.dataset.blogTopic === selected) && (!q || card.dataset.hay.indexOf(q) !== -1);
+        card.hidden = !hit; if (hit) shown++;
       });
-      // hide a group heading + list when everything inside it is filtered out,
-      // and show the matched count rather than the stale total
-      lists.forEach(function (l) {
-        var hits = Array.prototype.filter.call(l.children, function (c) { return !c.hidden; }).length;
-        l.hidden = !hits;
-        var h = l.previousElementSibling;
-        if (!h || h.tagName !== "H2") return;
-        h.hidden = !hits;
-        if (!h.dataset.label) h.dataset.label = h.textContent.replace(/\s*\(\d+\)\s*$/, "");
-        h.textContent = h.dataset.label + " (" + (q ? hits : l.children.length) + ")";
+      groups.forEach(function (group) {
+        var hits = Array.from(group.querySelectorAll(".cw-bloglist > a")).filter(function (c) { return !c.hidden; }).length;
+        group.hidden = !hits;
+        var label = group.querySelector(".cw-blog-group-count");
+        if (label) label.textContent = hits + (hits === 1 ? " guide" : " guides");
       });
-      if (count) {
-        count.textContent = q
-          ? shown + (shown === 1 ? " post matches " : " posts match ") + '"' + box.value.trim() + '"'
-          : "";
-      }
+      topics.forEach(function (topic) {
+        if (topic.dataset.blogTopicFilter === selected) topic.setAttribute("aria-current", "true");
+        else topic.removeAttribute("aria-current");
+      });
+      if (count) count.textContent = shown + (shown === 1 ? " guide" : " guides") + (q ? ' matching “' + box.value.trim() + '”' : " available") + (selected === "all" ? " across all topics" : " in this topic");
       if (empty) empty.hidden = shown !== 0;
-    };
-
-    box.addEventListener("input", apply);
-    box.addEventListener("search", apply);
-    // deep-link support: /blogs?q=marine
-    var q0 = new URLSearchParams(location.search).get("q");
-    if (q0) { box.value = q0; }
-    apply();
+      if (clear) clear.hidden = !q && selected === "all";
+      if (updateUrl && window.history && history.replaceState) {
+        var params = new URLSearchParams(location.search);
+        if (q) params.set("q", box.value.trim()); else params.delete("q");
+        if (selected !== "all") params.set("topic", selected); else params.delete("topic");
+        var query = params.toString();
+        history.replaceState(null, "", location.pathname + (query ? "?" + query : "") + "#articles");
+      }
+    }
+    function restore() {
+      var params = new URLSearchParams(location.search), requested = params.get("topic");
+      selected = topics.some(function (t) { return t.dataset.blogTopicFilter === requested; }) ? requested : "all";
+      box.value = params.get("q") || ""; apply(false);
+    }
+    box.addEventListener("input", function () { apply(true); });
+    box.addEventListener("search", function () { apply(true); });
+    topics.forEach(function (topic) {
+      topic.addEventListener("click", function (event) {
+        if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+        event.preventDefault(); selected = topic.dataset.blogTopicFilter; apply(true);
+        var start = document.getElementById("articles");
+        if (start) start.scrollIntoView({behavior: "auto", block: "start"});
+      });
+    });
+    if (clear) clear.addEventListener("click", function () { box.value = ""; selected = "all"; apply(true); box.focus(); });
+    window.addEventListener("popstate", restore);
+    restore();
   }
 })();

@@ -1795,12 +1795,28 @@ def build_blog():
              f"skipped, not built"); return 0
     posts = json.load(open(fp, encoding="utf-8"))
     live = [p for p in posts if p.get("html")]
+    from blog_navigation import enrich_article, render_article_navigation
+    from blog_directory import render_directory
+    taxonomy = json.load(open(os.path.join(ROOT, "content", "blog", "topics.json"), encoding="utf-8"))
+    topic_meta = {t["id"]: t for t in taxonomy["topics"]}
+    if set(taxonomy["posts"]) != {p["slug"] for p in live} or not set(taxonomy["posts"].values()) <= set(topic_meta):
+        raise SystemExit("Blog topics must cover every live article exactly once with known topics")
+    for post in live:
+        key = taxonomy["posts"][post["slug"]]
+        post.update(topic_slug=key, topic_label=topic_meta[key]["label"],
+                    topic_href=f"/blogs?topic={key}#blog-topic-{key}")
     n, undated = 0, []
     for p in live:
         slug, title = p["slug"], (p.get("title") or slug)
         desc = p.get("desc", "")
         content = _blog_content(p["html"])
-        short = esc(title.split('|')[0].strip())
+        content, toc, reading_minutes = enrich_article(content)
+        topic_key = p["topic_slug"]
+        related = [other for other in live if other["slug"] != slug and other["topic_slug"] == topic_key]
+        words = set(re.findall(r"[a-z0-9]+", slug)) - {"plywood", "wood", "cochin", "india", "for", "the", "and", "to", "guide", "supply", "2026"}
+        related.sort(key=lambda other: -len(words & set(re.findall(r"[a-z0-9]+", other["slug"]))))
+        article_navigation = render_article_navigation(p, related, u)
+        short = esc(html.unescape(title.split('|')[0].strip()))
         # "date": "YYYY-MM-DD" in posts.json. These are NOT invented: every post in the
         # cf-live mirror carries a real "datePublished" inside its BlogPosting JSON-LD,
         # and 155 of the 156 entries here were back-filled from it on 2026-08-26. Keeping
@@ -1822,10 +1838,11 @@ def build_blog():
         else:
             byline = "Cochin Wood Industries"
         art = f'''<header class="cwg__hero"><div class="cwg__container">
+  <nav class="cw-article-context" aria-label="Article topic"><a href="{u('/blogs')}">← All guides</a><a href="{u(p['topic_href'])}">{esc(p['topic_label'])}</a></nav>
   <h1 class="cwg__h1">{short}</h1>
-  <p class="cwg__meta">{byline}</p>
+  <p class="cwg__meta">{byline} &middot; About {reading_minutes} min read</p>
 </div></header>
-<article class="cwg__body"><div class="cwg__container">{content}</div></article>
+<div class="cw-reading-layout"><article class="cwg__body cw-reading-content">{content}{article_navigation}</article><aside class="cw-reading-aside" aria-label="Article contents">{toc}</aside></div>
 <section class="cwg__cta"><div class="cwg__wide cwg__cta-inner"><div><h2>Need a plywood quote?</h2><p>Tell us the grade, size and quantity — we'll price it within one business day.</p></div><a class="cwg__btn" href="{u('/contact')}">Request a quote</a></div></section>'''
         ld = ('<script type="application/ld+json">' + json.dumps({
                 "@context": "https://schema.org", "@type": "BlogPosting",
@@ -1843,34 +1860,13 @@ def build_blog():
                 **({"datePublished": date, "dateModified": date} if date else {})},
                 separators=(",", ":")) + '</script>')
         write(f"blogs/post/{slug}/index.html", src=BLOG_SRC, content=
-              base(title, desc, f"/blogs/post/{slug}", art, body_class="cw-encbody",
+              base(title, desc, f"/blogs/post/{slug}", art, body_class="cw-encbody cw-blog-post",
                    extra_head=ld, og_type="article",
                    crumbs=[("Home", "/"), ("Blog", "/blogs"), (title.split("|")[0].strip(), None)]))
         n += 1
-    # blog index
-    def card(p):
-        t = (p.get("title") or p["slug"]).split("|")[0].strip()
-        return f'<a href="{u("/blogs/post/"+p["slug"])}"><b>{esc(t)}</b><span>{esc((p.get("desc") or "")[:120])}</span></a>'
-    cities = [p for p in live if p["slug"].startswith("plywood-supply")]
-    articles = [p for p in live if not p["slug"].startswith("plywood-supply")]
-    body = f'''<section class="cw-hero cw-hero--light"><div class="cw-wrap"><div class="cw-hero__layout">
-  <div class="cw-hero__content"><p class="cw-hero__ey">From the Cochin Wood desk</p><h1>Material knowledge.<br><em>Made practical.</em></h1><p>Field notes on plywood grades, standards, export packing and supply. Find a clear answer before you choose a panel.</p><a class="cw-btn cw-btn--p" href="#articles">Browse the guides &darr;</a></div>
-  <figure class="cw-hero__media">{visual_image(VISUAL_MEDIA['catalogue_hero'], eager=True)}</figure>
-</div></div></section>
-<section class="cw-sec" id="articles"><div class="cw-wrap">
-  <div class="cw-blogtools">
-    <label for="cw-blogsearch">Search {len(live)} posts</label>
-    <input id="cw-blogsearch" type="search" autocomplete="off" placeholder="e.g. marine, ISPM-15, Kochi, IS 710">
-    <p class="cw-blogcount" id="cw-blogcount" role="status" aria-live="polite"></p>
-  </div>
-  <div class="cw-blogindex">
-    <h2>Guides &amp; articles ({len(articles)})</h2>
-    <div class="cw-bloglist">{"".join(card(p) for p in articles)}</div>
-    <h2>Plywood supply by city ({len(cities)})</h2>
-    <div class="cw-bloglist">{"".join(card(p) for p in cities)}</div>
-    <p id="cw-blogempty" hidden>No posts match that search. <a href="{u('/contact')}">Ask us directly</a> — we'll answer it.</p>
-  </div>
-</div></section>'''
+    # Native topic anchors work without JS; the search progressively filters
+    # these same groups and keeps q/topic in the URL for return visits.
+    body = render_directory(live, taxonomy, u, visual_image(VISUAL_MEDIA['catalogue_hero'], eager=True))
     # Posts allowed to have no "date", each with the why. Anything undated and
     # NOT in this dict is a mistake and gets the loud generic warning below.
     # Empty since 31 Aug 2026: the okoume-plywood post was dropped by owner decision -- one of
@@ -1887,7 +1883,7 @@ def build_blog():
                  f'its entry in {BLOG_SRC}.')
     write("blogs/index.html", src=BLOG_SRC, content=base("Blog — Plywood Guides, Specs & Supply | Cochin Wood",
           "Plywood guides, standards, export-packing notes and city-by-city supply from Cochin Wood Industries.",
-          "/blogs", body, crumbs=[("Home", "/"), ("Blog", None)]))
+          "/blogs", body, body_class="cw-blog-directory-page", crumbs=[("Home", "/"), ("Blog", None)]))
     return n
 
 # ---------------- the export section ----------------
@@ -2007,7 +2003,7 @@ def copy_referenced_files():
 # the new sha in here until the gate goes green carries whatever landed on
 # cf-live meanwhile into production unread.
 LIVE_REF_NAME = "origin/cf-live"                         # where the pin came from
-LIVE_SHA = "c15729a2a9464f3271045edf4b26acb629f1cfe3"    # Reviewed PR27 navigation release; all carried assets match PR26 byte for byte
+LIVE_SHA = "4764d396d83240479fb45922908a68f03d62c9ec"    # Reviewed PR28 brand experience; carried media/root files remain byte-identical
 LIVE_REF = LIVE_SHA                # what git is actually handed, so no fetch can move it
 LIVE_PIN = LIVE_REF_NAME + "@" + LIVE_SHA[:12]           # what the banner and dist/ record
 
@@ -2650,7 +2646,7 @@ def build_redirects():
 
 # ---------------- assets + meta ----------------
 # One request instead of five; order preserved so cascade behaviour is unchanged.
-CSS_BUNDLE = ["fonts.css", "site.css", "guide.css", "wood-enc.css", "shell.css", "components.css", "visual-system.css", "experience.css", "experience-inner.css", "experience-motion.css"]
+CSS_BUNDLE = ["fonts.css", "site.css", "guide.css", "wood-enc.css", "shell.css", "components.css", "visual-system.css", "experience.css", "experience-inner.css", "experience-motion.css", "blog-index.css", "blog-navigation.css"]
 
 def _css_fix_urls(css, name):
     """Resolve /files/... backgrounds; neutralise the ones with no source file."""
