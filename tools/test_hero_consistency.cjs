@@ -27,6 +27,7 @@ const PRODUCT_SLUGS = [
 ];
 const TIMBER_LABELS = ['Eucalyptus', 'Rubberwood', 'Acacia', 'Mahogany', 'Jackwood', 'Silverwood', 'Specialty timbers'];
 const EXPECTED_IMAGES = {
+  '/contact': '/files/Brand/contact-materials.jpg',
   '/products': '/files/Hero Optimized/Products.jpg',
   '/blogs': '/files/Brand/home-materials.webp',
   '/woods-we-use': '/files/Product/specialty-timbers.jpg',
@@ -178,7 +179,7 @@ function median(values) {
           if (!result.poppinsReady) fail('Poppins is not loaded');
           if (result.title && Math.abs(result.title.left - result.expectedGutter) > 2) fail('Title does not align to shared content gutter', {left: result.title.left, expected: result.expectedGutter});
           if (result.labelledBy && !result.validLabel) fail('Hero aria-labelledby does not identify its h1');
-          if (!result.compact && !result.image) fail('Image hero is missing its media frame');
+          if ((MAIN_ROUTES.includes(task.route) || !result.compact) && !result.image) fail('Image hero is missing its media frame');
           if (result.image) {
             if (task.width <= 760 && Math.abs(result.image.width / result.image.height - 4 / 3) > 0.025) fail('Mobile hero image frame is not 4:3', {image: result.image});
             if (task.width > 760) {

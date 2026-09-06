@@ -1329,11 +1329,15 @@ def contact():
     # The registration line is styled inline because .cw-note is only dressed by `.cw-form .cw-note`
     # and this paragraph sits outside the form.
     body = f'''
+<section class="cw-hero cw-hero--light"><div class="cw-wrap"><div class="cw-hero__layout">
+  <div class="cw-hero__content"><p class="cw-hero__ey">Talk to our desk</p><h1>Let’s build your quote.</h1>
+    <p>Tell us what you need and where it should arrive. Share the specifications you know, or ask us to help you choose.</p>
+    <div class="cw-hero__cta"><a class="cw-btn cw-btn--p" href="#quote">Start your quote &rarr;</a></div>
+  </div><figure class="cw-hero__media">{visual_image(VISUAL_MEDIA['contact_hero'], eager=True)}</figure>
+</div></div></section>
 <section class="cw-section" id="quote"><div class="cw-wrap">
-  <div class="cw-section__head"><div><p class="cw-eyebrow">Talk to our desk</p><h1 class="cw-sec__h">Let’s build your quote.</h1></div><p>Tell us what you need and where it should arrive. Share the specifications you know, or ask us to help you choose.</p></div>
   <div class="cw-contact-grid"><div class="cw-contact-main">{form}</div>
   <aside class="cw-contact-aside" aria-label="Contact and company details">
-    <figure class="cw-hero__media">{visual_image(VISUAL_MEDIA['contact_hero'])}</figure>
     <h2>Prefer a conversation?</h2><p>Our sales desk can help with the product, specification and delivery plan.</p>
     <p><a href="tel:{CONTACT['phone_href']}">{CONTACT['phone_disp']}</a><br><a href="mailto:{CONTACT['email']}">{CONTACT['email']}</a></p>
     <p class="cw-note">We reply within one business day.</p>
