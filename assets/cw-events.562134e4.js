@@ -46,6 +46,11 @@
   function isContact(p) { return /^\/contact(\.html)?(\/|$)/.test(p); }
 
   function send(name, path) {
+    // Optional Google measurement receives only this same allowlisted counter
+    // and source path after consent. Its failure cannot affect our own counter.
+    try {
+      if (window.cwiAnalytics) window.cwiAnalytics.track(name, path || page());
+    } catch (e) {}
     try {
       var u = ENDPOINT + "?n=" + encodeURIComponent(name) + "&p=" + encodeURIComponent(path || page());
       if (navigator.sendBeacon) navigator.sendBeacon(u);
