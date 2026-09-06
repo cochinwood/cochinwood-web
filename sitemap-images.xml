@@ -555,9 +555,6 @@
       <image:loc>https://www.cochinwood.in/files/Plywood%20Product%20Photos/cwi-bwr-hardwood-plywood.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>https://www.cochinwood.in/files/Editorial/cabinetry.webp</image:loc>
-    </image:image>
-    <image:image>
       <image:loc>https://www.cochinwood.in/files/Editorial/plywood-layers.svg</image:loc>
     </image:image>
   </url>
@@ -610,174 +607,6 @@
     </image:image>
   </url>
   <url>
-    <loc>https://www.cochinwood.in/export/australia</loc>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Process%20Illustrations/cwi-process-loading.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.cochinwood.in/export/bahrain</loc>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Process%20Illustrations/cwi-process-loading.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.cochinwood.in/export/bangladesh</loc>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Process%20Illustrations/cwi-process-loading.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.cochinwood.in/export/chile</loc>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Process%20Illustrations/cwi-process-loading.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.cochinwood.in/export/dominican-republic</loc>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Process%20Illustrations/cwi-process-loading.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.cochinwood.in/export/germany</loc>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Process%20Illustrations/cwi-process-loading.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.cochinwood.in/export/haiti</loc>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Process%20Illustrations/cwi-process-loading.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.cochinwood.in/export/israel</loc>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Process%20Illustrations/cwi-process-loading.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.cochinwood.in/export/kenya</loc>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Process%20Illustrations/cwi-process-loading.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.cochinwood.in/export/kuwait</loc>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Process%20Illustrations/cwi-process-loading.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.cochinwood.in/export/malaysia</loc>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Process%20Illustrations/cwi-process-loading.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.cochinwood.in/export/maldives</loc>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Process%20Illustrations/cwi-process-loading.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.cochinwood.in/export/mauritius</loc>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Process%20Illustrations/cwi-process-loading.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.cochinwood.in/export/netherlands</loc>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Process%20Illustrations/cwi-process-loading.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.cochinwood.in/export/nigeria</loc>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Process%20Illustrations/cwi-process-loading.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.cochinwood.in/export/oman</loc>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Process%20Illustrations/cwi-process-loading.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.cochinwood.in/export/puerto-rico</loc>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Process%20Illustrations/cwi-process-loading.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.cochinwood.in/export/qatar</loc>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Process%20Illustrations/cwi-process-loading.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.cochinwood.in/export/saudi-arabia</loc>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Process%20Illustrations/cwi-process-loading.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.cochinwood.in/export/singapore</loc>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Process%20Illustrations/cwi-process-loading.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.cochinwood.in/export/south-africa</loc>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Process%20Illustrations/cwi-process-loading.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.cochinwood.in/export/sri-lanka</loc>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Process%20Illustrations/cwi-process-loading.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.cochinwood.in/export/tanzania</loc>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Process%20Illustrations/cwi-process-loading.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.cochinwood.in/export/turkey</loc>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Process%20Illustrations/cwi-process-loading.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.cochinwood.in/export/uae</loc>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Process%20Illustrations/cwi-process-loading.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.cochinwood.in/export/united-kingdom</loc>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Process%20Illustrations/cwi-process-loading.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.cochinwood.in/export/united-states</loc>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Process%20Illustrations/cwi-process-loading.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.cochinwood.in/export/vietnam</loc>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Process%20Illustrations/cwi-process-loading.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
     <loc>https://www.cochinwood.in/export-process</loc>
     <image:image>
       <image:loc>https://www.cochinwood.in/files/Editorial/packing-case.webp</image:loc>
@@ -805,9 +634,6 @@
     <loc>https://www.cochinwood.in/finger-joint-board</loc>
     <image:image>
       <image:loc>https://www.cochinwood.in/files/Editorial/finger-joint-detail.webp</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Editorial/cabinetry.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://www.cochinwood.in/files/Editorial/panel-dimensions.svg</image:loc>
@@ -900,9 +726,6 @@
       <image:loc>https://www.cochinwood.in/files/Enhanced%20Factory%20Photos/factory_24.jpg</image:loc>
     </image:image>
     <image:image>
-      <image:loc>https://www.cochinwood.in/files/Editorial/cabinetry.webp</image:loc>
-    </image:image>
-    <image:image>
       <image:loc>https://www.cochinwood.in/files/Editorial/panel-dimensions.svg</image:loc>
     </image:image>
   </url>
@@ -934,9 +757,6 @@
     </image:image>
     <image:image>
       <image:loc>https://www.cochinwood.in/files/Editorial/board-cores.svg</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Editorial/cabinetry.webp</image:loc>
     </image:image>
   </url>
   <url>
@@ -991,9 +811,6 @@
     <loc>https://www.cochinwood.in/plywood-pallets</loc>
     <image:image>
       <image:loc>https://www.cochinwood.in/files/Product/pallets.jpg</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Editorial/packing-case.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://www.cochinwood.in/files/Editorial/load-planning.svg</image:loc>
@@ -1120,9 +937,6 @@
     </image:image>
     <image:image>
       <image:loc>https://www.cochinwood.in/files/Editorial/plywood-layers.svg</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://www.cochinwood.in/files/Editorial/cabinetry.webp</image:loc>
     </image:image>
   </url>
   <url>
