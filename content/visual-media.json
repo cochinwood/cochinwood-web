@@ -1,0 +1,212 @@
+{
+  "version": 1,
+  "reviewed_at": "2026-09-06",
+  "notes": [
+    "Descriptions were written after visual inspection. Media selection does not establish a product specification, grade, certification, customer project or ownership of a pictured facility.",
+    "Process and application images are illustrative. Keep that distinction visible wherever a factory or shipment could otherwise be inferred.",
+    "All files are restored unchanged from the already published media library; existing responsive variants are retained."
+  ],
+  "home_hero": {
+    "src": "/files/Hero%20Optimized/Home.webp",
+    "alt": "Plywood samples leaning beside a sunlit window in a warm timber interior",
+    "kind": "brand illustration",
+    "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified."
+  },
+  "catalogue_hero": {
+    "src": "/files/Hero%20Optimized/Products.jpg",
+    "alt": "A flat lay of plywood, timber and surface samples in natural wood tones",
+    "kind": "material illustration",
+    "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified."
+  },
+  "contact_hero": {
+    "src": "/files/Hero%20Optimized/Contact.jpg",
+    "alt": "Small plywood panels stacked on a timber desk beside a window",
+    "kind": "material illustration",
+    "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified."
+  },
+  "encyclopedia_hero": {
+    "src": "/files/Product/specialty-timbers.jpg",
+    "alt": "A fan of wood samples showing a range of warm colours and grain",
+    "kind": "material illustration",
+    "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified."
+  },
+  "export_hero": {
+    "src": "/files/Process%20Illustrations/cwi-process-loading.jpg",
+    "alt": "Illustration of a forklift loading strapped plywood bundles into a shipping container",
+    "kind": "process illustration",
+    "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
+    "caption": "Illustration of container loading."
+  },
+  "products": {
+    "packing-plywood": {
+      "src": "/files/Plywood%20Product%20Photos/cwi-packing-plywood.webp",
+      "alt": "Pale plywood sheets stacked with their layered edges visible",
+      "kind": "product presentation",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified."
+    },
+    "okoume-plywood": {
+      "src": "/files/Plywood%20Product%20Photos/cwi-okoume-plywood.webp",
+      "alt": "Plywood panels with smooth pinkish-brown faces and visible layered edges",
+      "kind": "product presentation",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified."
+    },
+    "rubberwood-plywood": {
+      "src": "/files/Plywood%20Product%20Photos/cwi-rubberwood-plywood.webp",
+      "alt": "A stack of pale cream plywood panels with bundled sheets behind",
+      "kind": "product presentation",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified."
+    },
+    "commercial-plywood": {
+      "src": "/files/Plywood%20Product%20Photos/cwi-commercial-plywood.webp",
+      "alt": "Warm brown plywood sheets with smooth faces and cut edges",
+      "kind": "product presentation",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified."
+    },
+    "marine-plywood": {
+      "src": "/files/Plywood%20Product%20Photos/cwi-marine-plywood.webp",
+      "alt": "Reddish-brown plywood panels showing the face grain and layered core",
+      "kind": "product presentation",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified."
+    },
+    "film-faced-shuttering-plywood": {
+      "src": "/files/Plywood%20Product%20Photos/cwi-film-faced-brown.webp",
+      "alt": "Dark brown film-faced plywood sheets with smooth reflective surfaces",
+      "kind": "product presentation",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified."
+    },
+    "container-flooring-plywood": {
+      "src": "/files/Process%20Illustrations/cwi-process-loading.jpg",
+      "alt": "Illustration of plywood bundles being loaded into a shipping container",
+      "kind": "application illustration",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
+      "caption": "Container loading illustration; flooring grade and treatment are confirmed in the specification."
+    },
+    "bwr-hardwood-plywood": {
+      "src": "/files/Plywood%20Product%20Photos/cwi-bwr-hardwood-plywood.webp",
+      "alt": "Reddish hardwood-faced panels with dark edges stacked in the foreground",
+      "kind": "product presentation",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified."
+    },
+    "chequered-anti-skid-plywood": {
+      "src": "/files/Plywood%20Product%20Photos/cwi-anti-skid.webp",
+      "alt": "Plywood panels with a dark maroon textured anti-skid face",
+      "kind": "product presentation",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified."
+    },
+    "plywood-boxes-crates": {
+      "src": "/files/Product/crates.jpg",
+      "alt": "Plywood cases with timber frames and reinforced corners",
+      "kind": "product presentation",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified."
+    },
+    "plywood-pallets": {
+      "src": "/files/Product/pallets.jpg",
+      "alt": "Rows of light-coloured timber and plywood pallets stacked in a room",
+      "kind": "product presentation",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified."
+    },
+    "block-board-flush-doors": {
+      "src": "/files/Product/block-board.jpg",
+      "alt": "A block board sample showing its timber core beneath thin face veneers",
+      "kind": "product presentation",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified."
+    },
+    "finger-joint-board": {
+      "src": "/files/Product/rubberwood.jpg",
+      "alt": "Representative solid-wood board samples stacked beside a window",
+      "kind": "material illustration",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
+      "caption": "Representative solid-wood board samples; joint layout is confirmed with your specification."
+    },
+    "particle-board": {
+      "src": "/files/Product/particle-board.jpg",
+      "alt": "A particle board sample with its compressed wood-particle edge visible",
+      "kind": "product presentation",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified."
+    },
+    "plywood-cable-drums": {
+      "src": "/files/Product/cable-drums.jpg",
+      "alt": "Two empty wooden cable drums with circular plywood flanges",
+      "kind": "product presentation",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified."
+    },
+    "sawn-timber": {
+      "src": "/files/Product/specialty-timbers.jpg",
+      "alt": "Wood samples in several warm tones arranged upright on a desk",
+      "kind": "material illustration",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified."
+    }
+  },
+  "applications": [
+    {
+      "src": "/files/CWI-Images/home_case_highrise.webp",
+      "alt": "Illustration of timber formwork supported on adjustable props at a concrete slab edge",
+      "kind": "application illustration",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
+      "title": "Construction",
+      "href": "/industries#construction",
+      "description": "Panels for formwork, shuttering and demanding site work."
+    },
+    {
+      "src": "/files/Product/product_flush_doors.jpg",
+      "alt": "A plain timber-faced flush door opening into a light interior",
+      "kind": "application illustration",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
+      "title": "Furniture & interiors",
+      "href": "/industries#furniture",
+      "description": "Boards for furniture, joinery, doors and everyday interior work."
+    },
+    {
+      "src": "/files/CWI-Images/home_case_export.webp",
+      "alt": "Illustration of plywood packing cases on pallets beside a stack of panels",
+      "kind": "application illustration",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
+      "title": "Industrial packing",
+      "href": "/industries#packaging",
+      "description": "Cases, crates and pallets matched to the load and destination."
+    },
+    {
+      "src": "/files/CWI-Images/home_case_marine.webp",
+      "alt": "Illustration of a wooden boat hull on a cradle beside open water",
+      "kind": "application illustration",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
+      "title": "Marine & wet service",
+      "href": "/marine-plywood",
+      "description": "Specify the bond, face and core for the intended exposure."
+    }
+  ],
+  "process": [
+    {
+      "src": "/files/Hero%20Optimized/Products.jpg",
+      "alt": "Wood and plywood samples arranged for material selection",
+      "kind": "material illustration",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
+      "title": "Share your specification",
+      "description": "Tell us the application, grade, thickness, quantity and delivery location."
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-sanding.jpg",
+      "alt": "Illustration of a plywood panel passing through a sanding machine",
+      "kind": "process illustration",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
+      "title": "Confirm the supply plan",
+      "description": "We confirm the product, producing works, commercial terms and lead time for your order."
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-moisture.jpg",
+      "alt": "Illustration of a pin moisture meter checking the edge of a plywood panel",
+      "kind": "process illustration",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
+      "title": "Agree the checks",
+      "description": "Set the required dimensions, moisture checks and supporting documents before dispatch."
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-loading.jpg",
+      "alt": "Illustration of a forklift loading plywood bundles into a container",
+      "kind": "process illustration",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
+      "title": "Prepare for dispatch",
+      "description": "Coordinate packing, loading and documents for your destination."
+    }
+  ]
+}
