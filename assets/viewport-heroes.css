@@ -1,0 +1,44 @@
+/* Fit the visual stage to usable height as well as width. Text remains natural
+   content: no fixed-height clipping, shrinking transforms or hidden actions. */
+@media (min-width:761px) {
+ body #main .cw-page-hero__media {
+  height:min(clamp(320px,43vw,620px),calc(100svh - var(--cw-header-height,89px) - 176px));
+  min-height:240px;
+  display:flex;flex-direction:column;
+ }
+ body #main .cw-page-hero__media img {
+  height:100%;min-height:0;flex:1;object-fit:cover;
+ }
+ .cx-hero {min-height:min(790px,calc(100svh - var(--cw-header-height,89px)))}
+}
+@media (min-width:761px) and (max-height:740px) {
+ body #main .cw-page-hero__inner {
+  grid-template-columns:minmax(0,43fr) minmax(0,57fr);
+  padding-top:16px;padding-bottom:24px;
+ }
+ body #main .cw-page-hero__breadcrumbs {margin-bottom:18px;font-size:.8125rem}
+ body #main .cw-page-hero__eyebrow {margin-bottom:10px}
+ body #main .cw-page-hero h1.cw-page-hero__title {
+  font-size:clamp(2rem,6.2svh,2.8rem);margin-bottom:16px;line-height:1.1;
+ }
+ body #main .cw-page-hero__support p {line-height:1.7;margin-bottom:16px}
+ body #main .cw-page-hero__actions {margin-top:16px;gap:8px}
+ body #main .cw-page-hero a.cw-page-hero__button {min-height:44px;padding:10px 16px;font-size:.8125rem}
+ body #main .cw-page-hero__facts {margin-top:16px;padding-top:12px;gap:8px 14px}
+ body #main .cw-page-hero__media {
+  height:calc(100svh - var(--cw-header-height,89px) - 106px);min-height:240px;
+ }
+ body #main .cw-page-hero--compact .cw-page-hero__inner {padding-bottom:24px}
+ .cx-hero__content {padding-top:32px;padding-bottom:92px}
+ .cx-hero .cx-kicker {margin-bottom:16px}
+ .cx-hero h1 {font-size:clamp(2.8rem,8.3svh,4rem);margin-bottom:22px}
+ .cx-hero__lead {margin-bottom:24px;line-height:1.7}
+ .cx-hero__base {padding-top:12px;padding-bottom:14px}
+}
+@media (max-width:760px) {
+ .cx-hero {min-height:min(660px,calc(100svh - var(--cw-header-height,77px)))}
+}
+@media print {
+ body #main .cw-page-hero__media,body #main .cw-page-hero__media img {height:auto;min-height:0}
+ .cx-hero {min-height:auto}
+}

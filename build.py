@@ -842,10 +842,6 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
     if consumed_crumb:
         crumb_nav = ""
     regional_nav = render_regional_navigation(path, REGIONAL_COVERAGE, u)
-    if regional_nav:
-        from hero_layout import hero_end
-        end = hero_end(body)
-        body = body[:end] + regional_nav + body[end:] if end is not None else regional_nav + body
     context_nav = ""
     if path.strip("/") in {item[0] for item in PRODUCTS}:
         context_nav = parent_navigation("All products", u("/products"))
@@ -853,7 +849,9 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
         from encyclopedia_navigation import render_species_navigation
         context_nav = render_species_navigation(WOOD_NAV, path, u, WOOD_PATH)
     elif path.startswith("/export/"):
-        context_nav = parent_navigation("All export markets", u("/export"))
+        # The regional hierarchy already includes the export parent destination.
+        context_nav = "" if regional_nav else parent_navigation("All export markets", u("/export"))
+    context_nav += regional_nav
     body = add_page_navigation(body, path, context=context_nav)
     # Several imported pages already render their own trail (cwp__crumb, cwg__crumb…);
     # drop our duplicate bar in that case.
@@ -907,6 +905,7 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
 <a class="cw-wa" href="https://wa.me/{CONTACT['wa']}" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" focusable="false"><path fill="currentColor" d="M.06 24l1.68-6.16A11.87 11.87 0 010 11.9C0 5.33 5.36 0 11.95 0a11.9 11.9 0 018.42 3.48 11.75 11.75 0 013.49 8.37c0 6.56-5.36 11.9-11.96 11.9-2 0-3.96-.5-5.7-1.45L.06 24zm6.6-3.8c1.68.99 3.28 1.58 5.4 1.58 5.45 0 9.9-4.42 9.9-9.87a9.8 9.8 0 00-2.9-6.99 9.9 9.9 0 00-7-2.9C6.6 2.02 2.15 6.44 2.15 11.9c0 2.2.62 3.85 1.67 5.57l-.99 3.6 3.83-.87zm11.6-5.5c-.08-.13-.28-.2-.58-.35-.3-.15-1.76-.86-2.03-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.14-.14.3-.36.45-.53.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41z"/></svg></a>
 <button class="cw-top" type="button" aria-label="Back to top" hidden>&uarr;</button>
 <script src="{u('/assets/' + ASSETS['site.js'])}" defer></script>
+<script src="{u('/assets/' + ASSETS['page-navigation.js'])}" defer></script>
 <script src="{u('/assets/' + ASSETS['experience-motion.js'])}" defer></script>
 <script src="{u('/assets/' + ASSETS['search-measurement.js'])}" defer></script>{beacon_tag()}
 </body>
@@ -1308,76 +1307,13 @@ QUOTE_JS = r'''<script>
 </script>'''
 
 def contact():
-    checks = "".join(f'<label><input type="checkbox" name="products" value="{v}">{lab}</label>'
-                     for v, lab in PRODUCT_INTEREST)
-    # NAMED, so the tick survives a native post. This box used to carry data-other and nothing else,
-    # which made it the one product answer that existed only if JavaScript ran: the packer in
-    # QUOTE_JS folds it into `description`, so with JS blocked, broken or still parsing, the buyer
-    # ticked a box that reached nobody and got the ordinary thank-you for it.
-    # `products` is the name the other nine post under, and the Worker joins every repeat of it into
-    # one "Products:" line (api-worker.js webLead(), the gAll() helper) -- free text at that end, not
-    # a picklist, so an unrecognised value cannot fail a lead. The nine chips joined are 223
-    # characters against the Worker's 300-char cap and this adds 18, so a buyer who ticks everything
-    # is still not truncated. data-other stays for the packer, whose line is now belt-and-braces
-    # rather than the only carrier.
-    checks += ('<label><input type="checkbox" name="help_me_choose" value="1" data-other>'
-               'Help me choose a suitable product / specification</label>')
-    incoterms = "".join(f"<option>{i}</option>" for i in INCOTERMS)
-    # ABSOLUTE, not root-relative, and matched by tools/check_site.py. The Worker is bound to
-    # www.cochinwood.in/web-lead and cochinwood.in/web-lead as explicit routes; a plain form POST is
-    # a top-level navigation and not subject to CORS, so this keeps working from a preview origin
-    # (the buyer simply lands back on the production contact page).
-    #
-    # THE TEN TICK BOXES ARE ONE QUESTION, so they are one <fieldset> with a <legend> that says
-    # which. They used to sit in a plain <div> under an orphan <label> -- a <label> with no `for`
-    # and no control inside it labels nothing at all -- and with no role=group or aria-labelledby
-    # anywhere else on the page, so a screen reader announced ten unrelated checkboxes and never
-    # said what the group was asking. The inline reset is not decoration: a fieldset arrives with a
-    # 2px groove border, its own side margins and padding, and a min-width of min-content that can
-    # stop this grid column shrinking on a phone. The legend repeats by hand what `.cw-form label`
-    # already gives every other question, because that rule selects labels and a legend is not one.
-    #
-    # And the asterisk is explained once, above the fields it applies to: seven labels carry one and
-    # nothing on the page said what it meant.
-    form = f'''<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer onerror="window.cwq2TsDead=1;window.cwq2TsNoload&amp;&amp;window.cwq2TsNoload()"></script>
-<form class="cw-form" id="cwq2-form" method="POST" action="https://www.cochinwood.in/web-lead" accept-charset="UTF-8">
-  <input type="hidden" name="enquiry" value="">
-  <input type="hidden" name="enquiry_id" value="">
-  <input type="hidden" name="spec_grade" value="">
-  <!-- honeypot: real buyers never see this -->
-  <div class="cw-hp" aria-hidden="true"><label for="q-web">Leave this field empty</label><input id="q-web" type="text" name="cwq2_website" tabindex="-1" autocomplete="off"></div>
-  <p class="cw-note" style="margin:0">Fields marked * are required.</p>
-  <div class="cw-row">
-    <div><label for="q-name">Name *</label><input id="q-name" type="text" name="name" autocomplete="name" required></div>
-    <div><label for="q-co">Company *</label><input id="q-co" type="text" name="company" autocomplete="organization" required></div>
-  </div>
-  <div class="cw-row">
-    <div><label for="q-em">Work email *</label><input id="q-em" type="email" name="email" autocomplete="email" required></div>
-    <div><label for="q-ph">WhatsApp / phone *</label><input id="q-ph" type="tel" name="phone" autocomplete="tel" required></div>
-  </div>
-  <fieldset style="border:0;margin:0;padding:0;min-width:0"><legend style="font-size:.86rem;font-weight:600;color:var(--cw-green-800);margin:0 0 6px;padding:0">What do you need?</legend><div class="cw-checks">{checks}</div></fieldset>
-  <div class="cw-row">
-    <div><label for="q-spec">Grade, if known</label><input id="q-spec" type="text" name="grade" placeholder="e.g. BWP, IS 710" data-pack="Grade"></div>
-    <div><label for="q-thickness">Thickness, if known</label><input id="q-thickness" type="text" name="thickness" placeholder="e.g. 18 mm" data-pack="Thickness"></div>
-  </div>
-  <p class="cw-note" id="q-guidance">Not sure of the grade or thickness? Select “Help me choose” and tell us what you will use it for below.</p>
-  <div class="cw-row">
-    <div><label for="q-size">Panel dimensions, if known</label><input id="q-size" type="text" name="dimensions" placeholder="e.g. 2440 × 1220 mm" data-pack="Dimensions"></div>
-    <div><label for="q-qty">Quantity, if known</label><input id="q-qty" type="text" name="quantity" placeholder="e.g. 500" data-pack="Quantity"></div>
-  </div>
-  <div><label for="q-unit">Quantity unit</label><select id="q-unit" name="unit" data-pack="Unit"><option value="">Not sure</option><option>Sheets</option><option>Pieces</option><option>CBM</option><option>20ft containers</option><option>40ft containers</option></select>
-  </div>
-  <div class="cw-row">
-    <div><label for="q-port">Delivery city / destination port *</label><input id="q-port" type="text" name="destination" placeholder="e.g. Kochi, or Jebel Ali, UAE" required></div>
-    <div><label for="q-inco">Quote basis</label><select id="q-inco" name="incoterm" data-pack="Quote basis"><option value="">Not sure — advise me</option>{incoterms}</select></div>
-  </div>
-  <div><label for="q-msg">Application / requirements</label><textarea id="q-msg" name="description" aria-describedby="q-guidance" placeholder="What are you making or packing? Add delivery timing and any requirements you already know."></textarea></div>
-  <div class="cf-turnstile" data-sitekey="{TURNSTILE_SITEKEY}" data-size="flexible" data-theme="light" data-error-callback="cwq2TsFail" style="margin:0 0 14px"></div>
-  <p class="cw-form__err" id="cwq2-error" role="alert"></p>
-  <div><button class="cw-btn cw-btn--p" type="submit">Send enquiry</button>
-  <p class="cw-note" style="margin:10px 0 0">Goes straight to our sales desk. We reply within one business day.</p></div>
-</form>
-{QUOTE_JS}'''
+    from quote_form import render_quote_form
+    # Preserve the existing Turnstile diagnostic callbacks; the form behaviour is
+    # now the separately fingerprinted, contact-only multi-product controller.
+    diagnostic_js = QUOTE_JS.split('</script>', 1)[0] + '</script>'
+    form = diagnostic_js + render_quote_form(
+        PRODUCT_INTEREST, INCOTERMS, TURNSTILE_SITEKEY,
+        script_src=u('/assets/' + ASSETS['quote-form.js']))
     # id="quote" lives on the SECTION, exactly as live has it: ~20 pages link to /contact#quote, and
     # the Worker's own 302 target ends in #quote. It used to sit on the <form>, which the success
     # handler replaces the innards of -- and getElementById('quote').scrollIntoView() has to survive
@@ -2736,7 +2672,7 @@ def build_redirects():
 
 # ---------------- assets + meta ----------------
 # One request instead of five; order preserved so cascade behaviour is unchanged.
-CSS_BUNDLE = ["fonts.css", "site.css", "guide.css", "wood-enc.css", "shell.css", "components.css", "visual-system.css", "experience.css", "experience-inner.css", "experience-motion.css", "blog-index.css", "blog-navigation.css", "catalogue-navigation.css", "inner-hero.css", "page-navigation.css", "encyclopedia-navigation.css", "privacy-choices.css", "regional-navigation.css"]
+CSS_BUNDLE = ["fonts.css", "site.css", "guide.css", "wood-enc.css", "shell.css", "components.css", "visual-system.css", "experience.css", "experience-inner.css", "experience-motion.css", "blog-index.css", "blog-navigation.css", "catalogue-navigation.css", "inner-hero.css", "page-navigation.css", "encyclopedia-navigation.css", "privacy-choices.css", "regional-navigation.css", "viewport-heroes.css", "quote-form.css"]
 
 def _css_fix_urls(css, name):
     """Resolve /files/... backgrounds; neutralise the ones with no source file."""
@@ -2785,13 +2721,15 @@ def css_bundle_content():
 # build serves it from /assets/ where the pin is a year. Publish it under a fixed
 # name and a broken beacon is frozen in every returning buyer's browser until
 # September 2027, with no URL left to push a fix through.
-ASSETS = {"search-measurement.js": "search-measurement.js", "encyclopedia-navigation.js": "encyclopedia-navigation.js", "experience-motion.js": "experience-motion.js", "bundle.css": "bundle.css", "site.js": "site.js", "cw-events.js": "cw-events.js"}
+ASSETS = {"page-navigation.js": "page-navigation.js", "quote-form.js": "quote-form.js", "search-measurement.js": "search-measurement.js", "encyclopedia-navigation.js": "encyclopedia-navigation.js", "experience-motion.js": "experience-motion.js", "bundle.css": "bundle.css", "site.js": "site.js", "cw-events.js": "cw-events.js"}
 
 def _digest(data):
     if isinstance(data, str): data = data.encode("utf-8")
     return hashlib.sha256(data).hexdigest()[:8]
 
 def fingerprint_assets():
+    for name in ("page-navigation.js", "quote-form.js"):
+        ASSETS[name] = name[:-3] + '.' + _digest(read_lf(os.path.join(ROOT, 'assets', name))) + '.js'
     ASSETS["search-measurement.js"] = f"search-measurement.{_digest(read_lf(os.path.join(ROOT, 'assets', 'search-measurement.js')))}.js"
     ASSETS["encyclopedia-navigation.js"] = f"encyclopedia-navigation.{_digest(read_lf(os.path.join(ROOT, 'assets', 'encyclopedia-navigation.js')))}.js"
     ASSETS["bundle.css"] = f"bundle.{_digest(css_bundle_content())}.css"
@@ -2927,7 +2865,7 @@ def assets_and_meta():
     # Publish the two fingerprinted scripts under their hashed names, so the
     # year-long immutable header below is only ever attached to a name that
     # changes when the bytes do.
-    for key, plain_name in (("site.js", "site.js"), ("cw-events.js", "cw-events.js"), ("experience-motion.js", "experience-motion.js"), ("encyclopedia-navigation.js", "encyclopedia-navigation.js"), ("search-measurement.js", "search-measurement.js")):
+    for key, plain_name in (("site.js", "site.js"), ("cw-events.js", "cw-events.js"), ("experience-motion.js", "experience-motion.js"), ("encyclopedia-navigation.js", "encyclopedia-navigation.js"), ("search-measurement.js", "search-measurement.js"), ("page-navigation.js", "page-navigation.js"), ("quote-form.js", "quote-form.js")):
         hashed = ASSETS.get(key)
         plain = os.path.join(dst, plain_name)
         if hashed and hashed != plain_name and os.path.exists(plain):
@@ -3038,7 +2976,7 @@ def assets_and_meta():
     day       = "  Cache-Control: public, max-age=86400\n"
     hashed_rules = "".join(
         f"/assets/{ASSETS[k]}\n" + immutable
-        for k in ("bundle.css", "site.js", "cw-events.js", "experience-motion.js", "encyclopedia-navigation.js", "search-measurement.js") if ASSETS.get(k))
+        for k in ("bundle.css", "site.js", "cw-events.js", "experience-motion.js", "encyclopedia-navigation.js", "search-measurement.js", "page-navigation.js", "quote-form.js") if ASSETS.get(k))
     # THE PUBLISHED TREE MUST SAY WHICH COMMIT IT WAS BUILT FROM. 311 of dist/'s
     # 607 files are copied out of cf-live's object store, and a dist/ that does
     # not name that commit cannot be audited once the terminal that printed the

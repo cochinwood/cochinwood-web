@@ -156,7 +156,7 @@ function median(values) {
               titleText: title && title.textContent.trim().replace(/\s+/g, ' '), titleTag: title && title.tagName.toLowerCase(),
               labelledBy, validLabel: !!(labelledBy && title && labelledBy.split(/\s+/).includes(title.id)),
               hero: heroBox, minHeight: innerStyle ? parseFloat(innerStyle.minHeight) || 0 : 0,
-              inner: box(inner), title: titleBox, frame: frameBox, image: imageBox,
+              inner: box(inner), title: titleBox, frame: frameBox, image: imageBox, viewportHeight:innerHeight,
               expectedGutter: inner && round(inner.getBoundingClientRect().left + parseFloat(innerStyle.paddingLeft)),
               headingFont: style && {family: style.fontFamily, size: style.fontSize, weight: style.fontWeight, style: style.fontStyle, lineHeight: style.lineHeight},
               emphasisFont: title && title.querySelector('em') ? getComputedStyle(title.querySelector('em')).fontFamily : null,
@@ -182,8 +182,13 @@ function median(values) {
           if (result.image) {
             if (task.width <= 760 && Math.abs(result.image.width / result.image.height - 4 / 3) > 0.025) fail('Mobile hero image frame is not 4:3', {image: result.image});
             if (task.width > 760) {
-              const expectedHeight = Math.max(440, Math.min(task.width * .43, 620));
-              if (Math.abs(result.image.height - expectedHeight) > 2) fail('Desktop media stage differs from shared responsive height', {image: result.image, expectedHeight});
+              // The complete figure now shares the height budget, including any
+              // caption. Compare frames across pages below; do not require the
+              // old image minimum that overflowed shorter Chrome windows.
+              if (result.frame.height < 240 || result.frame.height > result.viewportHeight - 100)
+                fail('Desktop media stage is too small or exceeds its viewport budget', {frame:result.frame});
+              if (result.image.bottom > result.frame.bottom + 2)
+                fail('Image extends beyond the shared media stage', {image:result.image,frame:result.frame});
               const usableWidth = result.inner.width - 2 * (result.expectedGutter - result.inner.left);
               const fraction = result.image.width / usableWidth;
               if (fraction < .58 || fraction > .65) fail('Desktop imagery does not occupy the intended large visual share', {fraction, image: result.image, usableWidth});
@@ -241,6 +246,8 @@ function median(values) {
         .map(item => ({route: item.route, height: item.hero.height, title: item.titleText})) : [],
     });
     for (const item of cohort) {
+      if (width > 760 && item.frame && baseline.frame && Math.abs(item.frame.height-baseline.frame.height)>2)
+        failures.push({width,route:item.route,issue:'Figure height differs across shared hero family',expected:baseline.frame.height,actual:item.frame.height});
       for (const property of ['family', 'size', 'weight', 'style']) {
         if (item.headingFont[property] !== baseline.headingFont[property]) failures.push({width, route: item.route, issue: 'Heading typography differs across the shared hero family', property, expected: baseline.headingFont[property], actual: item.headingFont[property]});
       }

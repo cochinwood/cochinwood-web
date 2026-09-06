@@ -1,22 +1,54 @@
-/* A consistent native contents menu for product, industry and reference pages. */
-.cw-page-navigation{background:#FAF9F7;border-bottom:1px solid #d5ded2}
-.cw-page-navigation__inner{width:100%;max-width:var(--cw-page-width,1440px);margin-inline:auto;padding:18px var(--cw-page-gutter,clamp(24px,5.5vw,88px));box-sizing:border-box;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px 32px}
-.cw-section-parent a{display:inline-flex;align-items:center;gap:10px;min-height:44px;font:500 .875rem/1.6 Poppins,sans-serif;color:#1B4332;text-underline-offset:5px}
-.cw-section-menu{flex:1;min-width:0;max-width:820px;border:1px solid #bbcbb9;background:#f1f4ed}
-.cw-section-menu summary{padding:12px 18px;font:500 .875rem/1.7 Poppins,sans-serif;color:#1B4332;cursor:pointer;min-height:46px}
-.cw-section-menu summary>span{font-weight:400;color:#5c6c5a;font-size:.8125rem;margin-left:12px}
-.cw-section-links{list-style:none;padding:4px 18px 18px;margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 28px;max-height:390px;overflow:auto;overscroll-behavior:contain}
-.cw-section-links li{padding:0;margin:0;border-bottom:1px solid #d4ddd0;min-width:0}
-.cw-section-links a{display:block;padding:12px 0;min-height:44px;font:400 .875rem/1.7 Poppins,sans-serif;color:#1B4332;text-decoration:none;overflow-wrap:anywhere}
-.cw-section-links a:hover{text-decoration:underline;text-underline-offset:4px}
-.cw-section-menu:only-child{max-width:none;width:100%}
-/* html already reserves the fixed header; do not add a second anchor offset. */
+/* Compact section navigation: context scrolls away; only the anchor row sticks. */
+:root{--cw-header-height:88px;--cw-section-bar-height:54px}
+.cw-page-navigation{background:#FAF9F7;border-bottom:1px solid #e0e5dc}
+.cw-page-navigation__inner,.cw-section-bar__inner{width:100%;max-width:var(--cw-page-width,1440px);margin-inline:auto;padding-inline:var(--cw-page-gutter,clamp(24px,5.5vw,88px));box-sizing:border-box}
+.cw-page-navigation__inner{padding-block:10px;display:flex;align-items:center;flex-wrap:wrap;gap:10px 28px}
+.cw-section-parent a{display:inline-flex;align-items:center;gap:10px;min-height:36px;font:500 .8125rem/1.6 Poppins,sans-serif;color:#1B4332;text-underline-offset:5px}
+.cw-section-bar{position:sticky;top:var(--cw-header-height);z-index:40;background:#FAF9F7;border-bottom:1px solid #d5ded2;box-shadow:0 3px 10px #1b433206}
+.cw-section-menu{margin:0;padding:0;border:0;min-width:0;width:100%;background:transparent}
+.cw-section-menu:not([open]) .cw-section-scroll{display:none}
+.cw-section-menu summary{display:none;cursor:pointer;list-style:none}
+.cw-section-menu summary::-webkit-details-marker{display:none}
+.cw-section-scroll{display:flex;align-items:center;gap:8px;min-width:0}
+.cw-section-scroll nav{flex:1;min-width:0;overflow:auto;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:#a2b6a5 transparent}
+body #main .cw-section-links{display:flex;align-items:stretch;gap:24px;width:max-content;min-width:100%;list-style:none;margin:0;padding:0;max-height:none;overflow:visible}
+body #main .cw-section-links li{flex:none;list-style:none;margin:0;padding:0;border:0}
+body #main .cw-section-links a{display:flex;align-items:center;min-height:52px;padding:2px 0;box-sizing:border-box;border-bottom:2px solid transparent;color:#415a49;font:500 .8125rem/1.5 Poppins,sans-serif;text-decoration:none;white-space:nowrap}
+body #main .cw-section-links a:hover{color:#007A5E;border-bottom-color:#9eb8a5}
+body #main .cw-section-links a[aria-current="location"]{color:#007A5E;border-bottom-color:#007A5E}
+.cw-section-scroll__button{flex:none;display:grid;place-items:center;width:36px;height:40px;margin:0;padding:0;border:1px solid #d5ded2;background:transparent;color:#1b4332;font:400 1.1rem Poppins,sans-serif;cursor:pointer}
+.cw-section-scroll__button[hidden]{display:none}
+.cw-section-scroll__button:disabled{opacity:.35;cursor:default}
+.cw-section-menu a:focus-visible,.cw-section-menu summary:focus-visible,.cw-section-scroll__button:focus-visible{outline:2px solid #007A5E;outline-offset:-3px}
+/* A single root offset reserves both sticky surfaces; targets add no second gap. */
+html:has(.cw-section-bar){scroll-padding-top:calc(var(--cw-header-height) + var(--cw-section-bar-height) + 12px)}
 body #main [id]{scroll-margin-top:0!important}
-
-@media(max-width:620px){.cw-page-navigation__inner{display:block;padding-block:14px}.cw-section-parent{margin-bottom:10px}.cw-section-links{grid-template-columns:1fr;max-height:45svh}.cw-section-menu{width:100%}.cw-section-menu summary{padding:12px 14px}}
-@media print{.cw-page-navigation{display:none}}
+@media(max-width:860px){:root{--cw-header-height:77px}}
+@media(max-width:760px){
+ :root{--cw-section-bar-height:52px}
+ .cw-section-menu summary{display:flex;align-items:center;gap:16px;min-height:52px;padding:0;color:#1B4332;font:500 .8125rem/1.5 Poppins,sans-serif}
+ .cw-section-menu summary::after{content:'+';font-size:1.25rem;margin-left:auto}
+ .cw-section-menu[open] summary::after{content:'−'}
+ .cw-section-current{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#637363;font-weight:400}
+ .cw-section-menu .cw-section-scroll{position:absolute;top:100%;left:0;right:0;display:block;padding:8px var(--cw-page-gutter,24px) 16px;background:#FAF9F7;border-bottom:1px solid #c9d5c7;box-shadow:0 10px 20px #1b433210;box-sizing:border-box}
+ .cw-section-scroll nav{max-height:min(55dvh,420px);overflow:auto}
+ body #main .cw-section-links{display:block;width:100%;min-width:0}
+ body #main .cw-section-links a{min-height:44px;white-space:normal;padding:10px 0}
+ .cw-section-scroll__button{display:none!important}
+}
+@media(prefers-reduced-motion:reduce){html:has(.cw-section-bar){scroll-behavior:auto!important}.cw-section-scroll nav{scroll-behavior:auto}}
+@media print{.cw-page-navigation,.cw-section-bar{display:none}}
 
 /* Article reading columns begin on the same grid as their shared headings. */
 .cw-blog-post #main .cw-reading-layout{width:100%;max-width:var(--cw-page-width,1440px);box-sizing:border-box;padding-inline:var(--cw-page-gutter,clamp(24px,5.5vw,88px))}
 @media(max-width:1099px){.cw-blog-post #main .cw-reading-layout{max-width:var(--cw-page-width,1440px)}}
 @media(max-width:620px){.cw-blog-post #main .cw-reading-layout{padding-inline:24px}}
+
+/* Regional links share the context row, rather than adding their old padded band.
+   Scoped specificity wins even though regional-navigation.css loads later. */
+.cw-page-navigation .cw-regional-navigation{max-width:none;width:100%;margin:0;padding:0;border:0;gap:8px 22px;font-size:.8125rem}
+.cw-page-navigation .cw-regional-navigation>a{display:inline-flex;align-items:center;min-height:36px}
+.cw-page-navigation .cw-regional-navigation details{flex-basis:auto;min-width:0}
+.cw-page-navigation .cw-regional-navigation details[open]{flex-basis:100%}
+.cw-page-navigation .cw-regional-navigation summary{min-height:36px;padding-block:6px;box-sizing:border-box;font-weight:500}
+.cw-page-navigation .cw-regional-navigation .cw-market-links{margin:0;padding:6px 0 10px;gap:4px 22px}

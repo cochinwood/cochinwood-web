@@ -23,7 +23,9 @@ Generated text uses LF bytes across platforms. CSS and JavaScript filenames are 
 - `content/visual-media.json`, `content/editorial-media.json`, `content/species-media.json`: visual selection, descriptions, source identification and credits.
 - `content/responsive-media.json`, `content/home-art-direction.json`: reviewed image sizes and same-scene homepage mobile crops.
 - `assets/photos/files/`: media sources; existing public image URLs are retained. New candidate widths and hashes are checked during generation.
-- `hero_layout.py`: shared inner-page hero adaptation without rewriting articles.
+- `hero_layout.py`: shared inner-page hero adaptation without rewriting articles. `assets/viewport-heroes.css` budgets the visual stage against available screen height.
+- `page_navigation.py`, `assets/page-navigation.*`: compact sticky section links, mobile disclosure, active section and measured header offsets. Native links work without scripting.
+- `quote_form.py`, `assets/quote-form.*`: repeatable product specifications, same-tab draft recovery and backward-compatible native enquiry delivery. See [multi-product enquiries](docs/multi-product-enquiries.md).
 - `site_preservation.py`: ordered content, specification, schema, form, download, link, redirect and asset comparisons with exact reviewed allowances.
 
 The visual identity uses forest green, warm neutrals, natural wood, Poppins and Bree Serif. See [the media guide](docs/visual-media-guide.md) for licensing and image review decisions. Customer-facing captions explain products; production provenance stays in these records.

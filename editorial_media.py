@@ -27,7 +27,7 @@ LABEL_REPLACEMENTS = {
     "Flush-door application illustration.": "Flush-door application.",
     "Material illustration.": "",
     "Representative panel;": "Panel specification:",
-    "Illustration of container loading.": "Preparing bundles for container loading.",
+    "Illustration of container loading.": "",
     "Representative solid-wood board samples;": "Solid-wood boards:",
     "Representative product image": "Materials for your application",
     "Representative material illustrations.": "",
