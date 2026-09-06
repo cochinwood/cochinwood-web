@@ -1,0 +1,163 @@
+import copy
+import json
+from pathlib import Path
+import tempfile
+import unittest
+import xml.etree.ElementTree as ET
+
+from prepare_commerce import ROOT, issues, records, prepare, public_url, valid_gtin
+
+
+def approved_fixture():
+    c = json.loads((ROOT/'commerce-preview/config/catalogue.synthetic.json').read_text(encoding='utf-8'))
+    # Fictional test configuration only; never written to the actual proposal.
+    c['synthetic'] = False
+    for p in c['products']:
+        p['product_url'] = 'https://www.cochinwood.in/shop/' + p['sku']
+        p['actual_product_photo_url'] = 'https://www.cochinwood.in/files/' + p['sku'] + '.webp'
+    for field in ('delivery_url', 'returns_url', 'cancellation_url'):
+        c['policies'][field] = 'https://www.cochinwood.in/' + field
+    c['payment'].update(enabled=True, uat_passed=True, commercial_terms_approved=True)
+    for k in c['merchant']: c['merchant'][k] = True
+    return c
+
+
+class MerchantPreparationTests(unittest.TestCase):
+    def test_real_configuration_refuses_missing_commercial_values(self):
+        c = json.loads((ROOT/'commerce-preview/config/catalogue.proposed.json').read_text(encoding='utf-8'))
+        fields = {i['field'] for i in issues(c)}
+        self.assertIn('approval', fields)
+        self.assertIn('products.prem_hw_gurjan_12.unit_price_paise', fields)
+        self.assertIn('delivery.rules', fields)
+        self.assertIn('payment.uat_passed', fields)
+
+    def test_fully_reviewed_fixture_can_generate_consistent_feed(self):
+        c = approved_fixture()
+        self.assertEqual(issues(c), [])
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp)/'fixture.json'; path.write_text(json.dumps(c))
+            report = prepare(path, Path(temp)/'out', release=True)
+            self.assertTrue(report['ready_for_merchant_export'])
+            self.assertFalse(report['submitted'])
+            items = ET.parse(Path(temp)/'out/merchant-feed.xml').findall('./channel/item')
+            self.assertEqual(len(items), 4)
+            data = json.loads((Path(temp)/'out/product-offers.json').read_text())
+            ns = {'g':'http://base.google.com/ns/1.0'}
+            for item, product in zip(items, data):
+                self.assertEqual(item.find('g:price', ns).text, product['offers']['price'] + ' INR')
+                self.assertEqual(item.find('g:link', ns).text, product['offers']['url'])
+                self.assertEqual(item.find('g:image_link', ns).text, product['image'][0])
+
+    def test_synthetic_fixture_never_eligible_even_if_all_flags_set(self):
+        c = approved_fixture(); c['synthetic'] = True
+        self.assertIn('synthetic', {i['field'] for i in issues(c)})
+
+    def test_zero_missing_boolean_float_and_negative_price_fail(self):
+        for bad in (None, 0, -1, True, 100.5, '100'):
+            with self.subTest(bad=bad):
+                c = approved_fixture(); c['products'][0]['unit_price_paise'] = bad
+                self.assertTrue(any(i['field'].endswith('.unit_price_paise') for i in issues(c)))
+
+    def test_minimum_quantity_price_and_out_of_stock_are_not_misrepresented(self):
+        c = approved_fixture(); p = c['products'][0]
+        p.update(min_quantity=5, stock=4)
+        rows, data = records(c)
+        self.assertEqual(rows[0]['price'], '500.00 INR')
+        self.assertEqual(rows[0]['availability'], 'out_of_stock')
+        self.assertEqual(rows[0]['unit_pricing_measure'], '5 ct')
+        self.assertEqual(data[0]['offers']['price'], '500.00')
+
+    def test_missing_image_or_quotation_url_prevents_release(self):
+        c = approved_fixture(); p = c['products'][0]
+        p.update(actual_product_photo_url=None, product_url='https://www.cochinwood.in/contact')
+        fields = {i['field'] for i in issues(c)}
+        self.assertIn('products.prem_hw_gurjan_12.actual_product_photo_url', fields)
+        self.assertIn('products.prem_hw_gurjan_12.product_url', fields)
+
+    def test_unknown_identifiers_cannot_silently_be_marked_absent(self):
+        c = approved_fixture(); c['products'][0]['identifiers_not_assigned'] = False
+        self.assertTrue(any(i['field'].endswith('.identifier_exists') for i in issues(c)))
+
+    def test_gtin_checksum_and_zeros(self):
+        self.assertTrue(valid_gtin('4006381333931'))
+        self.assertFalse(valid_gtin('4006381333932'))
+        self.assertFalse(valid_gtin('0000000000000'))
+
+    def test_duplicate_sku_and_excluded_family(self):
+        c = approved_fixture(); c['products'][1]['sku'] = c['products'][0]['sku']
+        c['products'][0]['staff_product_key'] = 'commercial'
+        self.assertTrue(any(i['field'].endswith('.sku') for i in issues(c)))
+        self.assertTrue(any(i['field'].endswith('.staff_product_key') for i in issues(c)))
+
+    def test_overlapping_delivery_rules_fail(self):
+        c = approved_fixture(); c['delivery']['rules'].append(copy.deepcopy(c['delivery']['rules'][0]))
+        c['delivery']['rules'][-1]['id'] = 'different-id'
+        self.assertTrue(any(i['field'].endswith('.overlap') for i in issues(c)))
+
+    def test_unverified_bank_or_merchant_each_blocks(self):
+        for section in ('payment', 'merchant'):
+            c = approved_fixture(); c[section]['enabled'] = False
+            self.assertIn(section + '.enabled', {i['field'] for i in issues(c)})
+
+    def test_blocked_run_removes_stale_feed_without_touching_other_files(self):
+        c = approved_fixture()
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp)/'fixture.json'; output = Path(temp)/'out'
+            path.write_text(json.dumps(c)); prepare(path, output, release=True)
+            (output/'keep.txt').write_text('keep')
+            c['approval']['status'] = 'pending'; path.write_text(json.dumps(c))
+            prepare(path, output, release=True)
+            self.assertFalse((output/'merchant-feed.xml').exists())
+            self.assertEqual((output/'keep.txt').read_text(), 'keep')
+
+    def test_external_preview_credentials_and_malformed_urls_fail(self):
+        for value in ('https://evil.example/product', 'http://www.cochinwood.in/shop/a',
+                      'https://user:pass@www.cochinwood.in/shop/a',
+                      'https://www.cochinwood.in:invalid/shop/a',
+                      'https://www.cochinwood.in/commerce-preview/shop/a'):
+            self.assertFalse(public_url(value))
+
+    def test_no_active_product_is_not_a_valid_launch(self):
+        c = approved_fixture()
+        for p in c['products']: p['active'] = False
+        self.assertIn('products.active', {i['field'] for i in issues(c)})
+
+    def test_preview_never_writes_feed_even_with_reviewed_fixture(self):
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp)/'fixture.json'; path.write_text(json.dumps(approved_fixture()))
+            prepare(path, Path(temp)/'out', release=False)
+            self.assertFalse((Path(temp)/'out/merchant-feed.xml').exists())
+
+    def test_malformed_input_invalidates_prior_feed_and_ready_report(self):
+        for broken in ('{"products":', '[]', '{"products":[null]}'):
+            with self.subTest(broken=broken), tempfile.TemporaryDirectory() as temp:
+                path = Path(temp)/'fixture.json'; output = Path(temp)/'out'
+                path.write_text(json.dumps(approved_fixture())); prepare(path, output, release=True)
+                path.write_text(broken); report = prepare(path, output, release=True)
+                self.assertFalse(report['ready_for_merchant_export'])
+                self.assertFalse((output/'merchant-feed.xml').exists())
+                self.assertFalse(json.loads((output/'readiness.json').read_text())['ready_for_merchant_export'])
+
+    def test_missing_display_field_invalidates_prior_feed(self):
+        with tempfile.TemporaryDirectory() as temp:
+            c = approved_fixture(); path = Path(temp)/'fixture.json'; output = Path(temp)/'out'
+            path.write_text(json.dumps(c)); prepare(path, output, release=True)
+            del c['products'][0]['size']; path.write_text(json.dumps(c))
+            report = prepare(path, output, release=True)
+            self.assertFalse(report['ready_for_merchant_export'])
+            self.assertFalse((output/'product-offers.json').exists())
+
+    def test_minimum_offer_outside_delivery_bands_blocks(self):
+        c = approved_fixture()
+        for p in c['products']: p.update(min_quantity=50, max_quantity=60, stock=100)
+        self.assertEqual(sum(i['field'].endswith('.delivery_coverage') for i in issues(c)), 4)
+
+    def test_whitespace_only_brand_and_identifier_block(self):
+        c = approved_fixture(); c['products'][0].update(brand='   ', mpn='   ')
+        fields = {i['field'] for i in issues(c)}
+        self.assertIn('products.prem_hw_gurjan_12.copy', fields)
+        self.assertIn('products.prem_hw_gurjan_12.mpn', fields)
+
+
+if __name__ == '__main__':
+    unittest.main()

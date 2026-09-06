@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="referrer" content="same-origin">
+  <title>Shop preview · Cochin Wood</title>
+  <link rel="icon" href="/assets/icons/favicon-32.png">
+  <link rel="stylesheet" href="/assets/fonts.css">
+  <link rel="stylesheet" href="/commerce-preview/commerce.css">
+  <script src="/commerce-preview/shop.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to shop</a>
+  <div class="preview-strip"><div class="wrap"><span><span class="status-dot"></span>Internal preview</span><span>No real payments or customer messages</span></div></div>
+  <header class="site-header"><div class="wrap header-inner">
+    <a class="brand" href="/commerce-preview/" aria-label="Cochin Wood shop preview home"><img src="/assets/logo.png" alt="" width="52" height="52"><span><strong>Cochin Wood</strong><small>Industries</small></span></a>
+    <nav aria-label="Preview navigation"><a href="/commerce-preview/" aria-current="page">Shop preview</a><a href="/commerce-preview/staff.html">Staff review <span aria-hidden="true">↗</span></a></nav>
+  </div></header>
+  <main id="main">
+    <section class="shop-intro wrap" aria-labelledby="shop-title">
+      <div><p class="eyebrow">The proposed Kerala collection</p><h1 id="shop-title">The right sheet.<br><span>A simpler order.</span></h1><p class="intro-copy">Choose your material and thickness, add the sheets you need, then check delivery to your door.</p></div>
+      <div class="intro-aside"><p class="small-heading">Made for a clear decision</p><ul class="intro-facts"><li><span>02</span> Premium material families</li><li><span>04</span> Proposed sheet options</li><li><span>KL</span> Kerala delivery first</li></ul><a class="text-link" href="https://www.cochinwood.in/contact">Custom sizes, bulk or export? Request a quote <span aria-hidden="true">↗</span></a></div>
+    </section>
+    <section class="mode-area wrap" aria-label="Preview data controls">
+      <div class="mode-heading"><strong>Explore the shop</strong><div class="mode-switch" role="group" aria-label="Catalogue data"><button type="button" data-mode="live" aria-pressed="true">Actual setup</button><button type="button" data-mode="test" aria-pressed="false">Test checkout</button></div></div>
+      <div id="mode-note" class="mode-note" role="status">Loading the proposed catalogue…</div>
+    </section>
+    <div class="wrap shop-layout">
+      <div class="catalogue-column">
+        <section id="catalogue" aria-labelledby="catalogue-title"><div class="section-heading"><h2 id="catalogue-title">Choose your sheets</h2><span class="muted">8 × 4 ft · 12 or 18 mm</span></div><div id="products" class="product-grid"><p>Loading materials…</p></div></section>
+        <section class="need-help"><span class="help-icon" aria-hidden="true">↗</span><div><h2>Not sure which material to choose?</h2><p>Tell our team about the application, quantities and delivery location. Custom and bulk requirements continue through the quotation desk.</p><a class="text-link" href="https://www.cochinwood.in/contact">Talk to the team <span aria-hidden="true">→</span></a></div></section>
+        <section id="checkout" class="checkout-panel" hidden aria-labelledby="checkout-title">
+          <ol class="checkout-steps" aria-label="Checkout progress"><li data-step="details" aria-current="step"><span>1</span> Delivery details</li><li data-step="review"><span>2</span> Review order</li><li data-step="payment"><span>3</span> Test payment</li></ol>
+          <div id="details-stage"><div class="section-heading"><h2 id="checkout-title" tabindex="-1">Where should it arrive?</h2><button type="button" class="text-button" id="back-to-basket">Back to basket</button></div><p class="muted">Use made-up contact details in this internal preview. Fields marked * are required.</p>
+            <form id="details-form" novalidate><div id="details-errors" class="form-errors" role="alert" tabindex="-1" hidden></div><div class="field-grid">
+              <div class="field"><label for="buyer-name">Full name *</label><input id="buyer-name" name="name" autocomplete="off" maxlength="100" required><span class="field-error" id="buyer-name-error"></span></div>
+              <div class="field"><label for="buyer-phone">Mobile number *</label><input id="buyer-phone" name="phone" type="tel" inputmode="tel" autocomplete="off" maxlength="20" required><span class="field-error" id="buyer-phone-error"></span></div>
+              <div class="field"><label for="buyer-email">Email address *</label><input id="buyer-email" name="email" type="email" autocomplete="off" maxlength="150" required><span class="field-error" id="buyer-email-error"></span></div>
+              <div class="field"><label for="buyer-company">Company <span class="optional">optional</span></label><input id="buyer-company" name="company" autocomplete="off" maxlength="150"></div>
+              <div class="field"><label for="buyer-gstin">GSTIN <span class="optional">optional</span></label><input id="buyer-gstin" name="gstin" autocomplete="off" maxlength="15" aria-describedby="buyer-gstin-error"><span class="field-error" id="buyer-gstin-error"></span></div>
+              <div class="field full"><label for="address-line1">Building and street *</label><input id="address-line1" name="line1" autocomplete="off" maxlength="200" required><span class="field-error" id="address-line1-error"></span></div>
+              <div class="field full"><label for="address-line2">Area or landmark <span class="optional">optional</span></label><input id="address-line2" name="line2" autocomplete="off" maxlength="200"></div>
+              <div class="field"><label for="address-city">Town or city *</label><input id="address-city" name="city" autocomplete="off" maxlength="100" required><span class="field-error" id="address-city-error"></span></div>
+              <div class="field"><label for="address-state">State</label><input id="address-state" value="Kerala" readonly></div>
+              <div class="field"><label for="address-postcode">Delivery PIN code</label><input id="address-postcode" readonly aria-describedby="postcode-change-help"><span id="postcode-change-help" class="field-help">Change this in your basket to recheck delivery.</span></div>
+            </div><div class="form-actions"><button type="submit" class="button primary">Review order <span aria-hidden="true">→</span></button><button type="button" class="text-button" id="fill-test-details">Fill example details</button></div></form>
+          </div>
+          <div id="review-stage" hidden><div class="section-heading"><h2 tabindex="-1" id="review-title">Everything in one place.</h2><button type="button" class="text-button" id="edit-details">Edit details</button></div><div id="review-content"></div><p class="test-callout">This creates a test order only. Prices, stock and delivery terms are synthetic examples, not sale offers.</p><div class="check-field"><input id="review-confirm" type="checkbox"><label for="review-confirm">I understand this is a simulated order using example information.</label></div><div id="order-error" class="form-errors" role="alert" hidden></div><button id="create-order" class="button primary" type="button">Create test order <span aria-hidden="true">→</span></button></div>
+          <div id="payment-stage" hidden><div id="payment-content"></div></div>
+        </section>
+      </div>
+      <aside id="basket" class="basket" aria-labelledby="basket-title"><div class="basket-heading"><h2 id="basket-title">Your selection</h2><span id="basket-count" class="count">0 sheets</span></div><div id="basket-items"></div><div id="delivery-box" hidden><form id="postcode-form" novalidate><label for="delivery-postcode">Check delivery</label><div class="postcode-control"><input id="delivery-postcode" name="postcode" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="off" placeholder="6-digit PIN code" aria-describedby="delivery-message" required><button class="button secondary" type="submit">Check</button></div><p id="delivery-message" class="field-help" role="status">Enter a PIN code to see delivery and your total.</p></form><div id="totals"></div><button id="continue-checkout" class="button primary full-button" type="button" disabled>Continue to delivery <span aria-hidden="true">→</span></button><p class="basket-note">No payment is collected in this preview.</p></div><div id="basket-error" class="form-errors" role="alert" hidden></div></aside>
+    </div>
+  </main>
+  <footer><div class="wrap footer-inner"><span>Cochin Wood Industries</span><span>Perumbavoor, Kerala</span><a href="https://www.cochinwood.in/">Visit the company website <span aria-hidden="true">↗</span></a></div></footer>
+  <div id="announcer" class="sr-only" role="status" aria-live="polite"></div>
+  <noscript><div class="noscript-message">This internal shop preview needs JavaScript. The existing <a href="https://www.cochinwood.in/contact">quotation desk</a> remains available.</div></noscript>
+</body>
+</html>
