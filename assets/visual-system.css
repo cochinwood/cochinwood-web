@@ -130,3 +130,25 @@ ol.cw-process-grid,ul.cw-process-grid{list-style:none;padding:0;margin:0}
 @media(max-width:1000px){.cw-application-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cw-contact-grid{gap:28px}}
 @media(max-width:760px){.cw-section__head{display:block}.cw-section__head h2{margin-bottom:16px}.cw-section__head>p{max-width:60ch}.cw-contact-grid{grid-template-columns:1fr}.cw-contact-main{order:0}.cw-contact-aside{order:1}.cw-collection-nav{padding-block:18px}}
 @media(max-width:480px){.cw-application-grid{grid-template-columns:1fr}.cw-section__head{margin-bottom:26px}.cw-contact-aside>div,.cw-contact-aside>section{padding:20px}}
+/* Cochin Wood visual system: consistent preserved page families. */
+.cwp__hero{background:#FAF9F7}
+.cwp__hero .cwp__h1,.cwp__hero h1{color:#1B4332}
+.cwp__container,.cw__container{max-width:1240px;padding-inline:28px;margin-inline:auto}
+.cwind-rb .cw__container{max-width:1240px!important;padding-inline:28px!important}
+.cwp__btn{background:#007A5E;color:#fff}
+.cwp__btn:hover{background:#1B4332;color:#fff}
+.cwp__btn--secondary{background:transparent;color:#1B4332;border:1px solid #aebeb3}
+.cwp__btn--secondary:hover{background:#e7eee8;color:#1B4332}
+.cwp__cta .cwp__btn{background:#fff;color:#1B4332}
+.cwp__cta .cwp__btn--secondary{background:transparent;color:#fff;border-color:#b6c9be}
+.cwp__hero-img{box-shadow:0 8px 24px #1b43320a;border-radius:8px}
+.cwp__visuals{padding:64px 0;background:#FAF9F7}
+.cwp__gallery-item img{aspect-ratio:4/3;height:auto;max-height:360px;object-fit:cover}
+.cwr__card-image{display:block;width:100%;aspect-ratio:16/10;height:auto;object-fit:cover;margin:0 0 20px;border-radius:6px}
+.cwr__card-image img{display:block;width:100%;aspect-ratio:16/10;height:auto;object-fit:cover}
+.cwsec-image{margin:0 0 24px;overflow:hidden;border-radius:6px;max-height:360px}
+.cwsec-image img{display:block;width:100%;aspect-ratio:3/2;height:auto;max-height:360px;object-fit:cover}
+.cwg__tldr{background:#f5f2e9;border-left:2px solid #80998a;border-radius:0;padding:18px 22px;margin:28px 0;box-shadow:none}
+.cwg__tldr p{font-size:.94rem;line-height:1.8;color:#3d4941}
+@media(max-width:760px){.cwp__container,.cw__container{padding-inline:22px}.cwind-rb .cw__container{padding-inline:22px!important}.cwp__visuals{padding-block:44px}}
+@media(max-width:480px){.cwp__container,.cw__container{padding-inline:18px}.cwind-rb .cw__container{padding-inline:18px!important}.cwg__tldr{padding:16px 18px}}
