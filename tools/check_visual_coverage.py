@@ -131,6 +131,8 @@ def main():
             errors.append(f"Missing shared CSS asset: {sheet}")
             continue
         css = css_path.read_text(encoding="utf-8")
+        if "Cochin Wood visual system" not in css:
+            errors.append("Shared CSS does not include the restored visual system")
         # Verify the restored font/palette files were delivered, even when a
         # bundler change accidentally leaves the old output in place.
         for token in ("Bree Serif", "Poppins", "#1b4332", "#007a5e"):
