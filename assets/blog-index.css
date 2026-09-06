@@ -32,3 +32,6 @@ body #main .cw-blog-directory{padding-top:36px}
 body.cw-blog-directory-page #main .cw-blog-directory .cw-bloglist a.cw-blog-location-card{padding-block:18px}
 body.cw-blog-directory-page #main .cw-blog-directory .cw-blog-location-card b{font-size:1rem;line-height:1.55}
 body.cw-blog-directory-page #main .cw-blog-directory .cw-blog-location-card span{font-size:.875rem;line-height:1.75}
+body.cw-blog-directory-page #main .cw-blog-directory .cw-blog-location-card .cw-blog-location-meta{font-size:.75rem;line-height:1.6;color:#506454;margin-bottom:7px}
+body.cw-blog-directory-page #main .cw-blog-directory .cw-blog-location-card .cw-blog-location-read{color:#007A5E;font-size:.8rem;font-weight:500;margin-top:10px;display:flex;align-items:center;gap:8px}
+body.cw-blog-directory-page #main .cw-blog-directory .cw-blog-location-card:hover .cw-blog-location-read{text-decoration:underline;text-underline-offset:4px}

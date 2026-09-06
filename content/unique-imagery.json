@@ -1,0 +1,1232 @@
+{
+  "version": 1,
+  "policy": {
+    "functional_reuse": "An article thumbnail/social card may use its exact article lead; a product thumbnail may use that exact product image. Brand marks and responsive derivatives are exempt. Unrelated pages may not share a photograph.",
+    "provenance": "Existing library membership does not establish Indian capture location or company ownership. No foreign destination or invented facility imagery is approved."
+  },
+  "owners": {
+    "/blogs/post/ispm-15-ht-stamp-validity-india-exporters-2026": {
+      "asset_key": "article-ispm-15-ht-stamp-validity-india-exporters-2026",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "ISPM-15 HT Stamp Validity & Re-Stamping Rules for Indian Exporters (2026)"
+    },
+    "/blogs/post/20ft-container-plywood-loading-sheet-count-by-thickness-weight-limited": {
+      "asset_key": "article-20ft-container-plywood-loading-sheet-count-by-thickness-weight-limited",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "20ft Container Plywood Loading: Sheet Count by Thickness (Weight-Limited)"
+    },
+    "/blogs/post/bwr-vs-bwp-for-export-packing-when-mr-grade-will-fail-at-sea": {
+      "asset_key": "article-bwr-vs-bwp-for-export-packing-when-mr-grade-will-fail-at-sea",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "BWR vs BWP for Export Packing: When MR Grade Will Fail at Sea"
+    },
+    "/blogs/post/fob-cochin-for-plywood-exporters-what-s-included-what-s-extra": {
+      "asset_key": "article-fob-cochin-for-plywood-exporters-what-s-included-what-s-extra",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "FOB Cochin for Plywood Exporters: What's Included, What's Extra"
+    },
+    "/blogs/post/plywood-cable-drum-flanges-is-10418-spec-sizing-sourcing-guide": {
+      "asset_key": "article-plywood-cable-drum-flanges-is-10418-spec-sizing-sourcing-guide",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "Plywood Cable Drum Flanges: IS 10418 Spec, Sizing & Sourcing Guide"
+    },
+    "/blogs/post/plywood-supply-to-tiruppur": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Tiruppur — Packing Ply, Crates, Pallets",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-hosur": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Hosur",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-salem": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Salem",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-madurai": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Madurai",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-tiruchirapalli": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Tiruchirapalli",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-tuticorin": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Tuticorin",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-karur": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Karur",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-sivakasi": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Sivakasi",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-abu-dhabi": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Abu Dhabi",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-dubai": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Dubai",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-sharjah": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Sharjah",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-jebel-ali-free-zone": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Jebel Ali Free Zone",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-ras-al-khaimah": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Ras Al Khaimah",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-dammam": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Dammam",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-jeddah": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Jeddah",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-jubail": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Jubail",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-khobar": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Khobar",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-riyadh": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Riyadh",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-duqm": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Duqm",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-muscat": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Muscat",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-salalah": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Salalah",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-sohar": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Sohar",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-doha": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Doha",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-mesaieed": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Mesaieed",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-ras-laffan": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Ras Laffan",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-manama": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Manama",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-sitra": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Sitra",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-kuwait-city": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Kuwait City",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-shuaiba": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Shuaiba",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-mundra": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Mundra",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-pipavav": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Pipavav",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-bhavnagar": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Bhavnagar",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-jamnagar": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Jamnagar",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-rajkot": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Rajkot",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-surat": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Surat",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-vadodara": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Vadodara",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-guntur": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Guntur",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-kakinada": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Kakinada",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-tirupati": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Tirupati",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-nellore": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Nellore",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-vijayawada": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Vijayawada",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-belgaum": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Belgaum",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-mysuru": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Mysuru",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-davangere": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Davangere",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-mangalore": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Mangalore",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-hubli-dharwad": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Hubli-Dharwad",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-karimnagar": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Karimnagar",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-khammam": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Khammam",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-warangal": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Warangal",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-aurangabad": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Aurangabad",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-kolhapur": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Kolhapur",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-nagpur": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Nagpur",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-nashik": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Nashik",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-solapur": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Solapur",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-goa": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Goa",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-faridabad": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Faridabad",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-gurugram": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Gurugram",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-karnal": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Karnal",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-panipat": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Panipat",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-sonipat": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Sonipat",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-ghaziabad": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Ghaziabad",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-meerut": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Meerut",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-kanpur": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Kanpur",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-lucknow": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Lucknow",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-greater-noida": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Greater Noida",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-varanasi": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Varanasi",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-noida": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Noida",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-agra": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Agra",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-ajmer": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Ajmer",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-bhilwara": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Bhilwara",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-jaipur": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Jaipur",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-jodhpur": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Jodhpur",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-udaipur": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Udaipur",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-kota": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Kota",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-gwalior": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Gwalior",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-indore": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Indore",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-bhopal": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Bhopal",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-jabalpur": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Jabalpur",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-pithampur": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Pithampur",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-amritsar": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Amritsar",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-jalandhar": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Jalandhar",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-ludhiana": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Ludhiana",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-mohali": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Mohali",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-bhilai": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Bhilai",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-raipur": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Raipur",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-dhanbad": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Dhanbad",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-jamshedpur": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Jamshedpur",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-ranchi": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Ranchi",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-bhubaneswar": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Bhubaneswar",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-cuttack": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Cuttack",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-paradip": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Paradip",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-rourkela": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Rourkela",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-durgapur": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Durgapur",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-asansol": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Asansol",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-howrah": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Howrah",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-kolkata": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Kolkata",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-siliguri": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Siliguri",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-patna": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Patna",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-guwahati": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Guwahati",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-sri-city": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Sri City",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/block-board-vs-plywood": {
+      "asset_key": "article-block-board-vs-plywood",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "Block Board vs Plywood"
+    },
+    "/blogs/post/is-710-vs-is-303-plywood": {
+      "asset_key": "article-is-710-vs-is-303-plywood",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "IS 710 vs IS 303 Plywood"
+    },
+    "/blogs/post/do-plywood-boxes-need-ispm-15": {
+      "asset_key": "article-do-plywood-boxes-need-ispm-15",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "Do Plywood Boxes Need ISPM-15"
+    },
+    "/blogs/post/how-many-pours-does-film-faced-plywood-last": {
+      "asset_key": "article-how-many-pours-does-film-faced-plywood-last",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "How Many Pours Does Film-Faced Plywood Last"
+    },
+    "/blogs/post/iicl-tb-001-container-flooring-plywood": {
+      "asset_key": "article-iicl-tb-001-container-flooring-plywood",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "IICL TB-001 Container Flooring Plywood"
+    },
+    "/blogs/post/okoume-vs-gurjan-plywood": {
+      "asset_key": "article-okoume-vs-gurjan-plywood",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "Okoume vs Gurjan Plywood"
+    },
+    "/blogs/post/marine-plywood-thickness-guide": {
+      "asset_key": "article-marine-plywood-thickness-guide",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "Marine Plywood Thickness Guide"
+    },
+    "/blogs/post/plywood-for-packing-cases": {
+      "asset_key": "article-plywood-for-packing-cases",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "Plywood for Packing Cases"
+    },
+    "/blogs/post/ispm-15-export-crate-cost": {
+      "asset_key": "article-ispm-15-export-crate-cost",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "ISPM-15 Export Crate Cost"
+    },
+    "/blogs/post/fob-cochin-explained": {
+      "asset_key": "article-fob-cochin-explained",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "FOB Cochin Explained"
+    },
+    "/blogs/post/rubberwood-plywood-explained": {
+      "asset_key": "article-rubberwood-plywood-explained",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "Rubberwood Plywood Explained"
+    },
+    "/blogs/post/bwp-and-bwr-plywood-explained": {
+      "asset_key": "article-bwp-and-bwr-plywood-explained",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "BWP and BWR Plywood Explained"
+    },
+    "/blogs/post/plywood-cable-drum-specifications": {
+      "asset_key": "article-plywood-cable-drum-specifications",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "Plywood Cable Drum Specifications"
+    },
+    "/blogs/post/export-crate-and-pallet-buying-checklist": {
+      "asset_key": "article-export-crate-and-pallet-buying-checklist",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "Export Crate and Pallet Buying Checklist"
+    },
+    "/blogs/post/choosing-shuttering-plywood-for-site-builds": {
+      "asset_key": "article-choosing-shuttering-plywood-for-site-builds",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "Choosing Shuttering Plywood for Site Builds"
+    },
+    "/blogs/post/plywood-supply-to-chennai": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Chennai",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-coimbatore": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Coimbatore",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-pune": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Pune",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-mumbai": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Mumbai",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/sourcing-flush-doors-and-block-boards-for-projects": {
+      "asset_key": "article-sourcing-flush-doors-and-block-boards-for-projects",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "Sourcing Flush Doors and Block Boards for Projects"
+    },
+    "/blogs/post/plywood-supply-to-delhi-ncr": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Delhi NCR",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-ahmedabad": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Ahmedabad",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/mr-or-bwr-for-fitted-joinery": {
+      "asset_key": "article-mr-or-bwr-for-fitted-joinery",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "MR or BWR for Fitted Joinery"
+    },
+    "/blogs/post/plywood-supply-to-hyderabad": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Hyderabad",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-bengaluru": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Bengaluru",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/plywood-supply-to-vizag": {
+      "status": "approved",
+      "category": "location-guide",
+      "title": "Plywood Supply to Vizag",
+      "kind": "text_guide",
+      "reason": "Local preview: destination-specific written supply guidance. No useful unique authenticated photograph is available; omit only the mechanically injected generic packing lead. Preserve all authored content and navigation."
+    },
+    "/blogs/post/buying-marine-plywood-for-boatyards": {
+      "asset_key": "article-buying-marine-plywood-for-boatyards",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "Buying Marine Plywood for Boatyards"
+    },
+    "/blogs/post/how-plywood-is-made": {
+      "asset_key": "article-how-plywood-is-made",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "How Plywood Is Made"
+    },
+    "/blogs/post/how-to-get-an-accurate-plywood-quote": {
+      "asset_key": "article-how-to-get-an-accurate-plywood-quote",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "How to Get an Accurate Plywood Quote"
+    },
+    "/blogs/post/case-studies": {
+      "asset_key": "article-case-studies",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "Case Studies"
+    },
+    "/blogs/post/export-documents-for-plywood-shipments": {
+      "asset_key": "article-export-documents-for-plywood-shipments",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "Export Documents for Plywood Shipments"
+    },
+    "/blogs/post/packing-grade-plywood-spec-sheet": {
+      "asset_key": "article-packing-grade-plywood-spec-sheet",
+      "status": "approved",
+      "category": "editorial-guide",
+      "title": "Packing-Grade Plywood Spec Sheet",
+      "reason": "Reviewed raw company photograph in its own scene family. Close view relevant to the article's face, thickness and specification discussion. No pictured grade or species is inferred."
+    },
+    "/blogs/post/is-4990-shuttering-plywood-standard-explained": {
+      "asset_key": "article-is-4990-shuttering-plywood-standard-explained",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "IS 4990 Shuttering Plywood Standard Explained"
+    },
+    "/blogs/post/fsc-plywood-and-eudr-for-importers": {
+      "asset_key": "article-fsc-plywood-and-eudr-for-importers",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "FSC Plywood and EUDR for Importers"
+    },
+    "/blogs/post/formaldehyde-compliance-for-plywood-exports": {
+      "asset_key": "article-formaldehyde-compliance-for-plywood-exports",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "Formaldehyde Compliance for Plywood Exports"
+    },
+    "/blogs/post/mundra-vs-pipavav-for-plywood-exporters-which-port-which-cost": {
+      "asset_key": "article-mundra-vs-pipavav-for-plywood-exporters-which-port-which-cost",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "Mundra vs Pipavav for Plywood Exporters: Which Port, Which Cost?"
+    },
+    "/blogs/post/plywood-crate-sizing-break-bulk-vs-container-which-spec-wins": {
+      "asset_key": "article-plywood-crate-sizing-break-bulk-vs-container-which-spec-wins",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "Plywood Crate Sizing: Break-Bulk vs Container - Which Spec Wins?"
+    },
+    "/blogs/post/birch-vs-okoume-vs-gurjan-pick-the-right-face-veneer-for-export-packing": {
+      "asset_key": "article-birch-vs-okoume-vs-gurjan-pick-the-right-face-veneer-for-export-packing",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "Birch vs Okoume vs Gurjan: Pick the Right Face Veneer for Export Packing"
+    },
+    "/blogs/post/plywood-boxes-for-machinery-triple-wall-vs-reinforced-single-wall": {
+      "asset_key": "article-plywood-boxes-for-machinery-triple-wall-vs-reinforced-single-wall",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "Plywood Boxes for Machinery: Triple-Wall vs Reinforced Single-Wall"
+    },
+    "/blogs/post/plywood-box-vs-wooden-crate-heavy-machinery-export": {
+      "asset_key": "article-plywood-box-vs-wooden-crate-heavy-machinery-export",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "Plywood Box vs Wooden Crate for Heavy Machinery: A Weight-Class Decision Matrix"
+    },
+    "/blogs/post/how-to-read-is-710-bwp-marine-plywood-test-certificate": {
+      "asset_key": "article-how-to-read-is-710-bwp-marine-plywood-test-certificate",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "How to Read an IS 710 BWP Marine Plywood Test Certificate"
+    },
+    "/blogs/post/fob-cochin-vs-fca-mundra-gcc-plywood-incoterm": {
+      "asset_key": "article-fob-cochin-vs-fca-mundra-gcc-plywood-incoterm",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "FOB Cochin vs FCA Mundra: Which Incoterm to Quote a GCC Plywood Buyer"
+    },
+    "/blogs/post/calibrated-okoume-furniture-plywood-e1-low-formaldehyde": {
+      "asset_key": "article-calibrated-okoume-furniture-plywood-e1-low-formaldehyde",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "Calibrated Okoume Furniture Plywood (E1 Low-Formaldehyde): When the Tolerance Matters"
+    },
+    "/blogs/post/pallet-vs-loose-container-loading-plywood-exports": {
+      "asset_key": "article-pallet-vs-loose-container-loading-plywood-exports",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "Pallet vs Loose Container Loading for Plywood Exports: The Weight-Limit Tradeoff"
+    },
+    "/blogs/post/hpl-vs-prelaminated-vs-lacquer-plywood-finishes": {
+      "asset_key": "article-hpl-vs-prelaminated-vs-lacquer-plywood-finishes",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "HPL vs Pre-Laminated vs Lacquer: Picking a Plywood Finish for Furniture"
+    },
+    "/blogs/post/how-to-read-a-plywood-grade-stamp": {
+      "asset_key": "article-how-to-read-a-plywood-grade-stamp",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "How to Read a Plywood Grade Stamp — and Spot a Fakeable Claim"
+    },
+    "/blogs/post/eucalyptus-vs-poplar-vs-hardwood-plywood-core": {
+      "asset_key": "article-eucalyptus-vs-poplar-vs-hardwood-plywood-core",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "Plywood Core Types: Hardwood vs Eucalyptus vs Poplar"
+    },
+    "/blogs/post/fcl-vs-lcl-for-plywood-exports": {
+      "asset_key": "article-fcl-vs-lcl-for-plywood-exports",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "FCL vs LCL for Plywood Shipping: Why Dense Panels Want a Full Container"
+    },
+    "/blogs/post/plywood-moisture-content-and-warping": {
+      "asset_key": "article-plywood-moisture-content-and-warping",
+      "status": "approved",
+      "category": "editorial-guide",
+      "title": "Why Plywood Warps — and How to Spec and Store Against It",
+      "reason": "Reviewed raw company photograph in its own scene family. A different full panel/stack view supports the handling and storage discussion. The photograph does not establish moisture percentage, verified flatness or a test result."
+    },
+    "/blogs/post/ispm-15-heat-treatment-vs-methyl-bromide": {
+      "asset_key": "article-ispm-15-heat-treatment-vs-methyl-bromide",
+      "status": "pending",
+      "category": "editorial-guide",
+      "title": "ISPM-15 and Plywood: HT vs Methyl Bromide for Export Packaging"
+    },
+    "/blogs/post/plywood-manufacturer-vs-factory": {
+      "asset_key": "article-plywood-manufacturer-vs-factory",
+      "status": "approved",
+      "category": "editorial-guide",
+      "title": "Plywood Manufacturer vs Factory",
+      "reason": "Reviewed raw company photograph in its own scene family. A view of bulk plywood handling. It is not evidence that a named company owns the shed or manufactured the pictured load."
+    },
+    "/blogs/post/factory-direct-vs-branded-dealer-plywood-container-quantity": {
+      "asset_key": "article-factory-direct-vs-branded-dealer-plywood-container-quantity",
+      "status": "approved",
+      "category": "editorial-guide",
+      "title": "Factory Direct vs a Branded Dealer: Buying Plywood at Container Quantity",
+      "reason": "Reviewed raw company photograph in its own scene family. Bulk road-transport context for comparing supplier and dealer arrangements. This is a lorry, not a shipping container; no destination, exact works or ownership is asserted."
+    },
+    "/export/australia": {
+      "asset_key": "export-australia",
+      "status": "pending",
+      "category": "country-export",
+      "title": "Plywood exports to Australia."
+    },
+    "/export/bahrain": {
+      "asset_key": "export-bahrain",
+      "status": "pending",
+      "category": "country-export",
+      "title": "Plywood exports to Bahrain."
+    },
+    "/export/bangladesh": {
+      "asset_key": "export-bangladesh",
+      "status": "pending",
+      "category": "country-export",
+      "title": "Plywood exports to Bangladesh."
+    },
+    "/export/chile": {
+      "asset_key": "export-chile",
+      "status": "pending",
+      "category": "country-export",
+      "title": "Plywood exports to Chile."
+    },
+    "/export/dominican-republic": {
+      "asset_key": "export-dominican-republic",
+      "status": "pending",
+      "category": "country-export",
+      "title": "Plywood exports to the Dominican Republic."
+    },
+    "/export/germany": {
+      "asset_key": "export-germany",
+      "status": "pending",
+      "category": "country-export",
+      "title": "Plywood exports to Germany."
+    },
+    "/export/haiti": {
+      "asset_key": "export-haiti",
+      "status": "pending",
+      "category": "country-export",
+      "title": "Plywood exports to Haiti."
+    },
+    "/export/israel": {
+      "asset_key": "export-israel",
+      "status": "pending",
+      "category": "country-export",
+      "title": "Plywood exports to Israel."
+    },
+    "/export/kenya": {
+      "asset_key": "export-kenya",
+      "status": "pending",
+      "category": "country-export",
+      "title": "Plywood exports to Kenya."
+    },
+    "/export/kuwait": {
+      "asset_key": "export-kuwait",
+      "status": "pending",
+      "category": "country-export",
+      "title": "Plywood exports to Kuwait."
+    },
+    "/export/malaysia": {
+      "asset_key": "export-malaysia",
+      "status": "pending",
+      "category": "country-export",
+      "title": "Plywood exports to Malaysia."
+    },
+    "/export/maldives": {
+      "asset_key": "export-maldives",
+      "status": "pending",
+      "category": "country-export",
+      "title": "Plywood exports to the Maldives."
+    },
+    "/export/mauritius": {
+      "asset_key": "export-mauritius",
+      "status": "pending",
+      "category": "country-export",
+      "title": "Plywood exports to Mauritius."
+    },
+    "/export/netherlands": {
+      "asset_key": "export-netherlands",
+      "status": "pending",
+      "category": "country-export",
+      "title": "Plywood exports to Netherlands."
+    },
+    "/export/nigeria": {
+      "asset_key": "export-nigeria",
+      "status": "pending",
+      "category": "country-export",
+      "title": "Plywood exports to Nigeria."
+    },
+    "/export/oman": {
+      "asset_key": "export-oman",
+      "status": "pending",
+      "category": "country-export",
+      "title": "Plywood exports to Oman."
+    },
+    "/export/puerto-rico": {
+      "asset_key": "export-puerto-rico",
+      "status": "pending",
+      "category": "country-export",
+      "title": "Plywood exports to Puerto Rico."
+    },
+    "/export/qatar": {
+      "asset_key": "export-qatar",
+      "status": "pending",
+      "category": "country-export",
+      "title": "Plywood exports to Qatar."
+    },
+    "/export/saudi-arabia": {
+      "asset_key": "export-saudi-arabia",
+      "status": "pending",
+      "category": "country-export",
+      "title": "Plywood exports to Saudi Arabia."
+    },
+    "/export/singapore": {
+      "asset_key": "export-singapore",
+      "status": "pending",
+      "category": "country-export",
+      "title": "Plywood exports to Singapore."
+    },
+    "/export/south-africa": {
+      "asset_key": "export-south-africa",
+      "status": "pending",
+      "category": "country-export",
+      "title": "Plywood exports to South Africa."
+    },
+    "/export/sri-lanka": {
+      "asset_key": "export-sri-lanka",
+      "status": "pending",
+      "category": "country-export",
+      "title": "Plywood exports to Sri Lanka."
+    },
+    "/export/tanzania": {
+      "asset_key": "export-tanzania",
+      "status": "pending",
+      "category": "country-export",
+      "title": "Plywood exports to Tanzania."
+    },
+    "/export/turkey": {
+      "asset_key": "export-turkey",
+      "status": "pending",
+      "category": "country-export",
+      "title": "Plywood exports to Turkey."
+    },
+    "/export/uae": {
+      "asset_key": "export-uae",
+      "status": "pending",
+      "category": "country-export",
+      "title": "Plywood exports to UAE."
+    },
+    "/export/united-kingdom": {
+      "asset_key": "export-united-kingdom",
+      "status": "pending",
+      "category": "country-export",
+      "title": "Plywood exports to UK."
+    },
+    "/export/united-states": {
+      "asset_key": "export-united-states",
+      "status": "pending",
+      "category": "country-export",
+      "title": "Plywood exports to the United States."
+    },
+    "/export/vietnam": {
+      "asset_key": "export-vietnam",
+      "status": "pending",
+      "category": "country-export",
+      "title": "Plywood exports to Vietnam."
+    }
+  }
+}

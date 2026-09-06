@@ -1877,5 +1877,222 @@
       "width": 762,
       "sha256": "7899726d54a4eec532a125d2c969431bdb9a206dade154dda71e19b6331aa768"
     }
+  ],
+  "/files/Species/birch-wood.webp": [
+    {
+      "src": "/files/Species/birch-wood-320.webp",
+      "width": 320,
+      "sha256": "34196b1ae82032d7976fded03223c9251634566600d05bd878d7b10d3e62f7dc"
+    },
+    {
+      "src": "/files/Species/birch-wood-640.webp",
+      "width": 640,
+      "sha256": "b967004b97b17245af5167ae7f67c4856d624460b23d06c95a6ac9e6cc89c053"
+    },
+    {
+      "src": "/files/Species/birch-wood-960.webp",
+      "width": 960,
+      "sha256": "553a739818e17cd60615daeeab5224f9e4c5d3b4ab1ae03bf7a964a6ad6898e1"
+    },
+    {
+      "src": "/files/Species/birch-wood.webp",
+      "width": 985,
+      "sha256": "116cbdd5c1c654425c42bd74b3e472ebe34ccfdf125c0e3bbda249a7c34aca85"
+    }
+  ],
+  "/files/Species/eucalyptus-wood.webp": [
+    {
+      "src": "/files/Species/eucalyptus-wood-320.webp",
+      "width": 320,
+      "sha256": "49e043a249de2c9b2a078bf5e0117855d9ebd3ff368ae71dc34e1f02383df45f"
+    },
+    {
+      "src": "/files/Species/eucalyptus-wood-640.webp",
+      "width": 640,
+      "sha256": "b6f5ad2533acc707a768a6083c54a72214c76c6da98f7f1f748027e8cb6a4995"
+    },
+    {
+      "src": "/files/Species/eucalyptus-wood-960.webp",
+      "width": 960,
+      "sha256": "ed2f1cee33a39f747075c84d4574cbcc124753ad4e28acc2caaea26ea5cc103f"
+    },
+    {
+      "src": "/files/Species/eucalyptus-wood.webp",
+      "width": 1200,
+      "sha256": "6a74a80c46b898016b2ce6bd290553479c45199a3a0f66007d09fa4db2a69802"
+    }
+  ],
+  "/files/Species/jackwood-wood.webp": [
+    {
+      "src": "/files/Species/jackwood-wood-320.webp",
+      "width": 320,
+      "sha256": "f7e75777b85157c77fb0e5c93f481b7895f424d241d90968d4ab4727885b44fc"
+    },
+    {
+      "src": "/files/Species/jackwood-wood-640.webp",
+      "width": 640,
+      "sha256": "32799bdc0c9dbf013f379cdb664d76d2621cd64e55af4a88c71e03b2d46554ac"
+    },
+    {
+      "src": "/files/Species/jackwood-wood-960.webp",
+      "width": 960,
+      "sha256": "dcd0e70fddd04be31c36b0633019b4c2b2c8edc5cafab6d1a995116c0c85a3f0"
+    },
+    {
+      "src": "/files/Species/jackwood-wood.webp",
+      "width": 1200,
+      "sha256": "48041d0b1b34018733393f6730b0e28731b27d0f76f4099a088f99c4686c208e"
+    }
+  ],
+  "/files/Species/venteak-wood.webp": [
+    {
+      "src": "/files/Species/venteak-wood-320.webp",
+      "width": 320,
+      "sha256": "15fe0c7923577da29165fd1a5b5194507efed072502c1cae98542eada84df010"
+    },
+    {
+      "src": "/files/Species/venteak-wood-640.webp",
+      "width": 640,
+      "sha256": "f4940467a4428ae71331a4f6501977803986be3decdebf3ef5cd25b24ffc7ed5"
+    },
+    {
+      "src": "/files/Species/venteak-wood-960.webp",
+      "width": 960,
+      "sha256": "cb7dee935ec146e85aaaf48856ca25c99632022ecdf4ed1c2fd436d2b529a622"
+    },
+    {
+      "src": "/files/Species/venteak-wood.webp",
+      "width": 1200,
+      "sha256": "f6b1bce817a0024b8dd2782e862326e08743dbe1cfe40dd4ad7bedabecdfa3a3"
+    }
+  ],
+  "/files/Species/matti-wood.webp": [
+    {
+      "src": "/files/Species/matti-wood-320.webp",
+      "width": 320,
+      "sha256": "1e43018f77d488744dfa36e20e6a021c1c34bace10e595567ea56c8245714648"
+    },
+    {
+      "src": "/files/Species/matti-wood-640.webp",
+      "width": 640,
+      "sha256": "abb24ea76d678bb09459c5f7e32a6463b64d3364ad4ceecc9fbda141164c5a21"
+    },
+    {
+      "src": "/files/Species/matti-wood-960.webp",
+      "width": 960,
+      "sha256": "d84b599df0bd71735f06e7edd3958986a533901c5e8c7df5b4bc65a3c5d040aa"
+    },
+    {
+      "src": "/files/Species/matti-wood.webp",
+      "width": 1200,
+      "sha256": "6da2d60172a9ccc7a10187e22182d08a05d3821a60090be3ed25d5f5171d5e5d"
+    }
+  ],
+  "/files/Species/anjili-wood.webp": [
+    {
+      "src": "/files/Species/anjili-wood-320.webp",
+      "width": 320,
+      "sha256": "0563c5653f15f90c699d6fe0756dfd9478cc96626e8d0a9606e2a83c5b3b4f5f"
+    },
+    {
+      "src": "/files/Species/anjili-wood.webp",
+      "width": 370,
+      "sha256": "453c76fb1781b8d779d560a5b25aae587600c2ccc1371b5cb6792d4441bed1bf"
+    }
+  ],
+  "/files/Species/poplar-wood.webp": [
+    {
+      "src": "/files/Species/poplar-wood-320.webp",
+      "width": 320,
+      "sha256": "139072b102bb210b07fb6e6d1b051f96e6e93a18be53f9b5592d44ed88f9f8bc"
+    },
+    {
+      "src": "/files/Species/poplar-wood-640.webp",
+      "width": 640,
+      "sha256": "d79ff339517100d6948ae1f5bfe0374308c291dfe2786148a98ff2d0b9c558c3"
+    },
+    {
+      "src": "/files/Species/poplar-wood.webp",
+      "width": 880,
+      "sha256": "c1cb14f1e6008a9513570a66ab0d24c9ff256f6401d7188ea585df2d4ab9155b"
+    }
+  ],
+  "/files/Indian-Industry/plywood-face-layered-edge.webp": [
+    {
+      "src": "/files/Indian-Industry/plywood-face-layered-edge-320.webp",
+      "width": 320,
+      "sha256": "5647cafbf3e74a1e419159842ef5cbb093fdd3753784be70cf4e011d0e610d47"
+    },
+    {
+      "src": "/files/Indian-Industry/plywood-face-layered-edge-640.webp",
+      "width": 640,
+      "sha256": "e78607dff552ed7d818cc6f323c8536151a0798922f0cfc133a3baf77fd4bb93"
+    },
+    {
+      "src": "/files/Indian-Industry/plywood-face-layered-edge.webp",
+      "width": 938,
+      "sha256": "5b17a23beec245b95027e36674686237e0fe39893d51d11ea88f3f2e68509aa7"
+    }
+  ],
+  "/files/Indian-Industry/plywood-panel-flat-stack.webp": [
+    {
+      "src": "/files/Indian-Industry/plywood-panel-flat-stack-320.webp",
+      "width": 320,
+      "sha256": "5c1563aff3d27c211bbd041772194b4a3d0eef0cbc77f1e6bebd713e78832687"
+    },
+    {
+      "src": "/files/Indian-Industry/plywood-panel-flat-stack-640.webp",
+      "width": 640,
+      "sha256": "d00019b1adca2d2c492ce97d3b35dc80f91d8d08003f52a2aa77d9301c9d9427"
+    },
+    {
+      "src": "/files/Indian-Industry/plywood-panel-flat-stack.webp",
+      "width": 960,
+      "sha256": "9803e2382566bf70bca9963ad0d78fa740f59359164379a1dd72afc7f103d1c5"
+    }
+  ],
+  "/files/Indian-Industry/covered-lorry-timber-yard.webp": [
+    {
+      "src": "/files/Indian-Industry/covered-lorry-timber-yard-320.webp",
+      "width": 320,
+      "sha256": "68993a3defe9c6b059a236e3f3b2cfcb88456bf70b5fa4562df7dade24a6c757"
+    },
+    {
+      "src": "/files/Indian-Industry/covered-lorry-timber-yard-640.webp",
+      "width": 640,
+      "sha256": "9f5194a66584a0c12330a54b571967942d1fc8d0064fb7bf14a3cfa7fe4d0064"
+    },
+    {
+      "src": "/files/Indian-Industry/covered-lorry-timber-yard-960.webp",
+      "width": 960,
+      "sha256": "20e6620291ed3b72e5d4ae0e2e734519bcad9c6d8120de7e5f5fe7b559b64adc"
+    },
+    {
+      "src": "/files/Indian-Industry/covered-lorry-timber-yard.webp",
+      "width": 1600,
+      "sha256": "8b8be426e43fc0e83e941341371b011cedabab20d8cf1ca744fd31d01dd3364f"
+    }
+  ],
+  "/files/Indian-Industry/plywood-loaded-lorry-shed.webp": [
+    {
+      "src": "/files/Indian-Industry/plywood-loaded-lorry-shed-320.webp",
+      "width": 320,
+      "sha256": "7005412f97ccec4231694a377289a7a0d13182a7c2f831b90768516628b135f6"
+    },
+    {
+      "src": "/files/Indian-Industry/plywood-loaded-lorry-shed-640.webp",
+      "width": 640,
+      "sha256": "ff994c66e225332586e30bf96899157361cd4ec4f94f8b050c72d4c6973d9704"
+    },
+    {
+      "src": "/files/Indian-Industry/plywood-loaded-lorry-shed-960.webp",
+      "width": 960,
+      "sha256": "057a0bb15788e62e1c986ab4859683df6f2dd21bd7e35d85547f6c416e84e9cd"
+    },
+    {
+      "src": "/files/Indian-Industry/plywood-loaded-lorry-shed.webp",
+      "width": 1599,
+      "sha256": "a4f4e97288ad3c76b79025d21c700fd36af9bdc0952c129d8d3f50ca2d552ba1"
+    }
   ]
 }

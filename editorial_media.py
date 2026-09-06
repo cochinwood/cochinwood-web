@@ -11,6 +11,7 @@ import re
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 from hero_layout import parse_fragment
+from unique_imagery import owner_image, is_text_guide
 
 ROOT = Path(__file__).resolve().parent
 MEDIA = json.loads((ROOT / "content/editorial-media.json").read_text(encoding="utf-8"))
@@ -56,6 +57,12 @@ def clean_image_labels(body):
 
 def _figure(item, image, link, *, css="cw-editorial-media", eager=False):
     tag = image(item, eager=eager, sizes="(max-width: 760px) 100vw, 66vw")
+    if css == 'cw-species-media' and item.get('max_display_width') is not None:
+        cap = item['max_display_width']
+        if isinstance(cap, bool) or not isinstance(cap, (int, float)) or not 100 <= cap <= 2000:
+            raise ValueError('Species max_display_width must be a number from 100 to 2000')
+        style = f'max-width:{cap:g}px;width:100%;height:auto;object-fit:contain'
+        tag = tag.replace('<img ', f'<img style="{style}" ', 1)
     # Vector diagrams carry explicit dimensions; the existing raster reader
     # deliberately does not parse SVG XML.
     if item.get("width") and not re.search(r"\bwidth=", tag):
@@ -128,6 +135,9 @@ def _product_gallery(body, slug, image, link):
 
 
 def article_lead(slug):
+    unique = owner_image('/blogs/post/' + slug)
+    if unique:
+        return unique
     data = MEDIA['posts'].get(slug)
     return MEDIA['assets'][data['lead']] if data else None
 
@@ -135,6 +145,10 @@ def article_lead(slug):
 
 def article_share_media(slug):
     """Social cards use a relevant raster; diagrams stay in the article body."""
+    # A text-first guide has no article photograph. The shell deliberately
+    # falls back to its branded card, rather than advertising a removed image.
+    if is_text_guide('/blogs/post/' + slug):
+        return None
     item = article_lead(slug)
     if not item or not item['src'].endswith('.svg'):
         return item
@@ -161,16 +175,23 @@ def enhance_editorial_media(body, path, image, link):
             article = next((n for n in tree.nodes if n.tag == 'article' and 'cw-reading-content' in n.classes), None)
             if not article:
                 raise ValueError(f'No reading article for media: {path}')
-            lead = _figure(MEDIA['assets'][data['lead']], image, link, eager=True)
+            lead_item = article_lead(article_slug)
+            lead = '' if is_text_guide(path) else _figure(lead_item, image, link, eager=True)
             pos = article.open_end
             body = body[:pos] + lead + body[pos:]
-            if data.get('diagram'):
+            # A former diagram lead remains useful content after a unique
+            # photographic lead is approved; retain it without duplicating it.
+            diagram_key = data.get('diagram')
+            former_lead = MEDIA['assets'][data['lead']]
+            if former_lead['src'].endswith('.svg') and lead_item['src'] != former_lead['src']:
+                diagram_key = diagram_key or data['lead']
+            if diagram_key:
                 tree = parse_fragment(body)
                 article = next(n for n in tree.nodes if n.tag == 'article' and 'cw-reading-content' in n.classes)
                 first_heading = next((n for n in tree.nodes if n.tag == 'h2' and article.contains(n)), None)
                 if first_heading:
                     pos = first_heading.start
-                    diagram = _figure(MEDIA['assets'][data['diagram']], image, link)
+                    diagram = _figure(MEDIA['assets'][diagram_key], image, link)
                     body = body[:pos] + diagram + body[pos:]
     if slug in MEDIA.get('page_media', {}):
         tree = parse_fragment(body)
@@ -193,4 +214,21 @@ def enhance_editorial_media(body, path, image, link):
             media = ('<section class="cw-species-reference" aria-label="Species reference images">'
                      + figures + '</section>')
             body = body[:hero.end] + media + body[hero.end:]
+    # Resource cards and other contextual article links use the destination's
+    # approved lead, just as the Blog directory does. Replace only the visual
+    # node; preserve linked titles, descriptions and original destinations.
+    tree = parse_fragment(body)
+    replacements = []
+    for anchor in (n for n in tree.nodes if n.tag == 'a' and n.attrs.get('href')):
+        destination = urlsplit(html.unescape(anchor.attrs['href']))
+        if destination.netloc not in ('', 'cochinwood.in', 'www.cochinwood.in'):
+            continue
+        approved = owner_image(destination.path)
+        if not approved:
+            continue
+        visual = next((n for n in tree.nodes if n.tag in ('picture', 'img') and anchor.contains(n)), None)
+        if visual:
+            replacements.append((visual.start, visual.end, image(approved)))
+    for start, end, replacement in sorted(replacements, reverse=True):
+        body = body[:start] + replacement + body[end:]
     return body + '<!-- data-editorial-pass="1" -->'

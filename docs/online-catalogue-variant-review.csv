@@ -1,0 +1,5 @@
+status,staff_product_key,product_identity,proposed_size_ft,proposed_thickness_mm,confirmed_finished_dimensions_mm,tax_inclusive_price_per_sheet_inr,online_stock_sheets,min_order_sheets,max_order_sheets,kerala_delivery_rule_id,actual_product_photo,owner_confirmed_at
+proposal,prem_hw_gurjan,"Cochin Premium Hardwood, Gurjan BWR (MUF)",8 x 4,12,,,,,,,,
+proposal,prem_hw_gurjan,"Cochin Premium Hardwood, Gurjan BWR (MUF)",8 x 4,18,,,,,,,,
+proposal,prem_marine_gurjan,"Cochin Premium Marine, Gurjan BWP (PF)",8 x 4,12,,,,,,,,
+proposal,prem_marine_gurjan,"Cochin Premium Marine, Gurjan BWP (PF)",8 x 4,18,,,,,,,,

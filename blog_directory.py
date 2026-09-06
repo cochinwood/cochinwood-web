@@ -2,20 +2,37 @@
 from collections import Counter
 from html import escape, unescape
 from page_navigation import render_section_bar
+from pathlib import Path
+import json
 import re
+
+ROOT = Path(__file__).resolve().parent
+
+
+def location_metadata():
+    """Use the existing regional taxonomy; never infer locations from prose."""
+    taxonomy = json.loads((ROOT / 'content/regional-navigation.json').read_text(encoding='utf-8'))
+    return {'plywood-supply-to-' + city:
+            group['region'] + (' · India' if group['country_iso'] == 'IN' else '')
+            for group in taxonomy['city_groups'] for city in group['cities']}
 
 
 def render_directory(posts, taxonomy, link, hero_image, thumbnail=None):
     assignments = taxonomy["posts"]
     counts = Counter(assignments[p["slug"]] for p in posts)
+    locations = location_metadata()
     def card(post):
         title = unescape((post.get("title") or post["slug"]).split("|")[0].strip())
         desc = unescape(post.get("desc") or "")
         location_guide = assignments[post["slug"]] == 'city-supply'
         card_class = ' class="cw-blog-location-card"' if location_guide else ''
+        metadata = (f'<span class="cw-blog-location-meta">{escape(locations[post["slug"]])} · Supply guide</span>'
+                    if location_guide else '')
         return (f'<a{card_class} data-blog-topic="{escape(assignments[post["slug"]])}" href="{link("/blogs/post/" + post["slug"])}">'
                 + (f'<div class="cw-blog-card-image">{thumbnail(post["slug"])}</div>' if thumbnail and not location_guide else '')
-                + f'<b>{escape(title)}</b><span>{escape(desc[:160])}</span></a>')
+                + metadata + f'<b>{escape(title)}</b><span>{escape(desc[:160])}</span>'
+                + ('<span class="cw-blog-location-read">Read supply guide <span aria-hidden="true">→</span></span>' if location_guide else '')
+                + '</a>')
     topics = '<a href="#articles" data-blog-topic-filter="all" aria-current="true">All posts <span>' + str(len(posts)) + '</span></a>'
     groups = ""
     for topic in taxonomy["topics"]:

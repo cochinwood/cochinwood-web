@@ -819,7 +819,8 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
     body, consumed_crumb = normalize_page_hero(body, path, crumb_nav)
     # The reviewed product map owns both catalogue and detail imagery. Imported
     # snippets may still name an earlier scene even after their schema is updated.
-    product_media = VISUAL_MEDIA["products"].get(path.strip("/"))
+    from unique_imagery import owner_image
+    product_media = owner_image(path) or VISUAL_MEDIA["products"].get(path.strip("/"))
     if product_media:
         tree = parse_fragment(body)
         media_node = next((node for node in tree.nodes if "cw-page-hero__media" in node.classes), None)
@@ -997,7 +998,12 @@ from regional_seo import load_coverage
 REGIONAL_COVERAGE = load_coverage(ROOT)
 PRODUCT_HERO.update({slug: item["src"] for slug, item in VISUAL_MEDIA["products"].items()})
 from editorial_media import MEDIA as EDITORIAL_MEDIA, SPECIES as SPECIES_MEDIA, article_share_media
-PRODUCT_HERO.update({"blogs/post/" + slug: article_share_media(slug)["src"] for slug in EDITORIAL_MEDIA["posts"]})
+for slug in EDITORIAL_MEDIA["posts"]:
+    share = article_share_media(slug)
+    if share:
+        PRODUCT_HERO['blogs/post/' + slug] = share['src']
+    else:
+        PRODUCT_HERO.pop('blogs/post/' + slug, None)
 PRODUCT_HERO.update({"woods-we-use/" + slug: entry["images"][0]["src"] for slug, entry in SPECIES_MEDIA.items()})
 PRODUCT_HERO.update({"": VISUAL_MEDIA["experience_hero"]["src"], "products": VISUAL_MEDIA["catalogue_hero"]["src"],
                      "blogs": VISUAL_MEDIA["blog_hero"]["src"], "woods-we-use": VISUAL_MEDIA["encyclopedia_hero"]["src"],
@@ -1813,6 +1819,7 @@ def build_blog():
     live = [p for p in posts if p.get("html")]
     from blog_navigation import enrich_article, render_article_navigation
     from blog_directory import render_directory
+    from editorial_media import article_share_media
     taxonomy = json.load(open(os.path.join(ROOT, "content", "blog", "topics.json"), encoding="utf-8"))
     topic_meta = {t["id"]: t for t in taxonomy["topics"]}
     if set(taxonomy["posts"]) != {p["slug"] for p in live} or not set(taxonomy["posts"].values()) <= set(topic_meta):
@@ -1869,7 +1876,8 @@ def build_blog():
                 "description": html.unescape(desc or ""),
                 "author": {"@id": LIVE + "/#organization"},
                 "publisher": {"@id": LIVE + "/#organization"},
-                "image": (hero_image("blogs/post/" + slug) or (OG_IMAGE,))[0],
+                **({"image": (hero_image("blogs/post/" + slug) or (OG_IMAGE,))[0]}
+                   if article_share_media(slug) else {}),
                 "inLanguage": "en-IN",
                 "isPartOf": {"@type": "Blog", "@id": LIVE + "/blogs"},
                 "mainEntityOfPage": f"{LIVE}/blogs/post/{slug}",
@@ -1882,7 +1890,6 @@ def build_blog():
         n += 1
     # Native topic anchors work without JS; the search progressively filters
     # these same groups and keeps q/topic in the URL for return visits.
-    from editorial_media import article_share_media
     body = render_directory(live, taxonomy, u, visual_image(VISUAL_MEDIA['blog_hero'], eager=True),
         thumbnail=lambda slug: visual_image(article_share_media(slug), sizes="(max-width: 560px) calc(100vw - 40px), (max-width: 860px) 45vw, 30vw"))
     # Posts allowed to have no "date", each with the why. Anything undated and
