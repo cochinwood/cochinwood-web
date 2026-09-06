@@ -562,7 +562,7 @@ PRODUCTS = [
 # from the handful of commercial pages that happen to cross-link them.
 NAV = [("Products", "/products", False), ("Industries", "/industries", False),
        ("Export", "/export", False), (WOOD_LABEL, WOOD_PATH, False),
-       ("Blog", "/blogs", False), ("Contact", "/contact", False)]
+       ("Blog", "/blogs", False)]
 
 def header(path="/"):
     links = ""
@@ -576,7 +576,7 @@ def header(path="/"):
         aria = ' aria-current="page"' if cur else ""
         links += f'<a href="{href}"{aria}>{label}</a>\n'
     return f'''<header class="cw-hd"><div class="cw-wrap cw-hd__in">
-  <a class="cw-hd__brand" href="{u('/')}"><img src="{u('/assets/icons/logo-80.png')}" alt="Cochin Wood Industries logo" width="80" height="80" decoding="async"><span class="cw-hd__wordmark"><b>Cochin Wood</b><span>Industries</span></span></a>
+  <a class="cw-hd__brand" href="{u('/')}" aria-label="Cochin Wood Industries — Home" title="Home"><img src="{u('/assets/icons/logo-80.png')}" alt="Cochin Wood Industries logo" width="80" height="80" decoding="async"><span class="cw-hd__wordmark"><b>Cochin Wood</b><span>Industries</span></span></a>
   <button class="cw-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav">&#9776;</button>
   <nav class="cw-nav" id="nav" aria-label="Primary">
     {links}<a class="cw-cta" href="{u('/contact')}">Get a quote</a>
@@ -611,7 +611,7 @@ def footer():
     # carry; anything further needs a trim first, not another entry.
     return f'''<footer class="cw-ft"><div class="cw-wrap">
   <div class="cw-ft__cols">
-    <div class="cw-ft__brand"><a class="cw-hd__brand" href="{u('/')}"><img src="{u('/assets/icons/logo-80.png')}" alt="" width="80" height="80" loading="lazy"><span class="cw-hd__wordmark"><b>Cochin Wood</b><span>Industries</span></span></a><p>Plywood, board and timber from Kerala. Made to specification, for India and export.</p><p>Part of a group manufacturing in Perumbavoor since 1986.</p></div>
+    <div class="cw-ft__brand"><a class="cw-hd__brand" href="{u('/')}" aria-label="Cochin Wood Industries — Home" title="Home"><img src="{u('/assets/icons/logo-80.png')}" alt="" width="80" height="80" loading="lazy"><span class="cw-hd__wordmark"><b>Cochin Wood</b><span>Industries</span></span></a><p>Plywood, board and timber from Kerala. Made to specification, for India and export.</p><p>Part of a group manufacturing in Perumbavoor since 1986.</p></div>
     <nav aria-label="Products"><p class="cw-ft__h">Products</p>{prod}</nav>
     <nav aria-label="Explore"><p class="cw-ft__h">Explore</p><a href="{u('/products')}">All products</a><a href="{u(WOOD_PATH)}">{WOOD_LABEL}</a><a href="{u('/resources')}">Resources</a><a href="{u('/blogs/post/case-studies')}">Case studies</a><a href="{u('/industries')}">Industries</a><a href="{u('/export')}">Export</a><a href="{u('/about')}">About</a><a href="{u('/company-verification')}">Company verification</a><a href="{u('/faq')}">FAQ</a></nav>
     <nav aria-label="Contact"><p class="cw-ft__h">Contact</p><a href="tel:{CONTACT['phone_href']}">{CONTACT['phone_disp']}</a><a href="mailto:{CONTACT['email']}">{CONTACT['email']}</a><a href="https://maps.google.com/?q=Thoppilan+Building+Vattakattupady+Rayamangalam+Perumbavoor+Kerala+683542" target="_blank" rel="noopener">{CONTACT['addr']}</a><a href="{INSTAGRAM_URL}" target="_blank" rel="noopener">Instagram</a></nav>
@@ -2038,7 +2038,7 @@ def copy_referenced_files():
 # the new sha in here until the gate goes green carries whatever landed on
 # cf-live meanwhile into production unread.
 LIVE_REF_NAME = "origin/cf-live"                         # where the pin came from
-LIVE_SHA = "549ab430d24265f772b128c441d1225ece83aba0"    # Reviewed PR25: source 848117c6; carried media/root files unchanged
+LIVE_SHA = "39a4d2c46c3ca6abe2239d93e0e2f7373f86b6da"    # Reviewed PR26: source 320c17bd; includes three restored Brand images
 LIVE_REF = LIVE_SHA                # what git is actually handed, so no fetch can move it
 LIVE_PIN = LIVE_REF_NAME + "@" + LIVE_SHA[:12]           # what the banner and dist/ record
 
