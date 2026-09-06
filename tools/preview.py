@@ -7,6 +7,12 @@ import argparse
 ROOT = Path(__file__).resolve().parents[1] / "dist"
 
 class Preview(SimpleHTTPRequestHandler):
+    def end_headers(self):
+        # A preview must never show a previous worktree's cached HTML against
+        # the new build's content-addressed assets.
+        self.send_header('Cache-Control', 'no-store')
+        super().end_headers()
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(ROOT), **kwargs)
 

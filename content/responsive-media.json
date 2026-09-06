@@ -1,0 +1,368 @@
+{
+  "/files/Hero%20Optimized/Home.webp": [
+    {
+      "src": "/files/Hero%20Optimized/Home-320.webp",
+      "width": 320,
+      "sha256": "6e82cb078f7b035d4fc2e25298d5061e579ee9f4a4744cd69fb95c819f152a17"
+    },
+    {
+      "src": "/files/Hero%20Optimized/Home-480.webp",
+      "width": 480,
+      "sha256": "4bb4754eceee3714f1aea3a7ae5909161e6c8e1fcab86505469e04c2375eb671"
+    },
+    {
+      "src": "/files/Hero%20Optimized/Home-640.webp",
+      "width": 640,
+      "sha256": "7f4ae7392686267a9cf1d418045c9e53bda146bee34be2a51b6fab3b2533fecd"
+    },
+    {
+      "src": "/files/Hero%20Optimized/Home-960.webp",
+      "width": 960,
+      "sha256": "c1f3772a53ba9fc6e0c9df0109c25c76c57aec53cfe12b036a4a11bab9bce3ee"
+    },
+    {
+      "src": "/files/Hero%20Optimized/Home.webp",
+      "width": 1200,
+      "sha256": "1b7d40e886e96f805d20298b5b150f750fac51dd5838a49fce3e1f3184a15835"
+    }
+  ],
+  "/files/Hero%20Optimized/Products.jpg": [
+    {
+      "src": "/files/Hero%20Optimized/Products-320.jpg",
+      "width": 320,
+      "sha256": "af291fd55c80f441e429fc9e155d52b59fe6d4ea8187fe145d2a04a56d9e5682"
+    },
+    {
+      "src": "/files/Hero%20Optimized/Products-480.jpg",
+      "width": 480,
+      "sha256": "9cac9fc8663b38902a8d7b11d2920d7956953aa71e54703c978cce8489613b20"
+    },
+    {
+      "src": "/files/Hero%20Optimized/Products-640.jpg",
+      "width": 640,
+      "sha256": "9aa8030c01ebac5881159d091729df524f536288c62efbd42f3180380d8e29a0"
+    },
+    {
+      "src": "/files/Hero%20Optimized/Products-960.jpg",
+      "width": 960,
+      "sha256": "76e8647f0765805d67da901f9cf3c30df979bbb8e3019fd91c8ac0120e142198"
+    },
+    {
+      "src": "/files/Hero%20Optimized/Products.jpg",
+      "width": 1200,
+      "sha256": "90cd5d16b73628a9f9c466a0d1520f33393e2329c721f0c8348b81f34555443b"
+    }
+  ],
+  "/files/Plywood%20Product%20Photos/cwi-packing-plywood.webp": [
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-packing-plywood-320.webp",
+      "width": 320,
+      "sha256": "5f26341ac9bb104df496e1eb53b74a544188b2ca6ac66005bddc430f02d45d4a"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-packing-plywood-480.webp",
+      "width": 480,
+      "sha256": "0247dd21d47c18ffee8f28562cbff83c55567204de196ea64ba05afb70bac194"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-packing-plywood-640.webp",
+      "width": 640,
+      "sha256": "840bb2014cda39e6713ce2feb67e43612960e97424fed53a9f5cd3ed017277e1"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-packing-plywood-960.webp",
+      "width": 960,
+      "sha256": "5f2ce7b6569b5456b8da3c2592f6e6d731491867d39798e69bcae33523e4abd4"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-packing-plywood.webp",
+      "width": 1200,
+      "sha256": "06855298e2b05157a76e2dc5f973edf6cc5e4c2d95598262e984d44bc550126f"
+    }
+  ],
+  "/files/Plywood%20Product%20Photos/cwi-okoume-plywood.webp": [
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-okoume-plywood-320.webp",
+      "width": 320,
+      "sha256": "f9404d745df12abd97daf6a427b684c2cfa7cb8ef209bd9983632076483844a0"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-okoume-plywood-480.webp",
+      "width": 480,
+      "sha256": "f8f1a00b01338bed45fd733b2db63569d1f73126b2acc87fdc0abd455800ff72"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-okoume-plywood-640.webp",
+      "width": 640,
+      "sha256": "b34af0c9736c81426bd72fa2114e49e4d49ec63ff77c70b41f81c54b067a84cf"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-okoume-plywood-960.webp",
+      "width": 960,
+      "sha256": "acd33816d91c991632412c0662b57a5ea6a0b97853db6127c55fc558f8d84f8a"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-okoume-plywood.webp",
+      "width": 1200,
+      "sha256": "5869e9614dfb31854982afd505b6f313ff6e7e65c5156411849abde8f9a83443"
+    }
+  ],
+  "/files/Plywood%20Product%20Photos/cwi-rubberwood-plywood.webp": [
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-rubberwood-plywood-320.webp",
+      "width": 320,
+      "sha256": "eed06a031817080b61b2c268dbbc37dcccbd2f22533bba7c6da7bb9b1502bcd4"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-rubberwood-plywood-480.webp",
+      "width": 480,
+      "sha256": "b4dc1ff27ca509fe48a91c0a1f8a3fcbf186d77baa08904d8fa18bf2b4b807f8"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-rubberwood-plywood-640.webp",
+      "width": 640,
+      "sha256": "12594597f84d0983d976d62ee4cfaadda2817c6a91265c212abe5486cd4f7d98"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-rubberwood-plywood-960.webp",
+      "width": 960,
+      "sha256": "be59b6cbc12517ad0ffeac49610598e73fbe58bde0655aa2d0315f0f426f7c66"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-rubberwood-plywood.webp",
+      "width": 1200,
+      "sha256": "42dd13f1f7a06513b52f33b7302d4a7afa22e0f3b97b78bfc8aa447f946da8a7"
+    }
+  ],
+  "/files/Plywood%20Product%20Photos/cwi-commercial-plywood.webp": [
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-commercial-plywood-320.webp",
+      "width": 320,
+      "sha256": "314abe8b5be7819ac86f90f41ac7528947d5024ed522eebcdccd895ca8de1dc0"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-commercial-plywood-480.webp",
+      "width": 480,
+      "sha256": "352e2d6b099cd0f822061a23d5b15da9a902fa6a9a7e425395baed2f40bd9a75"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-commercial-plywood-640.webp",
+      "width": 640,
+      "sha256": "aaf0b58192fd0a7b3f481e3bf56fb1a923104f1a4f7b8137dda5ee293c03e1e3"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-commercial-plywood-960.webp",
+      "width": 960,
+      "sha256": "a25629f75ffdf0a0f429df21501decb81f71fe97f091b973823ba08844c257fa"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-commercial-plywood.webp",
+      "width": 1200,
+      "sha256": "2941f2d5f49bbb3998b1625d651da6613168aab30315128238063e2e45cd5e89"
+    }
+  ],
+  "/files/Plywood%20Product%20Photos/cwi-marine-plywood.webp": [
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-marine-plywood-320.webp",
+      "width": 320,
+      "sha256": "8319dc50f7a888de17c8fcaf121c226a1b2acf624498ae554097b11f5b1566e6"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-marine-plywood-480.webp",
+      "width": 480,
+      "sha256": "b4a2fdb49ac712af23f077813e4de0ea75baa69a42c8b2c2bc5ac8eec53990ae"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-marine-plywood-640.webp",
+      "width": 640,
+      "sha256": "dac3995fa8c05c852c063f12906596ebc967553bd429ed1cd099ee8f8524e69f"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-marine-plywood-960.webp",
+      "width": 960,
+      "sha256": "5bc691fe721f512186f241cff87c9aae071ee2c4387e1feb66b9a7b655976e2d"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-marine-plywood.webp",
+      "width": 1200,
+      "sha256": "a2f97e85aa136956bef3c033442be621563b084743047365b42496a13a4ffbd4"
+    }
+  ],
+  "/files/Plywood%20Product%20Photos/cwi-film-faced-brown.webp": [
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-film-faced-brown-320.webp",
+      "width": 320,
+      "sha256": "0bd8bd50b3c6c8aa402ae5096ac1189f8aea40b86f67d0a4dbb5c50e1c225f21"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-film-faced-brown-480.webp",
+      "width": 480,
+      "sha256": "94d5259041f56fe8c37bb7344a564de80fdb7d28ca79aa9577c8415819e3b561"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-film-faced-brown-640.webp",
+      "width": 640,
+      "sha256": "9c610aee21dbdcf123d1f9630ca786148c4ad9cf9d95a947b9a07c4fc38167cc"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-film-faced-brown-960.webp",
+      "width": 960,
+      "sha256": "27593a16e4cf421dfad43782722d9d513d0988dee5040aa71920617fc9a3db30"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-film-faced-brown.webp",
+      "width": 1200,
+      "sha256": "0539a5cd8c26f7ab9017d52ee50aeed6e5fc6e363085d11cbdab60570170deec"
+    }
+  ],
+  "/files/Plywood%20Product%20Photos/cwi-bwr-hardwood-plywood.webp": [
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-bwr-hardwood-plywood-320.webp",
+      "width": 320,
+      "sha256": "452920c35e39a49e34d1cccb9f5920b96573ce105ca1492bea8f593da6d87c65"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-bwr-hardwood-plywood-480.webp",
+      "width": 480,
+      "sha256": "28707104798b3a655fba59bcbcbacdf53c0c51189399d1c0e527c4b66360f863"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-bwr-hardwood-plywood-640.webp",
+      "width": 640,
+      "sha256": "4ebc32a1f87eccfc8036e56ab075ea02a8c52227d6acda93394791213a359f6c"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-bwr-hardwood-plywood-960.webp",
+      "width": 960,
+      "sha256": "6e2043eebd48faea603fddd67c84f05c2c70a53dd8499f61748e7741bb7891c2"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-bwr-hardwood-plywood.webp",
+      "width": 1200,
+      "sha256": "0e54ac79686e3733f2f7b5847f9144dbb520cf79409f56a49199642c4abc321f"
+    }
+  ],
+  "/files/Plywood%20Product%20Photos/cwi-anti-skid.webp": [
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-anti-skid-320.webp",
+      "width": 320,
+      "sha256": "177ecf3b784b35cf393938cdbc095d29690040364282bbeb7aa90f29b0a2fdea"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-anti-skid-480.webp",
+      "width": 480,
+      "sha256": "a18c5fe85d523882b3a6e639858753be4341dbb6b2db230d430f5e1d9d31204e"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-anti-skid-640.webp",
+      "width": 640,
+      "sha256": "8e03956da4df4ce0f1afbc39c6b6a31948f67d60c110d655c26fa193e9e0f495"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-anti-skid-960.webp",
+      "width": 960,
+      "sha256": "8710615a401f2488cbf3c0d2e39bf0f3b4cd6be286051270ff5ab8073b2f2929"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-anti-skid.webp",
+      "width": 1200,
+      "sha256": "63a20ccc972df674965377a7e74b3ed0f34b23704774cb8b878cb312c192142c"
+    }
+  ],
+  "/files/Process%20Illustrations/cwi-process-sanding.jpg": [
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-sanding-320.jpg",
+      "width": 320,
+      "sha256": "402014218bcee61d4af84489066c750e01ef9d759ab880152576b5055b1d5c54"
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-sanding-480.jpg",
+      "width": 480,
+      "sha256": "5c62ad733572b49894b42f0e830e900ae08b60bfb71b3530bd036346201119c6"
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-sanding-640.jpg",
+      "width": 640,
+      "sha256": "27b28da8a8a3ca038c9bd0bfe09f8a8d60e6a16b8d008109d67f7ac8f630f99c"
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-sanding-960.jpg",
+      "width": 960,
+      "sha256": "7e93c2381f9ae1bfce2b67afcc7a881de8baeb26ada55ab75787cb260a4de9c8"
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-sanding-1280.jpg",
+      "width": 1280,
+      "sha256": "85be484f3e8017be3bbf82e48471ec68b34bf72389d7667d6f1ea214754f9eb1"
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-sanding.jpg",
+      "width": 1600,
+      "sha256": "8a2e32e9440c52b882de9f9f460c0bd39f3e2b5aa54e65fef21d123cf812fcab"
+    }
+  ],
+  "/files/Process%20Illustrations/cwi-process-moisture.jpg": [
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-moisture-320.jpg",
+      "width": 320,
+      "sha256": "241606c9e45807e84e167f810bbe8759460184c189d850a93e854494677bbbdb"
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-moisture-480.jpg",
+      "width": 480,
+      "sha256": "97cbd4215d330d3ddd248fafb837fa9515bf722a682b9016538bc15155b68a75"
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-moisture-640.jpg",
+      "width": 640,
+      "sha256": "0967abf33a6d4886fffb8f1d83451276229b2d1584252812e9bfb46079b62051"
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-moisture-960.jpg",
+      "width": 960,
+      "sha256": "4e41a6238c5c9017f00e0892b9780bf7a11a9fb2dcaf2b676b742cef82a75c57"
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-moisture-1280.jpg",
+      "width": 1280,
+      "sha256": "d42456cec6411473de68eaf84b18fab30bce1e56a5265f41b73bbdbe9b791c0e"
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-moisture.jpg",
+      "width": 1600,
+      "sha256": "2d26cfd93d3bd68d9a81f260576e30555759bc26fedc9956098bdbcd530248cb"
+    }
+  ],
+  "/files/Process%20Illustrations/cwi-process-loading.jpg": [
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-loading-320.jpg",
+      "width": 320,
+      "sha256": "a9da6fcf98002ecb3f516b1f76c46d5218b9ffa8cee2bb797a53d4207258e6c6"
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-loading-480.jpg",
+      "width": 480,
+      "sha256": "8dc9c22124aa478412bf4270dfd1f509dbbbc769cf331bb3583c621a743c770c"
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-loading-640.jpg",
+      "width": 640,
+      "sha256": "a779c3320e01313a85b9e02f3c62d4ea8dcae6cf04252cfaf57ca4f53bf56c9c"
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-loading-960.jpg",
+      "width": 960,
+      "sha256": "8e4eed2f6be2d61c507b7c649aec9b10b4d6b1941cb14061497266dc553022a0"
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-loading-1280.jpg",
+      "width": 1280,
+      "sha256": "c2dbb937e5af13f8565a425ed0057986cfe878bc0ac75a1c45e237b3ada79b65"
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-loading.jpg",
+      "width": 1600,
+      "sha256": "ad44f5ad1160bdae55162d7362080832973d853d894c5d70347646db14661dba"
+    }
+  ]
+}

@@ -90,6 +90,7 @@ def main():
     if not (dist / "index.html").exists():
         parser.error(f"No built homepage at {dist}; run build.py first")
     manifest = json.loads((ROOT / "content/visual-media.json").read_text(encoding="utf-8"))
+    responsive = json.loads((ROOT / "content/responsive-media.json").read_text(encoding="utf-8"))
     errors = []
     pages = {}
     linked_image_count = 0
@@ -152,6 +153,16 @@ def main():
             digest = hashlib.sha256(asset.read_bytes()).hexdigest()
             if digest != entry["sha256"]:
                 errors.append(f"Published bytes differ from the inspected image: {entry['src']}")
+    for candidates in responsive.values():
+        for candidate in candidates:
+            asset = dist / local_path(candidate["src"])
+            if not asset.is_file() or hashlib.sha256(asset.read_bytes()).hexdigest() != candidate["sha256"]:
+                errors.append(f"Responsive image differs from the inspected scene: {candidate['src']}")
+    responsive_paths = {local_path(ref) for ref in responsive}
+    for route, page in pages.items():
+        for img in page.content_images:
+            if local_path(img.get("src", "")) in responsive_paths and not img.get("srcset"):
+                errors.append(f"/{route}: reviewed responsive image candidates missing: {img['src']}")
     home = pages.get("")
     catalogue = pages.get("products")
     if not home or len(home.content_images) < 10:

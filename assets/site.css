@@ -176,7 +176,7 @@ html { scroll-behavior: smooth; }
 /* FIX 4: Cormorant Garamond display font */
 /* (Cormorant @import removed 2026-06-14 — font-lock below) */
 :root { --cw-display: 'Bree Serif', Georgia, serif !important; }
-.cw__h1, .cw__h2, h1, h2 { font-family: 'Bree Serif', Georgia, serif !important; }
+.cw__h1, .cw__h2, h1, h2 { font-family: var(--cw-display, 'Poppins', sans-serif); }
 
 /* FIX 5: Shrink empty (default.jpg) placeholders so they don't dominate the page. Real photos still go to full 16:9. */
 
@@ -498,7 +498,7 @@ body:has(.theme-single-post) .zpelem-button:has(a.zpbutton[href="javascript:;"])
    so override its exact selectors. No icon-font risk (SVG icons).
    ============================================================ */
 :root {--cw-display:'Bree Serif',Georgia,serif !important;--cw-body:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif !important;}
-h1, h2, h3, h4, h5, h6 {font-family:'Bree Serif',Georgia,serif !important;}
+h1, h2, h3, h4, h5, h6 {font-family:var(--cw-display,'Poppins',sans-serif);}
 body, input[type=submit], input[type=button] {font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif !important;}
 
 /* ============================================================

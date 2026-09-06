@@ -237,5 +237,12 @@
       "description": "Coordinate packing, loading and documents for your destination.",
       "sha256": "ad44f5ad1160bdae55162d7362080832973d853d894c5d70347646db14661dba"
     }
-  ]
+  ],
+  "experience_hero": {
+    "src": "/files/Hero%20Optimized/Home.webp",
+    "alt": "A warehouse aisle between tall stacks of plywood, with a forklift in the distance",
+    "kind": "brand illustration",
+    "provenance": "Existing published Cochin Wood site asset; original capture or generation provenance is unverified. Illustrative brand imagery, not evidence of a particular owned facility or stock position.",
+    "sha256": "1b7d40e886e96f805d20298b5b150f750fac51dd5838a49fce3e1f3184a15835"
+  }
 }

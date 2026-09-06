@@ -1,24 +1,22 @@
-# Cochin Wood visual system — 6 September 2026
+# Cochin Wood brand experience — 6 September 2026
 
-The approved restoration uses the image-led pre-cutover site at c59adae9 as its reference, while preserving current truthful copy, accessible behavior and enquiry integration. The historical CSS explicitly locked Bree Serif headings and Poppins body text; older Cormorant/Heebo skill examples do not override that evidence.
+Edwin rejected the initial visual restoration and asked for a stronger site, using West Fraser as a visual benchmark. This iteration retains the actual CWI logo, forest green, warm material imagery and factual business voice, while replacing the repeated light split-hero/card treatment. The previous restoration is a historical baseline, not a user-approved final design.
 
-## Shared rules
+## Visual direction
 
-- Forest #1B4332 for headings and major closing bands; teal #007A5E for primary actions; warm white #FAF9F7, white and restrained pale green for surfaces; ink #141414 for text.
-- White spacious header, circular logo and visible Cochin Wood wordmark. Light footer. Keep the existing navigation and mobile-menu behavior.
-- Editorial headings, generous whitespace and image-led product/application cards. Avoid large repeated prose blocks and crowded outlines.
-- Use verified existing images and honest adjacent captions. Process illustrations remain illustrations. No generated manufacturing proof, invented testimonials or unsupported country/production claims.
-- Keep keyboard focus, legible captions, 44px-or-larger primary controls, reduced-motion support, and the original field validation/submission behavior.
+- Poppins is the primary display and reading face. Bree Serif remains in the wordmark and selected editorial accents. Remove legacy global `!important` font locks instead of fighting them on every new component.
+- Forest #1B4332, teal #007A5E, warm white #FAF9F7 and natural wood colour. Large imagery, sharp quiet edges, fine rules, generous space, restrained controls.
+- The homepage has a full-width warehouse illustration, asymmetric product families, industry imagery, a sticky illustrated process sequence, a material encyclopedia story and a prominent enquiry close. Inner pages vary their composition within the same typography, colour and spacing system.
+- Image provenance and actual scenes are recorded in `content/visual-media.json` and `docs/experience-media.md`. Illustrations are not evidence of owned facilities, current stock, customer projects or completed shipments. Group heritage dates to 1986; the company dates to 2021. Do not restore unsupported country counts or certification claims.
 
-## Markup contracts
+## Source and motion
 
-The last CSS layer is assets/visual-system.css. Append it after existing component and legacy styles in the bundle.
+`experience_home.py` owns the homepage composition. `assets/experience.css` owns the shell, homepage and catalogue. `assets/experience-inner.css` refines the preserved inner templates. These follow `visual-system.css`; `experience-motion.css` is last. The deferred, content-addressed `experience-motion.js` supplies optional IntersectionObserver/rAF effects without scroll hijacking or dependencies.
 
-- Light hero: .cw-hero.cw-hero--light > .cw-wrap > .cw-hero__layout, with .cw-hero__content and figure.cw-hero__media. A hero media image fills a 4:3 frame; place explicit captions inside figcaption. CTA and proof links use existing classes.
-- Sections: .cw-section > .cw-wrap, .cw-section__head for heading/introduction. Optional --soft / --white surfaces.
-- Catalogue: .cw-product-grid > a.cw-product-card with .cw-product-card__image > img and .cw-product-card__body containing heading, description and link label.
-- Applications/process: .cw-application-grid/.cw-process-grid containing matching -card elements, image, heading and paragraph.
-- Story: .cw-story with two direct children (image/figure and text), stacking on mobile.
-- Preserved products: .cwp__hero-grid contains .cwp__hero-text and figure.cwp__hero-img; .cwp__hero-caption explains illustrative/representative images. .cwp__gallery holds figure.cwp__gallery-item containing img and figcaption.
+`data-reveal` is always visible at rest. `data-parallax` is a gentle image translation inside a clipped visual frame. Matched `data-process-step` and `data-process-image` values activate the desktop process illustration. On narrow screens and with reduced motion, each step carries its own static image. Page text never depends on the animation.
 
-All grids use minimum-zero columns to avoid content-driven horizontal overflow. A 96px desktop header becomes 76px below860px, and the existing mobile navigation starts below that header. Gallery/card columns reduce to one on narrow phones. CSS does not inject content, change data, or alter form/event logic.
+## Screen adaptation and release
+
+Use fluid typography, minimum-zero grids, content wrapping and responsive image crops. Header is 88px desktop / 76px mobile. Keep logo Home links, one quote action in the primary menu, keyboard focus, large primary controls and the existing enquiry submission behavior. Tables scroll within a labelled keyboard-accessible region; the page itself must not overflow.
+
+Build and run all required source/preservation/site checks. `tools/test_responsive_layout.cjs` checks every indexed page at narrow phone and laptop widths, and representative templates across additional and breakpoint-adjacent sizes. Inspect actual desktop/mobile rendering and scroll behavior, including reduced motion. Test quote submission only against local mocks. Publish exact reviewed build bytes and verify the live release.

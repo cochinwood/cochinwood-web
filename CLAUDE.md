@@ -10,9 +10,9 @@ Run `python build.py` to create `dist/`. The site has 253 indexed pages plus its
 
 ## Preserve the agreed visual identity
 
-Read [VISUAL-BRAND-GUIDE.md](VISUAL-BRAND-GUIDE.md). Bree Serif headings, Poppins body text, forest green, restrained teal, warm white and material imagery are the established direction. The historical reference is `c59adae9`. Older skills naming Cormorant/Heebo are superseded by the documented June font unification and this source guide.
+Read [VISUAL-BRAND-GUIDE.md](VISUAL-BRAND-GUIDE.md). The current direction uses Poppins display/body typography, selective Bree Serif accents, forest green, restrained teal, warm white and larger material imagery. Edwin rejected the initial restoration and requested this stronger brand experience. The historical reference is `c59adae9`. Older skills naming Cormorant/Heebo are superseded by the documented June font unification and this source guide.
 
-`assets/visual-system.css` is the last shared CSS layer. `content/visual-media.json` records inspected media, descriptions and hashes. A file existing in the library does not mean the pages show it. Run the coverage check and inspect actual desktop/mobile rendering before calling a visual change done. Do not replace the image-led site with text-card grids or restore obsolete claims. Illustrations must not be described as evidence of a particular factory, customer project or completed shipment.
+`assets/experience.css`, `assets/experience-inner.css` and `assets/experience-motion.css` follow the earlier `visual-system.css` layer. `content/visual-media.json` records inspected media, descriptions and hashes. A file existing in the library does not mean the pages show it. Run the coverage check and inspect actual desktop/mobile rendering before calling a visual change done. Do not replace the image-led site with text-card grids or restore obsolete claims. Illustrations must not be described as evidence of a particular factory, customer project or completed shipment.
 
 ## Preserve reviewed production content
 

@@ -509,7 +509,7 @@ def _fix_img(tag, slug=None):
             return ""
         pub = register_file(s, path)
         if pub != s: tag = tag.replace(s, pub)
-        return _set_dims(tag, path)
+        return responsive_image_tag(_set_dims(tag, path), pub)
     return tag
 
 def prune_images(body, slug=None):
@@ -575,7 +575,7 @@ def header(path="/"):
             cur = True
         aria = ' aria-current="page"' if cur else ""
         links += f'<a href="{href}"{aria}>{label}</a>\n'
-    return f'''<header class="cw-hd"><div class="cw-wrap cw-hd__in">
+    return f'''<header class="cw-hd cw-header"><div class="cw-wrap cw-hd__in">
   <a class="cw-hd__brand" href="{u('/')}" aria-label="Cochin Wood Industries — Home" title="Home"><img src="{u('/assets/icons/logo-80.png')}" alt="Cochin Wood Industries logo" width="80" height="80" decoding="async"><span class="cw-hd__wordmark"><b>Cochin Wood</b><span>Industries</span></span></a>
   <button class="cw-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav">&#9776;</button>
   <nav class="cw-nav" id="nav" aria-label="Primary">
@@ -824,7 +824,7 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
     extra_head = ORG_SCHEMA + "\n" + crumb_ld + extra_head
     preloads = "\n".join(
         f'<link rel="preload" href="{u("/assets/fonts/"+f)}" as="font" type="font/woff2" crossorigin>'
-        for f in PRELOAD_FONTS)
+        for f in (PRELOAD_FONTS + (["poppins-pxiByp8kv8JHgFVrLGT9Z1xlFQ.woff2"] if path == "/" else [])))
     if "<main" not in body:
         body = f'<main id="main">{body}</main>'
     else:
@@ -863,7 +863,8 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
 {footer()}
 <a class="cw-wa" href="https://wa.me/{CONTACT['wa']}" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" focusable="false"><path fill="currentColor" d="M.06 24l1.68-6.16A11.87 11.87 0 010 11.9C0 5.33 5.36 0 11.95 0a11.9 11.9 0 018.42 3.48 11.75 11.75 0 013.49 8.37c0 6.56-5.36 11.9-11.96 11.9-2 0-3.96-.5-5.7-1.45L.06 24zm6.6-3.8c1.68.99 3.28 1.58 5.4 1.58 5.45 0 9.9-4.42 9.9-9.87a9.8 9.8 0 00-2.9-6.99 9.9 9.9 0 00-7-2.9C6.6 2.02 2.15 6.44 2.15 11.9c0 2.2.62 3.85 1.67 5.57l-.99 3.6 3.83-.87zm11.6-5.5c-.08-.13-.28-.2-.58-.35-.3-.15-1.76-.86-2.03-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.14-.14.3-.36.45-.53.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41z"/></svg></a>
 <button class="cw-top" type="button" aria-label="Back to top" hidden>&uarr;</button>
-<script src="{u('/assets/' + ASSETS['site.js'])}" defer></script>{beacon_tag()}
+<script src="{u('/assets/' + ASSETS['site.js'])}" defer></script>
+<script src="{u('/assets/' + ASSETS['experience-motion.js'])}" defer></script>{beacon_tag()}
 </body>
 </html>'''
 
@@ -958,9 +959,24 @@ def git_date(relpath):
 
 # ---------------- SHARED VISUAL MEDIA ----------------
 VISUAL_MEDIA = json.load(open(os.path.join(ROOT, "content", "visual-media.json"), encoding="utf-8"))
+RESPONSIVE_MEDIA = json.load(open(os.path.join(ROOT, "content", "responsive-media.json"), encoding="utf-8"))
 PRODUCT_HERO.update({slug: item["src"] for slug, item in VISUAL_MEDIA["products"].items()})
 
-def visual_image(item, *, eager=False):
+def responsive_image_tag(tag, ref):
+    """Use only inspected, hash-recorded variants carried from reviewed production.
+
+    Same filenames in older mirrors can contain different scenes. Do not infer
+    candidates from suffixes or generate a srcset from unreviewed old files.
+    Existing explicit srcsets keep their author-supplied sizing contract.
+    """
+    candidates = RESPONSIVE_MEDIA.get(ref)
+    if not candidates or re.search(r'\bsrcset=', tag):
+        return tag
+    srcset = ", ".join(f'{u(c["src"])} {c["width"]}w' for c in candidates)
+    return tag.replace("<img ", f'<img srcset="{esc(srcset)}" sizes="100vw" ', 1)
+
+
+def visual_image(item, *, eager=False, sizes="(max-width: 760px) 100vw, 50vw"):
     """Resolve curated media through the same measured, registered asset pipeline.
 
     An explicitly selected image is a build requirement, not an optional
@@ -972,70 +988,23 @@ def visual_image(item, *, eager=False):
     resolved = prune_images(tag)
     if not resolved:
         raise SystemExit(f"Required visual media is unavailable: {item['src']}")
+    resolved = re.sub(r'\bsizes="[^"]*"', f'sizes="{esc(sizes)}"', resolved)
     return rewrite_links(resolved)
 
 def visual_product_card(slug, level=3):
     _s, name, description = next(p for p in PRODUCTS if p[0] == slug)
-    photo = visual_image(VISUAL_MEDIA["products"][slug])
+    photo = visual_image(VISUAL_MEDIA["products"][slug], sizes="(max-width: 480px) 100vw, (max-width: 860px) 50vw, 33vw")
     caption = (f'<p class="cw-media-caption">{esc(VISUAL_MEDIA["products"][slug]["caption"])}</p>'
                if VISUAL_MEDIA["products"][slug].get("caption") else "")
-    return (f'<a class="cw-product-card" href="{u("/"+slug)}">'
+    return (f'<a class="cw-product-card" data-reveal="image" href="{u("/"+slug)}">'
             f'<div class="cw-product-card__image">{photo}</div>'
             f'<div class="cw-product-card__body"><h{level}>{name}</h{level}>'
             f'<p>{description}</p>{caption}<span class="cw-card__tag">Explore product &rarr;</span></div></a>')
 
 # ---------------- HOME ----------------
 def home():
-    featured = ["packing-plywood", "okoume-plywood", "marine-plywood",
-                "film-faced-shuttering-plywood", "plywood-boxes-crates", "block-board-flush-doors"]
-    cards = "".join(visual_product_card(s) for s in featured)
-    applications = "".join(
-        f'<a class="cw-application-card" href="{u(item["href"])}">'
-        f'{visual_image(item)}<div class="cw-application-card__body"><h3>{esc(item["title"])}</h3>'
-        f'<p>{esc(item["description"])}</p><span class="cw-card__tag">Find the right material &rarr;</span></div></a>'
-        for item in VISUAL_MEDIA["applications"])
-    process = "".join(
-        f'<li class="cw-process-card">{visual_image(item)}<div class="cw-process-card__body">'
-        f'<span class="cw-step">0{i+1}</span><h3>{esc(item["title"])}</h3>'
-        f'<p>{esc(item["description"])}</p></div></li>'
-        for i, item in enumerate(VISUAL_MEDIA["process"]))
-    body = f'''<section class="cw-hero cw-hero--light"><div class="cw-wrap">
-  <div class="cw-hero__layout"><div class="cw-hero__content">
-    <p class="cw-hero__ey">Plywood manufacturer · Kochi, Kerala</p>
-    <h1>Plywood, built to <em>your spec.</em></h1>
-    <p>Packing, interiors or construction. Find the right plywood, board and timber for your work — with specifications agreed before production.</p>
-    <div class="cw-hero__cta"><a class="cw-btn cw-btn--p" href="{u('/products')}">Explore our products &rarr;</a><a class="cw-btn cw-btn--g" href="{u('/contact#quote')}">Request a quote</a></div>
-    <a class="cw-hero__proof" href="{u('/about')}">Rooted in Kerala. Group manufacturing since 1986.</a>
-  </div><figure class="cw-hero__media">{visual_image(VISUAL_MEDIA['home_hero'], eager=True)}</figure></div>
-  <div class="cw-hero__strip">
-    <div><b>Since 1986</b><span>Our group's manufacturing heritage</span></div>
-    <div><b>Made to specification</b><span>Grade, thickness and finish agreed in writing</span></div>
-    <div><b>India &amp; export</b><span>Delivery planned around your destination</span></div>
-  </div>
-</div></section>
-<section class="cw-section"><div class="cw-wrap">
-  <div class="cw-section__head"><div><p class="cw-eyebrow">Our materials</p><h2>The right panel.<br><em>For every purpose.</em></h2></div><p>From a packing case to a finished interior, start with the application. We’ll help you choose the grade, dimensions and finish.</p></div>
-  <div class="cw-product-grid">{cards}</div>
-  <div class="cw-section__link"><a class="cw-btn cw-btn--g" href="{u('/products')}">View all 16 product lines &rarr;</a></div>
-</div></section>
-<section class="cw-section cw-section--soft"><div class="cw-wrap">
-  <div class="cw-section__head"><div><p class="cw-eyebrow">Built around your work</p><h2>Materials at work.</h2></div><p>Different jobs ask different things of wood. Explore the products suited to your industry.</p></div>
-  <div class="cw-application-grid">{applications}</div>
-  <p class="cw-media-caption">Illustrations of typical applications.</p>
-</div></section>
-<section class="cw-section"><div class="cw-wrap">
-  <div class="cw-section__head"><div><p class="cw-eyebrow">From enquiry to delivery</p><h2>A clear process.<br><em>At every step.</em></h2></div><p>One conversation about your requirements, followed by a written specification, quote and delivery plan.</p></div>
-  <ol class="cw-process-grid">{process}</ol>
-  <p class="cw-media-caption">Process illustrations. The producing works and checks are confirmed for each order.</p>
-</div></section>
-<section class="cw-section cw-section--soft"><div class="cw-wrap cw-story">
-  <figure class="cw-story__media">{visual_image(VISUAL_MEDIA['encyclopedia_hero'])}</figure>
-  <div class="cw-story__content"><p class="cw-eyebrow">Know your material</p><h2>Good choices begin<br>with understanding wood.</h2><p>What changes when you choose Okoume, rubberwood or a denser hardwood core? Our Wood Encyclopedia brings together practical species notes, properties and cited research.</p><a class="cw-btn cw-btn--p" href="{u(WOOD_PATH)}">Explore the wood encyclopedia &rarr;</a><p class="cw-story__note"><a href="{u('/company-verification')}">Get to know Cochin Wood and verify our company details &rarr;</a></p></div>
-</div></section>
-<section class="cw-band"><div class="cw-wrap cw-band__in">
-  <div><p class="cw-eyebrow">Let’s make it to specification</p><h2>What are you working on?</h2><p>Share your application, quantity and destination. We’ll reply within one business day.</p></div>
-  <a class="cw-btn cw-btn--p" href="{u('/contact#quote')}">Request a quote &rarr;</a>
-</div></section>'''
+    from experience_home import render_home
+    body = render_home(u, visual_image, VISUAL_MEDIA, WOOD_PATH)
     write("index.html", base(
         "Plywood Manufacturer & Exporter in India | Cochin Wood",
         "Marine, shuttering, packing and Okoume plywood from the Cochin Wood group in Perumbavoor, Kerala — factory-direct, pan-India delivery and export.",
@@ -1052,7 +1021,7 @@ def products():
          ["commercial-plywood", "block-board-flush-doors", "finger-joint-board", "particle-board", "sawn-timber"])]
     sections = "".join(
         f'<section class="cw-section" id="{key}"><div class="cw-wrap"><div class="cw-section__head">'
-        f'<div><p class="cw-eyebrow">The collection</p><h2>{label}</h2></div><p>{intro}</p></div>'
+        f'<div data-reveal><p class="cw-eyebrow">The collection</p><h2>{label}</h2></div><p>{intro}</p></div>'
         f'<div class="cw-product-grid">{"".join(visual_product_card(slug) for slug in slugs)}</div></div></section>'
         for key, label, intro, slugs in groups)
     jumps = "".join(f'<a href="#{key}">{label} &darr;</a>' for key, label, _intro, _slugs in groups)
@@ -1084,7 +1053,7 @@ def products():
         # old text listed neither and ran to 187 rendered characters, past where
         # Google truncates a description.
         "Cochin Wood Industries' plywood catalogue: packing, Okoume, commercial, marine (IS 710), film-faced shuttering, BWR hardwood and sawn timber.",
-        "/products", body, crumbs=[("Home", "/"), ("Products", None)], extra_head=ld))
+        "/products", body, body_class="cw-catalogue", crumbs=[("Home", "/"), ("Products", None)], extra_head=ld))
 
 # ---------------- CONTACT ----------------
 # (posted value, visible label). The VALUE is what the Worker stores, so it is the live page's
@@ -2681,7 +2650,7 @@ def build_redirects():
 
 # ---------------- assets + meta ----------------
 # One request instead of five; order preserved so cascade behaviour is unchanged.
-CSS_BUNDLE = ["fonts.css", "site.css", "guide.css", "wood-enc.css", "shell.css", "components.css", "visual-system.css"]
+CSS_BUNDLE = ["fonts.css", "site.css", "guide.css", "wood-enc.css", "shell.css", "components.css", "visual-system.css", "experience.css", "experience-inner.css", "experience-motion.css"]
 
 def _css_fix_urls(css, name):
     """Resolve /files/... backgrounds; neutralise the ones with no source file."""
@@ -2730,7 +2699,7 @@ def css_bundle_content():
 # build serves it from /assets/ where the pin is a year. Publish it under a fixed
 # name and a broken beacon is frozen in every returning buyer's browser until
 # September 2027, with no URL left to push a fix through.
-ASSETS = {"bundle.css": "bundle.css", "site.js": "site.js", "cw-events.js": "cw-events.js"}
+ASSETS = {"experience-motion.js": "experience-motion.js", "bundle.css": "bundle.css", "site.js": "site.js", "cw-events.js": "cw-events.js"}
 
 def _digest(data):
     if isinstance(data, str): data = data.encode("utf-8")
@@ -2738,6 +2707,8 @@ def _digest(data):
 
 def fingerprint_assets():
     ASSETS["bundle.css"] = f"bundle.{_digest(css_bundle_content())}.css"
+    motion_path = os.path.join(ROOT, "assets", "experience-motion.js")
+    ASSETS["experience-motion.js"] = f"experience-motion.{_digest(read_lf(motion_path))}.js"
     jp = os.path.join(ROOT, "assets", "site.js")
     if os.path.exists(jp):
         # read_lf, not a raw read: the name must be the digest of the bytes that
@@ -2868,7 +2839,7 @@ def assets_and_meta():
     # Publish the two fingerprinted scripts under their hashed names, so the
     # year-long immutable header below is only ever attached to a name that
     # changes when the bytes do.
-    for key, plain_name in (("site.js", "site.js"), ("cw-events.js", "cw-events.js")):
+    for key, plain_name in (("site.js", "site.js"), ("cw-events.js", "cw-events.js"), ("experience-motion.js", "experience-motion.js")):
         hashed = ASSETS.get(key)
         plain = os.path.join(dst, plain_name)
         if hashed and hashed != plain_name and os.path.exists(plain):
@@ -2979,7 +2950,7 @@ def assets_and_meta():
     day       = "  Cache-Control: public, max-age=86400\n"
     hashed_rules = "".join(
         f"/assets/{ASSETS[k]}\n" + immutable
-        for k in ("bundle.css", "site.js", "cw-events.js") if ASSETS.get(k))
+        for k in ("bundle.css", "site.js", "cw-events.js", "experience-motion.js") if ASSETS.get(k))
     # THE PUBLISHED TREE MUST SAY WHICH COMMIT IT WAS BUILT FROM. 311 of dist/'s
     # 607 files are copied out of cf-live's object store, and a dist/ that does
     # not name that commit cannot be audited once the terminal that printed the
