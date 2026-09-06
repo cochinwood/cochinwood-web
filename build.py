@@ -2007,7 +2007,7 @@ def copy_referenced_files():
 # the new sha in here until the gate goes green carries whatever landed on
 # cf-live meanwhile into production unread.
 LIVE_REF_NAME = "origin/cf-live"                         # where the pin came from
-LIVE_SHA = "39a4d2c46c3ca6abe2239d93e0e2f7373f86b6da"    # Reviewed PR26: source 320c17bd; includes three restored Brand images
+LIVE_SHA = "c15729a2a9464f3271045edf4b26acb629f1cfe3"    # Reviewed PR27 navigation release; all carried assets match PR26 byte for byte
 LIVE_REF = LIVE_SHA                # what git is actually handed, so no fetch can move it
 LIVE_PIN = LIVE_REF_NAME + "@" + LIVE_SHA[:12]           # what the banner and dist/ record
 
