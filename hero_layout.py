@@ -222,7 +222,7 @@ def normalize_page_hero(body: str, path: str, breadcrumb_html: str = '') -> tupl
         while quote and quote.attrs.get('id') != 'quote':
             quote = quote.parent
         if quote:
-            return (body[:quote.start] + normalized + body[quote.start:hero.start]
+            return (body[:quote.start] + normalized + body[quote.start:hero.start].rstrip(' \t')
                     + body[hero.end:]), bool(breadcrumb_html)
     return body[:hero.start] + normalized + body[hero.end:], bool(breadcrumb_html)
 
