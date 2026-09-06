@@ -1,100 +1,37 @@
-# Branch map — read this before changing anything
+# Cochin Wood public website: source and release rules
 
-## The cutover HAS happened. `cf-live` is generated output now.
+## Edit the source, then build
 
-This file said the opposite until 5 September 2026, and it was wrong for a day —
-it told two agents that `cf-live` was ~293 hand-maintained `.html` files and that
-"nothing you fix here reaches a visitor". Both statements are now false, and
-hand-editing HTML on the strength of them is wasted work that ships nothing.
+Production is `cf-live` in `cochinwood/cochinwood-web`, served by the Cloudflare Pages project `cochinwood-web` at https://www.cochinwood.in. A merge or push to `cf-live` deploys immediately. Its files are generated publication output.
 
-**What is true, verified 5 Sep 2026 by counting rather than by reading a doc:**
+The source is this lineage: `build.py`, `export_section.py`, `content/`, `assets/` and `tools/`. Do not fix production HTML by hand: the next build would overwrite it. `master` and older migration branches are historical.
 
-| | |
-|---|---|
-| **Production** | branch `cf-live`, published verbatim by Cloudflare Pages at https://www.cochinwood.in |
-| **What `cf-live` contains** | the **output** of `python build.py` — 607 files, 253 `.html`. Not hand-written. |
-| **Source** | this lineage: `content/` + `build.py` on `cutover-ready-2026-09-04` |
-| **The cutover** | `ebc11445`, 4 Sep 2026 07:03 IST, *"Publish the reviewed build (ce24ab15) as the served tree"* |
+Run `python build.py` to create `dist/`. The site has 253 indexed pages plus its 404 page. Total file count varies with assets; use the actual build inventory.
 
-`ce24ab15` — the commit whose build was published — is an ancestor of
-`cutover-ready-2026-09-04`, and `python build.py` on this branch still reports
-`files: 607` with 253 `.html`. That match is the evidence, not this sentence.
+## Preserve the agreed visual identity
 
-Re-verify it yourself in three commands:
+Read [VISUAL-BRAND-GUIDE.md](VISUAL-BRAND-GUIDE.md). Bree Serif headings, Poppins body text, forest green, restrained teal, warm white and material imagery are the established direction. The historical reference is `c59adae9`. Older skills naming Cormorant/Heebo are superseded by the documented June font unification and this source guide.
 
-    git log -1 --format='%h %ad %s' ebc11445          # the cutover
-    git ls-tree -r --name-only origin/cf-live | wc -l # 607
-    python build.py                                   # "files: 607"
+`assets/visual-system.css` is the last shared CSS layer. `content/visual-media.json` records inspected media, descriptions and hashes. A file existing in the library does not mean the pages show it. Run the coverage check and inspect actual desktop/mobile rendering before calling a visual change done. Do not replace the image-led site with text-card grids or restore obsolete claims. Illustrations must not be described as evidence of a particular factory, customer project or completed shipment.
 
-### So: edit the source, never the output
+## Preserve reviewed production content
 
-    content/**, build.py   ->  python build.py  ->  dist/  ->  published as cf-live
+`LIVE_SHA` in `build.py` pins the reviewed production tree whose images and root files are carried forward. Review changes before moving it. The 84 export corrections in `content/export/published-patches.json` are source inputs and must remain present in generated pages. The preservation check verifies those visible fragments and 320 existing media/root files. Reuse a different old image under a new URL rather than overwriting a preserved same-name file.
 
-Editing a `.html` file expecting it to ship is the one mistake this page exists to
-prevent. The next build overwrites it.
+## Required checks and publication
 
-### `cf-live` has run ahead of the source, and that is a real thing to check
+Run `python build.py`, `python tools/check_visual_coverage.py`, and `python tools/check_published_preservation.py` from the source root. Run `python ../tools/check_site.py` from `dist/`.
 
-Four PRs (#17–#20) landed export-market data **directly on `cf-live`** after the
-cutover. `build.py` is pinned to `LIVE_SHA = c59adae9` and carries 311 files from
-it, so a build made today republishes that older snapshot over whatever those PRs
-added. That is exactly what the first of the build's three standing warnings says.
-**Read it. Do not move `LIVE_SHA` without re-reviewing what landed in between.**
+The build intentionally reports two documented redirect warnings. A production pin warning requires review; an additional missing-media warning is a regression. `STRICT=1` treats even the intentional warnings as failures.
 
-## Branches
+Use `python tools/preview.py` for local extensionless routes. Existing form tests are `tools/test_quote_journey.cjs` (local preview port 8873; all external requests intercepted) and `tools/test_form_measurement.cjs`. Do not submit synthetic leads to the live sales desk during visual QA.
 
-| Branch | What it is | Deployed |
-|---|---|---|
-| `cf-live` | **Production.** Build output, served verbatim. Do not hand-edit; do not push casually — a push here IS a deploy. | **yes** |
-| `cutover-ready-2026-09-04` | The source: `content/` + `build.py`. Work here. | no — via a build |
-| `master` | The original SSG rebuild, now an ancestor of the branch above. Superseded. | no |
+Commit source, rebuild, and publish exact `dist/` bytes through a separate publication worktree and PR into `cf-live`. Use `core.autocrlf=false` for publication checkout and staging. Verify the staged tree matches every built file, require the GitHub site check and Cloudflare preview, and merge the exact reviewed head. Verify the production deployment, purge explicit changed public HTML URLs, then check live pages without a cache-busting query string.
 
-## A note on the Zoho references
+## Fixed decisions
 
-Vocabulary inherited from CWI's former Zoho Sites site survives in the markup and
-in `build.py`, which still resolves photography by its original `/files/...` Zoho
-paths. **CWI is fully off Zoho Sites.** Those are historical artefacts of the
-migration, not a live dependency. Reading "zsite" and concluding the site still
-runs on Zoho is a mistake that has already been made once.
-
-## Build
-
-    python build.py                             # -> dist/ for the domain root
-    SITE_BASE=/cochinwood-web python build.py   # -> dist/ for GitHub project Pages
-    STRICT=1 python build.py                    # fail the build on any warning
-
-A clean build exits 0, prints `BUILD OK`, and emits exactly **three** warnings —
-the `cf-live` drift pin, 7 rewritten 301 targets, and 13 rules deliberately not
-carried. Those three are expected. A fourth is yours.
-
-`STRICT=1` exits 1 on the three above, so it fails on an untouched checkout too;
-that is not a regression you introduced.
-
-See `README.md` for the full generator documentation.
-
-## `/woods-we-use` keeps its URL — decided 31 Aug 2026 by Edwin. Do not re-open.
-
-**The wood section stays at `/woods-we-use`. `/wood-encyclopedia` does NOT become the
-canonical path.** It may be renamed *Wood Encyclopedia* in navigation, headings and page
-titles — the visible words are free to change, the address is not.
-
-Reason: the live URL is already indexed. Moving it costs a ranking dip and a fresh set of
-301s for no product gain, while the naming benefit is available for nothing by changing the
-words on the page. Renaming is reversible; losing rankings is not. **Generalise it: when in
-doubt, do not move a URL.**
-
-The code change landed on this lineage on 31 Aug 2026 (`WOOD_PATH` / `WOOD_LABEL` in
-`build.py`), so the generator and this decision now agree. The conflict it closes was
-raised as blocker 2 / recommendation 3 in
-`cochinwood-audit-2026-08-25/CUTOVER-ASSESSMENT.md`, in the shared workspace repo
-(`Claude Code`): `cf-live` served one page, `woods-we-use.html`, while `build.py` built a
-whole section at the redirected path and emitted no `/woods-we-use` page at all. The
-generator was the side that changed.
-
-## One more stale copy, on another branch
-
-`master` and `dedupe-2026-08-27` still carry their own `CLAUDE.md` opening *"You are on
-`cf-live`. This is production … There is no build step … You edit the `.html` files
-directly."* That was true before 4 Sep and is not true now. It is not fixed here because
-those are a different lineage and this branch cannot speak for them — but anyone landing
-there will be misled the same way, so it is worth fixing at the same time.
+- The Wood Encyclopedia canonical stays `/woods-we-use`. Visible wording may change; the indexed URL does not. Edwin decided this on 31 August 2026.
+- Historic `/files/...` paths are migration artefacts. The site is no longer hosted by Zoho Sites.
+- The group's heritage dates to 1986. The private limited company dates to 2021.
+- The business address identifies the seller. The producing works and visit pin are confirmed for the order or appointment.
+- The staff app is a separate repository and deployment. Website changes do not authorize changes to staff data or additional messages to customers.

@@ -12,6 +12,11 @@
 .cw-contact-aside>p:last-child{margin-bottom:28px}
 .cw-export-byline{margin:24px 0;font-size:.78rem}
 .cw-page>p,.cw-page>h2,.cw-page>ul{max-width:1184px;margin-left:auto;margin-right:auto}
+.cw-page>p{padding-inline:28px;max-width:1240px;font-size:.86rem;color:#526057}
+.cw-history-lead{max-width:76ch;line-height:1.8;color:#526057}
+.cw-table-scroll{max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;margin:22px 0}
+.cw-table-scroll>table{margin:0!important}
+.cw-table-scroll:focus-visible{outline:2px solid #007A5E;outline-offset:3px}
 .cw-hero--light .cwg__note{background:transparent;border:0;padding:0;font-size:.85rem}
 body{background:var(--cw-visual-paper);color:#141414}
 .cw-wrap{max-width:1240px;padding-inline:28px}
@@ -131,6 +136,12 @@ ol.cw-process-grid,ul.cw-process-grid{list-style:none;padding:0;margin:0}
 @media(max-width:760px){.cw-section__head{display:block}.cw-section__head h2{margin-bottom:16px}.cw-section__head>p{max-width:60ch}.cw-contact-grid{grid-template-columns:1fr}.cw-contact-main{order:0}.cw-contact-aside{order:1}.cw-collection-nav{padding-block:18px}}
 @media(max-width:480px){.cw-application-grid{grid-template-columns:1fr}.cw-section__head{margin-bottom:26px}.cw-contact-aside>div,.cw-contact-aside>section{padding:20px}}
 /* Cochin Wood visual system: consistent preserved page families. */
+#main .cwind-rb .cw__page-hero--industries{background:#FAF9F7;padding:56px 0}
+#main .cwind-rb .cw__page-hero--industries .cw__h1{color:#1B4332}
+#main .cwind-rb .cw__page-hero--industries .cw__btn{background:#007A5E;color:#fff}
+#main .cwind-rb .cw__page-hero--industries .cw__btn--secondary{background:transparent;color:#1B4332;border-color:#aebeb3}
+#main .cwind-rb .cw__hero-img{border-radius:8px!important;box-shadow:0 8px 24px #1b43320a!important}
+#main .cwind-rb .cw__hero-img img{aspect-ratio:4/3;max-height:460px;object-fit:cover!important}
 .cwp__hero{background:#FAF9F7}
 .cwp__hero .cwp__h1,.cwp__hero h1{color:#1B4332}
 .cwp__container,.cw__container{max-width:1240px;padding-inline:28px;margin-inline:auto}

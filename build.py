@@ -929,6 +929,9 @@ def write(path, content, src=None):
     content = expand_canon(content, path)
     if path.endswith(".html"):
         content = a11y_fixups(content)
+        content = re.sub(r'<table\b[^>]*>.*?</table>',
+                         lambda m: '<div class="cw-table-scroll" tabindex="0" role="region" aria-label="Data table — scroll horizontally if needed">' + m.group(0) + '</div>',
+                         content, flags=re.S | re.I)
     fp = os.path.join(DIST, path)
     os.makedirs(os.path.dirname(fp) or DIST, exist_ok=True)
     # newline pinned: in text mode a Windows build silently CRLFs every emitted

@@ -12,7 +12,7 @@ class Preview(SimpleHTTPRequestHandler):
 
     def translate_path(self, path):
         resolved = Path(super().translate_path(path))
-        if not resolved.exists() and not Path(unquote(urlsplit(path).path)).suffix:
+        if not Path(unquote(urlsplit(path).path)).suffix:
             html = resolved.with_suffix('.html')
             if html.is_file():
                 return str(html)
