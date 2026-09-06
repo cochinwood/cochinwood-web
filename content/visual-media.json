@@ -4,13 +4,13 @@
   "notes": [
     "Descriptions were written after visual inspection. Media selection does not establish a product specification, grade, certification, customer project or ownership of a pictured facility.",
     "Process and application images are illustrative. Keep that distinction visible wherever a factory or shipment could otherwise be inferred.",
-    "All files are restored unchanged from the already published media library; existing responsive variants are retained."
+    "Files are reused unchanged from the published or earlier Cochin Wood media library. The earlier Home, Contact and solid-wood material illustrations have dedicated Brand URLs so they cannot be confused with later factory-context images sharing legacy filenames."
   ],
   "home_hero": {
-    "src": "/files/Hero%20Optimized/Home.webp",
+    "src": "/files/Brand/home-materials.webp",
     "alt": "Plywood samples leaning beside a sunlit window in a warm timber interior",
     "kind": "brand illustration",
-    "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified."
+    "provenance": "Earlier Cochin Wood site mirror: files/Hero Optimized/Home.jpg. Reused unchanged at a distinct Brand URL; original generation/capture provenance unverified."
   },
   "catalogue_hero": {
     "src": "/files/Hero%20Optimized/Products.jpg",
@@ -19,10 +19,10 @@
     "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified."
   },
   "contact_hero": {
-    "src": "/files/Hero%20Optimized/Contact.jpg",
+    "src": "/files/Brand/contact-materials.jpg",
     "alt": "Small plywood panels stacked on a timber desk beside a window",
     "kind": "material illustration",
-    "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified."
+    "provenance": "Earlier Cochin Wood site mirror: files/Hero Optimized/Contact.jpg. Reused unchanged at a distinct Brand URL; original generation/capture provenance unverified."
   },
   "encyclopedia_hero": {
     "src": "/files/Product/specialty-timbers.jpg",
@@ -112,10 +112,10 @@
       "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified."
     },
     "finger-joint-board": {
-      "src": "/files/Product/rubberwood.jpg",
+      "src": "/files/Brand/solid-wood-materials.jpg",
       "alt": "Representative solid-wood board samples stacked beside a window",
       "kind": "material illustration",
-      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
+      "provenance": "Earlier Cochin Wood site mirror: files/Product/rubberwood.jpg. Reused unchanged at a distinct Brand URL; original generation/capture provenance unverified.",
       "caption": "Representative solid-wood board samples; joint layout is confirmed with your specification."
     },
     "particle-board": {
