@@ -76,8 +76,8 @@ def is_text_guide(path, root=ROOT):
     return True
 
 
-def validate_ownership(root=ROOT):
-    errors, hashes = [], {}
+def validate_ownership(root=ROOT, required_owners=None):
+    errors, hashes, originals = [], {}, {}
     assets = read_assets(root)
     for owner, assignment in read_manifest(root)['owners'].items():
         if assignment.get('kind') == 'text_guide':
@@ -87,7 +87,8 @@ def validate_ownership(root=ROOT):
                 errors.append(owner + ': ' + str(exc))
             continue
         if assignment.get('status') != 'approved':
-            errors.append(owner + ': image assignment pending review')
+            if required_owners is None or owner in required_owners:
+                errors.append(owner + ': image assignment pending review')
             continue
         try:
             key = assignment['asset_key']
@@ -97,6 +98,11 @@ def validate_ownership(root=ROOT):
             if digest in hashes:
                 raise ValueError('Identical photograph owned by ' + hashes[digest])
             hashes[digest] = owner
+            original = assets[key].get('source_sha256') or assets[key].get('original_sha256')
+            if original:
+                if original in originals:
+                    raise ValueError('Same original source photograph owned by ' + originals[original])
+                originals[original] = owner
         except (ValueError, KeyError) as exc:
             errors.append(owner + ': ' + str(exc))
     return errors

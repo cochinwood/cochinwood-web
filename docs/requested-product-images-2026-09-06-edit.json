@@ -1,0 +1,7 @@
+{
+  "key": "blockboard-flush-doors",
+  "source_generation": "exec-790efa6c-efc8-4a54-850f-7178fb1e6d7c.png",
+  "accepted_generation": "exec-5dda39e1-a122-4600-90ff-ae47b20d8a30.png",
+  "prompt": "Edit this product photograph only to correct the foreground blockboard thickness. Keep the same camera, workshop, bench, full-size upright flush-door leaf in the background, light, grain colour and overall composition. Make the foreground blockboard sample a realistic slim approximately 25 mm thick panel, with its entire visible cut edge only around one third of the current vertical depth. Its core is one layer of narrow side-by-side solid timber battens, with thin crossband and face veneers above and below, not checkerboard blocks. Preserve a useful close view of the edge but do not make the board look like a thick butcher block or solid door core. Keep all material geometry straight and physically consistent. No text, logo or new objects.",
+  "review": "The first generation made the foreground sample too thick. The accepted edit shows a slim edge with one batten core layer. The final credential-bearing original is archived under docs/imagery-sources/requested-2026-09/blockboard-flush-doors.png."
+}

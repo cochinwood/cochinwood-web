@@ -79,19 +79,29 @@
       "sha256": "a2f97e85aa136956bef3c033442be621563b084743047365b42496a13a4ffbd4"
     },
     "film-faced-shuttering-plywood": {
-      "src": "/files/Plywood%20Product%20Photos/cwi-film-faced-brown.webp",
-      "alt": "Dark brown film-faced plywood sheets with smooth reflective surfaces",
-      "kind": "product presentation",
-      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
-      "sha256": "0539a5cd8c26f7ab9017d52ee50aeed6e5fc6e363085d11cbdab60570170deec"
+      "src": "/files/Requested-2026-09/film-faced-shuttering.webp",
+      "alt": "Brown film-faced shuttering sheets with layered edges in a shaded workshop",
+      "kind": "generated product presentation",
+      "provenance": "Created with the built-in image_gen tool for the requested September 2026 replacement. Indian-industry setting; not documentary evidence of company premises, stock, certification or customer work. Original with generation credentials retained in source archive.",
+      "sha256": "69198e09de6f72dd684abec22c018647a164ecf435e77d1017e3c75d33dfc6a5",
+      "width": 1448,
+      "height": 1086,
+      "source_file": "docs/imagery-sources/requested-2026-09/film-faced-shuttering.png",
+      "source_sha256": "f62e6a8699aeb855cfe2ce8ae38cd03383d51967e82efc755197b43eb45ec6a4",
+      "prompt_key": "film-faced-shuttering"
     },
     "container-flooring-plywood": {
-      "src": "/files/Logo/og/og-container-flooring.jpg",
-      "alt": "A thick brown-faced plywood panel with its layered edge visible against a plain background",
-      "kind": "product presentation",
-      "provenance": "Existing published Cochin Wood panel image from files/Logo/og/og-container-flooring.jpg. Visually inspected: no overlaid logo or text. Original capture or generation provenance is unverified; the image does not establish a grade, certification, thickness or treatment.",
-      "sha256": "21d0d5c02e9a951fc86dc278e3bf6acb9d533165a38cf5d516b4a31f69315d15",
-      "caption": "Grade, thickness and treatment are confirmed in the specification."
+      "src": "/files/Requested-2026-09/container-flooring.webp",
+      "alt": "Dense plywood flooring panels with a textured brown face at a container doorway",
+      "caption": "Grade, thickness and treatment are confirmed in the specification.",
+      "kind": "generated product presentation",
+      "provenance": "Created with the built-in image_gen tool for the requested September 2026 replacement. Indian-industry setting; not documentary evidence of company premises, stock, certification or customer work. Original with generation credentials retained in source archive.",
+      "sha256": "878216d227b0b1c2c3f72fd249b994dff05a5cefdb7029f1a6a9c91e903fccf9",
+      "width": 1448,
+      "height": 1086,
+      "source_file": "docs/imagery-sources/requested-2026-09/container-flooring.png",
+      "source_sha256": "6e74fe468e88190655e612f1a111143fd6814f9779ff774bbcc298089b618a26",
+      "prompt_key": "container-flooring"
     },
     "bwr-hardwood-plywood": {
       "src": "/files/Plywood%20Product%20Photos/cwi-bwr-hardwood-plywood.webp",
@@ -122,11 +132,16 @@
       "sha256": "acb97cfadd2e40111ba0adf16f2ed0fc050273509f0964436f4a78ae08eb67a6"
     },
     "block-board-flush-doors": {
-      "src": "/files/Product/block-board.jpg",
-      "alt": "A block board sample showing its timber core beneath thin face veneers",
-      "kind": "product presentation",
-      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
-      "sha256": "e3486381865566624a3ae254b138526d8edfecbf2d79eb7dc53ce91ecc9b286c"
+      "src": "/files/Requested-2026-09/blockboard-flush-doors.webp",
+      "alt": "Slim blockboard showing one timber-strip core beneath veneer faces, with a plain door leaf behind",
+      "kind": "generated product presentation",
+      "provenance": "Created with the built-in image_gen tool for the requested September 2026 replacement. Indian-industry setting; not documentary evidence of company premises, stock, certification or customer work. Original with generation credentials retained in source archive.",
+      "sha256": "cde9ad695f579d3b6f20f1d5ad3727c394ce2456c2e1c1e1c6c43e2ce50d4a33",
+      "width": 1448,
+      "height": 1086,
+      "source_file": "docs/imagery-sources/requested-2026-09/blockboard-flush-doors.png",
+      "source_sha256": "c4a30636dd18f1304edac52b3630ab1d51dfaf622ffd9324de35cd20d21bb649",
+      "prompt_key": "blockboard-flush-doors"
     },
     "finger-joint-board": {
       "src": "/files/Editorial/finger-joint-detail.webp",

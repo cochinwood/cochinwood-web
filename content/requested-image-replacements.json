@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "generated_with": "Built-in image_gen",
+  "reviewed": "2026-09-06",
+  "assets": {
+    "film-faced-shuttering": {
+      "src": "/files/Requested-2026-09/film-faced-shuttering.webp",
+      "alt": "Brown film-faced shuttering sheets with layered edges in a shaded workshop",
+      "kind": "generated product presentation",
+      "provenance": "Created with the built-in image_gen tool for the requested September 2026 replacement. Indian-industry setting; not documentary evidence of company premises, stock, certification or customer work. Original with generation credentials retained in source archive.",
+      "sha256": "69198e09de6f72dd684abec22c018647a164ecf435e77d1017e3c75d33dfc6a5",
+      "width": 1448,
+      "height": 1086,
+      "source_file": "docs/imagery-sources/requested-2026-09/film-faced-shuttering.png",
+      "source_sha256": "f62e6a8699aeb855cfe2ce8ae38cd03383d51967e82efc755197b43eb45ec6a4",
+      "prompt_key": "film-faced-shuttering"
+    },
+    "container-flooring": {
+      "src": "/files/Requested-2026-09/container-flooring.webp",
+      "alt": "Dense plywood flooring panels with a textured brown face at a container doorway",
+      "kind": "generated product presentation",
+      "provenance": "Created with the built-in image_gen tool for the requested September 2026 replacement. Indian-industry setting; not documentary evidence of company premises, stock, certification or customer work. Original with generation credentials retained in source archive.",
+      "sha256": "878216d227b0b1c2c3f72fd249b994dff05a5cefdb7029f1a6a9c91e903fccf9",
+      "width": 1448,
+      "height": 1086,
+      "source_file": "docs/imagery-sources/requested-2026-09/container-flooring.png",
+      "source_sha256": "6e74fe468e88190655e612f1a111143fd6814f9779ff774bbcc298089b618a26",
+      "prompt_key": "container-flooring"
+    },
+    "blockboard-flush-doors": {
+      "src": "/files/Requested-2026-09/blockboard-flush-doors.webp",
+      "alt": "Slim blockboard showing one timber-strip core beneath veneer faces, with a plain door leaf behind",
+      "kind": "generated product presentation",
+      "provenance": "Created with the built-in image_gen tool for the requested September 2026 replacement. Indian-industry setting; not documentary evidence of company premises, stock, certification or customer work. Original with generation credentials retained in source archive.",
+      "sha256": "cde9ad695f579d3b6f20f1d5ad3727c394ce2456c2e1c1e1c6c43e2ce50d4a33",
+      "width": 1448,
+      "height": 1086,
+      "source_file": "docs/imagery-sources/requested-2026-09/blockboard-flush-doors.png",
+      "source_sha256": "c4a30636dd18f1304edac52b3630ab1d51dfaf622ffd9324de35cd20d21bb649",
+      "prompt_key": "blockboard-flush-doors"
+    },
+    "industries-formwork": {
+      "src": "/files/Requested-2026-09/industries-formwork.webp",
+      "alt": "Plywood formwork panels supported by timber battens at a tropical construction site",
+      "kind": "generated application scene",
+      "provenance": "Created with the built-in image_gen tool for the requested September 2026 replacement. Indian-industry setting; not documentary evidence of company premises, stock, certification or customer work. Original with generation credentials retained in source archive.",
+      "sha256": "5987311994543c5b3192977b99f5ae9e3638fdca8f127d27b5df54ffe47024a4",
+      "width": 1448,
+      "height": 1086,
+      "source_file": "docs/imagery-sources/requested-2026-09/industries-formwork.png",
+      "source_sha256": "697a8b7b2113922aa4cc9803b9f745f8a24c6c546137f6fc3fa0f7346be89da5",
+      "prompt_key": "industries-formwork"
+    },
+    "industries-joinery": {
+      "src": "/files/Requested-2026-09/industries-joinery.webp",
+      "alt": "An unfinished plywood cabinet and cut panels on a joinery workshop bench",
+      "kind": "generated application scene",
+      "provenance": "Created with the built-in image_gen tool for the requested September 2026 replacement. Indian-industry setting; not documentary evidence of company premises, stock, certification or customer work. Original with generation credentials retained in source archive.",
+      "sha256": "1b0a43410cbecef23128eb433389b6bb65ed6fc1bae7666e1e1d08519ec6070c",
+      "width": 1448,
+      "height": 1086,
+      "source_file": "docs/imagery-sources/requested-2026-09/industries-joinery.png",
+      "source_sha256": "79e6aafd90eba8f3328cb91c88c150038b5da650e5b7e36d71424861aba3e7ee",
+      "prompt_key": "industries-joinery"
+    }
+  }
+}

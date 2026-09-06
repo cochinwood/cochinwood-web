@@ -1,0 +1,627 @@
+{
+  "status": "prepared; root integration and browser checks pending",
+  "generated_and_inspected": 44,
+  "required": 44,
+  "shared_manifests_changed": false,
+  "originals_preserved": true,
+  "candidate_count": 176,
+  "webp_bytes": 12333386,
+  "items": [
+    {
+      "owner": "/blogs/post/ispm-15-ht-stamp-validity-india-exporters-2026",
+      "asset_key": "article-ispm-15-ht-stamp-validity-india-exporters-2026",
+      "source_sha256": "f8a70588ba87c5e9137f639ca695b787a3c8319f16ee18c8a672ede9164a89d8",
+      "master": {
+        "src": "/files/Editorial-2026/ispm-15-ht-stamp-validity-india-exporters-2026.webp",
+        "width": 1536,
+        "sha256": "66f995ce5e39070ab515a9485653c8793a6682eb109e1c25c3776cc300dca4b3"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 379100
+    },
+    {
+      "owner": "/blogs/post/20ft-container-plywood-loading-sheet-count-by-thickness-weight-limited",
+      "asset_key": "article-20ft-container-plywood-loading-sheet-count-by-thickness-weight-limited",
+      "source_sha256": "5198703fd23eb03a34f356304e29580cfbadc757e98ec2a14a74d00f8d5973d8",
+      "master": {
+        "src": "/files/Editorial-2026/20ft-container-plywood-loading-sheet-count-by-thickness-weight-limited.webp",
+        "width": 1536,
+        "sha256": "19ff23c3da05789494340fdc31b43cb51c6373644aa005d7be122ae3f3b5e188"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 385950
+    },
+    {
+      "owner": "/blogs/post/bwr-vs-bwp-for-export-packing-when-mr-grade-will-fail-at-sea",
+      "asset_key": "article-bwr-vs-bwp-for-export-packing-when-mr-grade-will-fail-at-sea",
+      "source_sha256": "2af433cd47069de40a8729b5277781e7240d5e3d04c4290495b9c038268c685a",
+      "master": {
+        "src": "/files/Editorial-2026/bwr-vs-bwp-for-export-packing-when-mr-grade-will-fail-at-sea.webp",
+        "width": 1536,
+        "sha256": "917fc738befdd68594f27e9fd11628c97caeeb019941acd00a0144b88d84674a"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 297470
+    },
+    {
+      "owner": "/blogs/post/fob-cochin-for-plywood-exporters-what-s-included-what-s-extra",
+      "asset_key": "article-fob-cochin-for-plywood-exporters-what-s-included-what-s-extra",
+      "source_sha256": "995672236ef0c46e7a248636aea0ff6d50e6aa96cef78def56e896299199a3cb",
+      "master": {
+        "src": "/files/Editorial-2026/fob-cochin-for-plywood-exporters-what-s-included-what-s-extra.webp",
+        "width": 1536,
+        "sha256": "984da06862e9f3a41ff00bc8d05f36439c91f4ab68f3c2a621d818f236b30f40"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 416272
+    },
+    {
+      "owner": "/blogs/post/plywood-cable-drum-flanges-is-10418-spec-sizing-sourcing-guide",
+      "asset_key": "article-plywood-cable-drum-flanges-is-10418-spec-sizing-sourcing-guide",
+      "source_sha256": "98b0a2b4ecaa41b7e2b7dd9a93508cc34c65a401634cd958db0157e6cc741889",
+      "master": {
+        "src": "/files/Editorial-2026/plywood-cable-drum-flanges-is-10418-spec-sizing-sourcing-guide.webp",
+        "width": 1536,
+        "sha256": "625f058e6e089aea0f677385c57a520cf15f2401068d44fc2fc1bd975fc88934"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 195096
+    },
+    {
+      "owner": "/blogs/post/block-board-vs-plywood",
+      "asset_key": "article-block-board-vs-plywood",
+      "source_sha256": "2aa9e68620e544ef15055ea524f1c2c02461c94d4db923833ce5709c14d3de89",
+      "master": {
+        "src": "/files/Editorial-2026/block-board-vs-plywood.webp",
+        "width": 1536,
+        "sha256": "2f7ad9aacec8b0d0939faee91a85a03dcbe2caa84100b3824cae727f656a6c43"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 293450
+    },
+    {
+      "owner": "/blogs/post/is-710-vs-is-303-plywood",
+      "asset_key": "article-is-710-vs-is-303-plywood",
+      "source_sha256": "26ed7175396e5bec1da510736b0f1eeeb31dea236de17a43c8821b6e7e25f0a9",
+      "master": {
+        "src": "/files/Editorial-2026/is-710-vs-is-303-plywood.webp",
+        "width": 1536,
+        "sha256": "c8e080fdaa8f3f0538b92a4472b2943fb6e28010be4e6aea579f4d2351df38c6"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 157974
+    },
+    {
+      "owner": "/blogs/post/do-plywood-boxes-need-ispm-15",
+      "asset_key": "article-do-plywood-boxes-need-ispm-15",
+      "source_sha256": "a9c5874541bece51f9be7bc98f6d28bc2b27d82619e59b9ed6f4b16efe2f7edc",
+      "master": {
+        "src": "/files/Editorial-2026/do-plywood-boxes-need-ispm-15.webp",
+        "width": 1536,
+        "sha256": "d43bfcf87c3c74142726e4ffd7d70ea6d7a60a79940ce0edf2b40e49dc34bc34"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 270000
+    },
+    {
+      "owner": "/blogs/post/how-many-pours-does-film-faced-plywood-last",
+      "asset_key": "article-how-many-pours-does-film-faced-plywood-last",
+      "source_sha256": "6274bb023038a3c6511e3aa4d97a3cc9e9c248842b0561994309afe29cf29d22",
+      "master": {
+        "src": "/files/Editorial-2026/how-many-pours-does-film-faced-plywood-last.webp",
+        "width": 1536,
+        "sha256": "edd7d632dd9396b6a6adcb8e12d3f825b995c093a3f5a60ffd6c1abb5c41ce20"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 309548
+    },
+    {
+      "owner": "/blogs/post/iicl-tb-001-container-flooring-plywood",
+      "asset_key": "article-iicl-tb-001-container-flooring-plywood",
+      "source_sha256": "0c45a76ab0521115e71c9ea4d72dbd7d05bee0aed96de8784d8f0883f1f33aaa",
+      "master": {
+        "src": "/files/Editorial-2026/iicl-tb-001-container-flooring-plywood.webp",
+        "width": 1536,
+        "sha256": "96d7809092f993303140156d651aad302cb6c73c5a1b2dc3d9fafcec459ba9d8"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 301984
+    },
+    {
+      "owner": "/blogs/post/okoume-vs-gurjan-plywood",
+      "asset_key": "article-okoume-vs-gurjan-plywood",
+      "source_sha256": "cb476fae3c70ee7f513b04d4be69777b50d3d3c64bf55fee39d69ca489ec3381",
+      "master": {
+        "src": "/files/Editorial-2026/okoume-vs-gurjan-plywood.webp",
+        "width": 1536,
+        "sha256": "0db38515d78ea36ee2d205192b8b19efb4b4dca153abc34a53700ee321f3b692"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 252808
+    },
+    {
+      "owner": "/blogs/post/marine-plywood-thickness-guide",
+      "asset_key": "article-marine-plywood-thickness-guide",
+      "source_sha256": "5763cd696057e9d6c055beee99e624f9e7d2379070d18dff710169db6a56a370",
+      "master": {
+        "src": "/files/Editorial-2026/marine-plywood-thickness-guide.webp",
+        "width": 1536,
+        "sha256": "2f9cea0d692c9555ef0c652dceb79f0f8b5a2ac85ba5329f683e40e88141e903"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 284288
+    },
+    {
+      "owner": "/blogs/post/plywood-for-packing-cases",
+      "asset_key": "article-plywood-for-packing-cases",
+      "source_sha256": "da684d8e8132c593226fbe41be21d7ebc8b7cb7fb4856fa1bd7e20561c684e29",
+      "master": {
+        "src": "/files/Editorial-2026/plywood-for-packing-cases.webp",
+        "width": 1536,
+        "sha256": "694b5b998d8d18250550e8ba4a687f3df0d36f58a3368c21da7933407c531b97"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 271660
+    },
+    {
+      "owner": "/blogs/post/ispm-15-export-crate-cost",
+      "asset_key": "article-ispm-15-export-crate-cost",
+      "source_sha256": "ce37a6dd17aedb812aeca4f6058852f8c19e9796d3b1264f5415d22c6f627214",
+      "master": {
+        "src": "/files/Editorial-2026/ispm-15-export-crate-cost.webp",
+        "width": 1536,
+        "sha256": "91e56c60e6246a2164658c523af24de6c1e7980a6a979af8ad411e399ec5da66"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 329278
+    },
+    {
+      "owner": "/blogs/post/fob-cochin-explained",
+      "asset_key": "article-fob-cochin-explained",
+      "source_sha256": "92a1472b8d82e59e4eb9eb866067b81dff30c13ef5908ac5231aa59d2285a51a",
+      "master": {
+        "src": "/files/Editorial-2026/fob-cochin-explained.webp",
+        "width": 1536,
+        "sha256": "6e37ad19212c5a375cb5c77dd9671bf59738a137433affac93a7fec67a20f1aa"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 335368
+    },
+    {
+      "owner": "/blogs/post/rubberwood-plywood-explained",
+      "asset_key": "article-rubberwood-plywood-explained",
+      "source_sha256": "d590c31352386e47fd49f3e336f12322b3ebc615ef924a51a061573073e57b6f",
+      "master": {
+        "src": "/files/Editorial-2026/rubberwood-plywood-explained.webp",
+        "width": 1536,
+        "sha256": "9efd8416548a85829f5109228bac2a45bfd394390a4b2f3e18ea42ebb5886b7d"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 196050
+    },
+    {
+      "owner": "/blogs/post/bwp-and-bwr-plywood-explained",
+      "asset_key": "article-bwp-and-bwr-plywood-explained",
+      "source_sha256": "553fe05b15950367d0f3f60e45a5844b5ebb09419af14cb59ca6c5b321bebe81",
+      "master": {
+        "src": "/files/Editorial-2026/bwp-and-bwr-plywood-explained.webp",
+        "width": 1536,
+        "sha256": "355bfb438c34139467617ae8fcdb884daffda990102d1e1615cf128f371941e7"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 313152
+    },
+    {
+      "owner": "/blogs/post/plywood-cable-drum-specifications",
+      "asset_key": "article-plywood-cable-drum-specifications",
+      "source_sha256": "5b03d4a9061154af5896bbe5f42250045637854e0044d914199f5f11c529fc62",
+      "master": {
+        "src": "/files/Editorial-2026/plywood-cable-drum-specifications.webp",
+        "width": 1536,
+        "sha256": "4cf7a08894b98565eed27c6032aad4ed109762df95f4109f303fb048192671c0"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 243142
+    },
+    {
+      "owner": "/blogs/post/export-crate-and-pallet-buying-checklist",
+      "asset_key": "article-export-crate-and-pallet-buying-checklist",
+      "source_sha256": "a6f918abae8c7b6f19aa71e945bc8ff8a15367affb3b5041e28131363f5fec68",
+      "master": {
+        "src": "/files/Editorial-2026/export-crate-and-pallet-buying-checklist.webp",
+        "width": 1536,
+        "sha256": "8c6ee55001367fd9166b1e9683e7c813c1a7473e768b8ed319fb2f149d50d15d"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 307830
+    },
+    {
+      "owner": "/blogs/post/choosing-shuttering-plywood-for-site-builds",
+      "asset_key": "article-choosing-shuttering-plywood-for-site-builds",
+      "source_sha256": "828b8fb9d57e878332fa4186deec7fe1c539b30bd108d35222c45dec30bf4529",
+      "master": {
+        "src": "/files/Editorial-2026/choosing-shuttering-plywood-for-site-builds.webp",
+        "width": 1536,
+        "sha256": "457d202975c3fc64da6a014c2cb3382b44941ecb06d3c54d9b667e62dad95378"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 302000
+    },
+    {
+      "owner": "/blogs/post/sourcing-flush-doors-and-block-boards-for-projects",
+      "asset_key": "article-sourcing-flush-doors-and-block-boards-for-projects",
+      "source_sha256": "3f84c7396cf6d14aa150d2e30111d9284998daf3f596b46ada13138b2f0b40a6",
+      "master": {
+        "src": "/files/Editorial-2026/sourcing-flush-doors-and-block-boards-for-projects.webp",
+        "width": 1536,
+        "sha256": "611a93b2a527969ac22e9dd28fb42a9cd8924f0dbe5528afc2b7204e2a5f0ae9"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 199064
+    },
+    {
+      "owner": "/blogs/post/mr-or-bwr-for-fitted-joinery",
+      "asset_key": "article-mr-or-bwr-for-fitted-joinery",
+      "source_sha256": "0fb9e8dd09eb2364104d2efe7d04ec0cefee621f3962eff1b0674bada1b0e6ce",
+      "master": {
+        "src": "/files/Editorial-2026/mr-or-bwr-for-fitted-joinery.webp",
+        "width": 1536,
+        "sha256": "cf7528e33b62b2ac15dfe94094ebd46a72d4b6221e1ba4ce75dfcf271a622824"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 173782
+    },
+    {
+      "owner": "/blogs/post/buying-marine-plywood-for-boatyards",
+      "asset_key": "article-buying-marine-plywood-for-boatyards",
+      "source_sha256": "1d6c5662df42af59119efa5733965bcff85b8c96fe4a243b25f778663ac8e6f9",
+      "master": {
+        "src": "/files/Editorial-2026/buying-marine-plywood-for-boatyards.webp",
+        "width": 1536,
+        "sha256": "a5fc76067532bc667f6f8dace6cc1833d649245450dd50991f61cf415eb8093e"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 339206
+    },
+    {
+      "owner": "/blogs/post/how-plywood-is-made",
+      "asset_key": "article-how-plywood-is-made",
+      "source_sha256": "e3c9796f4342b9956bc767d4e935d26afc0dad21c4e5a38229ee6ce32b05edb9",
+      "master": {
+        "src": "/files/Editorial-2026/how-plywood-is-made.webp",
+        "width": 1536,
+        "sha256": "f5f8ff05aa2abf28f15b0b1b81eff77fc5869591beb68431cebf9aae5146f0c7"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 249546
+    },
+    {
+      "owner": "/blogs/post/how-to-get-an-accurate-plywood-quote",
+      "asset_key": "article-how-to-get-an-accurate-plywood-quote",
+      "source_sha256": "3b762598ab10a08896e79cec9f839845275f96246508730ffb2e22bb4fd2c637",
+      "master": {
+        "src": "/files/Editorial-2026/how-to-get-an-accurate-plywood-quote.webp",
+        "width": 1536,
+        "sha256": "0ec24e0828d5d16005d3cb9a7ed4cd9634e1882eadcb333197b80f97936b3748"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 321498
+    },
+    {
+      "owner": "/blogs/post/case-studies",
+      "asset_key": "article-case-studies",
+      "source_sha256": "9f8222c3f9768243b57f268b6886b7ab04611c0fbb441cc4e3963410c5ff193b",
+      "master": {
+        "src": "/files/Editorial-2026/case-studies.webp",
+        "width": 1536,
+        "sha256": "f9b6d14ecdd7c977830117ec68cb9cecf2270dbcc5a8a1431b613efb505c50f0"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 313060
+    },
+    {
+      "owner": "/blogs/post/export-documents-for-plywood-shipments",
+      "asset_key": "article-export-documents-for-plywood-shipments",
+      "source_sha256": "b73f19ea9c93e5dc2e7c7ccf3680014aaaa49d0907ba70300136b9415412b4b6",
+      "master": {
+        "src": "/files/Editorial-2026/export-documents-for-plywood-shipments.webp",
+        "width": 1536,
+        "sha256": "71b5f589912d2186f9eecb940dfc0e352d56bd77979e1377672de018e2d6c86e"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 250708
+    },
+    {
+      "owner": "/blogs/post/is-4990-shuttering-plywood-standard-explained",
+      "asset_key": "article-is-4990-shuttering-plywood-standard-explained",
+      "source_sha256": "1b00a89bfbab402ea7e7606f3585f91631adc2a232d480e5c6e6799043080638",
+      "master": {
+        "src": "/files/Editorial-2026/is-4990-shuttering-plywood-standard-explained.webp",
+        "width": 1536,
+        "sha256": "90d9386f0dd7ee4472ecd2f879f0a4e75d19b5aa408feddc20ed07f69fb71e98"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 248254
+    },
+    {
+      "owner": "/blogs/post/fsc-plywood-and-eudr-for-importers",
+      "asset_key": "article-fsc-plywood-and-eudr-for-importers",
+      "source_sha256": "2cad886a06900610274330d002139e30aad8e77de25edd7e0d217863618e80e0",
+      "master": {
+        "src": "/files/Editorial-2026/fsc-plywood-and-eudr-for-importers.webp",
+        "width": 1536,
+        "sha256": "105e87c2b9ec0b91079102ebb7c712ed787df95a439c806e511dd0394c409865"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 289118
+    },
+    {
+      "owner": "/blogs/post/formaldehyde-compliance-for-plywood-exports",
+      "asset_key": "article-formaldehyde-compliance-for-plywood-exports",
+      "source_sha256": "519a2aa76da650a68c2a0327667d527d5aa0a7259664a028b6a557775958560e",
+      "master": {
+        "src": "/files/Editorial-2026/formaldehyde-compliance-for-plywood-exports.webp",
+        "width": 1536,
+        "sha256": "f572d57d65b37f8d89cb33d9aebaf5acd48e08458b40c6b0f86da47919f3d80e"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 224662
+    },
+    {
+      "owner": "/blogs/post/mundra-vs-pipavav-for-plywood-exporters-which-port-which-cost",
+      "asset_key": "article-mundra-vs-pipavav-for-plywood-exporters-which-port-which-cost",
+      "source_sha256": "3465877677fa3e46eda71f63ae8f4a485fa5240c718ca5c56ae753e133844e88",
+      "master": {
+        "src": "/files/Editorial-2026/mundra-vs-pipavav-for-plywood-exporters-which-port-which-cost.webp",
+        "width": 1536,
+        "sha256": "beca8f7d179eac93c5c57fd2841ee3877a83b98bc8e7e80b3b57845b8a4ba118"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 247738
+    },
+    {
+      "owner": "/blogs/post/plywood-crate-sizing-break-bulk-vs-container-which-spec-wins",
+      "asset_key": "article-plywood-crate-sizing-break-bulk-vs-container-which-spec-wins",
+      "source_sha256": "b17fb01c5456445b71f49c4c2e84e102c9ab568e89723f3e90d87491be6f0741",
+      "master": {
+        "src": "/files/Editorial-2026/plywood-crate-sizing-break-bulk-vs-container-which-spec-wins.webp",
+        "width": 1536,
+        "sha256": "3e91279ef1c3f48809b964e03e0c46fa92de534194aee2b4403909a061c7bc36"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 259546
+    },
+    {
+      "owner": "/blogs/post/birch-vs-okoume-vs-gurjan-pick-the-right-face-veneer-for-export-packing",
+      "asset_key": "article-birch-vs-okoume-vs-gurjan-pick-the-right-face-veneer-for-export-packing",
+      "source_sha256": "a9406ad94e36ff3328513ae449df2118e8fa790fface50866c5312e9171c6d8b",
+      "master": {
+        "src": "/files/Editorial-2026/birch-vs-okoume-vs-gurjan-pick-the-right-face-veneer-for-export-packing.webp",
+        "width": 1536,
+        "sha256": "2b8f90c5d3e016ca0c235ff6d9bc5cf4463de855b83593f9d5d302dd94fadbf6"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 253572
+    },
+    {
+      "owner": "/blogs/post/plywood-boxes-for-machinery-triple-wall-vs-reinforced-single-wall",
+      "asset_key": "article-plywood-boxes-for-machinery-triple-wall-vs-reinforced-single-wall",
+      "source_sha256": "b611439df8c2da76652d014cf85a83d0b57e6b7ebbe65cdbe4c29339b933bf8d",
+      "master": {
+        "src": "/files/Editorial-2026/plywood-boxes-for-machinery-triple-wall-vs-reinforced-single-wall.webp",
+        "width": 1536,
+        "sha256": "6eeaf0503be148f9ccd35f4f05215eab07cec34f3f5321d61a665b27d4262ce3"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 374362
+    },
+    {
+      "owner": "/blogs/post/plywood-box-vs-wooden-crate-heavy-machinery-export",
+      "asset_key": "article-plywood-box-vs-wooden-crate-heavy-machinery-export",
+      "source_sha256": "a73100879eb61e18eab1a88f151bcb944cba80016be817dce5c2a081979d3a6e",
+      "master": {
+        "src": "/files/Editorial-2026/plywood-box-vs-wooden-crate-heavy-machinery-export.webp",
+        "width": 1536,
+        "sha256": "6ae2bcdf9cd54793ad71761c776aaf86d7d61cb3f116cd53033307807d80a5ba"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 308566
+    },
+    {
+      "owner": "/blogs/post/how-to-read-is-710-bwp-marine-plywood-test-certificate",
+      "asset_key": "article-how-to-read-is-710-bwp-marine-plywood-test-certificate",
+      "source_sha256": "a141b56857b5b271ac9c687bd66d1bb69b8164912062f03bfffb7af562cf0f69",
+      "master": {
+        "src": "/files/Editorial-2026/how-to-read-is-710-bwp-marine-plywood-test-certificate.webp",
+        "width": 1536,
+        "sha256": "173491d2fc0bc66530deadb50b0ada80586e22739f52cd2ce2fc571170e65d99"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 276324
+    },
+    {
+      "owner": "/blogs/post/fob-cochin-vs-fca-mundra-gcc-plywood-incoterm",
+      "asset_key": "article-fob-cochin-vs-fca-mundra-gcc-plywood-incoterm",
+      "source_sha256": "730501420f4e9d5bd4548094d4d81798bb1c476276989e2e94ef09141fb29b88",
+      "master": {
+        "src": "/files/Editorial-2026/fob-cochin-vs-fca-mundra-gcc-plywood-incoterm.webp",
+        "width": 1536,
+        "sha256": "24cd4773d9213e7e1f8eb1555e27412697fe0f65a931c3de4c1b3029b1105f1a"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 244748
+    },
+    {
+      "owner": "/blogs/post/calibrated-okoume-furniture-plywood-e1-low-formaldehyde",
+      "asset_key": "article-calibrated-okoume-furniture-plywood-e1-low-formaldehyde",
+      "source_sha256": "6690837307d7eed9a2eb943e847a49c783420f1d0cf7cae433fdec922290d5e6",
+      "master": {
+        "src": "/files/Editorial-2026/calibrated-okoume-furniture-plywood-e1-low-formaldehyde.webp",
+        "width": 1536,
+        "sha256": "46a6b0778c6b44f4542fed75115a383a757eb3c30f92f12e8ca64f3cce997ab5"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 297898
+    },
+    {
+      "owner": "/blogs/post/pallet-vs-loose-container-loading-plywood-exports",
+      "asset_key": "article-pallet-vs-loose-container-loading-plywood-exports",
+      "source_sha256": "acbeff99316c9312c6c812fb47a8aa0dec28e8797ab380a8e1dd9515ac48d53e",
+      "master": {
+        "src": "/files/Editorial-2026/pallet-vs-loose-container-loading-plywood-exports.webp",
+        "width": 1536,
+        "sha256": "1614fc1e0a390d1833764cb5b861665c961a029b1597a7f6261d9b4bb5eedc44"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 414748
+    },
+    {
+      "owner": "/blogs/post/hpl-vs-prelaminated-vs-lacquer-plywood-finishes",
+      "asset_key": "article-hpl-vs-prelaminated-vs-lacquer-plywood-finishes",
+      "source_sha256": "bf5373cf9c13ea612b9c59a255262c0dab70f9fce2d0d52bb6a0207970659ea4",
+      "master": {
+        "src": "/files/Editorial-2026/hpl-vs-prelaminated-vs-lacquer-plywood-finishes.webp",
+        "width": 1536,
+        "sha256": "53bdc27dc68c0f735b58740fa6efcfd0f869760534cf90499bcf027ea1e37919"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 201040
+    },
+    {
+      "owner": "/blogs/post/how-to-read-a-plywood-grade-stamp",
+      "asset_key": "article-how-to-read-a-plywood-grade-stamp",
+      "source_sha256": "2349e635afa35ebc404a68227d796edecd4fd44a51830a1d2f623eb950d6b9db",
+      "master": {
+        "src": "/files/Editorial-2026/how-to-read-a-plywood-grade-stamp.webp",
+        "width": 1536,
+        "sha256": "62d20458320aa9b3dac80c5068f86df67ee3914377b510884fb33e517c479c9a"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 285632
+    },
+    {
+      "owner": "/blogs/post/eucalyptus-vs-poplar-vs-hardwood-plywood-core",
+      "asset_key": "article-eucalyptus-vs-poplar-vs-hardwood-plywood-core",
+      "source_sha256": "82690b476df92b9592febdd92f3fbb5590e8b3d8abce893fa4b26557d350dade",
+      "master": {
+        "src": "/files/Editorial-2026/eucalyptus-vs-poplar-vs-hardwood-plywood-core.webp",
+        "width": 1536,
+        "sha256": "68285c1f51da5fe07049ef012573a22d49a5122c66d89ef31f52db061ce830ab"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 179906
+    },
+    {
+      "owner": "/blogs/post/fcl-vs-lcl-for-plywood-exports",
+      "asset_key": "article-fcl-vs-lcl-for-plywood-exports",
+      "source_sha256": "a15b60d34501bffff143e10d6343ce4a466f134c03ab11ab7c7c23da4ec72b4c",
+      "master": {
+        "src": "/files/Editorial-2026/fcl-vs-lcl-for-plywood-exports.webp",
+        "width": 1536,
+        "sha256": "1c490a7fa469821084a7dcbab051e7b012a8e28425715a8c006246121ef2bc22"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 289872
+    },
+    {
+      "owner": "/blogs/post/ispm-15-heat-treatment-vs-methyl-bromide",
+      "asset_key": "article-ispm-15-heat-treatment-vs-methyl-bromide",
+      "source_sha256": "0a7caf9b976ba584c582fe8b9afd5e9d5c751165365c24cc7328839a694b17cb",
+      "master": {
+        "src": "/files/Editorial-2026/ispm-15-heat-treatment-vs-methyl-bromide.webp",
+        "width": 1536,
+        "sha256": "0362f5f924ea121b714e9abda776dff930cc4bd85280c5648ee51e8121e9889a"
+      },
+      "width": 1536,
+      "height": 1024,
+      "candidates": 4,
+      "webp_bytes": 248116
+    }
+  ]
+}

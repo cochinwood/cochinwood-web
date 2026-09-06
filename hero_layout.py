@@ -239,9 +239,9 @@ def normalize_page_hero(body: str, path: str, breadcrumb_html: str = '') -> tupl
     opening = _opening(body[hero.start:hero.open_end], classes, outer_tag)
     image = _responsive_hero_media(_clean(tree.raw(media), 'cw-page-hero__media')) if media else ''
     normalized = (opening + '<div class="cw-page-hero__inner">' + crumb_markup
-                  + '<div class="cw-page-hero__heading">' + kicker + title + '</div>'
-                  + image + '<div class="cw-page-hero__support">' + _clean(supporting)
-                  + _clean(extras) + '</div></div></' + outer_tag + '>')
+                  + '<div class="cw-page-hero__text"><div class="cw-page-hero__heading">' + kicker + title + '</div>'
+                  + '<div class="cw-page-hero__support">' + _clean(supporting)
+                  + _clean(extras) + '</div></div>' + image + '</div></' + outer_tag + '>')
     # Removed hero nodes leave indentation-only lines in this new markup.
     # Clean only the assembled hero; the original article body stays untouched.
     normalized = re.sub(r'(?m)^[ \t]+$', '', normalized)

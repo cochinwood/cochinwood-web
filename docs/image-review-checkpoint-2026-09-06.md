@@ -1,6 +1,6 @@
 # Website image review checkpoint — 6 September 2026
 
-Status: local preview only. This is an incomplete image migration, not a completed website release. Production remains on the existing `cf-live` release. The new ownership release gate must pass before this migration is published.
+Historical checkpoint at source commit `4f894320`: local preview only at that time. See [the subsequent Blog, encyclopedia and spacing release review](blog-encyclopedia-spacing-release-2026-09-06.md) for the next release scope and its verification. This checkpoint remains a record of the earlier incomplete full-site migration.
 
 ## Integrated and checked locally
 

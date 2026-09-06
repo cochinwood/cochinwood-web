@@ -32,7 +32,7 @@ const EXPECTED_IMAGES = {
   '/blogs': '/files/Brand/home-materials.webp',
   '/woods-we-use': '/files/Product/specialty-timbers.jpg',
   '/sawn-timber': '/files/Product/acacia.jpg',
-  '/container-flooring-plywood': '/files/Logo/og/og-container-flooring.jpg',
+  '/container-flooring-plywood': '/files/Requested-2026-09/container-flooring.webp',
   '/export': '/files/Process Illustrations/cwi-process-loading.jpg',
 };
 const responsive = JSON.parse(fs.readFileSync(path.join(__dirname, '../content/responsive-media.json'), 'utf8'));
@@ -195,9 +195,9 @@ function median(values) {
               if (fraction < .58 || fraction > .65) fail('Desktop imagery does not occupy the intended large visual share', {fraction, image: result.image, usableWidth});
             }
             if ([...result.frameRadius, ...result.imageRadius].some(radius => parseFloat(radius) > 0.1)) fail('Hero image corners differ from the square shared frame', {frameRadius: result.frameRadius, imageRadius: result.imageRadius});
-            // Preserve the full container-flooring panel: cover hid its corner
-            // profiles. Its outer media stage still follows every shared check.
-            const expectedFit = task.route === '/container-flooring-plywood' ? 'contain' : 'cover';
+            // The reviewed September flooring replacement uses the shared cover
+            // crop; its panel face and layered edge remain visible at all widths.
+            const expectedFit = 'cover';
             if (result.objectFit !== expectedFit) fail('Hero image uses the wrong crop mode', {expectedFit, objectFit: result.objectFit});
           }
           if (EXPECTED_IMAGES[task.route]) {

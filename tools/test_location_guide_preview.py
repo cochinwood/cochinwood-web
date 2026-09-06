@@ -26,11 +26,16 @@ class LocationGuideTests(unittest.TestCase):
             output = enhance_editorial_media(source, path, lambda item, **kw: '<img src="' + item['src'] + '">', lambda p: p)
             self.assertEqual(output, source + '<!-- data-editorial-pass="1" -->')
 
-    def test_approved_real_photos_remain_article_share_images(self):
+    def test_all_technical_article_images_remain_article_share_images(self):
         from unique_imagery import owner_image
+        taxonomy = json.loads((ROOT / 'content/blog/topics.json').read_text(encoding='utf-8'))
+        expected = {'/blogs/post/' + slug for slug, topic in taxonomy['posts'].items()
+                    if topic != 'city-supply'}
         owners = {p: value for p, value in read_manifest()['owners'].items()
-                  if value.get('status') == 'approved' and value.get('kind') != 'text_guide'}
-        self.assertEqual(len(owners), 4)
+                  if p.startswith('/blogs/post/') and value.get('status') == 'approved'
+                  and value.get('kind') != 'text_guide'}
+        self.assertEqual(len(expected), 48)
+        self.assertEqual(set(owners), expected)
         for path in owners:
             self.assertEqual(article_share_media(path.rsplit('/', 1)[-1])['src'], owner_image(path)['src'])
 

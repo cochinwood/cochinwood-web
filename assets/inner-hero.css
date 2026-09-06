@@ -12,8 +12,8 @@ body #main .cw-page-hero {
 body #main .cw-page-hero__inner {
   display: grid;
   grid-template-columns: minmax(0, 38fr) minmax(0, 62fr);
-  grid-template-areas: "crumb crumb" "heading media" "support media";
-  grid-template-rows: auto auto 1fr;
+  grid-template-areas: "crumb crumb" "text media";
+  grid-template-rows: auto auto;
   gap: 0 clamp(24px, 3.2vw, 46px);
   align-items: start;
   width: 100%;
@@ -24,6 +24,13 @@ body #main .cw-page-hero__inner {
   box-sizing: border-box;
 }
 body #main .cw-page-hero__inner > * { min-width: 0; }
+body #main .cw-page-hero__text {
+  grid-area: text;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
 body #main .cw-page-hero__breadcrumbs {
   grid-area: crumb;
   display: block;
@@ -93,6 +100,10 @@ body:not(.cw-home):not(.cw-catalogue) #main .cw-page-hero--contact + #quote { pa
   :root { --cw-page-gutter: 24px; }
   body #main .cw-page-hero__inner { display: flex; flex-direction: column; gap: 0; min-height: 0; padding-top: 22px; padding-bottom: 40px; }
   body #main .cw-page-hero__inner > * { width: 100%; }
+  body #main .cw-page-hero__text { display: contents; }
+  body #main .cw-page-hero__heading { order: 1; width: 100%; }
+  body #main .cw-page-hero__media { order: 2; }
+  body #main .cw-page-hero__support { order: 3; width: 100%; }
   body #main .cw-page-hero__breadcrumbs { margin-bottom: 25px; font-size: .8125rem; }
   body #main .cw-page-hero h1.cw-page-hero__title { font-size: clamp(2.05rem, 7.6vw, 2.8rem); max-width: 22ch; margin-bottom: 26px; }
   body #main .cw-page-hero__eyebrow { margin-bottom: 13px; font-size: .75rem; }

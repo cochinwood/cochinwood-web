@@ -63,6 +63,9 @@ def _figure(item, image, link, *, css="cw-editorial-media", eager=False):
             raise ValueError('Species max_display_width must be a number from 100 to 2000')
         style = f'max-width:{cap:g}px;width:100%;height:auto;object-fit:contain'
         tag = tag.replace('<img ', f'<img style="{style}" ', 1)
+    if css == 'cw-species-media':
+        from encyclopedia_navigation import orient_species_image
+        tag = orient_species_image(tag, item)
     # Vector diagrams carry explicit dimensions; the existing raster reader
     # deliberately does not parse SVG XML.
     if item.get("width") and not re.search(r"\bwidth=", tag):

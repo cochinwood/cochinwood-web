@@ -816,6 +816,9 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
     from regional_seo import render_regional_navigation
     from editorial_media import enhance_editorial_media
     body = enhance_editorial_media(body, path, visual_image, u)
+    if path.startswith(WOOD_PATH + "/"):
+        from encyclopedia_navigation import enhance_species_reference_gallery
+        body = enhance_species_reference_gallery(body)
     body, consumed_crumb = normalize_page_hero(body, path, crumb_nav)
     # The reviewed product map owns both catalogue and detail imagery. Imported
     # snippets may still name an earlier scene even after their schema is updated.
@@ -837,7 +840,7 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
         context_nav = parent_navigation("All products", u("/products"))
     elif path.startswith(WOOD_PATH + "/") and globals().get("WOOD_NAV"):
         from encyclopedia_navigation import render_species_navigation
-        context_nav = render_species_navigation(WOOD_NAV, path, u, WOOD_PATH)
+        context_nav = render_species_navigation(WOOD_NAV, path, u, WOOD_PATH, photo_reference=True)
     elif path.startswith("/export/"):
         # The regional hierarchy already includes the export parent destination.
         context_nav = "" if regional_nav else parent_navigation("All export markets", u("/export"))
@@ -1545,7 +1548,7 @@ def encyclopedia():
     body = re.sub(r'<div class="cwg__container">\s*<div class="cwg__tldr">.*?</div>\s*</div>', '', body, count=1, flags=re.S)
     body = body.replace('<article class="cwg__body">', '<article class="cwg__body" id="species">', 1)
     from encyclopedia_navigation import enhance_wood_hub
-    body, WOOD_NAV = enhance_wood_hub(body, u, WOOD_PATH)
+    body, WOOD_NAV = enhance_wood_hub(body, u, WOOD_PATH, image=visual_image, species_media=SPECIES_MEDIA)
     wood_script = '<script src="' + u('/assets/' + ASSETS['encyclopedia-navigation.js']) + '" defer></script>'
     write(WOOD_PATH.strip("/") + "/index.html", src=hub_src,
           content=base(title, desc, WOOD_PATH, body, body_class="cw-encbody cw-wood-index", extra_head=wood_script,
@@ -1891,7 +1894,7 @@ def build_blog():
     # Native topic anchors work without JS; the search progressively filters
     # these same groups and keeps q/topic in the URL for return visits.
     body = render_directory(live, taxonomy, u, visual_image(VISUAL_MEDIA['blog_hero'], eager=True),
-        thumbnail=lambda slug: visual_image(article_share_media(slug), sizes="(max-width: 560px) calc(100vw - 40px), (max-width: 860px) 45vw, 30vw"))
+        thumbnail=lambda slug: visual_image(article_share_media(slug), sizes="(max-width: 360px) calc(100vw - 40px), (max-width: 560px) calc(100vw - 48px), (max-width: 620px) calc((100vw - 82px) / 2), (max-width: 1440px) calc((89vw - 34px) / 2), (max-width: 1600px) calc((1406px - 11vw) / 2), 615px"))
     # Posts allowed to have no "date", each with the why. Anything undated and
     # NOT in this dict is a mistake and gets the loud generic warning below.
     # Empty since 31 Aug 2026: the okoume-plywood post was dropped by owner decision -- one of
@@ -2039,7 +2042,7 @@ def copy_referenced_files():
 # the new sha in here until the gate goes green carries whatever landed on
 # cf-live meanwhile into production unread.
 LIVE_REF_NAME = "origin/cf-live"                         # where the pin came from
-LIVE_SHA = "cdd736c8f36ad1e0d72f192a5e122ddf32a00970"    # Reviewed PR29: files/, workflow and all four carried root files are identical to PR28
+LIVE_SHA = "b4962022cbeee7f9a08865b4e7ad8887cad6e8f8"    # Reviewed PR33: published media/root bytes and all 254 canonical routes preserved
 LIVE_REF = LIVE_SHA                # what git is actually handed, so no fetch can move it
 LIVE_PIN = LIVE_REF_NAME + "@" + LIVE_SHA[:12]           # what the banner and dist/ record
 
@@ -2682,7 +2685,7 @@ def build_redirects():
 
 # ---------------- assets + meta ----------------
 # One request instead of five; order preserved so cascade behaviour is unchanged.
-CSS_BUNDLE = ["fonts.css", "site.css", "guide.css", "wood-enc.css", "shell.css", "components.css", "visual-system.css", "experience.css", "experience-inner.css", "experience-motion.css", "blog-index.css", "blog-navigation.css", "catalogue-navigation.css", "inner-hero.css", "page-navigation.css", "encyclopedia-navigation.css", "privacy-choices.css", "regional-navigation.css", "viewport-heroes.css", "quote-form.css", "brand-consistency.css"]
+CSS_BUNDLE = ["fonts.css", "site.css", "guide.css", "wood-enc.css", "shell.css", "components.css", "visual-system.css", "experience.css", "experience-inner.css", "experience-motion.css", "blog-index.css", "blog-navigation.css", "catalogue-navigation.css", "inner-hero.css", "page-navigation.css", "encyclopedia-navigation.css", "privacy-choices.css", "regional-navigation.css", "viewport-heroes.css", "quote-form.css", "brand-consistency.css", "content-spacing.css"]
 
 def _css_fix_urls(css, name):
     """Resolve /files/... backgrounds; neutralise the ones with no source file."""
