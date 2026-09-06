@@ -33,10 +33,14 @@ async function create(page,quantity=1) {
   page.on('pageerror',error => pageErrors.push(error.message));
   await context.route('**/*',async(route) => { const url = new URL(route.request().url()); if (!['127.0.0.1','localhost'].includes(url.hostname)) { external.push(url.href); await route.abort(); } else await route.continue(); });
   try {
-    await check('Actual catalogue is blocked and variant deep links work',async() => {
+    await check('Actual catalogue stays blocked, held Marine is excluded, and active variant deep links work',async() => {
+      await page.addInitScript(() => localStorage.setItem('cwi.preview.cart.live',JSON.stringify([{sku:'prem_marine_gurjan_18',quantity:1}])));
       await page.goto(base + '/commerce-preview/?sku=prem_marine_gurjan_18'); await waitLoaded(page);
-      assert.equal(await page.locator('[data-add]:disabled').count(),2);
-      assert.equal(await page.locator('[data-select-sku="prem_marine_gurjan_18"]').getAttribute('aria-pressed'),'true');
+      assert.equal(await page.locator('[data-add]:disabled').count(),1);
+      assert.equal(await page.locator('[data-family="prem_marine_gurjan"]').count(),0);
+      assert.equal(await page.locator('.basket-item').count(),0);
+      await page.goto(base + '/commerce-preview/?sku=prem_hw_gurjan_18'); await waitLoaded(page);
+      assert.equal(await page.locator('[data-select-sku="prem_hw_gurjan_18"]').getAttribute('aria-pressed'),'true');
       assert.equal(await page.locator('meta[name=robots]').getAttribute('content'),'noindex, nofollow, noarchive');
       assert.match(await page.locator('#mode-note').innerText(),/purchasing is not open/i);
       await page.screenshot({path:path.join(output,'shop-actual-desktop.png')});
@@ -87,7 +91,7 @@ async function create(page,quantity=1) {
       await page.locator('#postcode-form button').click(); await receivedMode;
       await page.getByRole('button',{name:'Actual setup',exact:true}).click(); await waitLoaded(page); releaseMode(); await page.waitForTimeout(150);
       assert.equal(await page.locator('#continue-checkout').isDisabled(),true);
-      assert.equal(await page.locator('[data-add]:disabled').count(),2);
+      assert.equal(await page.locator('[data-add]:disabled').count(),1);
       await page.unroute('**/api/commerce/quote'); await testMode(page);
       await page.locator('#delivery-postcode').fill('683542'); await page.locator('#postcode-form button').click(); await page.waitForFunction(() => !document.querySelector('#continue-checkout').disabled);
     });
