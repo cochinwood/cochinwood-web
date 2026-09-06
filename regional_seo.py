@@ -252,5 +252,5 @@ def write_image_sitemap(dist, live):
     xml, report = image_sitemap_xml(dist, live)
     if report['missing_images']:
         raise ValueError('Missing sitemap images: ' + json.dumps(report['missing_images']))
-    (Path(dist) / 'sitemap-images.xml').write_text(xml, encoding='utf8')
+    (Path(dist) / 'sitemap-images.xml').write_text(xml, encoding='utf8', newline='\n')
     return report

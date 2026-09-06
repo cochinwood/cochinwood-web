@@ -90,6 +90,15 @@ class ImageSitemapTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             image_sitemap_xml(self.root, 'https://www.cochinwood.in')
 
+    def test_written_sitemap_uses_utf8_lf_bytes_on_every_platform(self):
+        self.page('index', '<img src="/files/other.webp" alt="Wood">')
+        xml, expected_report = image_sitemap_xml(self.root, 'https://www.cochinwood.in')
+        self.assertEqual(write_image_sitemap(self.root, 'https://www.cochinwood.in'), expected_report)
+        output = (self.root / 'sitemap-images.xml').read_bytes()
+        self.assertNotIn(b'\r', output, 'Release artifacts require LF, including on Windows')
+        self.assertEqual(output, xml.encode('utf8'))
+        self.assertTrue(output.endswith(b'\n'))
+
 
 if __name__ == '__main__':
     unittest.main()
