@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "purpose": "Navigation taxonomy for existing city guides only. This file makes no shipment, local-stock, premises or transit-time claim. Approved export countries remain exclusively in export-markets.json.",
+  "country_slug_overrides": {"AE": "uae"},
+  "city_groups": [
+    {"country_iso": "AE", "region": "United Arab Emirates", "cities": ["abu-dhabi", "dubai", "sharjah", "jebel-ali-free-zone", "ras-al-khaimah"]},
+    {"country_iso": "SA", "region": "Saudi Arabia", "cities": ["dammam", "jeddah", "jubail", "khobar", "riyadh"]},
+    {"country_iso": "OM", "region": "Oman", "cities": ["duqm", "muscat", "salalah", "sohar"]},
+    {"country_iso": "QA", "region": "Qatar", "cities": ["doha", "mesaieed", "ras-laffan"]},
+    {"country_iso": "BH", "region": "Bahrain", "cities": ["manama", "sitra"]},
+    {"country_iso": "KW", "region": "Kuwait", "cities": ["kuwait-city", "shuaiba"]},
+    {"country_iso": "IN", "region": "Tamil Nadu", "cities": ["chennai", "coimbatore", "tiruppur", "hosur", "salem", "madurai", "tiruchirapalli", "tuticorin", "karur", "sivakasi"]},
+    {"country_iso": "IN", "region": "Gujarat", "cities": ["ahmedabad", "mundra", "pipavav", "bhavnagar", "jamnagar", "rajkot", "surat", "vadodara"]},
+    {"country_iso": "IN", "region": "Andhra Pradesh", "cities": ["guntur", "kakinada", "tirupati", "nellore", "vijayawada", "sri-city", "vizag"]},
+    {"country_iso": "IN", "region": "Karnataka", "cities": ["bengaluru", "belgaum", "mysuru", "davangere", "mangalore", "hubli-dharwad"]},
+    {"country_iso": "IN", "region": "Telangana", "cities": ["hyderabad", "karimnagar", "khammam", "warangal"]},
+    {"country_iso": "IN", "region": "Maharashtra", "cities": ["pune", "mumbai", "aurangabad", "kolhapur", "nagpur", "nashik", "solapur"]},
+    {"country_iso": "IN", "region": "Goa", "cities": ["goa"]},
+    {"country_iso": "IN", "region": "Haryana", "cities": ["faridabad", "gurugram", "karnal", "panipat", "sonipat"]},
+    {"country_iso": "IN", "region": "Delhi NCR", "cities": ["delhi-ncr"]},
+    {"country_iso": "IN", "region": "Uttar Pradesh", "cities": ["ghaziabad", "meerut", "kanpur", "lucknow", "greater-noida", "varanasi", "noida", "agra"]},
+    {"country_iso": "IN", "region": "Rajasthan", "cities": ["ajmer", "bhilwara", "jaipur", "jodhpur", "udaipur", "kota"]},
+    {"country_iso": "IN", "region": "Madhya Pradesh", "cities": ["gwalior", "indore", "bhopal", "jabalpur", "pithampur"]},
+    {"country_iso": "IN", "region": "Punjab", "cities": ["amritsar", "jalandhar", "ludhiana", "mohali"]},
+    {"country_iso": "IN", "region": "Chhattisgarh", "cities": ["bhilai", "raipur"]},
+    {"country_iso": "IN", "region": "Jharkhand", "cities": ["dhanbad", "jamshedpur", "ranchi"]},
+    {"country_iso": "IN", "region": "Odisha", "cities": ["bhubaneswar", "cuttack", "paradip", "rourkela"]},
+    {"country_iso": "IN", "region": "West Bengal", "cities": ["durgapur", "asansol", "howrah", "kolkata", "siliguri"]},
+    {"country_iso": "IN", "region": "Bihar", "cities": ["patna"]},
+    {"country_iso": "IN", "region": "Assam", "cities": ["guwahati"]}
+  ]
+}

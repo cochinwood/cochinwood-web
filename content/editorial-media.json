@@ -1,0 +1,1061 @@
+{
+  "version": 1,
+  "assets": {
+    "cabinetry": {
+      "src": "/files/Editorial/cabinetry.webp",
+      "alt": "Open plywood cabinet with visible layered door edges beside a forest-green niche",
+      "caption": "Plywood edges and fitted cabinetry.",
+      "sha256": "198b28e238e13906d0b4775ac282060e4c2fedd18e849194b821361db225cf86",
+      "kind": "generated product/application concept",
+      "provenance": "Created with built-in image_gen on 2026-09-06; visually reviewed. No named customer, shipment, plant ownership, species identity or certification is asserted.",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+      "original_sha256": "b3821efa653c696f934f43c1b5b19369e5943687e38dacc8b49e02b499f48436",
+      "original_source": "C:\\Users\\Edwin David\\.codex\\generated_images\\01a0747a-00d9-7262-8e74-7a84402d964b\\exec-bb5d9663-8b1c-4e0d-9836-5aa8c2040503.png"
+    },
+    "packing-case": {
+      "src": "/files/Editorial/packing-case.webp",
+      "alt": "Open plywood case with timber battens and skids surrounding an unbranded motor",
+      "caption": "Panel shell, timber battens and base skids.",
+      "sha256": "5b73561c6d86361bf45ccd11298206f5933b887c34ef4664c6a4e6090c7b38fb",
+      "kind": "generated product/application concept",
+      "provenance": "Created with built-in image_gen on 2026-09-06; visually reviewed. No named customer, shipment, plant ownership, species identity or certification is asserted.",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+      "original_sha256": "07f7f6c83616561775a5a181c360a1e1f63122ec8c1a3d2eeb06d36b0120fa9a",
+      "original_source": "C:\\Users\\Edwin David\\.codex\\generated_images\\01a0747a-00d9-7262-8e74-7a84402d964b\\exec-70fc8973-1003-4632-b818-f8bc02d3073c.png"
+    },
+    "finger-joint-detail": {
+      "src": "/files/Editorial/finger-joint-detail.webp",
+      "alt": "Close view of a flush finger-jointed splice across a solid wood board",
+      "caption": "A finger joint connects lengths of solid wood.",
+      "sha256": "d2bfa4e1643e5666656ebe68f6fbf16ac7657e18126c262f1b7fcab521c59aae",
+      "kind": "generated product/application concept",
+      "provenance": "Created with built-in image_gen on 2026-09-06; visually reviewed. No named customer, shipment, plant ownership, species identity or certification is asserted.",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+      "original_sha256": "68c71900acb8719b1976f431393c22c88caa5d163cb0447a2a91171c09d0eeb2",
+      "original_source": "C:\\Users\\Edwin David\\.codex\\generated_images\\01a0747a-00d9-7262-8e74-7a84402d964b\\exec-cbb1a940-2246-4e19-9d82-54266b352514.png"
+    },
+    "plywood-layers": {
+      "src": "/files/Editorial/plywood-layers.svg",
+      "alt": "Seven stacked veneer layers with arrows alternating grain direction",
+      "caption": "Veneer layers and grain direction.",
+      "sha256": "de11cc81fa407624353519c3fd48901ba39f906e6d1ee03f4ece16d5e1c563da",
+      "kind": "authored technical diagram",
+      "provenance": "Code-native diagram authored 2026-09-06. Structural relationships only; no tested performance values or certification implied.",
+      "width": 1200,
+      "height": 720,
+      "mobile_src": "/files/Editorial/plywood-layers-mobile.svg",
+      "mobile_width": 600,
+      "mobile_height": 850,
+      "mobile_sha256": "cab3b1479a68330dc6d86749af500a837cbf1cf5e126ddb3e414c8cb6da52817"
+    },
+    "board-cores": {
+      "src": "/files/Editorial/board-cores.svg",
+      "alt": "Side-by-side sections show veneer layers, solid-wood strips and bonded wood particles",
+      "caption": "Compare what is inside each board type.",
+      "sha256": "2be59b19c81ba9060348626b7fca468d5d2ae25f4b111d810346b819b82a2827",
+      "kind": "authored technical diagram",
+      "provenance": "Code-native diagram authored 2026-09-06. Structural relationships only; no tested performance values or certification implied.",
+      "width": 1200,
+      "height": 720,
+      "mobile_src": "/files/Editorial/board-cores-mobile.svg",
+      "mobile_width": 600,
+      "mobile_height": 980,
+      "mobile_sha256": "ea97596968bb843a9b59d327c8dfb429464c5a69786a3ee109c7c0bdb8091f2c"
+    },
+    "panel-dimensions": {
+      "src": "/files/Editorial/panel-dimensions.svg",
+      "alt": "A panel with separate dimension lines for length, width and thickness",
+      "caption": "Length, width and thickness belong in every panel enquiry.",
+      "sha256": "05f8dded20db2f7659a1f9e4a2261ac90a73c117e33d17a3b83adb2225f976d5",
+      "kind": "authored technical diagram",
+      "provenance": "Code-native diagram authored 2026-09-06. Structural relationships only; no tested performance values or certification implied.",
+      "width": 1200,
+      "height": 720,
+      "mobile_src": "/files/Editorial/panel-dimensions-mobile.svg",
+      "mobile_width": 600,
+      "mobile_height": 760,
+      "mobile_sha256": "43fdf4db36267b2ded17beb956285b6a3acc73a5f0a9a03a7f035c1e8299ad9e"
+    },
+    "packing-structure": {
+      "src": "/files/Editorial/packing-structure.svg",
+      "alt": "Plywood case diagram labels the panel shell, timber battens and base skids",
+      "caption": "Panel shell, reinforcement and base structure.",
+      "sha256": "2fbf7c010ed22aeae71bffd088713d42cd4aa579c44545d7ed35044b0117c214",
+      "kind": "authored technical diagram",
+      "provenance": "Code-native diagram authored 2026-09-06. Structural relationships only; no tested performance values or certification implied.",
+      "width": 1200,
+      "height": 720,
+      "mobile_src": "/files/Editorial/packing-structure-mobile.svg",
+      "mobile_width": 600,
+      "mobile_height": 910,
+      "mobile_sha256": "33baf3eab916078a325ce7da932c39f7b308a52e60865ea485236ae34af3add3"
+    },
+    "load-planning": {
+      "src": "/files/Editorial/load-planning.svg",
+      "alt": "Two panels compare weight allowance and usable space for a container load",
+      "caption": "Check both the weight and the loading arrangement.",
+      "sha256": "35a41e809333a74389576cbc73daf75526bc0f4767bce76424ec3f978e01b693",
+      "kind": "authored technical diagram",
+      "provenance": "Code-native diagram authored 2026-09-06. Structural relationships only; no tested performance values or certification implied.",
+      "width": 1200,
+      "height": 720,
+      "mobile_src": "/files/Editorial/load-planning-mobile.svg",
+      "mobile_width": 600,
+      "mobile_height": 1020,
+      "mobile_sha256": "39663e8e6862695276cc6d69043e5b3ccf9533d87bd30124af1e418383076127"
+    },
+    "specification-checklist": {
+      "src": "/files/Editorial/specification-checklist.svg",
+      "alt": "Four specification blocks cover product, packing, checks and destination",
+      "caption": "Bring product, packing, checks and destination into one enquiry.",
+      "sha256": "339532348636e6ac6844c9e64e2d8cb18da33b14f9b297f027ad1c34c9d21ceb",
+      "kind": "authored technical diagram",
+      "provenance": "Code-native diagram authored 2026-09-06. Structural relationships only; no tested performance values or certification implied.",
+      "width": 1200,
+      "height": 720,
+      "mobile_src": "/files/Editorial/specification-checklist-mobile.svg",
+      "mobile_width": 600,
+      "mobile_height": 930,
+      "mobile_sha256": "cd7117fd75e4f3d2a159e517a7f298b51c1fdfff7b88693b284791d2718a6974"
+    },
+    "floor-support": {
+      "src": "/files/Editorial/floor-support.svg",
+      "alt": "A floor panel spans three supports with downward load arrows",
+      "caption": "The panel and its support arrangement work together.",
+      "sha256": "cf42817108e44e8020504fce498277478e40f5b3f28d06a38c2e497954b6605f",
+      "kind": "authored technical diagram",
+      "provenance": "Code-native diagram authored 2026-09-06. Structural relationships only; no tested performance values or certification implied.",
+      "width": 1200,
+      "height": 720,
+      "mobile_src": "/files/Editorial/floor-support-mobile.svg",
+      "mobile_width": 600,
+      "mobile_height": 780,
+      "mobile_sha256": "9b98ee820509f5789b66bec1a0f5175e5a86a87b2490deae75f008d01732e7ea"
+    },
+    "drum-dimensions": {
+      "src": "/files/Editorial/drum-dimensions.svg",
+      "alt": "A circular plywood flange diagram calls out diameter, centre opening, thickness and hole pattern",
+      "caption": "Confirm the flange dimensions against the drum drawing.",
+      "sha256": "31ff629e51c12e703b7fc64ab29fc31dcf8f4967ed960287c6ee22fb4a6ee26e",
+      "kind": "authored technical diagram",
+      "provenance": "Code-native diagram authored 2026-09-06. Structural relationships only; no tested performance values or certification implied.",
+      "width": 1200,
+      "height": 720,
+      "mobile_src": "/files/Editorial/drum-dimensions-mobile.svg",
+      "mobile_width": 600,
+      "mobile_height": 970,
+      "mobile_sha256": "b9e4319ffb37eeb15031c788a376757477dbb5dd13e65555be6fa74267947f39"
+    },
+    "packing-plywood": {
+      "src": "/files/Plywood%20Product%20Photos/cwi-packing-plywood.webp",
+      "alt": "Pale plywood sheets stacked with their layered edges visible",
+      "kind": "product presentation",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
+      "sha256": "06855298e2b05157a76e2dc5f973edf6cc5e4c2d95598262e984d44bc550126f"
+    },
+    "okoume-plywood": {
+      "src": "/files/Plywood%20Product%20Photos/cwi-okoume-plywood.webp",
+      "alt": "Plywood panels with smooth pinkish-brown faces and visible layered edges",
+      "kind": "product presentation",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
+      "sha256": "5869e9614dfb31854982afd505b6f313ff6e7e65c5156411849abde8f9a83443"
+    },
+    "rubberwood-plywood": {
+      "src": "/files/Plywood%20Product%20Photos/cwi-rubberwood-plywood.webp",
+      "alt": "A stack of pale cream plywood panels with bundled sheets behind",
+      "kind": "product presentation",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
+      "sha256": "42dd13f1f7a06513b52f33b7302d4a7afa22e0f3b97b78bfc8aa447f946da8a7"
+    },
+    "commercial-plywood": {
+      "src": "/files/Plywood%20Product%20Photos/cwi-commercial-plywood.webp",
+      "alt": "Warm brown plywood sheets with smooth faces and cut edges",
+      "kind": "product presentation",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
+      "sha256": "2941f2d5f49bbb3998b1625d651da6613168aab30315128238063e2e45cd5e89"
+    },
+    "marine-plywood": {
+      "src": "/files/Plywood%20Product%20Photos/cwi-marine-plywood.webp",
+      "alt": "Reddish-brown plywood panels showing the face grain and layered core",
+      "kind": "product presentation",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
+      "sha256": "a2f97e85aa136956bef3c033442be621563b084743047365b42496a13a4ffbd4"
+    },
+    "film-faced-shuttering-plywood": {
+      "src": "/files/Plywood%20Product%20Photos/cwi-film-faced-brown.webp",
+      "alt": "Dark brown film-faced plywood sheets with smooth reflective surfaces",
+      "kind": "product presentation",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
+      "sha256": "0539a5cd8c26f7ab9017d52ee50aeed6e5fc6e363085d11cbdab60570170deec"
+    },
+    "container-flooring-plywood": {
+      "src": "/files/Logo/og/og-container-flooring.jpg",
+      "alt": "A thick brown-faced plywood panel with its layered edge visible against a plain background",
+      "kind": "product presentation",
+      "provenance": "Existing published Cochin Wood panel image from files/Logo/og/og-container-flooring.jpg. Visually inspected: no overlaid logo or text. Original capture or generation provenance is unverified; the image does not establish a grade, certification, thickness or treatment.",
+      "caption": "Grade, thickness and treatment are confirmed in the specification.",
+      "sha256": "21d0d5c02e9a951fc86dc278e3bf6acb9d533165a38cf5d516b4a31f69315d15"
+    },
+    "bwr-hardwood-plywood": {
+      "src": "/files/Plywood%20Product%20Photos/cwi-bwr-hardwood-plywood.webp",
+      "alt": "Reddish hardwood-faced panels with dark edges stacked in the foreground",
+      "kind": "product presentation",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
+      "sha256": "0e54ac79686e3733f2f7b5847f9144dbb520cf79409f56a49199642c4abc321f"
+    },
+    "chequered-anti-skid-plywood": {
+      "src": "/files/Plywood%20Product%20Photos/cwi-anti-skid.webp",
+      "alt": "Plywood panels with a dark maroon textured anti-skid face",
+      "kind": "product presentation",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
+      "sha256": "63a20ccc972df674965377a7e74b3ed0f34b23704774cb8b878cb312c192142c"
+    },
+    "plywood-boxes-crates": {
+      "src": "/files/Product/crates.jpg",
+      "alt": "Plywood cases with timber frames and reinforced corners",
+      "kind": "product presentation",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
+      "sha256": "dd22f2f0fac2c96a20ce32f200d926cc2ea5d64acf693f52b86e731fa68878f1"
+    },
+    "plywood-pallets": {
+      "src": "/files/Product/pallets.jpg",
+      "alt": "Rows of light-coloured timber and plywood pallets stacked in a room",
+      "kind": "product presentation",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
+      "sha256": "acb97cfadd2e40111ba0adf16f2ed0fc050273509f0964436f4a78ae08eb67a6"
+    },
+    "block-board-flush-doors": {
+      "src": "/files/Product/block-board.jpg",
+      "alt": "A block board sample showing its timber core beneath thin face veneers",
+      "kind": "product presentation",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
+      "sha256": "e3486381865566624a3ae254b138526d8edfecbf2d79eb7dc53ce91ecc9b286c"
+    },
+    "finger-joint-board": {
+      "src": "/files/Brand/solid-wood-materials.jpg",
+      "alt": "solid-wood board samples stacked beside a window",
+      "kind": "material illustration",
+      "provenance": "Earlier Cochin Wood site mirror: files/Product/rubberwood.jpg. Reused unchanged at a distinct Brand URL; original generation/capture provenance unverified.",
+      "caption": "Joint layout is confirmed with your specification.",
+      "sha256": "66f00a15e4757b356395b95a3c0b24070ab4b5fb5839f5832ab3c00c0c7d058b"
+    },
+    "particle-board": {
+      "src": "/files/Product/particle-board.jpg",
+      "alt": "A particle board sample with its compressed wood-particle edge visible",
+      "kind": "product presentation",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
+      "sha256": "a83eeaa7a504e976936d7f7e97195e93b2c055ac6f4cf5a04e2e72751b4f3e03"
+    },
+    "plywood-cable-drums": {
+      "src": "/files/Product/cable-drums.jpg",
+      "alt": "Two empty wooden cable drums with circular plywood flanges",
+      "kind": "product presentation",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
+      "sha256": "5466607c4733ac0a3752f7ff3bf4987f1e4d24d49496e837976f0c39ab381079"
+    },
+    "sawn-timber": {
+      "src": "/files/Product/acacia.jpg",
+      "alt": "Rough-sawn brown timber planks stacked with their end grain visible",
+      "kind": "material illustration",
+      "provenance": "Existing published Cochin Wood site media, verified against production revision 39a4d2c46c3ca6abe2239d93e0e2f7373f86b6da. Original capture or generation provenance is unverified; representative material imagery does not independently establish species, grade or stock.",
+      "caption": "Species and dimensions are confirmed with your specification.",
+      "sha256": "d4d92617db5032f3ea382bdfaa09d1b8d02d45ea88eb2ef10d1488af2148e6b1"
+    },
+    "application-0": {
+      "src": "/files/CWI-Images/home_case_highrise.webp",
+      "alt": "timber formwork supported on adjustable props at a concrete slab edge",
+      "kind": "application illustration",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
+      "title": "Construction",
+      "href": "/industries#construction",
+      "description": "Panels for formwork, shuttering and demanding site work.",
+      "sha256": "2fd0fbd6083f35641be383d261d8a47bb2f8f64d7377756c8d0bcc15aa461d63"
+    },
+    "application-1": {
+      "src": "/files/Product/product_flush_doors.jpg",
+      "alt": "A plain timber-faced flush door opening into a light interior",
+      "kind": "application illustration",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
+      "title": "Furniture & interiors",
+      "href": "/industries#furniture",
+      "description": "Boards for furniture, joinery, doors and everyday interior work.",
+      "sha256": "f78937e7bfbb644e555980715a105a1e6d04364292265599e4d84482c25cad1d"
+    },
+    "application-2": {
+      "src": "/files/CWI-Images/home_case_export.webp",
+      "alt": "plywood packing cases on pallets beside a stack of panels",
+      "kind": "application illustration",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
+      "title": "Industrial packing",
+      "href": "/industries#packaging",
+      "description": "Cases, crates and pallets matched to the load and destination.",
+      "sha256": "a816dc1f969352a05b64ba75443dc22a17eb053b481065aee3efce338fa5cad8"
+    },
+    "application-3": {
+      "src": "/files/CWI-Images/home_case_marine.webp",
+      "alt": "a wooden boat hull on a cradle beside open water",
+      "kind": "application illustration",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
+      "title": "Marine & wet service",
+      "href": "/marine-plywood",
+      "description": "Specify the bond, face and core for the intended exposure.",
+      "sha256": "cc464bda617a4f64f9d020a67888d104153d3cbbde35fb1614c7e4e7ee71361a"
+    },
+    "material-range": {
+      "src": "/files/Hero%20Optimized/Products.jpg",
+      "alt": "A flat lay of plywood, timber and surface samples in natural wood tones",
+      "kind": "material illustration",
+      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
+      "sha256": "90cd5d16b73628a9f9c466a0d1520f33393e2329c721f0c8348b81f34555443b"
+    },
+    "material-interior": {
+      "src": "/files/Brand/home-materials.webp",
+      "alt": "Plywood samples leaning beside a sunlit window in a warm timber interior",
+      "kind": "brand illustration",
+      "provenance": "Earlier Cochin Wood site mirror: files/Hero Optimized/Home.jpg. Reused unchanged at a distinct Brand URL; original generation/capture provenance unverified. Selected for the blog introduction to distinguish it from the catalogue flatlay.",
+      "sha256": "4961fa242f68827e6e66673bbb0d2d36dcf91af220e1559cb03a2c86df1da0b1"
+    },
+    "door-application": {
+      "src": "/files/Product/product_flush_doors.jpg",
+      "alt": "Finished timber-faced flush doors standing side by side",
+      "caption": "Flush-door faces and finished joinery.",
+      "kind": "existing application presentation",
+      "provenance": "Previously reviewed site asset; original generation/capture provenance unverified."
+    }
+  },
+  "posts": {
+    "ispm-15-ht-stamp-validity-india-exporters-2026": {
+      "lead": "packing-case",
+      "selection_basis": "Title-reviewed substantive topic match.",
+      "diagram": "packing-structure"
+    },
+    "20ft-container-plywood-loading-sheet-count-by-thickness-weight-limited": {
+      "lead": "load-planning",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "bwr-vs-bwp-for-export-packing-when-mr-grade-will-fail-at-sea": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "fob-cochin-for-plywood-exporters-what-s-included-what-s-extra": {
+      "lead": "load-planning",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "plywood-cable-drum-flanges-is-10418-spec-sizing-sourcing-guide": {
+      "lead": "plywood-cable-drums",
+      "selection_basis": "Title-reviewed substantive topic match.",
+      "diagram": "drum-dimensions"
+    },
+    "plywood-supply-to-tiruppur": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-hosur": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-salem": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-madurai": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-tiruchirapalli": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-tuticorin": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-karur": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-sivakasi": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-abu-dhabi": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-dubai": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-sharjah": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-jebel-ali-free-zone": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-ras-al-khaimah": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-dammam": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-jeddah": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-jubail": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-khobar": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-riyadh": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-duqm": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-muscat": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-salalah": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-sohar": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-doha": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-mesaieed": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-ras-laffan": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-manama": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-sitra": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-kuwait-city": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-shuaiba": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-mundra": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-pipavav": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-bhavnagar": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-jamnagar": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-rajkot": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-surat": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-vadodara": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-guntur": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-kakinada": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-tirupati": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-nellore": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-vijayawada": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-belgaum": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-mysuru": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-davangere": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-mangalore": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-hubli-dharwad": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-karimnagar": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-khammam": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-warangal": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-aurangabad": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-kolhapur": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-nagpur": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-nashik": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-solapur": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-goa": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-faridabad": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-gurugram": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-karnal": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-panipat": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-sonipat": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-ghaziabad": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-meerut": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-kanpur": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-lucknow": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-greater-noida": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-varanasi": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-noida": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-agra": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-ajmer": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-bhilwara": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-jaipur": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-jodhpur": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-udaipur": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-kota": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-gwalior": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-indore": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-bhopal": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-jabalpur": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-pithampur": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-amritsar": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-jalandhar": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-ludhiana": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-mohali": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-bhilai": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-raipur": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-dhanbad": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-jamshedpur": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-ranchi": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-bhubaneswar": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-cuttack": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-paradip": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-rourkela": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-durgapur": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-asansol": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-howrah": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-kolkata": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-siliguri": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-patna": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-guwahati": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-sri-city": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "block-board-vs-plywood": {
+      "lead": "board-cores",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "is-710-vs-is-303-plywood": {
+      "lead": "marine-plywood",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "do-plywood-boxes-need-ispm-15": {
+      "lead": "packing-structure",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "how-many-pours-does-film-faced-plywood-last": {
+      "lead": "film-faced-shuttering-plywood",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "iicl-tb-001-container-flooring-plywood": {
+      "lead": "container-flooring-plywood",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "okoume-vs-gurjan-plywood": {
+      "lead": "okoume-plywood",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "marine-plywood-thickness-guide": {
+      "lead": "panel-dimensions",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "plywood-for-packing-cases": {
+      "lead": "packing-case",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "ispm-15-export-crate-cost": {
+      "lead": "packing-case",
+      "selection_basis": "Title-reviewed substantive topic match.",
+      "diagram": "packing-structure"
+    },
+    "fob-cochin-explained": {
+      "lead": "load-planning",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "rubberwood-plywood-explained": {
+      "lead": "rubberwood-plywood",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "bwp-and-bwr-plywood-explained": {
+      "lead": "bwr-hardwood-plywood",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "plywood-cable-drum-specifications": {
+      "lead": "drum-dimensions",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "export-crate-and-pallet-buying-checklist": {
+      "lead": "packing-case",
+      "selection_basis": "Title-reviewed substantive topic match.",
+      "diagram": "packing-structure"
+    },
+    "choosing-shuttering-plywood-for-site-builds": {
+      "lead": "film-faced-shuttering-plywood",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "plywood-supply-to-chennai": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-coimbatore": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-pune": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-mumbai": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "sourcing-flush-doors-and-block-boards-for-projects": {
+      "lead": "door-application",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "plywood-supply-to-delhi-ncr": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-ahmedabad": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "mr-or-bwr-for-fitted-joinery": {
+      "lead": "cabinetry",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "plywood-supply-to-hyderabad": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-bengaluru": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "plywood-supply-to-vizag": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title and article subject reviewed; material context, not a location photograph."
+    },
+    "buying-marine-plywood-for-boatyards": {
+      "lead": "marine-plywood",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "how-plywood-is-made": {
+      "lead": "plywood-layers",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "how-to-get-an-accurate-plywood-quote": {
+      "lead": "specification-checklist",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "case-studies": {
+      "lead": "material-range",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "export-documents-for-plywood-shipments": {
+      "lead": "specification-checklist",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "packing-grade-plywood-spec-sheet": {
+      "lead": "packing-plywood",
+      "selection_basis": "Title-reviewed substantive topic match.",
+      "diagram": "panel-dimensions"
+    },
+    "is-4990-shuttering-plywood-standard-explained": {
+      "lead": "film-faced-shuttering-plywood",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "fsc-plywood-and-eudr-for-importers": {
+      "lead": "specification-checklist",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "formaldehyde-compliance-for-plywood-exports": {
+      "lead": "plywood-layers",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "mundra-vs-pipavav-for-plywood-exporters-which-port-which-cost": {
+      "lead": "load-planning",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "plywood-crate-sizing-break-bulk-vs-container-which-spec-wins": {
+      "lead": "packing-case",
+      "selection_basis": "Title-reviewed substantive topic match.",
+      "diagram": "packing-structure"
+    },
+    "birch-vs-okoume-vs-gurjan-pick-the-right-face-veneer-for-export-packing": {
+      "lead": "okoume-plywood",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "plywood-boxes-for-machinery-triple-wall-vs-reinforced-single-wall": {
+      "lead": "packing-case",
+      "selection_basis": "Title-reviewed substantive topic match.",
+      "diagram": "packing-structure"
+    },
+    "plywood-box-vs-wooden-crate-heavy-machinery-export": {
+      "lead": "packing-case",
+      "selection_basis": "Title-reviewed substantive topic match.",
+      "diagram": "packing-structure"
+    },
+    "how-to-read-is-710-bwp-marine-plywood-test-certificate": {
+      "lead": "specification-checklist",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "fob-cochin-vs-fca-mundra-gcc-plywood-incoterm": {
+      "lead": "load-planning",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "calibrated-okoume-furniture-plywood-e1-low-formaldehyde": {
+      "lead": "cabinetry",
+      "selection_basis": "Title-reviewed substantive topic match.",
+      "diagram": "panel-dimensions"
+    },
+    "pallet-vs-loose-container-loading-plywood-exports": {
+      "lead": "plywood-pallets",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "hpl-vs-prelaminated-vs-lacquer-plywood-finishes": {
+      "lead": "cabinetry",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "how-to-read-a-plywood-grade-stamp": {
+      "lead": "specification-checklist",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "eucalyptus-vs-poplar-vs-hardwood-plywood-core": {
+      "lead": "plywood-layers",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "fcl-vs-lcl-for-plywood-exports": {
+      "lead": "load-planning",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "plywood-moisture-content-and-warping": {
+      "lead": "plywood-layers",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "ispm-15-heat-treatment-vs-methyl-bromide": {
+      "lead": "packing-structure",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "plywood-manufacturer-vs-factory": {
+      "lead": "material-range",
+      "selection_basis": "Title-reviewed substantive topic match."
+    },
+    "factory-direct-vs-branded-dealer-plywood-container-quantity": {
+      "lead": "material-range",
+      "selection_basis": "Title-reviewed substantive topic match."
+    }
+  },
+  "product_galleries": {
+    "commercial-plywood": [
+      "cabinetry",
+      "plywood-layers"
+    ],
+    "marine-plywood": [
+      "application-3",
+      "panel-dimensions"
+    ],
+    "film-faced-shuttering-plywood": [
+      "application-0",
+      "plywood-layers"
+    ],
+    "container-flooring-plywood": [
+      "floor-support",
+      "panel-dimensions"
+    ],
+    "bwr-hardwood-plywood": [
+      "cabinetry",
+      "plywood-layers"
+    ],
+    "chequered-anti-skid-plywood": [
+      "floor-support",
+      "panel-dimensions"
+    ],
+    "block-board-flush-doors": [
+      "door-application",
+      "board-cores"
+    ],
+    "finger-joint-board": [
+      "cabinetry",
+      "panel-dimensions"
+    ],
+    "particle-board": [
+      "board-cores",
+      "cabinetry"
+    ],
+    "plywood-boxes-crates": [
+      "packing-case",
+      "packing-structure"
+    ],
+    "plywood-pallets": [
+      "packing-case",
+      "load-planning"
+    ],
+    "plywood-cable-drums": [
+      "drum-dimensions",
+      "panel-dimensions"
+    ],
+    "sawn-timber": [
+      "panel-dimensions"
+    ],
+    "packing-plywood": [
+      "packing-case",
+      "packing-structure"
+    ],
+    "rubberwood-plywood": [
+      "plywood-layers",
+      "cabinetry"
+    ],
+    "okoume-plywood": [
+      "cabinetry",
+      "panel-dimensions"
+    ]
+  },
+  "generation_notes": {
+    "tool": "built-in image_gen",
+    "date": "2026-09-06",
+    "originals": [
+      [
+        "cabinetry",
+        "exec-bb5d9663-8b1c-4e0d-9836-5aa8c2040503.png",
+        "Open plywood cabinet with visible layered door edges beside a forest-green niche",
+        "Plywood edges and fitted cabinetry."
+      ],
+      [
+        "packing-case",
+        "exec-70fc8973-1003-4632-b818-f8bc02d3073c.png",
+        "Open plywood case with timber battens and skids surrounding an unbranded motor",
+        "Panel shell, timber battens and base skids."
+      ],
+      [
+        "finger-joint-detail",
+        "exec-cbb1a940-2246-4e19-9d82-54266b352514.png",
+        "Close view of a flush finger-jointed splice across a solid wood board",
+        "A finger joint connects lengths of solid wood."
+      ]
+    ],
+    "source_metadata": "Original PNG retained outside web distribution. Generated responsive WebP derivatives include IPTC DigitalSourceType trainedAlgorithmicMedia in XMP."
+  },
+  "page_media": {
+    "export-process": "packing-case",
+    "rubberwood-plywood-container-weight": "load-planning",
+    "plywood-price-guide": "panel-dimensions",
+    "blogs/gcc-export": "packing-case"
+  }
+}

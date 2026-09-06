@@ -1,8 +1,8 @@
 // Read-only local regression audit; requires the integrated dist/ to be served.
 // Usage: node tools/test_hero_consistency.cjs [http://127.0.0.1:8873] [report.json]
 // NODE_PATH may point to bundled Playwright. Uses isolated installed Chrome.
-// It never submits forms or allows nonlocal requests. The calibrated desktop
-// family must keep its shared height within 2px; mobile content may grow freely.
+// It never submits forms or allows nonlocal requests. Shared image stages and
+// gutters are fixed by contract; hero height grows naturally with actual content.
 'use strict';
 
 const {chromium} = require('playwright');
@@ -15,7 +15,8 @@ assert(['localhost', '127.0.0.1', '[::1]'].includes(origin.hostname), 'Loopback 
 assert(['http:', 'https:'].includes(origin.protocol), 'HTTP(S) origin required');
 assert(!origin.username && !origin.password && origin.pathname === '/', 'Use a bare loopback origin');
 
-const WIDTHS = [390, 887, 1100, 1440];
+// 640 CSS pixels also checks 200% reflow from a 1280-pixel desktop viewport.
+const WIDTHS = [320, 390, 640, 768, 887, 1100, 1440, 1920];
 const MAIN_ROUTES = ['/products', '/industries', '/export', '/blogs', '/woods-we-use', '/about', '/contact'];
 const PRODUCT_SLUGS = [
   'packing-plywood', 'okoume-plywood', 'rubberwood-plywood', 'commercial-plywood',
@@ -179,7 +180,14 @@ function median(values) {
           if (result.labelledBy && !result.validLabel) fail('Hero aria-labelledby does not identify its h1');
           if (!result.compact && !result.image) fail('Image hero is missing its media frame');
           if (result.image) {
-            if (Math.abs(result.image.width / result.image.height - 4 / 3) > 0.025) fail('Hero image frame is not 4:3', {image: result.image});
+            if (task.width <= 760 && Math.abs(result.image.width / result.image.height - 4 / 3) > 0.025) fail('Mobile hero image frame is not 4:3', {image: result.image});
+            if (task.width > 760) {
+              const expectedHeight = Math.max(440, Math.min(task.width * .43, 620));
+              if (Math.abs(result.image.height - expectedHeight) > 2) fail('Desktop media stage differs from shared responsive height', {image: result.image, expectedHeight});
+              const usableWidth = result.inner.width - 2 * (result.expectedGutter - result.inner.left);
+              const fraction = result.image.width / usableWidth;
+              if (fraction < .58 || fraction > .65) fail('Desktop imagery does not occupy the intended large visual share', {fraction, image: result.image, usableWidth});
+            }
             if ([...result.frameRadius, ...result.imageRadius].some(radius => parseFloat(radius) > 0.1)) fail('Hero image corners differ from the square shared frame', {frameRadius: result.frameRadius, imageRadius: result.imageRadius});
             if (result.objectFit !== 'cover') fail('Hero image does not use cover sizing', {objectFit: result.objectFit});
           }
@@ -232,15 +240,11 @@ function median(values) {
       expandedPages: width > 760 ? cohort.filter(item => item.hero.height > item.minHeight + 2)
         .map(item => ({route: item.route, height: item.hero.height, title: item.titleText})) : [],
     });
-    if (width > 760 && Math.max(...cohort.map(item => item.hero.height)) - Math.min(...cohort.map(item => item.hero.height)) > 2) {
-      failures.push({width, issue: 'Calibrated desktop hero heights differ by more than 2px', pages: cohort.map(item => ({route: item.route, height: item.hero.height}))});
-    }
     for (const item of cohort) {
       for (const property of ['family', 'size', 'weight', 'style']) {
         if (item.headingFont[property] !== baseline.headingFont[property]) failures.push({width, route: item.route, issue: 'Heading typography differs across the shared hero family', property, expected: baseline.headingFont[property], actual: item.headingFont[property]});
       }
       if (Math.abs(item.title.left - baseline.title.left) > 2) failures.push({width, route: item.route, issue: 'Hero left gutter differs across pages', expected: baseline.title.left, actual: item.title.left});
-      if (width > 760 && item.hero.height > item.minHeight + 2) review.push({width, route: item.route, issue: 'Desktop hero grew beyond its calibrated minimum; inspect the supporting content', height: item.hero.height, minHeight: item.minHeight, cohortMedian: normalHeight, title: item.titleText});
       if (item.image && normalImageWidth && Math.abs(item.image.width - normalImageWidth) > 3) review.push({width, route: item.route, issue: 'Hero image width differs from same-viewport median', widthPx: item.image.width, cohortMedian: normalImageWidth});
     }
   }
@@ -249,7 +253,7 @@ function median(values) {
     origin: origin.origin, checkedAt: new Date().toISOString(), widths: WIDTHS,
     checks: completed, productRoutes: PRODUCT_SLUGS.length, timberChoicesExpected: TIMBER_LABELS.length,
     isolation: 'Fresh headless Chrome contexts; service workers blocked; same-origin GET requests only; reduced motion; no forms submitted.',
-    interpretation: 'Typography, gutters, image scenes, missing content, decode errors, clipping and desktop height differences beyond 2px are regression failures. Content growth and image-width outliers are also reported for visual review; mobile height is unconstrained.',
+    interpretation: 'Typography, gutters, image scenes, missing content, decode errors, clipping, responsive image-stage height and desktop media width share are regression failures. Content-driven hero height may grow; image-width outliers are reported for visual review. The 640px case covers 200% desktop reflow equivalence, not a claim about browser zoom controls.',
     blockedRequests: [...blocked].map(([request, count]) => ({request, count})), failures, review, heightBands,
     metrics: metrics.sort((a, b) => a.width - b.width || a.route.localeCompare(b.route)),
   };

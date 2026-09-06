@@ -6,7 +6,7 @@ const origin=process.argv[2]||'http://127.0.0.1:8873';
 assert(['127.0.0.1','localhost','[::1]'].includes(new URL(origin).hostname),'Loopback only');
 const dist=path.resolve(__dirname,'../dist');
 const pages=['sitemap-cms.xml','sitemap-post.xml'].flatMap(n=>[...fs.readFileSync(path.join(dist,n),'utf8').matchAll(/<loc>(.*?)<\/loc>/g)].map(m=>new URL(m[1]).pathname));
-const templates=['/','/products','/contact','/about','/industries','/resources','/packing-plywood','/marine-plywood','/plywood-factory','/company-verification','/woods-we-use','/woods-we-use/teak','/blogs','/export','/export/uae'];
+const templates=['/','/products','/contact','/about','/industries','/resources','/packing-plywood','/marine-plywood','/plywood-factory','/company-verification','/woods-we-use','/woods-we-use/teak','/blogs','/export','/export/uae','/supply-markets'];
 const widths=(process.env.CWI_LAYOUT_WIDTHS||'320,390,620,768,860,861,900,1024,1440,1920').split(',').map(Number);
 assert(widths.every(w=>Number.isInteger(w)&&w>=280&&w<=3840),'Valid viewport widths required');
 const tasks=[];for(const width of widths)for(const url of ([320,1024].includes(width)?pages:templates.filter(p=>pages.includes(p))))tasks.push({width,url});

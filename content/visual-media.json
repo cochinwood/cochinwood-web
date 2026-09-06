@@ -90,8 +90,8 @@
       "alt": "A thick brown-faced plywood panel with its layered edge visible against a plain background",
       "kind": "product presentation",
       "provenance": "Existing published Cochin Wood panel image from files/Logo/og/og-container-flooring.jpg. Visually inspected: no overlaid logo or text. Original capture or generation provenance is unverified; the image does not establish a grade, certification, thickness or treatment.",
-      "caption": "Representative panel; grade, thickness and treatment are confirmed in the specification.",
-      "sha256": "21d0d5c02e9a951fc86dc278e3bf6acb9d533165a38cf5d516b4a31f69315d15"
+      "sha256": "21d0d5c02e9a951fc86dc278e3bf6acb9d533165a38cf5d516b4a31f69315d15",
+      "caption": "Grade, thickness and treatment are confirmed in the specification."
     },
     "bwr-hardwood-plywood": {
       "src": "/files/Plywood%20Product%20Photos/cwi-bwr-hardwood-plywood.webp",
@@ -129,12 +129,15 @@
       "sha256": "e3486381865566624a3ae254b138526d8edfecbf2d79eb7dc53ce91ecc9b286c"
     },
     "finger-joint-board": {
-      "src": "/files/Brand/solid-wood-materials.jpg",
-      "alt": "Representative solid-wood board samples stacked beside a window",
-      "kind": "material illustration",
-      "provenance": "Earlier Cochin Wood site mirror: files/Product/rubberwood.jpg. Reused unchanged at a distinct Brand URL; original generation/capture provenance unverified.",
-      "caption": "Representative solid-wood board samples; joint layout is confirmed with your specification.",
-      "sha256": "66f00a15e4757b356395b95a3c0b24070ab4b5fb5839f5832ab3c00c0c7d058b"
+      "src": "/files/Editorial/finger-joint-detail.webp",
+      "alt": "Close view of a flush finger-jointed splice across a solid wood board",
+      "caption": "Joint layout is confirmed with your specification.",
+      "sha256": "d2bfa4e1643e5666656ebe68f6fbf16ac7657e18126c262f1b7fcab521c59aae",
+      "kind": "generated product/application concept",
+      "provenance": "Created with built-in image_gen on 2026-09-06; visually reviewed. No named customer, shipment, plant ownership, species identity or certification is asserted.",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+      "original_sha256": "68c71900acb8719b1976f431393c22c88caa5d163cb0447a2a91171c09d0eeb2",
+      "original_source": "C:\\Users\\Edwin David\\.codex\\generated_images\\01a0747a-00d9-7262-8e74-7a84402d964b\\exec-cbb1a940-2246-4e19-9d82-54266b352514.png"
     },
     "particle-board": {
       "src": "/files/Product/particle-board.jpg",
@@ -155,14 +158,14 @@
       "alt": "Rough-sawn brown timber planks stacked with their end grain visible",
       "kind": "material illustration",
       "provenance": "Existing published Cochin Wood site media, verified against production revision 39a4d2c46c3ca6abe2239d93e0e2f7373f86b6da. Original capture or generation provenance is unverified; representative material imagery does not independently establish species, grade or stock.",
-      "caption": "Representative sawn timber; species and dimensions are confirmed with your specification.",
-      "sha256": "d4d92617db5032f3ea382bdfaa09d1b8d02d45ea88eb2ef10d1488af2148e6b1"
+      "sha256": "d4d92617db5032f3ea382bdfaa09d1b8d02d45ea88eb2ef10d1488af2148e6b1",
+      "caption": "Species and dimensions are confirmed with your specification."
     }
   },
   "applications": [
     {
       "src": "/files/CWI-Images/home_case_highrise.webp",
-      "alt": "Illustration of timber formwork supported on adjustable props at a concrete slab edge",
+      "alt": "timber formwork supported on adjustable props at a concrete slab edge",
       "kind": "application illustration",
       "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
       "title": "Construction",
@@ -171,18 +174,21 @@
       "sha256": "2fd0fbd6083f35641be383d261d8a47bb2f8f64d7377756c8d0bcc15aa461d63"
     },
     {
-      "src": "/files/Product/product_flush_doors.jpg",
-      "alt": "A plain timber-faced flush door opening into a light interior",
-      "kind": "application illustration",
-      "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
+      "src": "/files/Editorial/cabinetry.webp",
+      "alt": "Open plywood cabinet with visible layered door edges beside a forest-green niche",
+      "kind": "generated product/application concept",
+      "provenance": "Created with built-in image_gen on 2026-09-06; visually reviewed. No named customer, shipment, plant ownership, species identity or certification is asserted.",
       "title": "Furniture & interiors",
       "href": "/industries#furniture",
       "description": "Boards for furniture, joinery, doors and everyday interior work.",
-      "sha256": "f78937e7bfbb644e555980715a105a1e6d04364292265599e4d84482c25cad1d"
+      "sha256": "198b28e238e13906d0b4775ac282060e4c2fedd18e849194b821361db225cf86",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+      "original_sha256": "b3821efa653c696f934f43c1b5b19369e5943687e38dacc8b49e02b499f48436",
+      "original_source": "C:\\Users\\Edwin David\\.codex\\generated_images\\01a0747a-00d9-7262-8e74-7a84402d964b\\exec-bb5d9663-8b1c-4e0d-9836-5aa8c2040503.png"
     },
     {
       "src": "/files/CWI-Images/home_case_export.webp",
-      "alt": "Illustration of plywood packing cases on pallets beside a stack of panels",
+      "alt": "plywood packing cases on pallets beside a stack of panels",
       "kind": "application illustration",
       "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
       "title": "Industrial packing",
@@ -192,7 +198,7 @@
     },
     {
       "src": "/files/CWI-Images/home_case_marine.webp",
-      "alt": "Illustration of a wooden boat hull on a cradle beside open water",
+      "alt": "a wooden boat hull on a cradle beside open water",
       "kind": "application illustration",
       "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
       "title": "Marine & wet service",
@@ -213,7 +219,7 @@
     },
     {
       "src": "/files/Process%20Illustrations/cwi-process-sanding.jpg",
-      "alt": "Illustration of a plywood panel passing through a sanding machine",
+      "alt": "a plywood panel passing through a sanding machine",
       "kind": "process illustration",
       "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
       "title": "Confirm the supply plan",
@@ -222,7 +228,7 @@
     },
     {
       "src": "/files/Process%20Illustrations/cwi-process-moisture.jpg",
-      "alt": "Illustration of a pin moisture meter checking the edge of a plywood panel",
+      "alt": "a pin moisture meter checking the edge of a plywood panel",
       "kind": "process illustration",
       "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
       "title": "Agree the checks",
@@ -231,7 +237,7 @@
     },
     {
       "src": "/files/Process%20Illustrations/cwi-process-loading.jpg",
-      "alt": "Illustration of a forklift loading plywood bundles into a container",
+      "alt": "a forklift loading plywood bundles into a container",
       "kind": "process illustration",
       "provenance": "Existing Cochin Wood site media; original capture or generation provenance is unverified.",
       "title": "Prepare for dispatch",

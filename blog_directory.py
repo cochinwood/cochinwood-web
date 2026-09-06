@@ -3,14 +3,15 @@ from collections import Counter
 from html import escape, unescape
 
 
-def render_directory(posts, taxonomy, link, hero_image):
+def render_directory(posts, taxonomy, link, hero_image, thumbnail=None):
     assignments = taxonomy["posts"]
     counts = Counter(assignments[p["slug"]] for p in posts)
     def card(post):
         title = unescape((post.get("title") or post["slug"]).split("|")[0].strip())
         desc = unescape(post.get("desc") or "")
         return (f'<a data-blog-topic="{escape(assignments[post["slug"]])}" href="{link("/blogs/post/" + post["slug"])}">'
-                f'<b>{escape(title)}</b><span>{escape(desc[:160])}</span></a>')
+                + (f'<div class="cw-blog-card-image">{thumbnail(post["slug"])}</div>' if thumbnail else '')
+                + f'<b>{escape(title)}</b><span>{escape(desc[:160])}</span></a>')
     topics = '<a href="#articles" data-blog-topic-filter="all" aria-current="true">All posts <span>' + str(len(posts)) + '</span></a>'
     groups = ""
     for topic in taxonomy["topics"]:

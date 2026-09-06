@@ -9,7 +9,7 @@ domain root (Cloudflare Pages at cochinwood.in).
     python build.py          # builds to dist/ at root ("")
     SITE_BASE=/cochinwood-web python build.py
 """
-import os, re, json, shutil, html, urllib.parse, datetime, struct, hashlib, sys
+import os, re, json, shutil, html, urllib.parse, datetime, struct, hashlib, sys, tempfile
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 DIST = os.path.join(ROOT, "dist")
@@ -165,6 +165,11 @@ def expand_canon(text, where=""):
 # still point at. Rewritten in content at build time AND served as 301s so
 # external inbound links keep their SEO value.
 LEGACY_REDIRECTS = {
+    # GSC examples checked against production 6 Sep 2026: these three legacy
+    # addresses still returned 404. Reuse relevant existing destinations.
+    "/request-a-quote":                       "/contact#quote",
+    "/plywood-suppliers-in-aluva":             "/plywood-manufacturer-kerala",
+    "/blogs/Uncategorized/":                  "/blogs",
     "/guide-block-board-vs-plywood":           "/blogs/post/block-board-vs-plywood",
     "/guide-bwp-bwr-plywood-explained":        "/blogs/post/bwp-and-bwr-plywood-explained",
     "/guide-film-faced-plywood-pours":         "/blogs/post/how-many-pours-does-film-faced-plywood-last",
@@ -616,7 +621,7 @@ def footer():
   <div class="cw-ft__cols">
     <div class="cw-ft__brand"><a class="cw-hd__brand" href="{u('/')}" aria-label="Cochin Wood Industries — Home" title="Home"><img src="{u('/assets/icons/logo-80.png')}" alt="" width="80" height="80" loading="lazy"><span class="cw-hd__wordmark"><b>Cochin Wood</b><span>Industries</span></span></a><p>Plywood, board and timber from Kerala. Made to specification, for India and export.</p><p>Part of a group manufacturing in Perumbavoor since 1986.</p></div>
     <nav aria-label="Products"><p class="cw-ft__h">Products</p>{prod}</nav>
-    <nav aria-label="Explore"><p class="cw-ft__h">Explore</p><a href="{u('/products')}">All products</a><a href="{u(WOOD_PATH)}">{WOOD_LABEL}</a><a href="{u('/resources')}">Resources</a><a href="{u('/blogs/post/case-studies')}">Case studies</a><a href="{u('/industries')}">Industries</a><a href="{u('/export')}">Export</a><a href="{u('/about')}">About</a><a href="{u('/company-verification')}">Company verification</a><a href="{u('/faq')}">FAQ</a></nav>
+    <nav aria-label="Explore"><p class="cw-ft__h">Explore</p><a href="{u('/products')}">All products</a><a href="{u(WOOD_PATH)}">{WOOD_LABEL}</a><a href="{u('/resources')}">Resources</a><a href="{u('/blogs/post/case-studies')}">Case studies</a><a href="{u('/industries')}">Industries</a><a href="{u('/export')}">Export</a><a href="{u('/supply-markets')}">Supply markets</a><a href="{u('/about')}">About</a><a href="{u('/company-verification')}">Company verification</a><a href="{u('/faq')}">FAQ</a></nav>
     <nav aria-label="Contact"><p class="cw-ft__h">Contact</p><a href="tel:{CONTACT['phone_href']}">{CONTACT['phone_disp']}</a><a href="mailto:{CONTACT['email']}">{CONTACT['email']}</a><a href="https://maps.google.com/?q=Thoppilan+Building+Vattakattupady+Rayamangalam+Perumbavoor+Kerala+683542" target="_blank" rel="noopener">{CONTACT['addr']}</a><a href="{INSTAGRAM_URL}" target="_blank" rel="noopener">Instagram</a></nav>
   </div>
   <div class="cw-ft__bar"><span>&copy; 2026 Cochin Wood Industries Pvt Ltd. Group established 1986.</span>
@@ -818,6 +823,10 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
     crumb_nav, crumb_ld = breadcrumbs(crumbs)
     from hero_layout import normalize_page_hero, parse_fragment
     from page_navigation import add_page_navigation, parent_navigation
+    from website_measurement import controls as measurement_controls
+    from regional_seo import render_regional_navigation
+    from editorial_media import enhance_editorial_media
+    body = enhance_editorial_media(body, path, visual_image, u)
     body, consumed_crumb = normalize_page_hero(body, path, crumb_nav)
     # The reviewed product map owns both catalogue and detail imagery. Imported
     # snippets may still name an earlier scene even after their schema is updated.
@@ -832,6 +841,11 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
                     + caption + body[media_node.close_start:])
     if consumed_crumb:
         crumb_nav = ""
+    regional_nav = render_regional_navigation(path, REGIONAL_COVERAGE, u)
+    if regional_nav:
+        from hero_layout import hero_end
+        end = hero_end(body)
+        body = body[:end] + regional_nav + body[end:] if end is not None else regional_nav + body
     context_nav = ""
     if path.strip("/") in {item[0] for item in PRODUCTS}:
         context_nav = parent_navigation("All products", u("/products"))
@@ -889,10 +903,12 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
 {crumb_nav}
 {body}
 {footer()}
+{measurement_controls(u)}
 <a class="cw-wa" href="https://wa.me/{CONTACT['wa']}" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" focusable="false"><path fill="currentColor" d="M.06 24l1.68-6.16A11.87 11.87 0 010 11.9C0 5.33 5.36 0 11.95 0a11.9 11.9 0 018.42 3.48 11.75 11.75 0 013.49 8.37c0 6.56-5.36 11.9-11.96 11.9-2 0-3.96-.5-5.7-1.45L.06 24zm6.6-3.8c1.68.99 3.28 1.58 5.4 1.58 5.45 0 9.9-4.42 9.9-9.87a9.8 9.8 0 00-2.9-6.99 9.9 9.9 0 00-7-2.9C6.6 2.02 2.15 6.44 2.15 11.9c0 2.2.62 3.85 1.67 5.57l-.99 3.6 3.83-.87zm11.6-5.5c-.08-.13-.28-.2-.58-.35-.3-.15-1.76-.86-2.03-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.14-.14.3-.36.45-.53.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41z"/></svg></a>
 <button class="cw-top" type="button" aria-label="Back to top" hidden>&uarr;</button>
 <script src="{u('/assets/' + ASSETS['site.js'])}" defer></script>
-<script src="{u('/assets/' + ASSETS['experience-motion.js'])}" defer></script>{beacon_tag()}
+<script src="{u('/assets/' + ASSETS['experience-motion.js'])}" defer></script>
+<script src="{u('/assets/' + ASSETS['search-measurement.js'])}" defer></script>{beacon_tag()}
 </body>
 </html>'''
 
@@ -988,28 +1004,51 @@ def git_date(relpath):
 # ---------------- SHARED VISUAL MEDIA ----------------
 VISUAL_MEDIA = json.load(open(os.path.join(ROOT, "content", "visual-media.json"), encoding="utf-8"))
 RESPONSIVE_MEDIA = json.load(open(os.path.join(ROOT, "content", "responsive-media.json"), encoding="utf-8"))
+VISUAL_MEDIA["experience_hero"]["art_direction"] = json.load(open(os.path.join(ROOT, "content", "home-art-direction.json"), encoding="utf-8"))
+from regional_seo import load_coverage
+REGIONAL_COVERAGE = load_coverage(ROOT)
 PRODUCT_HERO.update({slug: item["src"] for slug, item in VISUAL_MEDIA["products"].items()})
+from editorial_media import MEDIA as EDITORIAL_MEDIA, SPECIES as SPECIES_MEDIA, article_share_media
+PRODUCT_HERO.update({"blogs/post/" + slug: article_share_media(slug)["src"] for slug in EDITORIAL_MEDIA["posts"]})
+PRODUCT_HERO.update({"woods-we-use/" + slug: entry["images"][0]["src"] for slug, entry in SPECIES_MEDIA.items()})
+PRODUCT_HERO.update({"": VISUAL_MEDIA["experience_hero"]["src"], "products": VISUAL_MEDIA["catalogue_hero"]["src"],
+                     "blogs": VISUAL_MEDIA["blog_hero"]["src"], "woods-we-use": VISUAL_MEDIA["encyclopedia_hero"]["src"],
+                     "supply-markets": VISUAL_MEDIA["export_hero"]["src"]})
+
+def responsive_srcset(candidates):
+    """Register and validate every selected derivative before referencing it."""
+    sources = []
+    for candidate in candidates:
+        source = resolve_file(candidate["src"])
+        if not source:
+            raise SystemExit(f"Missing responsive image candidate: {candidate['src']}")
+        measured = image_size(source)
+        if not measured or measured[0] != candidate["width"]:
+            raise SystemExit(f"Responsive image width mismatch: {candidate['src']}")
+        if candidate.get("sha256") and hashlib.sha256(read_lf(source)).hexdigest() != candidate["sha256"]:
+            raise SystemExit(f"Responsive image hash mismatch: {candidate['src']}")
+        published = register_file(candidate["src"], source)
+        sources.append(f'{u(published)} {candidate["width"]}w')
+    return ", ".join(sources)
+
 
 def responsive_image_tag(tag, ref):
-    """Use only inspected, hash-recorded variants carried from reviewed production.
-
-    Same filenames in older mirrors can contain different scenes. Do not infer
-    candidates from suffixes or generate a srcset from unreviewed old files.
-    Existing explicit srcsets keep their author-supplied sizing contract.
-    """
+    """Use inspected variants; preserve existing explicit sizing contracts."""
     candidates = RESPONSIVE_MEDIA.get(ref)
     if not candidates or re.search(r'\bsrcset=', tag):
         return tag
-    srcset = ", ".join(f'{u(c["src"])} {c["width"]}w' for c in candidates)
+    srcset = responsive_srcset(candidates)
     return tag.replace("<img ", f'<img srcset="{esc(srcset)}" sizes="100vw" ', 1)
 
 
-def visual_image(item, *, eager=False, sizes="(max-width: 760px) 100vw, 50vw"):
+def visual_image(item, *, eager=False, sizes=None):
     """Resolve curated media through the same measured, registered asset pipeline.
 
     An explicitly selected image is a build requirement, not an optional
     placeholder: fail rather than quietly publish another image-free layout.
     """
+    if sizes is None:
+        sizes = "(max-width: 760px) calc(100vw - 40px), (min-width: 1340px) 780px, 62vw" if eager else "(max-width: 760px) 100vw, 50vw"
     tag = (f'<img src="{esc(item["src"])}" alt="{esc(item["alt"])}" '
            + ('loading="eager" fetchpriority="high" ' if eager else 'loading="lazy" ')
            + 'decoding="async">')
@@ -1017,11 +1056,29 @@ def visual_image(item, *, eager=False, sizes="(max-width: 760px) 100vw, 50vw"):
     if not resolved:
         raise SystemExit(f"Required visual media is unavailable: {item['src']}")
     resolved = re.sub(r'\bsizes="[^"]*"', f'sizes="{esc(sizes)}"', resolved)
+    if item.get("width") and item.get("height") and not re.search(r'\bwidth=', resolved):
+        resolved = resolved.replace("<img ", f'<img width="{int(item["width"])}" height="{int(item["height"])}" ', 1)
+    if item.get("art_direction"):
+        sources = ''.join(
+            f'<source media="{esc(choice["media"])}" type="image/webp" '
+            f'srcset="{esc(responsive_srcset(choice["candidates"]))}" sizes="{esc(choice["sizes"])}" '
+            f'width="{int(choice["width"])}" height="{int(choice["height"])}">'
+            for choice in item["art_direction"])
+        resolved = '<picture>' + sources + resolved + '</picture>'
     return rewrite_links(resolved)
 
 def visual_product_card(slug, level=3):
     _s, name, description = next(p for p in PRODUCTS if p[0] == slug)
-    photo = visual_image(VISUAL_MEDIA["products"][slug], sizes="(max-width: 480px) 100vw, (max-width: 860px) 50vw, 33vw")
+    # Actual catalogue columns/gutters: avoid selecting 960px photos for a
+    # 364px phone card when the reviewed 640px candidate already fits its DPR.
+    card_sizes = (
+        "(max-width: 360px) calc(100vw - 40px), "
+        "(max-width: 480px) calc(100vw - 48px), "
+        "(max-width: 620px) calc(50vw - 33px), "
+        "(max-width: 860px) calc(44.5vw - 14px), "
+        "(max-width: 1440px) calc(29.6667vw - 18.6667px), "
+        "(max-width: 1600px) calc(461.3333px - 3.6667vw), 402.6667px")
+    photo = visual_image(VISUAL_MEDIA["products"][slug], sizes=card_sizes)
     caption = (f'<p class="cw-media-caption">{esc(VISUAL_MEDIA["products"][slug]["caption"])}</p>'
                if VISUAL_MEDIA["products"][slug].get("caption") else "")
     return (f'<a class="cw-product-card" data-reveal="image" href="{u("/"+slug)}">'
@@ -1030,6 +1087,20 @@ def visual_product_card(slug, level=3):
             f'<p>{description}</p>{caption}<span class="cw-card__tag">Explore product &rarr;</span></div></a>')
 
 # ---------------- HOME ----------------
+def supply_markets():
+    from regional_seo import render_market_directory
+    body = f'''<section class="cw-hero cw-hero--light"><div class="cw-wrap"><div class="cw-hero__layout">
+      <div class="cw-hero__content"><p class="cw-hero__ey">From Kerala to your destination</p>
+        <h1>Materials for <em>your market.</em></h1>
+        <p>Explore country and city buying guides, then build your enquiry around the product and destination.</p>
+        <div class="cw-hero__cta"><a class="cw-btn cw-btn--p" href="#india">Find your market</a><a class="cw-btn cw-btn--g" href="{u('/contact')}">Request a quote</a></div>
+      </div><figure class="cw-hero__media">{visual_image(VISUAL_MEDIA['export_hero'], eager=True)}</figure>
+    </div></div></section>''' + render_market_directory(REGIONAL_COVERAGE, u)
+    write("supply-markets.html", src="content/regional-navigation.json", content=base(
+        "Plywood Supply Markets — India & Export | Cochin Wood",
+        "Browse Cochin Wood's country import guides and city plywood buying guides. Find product specifications and prepare a clear enquiry for your destination.",
+        "/supply-markets", body, crumbs=[("Supply markets", "/supply-markets")]))
+
 def home():
     from experience_home import render_home
     body = render_home(u, visual_image, VISUAL_MEDIA, WOOD_PATH)
@@ -1869,7 +1940,7 @@ def build_blog():
                 "description": html.unescape(desc or ""),
                 "author": {"@id": LIVE + "/#organization"},
                 "publisher": {"@id": LIVE + "/#organization"},
-                "image": OG_IMAGE,
+                "image": (hero_image("blogs/post/" + slug) or (OG_IMAGE,))[0],
                 "inLanguage": "en-IN",
                 "isPartOf": {"@type": "Blog", "@id": LIVE + "/blogs"},
                 "mainEntityOfPage": f"{LIVE}/blogs/post/{slug}",
@@ -1882,7 +1953,9 @@ def build_blog():
         n += 1
     # Native topic anchors work without JS; the search progressively filters
     # these same groups and keeps q/topic in the URL for return visits.
-    body = render_directory(live, taxonomy, u, visual_image(VISUAL_MEDIA['blog_hero'], eager=True))
+    from editorial_media import article_share_media
+    body = render_directory(live, taxonomy, u, visual_image(VISUAL_MEDIA['blog_hero'], eager=True),
+        thumbnail=lambda slug: visual_image(article_share_media(slug), sizes="(max-width: 560px) calc(100vw - 40px), (max-width: 860px) 45vw, 30vw"))
     # Posts allowed to have no "date", each with the why. Anything undated and
     # NOT in this dict is a mistake and gets the loud generic warning below.
     # Empty since 31 Aug 2026: the okoume-plywood post was dropped by owner decision -- one of
@@ -1967,6 +2040,7 @@ def build_sitemap():
           f'<sitemapindex {XMLNS.format("siteindex.xsd")}>\n'
           f'  <sitemap><loc>{LIVE}/sitemap-cms.xml</loc><lastmod>{lm_cms}</lastmod></sitemap>\n'
           f'  <sitemap><loc>{LIVE}/sitemap-post.xml</loc><lastmod>{lm_post}</lastmod></sitemap>\n'
+          f'  <sitemap><loc>{LIVE}/sitemap-images.xml</loc></sitemap>\n'
           '</sitemapindex>\n')
     return f"{len(paths)}({len(cms)}cms+{len(posts)}post)"
 
@@ -2019,7 +2093,7 @@ def copy_referenced_files():
 # the new sha in here until the gate goes green carries whatever landed on
 # cf-live meanwhile into production unread.
 LIVE_REF_NAME = "origin/cf-live"                         # where the pin came from
-LIVE_SHA = "4764d396d83240479fb45922908a68f03d62c9ec"    # Reviewed PR28 brand experience; carried media/root files remain byte-identical
+LIVE_SHA = "cdd736c8f36ad1e0d72f192a5e122ddf32a00970"    # Reviewed PR29: files/, workflow and all four carried root files are identical to PR28
 LIVE_REF = LIVE_SHA                # what git is actually handed, so no fetch can move it
 LIVE_PIN = LIVE_REF_NAME + "@" + LIVE_SHA[:12]           # what the banner and dist/ record
 
@@ -2662,7 +2736,7 @@ def build_redirects():
 
 # ---------------- assets + meta ----------------
 # One request instead of five; order preserved so cascade behaviour is unchanged.
-CSS_BUNDLE = ["fonts.css", "site.css", "guide.css", "wood-enc.css", "shell.css", "components.css", "visual-system.css", "experience.css", "experience-inner.css", "experience-motion.css", "blog-index.css", "blog-navigation.css", "catalogue-navigation.css", "inner-hero.css", "page-navigation.css", "encyclopedia-navigation.css"]
+CSS_BUNDLE = ["fonts.css", "site.css", "guide.css", "wood-enc.css", "shell.css", "components.css", "visual-system.css", "experience.css", "experience-inner.css", "experience-motion.css", "blog-index.css", "blog-navigation.css", "catalogue-navigation.css", "inner-hero.css", "page-navigation.css", "encyclopedia-navigation.css", "privacy-choices.css", "regional-navigation.css"]
 
 def _css_fix_urls(css, name):
     """Resolve /files/... backgrounds; neutralise the ones with no source file."""
@@ -2711,13 +2785,14 @@ def css_bundle_content():
 # build serves it from /assets/ where the pin is a year. Publish it under a fixed
 # name and a broken beacon is frozen in every returning buyer's browser until
 # September 2027, with no URL left to push a fix through.
-ASSETS = {"encyclopedia-navigation.js": "encyclopedia-navigation.js", "experience-motion.js": "experience-motion.js", "bundle.css": "bundle.css", "site.js": "site.js", "cw-events.js": "cw-events.js"}
+ASSETS = {"search-measurement.js": "search-measurement.js", "encyclopedia-navigation.js": "encyclopedia-navigation.js", "experience-motion.js": "experience-motion.js", "bundle.css": "bundle.css", "site.js": "site.js", "cw-events.js": "cw-events.js"}
 
 def _digest(data):
     if isinstance(data, str): data = data.encode("utf-8")
     return hashlib.sha256(data).hexdigest()[:8]
 
 def fingerprint_assets():
+    ASSETS["search-measurement.js"] = f"search-measurement.{_digest(read_lf(os.path.join(ROOT, 'assets', 'search-measurement.js')))}.js"
     ASSETS["encyclopedia-navigation.js"] = f"encyclopedia-navigation.{_digest(read_lf(os.path.join(ROOT, 'assets', 'encyclopedia-navigation.js')))}.js"
     ASSETS["bundle.css"] = f"bundle.{_digest(css_bundle_content())}.css"
     motion_path = os.path.join(ROOT, "assets", "experience-motion.js")
@@ -2852,7 +2927,7 @@ def assets_and_meta():
     # Publish the two fingerprinted scripts under their hashed names, so the
     # year-long immutable header below is only ever attached to a name that
     # changes when the bytes do.
-    for key, plain_name in (("site.js", "site.js"), ("cw-events.js", "cw-events.js"), ("experience-motion.js", "experience-motion.js"), ("encyclopedia-navigation.js", "encyclopedia-navigation.js")):
+    for key, plain_name in (("site.js", "site.js"), ("cw-events.js", "cw-events.js"), ("experience-motion.js", "experience-motion.js"), ("encyclopedia-navigation.js", "encyclopedia-navigation.js"), ("search-measurement.js", "search-measurement.js")):
         hashed = ASSETS.get(key)
         plain = os.path.join(dst, plain_name)
         if hashed and hashed != plain_name and os.path.exists(plain):
@@ -2963,7 +3038,7 @@ def assets_and_meta():
     day       = "  Cache-Control: public, max-age=86400\n"
     hashed_rules = "".join(
         f"/assets/{ASSETS[k]}\n" + immutable
-        for k in ("bundle.css", "site.js", "cw-events.js", "experience-motion.js", "encyclopedia-navigation.js") if ASSETS.get(k))
+        for k in ("bundle.css", "site.js", "cw-events.js", "experience-motion.js", "encyclopedia-navigation.js", "search-measurement.js") if ASSETS.get(k))
     # THE PUBLISHED TREE MUST SAY WHICH COMMIT IT WAS BUILT FROM. 311 of dist/'s
     # 607 files are copied out of cf-live's object store, and a dist/ that does
     # not name that commit cannot be audited once the terminal that printed the
@@ -3026,12 +3101,12 @@ def assets_and_meta():
         # the enforced line above, so promoting it later is a rename, not a rewrite.
         "  Content-Security-Policy-Report-Only: "
         "default-src 'self'; "
-        "script-src 'self' https://challenges.cloudflare.com https://static.cloudflareinsights.com; "
+        "script-src 'self' https://challenges.cloudflare.com https://static.cloudflareinsights.com https://www.googletagmanager.com; "
         "style-src 'self' 'unsafe-inline'; "
-        "img-src 'self' data:; "
+        "img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; "
         "font-src 'self'; "
         "connect-src 'self' https://www.cochinwood.in https://challenges.cloudflare.com "
-        "https://cloudflareinsights.com; "
+        "https://cloudflareinsights.com https://*.google-analytics.com https://www.googletagmanager.com; "
         "frame-src https://challenges.cloudflare.com; "
         "form-action 'self' https://www.cochinwood.in; "
         "base-uri 'self'; object-src 'none'; frame-ancestors 'self'\n"
@@ -3055,11 +3130,9 @@ def assets_and_meta():
     # that renders byte-for-byte what live serves, trailing no-newline included.
     write("robots.txt", ROBOTS_TXT + f"Sitemap: {LIVE}/sitemap.xml")
 
-def main():
-    if os.path.exists(DIST): shutil.rmtree(DIST)
-    os.makedirs(DIST)
+def _build():
     fingerprint_assets()         # hashes must exist before any page references them
-    home(); products(); contact()
+    home(); products(); contact(); supply_markets()
     n = encyclopedia()
     p = build_content_pages()
     p += build_about()
@@ -3070,10 +3143,16 @@ def main():
     # have a photo at the same /files/ path, the one the new pages actually
     # reference must be the one on disk, so it is written last and wins.
     c = carry_live_assets()
+    indexnow_config = json.load(open(os.path.join(ROOT, "content", "indexnow.json"), encoding="utf-8"))
+    indexnow_source = os.path.join(ROOT, indexnow_config["key_file"])
+    copy_lf(indexnow_source, os.path.join(DIST, os.path.basename(indexnow_source)))
     f = copy_referenced_files()  # so this must run after it
     for ref in sorted(_files_missing):
         warn(f"photo missing, reference removed: {ref}")
     sm = build_sitemap()
+    from regional_seo import write_image_sitemap
+    image_discovery = write_image_sitemap(DIST, LIVE)
+    print("IMAGE SITEMAP " + json.dumps(image_discovery, separators=(",", ":")))
     # last: it checks every rule against the pages this build actually emitted,
     # /files/ assets included, so everything has to be on disk first
     rd, rd_free, rd_window = build_redirects()
@@ -3087,6 +3166,38 @@ def main():
             print(f"  (or point MIRROR_DIR at a checkout that has them) and rebuild.")
         if STRICT:
             raise SystemExit("STRICT=1: failing the build on warnings")
+
+def main():
+    """Build beside the reviewed output; a failed build must not erase it."""
+    global DIST
+    destination = os.path.realpath(os.path.join(ROOT, "dist"))
+    root = os.path.realpath(ROOT)
+    if os.path.dirname(destination) != root:
+        raise RuntimeError("The build destination must be directly inside this repository")
+    staging = tempfile.mkdtemp(prefix=".cwi-dist-", dir=root)
+    backup = staging + "-previous"
+    # Every recursive cleanup target is checked after resolving its absolute path.
+    def cleanup(path):
+        resolved = os.path.realpath(path)
+        if os.path.dirname(resolved) != root or not os.path.basename(resolved).startswith(".cwi-dist-"):
+            raise RuntimeError("Refusing to clean a build directory outside this repository")
+        if os.path.isdir(resolved):
+            shutil.rmtree(resolved)
+    DIST = staging
+    try:
+        _build()
+        if os.path.exists(destination):
+            os.replace(destination, backup)
+        try:
+            os.replace(staging, destination)
+        except BaseException:
+            if os.path.exists(backup):
+                os.replace(backup, destination)
+            raise
+        cleanup(backup)
+    finally:
+        DIST = destination
+        cleanup(staging)
 
 if __name__ == "__main__":
     main()

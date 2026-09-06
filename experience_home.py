@@ -9,7 +9,7 @@ def render_home(link, image, media, wood_path):
     ]
     family_cards = "".join(
         f'<a class="cx-family" href="{link(href)}" data-reveal="image">'
-        f'<div class="cx-family__image">{image(media["products"][slug])}</div>'
+        f'<div class="cx-family__image">{image(media["products"][slug], sizes="(max-width: 360px) calc(100vw - 40px), (max-width: 620px) calc(100vw - 48px), (max-width: 1000px) 50vw, 34vw")}</div>'
         f'<div class="cx-family__body"><span class="cx-index">{num} / {tags}</span>'
         f'<h3>{title}<span aria-hidden="true">↗</span></h3><p>{description}</p></div></a>'
         for num, title, description, slug, href, tags in families)

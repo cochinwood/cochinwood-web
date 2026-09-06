@@ -163,6 +163,34 @@ def _clean(source: str, force_class: str | None = None) -> str:
     return source
 
 
+
+# Match inner-hero.css: stacked gutters below 761px, then 62% of the grid
+# after its gap; container caps at 1440px, viewport gutter caps at 88px.
+# Homepage is deliberately excluded: its tall, cropped image has separate art direction.
+HERO_IMAGE_SIZES = (
+    '(max-width: 480px) calc(100vw - 40px), '
+    '(max-width: 760px) calc(100vw - 48px), '
+    '(max-width: 900px) calc(55.18vw - 14.88px), '
+    '(max-width: 1440px) 53.196vw, '
+    '(max-width: 1600px) calc(864.28px - 6.82vw), 755.16px'
+)
+
+
+def _responsive_hero_media(markup: str) -> str:
+    """Correct only responsive image slot hints; preserve image identity and content."""
+    for node in reversed(HtmlFragment(markup).nodes):
+        if node.tag != 'img' or not node.attrs.get('srcset'):
+            continue
+        opening = markup[node.start:node.open_end]
+        attribute = 'sizes="' + HERO_IMAGE_SIZES + '"'
+        if node.attrs.get('sizes') is not None:
+            opening = re.sub(r"\bsizes\s*=\s*([\"']).*?\1", lambda _: attribute, opening, count=1, flags=re.S)
+        else:
+            opening = re.sub(r'\s*/?>$', lambda m: ' ' + attribute + m.group(0), opening)
+        markup = markup[:node.start] + opening + markup[node.open_end:]
+    return markup
+
+
 def normalize_page_hero(body: str, path: str, breadcrumb_html: str = '') -> tuple[str, bool]:
     if path.rstrip('/') == '' or 'class="cw-page-hero' in body:
         return body, False
@@ -209,7 +237,7 @@ def normalize_page_hero(body: str, path: str, breadcrumb_html: str = '') -> tupl
     contact = path.rstrip('/') == '/contact'
     outer_tag = 'header' if contact else hero.tag
     opening = _opening(body[hero.start:hero.open_end], classes, outer_tag)
-    image = _clean(tree.raw(media), 'cw-page-hero__media') if media else ''
+    image = _responsive_hero_media(_clean(tree.raw(media), 'cw-page-hero__media')) if media else ''
     normalized = (opening + '<div class="cw-page-hero__inner">' + crumb_markup
                   + '<div class="cw-page-hero__heading">' + kicker + title + '</div>'
                   + image + '<div class="cw-page-hero__support">' + _clean(supporting)

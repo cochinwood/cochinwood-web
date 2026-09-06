@@ -1,0 +1,11 @@
+.cw-regional-navigation{max-width:1280px;margin:0 auto 28px;padding:18px 28px;border-block:1px solid #d8e1da;display:flex;gap:14px 24px;align-items:center;flex-wrap:wrap;font-size:.86rem;color:#53645a}
+.cw-regional-navigation a,.cw-markets-intro a{color:#006f55;text-decoration:underline;text-underline-offset:3px}
+.cw-regional-navigation details{flex-basis:100%}.cw-regional-navigation summary,.cw-market-group summary,.cw-market-country summary{cursor:pointer;min-height:44px;padding-block:12px;font-weight:600;color:#1b4332}
+.cw-regional-navigation .cw-market-links{max-width:100%;display:flex;gap:12px 24px;flex-wrap:wrap;padding:10px 0;list-style:none}
+.cw-market-jumps{margin-block:30px 48px}.cw-market-jumps ul{display:flex;flex-wrap:wrap;gap:12px;list-style:none;padding:0}.cw-market-jumps a{display:block;padding:12px 20px;border:1px solid #bfcfc3;text-decoration:none}
+.cw-market-region{scroll-margin-top:140px;margin-block:48px}.cw-market-region h2{margin-bottom:22px}.cw-market-domestic{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 36px;align-items:start}
+.cw-market-group{border-bottom:1px solid #d8e1da;scroll-margin-top:140px}.cw-market-group summary span{font-weight:400;color:#657269;margin-left:10px;font-size:.8em}
+.cw-market-links{padding:0 0 20px 20px;margin:0}.cw-market-links li{margin-block:8px}.cw-market-countries{list-style:none;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.cw-market-country{border-top:1px solid #c9d7cc;padding-top:18px}.cw-market-country h3{font-family:Poppins,sans-serif;font-size:1.1rem;margin:0 0 12px}.cw-market-country details{font-size:.9rem}
+.cw-market-enquiry{border-top:1px solid #c9d7cc;margin-top:60px;padding-top:36px}.cw-market-enquiry .cw-hero__cta{display:flex;flex-wrap:wrap;gap:24px}
+@media(max-width:760px){.cw-market-domestic,.cw-market-countries{grid-template-columns:1fr}.cw-regional-navigation{padding-inline:20px}.cw-market-jumps a{padding:10px 14px}.cw-market-region{margin-block:36px}}

@@ -1,56 +1,61 @@
 {
   "/files/Hero%20Optimized/Home.webp": [
     {
-      "src": "/files/Hero%20Optimized/Home-320.webp",
-      "width": 320,
-      "sha256": "6e82cb078f7b035d4fc2e25298d5061e579ee9f4a4744cd69fb95c819f152a17"
+      "src": "/files/Responsive/home-1b7d40e8-400.webp",
+      "width": 400,
+      "sha256": "57f10634b3dc5abc246de62067c16df73678f85295baff7f152d77b65869e1f6"
     },
     {
-      "src": "/files/Hero%20Optimized/Home-480.webp",
-      "width": 480,
-      "sha256": "4bb4754eceee3714f1aea3a7ae5909161e6c8e1fcab86505469e04c2375eb671"
-    },
-    {
-      "src": "/files/Hero%20Optimized/Home-640.webp",
+      "src": "/files/Responsive/home-1b7d40e8-640.webp",
       "width": 640,
-      "sha256": "7f4ae7392686267a9cf1d418045c9e53bda146bee34be2a51b6fab3b2533fecd"
+      "sha256": "d3b6933547c1c436ff32bbd42ffeca4ba280b1df928f8f8848281862a6b021c4"
     },
     {
-      "src": "/files/Hero%20Optimized/Home-960.webp",
+      "src": "/files/Responsive/home-1b7d40e8-960.webp",
       "width": 960,
-      "sha256": "c1f3772a53ba9fc6e0c9df0109c25c76c57aec53cfe12b036a4a11bab9bce3ee"
+      "sha256": "e08f82450ac7416ebb203ce479d4b217f41e6815b96b1eaed84335c2ba80cb08"
     },
     {
-      "src": "/files/Hero%20Optimized/Home.webp",
+      "src": "/files/Responsive/home-1b7d40e8-1200.webp",
       "width": 1200,
-      "sha256": "1b7d40e886e96f805d20298b5b150f750fac51dd5838a49fce3e1f3184a15835"
+      "sha256": "3e7abc10af88f73d7955b8ae3f26e8eaa2706f865ed003615ac7aef74b3c8651"
     }
   ],
   "/files/Hero%20Optimized/Products.jpg": [
     {
-      "src": "/files/Hero%20Optimized/Products-320.jpg",
+      "src": "/files/Responsive/catalogue-materials-90cd5d16-320.webp",
       "width": 320,
-      "sha256": "af291fd55c80f441e429fc9e155d52b59fe6d4ea8187fe145d2a04a56d9e5682"
+      "sha256": "64710b01ac8860c7588a1e9300430013f6922f55cea492c6419e72dbf489a169"
     },
     {
-      "src": "/files/Hero%20Optimized/Products-480.jpg",
+      "src": "/files/Responsive/catalogue-materials-90cd5d16-480.webp",
       "width": 480,
-      "sha256": "9cac9fc8663b38902a8d7b11d2920d7956953aa71e54703c978cce8489613b20"
+      "sha256": "d76d64ef2050eacddf72fd2d9472994543edf42c930c3f261e84e829a9900423"
     },
     {
-      "src": "/files/Hero%20Optimized/Products-640.jpg",
+      "src": "/files/Responsive/catalogue-materials-90cd5d16-640.webp",
       "width": 640,
-      "sha256": "9aa8030c01ebac5881159d091729df524f536288c62efbd42f3180380d8e29a0"
+      "sha256": "18e61f5c72e5cbbb69733e0c89dca75c2f7004e6551049990ed8ef33b8938ace"
     },
     {
-      "src": "/files/Hero%20Optimized/Products-960.jpg",
+      "src": "/files/Responsive/catalogue-materials-90cd5d16-720.webp",
+      "width": 720,
+      "sha256": "bc24bc943d2f7ed96442531618467c46a1478d0dc78d5fd97e5c4780f8287fcd"
+    },
+    {
+      "src": "/files/Responsive/catalogue-materials-90cd5d16-768.webp",
+      "width": 768,
+      "sha256": "9b2f5524ff2be7d6a709b987620be9a92674900fbc9b39a9d07c1ce610740643"
+    },
+    {
+      "src": "/files/Responsive/catalogue-materials-90cd5d16-960.webp",
       "width": 960,
-      "sha256": "76e8647f0765805d67da901f9cf3c30df979bbb8e3019fd91c8ac0120e142198"
+      "sha256": "0ca463faa2349bb729ec8e570ce6cdff9cc10debc2d057fea9836b5b6f78be07"
     },
     {
-      "src": "/files/Hero%20Optimized/Products.jpg",
+      "src": "/files/Responsive/catalogue-materials-90cd5d16-1200.webp",
       "width": 1200,
-      "sha256": "90cd5d16b73628a9f9c466a0d1520f33393e2329c721f0c8348b81f34555443b"
+      "sha256": "f838b2bc4bceef023cec9f4ec3e167c3d5b8d89e25e9d61bc3973a89281f82e7"
     }
   ],
   "/files/Plywood%20Product%20Photos/cwi-packing-plywood.webp": [
@@ -525,6 +530,1352 @@
       "src": "/files/Product/silverwood.jpg",
       "width": 1024,
       "sha256": "0f6b53edec2bd8d327410b821b9c8e284fa1e98a4bc7ac0cb413788d8411a0c2"
+    }
+  ],
+  "/files/Editorial/cabinetry.webp": [
+    {
+      "src": "/files/Editorial/cabinetry-400.webp",
+      "width": 400,
+      "sha256": "7c6d6c4093f4910e6d82b9a381f8a97d1f56a579bb7ece958c327d18c3f2e4a4"
+    },
+    {
+      "src": "/files/Editorial/cabinetry-800.webp",
+      "width": 800,
+      "sha256": "d714a3b3981f4cb3d8585130a75f7356c817ba72fdd39ad93e7e819ce498eac1"
+    },
+    {
+      "src": "/files/Editorial/cabinetry-1200.webp",
+      "width": 1200,
+      "sha256": "eeb454e8107d2a5bf8e85f64fe03d0864c64501dc2426741a29bde9388310cf3"
+    },
+    {
+      "src": "/files/Editorial/cabinetry.webp",
+      "width": 1536,
+      "sha256": "198b28e238e13906d0b4775ac282060e4c2fedd18e849194b821361db225cf86"
+    }
+  ],
+  "/files/Editorial/packing-case.webp": [
+    {
+      "src": "/files/Editorial/packing-case-400.webp",
+      "width": 400,
+      "sha256": "d340a62efea6cd2d3557351edc4c6977e660d33b015f76a79eb0c0a111e58af0"
+    },
+    {
+      "src": "/files/Editorial/packing-case-800.webp",
+      "width": 800,
+      "sha256": "f88f0bbf506893203c8eafe1400f373a069363b23a2c4aa40cdc8b3780beb1b9"
+    },
+    {
+      "src": "/files/Editorial/packing-case-1200.webp",
+      "width": 1200,
+      "sha256": "3edb509f425fe14e0baff55d0faf4e3bfe2d6952a54b25b184fa935bb1f9980a"
+    },
+    {
+      "src": "/files/Editorial/packing-case.webp",
+      "width": 1536,
+      "sha256": "5b73561c6d86361bf45ccd11298206f5933b887c34ef4664c6a4e6090c7b38fb"
+    }
+  ],
+  "/files/Editorial/finger-joint-detail.webp": [
+    {
+      "src": "/files/Editorial/finger-joint-detail-400.webp",
+      "width": 400,
+      "sha256": "0baa67b279f50e9688a14f155baefac63736b347352ad0fe739549184d769400"
+    },
+    {
+      "src": "/files/Editorial/finger-joint-detail-800.webp",
+      "width": 800,
+      "sha256": "377d1cfcdcf235193d6a53d9bf865dec658b0cb559b661a03e7a925dddd0198f"
+    },
+    {
+      "src": "/files/Editorial/finger-joint-detail-1200.webp",
+      "width": 1200,
+      "sha256": "1c8f7d7c08545ba4ead8171f8a6ef01d8cb5d57e51006efc60c0786db313fbbb"
+    },
+    {
+      "src": "/files/Editorial/finger-joint-detail.webp",
+      "width": 1536,
+      "sha256": "d2bfa4e1643e5666656ebe68f6fbf16ac7657e18126c262f1b7fcab521c59aae"
+    }
+  ],
+  "/files/Species/acacia-mangium-wood.webp": [
+    {
+      "src": "/files/Species/acacia-mangium-wood-320.webp",
+      "width": 320,
+      "sha256": "a36caa6e47fe620dee981e8c9675ecb6e02ea51145c0f6e10a5c2ac4156e3746"
+    },
+    {
+      "src": "/files/Species/acacia-mangium-wood-640.webp",
+      "width": 640,
+      "sha256": "d93553706ea739ca2ab06b8aacd6fc6a1ac23bb57a818514cc89fcf947d12615"
+    },
+    {
+      "src": "/files/Species/acacia-mangium-wood.webp",
+      "width": 880,
+      "sha256": "91169db1314a4b0527df460fc5c0b4e8f8524cdbc1efb650fdc918802e4f2c65"
+    }
+  ],
+  "/files/Species/acacia-mangium-botanical.webp": [
+    {
+      "src": "/files/Species/acacia-mangium-botanical-320.webp",
+      "width": 320,
+      "sha256": "52e6b302d9e5e49a570aabae2afa8eb83629cd778cb2511c28cebfe18a7f547c"
+    },
+    {
+      "src": "/files/Species/acacia-mangium-botanical.webp",
+      "width": 450,
+      "sha256": "4a1f20927cd5188fcd68dff1952934821b17f3ef1a5c4be278b2fb7ce31c712b"
+    }
+  ],
+  "/files/Species/birch-botanical.webp": [
+    {
+      "src": "/files/Species/birch-botanical-320.webp",
+      "width": 320,
+      "sha256": "aa0cf4b972ce080bba02534a5b8796d008b05ad8e0323a79af539247505b9933"
+    },
+    {
+      "src": "/files/Species/birch-botanical-640.webp",
+      "width": 640,
+      "sha256": "f1170040e48893db8b78b97fe6feff2cd102373e9e041955da624b4bdf11c7f7"
+    },
+    {
+      "src": "/files/Species/birch-botanical-960.webp",
+      "width": 960,
+      "sha256": "afcdbdf6d7bf76fc8f8bb21b520c8ad821cfaab9f5118600522c2fc1e3e6241e"
+    },
+    {
+      "src": "/files/Species/birch-botanical.webp",
+      "width": 1200,
+      "sha256": "e4c8dbc6931ea837b122557e9c70793f12108fea730ad31ee3c00acf53e164e7"
+    }
+  ],
+  "/files/Species/eucalyptus-botanical.webp": [
+    {
+      "src": "/files/Species/eucalyptus-botanical-320.webp",
+      "width": 320,
+      "sha256": "dd1afc663ca3c3a3f0de74a358e0c0741241f9ddb53ba32a623bc25ba1edf884"
+    },
+    {
+      "src": "/files/Species/eucalyptus-botanical.webp",
+      "width": 483,
+      "sha256": "9dbedf45bd9afce274985e3714648736388286e0692b77c39115de2000d21bab"
+    }
+  ],
+  "/files/Species/gmelina-wood.webp": [
+    {
+      "src": "/files/Species/gmelina-wood-320.webp",
+      "width": 320,
+      "sha256": "18d074a48a3cc8d62947a86e4acc8ac58c1d6ebdefec30457ea596ac23ad4fb4"
+    },
+    {
+      "src": "/files/Species/gmelina-wood-640.webp",
+      "width": 640,
+      "sha256": "cd8857aca41b2ec9846b38a2f6a97e4e5bc6c259a21346042dd28f75d5484f5d"
+    },
+    {
+      "src": "/files/Species/gmelina-wood.webp",
+      "width": 880,
+      "sha256": "74c514eb26d451d887b2fa54f07f3cff49c9e57929617925b5a0ed8e0a01bb88"
+    }
+  ],
+  "/files/Species/gmelina-botanical.webp": [
+    {
+      "src": "/files/Species/gmelina-botanical-320.webp",
+      "width": 320,
+      "sha256": "b51729eb9ee43279af6330e873ea6ec30061d6a1e8da30c62b94697ba7c55c7c"
+    },
+    {
+      "src": "/files/Species/gmelina-botanical-640.webp",
+      "width": 640,
+      "sha256": "3980815f29b603559312702fc28e7f518ca367bada9ac6305c5eb6caf1853fb7"
+    },
+    {
+      "src": "/files/Species/gmelina-botanical-960.webp",
+      "width": 960,
+      "sha256": "c0680f1d32e969771565f800aa9383dada90a5cbe35f961ccef1c9af71d0e763"
+    },
+    {
+      "src": "/files/Species/gmelina-botanical.webp",
+      "width": 1200,
+      "sha256": "361e754003f2b51152e43c0237738dd65c1a7f8a5f8b63783fb35cedb5807c11"
+    }
+  ],
+  "/files/Species/gurjan-wood.webp": [
+    {
+      "src": "/files/Species/gurjan-wood-320.webp",
+      "width": 320,
+      "sha256": "f29b835ee393f495c07b0bf0369a49d120079913101784ba92772b4a0b14f968"
+    },
+    {
+      "src": "/files/Species/gurjan-wood-640.webp",
+      "width": 640,
+      "sha256": "d9fe73558b47894e796cd2b8c9f2324bd9aa6db37ed01b9ef15e60bc90f9ad34"
+    },
+    {
+      "src": "/files/Species/gurjan-wood.webp",
+      "width": 880,
+      "sha256": "f91858d55235a581cd283b701125bcd3768137d7f4e405abd478200f5c54fb52"
+    }
+  ],
+  "/files/Species/gurjan-botanical.webp": [
+    {
+      "src": "/files/Species/gurjan-botanical-320.webp",
+      "width": 320,
+      "sha256": "53892090e8babfdfcd0d42c8e7b794310bb9617faa9d1c78452af51a2ef66d84"
+    },
+    {
+      "src": "/files/Species/gurjan-botanical-640.webp",
+      "width": 640,
+      "sha256": "007d5932a0f8db11f2191d04bc157f055a43f15269c7ba8136949adc6ccc2caa"
+    },
+    {
+      "src": "/files/Species/gurjan-botanical-960.webp",
+      "width": 960,
+      "sha256": "34271cc4a75d4c5f788cc9cd7b80c48e707cf219d0538b4581ed222614ffb349"
+    },
+    {
+      "src": "/files/Species/gurjan-botanical.webp",
+      "width": 1067,
+      "sha256": "42222bd59660da91b243261b5cb1238cdab1bd045a9a5ce50c7bdbe8c7270673"
+    }
+  ],
+  "/files/Species/jackwood-botanical.webp": [
+    {
+      "src": "/files/Species/jackwood-botanical-320.webp",
+      "width": 320,
+      "sha256": "c9398302beb10c8bb8cabdc41ee087e0931b6c3db3863f56c4dea6184ac4933e"
+    },
+    {
+      "src": "/files/Species/jackwood-botanical-640.webp",
+      "width": 640,
+      "sha256": "3f9ddada3931052340934251c2ca5a2835ba05669f06db85c5b1ed45f336eb60"
+    },
+    {
+      "src": "/files/Species/jackwood-botanical-960.webp",
+      "width": 960,
+      "sha256": "abb5550508fbdb24549d1e737a4dc5beacc6b1bad3b8bdec93674dda9a4f1f93"
+    },
+    {
+      "src": "/files/Species/jackwood-botanical.webp",
+      "width": 1067,
+      "sha256": "0f59b32a8678ac6d9e54da93791e69c56ace9cea48ba81777345a8b9e92f15f1"
+    }
+  ],
+  "/files/Species/mahogany-wood.webp": [
+    {
+      "src": "/files/Species/mahogany-wood-320.webp",
+      "width": 320,
+      "sha256": "5425ab73979d711b6e6737fdd6f8f55a7aea5dfbfefa3b56d39495d895df18e3"
+    },
+    {
+      "src": "/files/Species/mahogany-wood-640.webp",
+      "width": 640,
+      "sha256": "a68eaf330009a728a8c84b1d5e9c84424bae701263fb2dd069a95fb63fb92052"
+    },
+    {
+      "src": "/files/Species/mahogany-wood.webp",
+      "width": 791,
+      "sha256": "9b065d4aca97473eebc8491eb7503b572f08d9fc90c070943ce0273af6d6d5c8"
+    }
+  ],
+  "/files/Species/mahogany-botanical.webp": [
+    {
+      "src": "/files/Species/mahogany-botanical-320.webp",
+      "width": 320,
+      "sha256": "f2d5d357f750eced784003ea4cd76a6157c9757bbb4bfffd26367ea449a7037f"
+    },
+    {
+      "src": "/files/Species/mahogany-botanical-640.webp",
+      "width": 640,
+      "sha256": "8e4cf14080eebb0e9eecd14e2cf76aaf8014aeb4417163bfac80d45b3812bb7b"
+    },
+    {
+      "src": "/files/Species/mahogany-botanical.webp",
+      "width": 700,
+      "sha256": "1f2572fd16b5da6c9ae78b5609df20282a64524eeaec18d881eef4d3e8594f2d"
+    }
+  ],
+  "/files/Species/mango-wood.webp": [
+    {
+      "src": "/files/Species/mango-wood-320.webp",
+      "width": 320,
+      "sha256": "f4cb9e62a6eebb876352a166bb99997c555abca524a963338c13a6aa605b7608"
+    },
+    {
+      "src": "/files/Species/mango-wood-640.webp",
+      "width": 640,
+      "sha256": "c448b907832bb7f771ba3a5aed9f21d58d3a217b8de0e17984efb68f3e4f5b01"
+    },
+    {
+      "src": "/files/Species/mango-wood.webp",
+      "width": 750,
+      "sha256": "0ff3102d2fff241f43fe40b0f24e972cc87ce2c372d2d2fcbc743529a1f1b022"
+    }
+  ],
+  "/files/Species/mango-botanical.webp": [
+    {
+      "src": "/files/Species/mango-botanical-320.webp",
+      "width": 320,
+      "sha256": "77cb82eb5689a93fa52b91df3ef63dc2ead0b165e31f59b039db1e2d6e577f32"
+    },
+    {
+      "src": "/files/Species/mango-botanical-640.webp",
+      "width": 640,
+      "sha256": "8adb45c0bb7f1bb984d59c666bed4270684eaf96c07ed997edda591e634face6"
+    },
+    {
+      "src": "/files/Species/mango-botanical-960.webp",
+      "width": 960,
+      "sha256": "66bb77854b96c4ae800056b648a8a6262e348681a7d789bc75cc58c5d033475c"
+    },
+    {
+      "src": "/files/Species/mango-botanical.webp",
+      "width": 1200,
+      "sha256": "e0fbd4880dcc6ce1bb051d67e7416b303da05b5e8ddff4b59db5d7e8dc764652"
+    }
+  ],
+  "/files/Species/melia-dubia-botanical.webp": [
+    {
+      "src": "/files/Species/melia-dubia-botanical-320.webp",
+      "width": 320,
+      "sha256": "416a14210ae5d2e1be40c2e60e0b1592fee5040e18cca8887ce97f08015248e2"
+    },
+    {
+      "src": "/files/Species/melia-dubia-botanical-640.webp",
+      "width": 640,
+      "sha256": "68462e77c6b328f57c78b71103673097ec9ee2eabde7581171b061141a8a90b5"
+    },
+    {
+      "src": "/files/Species/melia-dubia-botanical-960.webp",
+      "width": 960,
+      "sha256": "4ffc9ab98b5b70df165b64bde658d02412b3e82e8aa115b2653f1a5ab36a315e"
+    },
+    {
+      "src": "/files/Species/melia-dubia-botanical.webp",
+      "width": 1200,
+      "sha256": "4596a165f3023c6b4b9ce931468783fd28ac190eb0305bc1063d001cb29b3641"
+    }
+  ],
+  "/files/Species/meranti-wood.webp": [
+    {
+      "src": "/files/Species/meranti-wood-320.webp",
+      "width": 320,
+      "sha256": "02798c3e7748e4ff05c94cdb9e68f379d06fc6168cde325b22a30a1f67b1c8dd"
+    },
+    {
+      "src": "/files/Species/meranti-wood-640.webp",
+      "width": 640,
+      "sha256": "aac13ef97cee85e314c924f8d3e6937ed8283c3cb792219432ca91ca6b295dea"
+    },
+    {
+      "src": "/files/Species/meranti-wood.webp",
+      "width": 880,
+      "sha256": "fd7ed32a742a0453c1c86026220a30b606be55b9c1a86c36c0baee99e3f5c112"
+    }
+  ],
+  "/files/Species/meranti-botanical.webp": [
+    {
+      "src": "/files/Species/meranti-botanical-320.webp",
+      "width": 320,
+      "sha256": "ec29371c0515b0b8cb866326597131587358d0039b8f8c1d5211626f1dc71f31"
+    },
+    {
+      "src": "/files/Species/meranti-botanical-640.webp",
+      "width": 640,
+      "sha256": "f2133827f5d91872ffc081f414ed9fb6527cea6ccae3736719d6137931c34f91"
+    },
+    {
+      "src": "/files/Species/meranti-botanical.webp",
+      "width": 844,
+      "sha256": "aa9d4cb443821d26a60599bac8f2ed0fdb06f59a7a9bcc01528cf8340bbe3146"
+    }
+  ],
+  "/files/Species/neem-botanical.webp": [
+    {
+      "src": "/files/Species/neem-botanical-320.webp",
+      "width": 320,
+      "sha256": "a741bab1a0a5f29d157cb1959d0be8ee7639e23fab8b47da8baf520280be8290"
+    },
+    {
+      "src": "/files/Species/neem-botanical-640.webp",
+      "width": 640,
+      "sha256": "c7c7b2d5077a31feb539fca573a1c784e40f99d7ba0ce17f2e58b1d013b507f4"
+    },
+    {
+      "src": "/files/Species/neem-botanical-960.webp",
+      "width": 960,
+      "sha256": "3e38352106573f518845aedc77e1d51e80148b390235228a8ccf78611b492573"
+    },
+    {
+      "src": "/files/Species/neem-botanical.webp",
+      "width": 1200,
+      "sha256": "325c4db16c186166e826d11450896c1d7fb0720c384d417469b55ac0122806c8"
+    }
+  ],
+  "/files/Species/okoume-wood.webp": [
+    {
+      "src": "/files/Species/okoume-wood-320.webp",
+      "width": 320,
+      "sha256": "844bb24b0254256ceab3338b417c5bfe57b21ec1466fa260dda9821409e96a6a"
+    },
+    {
+      "src": "/files/Species/okoume-wood-640.webp",
+      "width": 640,
+      "sha256": "4aa34b5dbfa645daac89940a41053bdee965bcc65e8843a87700b494df4ec6b6"
+    },
+    {
+      "src": "/files/Species/okoume-wood.webp",
+      "width": 724,
+      "sha256": "d88cada975603469f91626fc3fb7a7b0fc8c206d239d72c9f2596269e890d12d"
+    }
+  ],
+  "/files/Species/okoume-botanical.webp": [
+    {
+      "src": "/files/Species/okoume-botanical-320.webp",
+      "width": 320,
+      "sha256": "f3b1c249350c09ae7940a8a48a7e950350c4b4d474a0f4be681dc8f71e6b1d7f"
+    },
+    {
+      "src": "/files/Species/okoume-botanical.webp",
+      "width": 640,
+      "sha256": "c34c6927d5f7af8a6d8e5a4577f148a268dacb068c12b3ff78e72ca7a93a376e"
+    }
+  ],
+  "/files/Species/pine-wood.webp": [
+    {
+      "src": "/files/Species/pine-wood-320.webp",
+      "width": 320,
+      "sha256": "a7260bccd0a3593c5511d8a41d84964d3c22720282d62e2cd40979b60db4bab4"
+    },
+    {
+      "src": "/files/Species/pine-wood-640.webp",
+      "width": 640,
+      "sha256": "775b9b3074923b937dc2635513c24d154138e557cbf6aa5e63ca833d8c2a24d0"
+    },
+    {
+      "src": "/files/Species/pine-wood.webp",
+      "width": 649,
+      "sha256": "87bbee38c00fca2e9708ef3c53e68dbcdfaf186eaaf81bc842b53b3e43ff156b"
+    }
+  ],
+  "/files/Species/pine-botanical.webp": [
+    {
+      "src": "/files/Species/pine-botanical-320.webp",
+      "width": 320,
+      "sha256": "be8465fcbcd43a451c0dfce0af54e70e7ee6b1970d879620f70b711a388ff568"
+    },
+    {
+      "src": "/files/Species/pine-botanical-640.webp",
+      "width": 640,
+      "sha256": "57531f7f59faa19d8b9661bbed2fe4b9d247f7c8f12c4b5bda40cdcb4719dc52"
+    },
+    {
+      "src": "/files/Species/pine-botanical-960.webp",
+      "width": 960,
+      "sha256": "3d34feef516ff2bad5d3589ff0dff87c8d6968f6ac5c336e0a84f1987df24e25"
+    },
+    {
+      "src": "/files/Species/pine-botanical.webp",
+      "width": 1200,
+      "sha256": "ef0d96a18252a3d83d52da9f938756e658f6e31dbec4b5ec1d669b6808c6c792"
+    }
+  ],
+  "/files/Species/poplar-botanical.webp": [
+    {
+      "src": "/files/Species/poplar-botanical-320.webp",
+      "width": 320,
+      "sha256": "86d9412b4bee9aaa94e9fa35eb1dd16415546fe47b0f5ae296ef70091e525f84"
+    },
+    {
+      "src": "/files/Species/poplar-botanical-640.webp",
+      "width": 640,
+      "sha256": "6db1ecf0e3d8c243e824e560a89166ea808e899222a98a01719dacb1a03b05b3"
+    },
+    {
+      "src": "/files/Species/poplar-botanical-960.webp",
+      "width": 960,
+      "sha256": "1cb4c1499010da54d4e433df43924811a65e707b7c630b7e538253bef6e80018"
+    },
+    {
+      "src": "/files/Species/poplar-botanical.webp",
+      "width": 1200,
+      "sha256": "bbacdb20cc1c7827175db06b14e8f9dd95e9892be3803a6ccfd302372b135aea"
+    }
+  ],
+  "/files/Species/rubberwood-wood.webp": [
+    {
+      "src": "/files/Species/rubberwood-wood-320.webp",
+      "width": 320,
+      "sha256": "7ebe10105a7e90b7fca2b42d22877a5727df4e1367a53c20bacd1e4a39b4c9c8"
+    },
+    {
+      "src": "/files/Species/rubberwood-wood-640.webp",
+      "width": 640,
+      "sha256": "7f1df39353b17ad08924ae5b1e733966b34f093023f90f978f9603fe3999bdd1"
+    },
+    {
+      "src": "/files/Species/rubberwood-wood.webp",
+      "width": 880,
+      "sha256": "34e72e95750c008a9fd90aa8700e6dd3f6e022886cea5cf11c77af3f5144291b"
+    }
+  ],
+  "/files/Species/rubberwood-botanical.webp": [
+    {
+      "src": "/files/Species/rubberwood-botanical-320.webp",
+      "width": 320,
+      "sha256": "43e9ad8a6a534ba5739fa0d19898796f56334a53d236df4fb03184f227460d52"
+    },
+    {
+      "src": "/files/Species/rubberwood-botanical.webp",
+      "width": 431,
+      "sha256": "b5468c0c81df6f941ecb9f3a36dcd785d1dd9eed90d4cf14ce4105462f59829e"
+    }
+  ],
+  "/files/Species/sal-botanical.webp": [
+    {
+      "src": "/files/Species/sal-botanical-320.webp",
+      "width": 320,
+      "sha256": "be28fd10d5a42f2edb3bd5571abe3b30abb32ef2491c2ac463435ad15134d373"
+    },
+    {
+      "src": "/files/Species/sal-botanical-640.webp",
+      "width": 640,
+      "sha256": "2049f952fc20e0f513d2738ac20c2ca5d8deb6999924cd326239885ee3604007"
+    },
+    {
+      "src": "/files/Species/sal-botanical-960.webp",
+      "width": 960,
+      "sha256": "b8db6d610fe27bd3a009b264ba1224d25c06644c1c24f3ea10dbb2aad912fe3a"
+    },
+    {
+      "src": "/files/Species/sal-botanical.webp",
+      "width": 1200,
+      "sha256": "87428665526e3d3786e3e7fd0d73bdd7415f3c52d63e4453004ca1130c077bf9"
+    }
+  ],
+  "/files/Species/semul-wood.webp": [
+    {
+      "src": "/files/Species/semul-wood-320.webp",
+      "width": 320,
+      "sha256": "73d95f1f4bb1dc4d33e9662004cf04346702be25bbad5fd9f6f9f1675860ad6d"
+    },
+    {
+      "src": "/files/Species/semul-wood-640.webp",
+      "width": 640,
+      "sha256": "4db3099bdad775547686b9e8a2d5d5694d8df4eaab2f1fb60662aaea87fe62b8"
+    },
+    {
+      "src": "/files/Species/semul-wood.webp",
+      "width": 730,
+      "sha256": "1a492885614ba342455123955a8a633ba092a442c55b688ee50655f10b5ed76e"
+    }
+  ],
+  "/files/Species/semul-botanical.webp": [
+    {
+      "src": "/files/Species/semul-botanical-320.webp",
+      "width": 320,
+      "sha256": "c9437a7c56f8a1fb41442a10559cd693e9097e0688078dbac81ddcebd444bde9"
+    },
+    {
+      "src": "/files/Species/semul-botanical-640.webp",
+      "width": 640,
+      "sha256": "e85313de4eba4269c3d3344d9f1045fb00dfccfc0e7332e6960fbce577496a9e"
+    },
+    {
+      "src": "/files/Species/semul-botanical-960.webp",
+      "width": 960,
+      "sha256": "9ee1f3d3b86bc041c55589422147292535137e730d4494af0be83d643ca81978"
+    },
+    {
+      "src": "/files/Species/semul-botanical.webp",
+      "width": 1200,
+      "sha256": "456c01bec68f13884114bed44fa1c933c7ae50787f1ebd56bd0f58cbe06dd2f3"
+    }
+  ],
+  "/files/Species/sheesham-wood.webp": [
+    {
+      "src": "/files/Species/sheesham-wood-320.webp",
+      "width": 320,
+      "sha256": "ffb11d3b1c6dd00a6ca73063ad94b8a0c8c4aca0b9154cecfd2439f18061bf77"
+    },
+    {
+      "src": "/files/Species/sheesham-wood-640.webp",
+      "width": 640,
+      "sha256": "3cc1835bcfc8bbed3e1bd9a7913bcbb10588d4f6db34aa32dec0898dcf3b9d33"
+    },
+    {
+      "src": "/files/Species/sheesham-wood.webp",
+      "width": 800,
+      "sha256": "db343d5226e75d3fa96a1ee7611a46244f6a4d19639503eca856cfa7894ff9e7"
+    }
+  ],
+  "/files/Species/sheesham-botanical.webp": [
+    {
+      "src": "/files/Species/sheesham-botanical-320.webp",
+      "width": 320,
+      "sha256": "f8e53f89161a2f149810ec49017bb9b6626d86dec5cacb6c0e7fad79e2e2160e"
+    },
+    {
+      "src": "/files/Species/sheesham-botanical-640.webp",
+      "width": 640,
+      "sha256": "c624b874073b1d000a70906a4bea979266e1a5a68358d7214ee361c2b3210862"
+    },
+    {
+      "src": "/files/Species/sheesham-botanical-960.webp",
+      "width": 960,
+      "sha256": "5550f3ed7ee0f07b448916ee7fb10760682fedf27e38a01be25f2aecc6fe7a31"
+    },
+    {
+      "src": "/files/Species/sheesham-botanical.webp",
+      "width": 1200,
+      "sha256": "7b80d0b36c20ebf48d230257a5cc1fad9e4a356299c7228b84853feeeb3fcdc6"
+    }
+  ],
+  "/files/Species/silver-oak-wood.webp": [
+    {
+      "src": "/files/Species/silver-oak-wood-320.webp",
+      "width": 320,
+      "sha256": "65337fed6d625c5b33e9c33134e0f629c1bd94ca351cdc33b59bdcad739dcb67"
+    },
+    {
+      "src": "/files/Species/silver-oak-wood-640.webp",
+      "width": 640,
+      "sha256": "b571b9f1f026d5b198989ede7ce9b5dfd8d49ccd6b5faf3144195f5c82b2dcb1"
+    },
+    {
+      "src": "/files/Species/silver-oak-wood.webp",
+      "width": 800,
+      "sha256": "c4ac9f293a2c43605a0ff6a34e62b8de2234791c1d5a456a95b286214ed28b8d"
+    }
+  ],
+  "/files/Species/silver-oak-botanical.webp": [
+    {
+      "src": "/files/Species/silver-oak-botanical-320.webp",
+      "width": 320,
+      "sha256": "4263ad7d38b2172e4321c31dec7982a559fc24e98f487ef7a2a6e052558914ca"
+    },
+    {
+      "src": "/files/Species/silver-oak-botanical-640.webp",
+      "width": 640,
+      "sha256": "9af3fd667f53e2bbb5a67e09f1d7028acb7998d96542c6a4bef624d03d2ed68b"
+    },
+    {
+      "src": "/files/Species/silver-oak-botanical.webp",
+      "width": 768,
+      "sha256": "a3b3ed97231d5a97bc9283ea4ec39247156db24b8965982a53ec500f525872ad"
+    }
+  ],
+  "/files/Species/teak-wood.webp": [
+    {
+      "src": "/files/Species/teak-wood-320.webp",
+      "width": 320,
+      "sha256": "0db0ca980a269f76881479dde09e0d1d8bf324f116cc007914811463488df522"
+    },
+    {
+      "src": "/files/Species/teak-wood-640.webp",
+      "width": 640,
+      "sha256": "f1f801a9a845946ef44b6c7f6501c81fee33fb7adb6053b4d5ea2d964c3b0115"
+    },
+    {
+      "src": "/files/Species/teak-wood.webp",
+      "width": 769,
+      "sha256": "0bdd6042e3e294c370d6a5504205481bc836bcecbd66518f6c30784c18eb8db6"
+    }
+  ],
+  "/files/Species/teak-botanical.webp": [
+    {
+      "src": "/files/Species/teak-botanical-320.webp",
+      "width": 320,
+      "sha256": "56c82a73eab2ba07473febc47e5a4d7eba38f7e63013dd88a046a63970459e73"
+    },
+    {
+      "src": "/files/Species/teak-botanical-640.webp",
+      "width": 640,
+      "sha256": "910d8835788b011a1015d56befb630e757cde5caf65252b735d95cf2c2ce3b74"
+    },
+    {
+      "src": "/files/Species/teak-botanical-960.webp",
+      "width": 960,
+      "sha256": "2586e8d1c6de952b5945c2f6f7a295bd8266914a4e11f13e76efa2a4599c6ef9"
+    },
+    {
+      "src": "/files/Species/teak-botanical.webp",
+      "width": 1200,
+      "sha256": "851a74bce4a72c72023284ee043985100060500359855f1c84fe40244c215bbb"
+    }
+  ],
+  "/files/Species/casuarina-wood.webp": [
+    {
+      "src": "/files/Species/casuarina-wood-320.webp",
+      "width": 320,
+      "sha256": "b6072bd0112981fb11c81b481a0250ae94a72937ec3bc6081de9914db97eb305"
+    },
+    {
+      "src": "/files/Species/casuarina-wood.webp",
+      "width": 614,
+      "sha256": "e9bddb73c349960ea97378e8545785489d447413af452e61b0760e4991e3d806"
+    }
+  ],
+  "/files/Species/casuarina-botanical.webp": [
+    {
+      "src": "/files/Species/casuarina-botanical-320.webp",
+      "width": 320,
+      "sha256": "fa3bbae116cdb7f888da0547736e3f913e255b7dfc19bd69661282a89222aea2"
+    },
+    {
+      "src": "/files/Species/casuarina-botanical-640.webp",
+      "width": 640,
+      "sha256": "8d5fa7203a9c8c1713e32b2689f57e1841f6eedd79f58659712e078f9a5801c0"
+    },
+    {
+      "src": "/files/Species/casuarina-botanical-960.webp",
+      "width": 960,
+      "sha256": "d2660066bc5f0f690d875fd8ca6a06a55f0a1a35914f74e28cad4d1dbd8d7ca5"
+    },
+    {
+      "src": "/files/Species/casuarina-botanical.webp",
+      "width": 1060,
+      "sha256": "d05b3fb6760b831de00a00d2d922926822a23d44f0e09f5bd35d5a8b60c9a314"
+    }
+  ],
+  "/files/Species/subabul-wood.webp": [
+    {
+      "src": "/files/Species/subabul-wood-320.webp",
+      "width": 320,
+      "sha256": "d22f24cb7a32a53de382b4c866715aeb8c89a5f91fe369514ec8982d97b5276a"
+    },
+    {
+      "src": "/files/Species/subabul-wood-640.webp",
+      "width": 640,
+      "sha256": "59e79959c4ace34e64679dbdb65cffa90e2232a76df6d08deeaab50e6d80b57a"
+    },
+    {
+      "src": "/files/Species/subabul-wood.webp",
+      "width": 782,
+      "sha256": "8dd1b06f41dedc6d68c348f1ffbaa93a833a4ac57defc1f103bd90513f33464d"
+    }
+  ],
+  "/files/Species/subabul-botanical.webp": [
+    {
+      "src": "/files/Species/subabul-botanical-320.webp",
+      "width": 320,
+      "sha256": "1cd145a952dbf298cf41f25b6989dd3d5d8bd43cd1441addd404dc4366fe7a0d"
+    },
+    {
+      "src": "/files/Species/subabul-botanical-640.webp",
+      "width": 640,
+      "sha256": "8bdb8d8b8ef19a36f6df971cdf341d1f8eafdef889c5ca44379cce7b5d70389c"
+    },
+    {
+      "src": "/files/Species/subabul-botanical-960.webp",
+      "width": 960,
+      "sha256": "c18e3b4d0073f452c3b0f2629cfec7f6af39c67012ce55afcf7211d0d8697ee8"
+    },
+    {
+      "src": "/files/Species/subabul-botanical.webp",
+      "width": 1200,
+      "sha256": "c3e9499dcc0a0aeeac0646114d51d55ed6b67ae6ccd4d5fcfd0cd06328d69c92"
+    }
+  ],
+  "/files/Species/anjili-botanical.webp": [
+    {
+      "src": "/files/Species/anjili-botanical-320.webp",
+      "width": 320,
+      "sha256": "a833b80a3beb90134789a5f56f021c1dfeac6bcd807feba7d0b8878fdf4c2e17"
+    },
+    {
+      "src": "/files/Species/anjili-botanical-640.webp",
+      "width": 640,
+      "sha256": "cf27949d5ca0e3814f456542bea592f714956b89e3446010960514834b37780e"
+    },
+    {
+      "src": "/files/Species/anjili-botanical-960.webp",
+      "width": 960,
+      "sha256": "f6b872f205751e2175520b2e0ecb96696c035be6b0fb508d92eff956d048abf7"
+    },
+    {
+      "src": "/files/Species/anjili-botanical.webp",
+      "width": 1200,
+      "sha256": "90ead36a5e90718602551c4ef64ba3fcc2dd840df1a81122aee417a830e02a7b"
+    }
+  ],
+  "/files/Species/matti-botanical.webp": [
+    {
+      "src": "/files/Species/matti-botanical-320.webp",
+      "width": 320,
+      "sha256": "8562bbd2f1f71d9c1eed295a88f3eebefb40f46d0e06568fd65bbffc19fbf4e3"
+    },
+    {
+      "src": "/files/Species/matti-botanical-640.webp",
+      "width": 640,
+      "sha256": "5ac474d2bd942bed059d19b53478bb4b333a14eb053c3c620f3d04368fdfc430"
+    },
+    {
+      "src": "/files/Species/matti-botanical-960.webp",
+      "width": 960,
+      "sha256": "fb494b154e225f7583de2099b22da6e78efd8f4b1e221d785b6ca2b0db25ca7f"
+    },
+    {
+      "src": "/files/Species/matti-botanical.webp",
+      "width": 1200,
+      "sha256": "a266ac811a675d61c20fd1897324a1568ff7811e32b179bec60a7f010583dbb2"
+    }
+  ],
+  "/files/Species/irul-wood.webp": [
+    {
+      "src": "/files/Species/irul-wood-320.webp",
+      "width": 320,
+      "sha256": "3989d25cecd36b167b6be96942689e4ae35e9b60263c96689fb6edfbbdc19804"
+    },
+    {
+      "src": "/files/Species/irul-wood-640.webp",
+      "width": 640,
+      "sha256": "b8b220d023193ece1f64916718521e6f8920a0d3a57d2dd88e6ba3c85db33af0"
+    },
+    {
+      "src": "/files/Species/irul-wood.webp",
+      "width": 798,
+      "sha256": "f94527c9d4864dfddb52a7c9029fd21960618872ecaee199815a641ae5d6e9e2"
+    }
+  ],
+  "/files/Species/irul-botanical.webp": [
+    {
+      "src": "/files/Species/irul-botanical-320.webp",
+      "width": 320,
+      "sha256": "126983d0ac4ea76e315c3aacddf51f926cc5a625b518f2ae29ca7dcecb09f1d8"
+    },
+    {
+      "src": "/files/Species/irul-botanical-640.webp",
+      "width": 640,
+      "sha256": "7e581a4a59db28f503eb41bc1bfaab47cb2e750a7d01dff939be32f01001b4d7"
+    },
+    {
+      "src": "/files/Species/irul-botanical-960.webp",
+      "width": 960,
+      "sha256": "7c8db5ddb2d1bb5a9767061d52ff1ed252e308c18d2601c16afeca3d7c246dea"
+    },
+    {
+      "src": "/files/Species/irul-botanical.webp",
+      "width": 1200,
+      "sha256": "c9aa8f356bce921e82fdbf531f8e98ebd42bdaf0881e2b0e13502468092bf4b2"
+    }
+  ],
+  "/files/Species/venteak-botanical.webp": [
+    {
+      "src": "/files/Species/venteak-botanical-320.webp",
+      "width": 320,
+      "sha256": "06c096feead64d2eed213e6711304e1a23e754d27d0e2c1514c77f7cdd184706"
+    },
+    {
+      "src": "/files/Species/venteak-botanical-640.webp",
+      "width": 640,
+      "sha256": "6a614b79164454bf1f9895ef6eb6918774753e5075983858045a279049dd6278"
+    },
+    {
+      "src": "/files/Species/venteak-botanical-960.webp",
+      "width": 960,
+      "sha256": "c6403a3be1a4daa00d64a0f35febccacd48ca457c75d05d48c174e2f9e947feb"
+    },
+    {
+      "src": "/files/Species/venteak-botanical.webp",
+      "width": 1200,
+      "sha256": "afe260b4eb8b4c777e83f63523246da60c93f3111ffb75a382661f6db33b491e"
+    }
+  ],
+  "/files/Species/kadam-botanical.webp": [
+    {
+      "src": "/files/Species/kadam-botanical-320.webp",
+      "width": 320,
+      "sha256": "20a334b2fede8612abc2fb20cdfa998d7035c98e952ecd53ca2d0a71cee3008c"
+    },
+    {
+      "src": "/files/Species/kadam-botanical.webp",
+      "width": 506,
+      "sha256": "be811a76ccda133819b6b583f46ad8b00c7864c074f43bcfb8b5c16ca0650a22"
+    }
+  ],
+  "/files/Species/pala-wood.webp": [
+    {
+      "src": "/files/Species/pala-wood-320.webp",
+      "width": 320,
+      "sha256": "ea776eb50fb4f816a6745754d097bf8673d258ed5af9c0e54c8d3299be986634"
+    },
+    {
+      "src": "/files/Species/pala-wood-640.webp",
+      "width": 640,
+      "sha256": "e90c9b96488c6f9f482bc488ac0ca3329c1871d4633898e80b705c47cb738c71"
+    },
+    {
+      "src": "/files/Species/pala-wood.webp",
+      "width": 816,
+      "sha256": "34decf3891019c7641045003d5713508383eb42bc37cdabfead678aa234be82f"
+    }
+  ],
+  "/files/Species/pala-botanical.webp": [
+    {
+      "src": "/files/Species/pala-botanical-320.webp",
+      "width": 320,
+      "sha256": "c91870a36f630d366eef871e9ee0985ebae87342ea7c753f6d0848c534d3c9bf"
+    },
+    {
+      "src": "/files/Species/pala-botanical-640.webp",
+      "width": 640,
+      "sha256": "280c22f8e5087ee11d5b30cb4ac658980fed7e9cdb427ae104d6f001f2a0e00d"
+    },
+    {
+      "src": "/files/Species/pala-botanical-960.webp",
+      "width": 960,
+      "sha256": "ccfd7354f3458d4a17e826abd763b50e25746ab94f495713fc282906cc20561e"
+    },
+    {
+      "src": "/files/Species/pala-botanical.webp",
+      "width": 1200,
+      "sha256": "0a34763520e0a8d5c01cc7c706873cf3e20b749b5f01af884532e2b3b869b177"
+    }
+  ],
+  "/files/Brand/contact-materials.jpg": [
+    {
+      "src": "/files/Responsive/contact-materials-b8f176d5-400.webp",
+      "width": 400,
+      "sha256": "912040080f14fe948bc2d04679619071a04232cd9e70697e179f00fe7c74af9c"
+    },
+    {
+      "src": "/files/Responsive/contact-materials-b8f176d5-640.webp",
+      "width": 640,
+      "sha256": "017d0deaf8251b9dcf404a88f60375fb58bca78eeaa238e695a5842418cb1a7f"
+    },
+    {
+      "src": "/files/Responsive/contact-materials-b8f176d5-960.webp",
+      "width": 960,
+      "sha256": "870496a09782cff2c24496d140642f54eba4daea82b85dfb8842c2f8b92f191b"
+    },
+    {
+      "src": "/files/Responsive/contact-materials-b8f176d5-1200.webp",
+      "width": 1200,
+      "sha256": "e3e8bce401a4e04913c24a24f99378d8746bb416467866f47815b7122395808f"
+    }
+  ],
+  "/files/Brand/home-materials.webp": [
+    {
+      "src": "/files/Responsive/home-materials-4961fa24-400.webp",
+      "width": 400,
+      "sha256": "bf3b71a2d980a04ef524672e566b2530b3090c9d9449ea6c55f345bfcd42bc70"
+    },
+    {
+      "src": "/files/Responsive/home-materials-4961fa24-640.webp",
+      "width": 640,
+      "sha256": "8303aae920b037cfe16c8c63c60a79a3ea1aa662be10f3b4a3c95b64656e7a8c"
+    },
+    {
+      "src": "/files/Responsive/home-materials-4961fa24-960.webp",
+      "width": 960,
+      "sha256": "ca8845a5a7bb62bb2f252bc7c4bc5a9912ebc5d6a3399ab4bda425e5b023ff15"
+    },
+    {
+      "src": "/files/Responsive/home-materials-4961fa24-1200.webp",
+      "width": 1200,
+      "sha256": "3ec2ffabe0dd6c4afc40d739d146f93fcb2e3ddda59bdfddc4823c043f727379"
+    }
+  ],
+  "/files/CWI-Images/home_case_export.webp": [
+    {
+      "src": "/files/Responsive/home-case-export-a816dc1f-400.webp",
+      "width": 400,
+      "sha256": "434dd462b966056a4abc46c7993380e553a76bd75aad46ad702fde2f127bd310"
+    },
+    {
+      "src": "/files/Responsive/home-case-export-a816dc1f-640.webp",
+      "width": 640,
+      "sha256": "a1ac3d5c62f65a5f6582cf309f8b066a4d90dd13c4cf5316601eec5c7c630758"
+    },
+    {
+      "src": "/files/Responsive/home-case-export-a816dc1f-960.webp",
+      "width": 960,
+      "sha256": "dc1a1f0154960053acaeb84a927639079ed26e405fc9128f8ff85c04eee53450"
+    },
+    {
+      "src": "/files/Responsive/home-case-export-a816dc1f-1024.webp",
+      "width": 1024,
+      "sha256": "a164a102c673aa58638c6016cc394c1013395f5c8ec2577d3db2c85e7d7d7b08"
+    }
+  ],
+  "/files/CWI-Images/home_case_highrise.webp": [
+    {
+      "src": "/files/Responsive/home-case-highrise-2fd0fbd6-400.webp",
+      "width": 400,
+      "sha256": "8b8d43818024cead90e476b57d9f35e2144e90383fbe91e2121826bb6ed21784"
+    },
+    {
+      "src": "/files/Responsive/home-case-highrise-2fd0fbd6-640.webp",
+      "width": 640,
+      "sha256": "fb8d69305cca80312631cc3c153cf2e2fb73d43c178617dd3c34a6ca7fff6757"
+    },
+    {
+      "src": "/files/Responsive/home-case-highrise-2fd0fbd6-960.webp",
+      "width": 960,
+      "sha256": "6348bb4f827a715cdb916679a13166191d924fdbf4fe767b3c48d36d14e739a4"
+    },
+    {
+      "src": "/files/Responsive/home-case-highrise-2fd0fbd6-1024.webp",
+      "width": 1024,
+      "sha256": "d698bc6807bc35f163781021bb4471baf1a759ae3ace78222bd083f994fbe02a"
+    }
+  ],
+  "/files/CWI-Images/home_case_marine.webp": [
+    {
+      "src": "/files/Responsive/home-case-marine-cc464bda-400.webp",
+      "width": 400,
+      "sha256": "d8f6258b6ed540ec8b9531fef64ef58f03e4295b338c00cfc7aae437c0c7c000"
+    },
+    {
+      "src": "/files/Responsive/home-case-marine-cc464bda-640.webp",
+      "width": 640,
+      "sha256": "17aecfd57f9a02e289d0ad83b06a468b77e97234d3c0632ee8031c962b18026a"
+    },
+    {
+      "src": "/files/Responsive/home-case-marine-cc464bda-960.webp",
+      "width": 960,
+      "sha256": "974c214f1b73fab1b5e92ac73ed7ad7a1873b38419b8a5e6e643c0f7f34d56d0"
+    },
+    {
+      "src": "/files/Responsive/home-case-marine-cc464bda-1024.webp",
+      "width": 1024,
+      "sha256": "fc8c75889cddaf16a71f81cc26c4b17a18926707c23acb91668de241fe59c544"
+    }
+  ],
+  "/files/Enhanced%20Factory%20Photos/factory_24.jpg": [
+    {
+      "src": "/files/Responsive/factory-24-9a911c05-400.webp",
+      "width": 400,
+      "sha256": "2de60d310c978066bca5247890fa66b9e8cd0cc50bd5b74bdcebeb90cf8ca8d0"
+    },
+    {
+      "src": "/files/Responsive/factory-24-9a911c05-640.webp",
+      "width": 640,
+      "sha256": "b0705cbb114b5c27294ae45a92d78dcfc74c5d9442a2b4e1f249958afdc4043c"
+    },
+    {
+      "src": "/files/Responsive/factory-24-9a911c05-960.webp",
+      "width": 960,
+      "sha256": "d97b7bf6ce262fa316e35c92e8ef0d3fdb89af61c6a9a52b7d51477b0581e37c"
+    },
+    {
+      "src": "/files/Responsive/factory-24-9a911c05-1200.webp",
+      "width": 1200,
+      "sha256": "e281ce070c67de99cde94dc81fe3683fe84e4242557b1dc8530ef6b2b8836835"
+    },
+    {
+      "src": "/files/Responsive/factory-24-9a911c05-1280.webp",
+      "width": 1280,
+      "sha256": "2dfd2c4f84a0cfc5c757942aa855e124b3e25eeed3e8ea1a0c7235001f324a87"
+    }
+  ],
+  "/files/Enhanced%20Factory%20Photos/factory_42.jpg": [
+    {
+      "src": "/files/Responsive/factory-42-8cb32034-400.webp",
+      "width": 400,
+      "sha256": "2f641b5bf21d159d5c801d893dd1104acd2fe083418f0ae469935a5506b14b36"
+    },
+    {
+      "src": "/files/Responsive/factory-42-8cb32034-640.webp",
+      "width": 640,
+      "sha256": "312bee92ea88678e285f3d3492b83e6f62cb3e3dd32efa98ab8bf1d565ac4a7f"
+    },
+    {
+      "src": "/files/Responsive/factory-42-8cb32034-960.webp",
+      "width": 960,
+      "sha256": "fa00a95abfa26187a5decdeebcca5848d29d2404c35e3c2d69cec6b3f994e20f"
+    },
+    {
+      "src": "/files/Responsive/factory-42-8cb32034-1200.webp",
+      "width": 1200,
+      "sha256": "3ec1d128a26de76708631dfe7d60d13b94b80f71e46671d914195f17b694e83e"
+    },
+    {
+      "src": "/files/Responsive/factory-42-8cb32034-1280.webp",
+      "width": 1280,
+      "sha256": "7b474c70b368e0fac0dc89b0b519f3274bac73a6b17b17a61efb2e7de68cb53b"
+    }
+  ],
+  "/files/Logo/og/og-container-flooring.jpg": [
+    {
+      "src": "/files/Responsive/og-container-flooring-21d0d5c0-400.webp",
+      "width": 400,
+      "sha256": "28eba69e2511988fece9ffdc90acfe8a2a4b51c77ece6c339778267c15b66a79"
+    },
+    {
+      "src": "/files/Responsive/og-container-flooring-21d0d5c0-640.webp",
+      "width": 640,
+      "sha256": "e19795d4842c045c3fb6b658867e3370aca636e4252ab893b40ccbefa7f1cbed"
+    },
+    {
+      "src": "/files/Responsive/og-container-flooring-21d0d5c0-960.webp",
+      "width": 960,
+      "sha256": "04845fec79999171d897bfc3fec2bdad67ef5834116e7b6605aad7f7f97127da"
+    },
+    {
+      "src": "/files/Responsive/og-container-flooring-21d0d5c0-1200.webp",
+      "width": 1200,
+      "sha256": "ccd8e507d68d37481967b436323b7748007520015990ffa9ddda067812d182a9"
+    }
+  ],
+  "/files/Product/block-board.jpg": [
+    {
+      "src": "/files/Responsive/block-board-e3486381-400.webp",
+      "width": 400,
+      "sha256": "32d2cca1562099305913f1e1d95993281c9e62cf3dc399ffc60a3819bc0b277c"
+    },
+    {
+      "src": "/files/Responsive/block-board-e3486381-640.webp",
+      "width": 640,
+      "sha256": "40430afc5c922b505bad305465801ac55f167701b2457623ff76d4eddba7df88"
+    },
+    {
+      "src": "/files/Responsive/block-board-e3486381-960.webp",
+      "width": 960,
+      "sha256": "b125bf5631350fb05051a6901f0461f3215efe5aa87fb1ded85bae56d3e1754b"
+    },
+    {
+      "src": "/files/Responsive/block-board-e3486381-1024.webp",
+      "width": 1024,
+      "sha256": "f8c58c9667ed4e5287f209b77139d41526ead82264d07e4ceec810beda12e1ca"
+    }
+  ],
+  "/files/Product/cable-drums.jpg": [
+    {
+      "src": "/files/Responsive/cable-drums-5466607c-400.webp",
+      "width": 400,
+      "sha256": "b2bfed7260b4395d09ce26c0884f7aa03b07644a622928bbf15a64b6f54f052b"
+    },
+    {
+      "src": "/files/Responsive/cable-drums-5466607c-640.webp",
+      "width": 640,
+      "sha256": "9e8598b9ce04b0147e99888050a204f54d7f1b5918864bd2990d0a29e93c210e"
+    },
+    {
+      "src": "/files/Responsive/cable-drums-5466607c-960.webp",
+      "width": 960,
+      "sha256": "2db60bf74bf2c7f9cd33ffaf6102943bd44bddcc6097c7e915b267ba5b115a34"
+    },
+    {
+      "src": "/files/Responsive/cable-drums-5466607c-1024.webp",
+      "width": 1024,
+      "sha256": "d713505e156469cff9f97811f9945115e214f26354bb7a91d2a6cb43a37b7653"
+    }
+  ],
+  "/files/Product/crates.jpg": [
+    {
+      "src": "/files/Responsive/crates-dd22f2f0-400.webp",
+      "width": 400,
+      "sha256": "ac6362da48c38cfe814469af1776f7cf20270593ab550f65dece0d358e93a92c"
+    },
+    {
+      "src": "/files/Responsive/crates-dd22f2f0-640.webp",
+      "width": 640,
+      "sha256": "571a529c6e2397b67d1d2bcaf5262135202e2fb854daf03ec4625490295f621e"
+    },
+    {
+      "src": "/files/Responsive/crates-dd22f2f0-960.webp",
+      "width": 960,
+      "sha256": "64c25ff4323e5ed25ba05f2746debbc57bb4eea85a336bfdc1303bb19b3090cb"
+    },
+    {
+      "src": "/files/Responsive/crates-dd22f2f0-1024.webp",
+      "width": 1024,
+      "sha256": "b07a211e119ba581791cdd7d512a2b5d2db2324f6b9a110ea1034424933b348d"
+    }
+  ],
+  "/files/Product/pallets.jpg": [
+    {
+      "src": "/files/Responsive/pallets-acb97cfa-400.webp",
+      "width": 400,
+      "sha256": "4b19e4ae29d894e126de69a41d0413518ee3be744dad00e1d6387966dc95108b"
+    },
+    {
+      "src": "/files/Responsive/pallets-acb97cfa-640.webp",
+      "width": 640,
+      "sha256": "88be3ebf3801651576c73de40ddea1c673571ec3f1ba687c61c72a05916abdc0"
+    },
+    {
+      "src": "/files/Responsive/pallets-acb97cfa-960.webp",
+      "width": 960,
+      "sha256": "0c7ad9f918c0a188e79c9d8287758e4b1681dd98d82ca9da152397c11351a9b0"
+    },
+    {
+      "src": "/files/Responsive/pallets-acb97cfa-1024.webp",
+      "width": 1024,
+      "sha256": "3cf5cc235e3b6e101045f9256f88d2d1429491e4c8a85759b5dea8c6ea5d9ac7"
+    }
+  ],
+  "/files/Product/particle-board.jpg": [
+    {
+      "src": "/files/Responsive/particle-board-a83eeaa7-400.webp",
+      "width": 400,
+      "sha256": "96e5ff2fe84cd25b01df3e6aec06f480bba23fe5bdc4940514b37db71f165ca8"
+    },
+    {
+      "src": "/files/Responsive/particle-board-a83eeaa7-640.webp",
+      "width": 640,
+      "sha256": "767a88dc1aa807a786b5dade6410ea18b43391a13d8a8a23924510fdc9d211af"
+    },
+    {
+      "src": "/files/Responsive/particle-board-a83eeaa7-960.webp",
+      "width": 960,
+      "sha256": "b205384a8879e57191737754aeddd6f945aa4d5af583fbaf08f6b5bbbeef9f82"
+    },
+    {
+      "src": "/files/Responsive/particle-board-a83eeaa7-1024.webp",
+      "width": 1024,
+      "sha256": "bc4a1de12ab879e80c38db53bc7ac681549b8b3fc7dba8b75834711e82b003d0"
+    }
+  ],
+  "/files/Product/specialty-timbers.jpg": [
+    {
+      "src": "/files/Responsive/specialty-timbers-46918a71-400.webp",
+      "width": 400,
+      "sha256": "c21a1427eea330c559f94b59548e9474ea0dd79c5b67b7d9dd49e11c485fe145"
+    },
+    {
+      "src": "/files/Responsive/specialty-timbers-46918a71-640.webp",
+      "width": 640,
+      "sha256": "2d66f7c56f0f300e703ba875518e04e806498222728ae1a104fcfddc59e1bd83"
+    },
+    {
+      "src": "/files/Responsive/specialty-timbers-46918a71-960.webp",
+      "width": 960,
+      "sha256": "e1fd61e1507c8dfb29ede1e5ea6572bbd857babbc28e27977ce64caa9071cb3d"
+    },
+    {
+      "src": "/files/Responsive/specialty-timbers-46918a71-1024.webp",
+      "width": 1024,
+      "sha256": "ffb0eb9c30fd04dc17b8a3c928aa7af233412ae36cf4efed5e413dcf1d775bc8"
+    }
+  ],
+  "/files/Brand/solid-wood-materials.jpg": [
+    {
+      "src": "/files/Responsive/solid-wood-materials-66f00a15-400.webp",
+      "width": 400,
+      "sha256": "4bf8c857db87f5debfcab22e04e82927ffac460414572282e019dc534dac771e"
+    },
+    {
+      "src": "/files/Responsive/solid-wood-materials-66f00a15-640.webp",
+      "width": 640,
+      "sha256": "cfef067edb8eaac7a8262a4b8af9c5aa0327e51726eead9db3e61575339462f1"
+    },
+    {
+      "src": "/files/Responsive/solid-wood-materials-66f00a15-960.webp",
+      "width": 960,
+      "sha256": "0ff6fbd61a45f76955c9e01e9c58245c79487083f3d31f6da85d6060c9cadd85"
+    },
+    {
+      "src": "/files/Responsive/solid-wood-materials-66f00a15-1024.webp",
+      "width": 1024,
+      "sha256": "af5c5a830f7a1e2757d0192a880edbfd52715785d6a47fef0f0530ce88bf15b7"
+    }
+  ],
+  "/files/Enhanced%20Factory%20Photos/factory_08.jpg": [
+    {
+      "src": "/files/Responsive/factory-08-606f5364-400.webp",
+      "width": 400,
+      "sha256": "ad6d7d95feff10adf1857f42998162d1482d56543b71927e765970ac02531e9a"
+    },
+    {
+      "src": "/files/Responsive/factory-08-606f5364-640.webp",
+      "width": 640,
+      "sha256": "ee1a0200055b96f4a83becb4072923e9dd264d30b6480acfcaa1c7289f2acb91"
+    },
+    {
+      "src": "/files/Responsive/factory-08-606f5364-960.webp",
+      "width": 960,
+      "sha256": "c046f2ea8f0e87a3a66871ad90f3145daa3ef3e661ff4cab43f0d16f26da0f6c"
+    },
+    {
+      "src": "/files/Responsive/factory-08-606f5364-1200.webp",
+      "width": 1200,
+      "sha256": "c01045caf8670266c51d88b99448e471ac502fba494aa3a687e4b89beec29ac5"
+    },
+    {
+      "src": "/files/Responsive/factory-08-606f5364-1280.webp",
+      "width": 1280,
+      "sha256": "c83e84c6f7848b27794869bc9e2f008fdb6278972ab54de931557c5b4a66bf98"
+    }
+  ],
+  "/files/Enhanced%20Factory%20Photos/factory_44.webp": [
+    {
+      "src": "/files/Responsive/factory-44-51508017-400.webp",
+      "width": 400,
+      "sha256": "e07cbd6f910807dde3f6c0dc0007f4f95a4b19f0f1fe34231420340fc8459f51"
+    },
+    {
+      "src": "/files/Responsive/factory-44-51508017-640.webp",
+      "width": 640,
+      "sha256": "5a83e5210fe82c85263296587a449ec79421409ae10ccb8edf6a98762b03f34b"
+    },
+    {
+      "src": "/files/Responsive/factory-44-51508017-960.webp",
+      "width": 960,
+      "sha256": "c1357a61a63caf475da061054fb620eab4665cfbdd1ad4ac69adc7bdb5bc9504"
+    },
+    {
+      "src": "/files/Responsive/factory-44-51508017-1200.webp",
+      "width": 1200,
+      "sha256": "fecaac9d05a4b8d19d4821371981190f8ded2f38054749d986a68f0fd528d60e"
+    }
+  ],
+  "/files/Hero%20Optimized/Industries.jpg": [
+    {
+      "src": "/files/Responsive/industries-7cb122e7-400.webp",
+      "width": 400,
+      "sha256": "2329dee5da5a7c974ff77a66b983b321d8b4c769aadf10d0bc64c7e5e930f793"
+    },
+    {
+      "src": "/files/Responsive/industries-7cb122e7-640.webp",
+      "width": 640,
+      "sha256": "4d3104fb0b945504bad423bfd0c6140874b4765502a2a1f37aebdfbd865c13da"
+    },
+    {
+      "src": "/files/Responsive/industries-7cb122e7-960.webp",
+      "width": 960,
+      "sha256": "b452ff6fa58444ed35102a3667f370ed5832c0f5d5db88b42f84371a8beb605b"
+    },
+    {
+      "src": "/files/Responsive/industries-7cb122e7-1200.webp",
+      "width": 1200,
+      "sha256": "eb1a15f55d512dbd123b1e16a91c402fd24acef08f24ebb7927443360bd25cf6"
+    }
+  ],
+  "/files/Responsive/home-mobile-compact-590.webp": [
+    {
+      "src": "/files/Responsive/home-mobile-compact-320.webp",
+      "width": 320,
+      "sha256": "c79a2e2a14a7205df81907593bc761aa0564bec5926d405156947ce29bc08167"
+    },
+    {
+      "src": "/files/Responsive/home-mobile-compact-480.webp",
+      "width": 480,
+      "sha256": "928152e94e29983153b9402e660b01aa24e944ffab1f21ec291d771815ec6caf"
+    },
+    {
+      "src": "/files/Responsive/home-mobile-compact-590.webp",
+      "width": 590,
+      "sha256": "0e6ed07010cf516f6d3f984d5ddc1f3a975d02bc35844359715f117f672b7221"
+    }
+  ],
+  "/files/Responsive/home-mobile-phone-762.webp": [
+    {
+      "src": "/files/Responsive/home-mobile-phone-480.webp",
+      "width": 480,
+      "sha256": "9baeb2a5cfe36c1de66c7c477035818aae608da64de7dfd8301f949568105283"
+    },
+    {
+      "src": "/files/Responsive/home-mobile-phone-640.webp",
+      "width": 640,
+      "sha256": "45b5c8f25db97eadb7004c8b81e05956c4bead99d391fe1423fd4ce62cbe49b8"
+    },
+    {
+      "src": "/files/Responsive/home-mobile-phone-762.webp",
+      "width": 762,
+      "sha256": "7899726d54a4eec532a125d2c969431bdb9a206dade154dda71e19b6331aa768"
     }
   ]
 }
