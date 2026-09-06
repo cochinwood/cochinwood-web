@@ -14,6 +14,7 @@
 
   var bar = document.querySelector('.cw-section-bar');
   if (!bar) return;
+  var filterMode = bar.getAttribute('data-section-mode') === 'filters';
   var menu = bar.querySelector('details');
   var summary = menu.querySelector('summary');
   var current = menu.querySelector('.cw-section-current');
@@ -52,10 +53,15 @@
       else if (item.right > view.right) viewport.scrollLeft += item.right - view.right;
     }
   }
+  function syncFilter() {
+    var chosen = links.find(function (link) { return link.getAttribute('aria-current') === 'true'; });
+    if (chosen) current.textContent = chosen.textContent.replace(/\s+/g, ' ').trim();
+  }
   function update() {
     frame = 0;
     measureHeader();
     root.style.setProperty('--cw-section-bar-height', bar.getBoundingClientRect().height + 'px');
+    if (filterMode) { syncFilter(); overflow(); return; }
     var chosen = 0;
     var line = offset() + 10;
     targets.forEach(function (target, index) {
@@ -83,7 +89,7 @@
   menu.addEventListener('click', function (event) {
     var link = event.target.closest('.cw-section-links a');
     if (!link) return;
-    select(links.indexOf(link));
+    if (!filterMode) select(links.indexOf(link));
     close(); // Close before the browser performs its native anchor jump.
   });
   menu.addEventListener('keydown', function (event) {
@@ -105,6 +111,9 @@
   if (mobile.addEventListener) mobile.addEventListener('change', setMode);
   else mobile.addListener(setMode);
   if ('ResizeObserver' in window) new ResizeObserver(schedule).observe(bar);
+  if (filterMode && 'MutationObserver' in window) {
+    new MutationObserver(syncFilter).observe(viewport, {subtree:true, attributes:true, attributeFilter:['aria-current']});
+  }
   setMode();
   update();
   // Font loading can change the header height after an initial deep link lands.
