@@ -1,5 +1,7 @@
 # Commerce staging progress — 7 September 2026
 
+**Price approval update, 7 September 2026:** the owner approved Premium Hardwood 12 mm at ₹2,794.24 and 18 mm at ₹3,209.60 per nominal 8 × 4 ft sheet, including 18% GST and excluding freight. These exact amounts are recorded in the local proposed configuration. This closes the two sheet-price and product-GST decisions in the earlier receipt below; stock, other commercial approvals and purchasing remain pending. Internal app rates are unchanged.
+
 The isolated commerce implementation is deployed and verified on the authenticated staff staging application through **build 597**, including the corrected catalogue approval labels. The customer shop remains a local preview; production commerce and real payments remain disabled. This is a staging receipt, not a public shop launch.
 
 The first proposed launch is **Premium Hardwood in 12 mm and 18 mm, nominal 8 × 4 ft sheets**. Both Marine variants are inactive until their exact core construction is confirmed. They are excluded from the actual shop selection and future Merchant export. The separate four-variant synthetic fixture remains available for multi-item and concurrency tests; it does not approve any commercial offer.

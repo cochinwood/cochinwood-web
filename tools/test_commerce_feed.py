@@ -38,13 +38,21 @@ class MerchantPreparationTests(unittest.TestCase):
         self.assertEqual(len(offered), 2)
         self.assertTrue(all(row['id'].startswith('prem_hw_gurjan') for row in offered))
 
-    def test_real_configuration_refuses_missing_commercial_values(self):
+    def test_real_configuration_keeps_launch_blocked_after_price_approval(self):
         c = json.loads((ROOT/'commerce-preview/config/catalogue.proposed.json').read_text(encoding='utf-8'))
         fields = {i['field'] for i in issues(c)}
         self.assertIn('approval', fields)
-        self.assertIn('products.prem_hw_gurjan_12.unit_price_paise', fields)
+        self.assertNotIn('tax', fields)
+        self.assertFalse(any(field.endswith('.unit_price_paise') for field in fields))
+        self.assertIn('products.prem_hw_gurjan_12.stock', fields)
         self.assertIn('delivery.rules', fields)
         self.assertIn('payment.uat_passed', fields)
+        with tempfile.TemporaryDirectory() as temp:
+            report = prepare(ROOT/'commerce-preview/config/catalogue.proposed.json', temp, release=True)
+            self.assertFalse(report['ready_for_merchant_export'])
+            self.assertFalse(report['submitted'])
+            for name in ('merchant-feed.xml', 'merchant-feed.tsv', 'product-offers.json'):
+                self.assertFalse((Path(temp)/name).exists())
 
     def test_fully_reviewed_fixture_can_generate_consistent_feed(self):
         c = approved_fixture()

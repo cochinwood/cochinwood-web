@@ -7,10 +7,6 @@
       "required": "Company approval with approver and date"
     },
     {
-      "field": "tax",
-      "required": "Approved tax-inclusive price and tax rate"
-    },
-    {
       "field": "products.prem_hw_gurjan_12.identity",
       "required": "Exact product identity approved"
     },
@@ -21,10 +17,6 @@
     {
       "field": "products.prem_hw_gurjan_12.tolerance_mm",
       "required": "Confirmed dimensional tolerance"
-    },
-    {
-      "field": "products.prem_hw_gurjan_12.unit_price_paise",
-      "required": "Positive tax-inclusive price in paise"
     },
     {
       "field": "products.prem_hw_gurjan_12.stock",
@@ -61,10 +53,6 @@
     {
       "field": "products.prem_hw_gurjan_18.tolerance_mm",
       "required": "Confirmed dimensional tolerance"
-    },
-    {
-      "field": "products.prem_hw_gurjan_18.unit_price_paise",
-      "required": "Positive tax-inclusive price in paise"
     },
     {
       "field": "products.prem_hw_gurjan_18.stock",
@@ -195,8 +183,8 @@
       "required": "Recorded live launch verification"
     }
   ],
-  "config_sha256": "584b5e39f84a86576fbe314f7cdea1aab3b2f74b5c1f4c8bd03a6463e1e445c4",
-  "version": "proposal-2026-09-07-marine-on-hold",
+  "config_sha256": "f310133511b0409b61c67cb78314ea36649b0c02a55b1918e7d3bcb0f2b45bc0",
+  "version": "proposal-2026-09-07-hardwood-prices-approved",
   "synthetic": false,
   "proposed_variants": 4
 }

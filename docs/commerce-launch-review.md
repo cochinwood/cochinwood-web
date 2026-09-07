@@ -16,7 +16,7 @@ The initial proposed purchase options are **Premium Hardwood, nominal 8 × 4 ft,
 
 The owner selected **ICICI UPI with staff checking actual bank credit before fulfilment**. Staff will confirm freight, then the customer will accept the full invoice before paying. This is the first-launch payment direction; automatic ICICI API onboarding can continue separately. A screenshot, UPI-app return or customer-entered transaction reference cannot mark an order paid.
 
-The owner requested a review table using the app's current rates **plus ₹20 per square foot**. This is a pricing calculation instruction, not yet approval of the resulting retail offers, tax treatment, allocated stock or product specifications.
+The owner requested a review table using the app's current rates **plus ₹20 per square foot**, then explicitly approved the exact two Hardwood prices including **18% GST**: 12 mm ₹2,794.24 and 18 mm ₹3,209.60 per nominal 8 × 4 ft sheet. Freight is separate. This approval is limited to those two sheet prices and their GST treatment; stock, specifications and the overall purchase launch remain pending.
 
 The offline Merchant exporter now accepts an explicitly reviewed invoice workflow as an alternative to the bank API, while requiring evidence of bank-credit verification, invoice acceptance, late-payment handling, refunds, final charges, purchase confirmation and delivery estimates. The proposed configuration records the chosen model but leaves all launch-verification flags false. No live payment or Merchant offer is enabled.
 
@@ -33,8 +33,8 @@ The customer shop remains a local preview. The actual ICICI payment endpoint and
 | Input | Review decision / value required | Current configuration |
 |---|---|---|
 | Two Hardwood launch variants | Confirm identities, finished dimensions and tolerances, face/core/bond and evidence for any claims | Two active proposals; identity approval false; Marine held |
-| Selling price | Approved tax-inclusive INR per sheet for 12 mm and 18 mm Hardwood | Blank; current reference-rate evidence is maintained privately and is not an approved online price |
-| Tax and seller | Confirm legal selling/invoice entity, tax treatment and rate, freight treatment and invoice requirements | Awaiting company approval |
+| Selling price | Tax-inclusive INR per sheet for 12 mm and 18 mm Hardwood | Approved 7 September 2026: ₹2,794.24 / ₹3,209.60; recorded in proposed configuration |
+| Tax and seller | Product GST approved at 18%; confirm legal selling/invoice entity, freight treatment and invoice requirements | Sheet-price GST approved; remaining invoice details pending |
 | Stock | Sheets reserved for online orders; restocking responsibility | Blank |
 | Quantity limits | Minimum and maximum per variant; mixed basket limits | Blank |
 | Exact product imagery | Photographs of the actual sold variant, with commercial rights | Pending; preview uses existing family images only |
