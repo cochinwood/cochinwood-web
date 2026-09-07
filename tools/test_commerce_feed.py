@@ -18,6 +18,10 @@ def approved_fixture():
     for field in ('delivery_url', 'returns_url', 'cancellation_url'):
         c['policies'][field] = 'https://www.cochinwood.in/' + field
     c['payment'].update(enabled=True, uat_passed=True, commercial_terms_approved=True)
+    c['payment'].update(model='icici_api', callback_verified=True,
+                        status_reconciliation_verified=True, refunds_verified=True,
+                        final_total_before_commitment=True, purchase_confirmation_verified=True,
+                        delivery_estimate_verified=True, billing_address_unrestricted=True)
     for k in c['merchant']: c['merchant'][k] = True
     return c
 
@@ -109,6 +113,31 @@ class MerchantPreparationTests(unittest.TestCase):
         for section in ('payment', 'merchant'):
             c = approved_fixture(); c[section]['enabled'] = False
             self.assertIn(section + '.enabled', {i['field'] for i in issues(c)})
+
+    def test_invoice_payment_is_supported_without_claiming_an_api_connection(self):
+        c = approved_fixture()
+        c['payment'].update(model='upi_bank_verified_invoice', callback_verified=False,
+                            status_reconciliation_verified=False,
+                            bank_credit_verification_verified=True, invoice_acceptance_verified=True,
+                            late_payment_handling_verified=True)
+        self.assertEqual(issues(c), [])
+        for field in ('bank_credit_verification_verified', 'invoice_acceptance_verified',
+                      'late_payment_handling_verified', 'refunds_verified'):
+            with self.subTest(field=field):
+                broken = copy.deepcopy(c); broken['payment'][field] = False
+                self.assertIn('payment.' + field, {i['field'] for i in issues(broken)})
+
+    def test_quote_only_or_unconfirmed_upi_can_never_be_exported(self):
+        for model in (None, '', 'qr_only', 'quote_request', 'razorpay'):
+            with self.subTest(model=model):
+                c = approved_fixture(); c['payment']['model'] = model
+                self.assertIn('payment.model', {i['field'] for i in issues(c)})
+        for field in ('callback_verified', 'status_reconciliation_verified', 'refunds_verified',
+                      'final_total_before_commitment', 'purchase_confirmation_verified',
+                      'delivery_estimate_verified', 'billing_address_unrestricted'):
+            with self.subTest(field=field):
+                c = approved_fixture(); c['payment'][field] = False
+                self.assertIn('payment.' + field, {i['field'] for i in issues(c)})
 
     def test_blocked_run_removes_stale_feed_without_touching_other_files(self):
         c = approved_fixture()

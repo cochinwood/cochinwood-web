@@ -12,6 +12,18 @@ The initial proposed purchase options are **Premium Hardwood, nominal 8 × 4 ft,
 
 ## Implementation status
 
+### Owner decisions added on 7 September
+
+The owner selected **ICICI UPI with staff checking actual bank credit before fulfilment**. Staff will confirm freight, then the customer will accept the full invoice before paying. This is the first-launch payment direction; automatic ICICI API onboarding can continue separately. A screenshot, UPI-app return or customer-entered transaction reference cannot mark an order paid.
+
+The owner requested a review table using the app's current rates **plus ₹20 per square foot**. This is a pricing calculation instruction, not yet approval of the resulting retail offers, tax treatment, allocated stock or product specifications.
+
+The offline Merchant exporter now accepts an explicitly reviewed invoice workflow as an alternative to the bank API, while requiring evidence of bank-credit verification, invoice acceptance, late-payment handling, refunds, final charges, purchase confirmation and delivery estimates. The proposed configuration records the chosen model but leaves all launch-verification flags false. No live payment or Merchant offer is enabled.
+
+[Google's checkout requirements](https://support.google.com/merchants/answer/10249082?hl=en) permit invoicing, but a quotation-only website is not eligible. The freight-review stage must lead to a complete online purchase at a final, accepted total. Billing addresses must be independent of the Kerala delivery restriction. The existing Merchant shipping policy covering all India with a ₹300,000 minimum and a 6–25-business-day estimate must be reconciled before offers are submitted; it is not the approved Kerala policy.
+
+### Earlier implementation record
+
 **Build 597 is deployed and verified in the authenticated staff staging app, including the corrected catalogue approval labels.** The isolated remote D1 ledger, staff identity and role integration, audited assignment, immutable order/price snapshots, stock reservations, scheduled staging expiry and durable notification adapter are implemented. Staging suppresses real email and cannot accept real payments.
 
 The customer shop remains a local preview. The actual ICICI payment endpoint and UAT, production commerce configuration, controlled production email review and final public launch verification remain pending. A synthetic paid/refunded status is not a bank transaction or approval of commercial terms.

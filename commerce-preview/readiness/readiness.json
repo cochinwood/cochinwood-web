@@ -132,15 +132,47 @@
     },
     {
       "field": "payment.enabled",
-      "required": "Verified bank integration and approved written terms"
+      "required": "Tested payment workflow and approved payment terms"
     },
     {
       "field": "payment.uat_passed",
-      "required": "Verified bank integration and approved written terms"
+      "required": "Tested payment workflow and approved payment terms"
     },
     {
       "field": "payment.commercial_terms_approved",
-      "required": "Verified bank integration and approved written terms"
+      "required": "Tested payment workflow and approved payment terms"
+    },
+    {
+      "field": "payment.bank_credit_verification_verified",
+      "required": "Verified invoice and actual bank-credit handling, including exceptions and refunds"
+    },
+    {
+      "field": "payment.invoice_acceptance_verified",
+      "required": "Verified invoice and actual bank-credit handling, including exceptions and refunds"
+    },
+    {
+      "field": "payment.late_payment_handling_verified",
+      "required": "Verified invoice and actual bank-credit handling, including exceptions and refunds"
+    },
+    {
+      "field": "payment.refunds_verified",
+      "required": "Verified invoice and actual bank-credit handling, including exceptions and refunds"
+    },
+    {
+      "field": "payment.final_total_before_commitment",
+      "required": "Complete online purchase with final charges, confirmation and delivery estimate; billing address independent of delivery area"
+    },
+    {
+      "field": "payment.purchase_confirmation_verified",
+      "required": "Complete online purchase with final charges, confirmation and delivery estimate; billing address independent of delivery area"
+    },
+    {
+      "field": "payment.delivery_estimate_verified",
+      "required": "Complete online purchase with final charges, confirmation and delivery estimate; billing address independent of delivery area"
+    },
+    {
+      "field": "payment.billing_address_unrestricted",
+      "required": "Complete online purchase with final charges, confirmation and delivery estimate; billing address independent of delivery area"
     },
     {
       "field": "merchant.enabled",
@@ -163,7 +195,7 @@
       "required": "Recorded live launch verification"
     }
   ],
-  "config_sha256": "84762141d4eb6980f6af7377429a6f91a339a49e7ace331fe8ec75bb832083c0",
+  "config_sha256": "584b5e39f84a86576fbe314f7cdea1aab3b2f74b5c1f4c8bd03a6463e1e445c4",
   "version": "proposal-2026-09-07-marine-on-hold",
   "synthetic": false,
   "proposed_variants": 4

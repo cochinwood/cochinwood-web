@@ -138,9 +138,20 @@
   },
   "payment": {
     "provider": "icici-direct-upi",
+    "model": "upi_bank_verified_invoice",
     "enabled": false,
     "uat_passed": false,
-    "commercial_terms_approved": false
+    "commercial_terms_approved": false,
+    "callback_verified": false,
+    "status_reconciliation_verified": false,
+    "bank_credit_verification_verified": false,
+    "invoice_acceptance_verified": false,
+    "late_payment_handling_verified": false,
+    "refunds_verified": false,
+    "final_total_before_commitment": false,
+    "purchase_confirmation_verified": false,
+    "delivery_estimate_verified": false,
+    "billing_address_unrestricted": false
   },
   "merchant": {
     "enabled": false,

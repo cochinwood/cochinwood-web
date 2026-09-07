@@ -175,7 +175,23 @@ def issues(config, release=True):
             need(public_url(policies.get(field)), f'policies.{field}', 'Published approved policy URL')
         payment = config.get('payment', {})
         for field in ('enabled', 'uat_passed', 'commercial_terms_approved'):
-            need(payment.get(field) is True, f'payment.{field}', 'Verified bank integration and approved written terms')
+            need(payment.get(field) is True, f'payment.{field}', 'Tested payment workflow and approved payment terms')
+        model = payment.get('model')
+        need(model in ('icici_api', 'upi_bank_verified_invoice'), 'payment.model',
+             'Explicitly approved automatic ICICI or bank-verified invoice payment workflow')
+        # Google permits invoicing, but a quotation-only or unverified QR journey
+        # is not a complete purchase. These are evidence gates, not activation.
+        if model == 'icici_api':
+            for field in ('callback_verified', 'status_reconciliation_verified', 'refunds_verified'):
+                need(payment.get(field) is True, f'payment.{field}', 'Verified bank API payment, reconciliation and refund checks')
+        elif model == 'upi_bank_verified_invoice':
+            for field in ('bank_credit_verification_verified', 'invoice_acceptance_verified',
+                          'late_payment_handling_verified', 'refunds_verified'):
+                need(payment.get(field) is True, f'payment.{field}', 'Verified invoice and actual bank-credit handling, including exceptions and refunds')
+        for field in ('final_total_before_commitment', 'purchase_confirmation_verified',
+                      'delivery_estimate_verified', 'billing_address_unrestricted'):
+            need(payment.get(field) is True, f'payment.{field}',
+                 'Complete online purchase with final charges, confirmation and delivery estimate; billing address independent of delivery area')
         merchant = config.get('merchant', {})
         for field in ('enabled', 'checkout_verified', 'landing_pages_verified', 'shipping_verified', 'returns_verified'):
             need(merchant.get(field) is True, f'merchant.{field}', 'Recorded live launch verification')
@@ -240,7 +256,7 @@ def review_html(config, errors):
 <style>body{font:16px/1.65 system-ui;background:#faf9f7;color:#1b4332;margin:0}main{max-width:1120px;margin:auto;padding:32px 24px}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.15}a{color:#007a5e}table{border-collapse:collapse;width:100%;min-width:780px}td,th{text-align:left;border-bottom:1px solid #ccd6ce;padding:12px}li{margin-bottom:12px;overflow-wrap:anywhere}.table{overflow:auto}.notice{padding:16px 20px;background:#e5efe9;border-left:4px solid #007a5e}h2{margin-top:40px}nav{display:flex;gap:24px}</style>
 <main><nav><a href="/commerce-preview/">Shop preview</a><a href="/commerce-preview/staff.html">Staff preview</a></nav>
 <h1>Review the online catalogue.</h1><p class="notice">Internal preparation. Purchasing and Google Shopping are disabled. Blank fields need company confirmation.</p>
-<p>Premium Hardwood and Premium Marine plywood only. Proposed 8 × 4 ft sheets in 12 mm and 18 mm. Kerala delivery initially. Custom, bulk and export enquiries keep the quotation journey.</p>
+<p>Premium Hardwood is proposed for the first launch: 8 × 4 ft sheets in 12 mm and 18 mm, with Kerala delivery. Marine stays unavailable until its construction is confirmed. Custom, bulk and export enquiries keep the quotation journey.</p>
 <div class="table" role="region" aria-label="Proposed catalogue" tabindex="0"><table><thead><tr><th>SKU</th><th>Product</th><th>Selection status</th><th>Proposed size</th><th>Price including tax</th><th>Online stock</th><th>Minimum</th><th>Maximum</th></tr></thead><tbody>''' + rows + '''</tbody></table></div>
 <h2>Delivery and service terms</h2><p>Confirm exact postcodes, delivery charges by quantity, delivery windows, unloading responsibility, damage reporting, cancellation and refunds. A Kerala label alone does not establish serviceability.</p>
 <h2>Launch requirements</h2><ul>''' + blockers + '''</ul><p>This checklist evaluates the supplied configuration. It does not certify bank activation, legal terms or Google's approval.</p></main></html>'''
