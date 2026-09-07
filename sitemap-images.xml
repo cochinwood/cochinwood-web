@@ -975,6 +975,9 @@
   <url>
     <loc>https://www.cochinwood.in/woods-we-use/anjili</loc>
     <image:image>
+      <image:loc>https://www.cochinwood.in/files/Species/anjili-kerala-end-grain.webp</image:loc>
+    </image:image>
+    <image:image>
       <image:loc>https://www.cochinwood.in/files/Species/anjili-wood.webp</image:loc>
     </image:image>
     <image:image>
@@ -1233,7 +1236,13 @@
       <image:loc>https://www.cochinwood.in/files/Species/gmelina-wood.webp</image:loc>
     </image:image>
     <image:image>
+      <image:loc>https://www.cochinwood.in/files/Species/melia-dubia-ai-visual.webp</image:loc>
+    </image:image>
+    <image:image>
       <image:loc>https://www.cochinwood.in/files/Species/acacia-mangium-wood.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cochinwood.in/files/Species/kadam-ai-visual.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://www.cochinwood.in/files/Species/semul-wood.webp</image:loc>
@@ -1260,6 +1269,9 @@
       <image:loc>https://www.cochinwood.in/files/Species/matti-wood.webp</image:loc>
     </image:image>
     <image:image>
+      <image:loc>https://www.cochinwood.in/files/Species/anjili-kerala-end-grain.webp</image:loc>
+    </image:image>
+    <image:image>
       <image:loc>https://www.cochinwood.in/files/Species/subabul-wood.webp</image:loc>
     </image:image>
     <image:image>
@@ -1270,6 +1282,12 @@
     </image:image>
     <image:image>
       <image:loc>https://www.cochinwood.in/files/Species/sheesham-wood.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cochinwood.in/files/Species/sal-ai-visual.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cochinwood.in/files/Species/neem-ai-visual.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://www.cochinwood.in/files/Species/mahogany-wood.webp</image:loc>
