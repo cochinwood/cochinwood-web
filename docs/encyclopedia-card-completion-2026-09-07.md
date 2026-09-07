@@ -18,4 +18,17 @@ Every generated master is 1448 × 1086. Four WebP widths (320/640/960/1448) prov
 
 The metadata records exact generation prompts, source URLs, licences, native-output hashes and original-reference hashes. Native outputs, source proofs, rejected revisions and review receipts remain in `C:/Users/Edwin David/.codex/visualizations/2026/09/05/01a0708d-57f6-75a2-b691-19254be1f2a5/ai-grain-variants-2026-09-07/` and the adjoining `grain-completion-item6-2026-09-07/` folder. Project-consumed assets are versioned under `assets/photos/files/Species/`.
 
-The original 52 source-image records and files remain intact. The new Anjili photograph raises the separate reference collection to 53. Publication receipts and final validation are recorded below after release.
+The original 52 source-image records and files remain intact. The new Anjili photograph raises the separate reference collection to 53.
+
+## Publication and final validation
+
+- Reviewed source: `fab42b8fc5102b9ef539da2db976b001a3feb6f5`.
+- Publication [PR 38](https://github.com/cochinwood/cochinwood-web/pull/38), head `7ea9c39118565274a1cced4ac4f36616942be536`, merged at 08:01:20 UTC on 7 September 2026; production merge `ef44629fd2a63a18ce507dc3c9cf0cda871077a2`.
+- Cloudflare Pages production deployment `ae447a2b-b25e-4701-b7f6-5af9912a15f6` completed successfully at 08:01:38 UTC. Previous production deployment `a9d4778c-89ad-4379-ae76-b3d0296334d3` is the rollback reference.
+- All **1,126 baseline files** matched the reviewed prior production commit before copying; all **1,146 staged publication files** matched `dist` byte-for-byte. GitHub site checks and Cloudflare preview passed; 28 targeted preview URLs matched before merge.
+- The build, site/link/schema checker, visual coverage, 84 preserved export fragments, 320 preserved asset/root checks and six image tests passed. An independent ordered-content review accepted 19 exact changes and six informational additions, with zero unreviewed or stale allowances. All 52 prior image records and bytes remain unchanged.
+- Independent Chrome review passed at 320, 390, 768 and 1440 CSS pixels plus mobile DPR2: 28 distinct loaded card images, four AI-assisted labels, no empty spaces or horizontal overflow, consistent 4:3 frames, source/licence links, and working search/category navigation. The existing 145 navigation/layout cases passed earlier in the same review.
+- Explicit public-URL cache invalidation succeeded at 08:03:10 UTC. At **08:03:51 UTC**, all **328 live checks** matched the built bytes, without cache-busting query strings: 254 canonical pages, 52 prior reference photos, 20 new image variants, the stylesheet and image sitemap. A normal Chrome visit also confirmed the released directory.
+- Receipts: `publication-tree-proof.json`, `preview-live-proof.json`, `purge-live-proof.json`, `production-live-proof.json`, `independent-preservation-reviewed.json` and `encyclopedia-ai-integrated-independent-proof.json` in the AI variant artifact directory above.
+
+Item 6's visual completion is live under the owner's revised AI-variant choice. No external original-photo requests were sent. This release does not establish that the four generated reconstructions are documentary grain photographs, and it does not change the separate commerce, payment or Google verification dependencies.
