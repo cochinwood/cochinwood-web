@@ -170,6 +170,11 @@ LEGACY_REDIRECTS = {
     "/request-a-quote":                       "/contact#quote",
     "/plywood-suppliers-in-aluva":             "/plywood-manufacturer-kerala",
     "/blogs/Uncategorized/":                  "/blogs",
+    # Newly exposed GSC examples, confirmed 404 on 7 Sep 2026. Follow the
+    # existing Mumbai/Delhi/Ahmedabad pallet-and-crate legacy route policy.
+    "/plywood-pallets-crates-chennai":         "/plywood-pallets",
+    "/plywood-pallets-crates-vizag":           "/plywood-pallets",
+    "/plywood-pallets-crates-pune":            "/plywood-pallets",
     "/guide-block-board-vs-plywood":           "/blogs/post/block-board-vs-plywood",
     "/guide-bwp-bwr-plywood-explained":        "/blogs/post/bwp-and-bwr-plywood-explained",
     "/guide-film-faced-plywood-pours":         "/blogs/post/how-many-pours-does-film-faced-plywood-last",
@@ -262,6 +267,9 @@ LEGACY_REDIRECTS.update({
     "/blogs/buyer-guides/page/*": "/blogs",
     "/blogs/north-india": "/blogs",
     "/blogs/south-india": "/blogs",
+    # GSC still crawls page/2. The same owner-approved category retirement
+    # covers its old pagination; leave unrelated URL families untouched.
+    "/blogs/south-india/page/*": "/blogs",
     "/blogs/west-india": "/blogs",
     "/blogs/central-east-india": "/blogs",
 })
