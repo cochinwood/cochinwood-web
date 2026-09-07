@@ -46,22 +46,27 @@ class EncyclopediaImageTests(unittest.TestCase):
         self.assertEqual([(x['attrs']['href'], x['name'], x['botanical']) for x in before.cards],
                          [(x['attrs']['href'], x['name'], x['botanical']) for x in after.cards])
         self.assertEqual(len(metadata), 28)
-        self.assertEqual(result.count('class="cwe__card-photo"'), 28)
-        self.assertEqual(result.count('>Wood reference</span>'), 24)
-        self.assertEqual(result.count('>Tree reference</span>'), 4)
-        self.assertEqual(len({x[0]['sha256'] for x in self.calls}), 28)
+        self.assertEqual(result.count('class="cwe__card-photo"'), 23)
+        self.assertEqual(result.count('class="cwe__card-photo cwe__card-photo--pending"'), 5)
+        self.assertEqual(result.count('>Wood-grain detail</span>'), 22)
+        self.assertEqual(result.count('>End-grain detail</span>'), 1)
+        self.assertEqual(result.count('>Botanical references inside</span>'), 4)
+        self.assertEqual(len({x[0]['sha256'] for x in self.calls}), 23)
         for item, options in self.calls:
             self.assertFalse(options['eager'])
             self.assertIn('(max-width: 480px)', options['sizes'])
             self.assertIn(escape(item['credit']), result)
             self.assertIn(escape(item['license']), result)
-        self.assertIn('style="max-width:370px;max-height:288px"', result)
-        self.assertEqual(result.count('data-reference-fit="cover"'), 26)
-        self.assertEqual(result.count('data-reference-fit="contain"'), 2)
-        self.assertEqual(result.count('data-reference-rotation="90"'), 1)
+        self.assertNotIn('/files/Species/anjili-wood.webp', result)
+        self.assertEqual(result.count('data-reference-fit="cover"'), 23)
+        self.assertIn('calc(280vw - 112px)', result if 'sizes=' in result else ' '.join(x[1]['sizes'] for x in self.calls))
+        self.assertNotIn('data-reference-fit="contain"', result)
+        self.assertNotIn('data-reference-rotation="90"', result)
+        self.assertEqual(result.count('data-reference-detail="birch-end-grain"'), 1)
         tree = parse_fragment(result)
         for card in [n for n in tree.nodes if 'cwe__card' in n.classes]:
-            self.assertEqual(len([n for n in tree.nodes if n.tag == 'img' and card.contains(n)]), 1)
+            pending = card.attrs['href'].rsplit('/', 1)[-1] in ['kadam', 'melia-dubia', 'neem', 'sal', 'anjili']
+            self.assertEqual(len([n for n in tree.nodes if n.tag == 'img' and card.contains(n)]), 0 if pending else 1)
             self.assertFalse(any(n.tag == 'a' and n != card and card.contains(n) for n in tree.nodes))
 
     def test_missing_or_shared_photo_fails_instead_of_silent_empty_card(self):

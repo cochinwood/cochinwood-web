@@ -3172,5 +3172,27 @@
       "width": 1536,
       "sha256": "0362f5f924ea121b714e9abda776dff930cc4bd85280c5648ee51e8121e9889a"
     }
+  ],
+  "/files/Editorial-2026/is-710-vs-is-303-plywood-materials-2026-09-07.webp": [
+    {
+      "src": "/files/Editorial-2026/is-710-vs-is-303-plywood-materials-2026-09-07-320.webp",
+      "width": 320,
+      "sha256": "ca32969118d444bcc1824836753c3b4b257be47471ab9a5739790673cd034b85"
+    },
+    {
+      "src": "/files/Editorial-2026/is-710-vs-is-303-plywood-materials-2026-09-07-640.webp",
+      "width": 640,
+      "sha256": "ad69aac64b7f497aa2139afff55124bfc656dab2d4a37ac14509841f4b748889"
+    },
+    {
+      "src": "/files/Editorial-2026/is-710-vs-is-303-plywood-materials-2026-09-07-960.webp",
+      "width": 960,
+      "sha256": "8872e0e3f43f713bc1133cb173147f12609d9c4b5abee9a1ac7d6254ca45c6df"
+    },
+    {
+      "src": "/files/Editorial-2026/is-710-vs-is-303-plywood-materials-2026-09-07.webp",
+      "width": 1536,
+      "sha256": "72c0074ce907bc6b41e5af2c04ad56200600ca573aa1cf97c9a4677fd11131b0"
+    }
   ]
 }

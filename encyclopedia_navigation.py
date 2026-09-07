@@ -53,17 +53,24 @@ class HubScan(HTMLParser):
             self.card = None
 
 
-WOOD_CARD_SIZES = ('(max-width: 480px) calc(100vw - 40px), '
-                   '(max-width: 760px) calc((100vw - 76px) / 2), '
-                   '(max-width: 1440px) calc((89vw - 70px) / 3), '
-                   '(max-width: 1600px) calc((1370px - 11vw) / 3), 398px')
+def wood_card_sizes(scale=1.12):
+    """Request sufficient pixels for the reviewed CSS crop, including on phones."""
+    return (f'(max-width: 480px) min({370*scale:g}px, calc({100*scale:g}vw - {40*scale:g}px)), '
+            f'(max-width: 900px) calc({44.5*scale:g}vw - {12*scale:g}px), '
+            f'(max-width: 1199px) calc({29.666667*scale:g}vw - {16*scale:g}px), '
+            f'(max-width: 1440px) calc({22.25*scale:g}vw - {18*scale:g}px), {300*scale:g}px')
 
-# All 28 thumbnail crops were visually reviewed. Most wood specimens benefit
-# from a central grain detail; these two need their complete identification view.
-CARD_PHOTO_FITS = {
-    '/files/Species/birch-wood.webp': 'contain',  # Whole cross-section and taxon label.
-    '/files/Species/sal-botanical.webp': 'contain',  # Complete scientific plate.
+# The index uses grain details; full identified specimens remain in each gallery.
+# Birch is an end-grain reference, so its display crop must retain that distinction.
+CARD_DETAIL_CROPS = {
+    '/files/Species/birch-wood.webp': ('birch-end-grain', 'End-grain detail', 'Betula pendula', 1.75),
+    '/files/Species/matti-wood.webp': ('matti-grain', 'Wood-grain detail', 'Terminalia crenulata', 2.8),
+    '/files/Species/venteak-wood.webp': ('venteak-grain', 'Wood-grain detail', 'Lagerstroemia microcarpa', 2.5),
+    '/files/Species/jackwood-wood.webp': ('jackwood-grain', 'Wood-grain detail', 'Artocarpus heterophyllus', 1.6),
 }
+# The complete 370px research figure is useful in its gallery but cannot provide
+# a sharp close-up at the card's display size. Never invent detail by upscaling.
+PENDING_GRAIN_PHOTOS = {'/files/Species/anjili-wood.webp'}
 SPECIES_DISPLAY_ROTATIONS = {'/files/Species/neem-botanical.webp': 90}
 
 
@@ -89,7 +96,15 @@ def species_thumbnail(entry):
 
 def _card_photo(entry, image):
     item, label = species_thumbnail(entry)
-    tag = image(item, eager=False, sizes=WOOD_CARD_SIZES)
+    if label == 'Tree reference' or item['src'] in PENDING_GRAIN_PHOTOS:
+        inside = 'Botanical references inside' if label == 'Tree reference' else 'Wood reference inside'
+        return ('<span class="cwe__card-photo cwe__card-photo--pending">'
+                '<span>Grain photograph pending</span></span>'
+                '<span class="cwe__card-photo-kind">' + inside + '</span>')
+    crop = CARD_DETAIL_CROPS.get(item['src'])
+    if crop:
+        item = dict(item, alt=crop[1] + ' of ' + crop[2] + ' from an identified wood specimen')
+    tag = image(item, eager=False, sizes=wood_card_sizes(crop[3] if crop else 1.12))
     if item.get('max_display_width') is not None:
         cap = item['max_display_width']
         if isinstance(cap, bool) or not isinstance(cap, (int, float)) or not 100 <= cap <= 2000:
@@ -100,9 +115,9 @@ def _card_photo(entry, image):
         tag = tag.replace('<img ', f'<img style="{style}" ', 1)
     # The whole card links to its species, where the complete source/licence
     # links remain next to the photograph. No nested anchors inside the card.
-    fit = CARD_PHOTO_FITS.get(item['src'], 'cover')
-    rotation = ' data-reference-rotation="90"' if SPECIES_DISPLAY_ROTATIONS.get(item['src']) == 90 else ''
-    return ('<span class="cwe__card-photo" data-reference-fit="' + fit + '"' + rotation + '>' + tag + '</span>'
+    detail = ' data-reference-detail="' + crop[0] + '"' if crop else ''
+    label = crop[1] if crop else 'Wood-grain detail'
+    return ('<span class="cwe__card-photo" data-reference-fit="cover"' + detail + '>' + tag + '</span>'
             '<span class="cwe__card-photo-kind">' + label + '</span>'
             '<span class="cwe__card-photo-credit">' + escape(item['credit'])
             + ' · ' + escape(item['license']) + '</span>')
