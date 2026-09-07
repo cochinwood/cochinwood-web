@@ -9,6 +9,7 @@
   <link rel="icon" href="/assets/icons/favicon-32.png">
   <link rel="stylesheet" href="/assets/fonts.css">
   <link rel="stylesheet" href="/commerce-preview/commerce.css">
+  <script src="/commerce-preview/recovery.js" defer></script>
   <script src="/commerce-preview/shop.js" defer></script>
 </head>
 <body>
@@ -26,6 +27,14 @@
     <section class="mode-area wrap" aria-label="Preview data controls">
       <div class="mode-heading"><strong>Explore the shop</strong><div class="mode-switch" role="group" aria-label="Catalogue data"><button type="button" data-mode="live" aria-pressed="true">Actual setup</button><button type="button" data-mode="test" aria-pressed="false">Test checkout</button></div></div>
       <div id="mode-note" class="mode-note" role="status">Loading the proposed catalogue…</div>
+    </section>
+    <section id="saved-recovery" class="wrap saved-recovery" hidden aria-labelledby="saved-recovery-title">
+      <details><summary id="saved-recovery-title">Resume a saved order</summary><p id="saved-recovery-note"></p>
+        <form id="unlock-recovery-form"><div class="field"><label for="unlock-recovery-passphrase">Your recovery passphrase</label><input id="unlock-recovery-passphrase" type="password" autocomplete="off" maxlength="256" aria-describedby="saved-recovery-note"></div><button class="button secondary" type="submit">Unlock and review</button></form>
+        <p id="saved-recovery-result" role="status"></p><div id="saved-recovery-error" class="form-errors" role="alert" hidden></div>
+        <button id="forget-recovery" class="text-button" type="button">Forget saved copy on this device</button>
+        <div id="forget-recovery-review" hidden><p>Forgetting does not cancel an order or release its reservation. An order may already exist. Check with the team before submitting the same requirement again.</p><button id="confirm-forget-recovery" class="button secondary" type="button">Forget this device’s copy</button><button id="cancel-forget-recovery" class="text-button" type="button">Keep saved copy</button></div>
+      </details>
     </section>
     <div class="wrap shop-layout">
       <div class="catalogue-column">
@@ -47,7 +56,9 @@
               <div class="field"><label for="address-postcode">Delivery PIN code</label><input id="address-postcode" readonly aria-describedby="postcode-change-help"><span id="postcode-change-help" class="field-help">Change this in your basket to recheck delivery.</span></div>
             </div><div class="form-actions"><button type="submit" class="button primary">Review order <span aria-hidden="true">→</span></button><button type="button" class="text-button" id="fill-test-details">Fill example details</button></div></form>
           </div>
-          <div id="review-stage" hidden><div class="section-heading"><h2 tabindex="-1" id="review-title">Everything in one place.</h2><button type="button" class="text-button" id="edit-details">Edit details</button></div><div id="review-content"></div><p class="test-callout">This creates a test order only. Prices, stock and delivery terms are synthetic examples, not sale offers.</p><div class="check-field"><input id="review-confirm" type="checkbox"><label for="review-confirm">I understand this is a simulated order using example information.</label></div><div id="order-error" class="form-errors" role="alert" hidden></div><button id="create-order" class="button primary" type="button">Create test order <span aria-hidden="true">→</span></button></div>
+          <div id="review-stage" hidden><div class="section-heading"><h2 tabindex="-1" id="review-title">Everything in one place.</h2><button type="button" class="text-button" id="edit-details">Edit details</button></div><div id="review-content"></div><p class="test-callout">This creates a test order only. Prices, stock and delivery terms are synthetic examples, not sale offers.</p>
+            <details class="recovery-choice"><summary>Optional: resume after closing this page</summary><div class="check-field"><input id="save-recovery" type="checkbox"><label for="save-recovery">Save an encrypted recovery copy on this device for 24 hours</label></div><p id="recovery-choice-help">Off by default. The copy can be unlocked on this browser for 24 hours from saving; an expired copy is removed when this page is next opened. Your passphrase is never saved and cannot be recovered. Avoid shared devices. This creates no account and does not extend or cancel an order reservation.</p><div id="recovery-passphrase-fields" class="field-grid" hidden><div class="field"><label for="recovery-passphrase">Choose a passphrase (12+ characters)</label><input id="recovery-passphrase" type="password" autocomplete="off" maxlength="256" aria-describedby="recovery-choice-help"></div><div class="field"><label for="recovery-passphrase-confirm">Repeat passphrase</label><input id="recovery-passphrase-confirm" type="password" autocomplete="off" maxlength="256"></div></div></details>
+            <div class="check-field"><input id="review-confirm" type="checkbox"><label for="review-confirm">I understand this is a simulated order using example information.</label></div><div id="order-error" class="form-errors" role="alert" hidden></div><button id="create-order" class="button primary" type="button">Create test order <span aria-hidden="true">→</span></button></div>
           <div id="payment-stage" hidden><div id="payment-content"></div></div>
         </section>
       </div>

@@ -31,11 +31,25 @@ Staff review has owner, assigned salesperson, unassigned salesperson and Purchas
 
 ## Data and failure handling
 
-- Only SKU and quantity are kept in browser localStorage. Names, contact details, delivery addresses and order access tokens stay in memory.
+- By default, only SKU and quantity are kept in browser localStorage. Names, contact details, delivery addresses and order access tokens stay in memory. Optional device recovery is described below; it never writes those details as plaintext.
 - Synthetic order snapshots are stored in a local SQLite database under `%LOCALAPPDATA%/CochinWood/commerce-preview/` by default. Pass `--db` for a separate QA database. Do not enter real customer information.
-- Late quote responses are discarded after the basket, PIN code or mode changes. Order creation locks edits. If its response is lost or uncertain, the submitted payload and idempotency key stay fixed in memory and edits remain locked until the same order attempt is recovered or definitively refused. Keep the page open during recovery; the local preview does not retain personal details or resume an order after a page reload.
+- Late quote responses are discarded after the basket, PIN code or mode changes. Order creation locks edits. If its response is lost or uncertain, the submitted payload and idempotency key stay fixed and edits remain locked until the same order attempt is recovered or definitively refused. Without optional saved recovery, keep the page open until this is resolved.
 - Payment simulation retains the event ID for retries and reconciles the stored order after an uncertain network result. An unverified browser success message never creates a paid state.
 - Starting another test order refreshes the backend stock snapshot.
+
+## Optional recovery after closing the page
+
+Before submission, an optional collapsed control offers an encrypted recovery copy on this device. It is off by default and creates no account. Choosing it requires a repeated passphrase of 12–256 characters; the passphrase cannot be recovered and is never stored. Normal checkout requires no passphrase.
+
+`recovery.js` uses native Web Crypto AES-256-GCM with a random 96-bit nonce per write. A non-extractable key is derived with PBKDF2-SHA-256, a random 128-bit salt and 600,000 iterations. Origin, storage version and timestamps are authenticated with the ciphertext. Browser Web Locks coordinate writes between tabs; a changed copy is not silently overwritten. No new dependency or server endpoint is introduced.
+
+The original request body, idempotency key and displayed quote are encrypted **before** submission. If saving fails, no order request is sent until the user retries or opts out. After an accepted response, the encrypted payload is minimized to the order ID and bearer access token. Neither plaintext facts, the passphrase nor the key enter localStorage or sessionStorage. This protects saved data at rest; it does not protect an unlocked page from malicious scripts or someone controlling the device.
+
+The copy is available for 24 hours from its first save. Updates do not extend that time. An expired copy is removed when this page is next opened or checks recovery; browser storage restrictions can prevent physical removal, which is reported. The copy is bound to the same browser profile and origin, including the loopback port. Clearing site data, losing the passphrase or changing origin can make it unavailable. This is not a backup or a production customer identity system.
+
+Opening the page never restores contact details or sends an order automatically. The user chooses **Unlock and review**. A known accepted order uses the existing bearer-protected `GET /orders/:id` to obtain current status, without trusting a cached payment state. An uncertain original attempt presents its frozen facts and requires confirmation before replaying the exact existing POST body and idempotency key. This obtains the original order if it already committed; it does not create a second reservation. Corrupt data or an incorrect passphrase send nothing.
+
+Only one recovery copy is stored per origin. Another order cannot silently overwrite it. **Forget saved copy** requires a second confirmation and removes browser data only. Forgetting or expiry does not cancel an order or release a reservation; the interface tells the user to check the existing order before submitting the same requirement again. Production recovery across devices or after lost credentials still requires a separately reviewed server-side customer identity/recovery design.
 
 ## Browser verification
 
@@ -47,6 +61,8 @@ node 'C:/Users/Edwin David/cwi-brand-experience/commerce-preview/test-preview.cj
 
 For the focused order-submission recovery regression, run `node commerce-preview/test-recovery.cjs` from this repository. It starts its own loopback server with an isolated in-memory SQLite ledger, commits an order while dropping the response, then verifies that retry returns the same order and reservation. It also verifies that a definite stock refusal permits corrections. Its result is `order-recovery-proof.json` in the configured artifact directory.
 
+Run `node commerce-preview/test-device-recovery.cjs` for optional device recovery. It uses its own isolated server and real SQLite, blocks external network, and checks default privacy, encrypted saved data, wrong passphrases, exact-request replay across closed browser contexts, accepted-order GET-only recovery, explicit forgetting, expiry, damaged storage, unavailable storage and authenticated timestamp tampering. Its receipt is `customer-device-recovery-proof.json`; `customer-recovery-mobile.png` records the rendered 390px recovery panel.
+
 Set `COMMERCE_PREVIEW_URL` for another loopback port and `COMMERCE_PREVIEW_ARTIFACTS` for a separate output directory. Tests create synthetic orders only. They cover catalogue blocking, variant deep links, mixed baskets, item-only persistence, delivery validation and backend totals, stale quote races, form validation and GSTIN, edit locking during creation, recovery after a committed payment response is lost, role restrictions, refunds, cancellation, image aspect ratios and responsive layout at 320, 390, 768, 1229 and 1440 pixels. External network requests are blocked and reported.
 
 The reviewed output for 7 September 2026 is in:
@@ -55,4 +71,4 @@ The reviewed output for 7 September 2026 is in:
 
 Key files: `browser-proof.json`, `shop-actual-desktop.png`, `shop-test-desktop.png`, `shop-test-390.png`, `staff-owner-desktop.png`, `staff-owner-390.png`, and `checkout-test-paid.png`.
 
-Before any public launch, approved company prices, stock, product specifications and photographs, service areas, freight and policies must replace the incomplete proposed configuration. The actual staff interface is separately integrated and verified in authenticated staging; this local staff preview remains a separate harness. Bank integration and confirmation, approved production enablement, customer order recovery after a reload and real Merchant review remain launch work. Synthetic fixtures must never be published as retail offers.
+Before any public launch, approved company prices, stock, product specifications and photographs, service areas, freight and policies must replace the incomplete proposed configuration. The actual staff interface is separately integrated and verified in authenticated staging; this local staff preview remains a separate harness. Bank integration and confirmation, approved production enablement, production customer identity/recovery review and real Merchant review remain launch work. The local device-recovery implementation does not enable any of those services. Synthetic fixtures must never be published as retail offers.

@@ -1,7 +1,7 @@
 'use strict';
 
-/* Local preview only. Customer details and access tokens stay in memory. Only
-   product identifiers and quantities are remembered between page loads. */
+/* Local preview only. Details/tokens stay in memory unless the user explicitly
+   chooses passphrase-encrypted, short-lived device recovery. */
 const API = '/api/commerce';
 const $ = (selector) => document.querySelector(selector);
 const esc = (value = '') => String(value ?? '').replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -12,9 +12,11 @@ const families = [
   {key:'prem_marine_gurjan',title:'Premium Marine',kicker:'Gurjan · BWP',description:'The proposed marine plywood option for demanding joinery requirements.',image:'cwi-marine-plywood-960.webp',alt:'Warm reddish plywood panels showing their grain and layered core'}
 ];
 const state = {mode:'live',catalogue:null,cart:[],selected:{},quote:null,postcode:'',buyer:null,address:null,order:null,accessToken:null,staffToken:null,idempotencyKey:null,orderAttempt:null,orderRecovery:false,busy:false,loadVersion:0,revision:0,paymentEvents:{}};
+const recovery=window.CWIOrderRecovery;
+let recoveryContext=null;
 const busyControls = new Map();
 const recoveryControls = new Map();
-const EDIT_CONTROLS = '[data-mode],[data-select-sku],[data-quantity-input],[data-quantity-action],[data-add],[data-remove],#delivery-postcode,#postcode-form button,#continue-checkout,#details-form input,#details-form button,#back-to-basket,#edit-details,#review-confirm';
+const EDIT_CONTROLS = '[data-mode],[data-select-sku],[data-quantity-input],[data-quantity-action],[data-add],[data-remove],#delivery-postcode,#postcode-form button,#continue-checkout,#details-form input,#details-form button,#back-to-basket,#edit-details,#save-recovery,#recovery-passphrase,#recovery-passphrase-confirm';
 function syncOrderRecoveryLock() {
   if (state.orderRecovery) {
     document.querySelectorAll(EDIT_CONTROLS).forEach(control => { if (!recoveryControls.has(control)) recoveryControls.set(control,control.disabled); control.disabled = true; });
@@ -23,7 +25,7 @@ function syncOrderRecoveryLock() {
 function setBusy(value) {
   state.busy = value;
   if (value) {
-    document.querySelectorAll('[data-mode],[data-select-sku],[data-quantity-input],[data-quantity-action],[data-add],[data-remove],#delivery-postcode,#postcode-form button,#continue-checkout,#details-form input,#details-form button,#back-to-basket,#edit-details,#create-order,#review-confirm,[data-outcome],#new-order').forEach(control => { busyControls.set(control,control.disabled); control.disabled = true; });
+    document.querySelectorAll('[data-mode],[data-select-sku],[data-quantity-input],[data-quantity-action],[data-add],[data-remove],#delivery-postcode,#postcode-form button,#continue-checkout,#details-form input,#details-form button,#back-to-basket,#edit-details,#create-order,#review-confirm,[data-outcome],#new-order,#save-recovery,#recovery-passphrase,#recovery-passphrase-confirm,#saved-recovery button,#saved-recovery input').forEach(control => { busyControls.set(control,control.disabled); control.disabled = true; });
   } else { busyControls.forEach((disabled,control) => { if (control.isConnected) control.disabled = disabled; }); busyControls.clear(); }
 }
 function captureSelection(postcode) { return {revision:state.revision,mode:state.mode,items:JSON.stringify(state.cart),postcode}; }
@@ -41,7 +43,59 @@ async function api(path, options = {}) {
 function announce(text) { $('#announcer').textContent = ''; setTimeout(() => { $('#announcer').textContent = text; }, 40); }
 function revealError(selector, message) { const element = $(selector); element.textContent = message; element.hidden = false; }
 function clearError(selector) { $(selector).hidden = true; $(selector).textContent = ''; }
-function getProduct(sku) { return state.catalogue?.products.find((product) => product.sku === sku); }
+function showRecovery(message='') {
+  const saved=recovery.read(),exists=saved.state==='saved';
+  $('#saved-recovery').hidden=saved.state==='empty' && !message;
+  if(['expired','corrupt'].includes(saved.state))$('#saved-recovery details').open=true;
+  $('#unlock-recovery-form').hidden=!exists;
+  $('#forget-recovery').hidden=saved.state==='empty' || (saved.state==='expired' && !saved.removal_failed);
+  $('#saved-recovery-title').textContent=exists?'Resume a saved order':'Order recovery';
+  $('#saved-recovery-note').textContent=message || (exists?`An encrypted copy is saved on this browser until ${new Date(saved.envelope.expires_at).toLocaleString()}. Unlocking reviews the original order; it does not submit a new one. Your passphrase cannot be recovered.`:saved.state==='corrupt'?'The saved copy is damaged and cannot be unlocked. The order may still exist. Check with the team before placing the same order again.':saved.state==='expired'?'The 24-hour recovery copy has expired. Its local copy was removed where browser storage allowed. This does not cancel an order; check its status with the team before placing the same order again.':'Browser storage is unavailable. Contact and address details will stay in this tab only.');
+}
+function forgetCurrentRecovery() {
+  if(recoveryContext) {
+    const saved=recovery.read();
+    if(saved.state==='saved' && saved.envelope.salt===recoveryContext.salt)recovery.remove();
+  }
+  recoveryContext=null;
+}
+async function saveAcceptedRecovery() {
+  if(!recoveryContext)return;
+  try{await recovery.write(recoveryContext,{v:1,kind:'accepted',order_id:orderId(),access_token:state.accessToken});showRecovery();}
+  catch{showRecovery('Your order is recorded, but its saved recovery copy could not be updated. Keep this tab open. The earlier encrypted attempt, if still available, can recover the same order; do not place it again.');}
+}
+async function unlockRecovery(event) {
+  event.preventDefault();if(state.busy)return;
+  clearError('#saved-recovery-error');$('#saved-recovery-result').textContent='';setBusy(true);
+  let opened;
+  try {
+    opened=await recovery.unlock($('#unlock-recovery-passphrase').value);
+    await loadCatalogue('test');
+    recoveryContext=opened.context;
+    const payload=opened.payload;
+    if(payload.kind==='accepted') {
+      const result=await api(`/orders/${encodeURIComponent(payload.order_id)}`,{headers:{Authorization:`Bearer ${payload.access_token}`}});
+      state.order=result.order;state.accessToken=payload.access_token;state.quote=result.order.quote;
+      state.cart=[];renderBasket();$('#checkout').hidden=false;renderPayment();setStep('payment');focusSection('#payment-title');
+      $('#saved-recovery-result').textContent='The latest saved order status was retrieved. No order or payment was submitted.';
+    } else {
+      const body=JSON.parse(payload.attempt.body);
+      state.orderAttempt=payload.attempt;state.idempotencyKey=payload.attempt.key;state.orderRecovery=true;
+      state.cart=body.items;state.buyer=body.buyer;state.address=body.address;state.postcode=body.postcode;state.quote=payload.quote;
+      $('#delivery-postcode').value=body.postcode;renderBasket();renderReview();$('#checkout').hidden=false;setStep('review');$('#review-confirm').checked=false;
+      $('#create-order').innerHTML='Recover original test order <span aria-hidden="true">→</span>';
+      revealError('#order-error','This original attempt may already have created an order. Review its unchanged facts, confirm the test, then recover it using the same request. Do not create a separate order for the same requirement.');
+      focusSection('#review-title');$('#saved-recovery-result').textContent='The original submitted facts are unlocked for review. Nothing has been submitted.';
+    }
+  }catch(error){revealError('#saved-recovery-error',error.message+' No new order was submitted.');}
+  finally{$('#unlock-recovery-passphrase').value='';setBusy(false);syncOrderRecoveryLock();}
+}
+function getProduct(sku) {
+  // Recovery reviews the submitted snapshot, even if a later catalogue deactivates
+  // the SKU or changes its price. Current availability cannot replace saved facts.
+  if(state.orderRecovery)return state.quote?.items?.find(product=>product.sku===sku);
+  return state.catalogue?.products?.find((product) => product.sku === sku);
+}
 function familyFor(sku) { return families.find((family) => sku.startsWith(family.key)); }
 function maxQuantity(product) { return Math.max(0, Math.min(product.max_quantity ?? 100, product.stock ?? product.stock_sheets ?? 100)); }
 function quantityControl(sku, value, scope, disabled = false) {
@@ -102,6 +156,7 @@ function deliveryWindowText(quote) { const window = quote?.delivery_window; retu
 async function loadCatalogue(mode) {
   if (state.orderRecovery) return;
   const version = ++state.loadVersion;
+  recoveryContext=null;state.orderAttempt=null;$('#save-recovery').checked=false;$('#recovery-passphrase').value='';$('#recovery-passphrase-confirm').value='';$('#recovery-passphrase-fields').hidden=true;
   state.mode = mode; state.order = null; state.buyer = null; state.address = null; state.postcode = ''; state.accessToken = null; state.paymentEvents = {};
   state.cart = []; state.catalogue = null; $('#products').innerHTML = '<p>Loading materials…</p>'; renderBasket();
   $('#details-form').reset(); $('#delivery-postcode').value = ''; $('#address-postcode').value = ''; resetCheckout();
@@ -188,6 +243,8 @@ function validateDetails() {
 function renderReview() {
   const quote = state.quote;
   $('#review-content').innerHTML = `<div class="review-address"><div><h3>Contact</h3><p>${esc(state.buyer.name)}</p><p>${esc(state.buyer.email)}</p><p>${esc(state.buyer.phone)}</p>${state.buyer.company ? `<p>${esc(state.buyer.company)}</p>` : ''}</div><div><h3>Delivery address</h3><p>${esc(state.address.line1)}</p>${state.address.line2 ? `<p>${esc(state.address.line2)}</p>` : ''}<p>${esc(state.address.city)}, Kerala ${esc(state.address.postcode)}</p></div></div><ul class="review-items">${quote.items.map((item) => `<li><span><strong>${esc(item.name)}</strong><span class="muted">${esc(getProduct(item.sku)?.thickness_mm)} mm · ${item.quantity} ${item.quantity === 1 ? 'sheet' : 'sheets'} × ${money(item.unit_price_paise)}</span></span><strong>${money(item.line_total_paise)}</strong></li>`).join('')}</ul><div class="totals"><div class="total-row"><span>Delivery</span><span>${money(quote.shipping_paise)}</span></div><div class="total-row grand-total"><span>Test order total</span><span>${money(quote.total_paise)}</span></div></div>`;
+  if (state.buyer.gstin) { const line = document.createElement('p'); line.textContent = 'GSTIN: ' + state.buyer.gstin; $('#review-content .review-address>div').append(line); }
+  if (deliveryWindowText(quote)) { const line = document.createElement('p'); line.className = 'read-only-note'; line.textContent = deliveryWindowText(quote); $('#review-content').append(line); }
 }
 async function reviewDetails(event) {
   event.preventDefault(); if (!validateDetails() || !state.quote || state.busy) return;
@@ -199,8 +256,6 @@ async function reviewDetails(event) {
     state.buyer = {name:$('#buyer-name').value.trim(),email:$('#buyer-email').value.trim(),phone:$('#buyer-phone').value.trim(),company:$('#buyer-company').value.trim(),gstin:$('#buyer-gstin').value.trim().toUpperCase()};
     state.address = {line1:$('#address-line1').value.trim(),line2:$('#address-line2').value.trim(),city:$('#address-city').value.trim(),state:'Kerala',postcode:state.postcode};
     state.idempotencyKey = null; $('#review-confirm').checked = false; clearError('#order-error'); renderReview();
-    if (state.buyer.gstin) { const line = document.createElement('p'); line.textContent = 'GSTIN: ' + state.buyer.gstin; $('#review-content .review-address>div').append(line); }
-    if (deliveryWindowText(state.quote)) { const line = document.createElement('p'); line.className = 'read-only-note'; line.textContent = deliveryWindowText(state.quote); $('#review-content').append(line); }
     renderTotals(); setStep('review'); focusSection('#review-title');
   } catch (error) { if (selectionCurrent(snapshot)) { revealError('#details-errors',error.message); $('#details-errors').focus(); } }
   finally { setBusy(false); }
@@ -219,18 +274,29 @@ async function createOrder() {
   clearError('#order-error');
   if (!$('#review-confirm').checked) { revealError('#order-error','Confirm that this is a simulated order before continuing.'); $('#review-confirm').focus(); return; }
   if (state.mode !== 'test' || !state.quote || !state.buyer || !state.address) { revealError('#order-error','Return to your selection and check delivery before creating a test order.'); return; }
+  const existingRecovery=recovery.read();
+  if(!state.orderAttempt && (['saved','corrupt'].includes(existingRecovery.state) || existingRecovery.removal_failed)) { revealError('#order-error','Review the saved recovery copy above before placing another order. Unlock it, or explicitly forget it after checking whether that order already exists.');showRecovery();$('#saved-recovery details').open=true;return; }
   setBusy(true); const button = $('#create-order'); button.textContent = 'Recording test order…';
   state.orderAttempt ||= {key:state.idempotencyKey || uuid(),body:JSON.stringify({mode:'test',items:state.cart,postcode:state.postcode,buyer:state.buyer,address:state.address,expected_catalogue_fingerprint:state.quote.catalogue_fingerprint})};
   state.idempotencyKey = state.orderAttempt.key;
+  let submitted=false;
   try {
+    if($('#save-recovery').checked && !recoveryContext) {
+      const passphrase=$('#recovery-passphrase').value;
+      if(passphrase!==$('#recovery-passphrase-confirm').value)throw new Error('The recovery passphrases do not match. No order was sent.');
+      recoveryContext=await recovery.create(passphrase,{v:1,kind:'attempt',attempt:state.orderAttempt,quote:state.quote});
+      $('#recovery-passphrase').value='';$('#recovery-passphrase-confirm').value='';showRecovery();
+    }
+    submitted=true;
     const result = await api('/orders',{method:'POST',headers:{'Idempotency-Key':state.orderAttempt.key},body:state.orderAttempt.body});
     state.order = result.order; state.accessToken = result.access_token;
     state.orderAttempt = null; state.orderRecovery = false;
+    await saveAcceptedRecovery();
     state.cart = []; rememberCart(); renderBasket();
     renderPayment(); setStep('payment'); focusSection('#payment-title'); announce('Test order recorded. No real payment has been taken.');
   } catch (error) {
     state.orderRecovery = error.uncertain === true;
-    if (!state.orderRecovery) { state.orderAttempt = null; state.idempotencyKey = null; }
+    if (!state.orderRecovery) { state.orderAttempt = null; state.idempotencyKey = null;if(submitted){try{forgetCurrentRecovery();showRecovery();}catch{showRecovery('The submitted request was refused, but this browser could not remove its saved copy. Clear it before starting another attempt.');}} }
     revealError('#order-error',state.orderRecovery ? 'The order result was not confirmed. Your submitted selection is held here. Recover the same test order before editing or starting another; this will not create another reservation.' : error.message);
   }
   finally { setBusy(false); syncOrderRecoveryLock(); button.innerHTML = state.orderRecovery ? 'Recover saved test order <span aria-hidden="true">→</span>' : 'Create test order <span aria-hidden="true">→</span>'; }
@@ -278,4 +344,15 @@ $('#edit-details').addEventListener('click',() => { setStep('details'); focusSec
 $('#details-form').addEventListener('submit',reviewDetails);
 $('#fill-test-details').addEventListener('click',() => { if (state.mode !== 'test') return; const sample = {'buyer-name':'Preview Customer','buyer-phone':'9000000000','buyer-email':'preview@example.invalid','buyer-company':'Example Test Company','address-line1':'Test Building 1, Example Street','address-line2':'Preview address only','address-city':'Perumbavoor'}; Object.entries(sample).forEach(([id,value]) => { $('#' + id).value = value; }); announce('Made-up example details filled.'); });
 $('#create-order').addEventListener('click',createOrder);
+$('#save-recovery').addEventListener('change',()=>{$('#recovery-passphrase-fields').hidden=!$('#save-recovery').checked;if(!$('#save-recovery').checked){$('#recovery-passphrase').value='';$('#recovery-passphrase-confirm').value='';}});
+$('#unlock-recovery-form').addEventListener('submit',unlockRecovery);
+$('#forget-recovery').addEventListener('click',()=>{$('#forget-recovery-review').hidden=false;$('#confirm-forget-recovery').focus();});
+$('#cancel-forget-recovery').addEventListener('click',()=>{$('#forget-recovery-review').hidden=true;$('#forget-recovery').focus();});
+$('#confirm-forget-recovery').addEventListener('click',()=>{
+  if(state.busy)return;
+  try{recovery.remove();recoveryContext=null;$('#save-recovery').checked=false;$('#recovery-passphrase-fields').hidden=true;$('#forget-recovery-review').hidden=true;$('#saved-recovery-result').textContent='';showRecovery('The copy on this device was removed. Any existing order remains unchanged. Check its status before placing the same requirement again.');}
+  catch(error){revealError('#saved-recovery-error',error.message);}
+});
+window.addEventListener('beforeunload',event=>{if(state.busy || (state.orderRecovery && !recoveryContext)){event.preventDefault();event.returnValue='';}});
+showRecovery();
 loadCatalogue('live');
