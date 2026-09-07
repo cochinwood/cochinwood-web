@@ -2467,8 +2467,9 @@ body.cw-wood-index #main .cw-wood-navigation{margin-bottom:24px}
 /* Filtering must not let browser scroll anchoring move the search field. */
 body.cw-wood-index,body.cw-blog-directory-page{overflow-anchor:none}
 
-/* Directory thumbnails show reviewed grain details without broad letterboxes.
-   The linked species galleries retain the complete source photographs. */
+/* One grain-sample collection. Full specimens and botanical sources stay in
+   species galleries; natural colour and source files are never altered. */
+body.cw-wood-index #main .cwe__grid { grid-template-columns: repeat(4,minmax(0,1fr)); gap: 0 24px; }
 body.cw-wood-index #main .cwe__card { display: flex; flex-direction: column; text-decoration: none; }
 body.cw-wood-index #main .cwe__card-photo {
   display: flex; align-items: center; justify-content: center;
@@ -2476,29 +2477,34 @@ body.cw-wood-index #main .cwe__card-photo {
   overflow: hidden; background: #eceee6;
 }
 body.cw-wood-index #main .cwe__card-photo :is(img,picture) { display: block; width: 100%; height: 100%; min-width: 0; margin: 0; border-radius: 0; }
-body.cw-wood-index #main .cwe__card-photo img { object-fit: cover; object-position: center; }
-body.cw-wood-index #main .cwe__card-photo[data-reference-fit="contain"] { background: #fff; }
-body.cw-wood-index #main .cwe__card-photo[data-reference-fit="contain"] img { object-fit: contain; }
-/* The preserved Neem file is sideways. Rotate its display after fitting the
-   inverse frame; no pixel changes, stretching or inherited gallery crop. */
-body.cw-wood-index #main .cwe__card-photo[data-reference-rotation="90"] { position: relative; }
-body.cw-wood-index #main .cwe__card-photo[data-reference-rotation="90"] img {
-  position: absolute; left: 50%; top: 50%; width: 75%; height: 133.333333%;
-  max-width: none; max-height: none; transform: translate(-50%,-50%) rotate(90deg);
+body.cw-wood-index #main .cwe__card-photo img { object-fit: cover; object-position: center; transform: scale(1.12); }
+body.cw-wood-index #main .cwe__card-photo[data-reference-detail="birch-end-grain"] img {
+  transform: scale(1.75); transform-origin: 50% 38%;
 }
+body.cw-wood-index #main .cwe__card-photo[data-reference-detail="matti-grain"] img { object-position: 50% 65%; transform: scale(2.8); }
+body.cw-wood-index #main .cwe__card-photo[data-reference-detail="venteak-grain"] img { object-position: 50% 64%; transform: scale(2.5); }
+body.cw-wood-index #main .cwe__card-photo[data-reference-detail="jackwood-grain"] img { transform: scale(1.6); }
+body.cw-wood-index #main .cwe__card-photo--pending { border: 1px solid #d8dfd2; box-sizing: border-box; padding: 24px; text-align: center; }
+body.cw-wood-index #main .cwe__card-photo--pending>span { max-width: 14ch; color: #536158; font: 400 .875rem/1.6 Poppins,sans-serif; }
+body.cw-wood-index #main .cwe__card-photo { order: 0; }
+body.cw-wood-index #main .cwe__card-name { order: 1; }
+body.cw-wood-index #main .cwe__card-sci { order: 2; }
 body.cw-wood-index #main .cwe__card-photo-kind {
-  color: #007a5e; font: 500 .875rem/1.5 Poppins,sans-serif; margin-bottom: 5px;
+  order: 3; color: #007a5e; font: 500 .75rem/1.5 Poppins,sans-serif; margin-top: 6px; margin-bottom: 5px;
 }
 body.cw-wood-index #main .cwe__card-photo-credit {
-  color: #536158; font: 400 .875rem/1.5 Poppins,sans-serif;
-  overflow-wrap: anywhere; margin-bottom: 14px;
+  order: 4; color: #536158; font: 400 .75rem/1.5 Poppins,sans-serif;
+  overflow-wrap: anywhere; margin-bottom: 8px;
 }
 body.cw-wood-index #main .cwe__card :is(.cwe__card-name,.cwe__card-sci) { margin-block: 0 8px; }
 body.cw-wood-index #main .cwe__card .cwe__card-name { font-size: 1.125rem; }
 body.cw-wood-index #main .cwe__card .cwe__card-sci { font-size: .875rem; }
-body.cw-wood-index #main .cwe__card .cwe__card-tag { font-size: .875rem; margin-top: auto; padding-top: 12px; }
+body.cw-wood-index #main .cwe__card .cwe__card-tag { order: 5; font-size: .875rem; margin-top: auto; padding-top: 12px; }
 body.cw-wood-index #main .cwe__card:hover .cwe__card-name { text-decoration: underline; text-underline-offset: 5px; }
 body.cw-wood-index #main .cwe__card:focus-visible { outline: 2px solid #007a5e; outline-offset: 5px; }
+@media (max-width:1199px) { body.cw-wood-index #main .cwe__grid { grid-template-columns: repeat(3,minmax(0,1fr)); } }
+@media (max-width:900px) { body.cw-wood-index #main .cwe__grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media (max-width:480px) { body.cw-wood-index #main .cwe__grid { grid-template-columns: minmax(0,370px); justify-content: center; } }
 body.cw-wood-species #main .cw-species-reference__title {
   grid-column: 1 / -1; margin: 0;
   font: 500 clamp(1.5rem,2.3vw,2rem)/1.25 Poppins,sans-serif;
