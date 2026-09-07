@@ -8,4 +8,17 @@ The IS 710 vs IS 303 article now has a new unbranded plywood face/edge workshop 
 
 Independent Chrome review checked ten index widths and the existing 145 navigation/layout cases, followed by 18 targeted crop checks at 320/390/1440. Five reference galleries were compared against their unchanged source hashes. The new article composition was checked at three widths. No overflow, browser errors or external requests were observed in these isolated tests.
 
-The ordered-content release comparison permits only the specifically reviewed index labels/image selections, this one article image and its linked previews/social metadata, the image sitemap, and the stylesheet cache fingerprint. Page bodies, product specifications, enquiry fields, canonical routes, downloads, redirects and species source galleries remain preserved. Publication and live verification receipt will be recorded after deployment.
+The ordered-content release comparison permits only the specifically reviewed index labels/image selections, this one article image and its linked previews/social metadata, the image sitemap, and the stylesheet cache fingerprint. Page bodies, product specifications, enquiry fields, canonical routes, downloads, redirects and species source galleries remain preserved.
+
+## Publication and live verification
+
+- Reviewed source: `757fa028caa4d5ac3cc376ed9daf7e5697d4ce33`.
+- Publication PR: https://github.com/cochinwood/cochinwood-web/pull/36, merged 7 September 2026 at 03:21:06 UTC. Production merge: `4e710d89a3eb64fad1eb93f661d36991617d9f25`.
+- Cloudflare Pages production deployment: `3e4ac3bc-64ce-4dcf-ab9c-efde097fad3b`, successful at 03:21:27 UTC, in project `cochinwood-web`.
+- All 1,126 publication files matched the reviewed output before publication. The preceding 1,122-file production baseline had also been verified before release.
+- The preview passed ten selected page/asset byte comparisons. GitHub's Cloudflare Pages and site checks passed.
+- Initial production checks detected stale cached HTML. A successful cache purge at 03:25:16 UTC targeted only the public `www.cochinwood.in` and `cochinwood.in` hosts, not the staff application or the entire zone.
+- Final live verification at 03:26:17 UTC matched all **312 checked paths** to the reviewed bytes: **254 canonical pages**, **52 original species reference images**, the new stylesheet, image sitemap and four article-image derivatives. No missing or mismatched paths remained. A normal Chrome review confirmed the live encyclopedia layout.
+- Receipt: `C:/Users/Edwin David/.codex/visualizations/2026/09/05/01a0708d-57f6-75a2-b691-19254be1f2a5/wood-grain-publication-live-proof.json`. The same artifact directory holds the exact preservation, ownership, preview and cache-purge records.
+
+The previous production deployment `44f7df38-b42f-4d09-8108-9faa694d6b56` remains the rollback reference. This release completes the image/layout changes above; the five pending grain photographs remain explicitly pending.
