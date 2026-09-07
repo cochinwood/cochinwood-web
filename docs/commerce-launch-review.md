@@ -35,7 +35,7 @@ The customer shop remains a local preview. The actual ICICI payment endpoint and
 | Two Hardwood launch variants | Confirm identities, finished dimensions and tolerances, face/core/bond and evidence for any claims | Two active proposals; identity approval false; Marine held |
 | Selling price | Tax-inclusive INR per sheet for 12 mm and 18 mm Hardwood | Approved 7 September 2026: ₹2,794.24 / ₹3,209.60; recorded in proposed configuration |
 | Tax and seller | Product GST approved at 18%; confirm legal selling/invoice entity, freight treatment and invoice requirements | Sheet-price GST approved; remaining invoice details pending |
-| Stock | Sheets reserved for online orders; restocking responsibility | Blank |
+| Stock | Operations confirms availability and reserves exact sheets for each invoice before payment | Per-invoice approach approved; numeric stock remains unknown, reservation workflow implementation pending |
 | Quantity limits | Minimum and maximum per variant; mixed basket limits | Blank |
 | Exact product imagery | Photographs of the actual sold variant, with commercial rights | Pending; preview uses existing family images only |
 | Product identifiers | Genuine GTIN/MPN, or explicit confirmation none are assigned | Pending; no invented identifiers |

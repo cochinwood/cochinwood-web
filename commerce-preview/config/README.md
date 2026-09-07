@@ -11,3 +11,9 @@ The selected payment model is `upi_bank_verified_invoice`: ICICI UPI with staff 
 Before approval, review every product identity, actual product photo and identifier; exact finished dimensions/tolerances; sheet price, tax, stock and min/max quantity; delivery eligibility, price and dates; unloading, damage, cancellation and refund policies. Record approver/date and version. Payment and Merchant activation are separate release gates.
 
 Preview images are existing product-family presentations. `actual_product_photo_url` stays null until a photograph of the exact sold product is approved. Preview imagery cannot satisfy the Shopping image approval gate.
+
+## Approved stock allocation approach
+
+The owner selected **Operations confirmation and reservation for each invoice** on 7 September 2026. `inventory_policy.mode` is `staff_per_invoice`. Before a customer can pay, Operations must confirm availability and reserve the exact sheets for that invoice. No fixed online stock pool was approved; numeric `stock` fields remain null. Minimum and maximum order quantities still await the owner's answers.
+
+The current cart and Merchant exporter only support a fixed stock pool. They explicitly refuse this per-invoice policy even if other fields later receive numbers and approvals. The live invoice reservation workflow belongs to the separate purchase implementation; selecting the policy does not create reservations or change role permissions. A combined order minimum, if approved, must not be entered as a separate minimum for each thickness.

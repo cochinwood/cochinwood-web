@@ -21,7 +21,7 @@ The server listens only on loopback, denies cross-origin API requests, protects 
 
 ## Review the two modes
 
-**Actual setup** loads `config/catalogue.proposed.json`. Only the two Hardwood variants are active proposals; both Marine variants are held out of purchasing until their construction is confirmed. The owner approved the two tax-inclusive Hardwood prices on 7 September 2026. Stock and the remaining launch inputs are still pending, so purchasing remains blocked. This view never substitutes the staff rate card or historical prices.
+**Actual setup** loads `config/catalogue.proposed.json`. Only the two Hardwood variants are active proposals; both Marine variants are held out of purchasing until their construction is confirmed. The owner approved the two tax-inclusive Hardwood prices and selected Operations confirmation and stock reservation for each invoice on 7 September 2026. Order limits and the remaining launch inputs are pending. The per-invoice reservation workflow is separate implementation work, and this fixed-stock cart refuses that policy. This view never substitutes the staff rate card, historical prices or invented stock.
 
 **Test checkout** loads `config/catalogue.synthetic.json`. Sheet prices, stock, tax and delivery terms are fictional fixtures. PIN codes 683542 and 682001 exercise eligible delivery. Other PIN codes are rejected before an order can be made. Customer emails must end in `@example.invalid`; “Fill example details” provides made-up information. Optional GSTIN is stored as provided after format validation; it does not establish registration status or issue a tax invoice.
 

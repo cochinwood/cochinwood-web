@@ -3,6 +3,10 @@
   "submitted": false,
   "errors": [
     {
+      "field": "inventory_policy",
+      "required": "The fixed-stock exporter cannot use per-invoice allocation. Complete the invoice purchase workflow and its offer validation before export."
+    },
+    {
       "field": "approval",
       "required": "Company approval with approver and date"
     },
@@ -183,8 +187,8 @@
       "required": "Recorded live launch verification"
     }
   ],
-  "config_sha256": "f310133511b0409b61c67cb78314ea36649b0c02a55b1918e7d3bcb0f2b45bc0",
-  "version": "proposal-2026-09-07-hardwood-prices-approved",
+  "config_sha256": "f58117698612056902c79da55e267b709c5e4d2d8cc26441352e67fa9675f550",
+  "version": "proposal-2026-09-07-invoice-stock-policy",
   "synthetic": false,
   "proposed_variants": 4
 }

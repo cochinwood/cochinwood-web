@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "version": "proposal-2026-09-07-hardwood-prices-approved",
+  "version": "proposal-2026-09-07-invoice-stock-policy",
   "synthetic": false,
   "approval": {
     "status": "pending",
@@ -19,6 +19,17 @@
     "mode": "inclusive",
     "rate_basis_points": 1800,
     "approved": true
+  },
+  "inventory_policy": {
+    "mode": "staff_per_invoice",
+    "approved": true,
+    "approved_by": "Company owner",
+    "recorded_at": "2026-09-07T15:11:11Z",
+    "skus": ["prem_hw_gurjan_12", "prem_hw_gurjan_18"],
+    "responsible_role": "Operations",
+    "availability_confirmation_required": true,
+    "reservation_before_payment_required": true,
+    "scope": "Operations confirms availability and reserves the exact sheets for each invoice before payment. No fixed online stock pool or public availability is asserted."
   },
   "products": [
     {

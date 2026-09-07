@@ -71,6 +71,22 @@ class MerchantPreparationTests(unittest.TestCase):
                 self.assertEqual(item.find('g:link', ns).text, product['offers']['url'])
                 self.assertEqual(item.find('g:image_link', ns).text, product['image'][0])
 
+    def test_invoice_or_invalid_stock_policy_cannot_generate_fixed_stock_offers(self):
+        for policy in ({'mode':'staff_per_invoice','approved':True}, None, {},
+                       {'mode':'unknown'}, 'fixed_pool'):
+            with self.subTest(policy=policy), tempfile.TemporaryDirectory() as temp:
+                c = approved_fixture()
+                c['inventory_policy'] = policy
+                self.assertIn('inventory_policy', {i['field'] for i in issues(c)})
+                with self.assertRaises(ValueError):
+                    records(c)
+                path = Path(temp)/'fixture.json'; path.write_text(json.dumps(c))
+                output = Path(temp)/'out'
+                report = prepare(path, output, release=True)
+                self.assertFalse(report['ready_for_merchant_export'])
+                for name in ('merchant-feed.xml', 'merchant-feed.tsv', 'product-offers.json'):
+                    self.assertFalse((output/name).exists())
+
     def test_synthetic_fixture_never_eligible_even_if_all_flags_set(self):
         c = approved_fixture(); c['synthetic'] = True
         self.assertIn('synthetic', {i['field'] for i in issues(c)})

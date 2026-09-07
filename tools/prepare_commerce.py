@@ -40,6 +40,15 @@ def money(paise):
     return f'{paise // 100}.{paise % 100:02d}'
 
 
+def fixed_stock_policy(config):
+    # Legacy rehearsals use numeric stock. A declared invoice allocation policy
+    # cannot become a stock-backed offer merely by filling the remaining fields.
+    if 'inventory_policy' not in config:
+        return True
+    policy = config['inventory_policy']
+    return isinstance(policy, dict) and policy.get('mode') == 'fixed_pool'
+
+
 def public_url(value):
     if not isinstance(value, str):
         return False
@@ -80,6 +89,8 @@ def issues(config, release=True):
         return errors
     need(config.get('schema_version') == 1, 'schema_version', 'Supported schema version 1')
     need(config.get('currency') == 'INR', 'currency', 'INR pricing')
+    need(fixed_stock_policy(config), 'inventory_policy',
+         'The fixed-stock exporter cannot use per-invoice allocation. Complete the invoice purchase workflow and its offer validation before export.')
     approval = config.get('approval', {})
     need(approval.get('status') == 'approved' and words(approval.get('approved_by')) and dated(approval.get('approved_at')),
          'approval', 'Company approval with approver and date')
@@ -200,6 +211,8 @@ def issues(config, release=True):
 
 def records(config):
     """One source for feed and structured offers; minimum basket price is explicit."""
+    if not fixed_stock_policy(config):
+        raise ValueError('Per-invoice or unrecognised inventory policy cannot generate fixed-stock offers.')
     rows, structured = [], []
     for p in config['products']:
         if not p.get('active', True):
@@ -246,6 +259,12 @@ def feed_xml(rows):
 
 def review_html(config, errors):
     esc = lambda v: html.escape(str(v if v is not None else 'Needs confirmation'))
+    inventory = config.get('inventory_policy')
+    allocation_note = ''
+    if isinstance(inventory, dict) and inventory.get('mode') == 'staff_per_invoice':
+        allocation_note = ('<h2>Stock allocation</h2><p>Operations confirms availability and reserves the exact sheets for each invoice before payment. '
+                           'No fixed online stock quantity has been declared. Minimum and maximum order rules are awaiting the owner’s decisions.</p>'
+                           '<p>This policy is recorded. Its invoice reservation workflow is still to be implemented; the fixed-stock checkout and exporter remain unavailable.</p>')
     rows = ''.join('<tr>' + ''.join(f'<td>{esc(v)}</td>' for v in (
         p['sku'], p['name'], 'Proposed for launch' if p.get('active') is True else p.get('purchase_hold_reason', 'Unavailable for purchase'), f"{p['size']} / {p['thickness_mm']} mm",
         '₹' + money(p['unit_price_paise']) if integer(p.get('unit_price_paise'), 1) else None,
@@ -258,6 +277,7 @@ def review_html(config, errors):
 <h1>Review the online catalogue.</h1><p class="notice">Internal preparation. Purchasing and Google Shopping are disabled. Blank fields need company confirmation.</p>
 <p>Premium Hardwood is proposed for the first launch: 8 × 4 ft sheets in 12 mm and 18 mm, with Kerala delivery. Marine stays unavailable until its construction is confirmed. Custom, bulk and export enquiries keep the quotation journey.</p>
 <div class="table" role="region" aria-label="Proposed catalogue" tabindex="0"><table><thead><tr><th>SKU</th><th>Product</th><th>Selection status</th><th>Proposed size</th><th>Price including tax</th><th>Online stock</th><th>Minimum</th><th>Maximum</th></tr></thead><tbody>''' + rows + '''</tbody></table></div>
+''' + allocation_note + '''
 <h2>Delivery and service terms</h2><p>Confirm exact postcodes, delivery charges by quantity, delivery windows, unloading responsibility, damage reporting, cancellation and refunds. A Kerala label alone does not establish serviceability.</p>
 <h2>Launch requirements</h2><ul>''' + blockers + '''</ul><p>This checklist evaluates the supplied configuration. It does not certify bank activation, legal terms or Google's approval.</p></main></html>'''
 
