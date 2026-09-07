@@ -63,6 +63,7 @@ def wood_card_sizes(scale=1.12):
 # The index uses grain details; full identified specimens remain in each gallery.
 # Birch is an end-grain reference, so its display crop must retain that distinction.
 CARD_DETAIL_CROPS = {
+    '/files/Species/anjili-kerala-end-grain.webp': ('anjili-end-grain', 'End-grain detail', 'Artocarpus hirsutus', 1.85),
     '/files/Species/birch-wood.webp': ('birch-end-grain', 'End-grain detail', 'Betula pendula', 1.75),
     '/files/Species/matti-wood.webp': ('matti-grain', 'Wood-grain detail', 'Terminalia crenulata', 2.8),
     '/files/Species/venteak-wood.webp': ('venteak-grain', 'Wood-grain detail', 'Lagerstroemia microcarpa', 2.5),
@@ -94,8 +95,23 @@ def species_thumbnail(entry):
     return item, label
 
 
+def card_thumbnail(entry):
+    """Keep owner-requested AI artwork separate from verified reference photos."""
+    item = entry.get('card_visual')
+    if item is None:
+        return species_thumbnail(entry)
+    if item.get('generated') is not True or item.get('kind') != 'AI-assisted wood visual':
+        raise ValueError('A generated card visual must explicitly identify its provenance')
+    for key in ('src', 'alt', 'reference_taxon', 'credit', 'license', 'license_url', 'source_url', 'sha256'):
+        if not isinstance(item.get(key), str) or not item[key].strip():
+            raise ValueError('Card artwork is missing source metadata: ' + key)
+    if not item['alt'].startswith('AI-assisted'):
+        raise ValueError('Generated card artwork needs accurate alternative text')
+    return item, 'AI-assisted visual'
+
+
 def _card_photo(entry, image):
-    item, label = species_thumbnail(entry)
+    item, label = card_thumbnail(entry)
     if label == 'Tree reference' or item['src'] in PENDING_GRAIN_PHOTOS:
         inside = 'Botanical references inside' if label == 'Tree reference' else 'Wood reference inside'
         return ('<span class="cwe__card-photo cwe__card-photo--pending">'
@@ -104,7 +120,7 @@ def _card_photo(entry, image):
     crop = CARD_DETAIL_CROPS.get(item['src'])
     if crop:
         item = dict(item, alt=crop[1] + ' of ' + crop[2] + ' from an identified wood specimen')
-    tag = image(item, eager=False, sizes=wood_card_sizes(crop[3] if crop else 1.12))
+    tag = image(item, eager=False, sizes=wood_card_sizes(1 if item.get('generated') else crop[3] if crop else 1.12))
     if item.get('max_display_width') is not None:
         cap = item['max_display_width']
         if isinstance(cap, bool) or not isinstance(cap, (int, float)) or not 100 <= cap <= 2000:
@@ -115,8 +131,9 @@ def _card_photo(entry, image):
         tag = tag.replace('<img ', f'<img style="{style}" ', 1)
     # The whole card links to its species, where the complete source/licence
     # links remain next to the photograph. No nested anchors inside the card.
-    detail = ' data-reference-detail="' + crop[0] + '"' if crop else ''
-    label = crop[1] if crop else 'Wood-grain detail'
+    detail = (' data-reference-detail="ai-wood-visual"' if item.get('generated') else
+              ' data-reference-detail="' + crop[0] + '"' if crop else '')
+    label = 'AI-assisted visual' if item.get('generated') else crop[1] if crop else 'Wood-grain detail'
     return ('<span class="cwe__card-photo" data-reference-fit="cover"' + detail + '>' + tag + '</span>'
             '<span class="cwe__card-photo-kind">' + label + '</span>'
             '<span class="cwe__card-photo-credit">' + escape(item['credit'])
@@ -157,7 +174,7 @@ def enhance_wood_hub(body, link, wood_path, *, image=None, species_media=None):
             slug = urlsplit(url).path.rstrip('/').rsplit('/', 1)[-1]
             if slug not in species_media:
                 raise ValueError('Missing verified image entry for species: ' + slug)
-            item, _label = species_thumbnail(species_media[slug])
+            item, _label = card_thumbnail(species_media[slug])
             if item['sha256'] in image_hashes:
                 raise ValueError('A photograph cannot identify two different species cards')
             image_hashes.add(item['sha256'])

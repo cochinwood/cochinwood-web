@@ -214,6 +214,15 @@ def enhance_editorial_media(body, path, image, link):
                 raise ValueError(f'No species header for media: {path}')
             figures = ''.join(_figure(item, image, link, css="cw-species-media", eager=i == 0)
                               for i, item in enumerate(entry['images']))
+            artwork = entry.get('card_visual')
+            if artwork:
+                # Attribution belongs beside the original reference collection;
+                # generated card artwork never becomes a scientific specimen.
+                figures = ('<p class="cw-species-card-source">The directory card uses an AI-assisted visual based on '
+                           '<a href="' + html.escape(artwork['source_url'], quote=True) + '">'
+                           + html.escape(artwork['credit']) + '</a> · <a rel="license" href="'
+                           + html.escape(artwork['license_url'], quote=True) + '">'
+                           + html.escape(artwork['license']) + '</a>.</p>') + figures
             media = ('<section class="cw-species-reference" aria-label="Species reference images">'
                      + figures + '</section>')
             body = body[:hero.end] + media + body[hero.end:]

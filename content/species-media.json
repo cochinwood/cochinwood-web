@@ -414,7 +414,29 @@
         "reviewed": "2026-09-06; actual local source image inspected in contact sheet.",
         "provenance": "Source taxonomy and reuse license recorded from Wikimedia file metadata; wood samples are digitized CIRAD collection records."
       }
-    ]
+    ],
+    "card_visual": {
+      "src": "/files/Species/melia-dubia-ai-visual.webp",
+      "alt": "AI-assisted wood visual based on an untreated Melia dubia block photograph",
+      "kind": "AI-assisted wood visual",
+      "generated": true,
+      "reference_taxon": "Melia dubia",
+      "credit": "Thamoung et al. · Figure 1",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://masujournal.org/view_journal.php?id=626",
+      "sha256": "ae31918c6e995725a093e2e8c8fc53108295516ee4bf236c7eda23404fd37751",
+      "width": 1448,
+      "height": 1086,
+      "generation_method": "Built-in image_gen, source-guided generation",
+      "generation_prompt": "Use case: photorealistic-natural. Create one realistic, restrained wood-reference CARD ARTWORK for Cochin Wood's Wood Encyclopedia, horizontal 4:3 aspect ratio at high resolution. Input image is a genuine low-resolution untreated Melia dubia wood-block reference from a CC BY 4.0 research study; use it as visual guidance, not as proof of microscopic wood anatomy. Composition: a square-on close-up of one natural pale warm tan uncoated cut wood-block surface from the reference, filling the entire frame edge to edge with wood; retain a subtle real cut-surface/end-grain character and the reference's fine quiet texture. Keep its pale warm beige/tan tone; no dramatic oak-like rings, exotic wavy grain, decorative veneer pattern, stain or polish. Natural indirect neutral daylight with gentle even light, physically plausible imperfect sawn texture, quiet small tonal variation, sharp detail, no plastic sheen or CGI perfection. Reconstruct the broad appearance of the reference rather than imitating a wood-grain database. No surrounding laboratory tabletop, extra blocks, ruler, props, text, labels, borders, watermark, captions or logo. Do not include any claim or visual certification that this is an authenticated specimen. This is an AI-assisted visual variant that will be kept separate from the original research photograph and credited as AI-assisted outside the image.",
+      "original_reference_sha256": "ad66570b529fbf74cdc60751f2501a8eb469312d9f2a4b4dcedad5e9bc59543e",
+      "native_generated_sha256": "86208bbee01675043dae9445255309cb3e57a4fcad3157e8044afbdb3dd3049d",
+      "native_generated_artifact": "C:\\Users\\Edwin David\\.codex\\visualizations\\2026\\09\\05\\01a0708d-57f6-75a2-b691-19254be1f2a5\\ai-grain-variants-2026-09-07\\melia-dubia-ai-visual.png",
+      "reviewed": "2026-09-07; generated image and original reference inspected. Owner explicitly requested realistic AI variants.",
+      "provenance": "Based on the published untreated control photograph; generated fine detail is not a verified anatomical observation.",
+      "adaptations": "AI reconstruction followed by proportional resizing and WebP compression. Original reference records remain separate and unchanged."
+    }
   },
   "meranti": {
     "scientific_name": "Shorea leprosula",
@@ -490,7 +512,29 @@
         "reviewed": "2026-09-06; actual local source image inspected in contact sheet.",
         "provenance": "Source taxonomy and reuse license recorded from Wikimedia file metadata; wood samples are digitized CIRAD collection records."
       }
-    ]
+    ],
+    "card_visual": {
+      "src": "/files/Species/neem-ai-visual.webp",
+      "alt": "AI-assisted wood visual based on a Neem specimen photograph from a Nandurbar timber study",
+      "kind": "AI-assisted wood visual",
+      "generated": true,
+      "reference_taxon": "Azadirachta indica",
+      "credit": "Deore et al. (2020) · Figure 6",
+      "license": "Reuse with attribution",
+      "license_url": "https://www.plantarchives.org/publicationethics.html",
+      "source_url": "https://www.plantarchives.org/20-2/3399-3404%20%286263%29.pdf",
+      "sha256": "6c1ef65566dbda772871c543ce09448db920b984564370e3729600ef0257a724",
+      "width": 1448,
+      "height": 1086,
+      "generation_method": "Built-in image_gen, source-guided generation",
+      "generation_prompt": "Use case: photorealistic-natural.\nAsset type: AI-assisted wood-grain card artwork for a wood encyclopedia. This is new illustrative artwork inspired by a photographed reference, not an authenticated botanical specimen image.\nInput image: the provided Deore Figure 6 Neem wood specimen photograph is a material reference only. Use its broad warm golden-brown to muted reddish-brown colour, mostly horizontal undulating grain direction, natural knots and irregular character as visual guidance.\nCreate one realistic, high-resolution horizontal 4:3 image, ideally 1536 x 1152 pixels. Full-frame close-up of a natural uncoated timber face, photographed square-on with a sharp, realistic lens and even focus. Let the material fill every edge of the frame; use believable continuous grain and knots with fine natural surface variation. Preserve the reference's warm-neutral, uneven wood character and knot-driven grain movement. Warm-neutral indirect daylight, soft minimal shadow, honest matte wood texture, no dramatic colour grading.\nThe result is newly composed artwork: omit the original white surrounding background, exposed board outline and handwritten identification label entirely. Do not reproduce letters or markings. No props, tools, labels, text, logo, frame, border, watermark, plastic gloss, varnish sheen, CGI look, seamless tiling or repetitive synthetic grain. No lab, certification, place or company-stock claims.",
+      "original_reference_sha256": "fb60500e9ed5fe1cf4ad01df7d372fa6f24eb87c3b85d990cdac01f240edaf2a",
+      "native_generated_sha256": "60b6860a5012301592dd4aeec667a43d091615c11d71a7d68c8d7f8925a236cd",
+      "native_generated_artifact": "C:\\Users\\Edwin David\\.codex\\visualizations\\2026\\09\\05\\01a0708d-57f6-75a2-b691-19254be1f2a5\\ai-grain-variants-2026-09-07\\neem-ai-assisted-native.png",
+      "reviewed": "2026-09-07; generated image and original reference inspected. Owner explicitly requested realistic AI variants.",
+      "provenance": "Source authors identify Azadirachta indica. Publisher permits reuse with citation. Label/background removed through AI generation; fine grain is a visual reconstruction, not a verified observation.",
+      "adaptations": "AI reconstruction followed by proportional resizing and WebP compression. Original reference records remain separate and unchanged."
+    }
   },
   "okoume": {
     "scientific_name": "Aucoumea klaineana",
@@ -713,7 +757,29 @@
         "reviewed": "2026-09-06; actual local source image inspected in contact sheet.",
         "provenance": "Source taxonomy and reuse license recorded from Wikimedia file metadata; wood samples are digitized CIRAD collection records."
       }
-    ]
+    ],
+    "card_visual": {
+      "src": "/files/Species/sal-ai-visual.webp",
+      "alt": "AI-assisted end-grain visual based on a Shorea robusta research photograph",
+      "kind": "AI-assisted wood visual",
+      "generated": true,
+      "reference_taxon": "Shorea robusta",
+      "credit": "Baral et al. (2019) · Figure 11",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://www.mdpi.com/1999-4907/10/6/466",
+      "sha256": "6df04cb635a43f6671debae99ff198201ad26f9a089f54ad547943124975c3b7",
+      "width": 1448,
+      "height": 1086,
+      "generation_method": "Built-in image_gen, source-guided generation",
+      "generation_prompt": "Use case: photorealistic-natural. Create ONE 4:3 landscape AI-assisted image of an ordinary sawn Sal timber surface viewed END-ON, for a wood-encyclopedia card. Image 1 is a low-magnification scientific end-grain reference photo of Shorea robusta, Figure 11 of Baral et al. 2019, CC BY 4.0. Use it only for species-related colour and END-GRAIN orientation cues. This targeted new version MUST show a far wider, much lower-magnification field: visually about a 100 by 75 mm area of real uncoated sanded timber, around 15–20 times less magnified than the reference. Camera square-on, all wood edge-to-edge, no board edges or background. At this ordinary viewing distance the surface should appear mostly quiet, solid dark warm brown wood with muted tan variation, fine subdued uneven growth bands, understated radial traces and very fine irregular pores that are barely visible. Tiny pores must remain dark or soft tan pinpricks: absolutely no large white circles, enlarged vessels, bubbly honeycomb, cellular lattices, microscopic anatomy or repeating patterned grid. The reference is not a visual recipe to enlarge into giant cells. Preserve transverse/end-grain orientation: do not invent a longitudinal plank figure, cathedral grain, artificial wavy stripes, decorative swirls or dominant ring circles. Show credible natural sawing/sanding microtexture and small imperfections at life-size timber-sample scale. Soft neutral daylight, matte uncoated surface, restrained low contrast and ordinary natural warmth, visually similar in photographic scale to a wood-sample catalogue, not a microscope slide. No labels, arrows, scale bars, lettering, watermarks, props, varnish, shine, CGI/plastic finish, repeating tiles or borders. This is explicitly AI-assisted artwork based on the reference; it does not assert measured or scientifically verified anatomy. Attribution is provided outside the image. Aim for 2048×1536.",
+      "original_reference_sha256": "db657bd3c5f607ce84daaef917f87ee9b49b7e09281432a010a635317850d362",
+      "native_generated_sha256": "cbe586878672546d85301d62b6e0823534cc3d61f1d029907348b4f6fa2017cc",
+      "native_generated_artifact": "C:\\Users\\Edwin David\\.codex\\visualizations\\2026\\09\\05\\01a0708d-57f6-75a2-b691-19254be1f2a5\\ai-grain-variants-2026-09-07\\sal\\sal-shorea-robusta-ai-end-grain-v2.png",
+      "reviewed": "2026-09-07; generated image and original reference inspected. Owner explicitly requested realistic AI variants.",
+      "provenance": "Visual adaptation from the unstained transverse photograph; not validated microscopy, not Indian/company stock. Generated at wider visual scale for a material card; no dimensional or grain-identification claim.",
+      "adaptations": "AI reconstruction followed by proportional resizing and WebP compression. Original reference records remain separate and unchanged."
+    }
   },
   "semul": {
     "scientific_name": "Bombax ceiba",
@@ -1014,6 +1080,30 @@
     "identification_basis": "Published source identifies the pictured taxon; a botanical image is not a wood-anatomy identification test. Commercial trade groups name the actual pictured example.",
     "images": [
       {
+        "src": "/files/Species/anjili-kerala-end-grain.webp",
+        "alt": "Sawn log ends identified as Artocarpus hirsutus at a sawmill in Kanjippura, Valanchery, Kerala",
+        "caption": "Anjili log ends — Artocarpus hirsutus, photographed in Kanjippura, Kerala",
+        "kind": "source-identified timber end-grain photograph",
+        "pictured_taxon": "Artocarpus hirsutus",
+        "source_url": "https://tripunplanned.com/artocarpus-hirsutus-commonly-known-as-wild-jack-or-aini-basic-details-and-copyright-free-original-images/",
+        "license": "CC0 1.0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "credit": "Rashid Edayur · Trip Unplanned",
+        "source_title": "Artocarpus hirsutus, commonly known as wild jack or aini — original images",
+        "source_description": "The photographer identifies the logs as Artocarpus hirsutus and describes photographing them at a sawmill in Kanjippura, Valanchery, Malappuram, Kerala. This is a source-identified field photograph, not a vouchered laboratory specimen. The foreground sawn cross-cut is used as a CSS end-grain detail in the index; the entire photograph remains visible in the species reference page.",
+        "source_creator": "Rashid Edayur",
+        "source_credit": "Trip Unplanned image gallery explicitly releases all images on that page under CC0, for personal and commercial reuse.",
+        "source_original_url": "https://tripunplanned.com/wp-content/uploads/2025/01/Wild-Jack-tree-1.jpg",
+        "source_sha256": "a052b00a126e624735111a4bdd4cb430338c26de28ca4ccba0809cb8c1de4eff",
+        "sha256": "b16c06824e3f3d7de716b653695d172358f1c2c9b896956781ef576fbd149915",
+        "adaptations": "Proportional resizing and WebP compression only. Natural colour and full source composition preserved; no pixel crop, retouching, upscaling or generated detail. Index close-up uses CSS display cropping.",
+        "reviewed": "2026-09-07; original 1600 x 2133 JPEG, source identification article and explicit CC0 gallery inspected independently by two agents.",
+        "provenance": "Author-identified real Kerala sawmill photograph. No claim that these logs are Cochin Wood stock or that the sawmill belongs to Cochin Wood.",
+        "rights_evidence_url": "https://tripunplanned.com/artocarpus-hirsutus-commonly-known-as-wild-jack-or-aini-image-gallery-copyright-free/",
+        "width": 1600,
+        "height": 2133
+      },
+      {
         "src": "/files/Species/anjili-wood.webp",
         "alt": "Natural stem-wood cross-cut of authenticated Artocarpus hirsutus collected in Udupi, Karnataka",
         "caption": "Stem-wood cross-cut — Artocarpus hirsutus",
@@ -1242,7 +1332,29 @@
         "reviewed": "2026-09-06; actual local source image inspected in contact sheet.",
         "provenance": "Source taxonomy and reuse license recorded from Wikimedia file metadata; wood samples are digitized CIRAD collection records."
       }
-    ]
+    ],
+    "card_visual": {
+      "src": "/files/Species/kadam-ai-visual.webp",
+      "alt": "AI-assisted wood visual based on the Kadam photograph in a CIFOR monograph",
+      "kind": "AI-assisted wood visual",
+      "generated": true,
+      "reference_taxon": "Neolamarckia cadamba",
+      "credit": "Haruni Krisnawati / CIFOR · Figure 5",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://www.landscapealliance.org/knowledge/publication/3396/",
+      "sha256": "fc24049473565533b06c6b08021b2e69f47c2fefb2709b94829c007b0b408191",
+      "width": 1448,
+      "height": 1086,
+      "generation_method": "Built-in image_gen, source-guided generation",
+      "generation_prompt": "Use case: photorealistic-natural. Asset type: AI-assisted website encyclopedia CARD ARTWORK, not a scientifically authenticated specimen photograph. Input image 1 is the visual reference: the small CIFOR Figure 5 timber-surface photograph identified in its source as Anthocephalus cadamba (Kadam). Create ONE realistic variant based closely on that reference, with a 4:3 horizontal composition. Show a single natural uncoated timber surface filling the entire frame, camera square-on. Preserve the reference's pale warm honey/tan colour, subtle uneven horizontal grain, delicate fine fibres, gently mottled broad areas and small natural imperfections. Keep the visible broad pattern and character; minimally extend the composition vertically to achieve 4:3. The result should feel like restrained documentary material photography in warm-neutral indirect daylight, with even illumination and honest matte texture. Do not add invented distinctive knots, pronounced rings, deep cracks or species-specific features absent from the reference. Do not turn faint grain into strong dark dramatic lines. No props, plank seams, workshop, new factory, labels, words, watermark, border or white paper margin. No dramatic CGI, varnish, glossy reflections, exaggerated sharpening or decorative stylization. Output only the timber image; the website will provide the AI-assisted credit outside the image.",
+      "original_reference_sha256": "cf17b89e892f7454437d3e8ede4c22d2d7b4bb66e1f46b1a93265eb23edc717d",
+      "native_generated_sha256": "4574b24191490389ff8c57528fdab372189e4802224b618cfecec26368915d08",
+      "native_generated_artifact": "C:\\Users\\Edwin David\\.codex\\visualizations\\2026\\09\\05\\01a0708d-57f6-75a2-b691-19254be1f2a5\\ai-grain-variants-2026-09-07\\kadam-ai-assisted-card-v1.png",
+      "reviewed": "2026-09-07; generated image and original reference inspected. Owner explicitly requested realistic AI variants.",
+      "provenance": "The source uses Anthocephalus cadamba. Current publisher page explicitly licences this work CC BY4.0. AI-assisted enlargement of broad appearance, not new verified grain evidence.",
+      "adaptations": "AI reconstruction followed by proportional resizing and WebP compression. Original reference records remain separate and unchanged."
+    }
   },
   "pala": {
     "scientific_name": "Alstonia scholaris",

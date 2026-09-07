@@ -3194,5 +3194,115 @@
       "width": 1536,
       "sha256": "72c0074ce907bc6b41e5af2c04ad56200600ca573aa1cf97c9a4677fd11131b0"
     }
+  ],
+  "/files/Species/anjili-kerala-end-grain.webp": [
+    {
+      "src": "/files/Species/anjili-kerala-end-grain-320.webp",
+      "width": 320,
+      "sha256": "cc99e5a53d909933b092021d37845ea12faeb802f87f7ca7da00ff1865335386"
+    },
+    {
+      "src": "/files/Species/anjili-kerala-end-grain-640.webp",
+      "width": 640,
+      "sha256": "995a6cc21a8d8ee909254d87f6b29c6980707d186322e13a736b8599719f297f"
+    },
+    {
+      "src": "/files/Species/anjili-kerala-end-grain-960.webp",
+      "width": 960,
+      "sha256": "0843374ace6814bedd33af19afb6674633c6f25f8461eab031a70195c04a3131"
+    },
+    {
+      "src": "/files/Species/anjili-kerala-end-grain.webp",
+      "width": 1600,
+      "sha256": "b16c06824e3f3d7de716b653695d172358f1c2c9b896956781ef576fbd149915"
+    }
+  ],
+  "/files/Species/melia-dubia-ai-visual.webp": [
+    {
+      "src": "/files/Species/melia-dubia-ai-visual-320.webp",
+      "width": 320,
+      "sha256": "ffb89b9114f78b6cc4f17fe91090917b180694dd541b813dd3a487d071b8f026"
+    },
+    {
+      "src": "/files/Species/melia-dubia-ai-visual-640.webp",
+      "width": 640,
+      "sha256": "04ac334657264c5ffe18dd515c2263cd361ab33810396e7b6fa500cfb172a68e"
+    },
+    {
+      "src": "/files/Species/melia-dubia-ai-visual-960.webp",
+      "width": 960,
+      "sha256": "24bff3d130faf0f2467d9b0f4afba6ec2000a30b236f5550487d37d7a78ec038"
+    },
+    {
+      "src": "/files/Species/melia-dubia-ai-visual.webp",
+      "width": 1448,
+      "sha256": "ae31918c6e995725a093e2e8c8fc53108295516ee4bf236c7eda23404fd37751"
+    }
+  ],
+  "/files/Species/neem-ai-visual.webp": [
+    {
+      "src": "/files/Species/neem-ai-visual-320.webp",
+      "width": 320,
+      "sha256": "58e3f7bf5cb3cbf85ce8d5ae5e3c89029b029ffadef400eb8d7082415442c255"
+    },
+    {
+      "src": "/files/Species/neem-ai-visual-640.webp",
+      "width": 640,
+      "sha256": "4173e0e9edb6f1062278b5dd665d847388c70598e6058068470edeaf7f498a4b"
+    },
+    {
+      "src": "/files/Species/neem-ai-visual-960.webp",
+      "width": 960,
+      "sha256": "73974838f8f5d2dbfe9a8fcb9c1437aae1bfc229a534f090ac57b5ed627986d0"
+    },
+    {
+      "src": "/files/Species/neem-ai-visual.webp",
+      "width": 1448,
+      "sha256": "6c1ef65566dbda772871c543ce09448db920b984564370e3729600ef0257a724"
+    }
+  ],
+  "/files/Species/kadam-ai-visual.webp": [
+    {
+      "src": "/files/Species/kadam-ai-visual-320.webp",
+      "width": 320,
+      "sha256": "5443a3fc2a9bef62f3925f908433ac38816f4af98c1f8cf8d9d7cfa2e8d6a724"
+    },
+    {
+      "src": "/files/Species/kadam-ai-visual-640.webp",
+      "width": 640,
+      "sha256": "f4885c049dac2473d11c85e7a2cf8583ccd54924ff9bc4fcf76a9c384073789c"
+    },
+    {
+      "src": "/files/Species/kadam-ai-visual-960.webp",
+      "width": 960,
+      "sha256": "fea63dcd014974224ce27c7af35284c3c60d1883a4aa21bfeac3f1666ae2ae21"
+    },
+    {
+      "src": "/files/Species/kadam-ai-visual.webp",
+      "width": 1448,
+      "sha256": "fc24049473565533b06c6b08021b2e69f47c2fefb2709b94829c007b0b408191"
+    }
+  ],
+  "/files/Species/sal-ai-visual.webp": [
+    {
+      "src": "/files/Species/sal-ai-visual-320.webp",
+      "width": 320,
+      "sha256": "1337dd6654e25c933166fbd0c0ab92fd23b51d9986291d2627fb7232788897b3"
+    },
+    {
+      "src": "/files/Species/sal-ai-visual-640.webp",
+      "width": 640,
+      "sha256": "619c3aa992f7f833fc0be93509cf18675f8dc206782e656dce4df36942f87942"
+    },
+    {
+      "src": "/files/Species/sal-ai-visual-960.webp",
+      "width": 960,
+      "sha256": "32d1a1af21d352b16689cb4bd4a6c721af87d48f38ebf2c4eea178a2da9d245c"
+    },
+    {
+      "src": "/files/Species/sal-ai-visual.webp",
+      "width": 1448,
+      "sha256": "6df04cb635a43f6671debae99ff198201ad26f9a089f54ad547943124975c3b7"
+    }
   ]
 }

@@ -63,6 +63,10 @@ body.cw-wood-index #main .cwe__card-photo img { object-fit: cover; object-positi
 body.cw-wood-index #main .cwe__card-photo[data-reference-detail="birch-end-grain"] img {
   transform: scale(1.75); transform-origin: 50% 38%;
 }
+body.cw-wood-index #main .cwe__card-photo[data-reference-detail="anjili-end-grain"] img {
+  object-position: 44% 36%; transform: scale(1.85); transform-origin: 44% 50%;
+}
+body.cw-wood-index #main .cwe__card-photo[data-reference-detail="ai-wood-visual"] img { transform: none; }
 body.cw-wood-index #main .cwe__card-photo[data-reference-detail="matti-grain"] img { object-position: 50% 65%; transform: scale(2.8); }
 body.cw-wood-index #main .cwe__card-photo[data-reference-detail="venteak-grain"] img { object-position: 50% 64%; transform: scale(2.5); }
 body.cw-wood-index #main .cwe__card-photo[data-reference-detail="jackwood-grain"] img { transform: scale(1.6); }
@@ -93,6 +97,7 @@ body.cw-wood-species #main .cw-species-reference__title {
   color: #1b4332; scroll-margin-top: 170px;
 }
 body.cw-wood-species #main .cw-species-reference figcaption { font-size: .875rem; }
+body.cw-wood-species #main .cw-species-card-source { grid-column: 1 / -1; margin: 0; font-size: .8125rem; }
 body.cw-wood-species #main .cw-species-reference .cw-species-media:only-of-type { grid-column: 1 / -1; }
 body.cw-wood-species #main .cw-species-image-turn {
   position: relative; display: block; width: min(100%,315px); aspect-ratio: 3 / 4;
