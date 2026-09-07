@@ -11,8 +11,15 @@ const families = [
   {key:'prem_hw_gurjan',title:'Premium Hardwood',kicker:'Gurjan · BWR',description:'The proposed hardwood option for furniture and interior work.',image:'cwi-bwr-hardwood-plywood-960.webp',alt:'Hardwood-faced plywood panels with their layered edges visible'},
   {key:'prem_marine_gurjan',title:'Premium Marine',kicker:'Gurjan · BWP',description:'The proposed marine plywood option for demanding joinery requirements.',image:'cwi-marine-plywood-960.webp',alt:'Warm reddish plywood panels showing their grain and layered core'}
 ];
-const state = {mode:'live',catalogue:null,cart:[],selected:{},quote:null,postcode:'',buyer:null,address:null,order:null,accessToken:null,staffToken:null,idempotencyKey:null,busy:false,loadVersion:0,revision:0,paymentEvents:{}};
+const state = {mode:'live',catalogue:null,cart:[],selected:{},quote:null,postcode:'',buyer:null,address:null,order:null,accessToken:null,staffToken:null,idempotencyKey:null,orderAttempt:null,orderRecovery:false,busy:false,loadVersion:0,revision:0,paymentEvents:{}};
 const busyControls = new Map();
+const recoveryControls = new Map();
+const EDIT_CONTROLS = '[data-mode],[data-select-sku],[data-quantity-input],[data-quantity-action],[data-add],[data-remove],#delivery-postcode,#postcode-form button,#continue-checkout,#details-form input,#details-form button,#back-to-basket,#edit-details,#review-confirm';
+function syncOrderRecoveryLock() {
+  if (state.orderRecovery) {
+    document.querySelectorAll(EDIT_CONTROLS).forEach(control => { if (!recoveryControls.has(control)) recoveryControls.set(control,control.disabled); control.disabled = true; });
+  } else { recoveryControls.forEach((disabled,control) => { if (control.isConnected) control.disabled = disabled; }); recoveryControls.clear(); }
+}
 function setBusy(value) {
   state.busy = value;
   if (value) {
@@ -25,10 +32,10 @@ function selectionCurrent(snapshot) { return snapshot.revision === state.revisio
 async function api(path, options = {}) {
   let response;
   try { response = await fetch(API + path, {credentials:'same-origin',cache:'no-store',...options,headers:{'Content-Type':'application/json',...options.headers},signal:AbortSignal.timeout(15000)}); }
-  catch { throw new Error('The local preview could not be reached. Please keep the preview server running and try again.'); }
+  catch { const error = new Error('The local preview could not be reached. Please keep the preview server running and try again.'); error.uncertain = true; throw error; }
   let data;
-  try { data = await response.json(); } catch { throw new Error('The preview returned an unreadable response. Please try again.'); }
-  if (!response.ok) { const error = new Error(data.error?.message || 'This action could not be completed. Please review the details and try again.'); error.code = data.error?.code; error.details = data.error?.details; throw error; }
+  try { data = await response.json(); } catch { const error = new Error('The preview returned an unreadable response. Please try again.'); error.uncertain = true; throw error; }
+  if (!response.ok) { const error = new Error(data.error?.message || 'This action could not be completed. Please review the details and try again.'); error.code = data.error?.code; error.details = data.error?.details; error.status = response.status; error.uncertain = response.status >= 500; throw error; }
   return data;
 }
 function announce(text) { $('#announcer').textContent = ''; setTimeout(() => { $('#announcer').textContent = text; }, 40); }
@@ -93,6 +100,7 @@ function renderTotals() {
 }
 function deliveryWindowText(quote) { const window = quote?.delivery_window; return window && Number.isFinite(window.min_days) && Number.isFinite(window.max_days) ? `Test delivery window: ${window.min_days}–${window.max_days} days.` : ''; }
 async function loadCatalogue(mode) {
+  if (state.orderRecovery) return;
   const version = ++state.loadVersion;
   state.mode = mode; state.order = null; state.buyer = null; state.address = null; state.postcode = ''; state.accessToken = null; state.paymentEvents = {};
   state.cart = []; state.catalogue = null; $('#products').innerHTML = '<p>Loading materials…</p>'; renderBasket();
@@ -212,14 +220,20 @@ async function createOrder() {
   if (!$('#review-confirm').checked) { revealError('#order-error','Confirm that this is a simulated order before continuing.'); $('#review-confirm').focus(); return; }
   if (state.mode !== 'test' || !state.quote || !state.buyer || !state.address) { revealError('#order-error','Return to your selection and check delivery before creating a test order.'); return; }
   setBusy(true); const button = $('#create-order'); button.textContent = 'Recording test order…';
-  state.idempotencyKey ||= uuid();
+  state.orderAttempt ||= {key:state.idempotencyKey || uuid(),body:JSON.stringify({mode:'test',items:state.cart,postcode:state.postcode,buyer:state.buyer,address:state.address,expected_catalogue_fingerprint:state.quote.catalogue_fingerprint})};
+  state.idempotencyKey = state.orderAttempt.key;
   try {
-    const result = await api('/orders',{method:'POST',headers:{'Idempotency-Key':state.idempotencyKey},body:JSON.stringify({mode:'test',items:state.cart,postcode:state.postcode,buyer:state.buyer,address:state.address})});
+    const result = await api('/orders',{method:'POST',headers:{'Idempotency-Key':state.orderAttempt.key},body:state.orderAttempt.body});
     state.order = result.order; state.accessToken = result.access_token;
+    state.orderAttempt = null; state.orderRecovery = false;
     state.cart = []; rememberCart(); renderBasket();
     renderPayment(); setStep('payment'); focusSection('#payment-title'); announce('Test order recorded. No real payment has been taken.');
-  } catch (error) { revealError('#order-error',error.message); }
-  finally { setBusy(false); button.innerHTML = 'Create test order <span aria-hidden="true">→</span>'; }
+  } catch (error) {
+    state.orderRecovery = error.uncertain === true;
+    if (!state.orderRecovery) { state.orderAttempt = null; state.idempotencyKey = null; }
+    revealError('#order-error',state.orderRecovery ? 'The order result was not confirmed. Your submitted selection is held here. Recover the same test order before editing or starting another; this will not create another reservation.' : error.message);
+  }
+  finally { setBusy(false); syncOrderRecoveryLock(); button.innerHTML = state.orderRecovery ? 'Recover saved test order <span aria-hidden="true">→</span>' : 'Create test order <span aria-hidden="true">→</span>'; }
 }
 async function simulate(outcome) {
   if (state.busy || !state.order || state.mode !== 'test') return;
