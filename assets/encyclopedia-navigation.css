@@ -66,7 +66,7 @@ body.cw-wood-index #main .cwe__card-photo[data-reference-detail="birch-end-grain
 body.cw-wood-index #main .cwe__card-photo[data-reference-detail="anjili-end-grain"] img {
   object-position: 44% 36%; transform: scale(1.85); transform-origin: 44% 50%;
 }
-body.cw-wood-index #main .cwe__card-photo[data-reference-detail="ai-wood-visual"] img { transform: none; }
+body.cw-wood-index #main .cwe__card-photo[data-reference-detail="wood-appearance"] img { transform: none; }
 body.cw-wood-index #main .cwe__card-photo[data-reference-detail="matti-grain"] img { object-position: 50% 65%; transform: scale(2.8); }
 body.cw-wood-index #main .cwe__card-photo[data-reference-detail="venteak-grain"] img { object-position: 50% 64%; transform: scale(2.5); }
 body.cw-wood-index #main .cwe__card-photo[data-reference-detail="jackwood-grain"] img { transform: scale(1.6); }

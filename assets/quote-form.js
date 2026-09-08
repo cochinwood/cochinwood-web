@@ -19,7 +19,8 @@
     'block-board-flush-doors':'Block Board/Flush Door','plywood-boxes-crates':'Wooden/Plywood Packing Case',
     'plywood-pallets':'Plywood Pallets','sawn-timber':'Timber/Runners/Planks',
     'chequered-anti-skid-plywood':'Chequered Anti-Skid Plywood','finger-joint-board':'Finger-Joint Board',
-    'particle-board':'Particle Board','plywood-cable-drums':'Plywood Cable Drums'
+    'particle-board':'Particle Board','plywood-cable-drums':'Plywood Cable Drums',
+    'premium-hardwood-plywood':'Premium Hardwood Plywood'
   };
   function rows() { return Array.from(host.querySelectorAll('[data-quote-item]')); }
   function value(name) { return form.elements[name].value.trim(); }

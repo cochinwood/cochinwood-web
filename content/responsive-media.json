@@ -3304,5 +3304,32 @@
       "width": 1448,
       "sha256": "0ca7aaed007f0618bf68de9844346a709c9ffea3d7f0d04211eedb3bdbd125dd"
     }
+  ],
+  "/files/Premium-Hardwood/premium-hardwood-hero-v2-2026-09-08.webp": [
+    {
+      "src": "/files/Premium-Hardwood/premium-hardwood-hero-v2-2026-09-08-320.webp",
+      "width": 320,
+      "sha256": "37412c11a9f140f0c84dd56c2e1c9d00cb8422ed20f68ec880c4d8849b72afb4"
+    },
+    {
+      "src": "/files/Premium-Hardwood/premium-hardwood-hero-v2-2026-09-08-640.webp",
+      "width": 640,
+      "sha256": "bcecf33f7ee1c1c48d69172aaa11003177fb02a7261928a94bacecc14738212e"
+    },
+    {
+      "src": "/files/Premium-Hardwood/premium-hardwood-hero-v2-2026-09-08-960.webp",
+      "width": 960,
+      "sha256": "027dd7d4df3ab4ed6f6bfa9b75c2adb92426d6f648dc8f952ffe454e24de16a4"
+    },
+    {
+      "src": "/files/Premium-Hardwood/premium-hardwood-hero-v2-2026-09-08-1200.webp",
+      "width": 1200,
+      "sha256": "2d967cd18225a85ade46543b36cbf38ad6eb74d66c2c51de811b0d4e0bc5ec53"
+    },
+    {
+      "src": "/files/Premium-Hardwood/premium-hardwood-hero-v2-2026-09-08.webp",
+      "width": 1448,
+      "sha256": "7e5821f82dda291d4f008359c3fbaff7e097166c2111ebde53d3fca4edad69ea"
+    }
   ]
 }

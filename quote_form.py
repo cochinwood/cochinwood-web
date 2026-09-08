@@ -13,6 +13,7 @@ PRESETS = {
     'sawn-timber': 'Timber/Runners/Planks', 'chequered-anti-skid-plywood': 'Chequered Anti-Skid Plywood',
     'finger-joint-board': 'Finger-Joint Board', 'particle-board': 'Particle Board',
     'plywood-cable-drums': 'Plywood Cable Drums',
+    'premium-hardwood-plywood': 'Premium Hardwood Plywood',
 }
 
 
@@ -25,6 +26,8 @@ def render_quote_form(products, incoterms, sitekey, script_src):
             options.extend([(value, 'Plywood boxes & crates'), ('Plywood Pallets', 'Plywood pallets')])
         else:
             options.append((value, unescape(label)))
+    if not any(value == PRESETS['premium-hardwood-plywood'] for value, _label in options):
+        options.append((PRESETS['premium-hardwood-plywood'], 'Premium Hardwood plywood'))
     choices = ''.join(f'<option value="{escape(v, quote=True)}">{escape(label)}</option>' for v, label in options)
     item = f'''<fieldset class="cw-quote-item" data-quote-item>
   <legend>Product <span data-item-number>1</span></legend>

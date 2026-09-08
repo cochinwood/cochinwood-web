@@ -48,6 +48,153 @@
     });
   }
 
+  /* ---- same-origin image preview --------------------------------------- */
+  var imagePattern = /\.(?:avif|gif|jpe?g|png|svg|webp)$/i;
+  var preview = null;
+  var previewImage = null;
+  var previewTitle = null;
+  var previewOpener = null;
+  var previewScrollY = 0;
+  var previewScrollRestoration = null;
+  var previewBackground = [];
+  var previewClosing = false;
+
+  // A reload cannot restore the original opener or its scroll position. Remove
+  // a stale preview entry and return history scrolling to the browser default.
+  if (history.state && history.state.cwImagePreview) {
+    history.replaceState(null, "", location.href);
+    if ("scrollRestoration" in history) history.scrollRestoration = "auto";
+  }
+
+  function imageLink(opener) {
+    if (!opener) return null;
+    var url;
+    if (opener.matches("[data-image-preview]")) {
+      try { url = new URL(opener.dataset.imagePreview, location.href); } catch (_error) { return null; }
+      return url.origin === location.origin && imagePattern.test(url.pathname) && opener.querySelector("img") ? url : null;
+    }
+    if (opener.hasAttribute("download") || opener.matches('[rel~="license"]') || opener.closest(".cw-media-source")) return null;
+    try { url = new URL(opener.href, location.href); } catch (_error) { return null; }
+    if (url.origin !== location.origin || !imagePattern.test(url.pathname)) return null;
+    return url;
+  }
+
+  function ensurePreview() {
+    if (preview) return;
+    preview = document.createElement("div");
+    preview.className = "cw-image-preview";
+    preview.hidden = true;
+    preview.setAttribute("role", "dialog");
+    preview.setAttribute("aria-modal", "true");
+    preview.setAttribute("aria-labelledby", "cw-image-preview-title");
+    preview.innerHTML = '<div class="cw-image-preview__bar">'
+      + '<button type="button" class="cw-image-preview__back">← Back to page</button>'
+      + '<strong id="cw-image-preview-title">Image preview</strong>'
+      + '<button type="button" class="cw-image-preview__close" aria-label="Close image preview">Close</button>'
+      + '</div><div class="cw-image-preview__stage"><img alt=""></div>';
+    document.body.appendChild(preview);
+    previewImage = preview.querySelector("img");
+    previewTitle = preview.querySelector("strong");
+    preview.querySelectorAll("button").forEach(function (button) {
+      button.addEventListener("click", requestPreviewClose);
+    });
+    preview.addEventListener("click", function (event) {
+      if (event.target === preview || event.target.classList.contains("cw-image-preview__stage")) requestPreviewClose();
+    });
+    preview.addEventListener("keydown", function (event) {
+      if (event.key !== "Tab") return;
+      var controls = Array.from(preview.querySelectorAll("button"));
+      var first = controls[0], last = controls[controls.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    });
+  }
+
+  function showPreview(state, opener) {
+    var alreadyOpen = preview && !preview.hidden;
+    ensurePreview();
+    previewOpener = opener || previewOpener;
+    if (!alreadyOpen) {
+      previewScrollY = window.scrollY;
+      if ("scrollRestoration" in history && previewScrollRestoration === null) {
+        previewScrollRestoration = history.scrollRestoration;
+        history.scrollRestoration = "manual";
+      }
+    }
+    previewImage.src = state.src;
+    previewImage.alt = state.alt || "Image preview";
+    previewTitle.textContent = state.alt || "Image preview";
+    preview.hidden = false;
+    if (!alreadyOpen) {
+      previewBackground = Array.from(document.body.children).filter(function (element) { return element !== preview; }).map(function (element) {
+        var state = { element: element, inert: element.inert, ariaHidden: element.getAttribute("aria-hidden") };
+        element.inert = true;
+        element.setAttribute("aria-hidden", "true");
+        return state;
+      });
+    }
+    document.body.classList.add("cw-image-preview-open");
+    if (!alreadyOpen) preview.querySelector(".cw-image-preview__back").focus();
+  }
+
+  function hidePreview() {
+    previewClosing = false;
+    if (!preview || preview.hidden) return;
+    preview.hidden = true;
+    previewImage.removeAttribute("src");
+    document.body.classList.remove("cw-image-preview-open");
+    previewBackground.forEach(function (state) {
+      state.element.inert = state.inert;
+      if (state.ariaHidden === null) state.element.removeAttribute("aria-hidden");
+      else state.element.setAttribute("aria-hidden", state.ariaHidden);
+    });
+    previewBackground = [];
+    if (previewOpener && previewOpener.isConnected) previewOpener.focus({ preventScroll: true });
+    window.scrollTo(0, previewScrollY);
+    requestAnimationFrame(function () {
+      window.scrollTo(0, previewScrollY);
+      if (previewScrollRestoration !== null) {
+        history.scrollRestoration = previewScrollRestoration;
+        previewScrollRestoration = null;
+      }
+    });
+  }
+
+  function requestPreviewClose() {
+    if (previewClosing || !preview || preview.hidden) return;
+    if (history.state && history.state.cwImagePreview) {
+      previewClosing = true;
+      history.back();
+    }
+    else hidePreview();
+  }
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key !== "Escape" || !preview || preview.hidden) return;
+    event.preventDefault();
+    event.stopPropagation();
+    requestPreviewClose();
+  }, true);
+
+  document.addEventListener("click", function (event) {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    var opener = event.target.closest("[data-image-preview],a[href]");
+    var url = imageLink(opener);
+    if (!url) return;
+    event.preventDefault();
+    var image = opener.querySelector("img");
+    var label = image && image.alt || opener.getAttribute("aria-label") || opener.textContent || url.pathname.split("/").pop();
+    var state = { cwImagePreview: true, src: url.href, alt: label.trim() };
+    history.pushState(state, "", location.href);
+    showPreview(state, opener);
+  });
+
+  window.addEventListener("popstate", function (event) {
+    previewClosing = false;
+    if (event.state && event.state.cwImagePreview) showPreview(event.state, null);
+    else hidePreview();
+  });
+
   /* ---- blog topics and search ------------------------------------------ */
   var box = document.getElementById("cw-blogsearch");
   if (box) {

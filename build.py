@@ -831,14 +831,22 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
     # The reviewed product map owns both catalogue and detail imagery. Imported
     # snippets may still name an earlier scene even after their schema is updated.
     from unique_imagery import owner_image
-    product_media = owner_image(path) or VISUAL_MEDIA["products"].get(path.strip("/"))
+    product_media = (owner_image(path)
+                     or VISUAL_MEDIA["products"].get(path.strip("/"))
+                     or VISUAL_MEDIA.get("draft_products", {}).get(path.strip("/")))
     if product_media:
         tree = parse_fragment(body)
         media_node = next((node for node in tree.nodes if "cw-page-hero__media" in node.classes), None)
         if media_node:
             caption = ('<figcaption class="cw-page-hero__caption">' + esc(product_media["caption"]) + '</figcaption>'
                        if product_media.get("caption") else "")
-            body = (body[:media_node.open_end] + visual_image(product_media, eager=True)
+            rendered_media = visual_image(product_media, eager=True)
+            if product_media.get("preview"):
+                rendered_media = ('<button type="button" class="cw-image-preview-trigger" data-image-preview="'
+                                  + esc(product_media["src"]) + '" aria-label="View larger: '
+                                  + esc(product_media["alt"]) + '">' + rendered_media
+                                  + '<span class="cw-image-preview-trigger__label">View larger</span></button>')
+            body = (body[:media_node.open_end] + rendered_media
                     + caption + body[media_node.close_start:])
     if consumed_crumb:
         crumb_nav = ""
@@ -1067,6 +1075,11 @@ VISUAL_MEDIA["experience_hero"]["art_direction"] = json.load(open(os.path.join(R
 from regional_seo import load_coverage
 REGIONAL_COVERAGE = load_coverage(ROOT)
 PRODUCT_HERO.update({slug: item["src"] for slug, item in VISUAL_MEDIA["products"].items()})
+# Prepared product-family pages stay outside PRODUCTS until their commercial
+# offer is approved. They may still use reviewed, provenance-bound media for a
+# quotation page and its share card without appearing as an active catalogue
+# item or receiving Product/Offer schema.
+PRODUCT_HERO.update({slug: item["src"] for slug, item in VISUAL_MEDIA.get("draft_products", {}).items()})
 from editorial_media import MEDIA as EDITORIAL_MEDIA, SPECIES as SPECIES_MEDIA, article_share_media
 for slug in EDITORIAL_MEDIA["posts"]:
     share = article_share_media(slug)
@@ -1649,6 +1662,10 @@ PAGE_SNIPPETS = {
     "film-faced-shuttering-plywood":"film-faced-shuttering-plywood.html",
     "container-flooring-plywood":"container-flooring-plywood.html",
     "bwr-hardwood-plywood":"bwr-hardwood-plywood.html","chequered-anti-skid-plywood":"chequered-anti-skid-plywood.html",
+    # Owner-approved family imagery is published on this quote-only preparation
+    # page. Keeping it outside PRODUCTS avoids a catalogue card, Product/Offer
+    # schema, purchase activation or any implication that purchasing is open.
+    "premium-hardwood-plywood":"premium-hardwood-plywood.html",
     "block-board-flush-doors":"block-board-flush-doors.html","finger-joint-board":"finger-joint-board.html",
     "particle-board":"particle-board.html","plywood-boxes-crates":"plywood-boxes-crates.html",
     "plywood-pallets":"plywood-pallets.html","plywood-cable-drums":"plywood-cable-drums.html",
@@ -1694,7 +1711,7 @@ def process_content(body, slug=None):
     # before prune_images, so the figure's <img> is resolved, registered and
     # measured by the same pass that handles every other image on the page
     body = add_cwg_hero_photo(body, slug)
-    if slug in {s for s, _, _ in PRODUCTS}:
+    if slug in {s for s, _, _ in PRODUCTS} or slug == "premium-hardwood-plywood":
         body = re.sub(r'href="/contact(?:#quote)?"',
                       'href="/contact?product=' + urllib.parse.quote(slug) + '#quote"', body)
     return rewrite_links(prune_images(body, slug))
@@ -2117,15 +2134,19 @@ LIVE_REF_NAME = "origin/cf-live"                         # where the pin came fr
 # Moved 8 Sep 2026 after reviewing ef44629f..255aeed1 (PR39). The exact file
 # inventory, blob hashes, semantic changes and preservation comparison are recorded in
 # docs/cf-live-pin-review-2026-09-08.md. Both refs contain the same 1,146 paths. The
-# carried set is byte-identical: 846 files/ blobs plus the workflow and four root files.
+# carried count is derived from the pinned tree so additions cannot make the banner stale.
 # The 34 changed published files are PR39's rate suppression, sitemap lastmod updates,
 # the build-provenance header and two already-shipped species-credit corrections. A
 # source build before this re-pin already reproduced every live blob except the four
 # destination-guide fixes owned by this branch and sitemap-post.xml, proving that the
 # pin move preserves PR39 and the rest of the shipped tree rather than overwriting it.
-LIVE_SHA = "255aeed1efc3861bc4264658711c2e1c58eb49e8"    # Reviewed PR39 tip; see the recorded full-tree and carried-tree diff
+LIVE_SHA = "a9178b958c5de667f8ddaadff9ab5bbc212f199e"    # Reviewed PR40 merge; see docs/cf-live-pin-review-premium-hardwood-2026-09-08.md
 LIVE_REF = LIVE_SHA                # what git is actually handed, so no fetch can move it
 LIVE_PIN = LIVE_REF_NAME + "@" + LIVE_SHA[:12]           # what the banner and dist/ record
+LIVE_HASHED_ASSET_RE = re.compile(
+    r"^assets/(?:bundle|cw-events|encyclopedia-navigation|experience-motion|"
+    r"page-navigation|quote-form|search-measurement|site)\.[0-9a-f]{8}\.(?:css|js)$"
+)
 
 CARRIED_ROOT_FILES = {
     "015ad99674249c7dc418af21415b06bc.txt":
@@ -2209,7 +2230,7 @@ def _live_tree(prefix):
 def carried_live_count():
     """Number of blobs carry_live_assets() expects from the pinned live tree."""
     import subprocess
-    paths = ["files", CARRIED_WORKFLOW, *CARRIED_ROOT_FILES]
+    paths = ["files", "assets", CARRIED_WORKFLOW, *CARRIED_ROOT_FILES]
     ls = subprocess.run(["git", "ls-tree", "-r", "-z", LIVE_REF, "--", *paths],
                         cwd=ROOT, capture_output=True, timeout=300)
     if ls.returncode != 0:
@@ -2218,8 +2239,12 @@ def carried_live_count():
     for rec in ls.stdout.split(b"\0"):
         if not rec:
             continue
-        meta, _path = rec.split(b"\t", 1)
-        if meta.split(b" ")[1] == b"blob":
+        meta, path_bytes = rec.split(b"\t", 1)
+        path = path_bytes.decode("utf-8")
+        carried = (path.startswith("files/") or path == CARRIED_WORKFLOW
+                   or path in CARRIED_ROOT_FILES
+                   or LIVE_HASHED_ASSET_RE.fullmatch(path))
+        if carried and meta.split(b" ")[1] == b"blob":
             count += 1
     return count
 
@@ -2270,6 +2295,21 @@ def carry_live_assets():
                  f"/{prefix} URL cf-live serves today")
             continue
         for rel, data in sorted(blobs.items()):
+            fp = os.path.join(DIST, rel.replace("/", os.sep))
+            os.makedirs(os.path.dirname(fp), exist_ok=True)
+            with open(fp, "wb") as f: f.write(lf(data))
+            n += 1
+    # Fingerprinted bundles are immutable public URLs. Keep the pinned live
+    # versions beside any newly generated names so cached HTML and saved links
+    # continue to resolve through a release that changes bundle bytes.
+    asset_blobs = _live_tree("assets")
+    if asset_blobs is None:
+        warn(f"cannot read fingerprinted assets from {LIVE_PIN} -- publishing "
+             "this dist/ may 404 immutable CSS or JavaScript URLs")
+    else:
+        for rel, data in sorted(asset_blobs.items()):
+            if not LIVE_HASHED_ASSET_RE.fullmatch(rel):
+                continue
             fp = os.path.join(DIST, rel.replace("/", os.sep))
             os.makedirs(os.path.dirname(fp), exist_ok=True)
             with open(fp, "wb") as f: f.write(lf(data))

@@ -1,8 +1,8 @@
 # Decisions needed before the Kerala online shop can launch — 8 September 2026
 
-Three things on this page need **Edwin's decision**, not an engineer's. Nothing here has been applied.
-The separate rate-suppression change in this same working tree HAS been applied and is described at the
-bottom.
+This page began as an owner-decision draft. The Hardwood reporting deadline and evidence requirement are
+now settled and recorded below; no public policy or purchase flow has been activated. The separate
+rate-suppression change in this same working tree HAS been applied and is described at the bottom.
 
 ---
 
@@ -46,16 +46,17 @@ not the whole company.
 
 ### Draft insert — Returns policy, new section
 
-> **Online orders within Kerala.** For products bought through the online channel you may cancel any order
-> that has not yet been despatched for a full refund. If the goods arrive damaged, short, or not matching
-> the product described, tell us within **[N] days** of delivery with photographs and we will replace them
-> or refund you in full, including delivery. Refunds are made to the original payment method within
-> **[N] business days** of us accepting the return. The bulk-supply terms above — no cooling-off period and
-> no right of return for change of mind — continue to apply to all quotation-based orders.
+> **Online orders within Kerala.** For products bought through the online channel you may cancel before
+> despatch. CWI may deduct only actual costs disclosed before payment. Report damage or shortages within
+> 24 hours of delivery and include photographs. The inspection, collection and remedy process is confirmed
+> for the order. Any accepted refund is made to the original payment method within **[N] business days**.
+> The bulk-supply terms above — no cooling-off period and no right of return for change of mind — continue
+> to apply to all quotation-based orders.
 
-**Two numbers I have deliberately left as `[N]`.** They are commitments, not drafting, and they should be
-yours: the damage/shortage reporting window, and the refund turnaround. A common pair is 7 days and 7
-business days. Also still open: whether you offer change-of-mind cancellation *after* despatch, which for
+**The reporting requirement is now settled.** The owner's exact answer is “Within 24 hours of delivery,
+with photos.” This closes the damage/shortage deadline and evidence input only. The refund-initiation
+timing remains `[N]`; inspection, collection and remedy are also pending. Still open: whether you offer
+change-of-mind cancellation *after* despatch, which for
 a single plywood sheet on a Kerala lorry may cost more in return freight than the sheet is worth — saying
 "no change-of-mind return once despatched" is legitimate and clearer than staying silent.
 

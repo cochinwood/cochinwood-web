@@ -50,8 +50,9 @@ class EncyclopediaImageTests(unittest.TestCase):
         self.assertEqual(result.count('class="cwe__card-photo cwe__card-photo--pending"'), 1)
         self.assertEqual(result.count('>Wood-grain detail</span>'), 22)
         self.assertEqual(result.count('>End-grain detail</span>'), 2)
-        self.assertEqual(result.count('>AI-assisted visual</span>'), 3)
-        self.assertEqual(result.count('>Botanical references inside</span>'), 1)
+        self.assertEqual(result.count('>Wood appearance reference</span>'), 3)
+        self.assertEqual(result.count('>Botanical reference inside</span>'), 1)
+        self.assertIn('>Wood reference image unavailable</span>', result)
         self.assertEqual(len({x[0]['sha256'] for x in self.calls}), 27)
         for item, options in self.calls:
             self.assertFalse(options['eager'])
@@ -117,7 +118,7 @@ class EncyclopediaImageTests(unittest.TestCase):
         entry = copy.deepcopy(MEDIA['sal'])
         self.assertEqual(species_thumbnail(MEDIA['neem'])[1], 'Tree reference')
         self.assertEqual(card_thumbnail(MEDIA['neem'])[1], 'Tree reference')
-        self.assertEqual(card_thumbnail(entry)[1], 'AI-assisted visual')
+        self.assertEqual(card_thumbnail(entry)[1], 'Wood appearance reference')
         entry['card_visual']['generated'] = False
         with self.assertRaisesRegex(ValueError, 'explicitly identify'):
             card_thumbnail(entry)

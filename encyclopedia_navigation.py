@@ -96,7 +96,7 @@ def species_thumbnail(entry):
 
 
 def card_thumbnail(entry):
-    """Keep owner-requested AI artwork separate from verified reference photos."""
+    """Keep generated artwork separate from verified reference photos."""
     item = entry.get('card_visual')
     if item is None:
         return species_thumbnail(entry)
@@ -107,19 +107,25 @@ def card_thumbnail(entry):
             raise ValueError('Card artwork is missing source metadata: ' + key)
     if not item['alt'].startswith('AI-assisted'):
         raise ValueError('Generated card artwork needs accurate alternative text')
-    return item, 'AI-assisted visual'
+    return item, 'Wood appearance reference'
 
 
 def _card_photo(entry, image):
     item, label = card_thumbnail(entry)
     if label == 'Tree reference' or item['src'] in PENDING_GRAIN_PHOTOS:
-        inside = 'Botanical references inside' if label == 'Tree reference' else 'Wood reference inside'
+        if label == 'Tree reference':
+            return ('<span class="cwe__card-photo cwe__card-photo--pending">'
+                    '<span>Wood reference image unavailable</span></span>'
+                    '<span class="cwe__card-photo-kind">Botanical reference inside</span>')
+        inside = 'Wood reference inside'
         return ('<span class="cwe__card-photo cwe__card-photo--pending">'
                 '<span>Grain photograph pending</span></span>'
                 '<span class="cwe__card-photo-kind">' + inside + '</span>')
     crop = CARD_DETAIL_CROPS.get(item['src'])
     if crop:
         item = dict(item, alt=crop[1] + ' of ' + crop[2] + ' from an identified wood specimen')
+    if item.get('generated'):
+        item = dict(item, alt='Wood appearance reference for ' + item['reference_taxon'])
     tag = image(item, eager=False, sizes=wood_card_sizes(1 if item.get('generated') else crop[3] if crop else 1.12))
     if item.get('max_display_width') is not None:
         cap = item['max_display_width']
@@ -131,9 +137,9 @@ def _card_photo(entry, image):
         tag = tag.replace('<img ', f'<img style="{style}" ', 1)
     # The whole card links to its species, where the complete source/licence
     # links remain next to the photograph. No nested anchors inside the card.
-    detail = (' data-reference-detail="ai-wood-visual"' if item.get('generated') else
+    detail = (' data-reference-detail="wood-appearance"' if item.get('generated') else
               ' data-reference-detail="' + crop[0] + '"' if crop else '')
-    label = 'AI-assisted visual' if item.get('generated') else crop[1] if crop else 'Wood-grain detail'
+    label = 'Wood appearance reference' if item.get('generated') else crop[1] if crop else 'Wood-grain detail'
     return ('<span class="cwe__card-photo" data-reference-fit="cover"' + detail + '>' + tag + '</span>'
             '<span class="cwe__card-photo-kind">' + label + '</span>'
             '<span class="cwe__card-photo-credit">' + escape(item['credit'])

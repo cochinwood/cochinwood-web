@@ -216,9 +216,8 @@ def enhance_editorial_media(body, path, image, link):
                               for i, item in enumerate(entry['images']))
             artwork = entry.get('card_visual')
             if artwork:
-                # Attribution belongs beside the original reference collection;
-                # generated card artwork never becomes a scientific specimen.
-                figures = ('<p class="cw-species-card-source">The directory card uses an AI-assisted visual based on '
+                # Keep the source and licence beside the reference collection.
+                figures = ('<p class="cw-species-card-source">Directory card image source: '
                            '<a href="' + html.escape(artwork['source_url'], quote=True) + '">'
                            + html.escape(artwork['credit']) + '</a> · <a rel="license" href="'
                            + html.escape(artwork['license_url'], quote=True) + '">'

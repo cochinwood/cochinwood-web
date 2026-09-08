@@ -108,7 +108,7 @@ html { scroll-behavior: smooth; }
 /* FAQ accordion */
 
 .cw__cta-actions { display: flex; gap: 12px; justify-content: flex-end; }
-@media (max-width: 760px) { .cw__cta-actions { justify-content: flex-start; } 
+@media (max-width: 760px) { .cw__cta-actions { justify-content: flex-start; }
 }
 
 /* Defeat site-wide Custom CSS dark-hero overrides */
@@ -533,8 +533,8 @@ p a, li a {min-height:0;min-width:0;display:inline;}
 
 /* === Responsive polish 2026-06-15: stack tight 2-up grids + readable tags on phones === */
 @media(max-width:600px) {
-  
+
   .cwop-flow {grid-template-columns:1fr!important}
-  
+
 
 }

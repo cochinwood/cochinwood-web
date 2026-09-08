@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "version": "proposal-2026-09-07-invoice-stock-policy",
+  "version": "proposal-2026-09-08-photo-damage-inputs",
   "synthetic": false,
   "approval": {
     "status": "pending",
@@ -12,7 +12,10 @@
     "status": "approved",
     "approved_by": "Company owner",
     "recorded_at": "2026-09-07T14:19:12Z",
-    "skus": ["prem_hw_gurjan_12", "prem_hw_gurjan_18"],
+    "skus": [
+      "prem_hw_gurjan_12",
+      "prem_hw_gurjan_18"
+    ],
     "scope": "Exact tax-inclusive sheet prices and 18% GST only. Freight is confirmed separately before invoice acceptance. Other launch approvals remain pending."
   },
   "tax": {
@@ -25,7 +28,10 @@
     "approved": true,
     "approved_by": "Company owner",
     "recorded_at": "2026-09-07T15:11:11Z",
-    "skus": ["prem_hw_gurjan_12", "prem_hw_gurjan_18"],
+    "skus": [
+      "prem_hw_gurjan_12",
+      "prem_hw_gurjan_18"
+    ],
     "responsible_role": "Operations",
     "availability_confirmation_required": true,
     "reservation_before_payment_required": true,
@@ -33,9 +39,12 @@
   },
   "draft_image_evidence": {
     "premium_hardwood_family": {
-      "status": "owner_approved_for_publication_not_yet_published",
+      "status": "owner_approved_replacement_prepared",
       "representation": "shared_product_family",
-      "applies_to_skus": ["prem_hw_gurjan_12", "prem_hw_gurjan_18"],
+      "applies_to_skus": [
+        "prem_hw_gurjan_12",
+        "prem_hw_gurjan_18"
+      ],
       "owner_approval": {
         "recorded_at": "2026-09-08T16:53:15+05:30",
         "question": "Does this plywood accurately represent the Premium Hardwood being launched, and may CWI publish this photograph?",
@@ -47,29 +56,61 @@
         "company_archive_relative_path": "marketing/photo-bank/raw/cwi_wa_482_938x1280.jpg",
         "sha256": "9115bc38f8524cdf217136b834634c98cef1c7b4ee5c2a529c95902d8a6cb1df",
         "bytes": 63026,
-        "dimensions_px": [938, 1280]
+        "dimensions_px": [
+          938,
+          1280
+        ],
+        "project_asset_path": "assets/photos/files/Premium-Hardwood/premium-hardwood-family-original-2026-09-08.jpg",
+        "prepared_public_url": "https://www.cochinwood.in/files/Premium-Hardwood/premium-hardwood-family-original-2026-09-08.jpg"
       },
-      "edited_family_image": {
+      "limitations": [
+        "Use only as one shared Premium Hardwood family representation; it does not identify the pictured sheet as 12 mm or 18 mm.",
+        "Image details do not prove core construction, layer count, face or back species, glue grade, finished dimensions, tolerances, certification, stock, premises or a customer shipment.",
+        "The confirmed full hardwood core for both proposed thicknesses is a separate decision record and does not come from the image.",
+        "The original and selected replacement are copied into tracked website source with exact hashes; production URLs remain unpublished until the reviewed release is merged."
+      ],
+      "publication_authorized": true,
+      "publication_state": "replacement_prepared_not_published",
+      "catalogue_activation": false,
+      "merchant_activation": false,
+      "rejected_edited_family_image": {
         "filename": "premium-hardwood-sales-edited-2026-09-08.png",
         "sha256": "955a7a9fccee7b5fe47c9d55cca19d591d376aa8f1d7b09069db6461d8b72487",
         "bytes": 1727887,
-        "dimensions_px": [1074, 1465],
+        "dimensions_px": [
+          1074,
+          1465
+        ],
         "method": "OpenAI built-in image generation tool editing the approved original reference",
         "provenance": "AI-edited sales presentation, not an untouched documentary photo",
         "evidence_receipt": "docs/premium-hardwood-photo-evidence-2026-09-08.md",
         "project_asset_path": null,
-        "public_url": null
+        "prepared_public_url": null,
+        "public_url": null,
+        "status": "rejected_before_publication"
       },
-      "limitations": [
-        "Use only as one shared Premium Hardwood family representation; it does not identify the pictured sheet as 12 mm or 18 mm.",
-        "Generated layers, edges, lighting and framing do not prove core construction, layer count, face or back species, glue grade, finished dimensions, tolerances or certification.",
-        "The owner-confirmed full hardwood core for both proposed thicknesses is a separate decision record and does not come from the image.",
-        "Before any future use, copy the reviewed exact bytes into a tracked asset location in the consuming project and retain both hashes and this provenance."
-      ],
-      "publication_authorized": true,
-      "publication_state": "not_published",
-      "catalogue_activation": false,
-      "merchant_activation": false
+      "replacement_family_image": {
+        "filename": "premium-hardwood-hero-v2-2026-09-08.png",
+        "sha256": "65fb08829dc376f9064281654ed4e9115d594b069472a65b2556368c3c1d778a",
+        "bytes": 2191872,
+        "dimensions_px": [
+          1448,
+          1086
+        ],
+        "method": "OpenAI built-in image generation tool editing the approved original reference",
+        "provenance": "Replacement presentation selected after the prior edit was rejected; private evidence only",
+        "evidence_receipt": "docs/premium-hardwood-photo-evidence-2026-09-08.md",
+        "project_asset_path": "assets/photos/files/Premium-Hardwood/premium-hardwood-hero-v2-2026-09-08.webp",
+        "prepared_public_url": "https://www.cochinwood.in/files/Premium-Hardwood/premium-hardwood-hero-v2-2026-09-08.webp",
+        "public_url": null,
+        "generated_artifact_filename": "premium-hardwood-hero-v2-2026-09-08.png",
+        "generated_artifact_sha256": "65fb08829dc376f9064281654ed4e9115d594b069472a65b2556368c3c1d778a",
+        "generated_artifact_bytes": 2191872,
+        "optimized_filename": "premium-hardwood-hero-v2-2026-09-08.webp",
+        "optimized_sha256": "7e5821f82dda291d4f008359c3fbaff7e097166c2111ebde53d3fca4edad69ea",
+        "optimized_bytes": 199250,
+        "optimization": "Responsive WebP derivatives encoded at 320, 640, 960, 1200 and 1448 pixels wide without cropping."
+      }
     }
   },
   "products": [
@@ -91,6 +132,7 @@
       "product_identity_approved": false,
       "image_url": "/files/Plywood%20Product%20Photos/cwi-bwr-hardwood-plywood.webp",
       "actual_product_photo_url": null,
+      "prepared_product_photo_url": "https://www.cochinwood.in/files/Premium-Hardwood/premium-hardwood-hero-v2-2026-09-08.webp",
       "image_approved": true,
       "image_approval_scope": "Owner-authorized shared representative Premium Hardwood family image; not thickness-specific proof.",
       "product_url": null,
@@ -117,6 +159,7 @@
       "product_identity_approved": false,
       "image_url": "/files/Plywood%20Product%20Photos/cwi-bwr-hardwood-plywood.webp",
       "actual_product_photo_url": null,
+      "prepared_product_photo_url": "https://www.cochinwood.in/files/Premium-Hardwood/premium-hardwood-hero-v2-2026-09-08.webp",
       "image_approved": true,
       "image_approval_scope": "Owner-authorized shared representative Premium Hardwood family image; not thickness-specific proof.",
       "product_url": null,
@@ -193,7 +236,14 @@
     "returns_url": null,
     "cancellation_url": null,
     "unloading": null,
-    "damage_reporting": null,
+    "damage_reporting": "Report damage or shortages within 24 hours of delivery and include photographs.",
+    "damage_reporting_approval": {
+      "status": "approved",
+      "approved_by": "Company owner",
+      "recorded_at": "2026-09-08",
+      "owner_response": "Within 24 hours of delivery, with photos.",
+      "scope": "Reporting deadline and required evidence only. Remedy, inspection or collection process, after-dispatch returns and refund-initiation timing remain pending."
+    },
     "cancellation": null,
     "refunds": null
   },

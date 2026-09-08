@@ -177,6 +177,31 @@
       "caption": "Species and dimensions are confirmed with your specification."
     }
   },
+  "draft_products": {
+    "premium-hardwood-plywood": {
+      "src": "/files/Premium-Hardwood/premium-hardwood-hero-v2-2026-09-08.webp",
+      "alt": "Premium Hardwood plywood",
+      "preview": true,
+      "kind": "product family presentation",
+      "provenance": "Replacement presentation generated with OpenAI built-in image generation on 8 September 2026 after the owner rejected the prior sales edit. It is based on the tracked owner-approved Premium Hardwood family photograph and is not evidence of thickness, layer count, face/back species, glue grade, finished dimensions, tolerances, certification, stock, premises or a customer shipment.",
+      "digital_source_type": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+      "sha256": "7e5821f82dda291d4f008359c3fbaff7e097166c2111ebde53d3fca4edad69ea",
+      "width": 1448,
+      "height": 1086,
+      "source_file": "assets/photos/files/Premium-Hardwood/premium-hardwood-family-original-2026-09-08.jpg",
+      "source_sha256": "9115bc38f8524cdf217136b834634c98cef1c7b4ee5c2a529c95902d8a6cb1df",
+      "source_width": 938,
+      "source_height": 1280,
+      "previous_rejected_edit_sha256": "955a7a9fccee7b5fe47c9d55cca19d591d376aa8f1d7b09069db6461d8b72487",
+      "owner_approval_recorded_at": "2026-09-08T16:53:15+05:30",
+      "owner_approval_response": "Yes, please edit it and make the pic look better for sales.",
+      "replacement_instruction_recorded_at": "2026-09-08",
+      "scope": "One shared representative Premium Hardwood family image for the proposed 12 mm and 18 mm variants; not thickness-specific proof.",
+      "generated_artifact_file": "assets/photos/files/Premium-Hardwood/premium-hardwood-hero-v2-2026-09-08.png",
+      "generated_artifact_sha256": "65fb08829dc376f9064281654ed4e9115d594b069472a65b2556368c3c1d778a",
+      "optimization": "Responsive WebP derivatives encoded from the reviewed 1448 × 1086 PNG without cropping."
+    }
+  },
   "applications": [
     {
       "src": "/files/CWI-Images/home_case_highrise.webp",
