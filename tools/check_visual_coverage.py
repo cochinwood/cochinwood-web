@@ -156,7 +156,18 @@ def main():
             digest = hashlib.sha256(asset.read_bytes()).hexdigest()
             if digest != entry["sha256"]:
                 errors.append(f"Published bytes differ from the inspected image: {entry['src']}")
-    for candidates in responsive.values():
+    # A responsive group is publication material only when an emitted page uses
+    # its master image. Source-only evidence can remain in the manifest without
+    # being copied to dist/ (for example a rights-withheld card visual); its
+    # source bytes and declared hashes are checked by ai_card_provenance.py.
+    rendered_image_paths = {
+        local_path(image.get("src", ""))
+        for page in pages.values()
+        for image in page.images
+    }
+    for master, candidates in responsive.items():
+        if local_path(master) not in rendered_image_paths:
+            continue
         for candidate in candidates:
             asset = dist / local_path(candidate["src"])
             if not asset.is_file() or hashlib.sha256(asset.read_bytes()).hexdigest() != candidate["sha256"]:
