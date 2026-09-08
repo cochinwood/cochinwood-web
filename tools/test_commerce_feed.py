@@ -153,6 +153,14 @@ class MerchantPreparationTests(unittest.TestCase):
         self.assertIn('products.prem_hw_gurjan_12.actual_product_photo_url', fields)
         self.assertIn('products.prem_hw_gurjan_12.product_url', fields)
 
+    def test_draft_family_image_evidence_does_not_approve_exact_product_photo(self):
+        proposal = json.loads((ROOT/'commerce-preview/config/catalogue.proposed.json').read_text(encoding='utf-8'))
+        c = approved_fixture(); p = c['products'][0]
+        c['draft_image_evidence'] = proposal['draft_image_evidence']
+        p.update(actual_product_photo_url=None, image_approved=False)
+        fields = {i['field'] for i in issues(c)}
+        self.assertIn('products.prem_hw_gurjan_12.actual_product_photo_url', fields)
+
     def test_unknown_identifiers_cannot_silently_be_marked_absent(self):
         c = approved_fixture(); c['products'][0]['identifiers_not_assigned'] = False
         self.assertTrue(any(i['field'].endswith('.identifier_exists') for i in issues(c)))

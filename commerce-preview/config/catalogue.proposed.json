@@ -31,6 +31,44 @@
     "reservation_before_payment_required": true,
     "scope": "Operations confirms availability and reserves the exact sheets for each invoice before payment. No fixed online stock pool or public availability is asserted."
   },
+  "draft_image_evidence": {
+    "premium_hardwood_family": {
+      "status": "approved_for_draft_evidence_only",
+      "representation": "shared_product_family",
+      "applies_to_skus": ["prem_hw_gurjan_12", "prem_hw_gurjan_18"],
+      "owner_approval": {
+        "recorded_at": "2026-09-08T16:53:15+05:30",
+        "response": "Yes, please edit it and make the pic look better for sales.",
+        "scope": "The original is approved as a representative Premium Hardwood family photograph and may receive a sales-oriented edit. It is not visible proof of either thickness."
+      },
+      "original_source": {
+        "filename": "cwi_wa_482_938x1280.jpg",
+        "company_archive_relative_path": "marketing/photo-bank/raw/cwi_wa_482_938x1280.jpg",
+        "sha256": "9115bc38f8524cdf217136b834634c98cef1c7b4ee5c2a529c95902d8a6cb1df",
+        "bytes": 63026,
+        "dimensions_px": [938, 1280]
+      },
+      "edited_family_image": {
+        "filename": "premium-hardwood-sales-edited-2026-09-08.png",
+        "sha256": "955a7a9fccee7b5fe47c9d55cca19d591d376aa8f1d7b09069db6461d8b72487",
+        "bytes": 1727887,
+        "dimensions_px": [1074, 1465],
+        "method": "OpenAI built-in image generation tool editing the approved original reference",
+        "provenance": "AI-edited sales presentation, not an untouched documentary photo",
+        "evidence_receipt": "docs/premium-hardwood-photo-evidence-2026-09-08.md",
+        "project_asset_path": null,
+        "public_url": null
+      },
+      "limitations": [
+        "Use only as one shared Premium Hardwood family representation; it does not identify the pictured sheet as 12 mm or 18 mm.",
+        "Generated layers, edges, lighting and framing do not prove core construction, layer count, face or back species, glue grade, finished dimensions, tolerances or certification.",
+        "The owner-confirmed full hardwood core for both proposed thicknesses is a separate decision record and does not come from the image.",
+        "Before any future use, copy the reviewed exact bytes into a tracked asset location in the consuming project and retain both hashes and this provenance."
+      ],
+      "catalogue_activation": false,
+      "merchant_activation": false
+    }
+  },
   "products": [
     {
       "sku": "prem_hw_gurjan_12",

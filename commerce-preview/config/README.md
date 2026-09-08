@@ -12,7 +12,9 @@ Before approval, review every product identity, actual product photo and identif
 
 A release policy URL is eligible only with a matching `policies.reviewed_pages` record. Each record names the versioned source page, exact public URL, reviewer and timezone-aware review date, required service topics, and the SHA-256 of the reviewed source content after line endings are normalized to LF. The route must match that source and the hash must still match the file. A valid URL by itself does not establish policy review, and policy review does not satisfy the separate checkout, confirmation, delivery-estimate, payment or Merchant verification gates.
 
-Preview images are existing product-family presentations. `actual_product_photo_url` stays null until a photograph of the exact sold product is approved. Preview imagery cannot satisfy the Shopping image approval gate.
+Preview images are product-family presentations. `draft_image_evidence.premium_hardwood_family` records the owner-approved original source and the built-in-imagegen edited family presentation by exact SHA-256. The edit is explicitly an AI-edited sales presentation rather than an untouched documentary photo. It applies to the Premium Hardwood family shared by the proposed 12 mm and 18 mm variants, but it does not prove which thickness is pictured or establish generated layer count, construction, face/back species, glue grade, finished dimensions, tolerances or certification.
+
+The edited candidate currently exists only in the dated evidence workspace. Before any future use, the consuming project must copy the reviewed exact bytes into its own tracked asset path and preserve the source and derivative provenance. `actual_product_photo_url` stays null and `image_approved` stays false until that project copy, product-level review and publication decision are complete. Draft family evidence cannot satisfy the Shopping image approval gate or activate a live catalogue, purchase flow or Merchant offer.
 
 ## Approved stock allocation approach
 
