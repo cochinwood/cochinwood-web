@@ -4,7 +4,7 @@ The owner requested completion of item 6, the five remaining grain-card spaces, 
 
 All 28 directory cards now have distinct visuals in the same 4:3 frame. Anjili uses a new real, author-identified Kerala sawmill photograph by Rashid Edayur, released under CC0. Its end-grain crop and full photograph were reviewed independently. The original small research photograph and bark reference remain in its species page.
 
-Melia dubia, Neem, Kadam and Sal use source-guided AI artwork generated with the built-in image tool. They are labelled **AI-assisted visual** and stored as `card_visual`, separately from the `images` collection of original reference photographs. Their linked species pages provide the adaptation's source and licence. They are visual reconstructions, not newly authenticated grain specimens or company stock photographs. Four matching documentary grain photographs have therefore not been acquired; the owner-approved visual treatment replaces the four empty card spaces.
+Melia dubia, Neem, Kadam and Sal use source-guided AI artwork generated with the built-in image tool. They are labelled **AI-assisted visual** and stored as `card_visual`, separately from the `images` collection of original reference photographs. The source records, exact prompts and licence or reuse-policy links are kept in `content/species-media.json`; the Neem species page also links to its cited source and publisher reuse policy. They are visual reconstructions, not newly authenticated grain specimens or company stock photographs. Four matching documentary grain photographs have therefore not been acquired; the owner-approved visual treatment replaces the four empty card spaces.
 
 | Card | Reference used | Reuse and treatment |
 |---|---|---|
@@ -16,7 +16,7 @@ Melia dubia, Neem, Kadam and Sal use source-guided AI artwork generated with the
 
 Every generated master is 1448 × 1086. Four WebP widths (320/640/960/1448) provide responsive delivery; full-size encoded files range from 106–313 KB. Anjili retains a 1600 × 2133 master with crop-aware responsive selection and a separate uncropped profile display. Its final WebP encoding was compared visually against the source at mobile DPR2.
 
-The metadata records exact generation prompts, source URLs, licences, native-output hashes and original-reference hashes. Native outputs, source proofs, rejected revisions and review receipts remain in `C:/Users/Edwin David/.codex/visualizations/2026/09/05/01a0708d-57f6-75a2-b691-19254be1f2a5/ai-grain-variants-2026-09-07/` and the adjoining `grain-completion-item6-2026-09-07/` folder. Project-consumed assets are versioned under `assets/photos/files/Species/`.
+The metadata records exact generation prompts, source URLs, licences or reuse policies, native-output hashes and original-reference hashes. The sixteen delivered responsive WebPs now contain unsigned, self-declared IPTC/XMP `trainedAlgorithmicMedia` disclosure. That is deliberately not described as C2PA or Content Credentials. Native outputs, source proofs, rejected revisions and review receipts remain in `C:/Users/Edwin David/.codex/visualizations/2026/09/05/01a0708d-57f6-75a2-b691-19254be1f2a5/ai-grain-variants-2026-09-07/` and the adjoining `grain-completion-item6-2026-09-07/` folder. Project-consumed assets are versioned under `assets/photos/files/Species/`.
 
 The original 52 source-image records and files remain intact. The new Anjili photograph raises the separate reference collection to 53.
 

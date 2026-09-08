@@ -69,44 +69,29 @@ either strengthening it or, at minimum, not treating a green gate here as eviden
 
 ---
 
-## 2. The Neem card is a derivative of a source that does not grant adaptation rights
+## 2. Neem rights finding — superseded by source verification on 8 September
 
-Four AI-assisted wood visuals are live on `/woods-we-use`. **Three are fine** — Melia dubia, Sal and Kadam
-are built on CC BY 4.0 sources, and CC BY 4.0 expressly permits adaptations. The on-page disclosure is
-good: a visible "AI-assisted visual" label, a credit line, alt text that leads with "AI-assisted", and a
-build guard that refuses to render generated artwork without provenance.
+The earlier conclusion that Plant Archives forbids the Neem card because its policy does not separately
+name adaptation was not substantiated. The publisher's current policy says that authors retain copyright
+but grants the journal permission to publish and allows anyone to **reuse, distribute and reproduce** the
+content provided the original is properly cited. That is a publisher reuse policy, not a Creative Commons
+licence; it should therefore not be renamed as one. A lack of the word "adapt" cannot by itself prove that
+this source-guided, independently generated visual is prohibited.
 
-**Neem is the exception, and the site's own label says so.** Its credit reads:
+The card remains explicitly disclosed as AI-assisted artwork. Its source record retains Deore et al.
+(2020), Figure 6, the source and native-output hashes, the exact prompt, and the current publisher-policy
+link. The public Neem page now links to both the source and policy and says that the card is not a
+documentary specimen, a verified grain observation or Cochin Wood stock photography. No author was
+contacted and no replacement artwork was made.
 
-> Deore et al. (2020) · Figure 6 · **Reuse with attribution**
+### Separately: the AI-file provenance finding — resolved
 
-The cited licence page grants reuse, distribution and reproduction, and advises seeking the copyright
-owner's permission. It does not grant the right to **adapt**. The published file is an adaptation — the
-entry's own metadata records the figure as the image-to-image "Input image" and stores its
-`original_reference_sha256`. Reuse is not adaptation, and the gap is visible on the card itself.
-
-**Options, in the order I'd consider them:**
-
-- **(a) Pull the Neem AI card** and leave that species with no wood image, as it was before yesterday.
-  Costs nothing, closes the exposure today, and is consistent with the standing decision not to publish a
-  weak or unlicensed image. **This is what I'd do while (b) runs.**
-- **(b) Write to the corresponding author** for permission to adapt Figure 6. The lead was already
-  captured under the grain-sourcing task artifacts. If granted, restore the card with the permission
-  recorded in the metadata.
-- **(c) Photograph your own Neem.** You are a timber merchant — an identified Neem sample photographed in
-  Perumbavoor beats every licensed research figure, carries no third-party rights at all, and could
-  replace the remaining AI cards over time.
-
-I have not removed it. Say which and I'll implement it.
-
-### Separately: the AI files carry no embedded provenance
-
-All four are listed in `/sitemap-images.xml` as bare `<image:loc>`, which actively invites Google Images
-to index them, and the WebP files carry no EXIF, XMP, C2PA or IPTC `digitalSourceType`. Every disclosure
-lives in the HTML. Once one is surfaced in image search, hotlinked or right-click-saved, what remains is
-an unmarked photorealistic image of "Melia dubia wood" on a timber merchant's domain with nothing marking
-it as generated. Two cheap fixes, not mutually exclusive: embed IPTC/C2PA provenance in the four files,
-and/or drop them from the image sitemap. Recommend both.
+The former WebPs had no embedded provenance. Their sixteen responsive outputs now carry self-declared
+IPTC/XMP `DigitalSourceType=trainedAlgorithmicMedia`, a visible HTML label, source citation and
+machine-readable source URL. The metadata is deliberately unsigned: it is not represented as C2PA or
+Content Credentials. The image sitemap remains a standard discovery sitemap containing only
+`<image:loc>` records; it has no standards-compliant field for an AI-provenance assertion. Its treatment is
+therefore paired with, rather than substituted for, the public and file-level disclosures.
 
 ---
 
