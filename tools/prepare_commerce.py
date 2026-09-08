@@ -19,6 +19,16 @@ FEED_FIELDS = ['id', 'title', 'description', 'link', 'image_link', 'availability
                'price', 'condition', 'brand', 'gtin', 'mpn', 'identifier_exists',
                'item_group_id', 'size', 'shipping_label', 'unit_pricing_measure',
                'unit_pricing_base_measure']
+POLICY_SOURCE_ROUTES = {
+    'content/pages/shipping-policy.html': '/shipping-policy',
+    'content/pages/return-refund-policy.html': '/return-refund-policy',
+    'content/pages/terms.html': '/terms-and-conditions',
+}
+POLICY_REQUIRED_TOPICS = {
+    'delivery_url': {'unloading'},
+    'returns_url': {'damage_reporting', 'refunds'},
+    'cancellation_url': {'cancellation'},
+}
 
 
 def integer(value, minimum=0):
@@ -60,6 +70,11 @@ def public_url(value):
                 and not any(x in u.path for x in ('commerce-preview', '/contact')))
     except ValueError:
         return False
+
+
+def policy_content_sha256(path):
+    data = Path(path).read_bytes().replace(b'\r\n', b'\n').replace(b'\r', b'\n')
+    return hashlib.sha256(data).hexdigest()
 
 
 def valid_gtin(value):
@@ -182,8 +197,46 @@ def issues(config, release=True):
         need(words(policies.get(field)), f'policies.{field}', 'Company-approved service terms')
     if release:
         need(config.get('synthetic') is False, 'synthetic', 'Synthetic fixtures can never be submitted')
+        reviewed_pages = policies.get('reviewed_pages')
+        need(isinstance(reviewed_pages, dict), 'policies.reviewed_pages',
+             'Evidence for the exact reviewed policy content')
+        if not isinstance(reviewed_pages, dict):
+            reviewed_pages = {}
         for field in ('delivery_url', 'returns_url', 'cancellation_url'):
-            need(public_url(policies.get(field)), f'policies.{field}', 'Published approved policy URL')
+            url = policies.get(field)
+            need(public_url(url), f'policies.{field}', 'Published approved policy URL')
+            evidence = reviewed_pages.get(field)
+            prefix = f'policies.reviewed_pages.{field}'
+            need(isinstance(evidence, dict), prefix, 'Review evidence for this policy page')
+            if not isinstance(evidence, dict):
+                continue
+            source_path = evidence.get('source_path')
+            expected_route = (POLICY_SOURCE_ROUTES.get(source_path)
+                              if isinstance(source_path, str) else None)
+            need(expected_route is not None, prefix + '.source_path',
+                 'Known versioned policy source file')
+            actual_route = urlsplit(url).path if public_url(url) else None
+            need(expected_route is not None and actual_route == expected_route,
+                 prefix + '.route', 'Policy URL matching the reviewed source route')
+            need(evidence.get('url') == url, prefix + '.url',
+                 'Evidence URL matching the release URL')
+            need(evidence.get('version') == policies.get('version'), prefix + '.version',
+                 'Evidence matching the approved policy version')
+            need(words(evidence.get('reviewed_by'), 200) and dated(evidence.get('reviewed_at')),
+                 prefix + '.review', 'Named reviewer and timezone-aware review date')
+            covers = evidence.get('covers')
+            need(isinstance(covers, list) and all(isinstance(topic, str) for topic in covers)
+                 and POLICY_REQUIRED_TOPICS[field] <= set(covers), prefix + '.covers',
+                 'Reviewed page covers the required service topics')
+            expected_hash = evidence.get('content_sha256')
+            need(isinstance(expected_hash, str)
+                 and bool(re.fullmatch(r'[0-9a-f]{64}', expected_hash)),
+                 prefix + '.content_sha256', 'SHA-256 of the exact reviewed policy bytes')
+            source = ROOT / source_path if expected_route is not None else None
+            actual_hash = (policy_content_sha256(source)
+                           if source is not None and source.is_file() else None)
+            need(actual_hash is not None and actual_hash == expected_hash,
+                 prefix + '.content', 'Reviewed hash matching the current policy source bytes')
         payment = config.get('payment', {})
         for field in ('enabled', 'uat_passed', 'commercial_terms_approved'):
             need(payment.get(field) is True, f'payment.{field}', 'Tested payment workflow and approved payment terms')

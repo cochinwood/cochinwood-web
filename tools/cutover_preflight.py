@@ -73,8 +73,8 @@ import tempfile
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIST = os.path.join(ROOT, "dist")
 
-# THE PIN IS READ OUT OF build.py, NEVER RETYPED HERE. build.py carries 311 of
-# dist/'s 607 files out of one commit's object store; if this file kept its own
+# THE PIN IS READ OUT OF build.py, NEVER RETYPED HERE. build.py carries a
+# dynamically counted set of files out of one commit's object store; if this file kept its own
 # copy of that sha the two could drift and the gate would then be checking a
 # commit the build never touched, which is worse than not checking at all.
 # Imported rather than regex-scraped so that a rename of LIVE_SHA breaks loudly
@@ -312,7 +312,7 @@ def served_bytes(rel):
 def check_live_pin():
     """build.py's LIVE_SHA must still be what origin/cf-live points at.
 
-    311 OF THE 607 PUBLISHED FILES COME OUT OF THAT ONE COMMIT, so this is the
+    A DERIVED SET OF PUBLISHED FILES COMES OUT OF THAT ONE COMMIT, so this is the
     check that stops a carry nobody has read. It is deliberately a hard failure
     and deliberately does NOT tell the operator to bump the pin: the correct
     response to "cf-live has moved" is to review what moved and then decide,
@@ -320,13 +320,16 @@ def check_live_pin():
     whatever landed on cf-live in the meantime with no one having looked at it.
     """
     name = "live pin is %s's tip" % LIVE_REF_NAME
+    carried_count = _build.carried_live_count()
+    carried = ("%d carried files" % carried_count
+               if carried_count is not None else "the carried files")
     rc_have, have, _ = git("rev-parse", "--verify", "--quiet",
                            LIVE_SHA + "^{commit}")
     if rc_have != 0 or have != LIVE_SHA:
         return check(name, False,
                      "pinned commit %s is not in this clone: run `git fetch "
-                     "origin` (all 311 carried files would be skipped)"
-                     % LIVE_SHA[:12])
+                     "origin` (%s would be skipped)"
+                     % (LIVE_SHA[:12], carried))
     rc_tip, tip, err = git("rev-parse", "--verify", "--quiet", LIVE_REF_NAME)
     if rc_tip != 0 or not tip:
         return check(name, False,
@@ -334,7 +337,7 @@ def check_live_pin():
     return check(name, tip == LIVE_SHA,
                  "pin %s, tip %s%s" % (LIVE_SHA[:12], tip[:12],
                  "" if tip == LIVE_SHA else
-                 " -- RE-REVIEW the 311 carried files against the new tip, do "
+                 " -- RE-REVIEW %s against the new tip, do " % carried +
                  "NOT just bump LIVE_SHA"))
 
 
@@ -734,8 +737,8 @@ def main():
           "%d modified path(s)" % len(dirty.splitlines()) if dirty else "")
 
     # 2. The pin, before anything is built with it. Cheapest possible failure:
-    #    it is one rev-parse, and it is the difference between carrying 311
-    #    reviewed files and carrying 311 unread ones.
+    #    it is one rev-parse, and it is the difference between carrying the
+    #    reviewed inventory and carrying unread files.
     check_live_pin()
 
     # 3 + 4. Determinism, and equivalence to the reviewed tree.

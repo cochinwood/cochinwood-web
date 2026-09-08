@@ -10,6 +10,8 @@ The selected payment model is `upi_bank_verified_invoice`: ICICI UPI with staff 
 
 Before approval, review every product identity, actual product photo and identifier; exact finished dimensions/tolerances; sheet price, tax, stock and min/max quantity; delivery eligibility, price and dates; unloading, damage, cancellation and refund policies. Record approver/date and version. Payment and Merchant activation are separate release gates.
 
+A release policy URL is eligible only with a matching `policies.reviewed_pages` record. Each record names the versioned source page, exact public URL, reviewer and timezone-aware review date, required service topics, and the SHA-256 of the reviewed source content after line endings are normalized to LF. The route must match that source and the hash must still match the file. A valid URL by itself does not establish policy review, and policy review does not satisfy the separate checkout, confirmation, delivery-estimate, payment or Merchant verification gates.
+
 Preview images are existing product-family presentations. `actual_product_photo_url` stays null until a photograph of the exact sold product is approved. Preview imagery cannot satisfy the Shopping image approval gate.
 
 ## Approved stock allocation approach

@@ -913,6 +913,7 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
 </html>'''
 
 _page_source = {}      # output path -> source file it was generated from
+_page_lastmod = {}     # output path -> finer-grained source date when available
 
 # Three accessibility repairs that belong to no single page. Every table, icon
 # and separator on this site arrives inside imported HTML -- product snippets,
@@ -955,7 +956,7 @@ def a11y_fixups(doc):
     doc = "".join(out) + doc[i:]
     return _META_SEP.sub(r'<span class="\1" aria-hidden="true">', doc)
 
-def write(path, content, src=None):
+def write(path, content, src=None, lastmod=None):
     # cf-live commits FLAT files -- about.html, export/qatar.html,
     # blogs/post/<slug>.html -- so live answers /about with a direct 200. A
     # <slug>/index.html layout makes Cloudflare Pages answer 308 -> /about/
@@ -983,23 +984,81 @@ def write(path, content, src=None):
     # byte, so a locally-built dist differs from CI's and from live (both LF).
     with open(fp, "w", encoding="utf-8", newline="\n") as f: f.write(content)
     _page_source[path] = src or "build.py"
+    if lastmod:
+        _page_lastmod[path] = lastmod
 
 _gitdate_cache = {}
-def git_date(relpath):
+def git_date(relpath, root=ROOT):
     """Date of the last commit touching a source file, for a truthful <lastmod>.
 
     A sitemap that stamps every URL with today's build date tells crawlers the
     whole site changed on every deploy, which is not information."""
-    if relpath not in _gitdate_cache:
+    cache_key = (os.path.abspath(root), relpath)
+    if cache_key not in _gitdate_cache:
         out = ""
         try:
             import subprocess
             out = subprocess.run(["git", "log", "-1", "--format=%cs", "--", relpath],
-                                 cwd=ROOT, capture_output=True, text=True, timeout=15).stdout.strip()
+                                 cwd=root, capture_output=True, text=True, timeout=15).stdout.strip()
         except Exception:
             pass
-        _gitdate_cache[relpath] = out or datetime.date.today().isoformat()
-    return _gitdate_cache[relpath]
+        _gitdate_cache[cache_key] = out or datetime.date.today().isoformat()
+    return _gitdate_cache[cache_key]
+
+
+def git_json_record_dates(relpath, record_keys, root=ROOT):
+    """Last committed date for each record in a pretty-printed JSON array.
+
+    Blog articles share one source file, so a path-level git date redates every
+    article whenever any one record changes. Git blame identifies the commit for
+    each field line (the HTML body is one JSON string line); taking the newest
+    date within each slug's record gives the sitemap a stable per-post date.
+    """
+    wanted = set(record_keys)
+    fallback = git_date(relpath, root)
+    if not wanted:
+        return {}
+    try:
+        import subprocess
+        with open(os.path.join(root, relpath), encoding="utf-8") as source_file:
+            source_lines = source_file.read().splitlines()
+        blamed = subprocess.run(
+            ["git", "blame", "--line-porcelain", "--", relpath], cwd=root,
+            capture_output=True, text=True, timeout=60)
+        if blamed.returncode != 0:
+            raise RuntimeError(blamed.stderr)
+    except Exception:
+        return {key: fallback for key in wanted}
+
+    line_dates = {}
+    line_no = timestamp = None
+    tz_text = "+0000"
+    for line in blamed.stdout.splitlines():
+        header = re.match(r"^[0-9a-f]{40} \d+ (\d+)(?: \d+)?$", line)
+        if header:
+            line_no, timestamp, tz_text = int(header.group(1)), None, "+0000"
+        elif line.startswith("committer-time "):
+            timestamp = int(line.split(" ", 1)[1])
+        elif line.startswith("committer-tz "):
+            tz_text = line.split(" ", 1)[1]
+        elif line.startswith("\t") and line_no is not None and timestamp is not None:
+            sign = 1 if tz_text.startswith("+") else -1
+            offset = datetime.timedelta(
+                hours=sign * int(tz_text[1:3]), minutes=sign * int(tz_text[3:5]))
+            zone = datetime.timezone(offset)
+            line_dates[line_no] = datetime.datetime.fromtimestamp(timestamp, zone).date().isoformat()
+
+    dates = {}
+    current = None
+    for line_no, line in enumerate(source_lines, 1):
+        match = re.match(r'^\s*"slug"\s*:\s*"([^"]+)"', line)
+        if match:
+            current = match.group(1) if match.group(1) in wanted else None
+        if current and line.lstrip().startswith('"'):
+            dates[current] = max(dates.get(current, ""), line_dates.get(line_no, fallback))
+        if re.match(r"^\s*},?\s*$", line):
+            current = None
+    return {key: dates.get(key, fallback) for key in wanted}
 
 # ---------------- SHARED VISUAL MEDIA ----------------
 VISUAL_MEDIA = json.load(open(os.path.join(ROOT, "content", "visual-media.json"), encoding="utf-8"))
@@ -1839,6 +1898,7 @@ def build_blog():
         key = taxonomy["posts"][post["slug"]]
         post.update(topic_slug=key, topic_label=topic_meta[key]["label"],
                     topic_href=f"/blogs?topic={key}#blog-topic-{key}")
+    post_lastmods = git_json_record_dates(BLOG_SRC, (post["slug"] for post in live))
     n, undated = 0, []
     for p in live:
         slug, title = p["slug"], (p.get("title") or slug)
@@ -1894,7 +1954,8 @@ def build_blog():
                 "mainEntityOfPage": f"{LIVE}/blogs/post/{slug}",
                 **({"datePublished": date, "dateModified": date} if date else {})},
                 separators=(",", ":")) + '</script>')
-        write(f"blogs/post/{slug}/index.html", src=BLOG_SRC, content=
+        write(f"blogs/post/{slug}/index.html", src=BLOG_SRC,
+              lastmod=post_lastmods[slug], content=
               base(title, desc, f"/blogs/post/{slug}", art, body_class="cw-encbody cw-blog-post",
                    extra_head=ld, og_type="article",
                    crumbs=[("Home", "/"), ("Blog", "/blogs"), (title.split("|")[0].strip(), None)]))
@@ -1969,7 +2030,8 @@ def build_sitemap():
     paths = sorted(set(paths))
     def lastmod(path):
         rel = path.strip("/")
-        return git_date(_page_source.get((rel + ".html") if rel else "index.html", "build.py"))
+        output = (rel + ".html") if rel else "index.html"
+        return _page_lastmod.get(output) or git_date(_page_source.get(output, "build.py"))
     XMLNS = ('xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
              'xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 '
              'http://www.sitemaps.org/schemas/sitemap/0.9/{}" '
@@ -2028,13 +2090,13 @@ def copy_referenced_files():
 # Carried from the git object store rather than from a working directory, so the
 # bytes are cf-live's bytes and the build stays reproducible on a fresh clone.
 #
-# THE REF THAT SUPPLIES 311 OF THIS BUILD'S 607 FILES IS PINNED TO A COMMIT, NOT
-# TO A BRANCH NAME. "origin/cf-live" is only ever as fresh as the last `git
+# THE REF THAT SUPPLIES THE CARRIED FILES IS PINNED TO A COMMIT, NOT TO A
+# BRANCH NAME. "origin/cf-live" is only ever as fresh as the last `git
 # fetch`, and the checkouts on this machine are not fresh: the local cf-live is
 # d38bacd4, 25 commits behind origin/cf-live's c59adae9. Building against the
 # stale one was measured, not imagined -- it exits 0, raises no warning, and
-# prints a NUMERICALLY IDENTICAL banner (253 pages, 311 carried, 607 files, 79
-# redirects in the window), so nothing an operator reads tells them apart. The
+# prints a numerically plausible banner, so nothing an operator reads tells
+# them apart. The
 # two dist/ trees differ in exactly one file, .github/workflows/site-checks.yml,
 # and the stale copy of it is the PRE-HARDENING workflow that fetches
 # check_site.py from origin/master at run time instead of running the pinned
@@ -2049,14 +2111,8 @@ def copy_referenced_files():
 # failure is to re-review the carried files against the new tip -- pasting
 # the new sha in here until the gate goes green carries whatever landed on
 # cf-live meanwhile into production unread.
-#
-# THE COUNT IN THE SURROUNDING PROSE AND IN cutover_preflight.py IS STALE: those
-# say 311, which was true of a 607-file tree. carry_live_assets() returns 827
-# today (822 blobs under files/ at the pin, plus the workflow and 4 root files)
-# and the banner prints the real figure. An operator told to re-review 311 files
-# would be reviewing under 40% of the carry set. Left as-is here only because a
-# content release is the wrong change to carry a guardrail fix; it is written up
-# in policy-and-image-decisions-2026-09-08.md and wants its own commit.
+# The count is derived from the pinned tree by carried_live_count(); it must not
+# be copied into prose because the /files inventory grows independently.
 LIVE_REF_NAME = "origin/cf-live"                         # where the pin came from
 # Moved 8 Sep 2026, and the review that licenses the move is recorded here so the next
 # reader can re-run it rather than trust it. Window: PR35 destination guides, PR36
@@ -2151,26 +2207,46 @@ def _live_tree(prefix):
         i = nl + 1 + size + 1          # trailing newline git adds after each blob
     return out
 
+
+def carried_live_count():
+    """Number of blobs carry_live_assets() expects from the pinned live tree."""
+    import subprocess
+    paths = ["files", CARRIED_WORKFLOW, *CARRIED_ROOT_FILES]
+    ls = subprocess.run(["git", "ls-tree", "-r", "-z", LIVE_REF, "--", *paths],
+                        cwd=ROOT, capture_output=True, timeout=300)
+    if ls.returncode != 0:
+        return None
+    count = 0
+    for rec in ls.stdout.split(b"\0"):
+        if not rec:
+            continue
+        meta, _path = rec.split(b"\t", 1)
+        if meta.split(b" ")[1] == b"blob":
+            count += 1
+    return count
+
 def _check_live_pin():
     """Say out loud when the pinned commit is absent, or when cf-live has moved.
 
     A MISSING PIN AND A MOVED PIN FAIL IN OPPOSITE DIRECTIONS, so they are worth
-    separating. If the object is not in this clone the carry silently drops all
-    311 files and the preflight's coverage check turns 620/620 into 309/620 --
-    loud, and the operator only needs `git fetch origin`. If the object IS here
+    separating. If the object is not in this clone the carry silently drops the
+    pinned files and the preflight's coverage check becomes loud; the operator
+    only needs `git fetch origin`. If the object IS here
     but origin/cf-live has moved past it, everything still builds and the build
-    is still reproducible; what has changed is that the 311 carried files are no
+    is still reproducible; what has changed is that the carried files are no
     longer what production serves, and only a human comparing the two trees can
     say whether that matters. The preflight turns that second case into a hard
     failure; this warning is here so the build itself does not look innocent."""
     import subprocess
+    carried_count = carried_live_count()
+    carried = (f"{carried_count} carried files" if carried_count is not None
+               else "the carried files")
     have = subprocess.run(["git", "rev-parse", "--verify", "--quiet",
                            LIVE_SHA + "^{commit}"],
                           cwd=ROOT, capture_output=True, text=True)
     if have.returncode != 0 or have.stdout.strip() != LIVE_SHA:
         warn(f"the pinned live commit {LIVE_SHA[:12]} is not in this clone, so "
-             f"all 311 carried files -- the 306 /files/ photos, the 4 root files "
-             f"and the required-check workflow -- are about to be skipped. Run "
+             f"{carried} are about to be skipped. Run "
              f"`git fetch origin` and rebuild")
         return
     tip = subprocess.run(["git", "rev-parse", "--verify", "--quiet", LIVE_REF_NAME],
@@ -2178,9 +2254,9 @@ def _check_live_pin():
     now = tip.stdout.strip()
     if tip.returncode == 0 and now and now != LIVE_SHA:
         warn(f"{LIVE_REF_NAME} is now {now[:12]}, but this build is pinned to "
-             f"{LIVE_SHA[:12]} and carried 311 files from it. That is not drift "
+             f"{LIVE_SHA[:12]} and expects {carried} from it. That is not drift "
              f"to paper over: re-review what landed on cf-live in between before "
-             f"moving LIVE_SHA, because those 311 files publish unread otherwise")
+             f"moving LIVE_SHA, because those files publish unread otherwise")
 
 
 def carry_live_assets():
@@ -3017,8 +3093,8 @@ def assets_and_meta():
     hashed_rules = "".join(
         f"/assets/{ASSETS[k]}\n" + immutable
         for k in ("bundle.css", "site.js", "cw-events.js", "experience-motion.js", "encyclopedia-navigation.js", "search-measurement.js", "page-navigation.js", "quote-form.js") if ASSETS.get(k))
-    # THE PUBLISHED TREE MUST SAY WHICH COMMIT IT WAS BUILT FROM. 311 of dist/'s
-    # 607 files are copied out of cf-live's object store, and a dist/ that does
+    # THE PUBLISHED TREE MUST SAY WHICH COMMIT IT WAS BUILT FROM. A changing,
+    # derived portion of dist/ is copied out of cf-live's object store, and a dist/ that does
     # not name that commit cannot be audited once the terminal that printed the
     # banner is closed -- and the banner is numerically identical whether the
     # carry came from origin/cf-live's c59adae9 or the 25-commits-stale local

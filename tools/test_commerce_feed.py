@@ -5,7 +5,8 @@ import tempfile
 import unittest
 import xml.etree.ElementTree as ET
 
-from prepare_commerce import ROOT, issues, records, prepare, public_url, valid_gtin
+from prepare_commerce import (ROOT, issues, policy_content_sha256, records,
+                              prepare, public_url, valid_gtin)
 
 
 def approved_fixture():
@@ -15,8 +16,26 @@ def approved_fixture():
     for p in c['products']:
         p['product_url'] = 'https://www.cochinwood.in/shop/' + p['sku']
         p['actual_product_photo_url'] = 'https://www.cochinwood.in/files/' + p['sku'] + '.webp'
-    for field in ('delivery_url', 'returns_url', 'cancellation_url'):
-        c['policies'][field] = 'https://www.cochinwood.in/' + field
+    policy_sources = {
+        'delivery_url': ('https://www.cochinwood.in/shipping-policy',
+                         'content/pages/shipping-policy.html', ['unloading']),
+        'returns_url': ('https://www.cochinwood.in/return-refund-policy',
+                        'content/pages/return-refund-policy.html', ['damage_reporting', 'refunds']),
+        'cancellation_url': ('https://www.cochinwood.in/terms-and-conditions',
+                             'content/pages/terms.html', ['cancellation']),
+    }
+    c['policies']['reviewed_pages'] = {}
+    for field, (url, source, covers) in policy_sources.items():
+        c['policies'][field] = url
+        c['policies']['reviewed_pages'][field] = {
+            'url': url,
+            'source_path': source,
+            'content_sha256': policy_content_sha256(ROOT/source),
+            'version': c['policies']['version'],
+            'reviewed_by': 'Synthetic fixture reviewer',
+            'reviewed_at': '2026-09-08T12:00:00+05:30',
+            'covers': covers,
+        }
     c['payment'].update(enabled=True, uat_passed=True, commercial_terms_approved=True)
     c['payment'].update(model='icici_api', callback_verified=True,
                         status_reconciliation_verified=True, refunds_verified=True,
@@ -27,6 +46,27 @@ def approved_fixture():
 
 
 class MerchantPreparationTests(unittest.TestCase):
+    def test_valid_policy_urls_without_content_review_evidence_fail(self):
+        c = approved_fixture()
+        del c['policies']['reviewed_pages']
+        self.assertIn('policies.reviewed_pages', {i['field'] for i in issues(c)})
+
+    def test_policy_evidence_must_match_content_route_version_and_topics(self):
+        mutations = {
+            'content_sha256': '0' * 64,
+            'source_path': 'content/pages/privacy.html',
+            'version': 'different-version',
+            'covers': [],
+            'reviewed_by': '   ',
+        }
+        for field, value in mutations.items():
+            with self.subTest(field=field):
+                c = approved_fixture()
+                c['policies']['reviewed_pages']['delivery_url'][field] = value
+                evidence_fields = {i['field'] for i in issues(c)}
+                self.assertTrue(any(name.startswith('policies.reviewed_pages.delivery_url')
+                                    for name in evidence_fields))
+
     def test_held_unapproved_marine_variants_cannot_enter_feed(self):
         c = approved_fixture()
         for p in c['products']:
