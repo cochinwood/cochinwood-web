@@ -12,6 +12,7 @@ import hashlib
 import json
 from pathlib import Path
 import struct
+from xml.etree import ElementTree
 from xml.sax.saxutils import escape
 
 
@@ -21,6 +22,7 @@ SPECIES_MANIFEST = ROOT / "content" / "species-media.json"
 RESPONSIVE_MANIFEST = ROOT / "content" / "responsive-media.json"
 AI_SOURCE_TYPE = "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia"
 XMP_FLAG = 0x04
+AI_VISUAL_FIELDS = ("card_visual", "withheld_card_visual")
 
 
 def _load(path: Path):
@@ -35,21 +37,24 @@ def digest(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def asset_path(src: str) -> Path:
+def asset_path(src: str, files: Path = FILES) -> Path:
     if not src.startswith("/files/"):
         raise ValueError("AI card source must be a published /files/ URL: " + src)
-    return FILES / src.removeprefix("/files/")
+    return files / src.removeprefix("/files/")
 
 
 def generated_cards(species=None):
     species = _load(SPECIES_MANIFEST) if species is None else species
     cards = []
     for slug, entry in species.items():
-        item = entry.get("card_visual")
+        fields = [field for field in AI_VISUAL_FIELDS if entry.get(field) is not None]
+        if len(fields) > 1:
+            raise ValueError(f"{slug}: a generated visual cannot be both rendered and withheld")
+        item = entry.get(fields[0]) if fields else None
         if item is None:
             continue
         if item.get("generated") is not True or item.get("kind") != "AI-assisted wood visual":
-            raise ValueError(f"{slug}: card_visual is not declared AI-assisted artwork")
+            raise ValueError(f"{slug}: AI visual is not declared AI-assisted artwork")
         for key in ("src", "source_url", "credit", "reference_taxon", "generation_method"):
             if not isinstance(item.get(key), str) or not item[key].strip():
                 raise ValueError(f"{slug}: missing {key} for AI-card provenance")
@@ -140,7 +145,13 @@ def xmp_payload(blob: bytes) -> bytes | None:
     payloads = [data for name, data in _chunks(blob) if name == b"XMP "]
     if len(payloads) > 1:
         raise ValueError("WebP has more than one XMP chunk")
-    return payloads[0] if payloads else None
+    if not payloads:
+        return None
+    try:
+        ElementTree.fromstring(payloads[0])
+    except ElementTree.ParseError as error:
+        raise ValueError("Invalid XMP XML") from error
+    return payloads[0]
 
 
 def has_c2pa_claim(blob: bytes) -> bool:
@@ -151,6 +162,13 @@ def has_c2pa_claim(blob: bytes) -> bool:
 
 def with_xmp(blob: bytes, xmp: bytes) -> bytes:
     chunks = _chunks(blob)
+    if has_c2pa_claim(blob):
+        raise ValueError("Refusing to alter a WebP with a C2PA/JUMBF claim")
+    xmp_payload(blob)  # Validate an existing packet and reject duplicate XMP.
+    try:
+        ElementTree.fromstring(xmp)
+    except ElementTree.ParseError as error:
+        raise ValueError("Invalid replacement XMP XML") from error
     width, height = _dimensions(chunks)
     body = []
     vp8x_seen = False
@@ -188,35 +206,52 @@ def card_candidates(responsive: dict, item: dict):
     return candidates
 
 
-def pending_changes(species=None, responsive=None):
+def pending_changes(species=None, responsive=None, files: Path = FILES):
+    """Return every stale provenance or declared-hash error without writing."""
     species = _load(SPECIES_MANIFEST) if species is None else species
     responsive = _load(RESPONSIVE_MANIFEST) if responsive is None else responsive
     pending = []
     for slug, entry, item in generated_cards(species):
         expected = card_xmp(slug, entry, item)
         for candidate in card_candidates(responsive, item):
-            path = asset_path(candidate["src"])
+            path = asset_path(candidate["src"], files)
             actual = path.read_bytes()
             if xmp_payload(actual) != expected or has_c2pa_claim(actual):
-                pending.append(path)
+                pending.append(f"{path.relative_to(files).as_posix()}: XMP provenance missing or stale")
+            declared = candidate.get("sha256")
+            measured = digest(path)
+            if declared != measured:
+                pending.append(f"{path.relative_to(files).as_posix()}: responsive SHA-256 is stale")
+        master = asset_path(item["src"], files)
+        if item.get("sha256") != digest(master):
+            pending.append(f"{master.relative_to(files).as_posix()}: card master SHA-256 is stale")
     return pending
 
 
-def update():
-    species, responsive = _load(SPECIES_MANIFEST), _load(RESPONSIVE_MANIFEST)
+def update(species_manifest: Path = SPECIES_MANIFEST,
+           responsive_manifest: Path = RESPONSIVE_MANIFEST,
+           files: Path = FILES):
+    """Write validated XMP and refresh every declared responsive/master hash."""
+    species, responsive = _load(species_manifest), _load(responsive_manifest)
     changed = []
+    revisions = []
     for slug, entry, item in generated_cards(species):
         expected = card_xmp(slug, entry, item)
         for candidate in card_candidates(responsive, item):
-            path = asset_path(candidate["src"])
-            revised = with_xmp(path.read_bytes(), expected)
-            if revised != path.read_bytes():
-                path.write_bytes(revised)
-                changed.append(path)
-            candidate["sha256"] = digest(path)
-        item["sha256"] = digest(asset_path(item["src"]))
-    _write_json(SPECIES_MANIFEST, species)
-    _write_json(RESPONSIVE_MANIFEST, responsive)
+            path = asset_path(candidate["src"], files)
+            original = path.read_bytes()
+            revised = with_xmp(original, expected)
+            revisions.append((path, original, revised, candidate))
+    # Complete every container preflight before changing any delivered file.
+    for path, original, revised, candidate in revisions:
+        if revised != original:
+            path.write_bytes(revised)
+            changed.append(path)
+        candidate["sha256"] = digest(path)
+    for _slug, _entry, item in generated_cards(species):
+        item["sha256"] = digest(asset_path(item["src"], files))
+    _write_json(species_manifest, species)
+    _write_json(responsive_manifest, responsive)
     return changed
 
 
@@ -230,7 +265,7 @@ def main():
         return
     pending = pending_changes()
     if pending:
-        raise SystemExit("AI-card provenance missing or stale: " + ", ".join(path.relative_to(ROOT).as_posix() for path in pending))
+        raise SystemExit("AI-card provenance missing or stale: " + "; ".join(pending))
     print("AI-card provenance OK")
 
 

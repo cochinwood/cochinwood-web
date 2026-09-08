@@ -69,29 +69,29 @@ either strengthening it or, at minimum, not treating a green gate here as eviden
 
 ---
 
-## 2. Neem rights finding — superseded by source verification on 8 September
+## 2. Neem rights finding — public rendering withheld pending permission
 
-The earlier conclusion that Plant Archives forbids the Neem card because its policy does not separately
-name adaptation was not substantiated. The publisher's current policy says that authors retain copyright
-but grants the journal permission to publish and allows anyone to **reuse, distribute and reproduce** the
-content provided the original is properly cited. That is a publisher reuse policy, not a Creative Commons
-licence; it should therefore not be renamed as one. A lack of the word "adapt" cannot by itself prove that
-this source-guided, independently generated visual is prohibited.
+The earlier conclusion that Plant Archives categorically forbids the Neem card because its policy does not
+separately name adaptation was not substantiated. The publisher's current policy says that authors retain
+copyright and allows cited reuse, distribution and reproduction. That is a publisher reuse policy, not a
+Creative Commons licence. It also does not establish permission to create and publish a source-guided
+generated derivative. A lack of categorical prohibition is not a grant of permission.
 
-The card remains explicitly disclosed as AI-assisted artwork. Its source record retains Deore et al.
-(2020), Figure 6, the source and native-output hashes, the exact prompt, and the current publisher-policy
-link. The public Neem page now links to both the source and policy and says that the card is not a
-documentary specimen, a verified grain observation or Cochin Wood stock photography. No author was
-contacted and no replacement artwork was made.
+The generated Neem card is removed from directory rendering and the image sitemap pending written
+permission from the relevant rightsholder. Its record retains Deore et al. (2020), Figure 6, the source and
+native-output hashes, the exact prompt and the publisher-policy link under `withheld_card_visual`; source
+assets and history remain intact. The public Neem page explains that the asset is withheld and distinguishes
+the separate CC BY-SA Wikimedia botanical reference. No author was contacted and no replacement artwork
+was made.
 
 ### Separately: the AI-file provenance finding — resolved
 
 The former WebPs had no embedded provenance. Their sixteen responsive outputs now carry self-declared
-IPTC/XMP `DigitalSourceType=trainedAlgorithmicMedia`, a visible HTML label, source citation and
-machine-readable source URL. The metadata is deliberately unsigned: it is not represented as C2PA or
-Content Credentials. The image sitemap remains a standard discovery sitemap containing only
-`<image:loc>` records; it has no standards-compliant field for an AI-provenance assertion. Its treatment is
-therefore paired with, rather than substituted for, the public and file-level disclosures.
+IPTC/XMP `DigitalSourceType=trainedAlgorithmicMedia`, with a machine-readable source URL. The metadata
+is deliberately unsigned: it is not represented as C2PA or Content Credentials. The three eligible card
+masters remain discoverable through the standard image sitemap; the four withheld Neem variants are absent
+because they are no longer referenced by rendered HTML. The no-argument verifier now checks XMP/C2PA markers and
+both responsive and master SHA-256 declarations.
 
 ---
 

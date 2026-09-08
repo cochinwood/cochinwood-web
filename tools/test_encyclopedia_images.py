@@ -46,20 +46,21 @@ class EncyclopediaImageTests(unittest.TestCase):
         self.assertEqual([(x['attrs']['href'], x['name'], x['botanical']) for x in before.cards],
                          [(x['attrs']['href'], x['name'], x['botanical']) for x in after.cards])
         self.assertEqual(len(metadata), 28)
-        self.assertEqual(result.count('class="cwe__card-photo"'), 28)
-        self.assertEqual(result.count('class="cwe__card-photo cwe__card-photo--pending"'), 0)
+        self.assertEqual(result.count('class="cwe__card-photo"'), 27)
+        self.assertEqual(result.count('class="cwe__card-photo cwe__card-photo--pending"'), 1)
         self.assertEqual(result.count('>Wood-grain detail</span>'), 22)
         self.assertEqual(result.count('>End-grain detail</span>'), 2)
-        self.assertEqual(result.count('>AI-assisted visual</span>'), 4)
-        self.assertEqual(result.count('>Botanical references inside</span>'), 0)
-        self.assertEqual(len({x[0]['sha256'] for x in self.calls}), 28)
+        self.assertEqual(result.count('>AI-assisted visual</span>'), 3)
+        self.assertEqual(result.count('>Botanical references inside</span>'), 1)
+        self.assertEqual(len({x[0]['sha256'] for x in self.calls}), 27)
         for item, options in self.calls:
             self.assertFalse(options['eager'])
             self.assertIn('(max-width: 480px)', options['sizes'])
             self.assertIn(escape(item['credit']), result)
             self.assertIn(escape(item['license']), result)
         self.assertNotIn('/files/Species/anjili-wood.webp', result)
-        self.assertEqual(result.count('data-reference-fit="cover"'), 28)
+        self.assertNotIn('/files/Species/neem-ai-visual.webp', result)
+        self.assertEqual(result.count('data-reference-fit="cover"'), 27)
         self.assertIn('calc(280vw - 112px)', result if 'sizes=' in result else ' '.join(x[1]['sizes'] for x in self.calls))
         self.assertNotIn('data-reference-fit="contain"', result)
         self.assertNotIn('data-reference-rotation="90"', result)
@@ -67,7 +68,9 @@ class EncyclopediaImageTests(unittest.TestCase):
         self.assertEqual(result.count('data-reference-detail="anjili-end-grain"'), 1)
         tree = parse_fragment(result)
         for card in [n for n in tree.nodes if 'cwe__card' in n.classes]:
-            self.assertEqual(len([n for n in tree.nodes if n.tag == 'img' and card.contains(n)]), 1)
+            image_count = len([n for n in tree.nodes if n.tag == 'img' and card.contains(n)])
+            expected = 0 if card.attrs['href'].endswith('/neem') else 1
+            self.assertEqual(image_count, expected)
             self.assertFalse(any(n.tag == 'a' and n != card and card.contains(n) for n in tree.nodes))
 
     def test_missing_or_shared_photo_fails_instead_of_silent_empty_card(self):
@@ -111,14 +114,15 @@ class EncyclopediaImageTests(unittest.TestCase):
         self.assertEqual(orient_species_image(tag, MEDIA['teak']['images'][0]), tag)
 
     def test_ai_card_artwork_cannot_masquerade_as_reference_photo(self):
-        entry = copy.deepcopy(MEDIA['neem'])
-        self.assertEqual(species_thumbnail(entry)[1], 'Tree reference')
+        entry = copy.deepcopy(MEDIA['sal'])
+        self.assertEqual(species_thumbnail(MEDIA['neem'])[1], 'Tree reference')
+        self.assertEqual(card_thumbnail(MEDIA['neem'])[1], 'Tree reference')
         self.assertEqual(card_thumbnail(entry)[1], 'AI-assisted visual')
         entry['card_visual']['generated'] = False
         with self.assertRaisesRegex(ValueError, 'explicitly identify'):
             card_thumbnail(entry)
-        entry = copy.deepcopy(MEDIA['neem'])
-        entry['card_visual']['alt'] = 'Authenticated Neem wood grain'
+        entry = copy.deepcopy(MEDIA['sal'])
+        entry['card_visual']['alt'] = 'Authenticated Sal wood grain'
         with self.assertRaisesRegex(ValueError, 'accurate alternative text'):
             card_thumbnail(entry)
 

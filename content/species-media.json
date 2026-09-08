@@ -513,14 +513,14 @@
         "provenance": "Source taxonomy and reuse license recorded from Wikimedia file metadata; wood samples are digitized CIRAD collection records."
       }
     ],
-    "card_visual": {
+    "withheld_card_visual": {
       "src": "/files/Species/neem-ai-visual.webp",
       "alt": "AI-assisted wood visual based on a Neem specimen photograph from a Nandurbar timber study",
       "kind": "AI-assisted wood visual",
       "generated": true,
       "reference_taxon": "Azadirachta indica",
       "credit": "Deore et al. (2020) · Figure 6",
-      "license": "Publisher reuse policy (citation required)",
+      "license": "Rights status ambiguous; not rendered pending permission",
       "license_url": "https://www.plantarchives.org/publicationethics.html",
       "source_url": "https://www.plantarchives.org/20-2/3399-3404%20%286263%29.pdf",
       "sha256": "b464deae41d176f2fb633ee644af72b8762e7a12cb11bec547c303d7035c7c4f",
@@ -532,8 +532,11 @@
       "native_generated_sha256": "60b6860a5012301592dd4aeec667a43d091615c11d71a7d68c8d7f8925a236cd",
       "native_generated_artifact": "C:\\Users\\Edwin David\\.codex\\visualizations\\2026\\09\\05\\01a0708d-57f6-75a2-b691-19254be1f2a5\\ai-grain-variants-2026-09-07\\neem-ai-assisted-native.png",
       "reviewed": "2026-09-07; generated image and original reference inspected. Owner explicitly requested realistic AI variants.",
-      "provenance": "The Plant Archives policy currently permits reuse, distribution and reproduction with citation; it is not a Creative Commons licence. Source authors identify Azadirachta indica. Label/background removed through AI generation; fine grain is a visual reconstruction, not a verified observation.",
-      "adaptations": "AI reconstruction followed by proportional resizing and WebP compression. Original reference records remain separate and unchanged."
+      "provenance": "Deore et al. identify Azadirachta indica. Plant Archives states that authors retain copyright and permits cited reuse, distribution and reproduction, but the record does not establish permission to create or publish this source-guided generated derivative. The artwork is therefore withheld from public rendering pending written permission from the relevant rightsholder. The separate Wikimedia botanical reference does not clear this source.",
+      "adaptations": "AI reconstruction followed by proportional resizing and WebP compression. Original reference records remain separate and unchanged.",
+      "publication_status": "withheld_pending_rightsholder_permission",
+      "withheld_on": "2026-09-08",
+      "withheld_reason": "The publisher policy does not establish a right to create and publish this source-guided generated derivative."
     }
   },
   "okoume": {
