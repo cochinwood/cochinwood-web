@@ -261,6 +261,30 @@ def git(*args):
     return out.returncode, out.stdout.strip(), out.stderr.strip()
 
 
+def live_path_matching(pattern):
+    """The single path under the pinned live commit whose basename matches, or None.
+
+    ADDED 8 Sep 2026, and the reason is a bug class rather than one bug: a check that
+    hardcodes a live path is only correct until the next full-tree replace moves it.
+    check_beacon() read "js/cw-events.js", which is where the beacon lived on the
+    PRE-cutover Zoho tree. The 4 September cutover republished cf-live from dist/, so
+    the beacon has been served from the content-addressed assets/cw-events.<hash>.js
+    ever since and that legacy path exists on NEITHER the old pin 4dd77b46 NOR the new
+    one -- the check had been failing on a true invariant since the cutover, which is
+    the worst kind of gate: one that is red for a reason nobody trusts any more.
+
+    A name pattern is used rather than a second hardcoded path because the hash in that
+    filename is the sha256 of the bytes, so pinning today's name would break the check
+    again on the next legitimate beacon change. Returns None on 0 or 2+ matches; the
+    caller must treat ambiguity as a failure rather than pick one.
+    """
+    rc, out, _err = git("ls-tree", "-r", "--name-only", LIVE_SHA)
+    if rc != 0:
+        return None
+    hits = [p for p in out.splitlines() if fnmatch.fnmatch(os.path.basename(p), pattern)]
+    return hits[0] if len(hits) == 1 else None
+
+
 def live_blob(path):
     """Raw object bytes of `path` at the pinned live commit, or None.
 
@@ -348,19 +372,26 @@ def check_beacon():
     for these bytes", where 853632c8 is the hash of the 6,080-byte live file.
     """
     name = "conversion beacon ships on every page"
-    live = live_blob("js/cw-events.js")
+    live_rel = live_path_matching("cw-events*.js")
+    if live_rel is None:
+        return check(name, False,
+                     "no single cw-events*.js at %s -- `git fetch origin`, and if "
+                     "the fetch is fine this is a REAL failure: the live tree has "
+                     "either lost the beacon or grown a second copy"
+                     % LIVE_SHA[:12])
+    live = live_blob(live_rel)
     if live is None:
         return check(name, False,
-                     "cannot read %s:js/cw-events.js -- `git fetch origin`"
-                     % LIVE_SHA[:12])
+                     "cannot read %s:%s -- `git fetch origin`"
+                     % (LIVE_SHA[:12], live_rel))
     adir = os.path.join(DIST, "assets")
     found = sorted(n for n in (os.listdir(adir) if os.path.isdir(adir) else [])
                    if n.startswith("cw-events.") and n.endswith(".js"))
     if len(found) != 1:
         return check(name, False,
                      "found %d dist/assets/cw-events.<hash>.js, expected 1 -- "
-                     "restore it with: git show %s:js/cw-events.js > "
-                     "assets/cw-events.js" % (len(found), LIVE_REF_NAME))
+                     "restore it with: git show %s:%s > assets/cw-events.js"
+                     % (len(found), LIVE_REF_NAME, live_rel))
     served = found[0]
     data = served_bytes("assets/" + served)
     want = "cw-events.%s.js" % hashlib.sha256(live).hexdigest()[:8]
@@ -374,9 +405,10 @@ def check_beacon():
     return check(name,
                  data == live and served == want and bool(pages)
                  and carrying == len(pages),
-                 "dist/assets/%s on %d/%d pages, bytes %s %s:js/cw-events.js%s"
+                 "dist/assets/%s on %d/%d pages, bytes %s %s:%s%s"
                  % (served, carrying, len(pages),
                     "match" if data == live else "DIFFER from", LIVE_SHA[:12],
+                    live_rel,
                     "" if data == live else
                     " (served sha256 %s, live sha256 %s) -- serving cf-live's "
                     "beacon byte "
