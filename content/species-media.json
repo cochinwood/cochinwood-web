@@ -421,7 +421,7 @@
       "kind": "AI-assisted wood visual",
       "generated": true,
       "reference_taxon": "Melia dubia",
-      "credit": "Thamoung et al. · Figure 1",
+      "credit": "Akshaya et al. · Figure 1",
       "license": "CC BY 4.0",
       "license_url": "https://creativecommons.org/licenses/by/4.0/",
       "source_url": "https://masujournal.org/view_journal.php?id=626",
@@ -760,7 +760,7 @@
     ],
     "card_visual": {
       "src": "/files/Species/sal-ai-visual.webp",
-      "alt": "AI-assisted end-grain visual based on a Shorea robusta research photograph",
+      "alt": "AI-assisted wood visual based on a Shorea robusta research photograph",
       "kind": "AI-assisted wood visual",
       "generated": true,
       "reference_taxon": "Shorea robusta",

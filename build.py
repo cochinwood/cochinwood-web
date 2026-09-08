@@ -2046,11 +2046,30 @@ def copy_referenced_files():
 #
 # BUMPING THIS PIN IS A REVIEW, NOT AN EDIT. tools/cutover_preflight.py fails
 # when this sha is not what origin/cf-live resolves to, and the answer to that
-# failure is to re-review the 311 carried files against the new tip -- pasting
+# failure is to re-review the carried files against the new tip -- pasting
 # the new sha in here until the gate goes green carries whatever landed on
 # cf-live meanwhile into production unread.
+#
+# THE COUNT IN THE SURROUNDING PROSE AND IN cutover_preflight.py IS STALE: those
+# say 311, which was true of a 607-file tree. carry_live_assets() returns 827
+# today (822 blobs under files/ at the pin, plus the workflow and 4 root files)
+# and the banner prints the real figure. An operator told to re-review 311 files
+# would be reviewing under 40% of the carry set. Left as-is here only because a
+# content release is the wrong change to carry a guardrail fix; it is written up
+# in policy-and-image-decisions-2026-09-08.md and wants its own commit.
 LIVE_REF_NAME = "origin/cf-live"                         # where the pin came from
-LIVE_SHA = "4dd77b462955e332dd4802d0b1997324e7f21c74"    # Reviewed PR34: all 1122 published blobs and prior carry files verified
+# Moved 8 Sep 2026, and the review that licenses the move is recorded here so the next
+# reader can re-run it rather than trust it. Window: PR35 destination guides, PR36
+# wood-grain index, PR37 seo-redirects, PR38 encyclopedia cards -- 285 files on cf-live.
+# The review was not a read-through of those 285; it was the stronger question, asked by
+# hashing: does this build already reproduce the new tip? Every file in dist/ was sha1
+# blob-hashed against `git ls-tree -r ef44629f`. Result: 1146 files both sides, 0 on live
+# and missing from dist/, 0 in dist/ and not on live, and exactly 30 differing -- 26 blog
+# posts re-suppressing the sale rates, woods-we-use.html and woods-we-use/melia-dubia.html
+# for the corrected image credit, and blogs.html plus blogs/post/plywood-for-packing-cases
+# .html where the birch post's revised description is echoed. Nothing else moves, so the
+# carry set contains nothing unread. Reproduce with the hash comparison, not by eye.
+LIVE_SHA = "ef44629fd2a63a18ce507dc3c9cf0cda871077a2"    # Reviewed PR35-38 by full-tree hash: 1146/1146, only the 30 intended files differ
 LIVE_REF = LIVE_SHA                # what git is actually handed, so no fetch can move it
 LIVE_PIN = LIVE_REF_NAME + "@" + LIVE_SHA[:12]           # what the banner and dist/ record
 

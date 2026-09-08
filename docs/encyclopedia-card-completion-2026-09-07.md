@@ -8,7 +8,7 @@ Melia dubia, Neem, Kadam and Sal use source-guided AI artwork generated with the
 
 | Card | Reference used | Reuse and treatment |
 |---|---|---|
-| Melia dubia | Thamoung et al., Madras Agricultural Journal, Figure 1 untreated control; DOI 10.29321/MAJ.10.601156 | CC BY 4.0 source; AI-assisted reconstruction of broad pale wood appearance. |
+| Melia dubia | Akshaya et al., Madras Agricultural Journal, Figure 1 untreated control; DOI 10.29321/MAJ.10.601156 | CC BY 4.0 source; AI-assisted reconstruction of broad pale wood appearance. |
 | Neem | Deore et al., Plant Archives 20(2), 3399–3404 (2020), Figure 6; Nandurbar, Maharashtra specimen | Publisher permits reuse with citation. Handwritten label/background excluded in generated artwork; fine grain is reconstructed. |
 | Kadam | Haruni Krisnawati / CIFOR, 2011 Kadam monograph, Figure 5; DOI 10.17528/cifor/003396 | Current work-specific publisher page explicitly CC BY 4.0; verified in Chrome. AI-assisted close-up of broad wood appearance. |
 | Sal | Baral et al., Forests 10:466 (2019), Figure 11; DOI 10.3390/f10060466 | CC BY 4.0. Source is a Nepal research specimen, not Indian/company stock. First generated version was rejected for excessive magnification; final artwork uses a wider visual field without claiming a measured anatomical scale. |
