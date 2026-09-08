@@ -1,6 +1,6 @@
 # Premium Hardwood family-image evidence — 8 September 2026
 
-This is a private draft catalogue evidence record. Owner authorization to publish a representative family image is complete. The selected replacement is tracked in the website source and prepared on a quote-only page; production publication still depends on the separate reviewed release. This record does not activate a product, purchase flow or Merchant offer.
+This is a private draft catalogue evidence record. Owner authorization to publish a representative family image is complete. The selected replacement is tracked in website source and was published on the quote-only page by PR41 at merge commit `55cc7d9266d3d1f682fead37f7549764fa37deb2`. This record does not activate a product, purchase flow or Merchant offer.
 
 ## Owner-approved original source
 
@@ -44,7 +44,7 @@ The parent evidence folder's README retains the approval, original hash, first-e
 | Tracked reviewed artifact | `assets/photos/files/Premium-Hardwood/premium-hardwood-hero-v2-2026-09-08.png` |
 | Optimized public master | `premium-hardwood-hero-v2-2026-09-08.webp`; 199,250 bytes; SHA-256 `7e5821f82dda291d4f008359c3fbaff7e097166c2111ebde53d3fca4edad69ea` |
 | Responsive derivatives | 320, 640, 960, 1200 and 1448 pixels wide; all retain the full 4:3 composition without cropping |
-| Prepared public URL | `https://www.cochinwood.in/files/Premium-Hardwood/premium-hardwood-hero-v2-2026-09-08.webp` (not live until the publication release is merged) |
+| Live public URL | `https://www.cochinwood.in/files/Premium-Hardwood/premium-hardwood-hero-v2-2026-09-08.webp` (production deployment `e57eb725-cb65-4461-8337-b1b0063484a0`) |
 
 The exact original remains tracked at `assets/photos/files/Premium-Hardwood/premium-hardwood-family-original-2026-09-08.jpg` for product-reference evidence. The customer page contains no owner-approval, generation, internal review or provenance wording. It does not link either image to a raw-file dead end.
 
@@ -55,7 +55,7 @@ The exact original remains tracked at `assets/photos/files/Premium-Hardwood/prem
 - The owner separately confirmed that both proposed thicknesses have a full hardwood core. That fact comes from the owner decision record, not from either image.
 - Exact face/back construction, glue grade, finished dimensions, tolerances and supported certification remain unconfirmed.
 - The reviewed original and selected replacement bytes are copied into proper tracked website asset locations and rehashed. The site build no longer depends on a Codex generated-cache path.
-- Owner authorization and publication state remain separate. `image_approved` is true for both proposed Hardwood records. The intended production paths are recorded as prepared URLs, while `actual_product_photo_url` remains null until the reviewed publication release is merged and verified. Catalogue activation and Merchant activation remain false; publishing the page and files does not automatically change those gates.
+- Owner authorization and publication state remain separate. `image_approved` is true for both proposed Hardwood records, and `actual_product_photo_url` now records the verified live family-image URL. Catalogue activation and Merchant activation remain false; publishing the page and files does not automatically change those gates.
 
 ## Quote-intent compatibility
 

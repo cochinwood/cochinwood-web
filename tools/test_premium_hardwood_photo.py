@@ -56,12 +56,18 @@ class PremiumHardwoodPhotoTests(unittest.TestCase):
         products_block = build.split("PRODUCTS = [", 1)[1].split("]", 1)[0]
         self.assertNotIn("premium-hardwood-plywood", products_block)
 
-    def test_catalogue_records_prepared_not_live_state_and_policy_scope(self):
+    def test_catalogue_records_verified_live_image_without_activation(self):
         catalogue = json.loads((ROOT / "commerce-preview/config/catalogue.proposed.json").read_text(encoding="utf-8"))
         hardwood = [item for item in catalogue["products"] if item["sku"].startswith("prem_hw_")]
         self.assertEqual(len(hardwood), 2)
         self.assertTrue(all(item["image_approved"] is True for item in hardwood))
-        self.assertTrue(all(item["actual_product_photo_url"] is None for item in hardwood))
+        live_image = "https://www.cochinwood.in/files/Premium-Hardwood/premium-hardwood-hero-v2-2026-09-08.webp"
+        self.assertTrue(all(item["actual_product_photo_url"] == live_image for item in hardwood))
+        evidence = catalogue["draft_image_evidence"]["premium_hardwood_family"]
+        self.assertEqual(evidence["publication_state"], "replacement_published_quote_only")
+        self.assertEqual(evidence["replacement_family_image"]["public_url"], live_image)
+        self.assertFalse(evidence["catalogue_activation"])
+        self.assertFalse(evidence["merchant_activation"])
         self.assertFalse(catalogue["payment"]["enabled"])
         self.assertFalse(catalogue["merchant"]["enabled"])
         self.assertFalse(catalogue["policies"]["approved"])

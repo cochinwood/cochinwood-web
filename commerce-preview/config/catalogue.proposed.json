@@ -39,7 +39,7 @@
   },
   "draft_image_evidence": {
     "premium_hardwood_family": {
-      "status": "owner_approved_replacement_prepared",
+      "status": "owner_approved_replacement_published_quote_only",
       "representation": "shared_product_family",
       "applies_to_skus": [
         "prem_hw_gurjan_12",
@@ -67,10 +67,10 @@
         "Use only as one shared Premium Hardwood family representation; it does not identify the pictured sheet as 12 mm or 18 mm.",
         "Image details do not prove core construction, layer count, face or back species, glue grade, finished dimensions, tolerances, certification, stock, premises or a customer shipment.",
         "The confirmed full hardwood core for both proposed thicknesses is a separate decision record and does not come from the image.",
-        "The original and selected replacement are copied into tracked website source with exact hashes; production URLs remain unpublished until the reviewed release is merged."
+        "The original and selected replacement are copied into tracked website source with exact hashes; the replacement is published on the quote-only page under the recorded PR41 release."
       ],
       "publication_authorized": true,
-      "publication_state": "replacement_prepared_not_published",
+      "publication_state": "replacement_published_quote_only",
       "catalogue_activation": false,
       "merchant_activation": false,
       "rejected_edited_family_image": {
@@ -102,15 +102,20 @@
         "evidence_receipt": "docs/premium-hardwood-photo-evidence-2026-09-08.md",
         "project_asset_path": "assets/photos/files/Premium-Hardwood/premium-hardwood-hero-v2-2026-09-08.webp",
         "prepared_public_url": "https://www.cochinwood.in/files/Premium-Hardwood/premium-hardwood-hero-v2-2026-09-08.webp",
-        "public_url": null,
+        "public_url": "https://www.cochinwood.in/files/Premium-Hardwood/premium-hardwood-hero-v2-2026-09-08.webp",
         "generated_artifact_filename": "premium-hardwood-hero-v2-2026-09-08.png",
         "generated_artifact_sha256": "65fb08829dc376f9064281654ed4e9115d594b069472a65b2556368c3c1d778a",
         "generated_artifact_bytes": 2191872,
         "optimized_filename": "premium-hardwood-hero-v2-2026-09-08.webp",
         "optimized_sha256": "7e5821f82dda291d4f008359c3fbaff7e097166c2111ebde53d3fca4edad69ea",
         "optimized_bytes": 199250,
-        "optimization": "Responsive WebP derivatives encoded at 320, 640, 960, 1200 and 1448 pixels wide without cropping."
-      }
+        "optimization": "Responsive WebP derivatives encoded at 320, 640, 960, 1200 and 1448 pixels wide without cropping.",
+        "published_at": "2026-09-08T13:13:23Z",
+        "publication_commit": "42fb3ff88610e3bc131ec3b4e2a2c11822c60172",
+        "merge_commit": "55cc7d9266d3d1f682fead37f7549764fa37deb2",
+        "deployment_id": "e57eb725-cb65-4461-8337-b1b0063484a0"
+      },
+      "quote_page_url": "https://www.cochinwood.in/premium-hardwood-plywood"
     }
   },
   "products": [
@@ -131,7 +136,7 @@
       "active": true,
       "product_identity_approved": false,
       "image_url": "/files/Plywood%20Product%20Photos/cwi-bwr-hardwood-plywood.webp",
-      "actual_product_photo_url": null,
+      "actual_product_photo_url": "https://www.cochinwood.in/files/Premium-Hardwood/premium-hardwood-hero-v2-2026-09-08.webp",
       "prepared_product_photo_url": "https://www.cochinwood.in/files/Premium-Hardwood/premium-hardwood-hero-v2-2026-09-08.webp",
       "image_approved": true,
       "image_approval_scope": "Owner-authorized shared representative Premium Hardwood family image; not thickness-specific proof.",
@@ -158,7 +163,7 @@
       "active": true,
       "product_identity_approved": false,
       "image_url": "/files/Plywood%20Product%20Photos/cwi-bwr-hardwood-plywood.webp",
-      "actual_product_photo_url": null,
+      "actual_product_photo_url": "https://www.cochinwood.in/files/Premium-Hardwood/premium-hardwood-hero-v2-2026-09-08.webp",
       "prepared_product_photo_url": "https://www.cochinwood.in/files/Premium-Hardwood/premium-hardwood-hero-v2-2026-09-08.webp",
       "image_approved": true,
       "image_approval_scope": "Owner-authorized shared representative Premium Hardwood family image; not thickness-specific proof.",
