@@ -1,20 +1,21 @@
 # Premium Hardwood family-image evidence — 8 September 2026
 
-This is a draft catalogue evidence record. It does not publish or activate an image, product, purchase flow or Merchant offer.
+This is a draft catalogue evidence record. Owner authorization to publish the representative family photograph is complete; this record does not itself publish an asset or activate a product, purchase flow or Merchant offer.
 
 ## Owner-approved original source
 
 | Field | Verified value |
 |---|---|
 | Owner response | “Yes, please edit it and make the pic look better for sales.” |
+| Question answered | “Does this plywood accurately represent the Premium Hardwood being launched, and may CWI publish this photograph?” |
 | Approval recorded | `2026-09-08T16:53:15+05:30` |
 | Archived filename | `cwi_wa_482_938x1280.jpg` |
 | Company archive location | `marketing/photo-bank/raw/cwi_wa_482_938x1280.jpg` |
 | SHA-256 | `9115bc38f8524cdf217136b834634c98cef1c7b4ee5c2a529c95902d8a6cb1df` |
 | File identity | 63,026-byte, 938 × 1280 JPEG |
-| Approved scope | One shared representative Premium Hardwood family photograph for the proposed 12 mm and 18 mm SKUs, with a sales-oriented edit authorised |
+| Approved scope | Publication of one accurate shared representative Premium Hardwood family photograph for the proposed 12 mm and 18 mm SKUs, with a sales-oriented edit authorised |
 
-The original file was rehashed from the known company photo archive for this receipt. The approval does not state that the photograph visibly distinguishes 12 mm from 18 mm.
+The original file was rehashed from the known company photo archive for this receipt. The owner's answer authorizes CWI to publish the representative family photograph and to use the requested sales edit. The approval does not state that the photograph visibly distinguishes 12 mm from 18 mm.
 
 ## Edited family presentation
 
@@ -37,8 +38,8 @@ The parent evidence folder's README retains the approval, original hash, editing
 - The owner separately confirmed that both proposed thicknesses have a full hardwood core. That fact comes from the owner decision record, not from either image.
 - Exact face/back construction, glue grade, finished dimensions, tolerances and supported certification remain unconfirmed.
 - Any future consumer must copy the reviewed PNG's exact bytes into a proper tracked asset location in that project, recheck the SHA-256, and retain the original-source and edited-image provenance. A live page must never depend on a Codex visualization or generated-cache path.
-- `actual_product_photo_url` remains null, `image_approved` remains false, and both catalogue and Merchant activation remain false. A later project-copy and publication review are required before those fields can change.
+- Owner authorization and publication state are recorded separately. `image_approved` is true for both proposed Hardwood records. `actual_product_photo_url` remains null because no reviewed project copy or public URL exists yet. Catalogue activation and Merchant activation remain false; assigning a URL later does not automatically change those gates.
 
 ## Decision-document coordination
 
-Goodall's decision document remains owned by its app worktree and was reviewed read-only. Its product-photo row predates this evidence. The coordinated update should record the two hashes, describe the PNG as an AI-edited shared family presentation, retain the thickness and claim limits above, and keep identifiers and publication activation pending. Exact proposed wording is preserved in the parent evidence artifact `GOODALL-HARDWOOD-PHOTO-DECISION-COORDINATION-2026-09-08.md`.
+Goodall's decision document remains owned by its app worktree and was reviewed read-only. Its product-photo row predates this evidence. The coordinated update should record that publication approval is complete, preserve the unpublished URL state, record both hashes, describe the PNG as an AI-edited shared family presentation, retain the thickness and claim limits above, and keep identifiers and purchase/Merchant activation pending. Exact proposed wording is preserved in the parent evidence artifact `GOODALL-HARDWOOD-PHOTO-DECISION-COORDINATION-2026-09-08.md`.

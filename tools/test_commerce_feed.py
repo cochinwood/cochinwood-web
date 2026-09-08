@@ -153,11 +153,11 @@ class MerchantPreparationTests(unittest.TestCase):
         self.assertIn('products.prem_hw_gurjan_12.actual_product_photo_url', fields)
         self.assertIn('products.prem_hw_gurjan_12.product_url', fields)
 
-    def test_draft_family_image_evidence_does_not_approve_exact_product_photo(self):
+    def test_approved_unpublished_family_image_still_requires_public_url(self):
         proposal = json.loads((ROOT/'commerce-preview/config/catalogue.proposed.json').read_text(encoding='utf-8'))
         c = approved_fixture(); p = c['products'][0]
         c['draft_image_evidence'] = proposal['draft_image_evidence']
-        p.update(actual_product_photo_url=None, image_approved=False)
+        p.update(actual_product_photo_url=None, image_approved=True)
         fields = {i['field'] for i in issues(c)}
         self.assertIn('products.prem_hw_gurjan_12.actual_product_photo_url', fields)
 

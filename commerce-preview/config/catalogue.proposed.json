@@ -33,13 +33,14 @@
   },
   "draft_image_evidence": {
     "premium_hardwood_family": {
-      "status": "approved_for_draft_evidence_only",
+      "status": "owner_approved_for_publication_not_yet_published",
       "representation": "shared_product_family",
       "applies_to_skus": ["prem_hw_gurjan_12", "prem_hw_gurjan_18"],
       "owner_approval": {
         "recorded_at": "2026-09-08T16:53:15+05:30",
+        "question": "Does this plywood accurately represent the Premium Hardwood being launched, and may CWI publish this photograph?",
         "response": "Yes, please edit it and make the pic look better for sales.",
-        "scope": "The original is approved as a representative Premium Hardwood family photograph and may receive a sales-oriented edit. It is not visible proof of either thickness."
+        "scope": "The original is approved for publication as an accurate representative Premium Hardwood family photograph, and a sales-oriented edit is authorised. The shared image is not visible proof of either thickness."
       },
       "original_source": {
         "filename": "cwi_wa_482_938x1280.jpg",
@@ -65,6 +66,8 @@
         "The owner-confirmed full hardwood core for both proposed thicknesses is a separate decision record and does not come from the image.",
         "Before any future use, copy the reviewed exact bytes into a tracked asset location in the consuming project and retain both hashes and this provenance."
       ],
+      "publication_authorized": true,
+      "publication_state": "not_published",
       "catalogue_activation": false,
       "merchant_activation": false
     }
@@ -88,7 +91,8 @@
       "product_identity_approved": false,
       "image_url": "/files/Plywood%20Product%20Photos/cwi-bwr-hardwood-plywood.webp",
       "actual_product_photo_url": null,
-      "image_approved": false,
+      "image_approved": true,
+      "image_approval_scope": "Owner-authorized shared representative Premium Hardwood family image; not thickness-specific proof.",
       "product_url": null,
       "gtin": null,
       "mpn": null,
@@ -113,7 +117,8 @@
       "product_identity_approved": false,
       "image_url": "/files/Plywood%20Product%20Photos/cwi-bwr-hardwood-plywood.webp",
       "actual_product_photo_url": null,
-      "image_approved": false,
+      "image_approved": true,
+      "image_approval_scope": "Owner-authorized shared representative Premium Hardwood family image; not thickness-specific proof.",
       "product_url": null,
       "gtin": null,
       "mpn": null,
