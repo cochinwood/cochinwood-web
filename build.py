@@ -2114,18 +2114,16 @@ def copy_referenced_files():
 # The count is derived from the pinned tree by carried_live_count(); it must not
 # be copied into prose because the /files inventory grows independently.
 LIVE_REF_NAME = "origin/cf-live"                         # where the pin came from
-# Moved 8 Sep 2026, and the review that licenses the move is recorded here so the next
-# reader can re-run it rather than trust it. Window: PR35 destination guides, PR36
-# wood-grain index, PR37 seo-redirects, PR38 encyclopedia cards -- 285 files on cf-live.
-# The review was not a read-through of those 285; it was the stronger question, asked by
-# hashing: does this build already reproduce the new tip? Every file in dist/ was sha1
-# blob-hashed against `git ls-tree -r ef44629f`. Result: 1146 files both sides, 0 on live
-# and missing from dist/, 0 in dist/ and not on live, and exactly 30 differing -- 26 blog
-# posts re-suppressing the sale rates, woods-we-use.html and woods-we-use/melia-dubia.html
-# for the corrected image credit, and blogs.html plus blogs/post/plywood-for-packing-cases
-# .html where the birch post's revised description is echoed. Nothing else moves, so the
-# carry set contains nothing unread. Reproduce with the hash comparison, not by eye.
-LIVE_SHA = "ef44629fd2a63a18ce507dc3c9cf0cda871077a2"    # Reviewed PR35-38 by full-tree hash: 1146/1146, only the 30 intended files differ
+# Moved 8 Sep 2026 after reviewing ef44629f..255aeed1 (PR39). The exact file
+# inventory, blob hashes, semantic changes and preservation comparison are recorded in
+# docs/cf-live-pin-review-2026-09-08.md. Both refs contain the same 1,146 paths. The
+# carried set is byte-identical: 846 files/ blobs plus the workflow and four root files.
+# The 34 changed published files are PR39's rate suppression, sitemap lastmod updates,
+# the build-provenance header and two already-shipped species-credit corrections. A
+# source build before this re-pin already reproduced every live blob except the four
+# destination-guide fixes owned by this branch and sitemap-post.xml, proving that the
+# pin move preserves PR39 and the rest of the shipped tree rather than overwriting it.
+LIVE_SHA = "255aeed1efc3861bc4264658711c2e1c58eb49e8"    # Reviewed PR39 tip; see the recorded full-tree and carried-tree diff
 LIVE_REF = LIVE_SHA                # what git is actually handed, so no fetch can move it
 LIVE_PIN = LIVE_REF_NAME + "@" + LIVE_SHA[:12]           # what the banner and dist/ record
 
