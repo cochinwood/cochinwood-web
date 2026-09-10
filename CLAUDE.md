@@ -4,9 +4,11 @@
 
 Production is `cf-live` in `cochinwood/cochinwood-web`, served by the Cloudflare Pages project `cochinwood-web` at https://www.cochinwood.in. A merge or push to `cf-live` deploys immediately. Its files are generated publication output.
 
-The source is this lineage: `build.py`, `export_section.py`, `content/`, `assets/` and `tools/`. Do not fix production HTML by hand: the next build would overwrite it. `master` and older migration branches are historical.
+The source is this lineage: `build.py`, `export_section.py`, `content/`, `assets/` and `tools/`. Do not fix production HTML by hand: the next build would overwrite it.
 
-Run `python build.py` to create `dist/`. The site has 253 indexed pages plus its 404 page. Total file count varies with assets; use the actual build inventory.
+**`master` is that source. Branch from it.** It was not, between 5 and 10 September 2026: twelve `fix/` branches were each chained on the last, built into a `publish/` branch and merged straight to `cf-live`, and none came back here. A clone landing on `master` therefore read a three-day-old site and one session concluded there was nowhere to make a clean website fix. There was; it was just never merged back. Consolidated 10 September 2026 from `codex/website-backlog-13-18-20260908`, the tip that already contained all twelve plus `prepare/kerala-commerce-2026-09-07`. Older `fix/`, `release/`, `publish/`, `cutover-*` and `prepare/` branches are now history, not places to work. **Merge every future website change back into `master` in the same breath as publishing it**, or this grows back.
+
+Run `python build.py` to create `dist/`. Measured 10 September 2026 on the consolidated tip: 1155 files, 256 `.html`, `sitemap:255`. That build was compared byte for byte against `cf-live` and matched exactly — 0 added, 0 deleted, 0 changed. Total file count varies with assets; use the actual build inventory rather than any number written down here.
 
 ## Preserve the agreed visual identity
 
@@ -22,7 +24,7 @@ Read [VISUAL-BRAND-GUIDE.md](VISUAL-BRAND-GUIDE.md). The current direction uses 
 
 Run `python build.py`, `python tools/check_visual_coverage.py`, and `python tools/check_published_preservation.py` from the source root. Run `python ../tools/check_site.py` from `dist/`.
 
-The build intentionally reports two documented redirect warnings. A production pin warning requires review; an additional missing-media warning is a regression. `STRICT=1` treats even the intentional warnings as failures.
+A clean build exits 0, prints `BUILD OK` and emits exactly **three** warnings: the `cf-live` pin, 7 rewritten 301 targets, and 13 rules deliberately not carried. Those three are expected on an untouched checkout, so `STRICT=1` fails there too and that is not a regression you caused. A fourth warning is yours. The pin warning in particular requires review; a missing-media warning is a regression. `STRICT=1` treats even the intentional warnings as failures.
 
 Use `python tools/preview.py` for local extensionless routes. Existing form tests are `tools/test_quote_journey.cjs` (local preview port 8873; all external requests intercepted) and `tools/test_form_measurement.cjs`. Do not submit synthetic leads to the live sales desk during visual QA.
 
