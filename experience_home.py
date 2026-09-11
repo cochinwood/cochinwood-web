@@ -53,7 +53,7 @@ def render_home(link, image, media, wood_path):
 {section_nav}
 <section class="cx-intro cw-wrap" id="materials">
   <div data-reveal><p class="cx-kicker">Rooted in Kerala. Built on experience.</p><h2>Good work begins <br>with the <em>right material.</em></h2></div>
-  <div class="cx-intro__detail" data-reveal><p>From the panel inside a finished room to the case protecting a shipment, the material has a job to do. We help you specify it.</p><a class="cx-text-link" href="{link('/about')}">Get to know Cochin Wood <span aria-hidden="true">↗</span></a><div class="cx-intro__facts"><span><b>1986</b>Our group’s manufacturing roots</span><span><b>16</b>Product lines to work with</span></div></div>
+  <div class="cx-intro__detail" data-reveal><p>From the panel inside a finished room to the case protecting a shipment, the material has a job to do. We help you specify it.</p><a class="cx-text-link" href="{link('/about')}">Get to know Cochin Wood <span aria-hidden="true">↗</span></a><div class="cx-intro__facts"><span><b>1986</b>Our group’s manufacturing roots</span><span><b>IS 710 · IS 303</b>National quality standards</span><span><b>16</b>Product lines to work with</span></div></div>
 </section>
 <section class="cx-materials cw-wrap" aria-labelledby="cx-materials-title">
   <div class="cx-section-heading" data-reveal><div><p class="cx-kicker">The collection</p><h2 id="cx-materials-title">A material for <br>what you’re making.</h2></div><a class="cx-text-link" href="{link('/products')}">View the full catalogue <span aria-hidden="true">↗</span></a></div>

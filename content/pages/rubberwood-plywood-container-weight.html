@@ -49,4 +49,70 @@
 
 <section class="cwg__section"><h2>Run the numbers on your next container</h2>
 <p>Send us the thickness, sheet size and destination. We will return the stuffing plan &mdash; sheets per container against the correct payload cap for your route &mdash; alongside the quote. <a href="/export">Export</a> loadings to the UAE, Israel, Sri Lanka and beyond ship from Kochi.</p>
+<div class="cwi-calc-box" style="background:#f4f7f5;border:1.5px solid #d0ded6;border-radius:12px;padding:24px;margin:24px 0 32px">
+  <h3 style="margin-top:0;color:#1b4332;font-family:'Bree Serif',Georgia,serif;font-size:1.35rem">Interactive Container Load &amp; Weight Estimator</h3>
+  <p style="margin-bottom:18px;color:#333;font-size:0.95rem">Estimate 8×4 ft sheet counts, total cargo volume (CBM), and payload tonnage for your route:</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:20px">
+    <div>
+      <label for="cwi-calc-th" style="display:block;font-weight:600;font-size:0.85rem;margin-bottom:6px;color:#141414">Panel Thickness</label>
+      <select id="cwi-calc-th" style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:6px;font-family:inherit;font-size:0.95rem">
+        <option value="6">6 mm (~11.6 kg/sheet)</option>
+        <option value="9">9 mm (~17.4 kg/sheet)</option>
+        <option value="12" selected>12 mm (~23.2 kg/sheet)</option>
+        <option value="16">16 mm (~31.0 kg/sheet)</option>
+        <option value="18">18 mm (~34.9 kg/sheet)</option>
+        <option value="25">25 mm (~48.5 kg/sheet)</option>
+      </select>
+    </div>
+    <div>
+      <label for="cwi-calc-box" style="display:block;font-weight:600;font-size:0.85rem;margin-bottom:6px;color:#141414">Container / Route Payload</label>
+      <select id="cwi-calc-box" style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:6px;font-family:inherit;font-size:0.95rem">
+        <option value="26.7" selected>40ft General Freight (~26.7 Tonnes limit)</option>
+        <option value="28.2">20ft General Freight (~28.2 Tonnes limit)</option>
+        <option value="24.5">40ft Israel Road-Capped (~24.5 Tonnes limit)</option>
+        <option value="20.0">US-Bound Highway (~20.0 Tonnes limit)</option>
+      </select>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;background:#fff;padding:18px;border-radius:8px;border:1px solid #e0e8e3;text-align:center">
+    <div>
+      <div id="cwi-res-sheets" style="font-size:1.6rem;font-weight:700;color:#1b4332">~1,150</div>
+      <div style="font-size:0.8rem;text-transform:uppercase;letter-spacing:0.05em;color:#666;margin-top:4px">8×4 ft Sheets</div>
+    </div>
+    <div>
+      <div id="cwi-res-cbm" style="font-size:1.6rem;font-weight:700;color:#1b4332">~41.0 CBM</div>
+      <div style="font-size:0.8rem;text-transform:uppercase;letter-spacing:0.05em;color:#666;margin-top:4px">Cargo Volume</div>
+    </div>
+    <div>
+      <div id="cwi-res-wt" style="font-size:1.6rem;font-weight:700;color:#1b4332">~26.68 T</div>
+      <div style="font-size:0.8rem;text-transform:uppercase;letter-spacing:0.05em;color:#666;margin-top:4px">Gross Cargo Weight</div>
+    </div>
+  </div>
+  <script>
+  (function(){
+    var th = document.getElementById('cwi-calc-th');
+    var bx = document.getElementById('cwi-calc-box');
+    var sOut = document.getElementById('cwi-res-sheets');
+    var cOut = document.getElementById('cwi-res-cbm');
+    var wOut = document.getElementById('cwi-res-wt');
+    if(!th || !bx) return;
+    function update(){
+      var t = parseFloat(th.value);
+      var capTonnes = parseFloat(bx.value);
+      var capKg = capTonnes * 1000;
+      var sheetArea = 2.44 * 1.22;
+      var sheetVol = sheetArea * (t / 1000);
+      var sheetWt = sheetVol * 650;
+      var maxSheets = Math.floor(capKg / sheetWt);
+      var totalCbm = maxSheets * sheetVol;
+      var totalWtTonnes = (maxSheets * sheetWt) / 1000;
+      sOut.textContent = '~' + maxSheets.toLocaleString();
+      cOut.textContent = '~' + totalCbm.toFixed(1) + ' CBM';
+      wOut.textContent = '~' + totalWtTonnes.toFixed(2) + ' T';
+    }
+    th.addEventListener('change', update);
+    bx.addEventListener('change', update);
+  })();
+  </script>
+</div>
 <p><a class="cwg__btn" href="/contact#quote">Request a quote &rarr;</a></p></section><section class="cwg__section cwg__faq" id="faq"><h2>Common questions</h2><h3>How much does an 8x4 ft rubberwood plywood sheet weigh?</h3><p>At a finished density of about 650 kg/m3, an 8x4 ft (2.97 m2) rubberwood-core sheet weighs roughly 11.6 kg at 6mm, 23.2 kg at 12mm and 34.9 kg at 18mm. Figures are approximate and depend on the exact panel specification.</p><h3>How many 12mm plywood sheets fit in a 40ft container?</h3><p>Weight, not volume, is the limit. At a practical payload of about 26.7 tonnes, a 40ft container takes roughly 1,150 sheets of 12mm rubberwood-core plywood at about 23.2 kg per sheet, versus roughly 930 sheets of dense-hardwood-core plywood at about 28.6 kg per sheet — around 24% more usable sheets per container.</p><h3>Why do plywood containers weigh out before they cube out?</h3><p>Plywood is dense. A 40ft container loaded to its ~26.7-tonne payload with 12mm sheets fills only about 60% of its 67 m3 internal volume, so the weighbridge sets the sheet count. Destination road rules cut it further: roughly 24.5 tonnes into Israel and about 20 tonnes for US highway transport.</p><h3>Does plywood need ISPM-15 heat treatment for export?</h3><p>No. Plywood is processed wood and is exempt under ISPM-15. Solid-wood crate members such as runners, battens and skids do require heat treatment to 56°C core temperature for 30 minutes and must carry the IPPC stamp.</p><h3>Should I use MR or BWR plywood for sea freight packing?</h3><p>MR (moisture-resistant) bonding covers most containerised dry-cargo voyages where the case rides inside a sealed container. Specify BWR (boiling-water-resistant, phenolic) for long humid routes with monsoon transshipment, open-yard storage at destination, deck stowage, or reusable crates and pallets.</p></section>
