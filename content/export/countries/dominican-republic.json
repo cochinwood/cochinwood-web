@@ -1,0 +1,44 @@
+{
+  "_wiring": "NOT YET READ BY THE BUILD. export_section.py loads content/export/export.json and nothing else; it does not scan this directory. To ship this lane: append this object (minus the keys whose names start with an underscore) to `countries` in export.json, and add \"dominican-republic\" to shared.related.order. Nothing else is needed - the hero, the crumb, the canonical, the schema, the sitemap entry and the back-links from the other lanes all follow.",
+  "_no_import_block_on_purpose": "This entry deliberately has no `import` block. export_section.import_essentials() renders shared.import.customs_duty verbatim, and that string is \"5% GCC Common External Tariff on CIF value\" - true for the six Gulf lanes and false for the Dominican Republic. Rather than emit a wrong tariff to a real buyer, this lane carries its own import-essentials table inside dominican-republic.body.html, the way Sri Lanka and Israel carry no table at all.",
+  "_needs_edwin": [
+    "Dominican customs duty / ITBIS position for HS 4412 plywood - the body table carries a [TO CONFIRM] cell. Nothing on this site states one.",
+    "Whether CWI wants to name a usual discharge port for the Dominican Republic. Nothing on the site names one, so the page says FOB Cochin to the port the buyer nominates.",
+    "Whether a typical transit time can be published for this lane. None is claimed anywhere on the page."
+  ],
+  "slug": "dominican-republic",
+  "name_the": "the Dominican Republic",
+  "name_plain": "the Dominican Republic",
+  "title": "Plywood Exporter India to Dominican Republic — FOB Cochin",
+  "desc": "Import plywood from India to the Dominican Republic: shuttering, commercial, BWR and packing ply from Kochi, FOB Cochin in USD. Request a quote.",
+  "schema_name": "Indian Plywood Factory Exporting to the Dominican Republic",
+  "crumb_leaf": "Plywood exporter from India to the Dominican Republic, shipped FOB Cochin",
+  "kicker": "Export &middot; Dominican Republic",
+  "h1": "Plywood exporter from India to the Dominican Republic, shipped FOB Cochin",
+  "lede": "Film-faced shuttering, commercial, BWR and packing-grade plywood from Perumbavoor, Kerala, made by a group that has manufactured plywood since 1986. Quoted in USD at the factory gate, with the freight left where you can see it.",
+  "tldr": "<strong>TL;DR:</strong> We are an Indian plywood factory shipping to the Dominican Republic from Cochin Port, with no local stock in the region. Film-faced shuttering, commercial, BWR and packing-grade plywood, plus boxes, crates and pallets. Quotes in USD, FOB Cochin by default, CFR or CIF where agreed. Containers are loaded to the lower of the ship-line payload and the road limit at your end. Quote replies within one business day.",
+  "ports_ship": "the Dominican discharge port you nominate",
+  "faq": [
+    [
+      "Do you quote CIF the Dominican Republic, or only FOB Cochin?",
+      "FOB Cochin is the default, in USD under Incoterms 2020. FCA Cochin, CFR or CIF are quoted where agreed, against the freight the routing you choose actually attracts. Standard products ship on 50% advance with the balance before dispatch; custom specifications are 100% advance, by bank transfer (T/T)."
+    ],
+    [
+      "What HS code do you ship plywood to the Dominican Republic under?",
+      "Plywood falls under HS heading 4412 (sub-headings 4412.31, 4412.33, 4412.34 and 4412.39 by face species); finished cases, pallets and drums are generally considered under 4415. We state the code we ship under on the commercial invoice, and your clearing agent confirms the national tariff line and the rates in force."
+    ],
+    [
+      "Which bond grade should I order for a humid climate?",
+      "MR is moisture-resistant, not waterproof. Where the panel will sit in damp air after it lands, specify BWR; where it will be wet, IS 710 BWP marine. We confirm the bond on the proforma invoice and every grade ships with its technical data sheet."
+    ],
+    [
+      "Can I inspect the goods before the container sails?",
+      "Yes. Pre-shipment inspection is welcome, by you or any third-party agency you appoint, and we hold the goods for it before loading. We also send loading photographs and video of your container the same day it stuffs, and a packing list with the bundle-wise net and gross weights declared to the shipping line."
+    ]
+  ],
+  "faq_boiler": [
+    "warehouse"
+  ],
+  "cta_h2": "Get a Dominican Republic quote in one business day",
+  "cta_p": "Send thickness, sheet size, grade or bond, quantity and your discharge port to sales@cochinwood.in or WhatsApp +91 95674 10175. A USD quote with a loading plan comes back within one business day."
+}

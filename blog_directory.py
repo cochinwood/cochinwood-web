@@ -1,0 +1,59 @@
+"""Topic-based blog discovery without changing indexed article URLs or content."""
+from collections import Counter
+from html import escape, unescape
+from page_navigation import render_section_bar
+from pathlib import Path
+import json
+import re
+
+ROOT = Path(__file__).resolve().parent
+
+
+def location_metadata():
+    """Use the existing regional taxonomy; never infer locations from prose."""
+    taxonomy = json.loads((ROOT / 'content/regional-navigation.json').read_text(encoding='utf-8'))
+    return {'plywood-supply-to-' + city:
+            group['region'] + (' · India' if group['country_iso'] == 'IN' else '')
+            for group in taxonomy['city_groups'] for city in group['cities']}
+
+
+def render_directory(posts, taxonomy, link, hero_image, thumbnail=None):
+    assignments = taxonomy["posts"]
+    counts = Counter(assignments[p["slug"]] for p in posts)
+    locations = location_metadata()
+    def card(post):
+        title = unescape((post.get("title") or post["slug"]).split("|")[0].strip())
+        desc = unescape(post.get("desc") or "")
+        location_guide = assignments[post["slug"]] == 'city-supply'
+        card_class = ' class="cw-blog-location-card"' if location_guide else ''
+        metadata = (f'<span class="cw-blog-location-meta">{escape(locations[post["slug"]])} · Supply guide</span>'
+                    if location_guide else '')
+        return (f'<a{card_class} data-blog-topic="{escape(assignments[post["slug"]])}" href="{link("/blogs/post/" + post["slug"])}">'
+                + (f'<div class="cw-blog-card-image">{thumbnail(post["slug"])}</div>' if thumbnail and not location_guide else '')
+                + metadata + f'<b>{escape(title)}</b><span>{escape(desc[:160])}</span>'
+                + ('<span class="cw-blog-location-read">Read supply guide <span aria-hidden="true">→</span></span>' if location_guide else '')
+                + '</a>')
+    topics = '<a href="#articles" data-blog-topic-filter="all" aria-current="true">All posts <span>' + str(len(posts)) + '</span></a>'
+    groups = ""
+    for topic in taxonomy["topics"]:
+        key, label = topic["id"], topic["label"]
+        group = [p for p in posts if assignments[p["slug"]] == key]
+        topics += (f'<a href="#blog-topic-{key}" data-blog-topic-filter="{key}">{escape(label)} '
+                   f'<span>{counts[key]}</span></a>')
+        groups += (f'<section class="cw-blog-group" data-blog-group="{key}" id="blog-topic-{key}">'
+                   f'<div class="cw-blog-group-heading"><h2>{escape(label)}</h2>'
+                   f'<span class="cw-blog-group-count">{len(group)} guides</span></div>'
+                   f'<p>{escape(topic["description"])}</p><div class="cw-bloglist">'
+                   + "".join(card(p) for p in group) + '</div></section>')
+    topic_items = ''.join('<li>' + anchor + '</li>' for anchor in re.findall(r'<a\b.*?</a>', topics, re.S))
+    topic_navigation = render_section_bar(topic_items, label='Topics', nav_label='Blog topics', nav_class='cw-blog-topics', mode='filters')
+    return f'''<section class="cw-hero cw-hero--light"><div class="cw-wrap"><div class="cw-hero__layout">
+  <div class="cw-hero__content"><p class="cw-hero__ey">From the Cochin Wood desk</p><h1>Material knowledge.<br><em>Made practical.</em></h1><p>Explore plywood grades, export packing and supply guides. Browse by topic or search for the question you need to answer.</p><a class="cw-btn cw-btn--p" href="#articles">Find a guide &darr;</a></div>
+  <figure class="cw-hero__media">{hero_image}</figure>
+</div></div></section>
+{topic_navigation}
+<section class="cw-blog-directory" id="articles"><div class="cw-wrap">
+  <div class="cw-blogtools"><div class="cw-blog-searchfield"><label for="cw-blogsearch">Search {len(posts)} guides</label><div class="cw-blog-searchrow"><input id="cw-blogsearch" type="search" autocomplete="off" placeholder="Try marine, crate, Kochi or IS 710"><button id="cw-blogclear" type="button" hidden>Clear filters</button></div></div><p class="cw-blogcount" id="cw-blogcount" role="status" aria-live="polite">{len(posts)} guides across {len(taxonomy["topics"])} topics</p></div>
+  <div class="cw-blog-browse">
+  <div class="cw-blogindex">{groups}<p id="cw-blogempty" hidden>No guides match these filters. Clear the filters to browse again, or <a href="{link('/contact')}">ask our desk</a>.</p></div></div>
+</div></section>'''

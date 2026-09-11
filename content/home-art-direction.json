@@ -1,0 +1,70 @@
+[
+  {
+    "media": "(max-width: 480px)",
+    "src": "/files/Responsive/home-mobile-compact-590.webp",
+    "sizes": "480px",
+    "width": 590,
+    "height": 860,
+    "candidates": [
+      {
+        "src": "/files/Responsive/home-mobile-compact-320.webp",
+        "width": 320,
+        "sha256": "c79a2e2a14a7205df81907593bc761aa0564bec5926d405156947ce29bc08167"
+      },
+      {
+        "src": "/files/Responsive/home-mobile-compact-480.webp",
+        "width": 480,
+        "sha256": "928152e94e29983153b9402e660b01aa24e944ffab1f21ec291d771815ec6caf"
+      },
+      {
+        "src": "/files/Responsive/home-mobile-compact-590.webp",
+        "width": 590,
+        "sha256": "0e6ed07010cf516f6d3f984d5ddc1f3a975d02bc35844359715f117f672b7221"
+      }
+    ],
+    "source_original": "/files/Hero%20Optimized/Home.webp",
+    "source_sha256": "1b7d40e886e96f805d20298b5b150f750fac51dd5838a49fce3e1f3184a15835",
+    "source_crop": [
+      348,
+      0,
+      938,
+      860
+    ],
+    "object_position": "57% center",
+    "provenance": "Deterministic pixel crop of the same inspected existing warehouse scene. No generated or retouched detail. Nested57% object-position preserves the previous visible crop within less than one source pixel."
+  },
+  {
+    "media": "(max-width: 620px)",
+    "src": "/files/Responsive/home-mobile-phone-762.webp",
+    "sizes": "620px",
+    "width": 762,
+    "height": 860,
+    "candidates": [
+      {
+        "src": "/files/Responsive/home-mobile-phone-480.webp",
+        "width": 480,
+        "sha256": "9baeb2a5cfe36c1de66c7c477035818aae608da64de7dfd8301f949568105283"
+      },
+      {
+        "src": "/files/Responsive/home-mobile-phone-640.webp",
+        "width": 640,
+        "sha256": "45b5c8f25db97eadb7004c8b81e05956c4bead99d391fe1423fd4ce62cbe49b8"
+      },
+      {
+        "src": "/files/Responsive/home-mobile-phone-762.webp",
+        "width": 762,
+        "sha256": "7899726d54a4eec532a125d2c969431bdb9a206dade154dda71e19b6331aa768"
+      }
+    ],
+    "source_original": "/files/Hero%20Optimized/Home.webp",
+    "source_sha256": "1b7d40e886e96f805d20298b5b150f750fac51dd5838a49fce3e1f3184a15835",
+    "source_crop": [
+      250,
+      0,
+      1012,
+      860
+    ],
+    "object_position": "57% center",
+    "provenance": "Deterministic pixel crop of the same inspected existing warehouse scene. No generated or retouched detail. Nested57% object-position preserves the previous visible crop within less than one source pixel."
+  }
+]

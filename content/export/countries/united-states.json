@@ -1,0 +1,43 @@
+{
+  "_wiring": "NOT YET READ BY THE BUILD. export_section.py loads content/export/export.json and nothing else; it does not scan this directory. To ship this lane: append this object (minus the keys whose names start with an underscore) to `countries` in export.json, and add \"united-states\" to shared.related.order. Nothing else is needed - the hero, the crumb, the canonical, the schema, the sitemap entry and the back-links from the other lanes all follow.",
+  "_no_import_block_on_purpose": "This entry deliberately has no `import` block. export_section.import_essentials() renders shared.import.customs_duty verbatim, and that string is \"5% GCC Common External Tariff on CIF value\" - true for the six Gulf lanes and false for the United States. Rather than emit a wrong tariff to a real buyer, this lane carries its own import-essentials table inside united-states.body.html, the way Sri Lanka and Israel carry no table at all. If someone later adds a per-lane customs_duty override to import_essentials(), the table can move back into data.",
+  "_needs_edwin": [
+    "US customs duty rate / tariff line for HS 4412 plywood - the body table carries a [TO CONFIRM] cell. No US duty figure appears anywhere on this site, so none was invented.",
+    "Whether CWI wants to name a usual US discharge port. Nothing on the site names one, so the page says FOB Cochin to the port the buyer nominates."
+  ],
+  "slug": "united-states",
+  "name_the": "the United States",
+  "name_plain": "the United States",
+  "title": "Indian Plywood Exporter to the USA — FOB Cochin | Cochin Wood",
+  "desc": "Import plywood from India to the United States: packing, Okoume and shuttering ply, FOB Cochin in USD. CARB or TSCA Title VI named at enquiry.",
+  "schema_name": "Indian Plywood Factory Exporting to the United States",
+  "crumb_leaf": "Indian plywood exporter to the United States, loaded to a US road weight",
+  "kicker": "Export &middot; United States",
+  "h1": "Indian plywood exporter to the United States, loaded to a US road weight",
+  "lede": "Packing-grade, Okoume-faced and film-faced shuttering plywood from Perumbavoor, Kerala, made by a group that has manufactured plywood since 1986. Quoted FOB Cochin in USD. If your entry needs CARB or TSCA Title VI, say so at enquiry — it decides which mill presses the order.",
+  "tldr": "<strong>TL;DR:</strong> We ship plywood from Cochin Port to the United States, quoted in USD on FOB Cochin terms. Two things settle a US order before the price does. The formaldehyde certification your entry needs — CARB or TSCA Title VI — has to be named at enquiry, because it decides which mill presses the panels and cannot be added afterwards. And the container is loaded to about 20 tonnes for US highway transport rather than to the roughly 26.7-tonne ship-line payload. Quote replies within one business day.",
+  "ports_ship": "the US discharge port you nominate",
+  "faq": [
+    [
+      "Do you supply CARB Phase 2 or TSCA Title VI certified plywood?",
+      "We make no blanket claim. Tell us at enquiry that your entry needs CARB or TSCA Title VI: it decides which mill your order is placed with, and it cannot be added after the panels are pressed. Any certificate or test report that applies to your order is identified on the quotation by holder, number and product scope, and released to verified buyers on request."
+    ],
+    [
+      "What HS code do you ship plywood to the United States under?",
+      "Plywood falls under HS heading 4412 (sub-headings 4412.31, 4412.33, 4412.34 and 4412.39 by face species); finished cases, pallets and drums are generally considered under 4415. We state the code we ship under on the commercial invoice, and your customs broker confirms the national tariff line and the rate in force."
+    ],
+    [
+      "How many plywood sheets fit in a container for the United States?",
+      "Weight decides it, not volume. We load to the lower of the ship-line payload, about 26.7 tonnes, and the destination road limit, which for US highway transport is about 20 tonnes. The exact sheet count and the net and gross weights are confirmed per booking on the proforma invoice."
+    ],
+    [
+      "Do you quote FOB or CIF for US buyers?",
+      "FOB Cochin is the default, in USD under Incoterms 2020. FCA Cochin, CFR or CIF are quoted where agreed. Standard products ship on 50% advance with the balance before dispatch; custom specifications are 100% advance. Payment is by bank transfer (T/T)."
+    ]
+  ],
+  "faq_boiler": [
+    "warehouse"
+  ],
+  "cta_h2": "Get a US quote in one business day",
+  "cta_p": "Send thickness, sheet size, grade, quantity, your discharge port, and whether the entry needs CARB or TSCA Title VI. Email sales@cochinwood.in or WhatsApp +91 95674 10175 and a USD quote with a loading plan comes back within one business day."
+}

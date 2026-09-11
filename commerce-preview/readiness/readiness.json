@@ -1,0 +1,194 @@
+{
+  "ready_for_merchant_export": false,
+  "submitted": false,
+  "errors": [
+    {
+      "field": "inventory_policy",
+      "required": "The fixed-stock exporter cannot use per-invoice allocation. Complete the invoice purchase workflow and its offer validation before export."
+    },
+    {
+      "field": "approval",
+      "required": "Company approval with approver and date"
+    },
+    {
+      "field": "products.prem_hw_gurjan_12.identity",
+      "required": "Exact product identity approved"
+    },
+    {
+      "field": "products.prem_hw_gurjan_12.dimensions",
+      "required": "Confirmed finished dimensions"
+    },
+    {
+      "field": "products.prem_hw_gurjan_12.tolerance_mm",
+      "required": "Confirmed dimensional tolerance"
+    },
+    {
+      "field": "products.prem_hw_gurjan_12.stock",
+      "required": "Actual stock allocated to online sales, within supported limits"
+    },
+    {
+      "field": "products.prem_hw_gurjan_12.quantity_limits",
+      "required": "Approved minimum and maximum sheet quantity"
+    },
+    {
+      "field": "products.prem_hw_gurjan_12.identifiers",
+      "required": "Review real GTIN/MPN; never invent identifiers"
+    },
+    {
+      "field": "products.prem_hw_gurjan_12.identifier_exists",
+      "required": "Confirm identifiers are not assigned when absent"
+    },
+    {
+      "field": "products.prem_hw_gurjan_12.product_url",
+      "required": "Live purchasable product URL on company domain"
+    },
+    {
+      "field": "products.prem_hw_gurjan_12.actual_product_photo_url",
+      "required": "Approved exact-product photograph, not a generic preview"
+    },
+    {
+      "field": "products.prem_hw_gurjan_18.identity",
+      "required": "Exact product identity approved"
+    },
+    {
+      "field": "products.prem_hw_gurjan_18.dimensions",
+      "required": "Confirmed finished dimensions"
+    },
+    {
+      "field": "products.prem_hw_gurjan_18.tolerance_mm",
+      "required": "Confirmed dimensional tolerance"
+    },
+    {
+      "field": "products.prem_hw_gurjan_18.stock",
+      "required": "Actual stock allocated to online sales, within supported limits"
+    },
+    {
+      "field": "products.prem_hw_gurjan_18.quantity_limits",
+      "required": "Approved minimum and maximum sheet quantity"
+    },
+    {
+      "field": "products.prem_hw_gurjan_18.identifiers",
+      "required": "Review real GTIN/MPN; never invent identifiers"
+    },
+    {
+      "field": "products.prem_hw_gurjan_18.identifier_exists",
+      "required": "Confirm identifiers are not assigned when absent"
+    },
+    {
+      "field": "products.prem_hw_gurjan_18.product_url",
+      "required": "Live purchasable product URL on company domain"
+    },
+    {
+      "field": "products.prem_hw_gurjan_18.actual_product_photo_url",
+      "required": "Approved exact-product photograph, not a generic preview"
+    },
+    {
+      "field": "delivery.approval",
+      "required": "Approved Kerala-only delivery rules"
+    },
+    {
+      "field": "delivery.rules",
+      "required": "Exact serviceable postcode/quantity bands, freight and delivery windows"
+    },
+    {
+      "field": "policies.approval",
+      "required": "Approved versioned online policies"
+    },
+    {
+      "field": "policies.unloading",
+      "required": "Company-approved service terms"
+    },
+    {
+      "field": "policies.damage_reporting",
+      "required": "Company-approved service terms"
+    },
+    {
+      "field": "policies.cancellation",
+      "required": "Company-approved service terms"
+    },
+    {
+      "field": "policies.refunds",
+      "required": "Company-approved service terms"
+    },
+    {
+      "field": "policies.delivery_url",
+      "required": "Published approved policy URL"
+    },
+    {
+      "field": "policies.returns_url",
+      "required": "Published approved policy URL"
+    },
+    {
+      "field": "policies.cancellation_url",
+      "required": "Published approved policy URL"
+    },
+    {
+      "field": "payment.enabled",
+      "required": "Tested payment workflow and approved payment terms"
+    },
+    {
+      "field": "payment.uat_passed",
+      "required": "Tested payment workflow and approved payment terms"
+    },
+    {
+      "field": "payment.commercial_terms_approved",
+      "required": "Tested payment workflow and approved payment terms"
+    },
+    {
+      "field": "payment.bank_credit_verification_verified",
+      "required": "Verified invoice and actual bank-credit handling, including exceptions and refunds"
+    },
+    {
+      "field": "payment.invoice_acceptance_verified",
+      "required": "Verified invoice and actual bank-credit handling, including exceptions and refunds"
+    },
+    {
+      "field": "payment.late_payment_handling_verified",
+      "required": "Verified invoice and actual bank-credit handling, including exceptions and refunds"
+    },
+    {
+      "field": "payment.refunds_verified",
+      "required": "Verified invoice and actual bank-credit handling, including exceptions and refunds"
+    },
+    {
+      "field": "payment.final_total_before_commitment",
+      "required": "Complete online purchase with final charges, confirmation and delivery estimate; billing address independent of delivery area"
+    },
+    {
+      "field": "payment.purchase_confirmation_verified",
+      "required": "Complete online purchase with final charges, confirmation and delivery estimate; billing address independent of delivery area"
+    },
+    {
+      "field": "payment.delivery_estimate_verified",
+      "required": "Complete online purchase with final charges, confirmation and delivery estimate; billing address independent of delivery area"
+    },
+    {
+      "field": "payment.billing_address_unrestricted",
+      "required": "Complete online purchase with final charges, confirmation and delivery estimate; billing address independent of delivery area"
+    },
+    {
+      "field": "merchant.enabled",
+      "required": "Recorded live launch verification"
+    },
+    {
+      "field": "merchant.checkout_verified",
+      "required": "Recorded live launch verification"
+    },
+    {
+      "field": "merchant.landing_pages_verified",
+      "required": "Recorded live launch verification"
+    },
+    {
+      "field": "merchant.shipping_verified",
+      "required": "Recorded live launch verification"
+    },
+    {
+      "field": "merchant.returns_verified",
+      "required": "Recorded live launch verification"
+    }
+  ],
+  "config_sha256": "f58117698612056902c79da55e267b709c5e4d2d8cc26441352e67fa9675f550",
+  "version": "proposal-2026-09-07-invoice-stock-policy",
+  "synthetic": false,
+  "proposed_variants": 4
+}

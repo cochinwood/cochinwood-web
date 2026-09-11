@@ -1,0 +1,61 @@
+{
+  "reason": "Keep published image URLs available after retiring their gallery or changing placement. These files are not inserted into pages by this list.",
+  "files": {
+    "files/Responsive/factory-08-606f5364-1200.webp": {
+      "sha256": "c01045caf8670266c51d88b99448e471ac502fba494aa3a687e4b89beec29ac5",
+      "bytes": 77248
+    },
+    "files/Responsive/factory-08-606f5364-1280.webp": {
+      "sha256": "c83e84c6f7848b27794869bc9e2f008fdb6278972ab54de931557c5b4a66bf98",
+      "bytes": 88796
+    },
+    "files/Responsive/factory-08-606f5364-400.webp": {
+      "sha256": "ad6d7d95feff10adf1857f42998162d1482d56543b71927e765970ac02531e9a",
+      "bytes": 12024
+    },
+    "files/Responsive/factory-08-606f5364-640.webp": {
+      "sha256": "ee1a0200055b96f4a83becb4072923e9dd264d30b6480acfcaa1c7289f2acb91",
+      "bytes": 26598
+    },
+    "files/Responsive/factory-08-606f5364-960.webp": {
+      "sha256": "c046f2ea8f0e87a3a66871ad90f3145daa3ef3e661ff4cab43f0d16f26da0f6c",
+      "bytes": 54188
+    },
+    "files/Responsive/factory-42-8cb32034-1200.webp": {
+      "sha256": "3ec1d128a26de76708631dfe7d60d13b94b80f71e46671d914195f17b694e83e",
+      "bytes": 52294
+    },
+    "files/Responsive/factory-42-8cb32034-1280.webp": {
+      "sha256": "7b474c70b368e0fac0dc89b0b519f3274bac73a6b17b17a61efb2e7de68cb53b",
+      "bytes": 59134
+    },
+    "files/Responsive/factory-42-8cb32034-400.webp": {
+      "sha256": "2f641b5bf21d159d5c801d893dd1104acd2fe083418f0ae469935a5506b14b36",
+      "bytes": 10132
+    },
+    "files/Responsive/factory-42-8cb32034-640.webp": {
+      "sha256": "312bee92ea88678e285f3d3492b83e6f62cb3e3dd32efa98ab8bf1d565ac4a7f",
+      "bytes": 20004
+    },
+    "files/Responsive/factory-42-8cb32034-960.webp": {
+      "sha256": "fa00a95abfa26187a5decdeebcca5848d29d2404c35e3c2d69cec6b3f994e20f",
+      "bytes": 36656
+    },
+    "files/Responsive/factory-44-51508017-1200.webp": {
+      "sha256": "fecaac9d05a4b8d19d4821371981190f8ded2f38054749d986a68f0fd528d60e",
+      "bytes": 89646
+    },
+    "files/Responsive/factory-44-51508017-400.webp": {
+      "sha256": "e07cbd6f910807dde3f6c0dc0007f4f95a4b19f0f1fe34231420340fc8459f51",
+      "bytes": 14362
+    },
+    "files/Responsive/factory-44-51508017-640.webp": {
+      "sha256": "5a83e5210fe82c85263296587a449ec79421409ae10ccb8edf6a98762b03f34b",
+      "bytes": 32090
+    },
+    "files/Responsive/factory-44-51508017-960.webp": {
+      "sha256": "c1357a61a63caf475da061054fb620eab4665cfbdd1ad4ac69adc7bdb5bc9504",
+      "bytes": 65036
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "_note": "NOT YET WIRED. export_section.py reads only content/export/export.json; it does not read this directory. To publish this lane: append this object (minus the keys starting with an underscore) to `countries` in content/export/export.json, and add \"nigeria\" to shared.related.order so the other lanes link back to it. Nothing else is needed - the hero, breadcrumb, canonical, schema, sitemap entry and back-links all follow. The prose lives in content/export/nigeria.body.html. Written 3 September 2026.",
+  "_needs_edwin": [
+    "ports_ship / \"Clears at\" is set to Apapa, Lagos, the market's principal container port. Confirm that is where CWI shipments to Nigeria actually discharge, and whether any other port should be named.",
+    "Customs duty and import taxes for Nigeria: no rate is stated anywhere on the site, so the table row is a marked placeholder.",
+    "Conformity / pre-shipment inspection requirement for Nigeria: the site claims no scheme for this market, so the table row is a marked placeholder.",
+    "Port-to-port transit time Kochi to Apapa, Lagos: not published anywhere on the site."
+  ],
+  "slug": "nigeria",
+  "name_the": "Nigeria",
+  "name_plain": "Nigeria",
+  "title": "Indian Plywood Exporter to Nigeria — FOB Cochin | Cochin Wood",
+  "desc": "Import plywood from India to Nigeria — packing, commercial and shuttering grades, FOB Cochin to Apapa, Lagos. USD quotes within one business day.",
+  "schema_name": "Indian Plywood Factory Exporting to Nigeria",
+  "crumb_leaf": "Import plywood from India to Nigeria, direct from Kochi",
+  "kicker": "Export — Nigeria",
+  "h1": "Import plywood from India to Nigeria, direct from Kochi",
+  "lede": "Packing-grade, commercial and film-faced shuttering plywood, pressed in Perumbavoor and loaded 40 km from Cochin Port for Apapa. USD quotes on FOB Cochin terms, answered within one business day.",
+  "tldr": "<strong>TL;DR:</strong> Cochin Wood Industries is an Indian plywood factory exporting to Nigeria. Packing-grade, commercial and film-faced shuttering plywood, plus ready-made plywood boxes and crates, ship FOB Cochin to Apapa in Lagos. USD quotes, 50% advance terms, and a written reply within one business day.",
+  "ports_ship": "Apapa, Lagos",
+  "faq": [
+    [
+      "Which port do you ship to for Nigeria?",
+      "Apapa in Lagos, unless you tell us otherwise. The discharge port is named on the quotation, and if you clear through another terminal we will quote against that routing. We ship full-container loads from Cochin and hold no stock in Nigeria."
+    ],
+    [
+      "How long does a container take from Kochi to Apapa?",
+      "It depends on the carrier and the service, and we would rather confirm it for your booking than print a figure the next schedule change makes wrong. The sailing is confirmed alongside the quote, and shipping documents are shared before the vessel sails."
+    ],
+    [
+      "What import duty will I pay on plywood in Nigeria?",
+      "We do not state a rate for Nigeria. We have never published one, and a wrong tariff is an expensive thing for a buyer to be handed. Duty and any import tax are set by the destination schedule against the line your goods are classified under, and applied at import. We state the HS code on the commercial invoice and issue the certificate of origin; your clearing agent confirms the line and the rate in force. We do not give customs rulings and will not promise a duty outcome."
+    ],
+    [
+      "Do you supply certification for import into Nigeria?",
+      "Tell us what your import needs at enquiry, not after the goods are pressed. A certificate, test report or pre-shipment inspection decides which mill the order is placed with, and it cannot be added retrospectively. Each mill holds its own BIS licence; whatever applies to your order is named on the quotation by holder, number and product scope. Inspection by you or an agency you appoint is welcome and we hold the goods for it."
+    ],
+    [
+      "Can I inspect the goods before they are shipped?",
+      "Yes, and it is the sensible thing to do on a first order. Come yourself or appoint any third-party inspection agency; we hold the goods for the inspection window before loading. You also get photographs and video of your container as it is stuffed, sent the same day, and a packing list with real net and gross weights."
+    ],
+    [
+      "Do the plywood sheets need ISPM-15 treatment or fumigation for Nigeria?",
+      "No. Plywood is a processed wood product and is exempt from ISPM-15, so the panels carry no heat-treatment stamp and need no fumigation certificate. The standard covers solid-wood packaging &mdash; pallets, crates, dunnage. Where we supply those, they are produced under an ISPM-15 compliant process with the marks and paperwork in order."
+    ],
+    [
+      "What are your payment terms for Nigeria orders?",
+      "Standard products ship against 50% advance with the balance payable before dispatch; custom builds are 100% advance. We accept bank transfer (T/T), and all export invoicing is in US dollars. If you have not traded with us before, <a href=\"/company-verification\">company verification</a> lists every registration we hold and the government portal you can check it on."
+    ]
+  ],
+  "faq_boiler": [
+    "hs",
+    "warehouse"
+  ],
+  "cta_h2": "Get a written quote for Nigeria",
+  "cta_p": "Send thickness, sheet size, grade, quantity and discharge port. A USD quote on FOB Cochin terms comes back within one business day. Write to sales@cochinwood.in or call +91&nbsp;95674&nbsp;10175."
+}

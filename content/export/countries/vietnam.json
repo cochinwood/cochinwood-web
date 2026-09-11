@@ -1,0 +1,43 @@
+{
+ "_note": "NOT YET WIRED. export_section.py::_load() reads content/export/export.json only; it does not read this directory, so this lane does not build yet. To ship it: append this object (minus the keys prefixed with _) to `countries` in export.json and add its slug to shared.related.order, OR extend _load() to merge content/export/countries/*.json into data['countries']. Deliberately NO `import` block: import_essentials() takes customs_duty from shared.import, which reads '5% GCC Common External Tariff', and the duty/standards/documents faq_templates are GCC-worded too. Giving a non-GCC lane that block would print a wrong tariff. The import table for this lane lives in <slug>.body.html instead, the way Sri Lanka and Israel carry theirs in prose.",
+ "slug": "vietnam",
+ "name_the": "Vietnam",
+ "name_plain": "Vietnam",
+ "title": "Indian Plywood Exporter to Vietnam — FOB Cochin",
+ "desc": "Plywood exporter to Vietnam — packing, BWR and Okoume-faced panels from Kochi, India. Cochin to Hai Phong 15-18 days, FOB, USD. Request a quote.",
+ "schema_name": "Indian Plywood Factory Exporting to Vietnam",
+ "crumb_leaf": "Plywood exporter to Vietnam: buying Indian panels on specification, not on distance",
+ "kicker": "Export — Vietnam",
+ "h1": "Plywood exporter to Vietnam: buying Indian panels on specification, not on distance",
+ "lede": "Vietnam is a working lane for us, not an aspiration — one of only two overseas markets named on our own homepage, alongside the UAE. We press packing-grade, BWR and Okoume-faced plywood in Perumbavoor, Kerala, and quote it FOB Cochin in USD; Cochin to Hai Phong runs 15 to 18 days port to port.",
+ "tldr": "<strong>In short:</strong> Cochin Wood Industries is a plywood manufacturer in Kerala, India, and Vietnam is a working lane. Packing-grade MR plywood to IS 303, BWR hardwood board, calibrated Okoume-faced panels and ready-made <a href=\"/plywood-boxes-crates\">boxes and crates</a>. Cochin to Hai Phong is 15 to 18 days. USD quotes, FOB Cochin, replies within one business day.",
+ "ports_ship": "Hai Phong or the port you nominate",
+ "faq": [
+  [
+   "How long is the sailing from Cochin to Vietnam?",
+   "About 15 to 18 days port to port to Hai Phong out of Cochin. Chennai and Tuticorin run 12 to 14 and 14 to 16 days on the same lane, but the inland trucking from Perumbavoor to those ports normally eats the saving. Add your own clearance and haulage to plan door to door."
+  ],
+  [
+   "Why import plywood from India when Vietnam has its own mills?",
+   "Two reasons hold up, and no others. A construction you cannot easily buy locally, or a better number for the same specification. We press to your sheet — thickness, sheet size, bond and face — and quote FOB Cochin in USD with a container loading plan, within one business day. If it does not beat your local price, it does not."
+  ],
+  [
+   "Which bond should I specify for cargo that ships on from Vietnam?",
+   "Transit time and the climate of the lane decide it. Under ten days in a dry lane, MR or BWR is enough; over twenty days, or anything routed through monsoon Southeast Asia, plan around BWP unless the cargo is low-value and replaceable. Tell us the whole journey the cargo faces and we will quote the bond that survives it."
+  ],
+  [
+   "What are your payment terms for Vietnamese buyers?",
+   "50% advance with the order and the balance before dispatch for standard products; 100% advance for custom specifications. Payment is by bank transfer (T/T), and quotes are in USD."
+  ]
+ ],
+ "faq_boiler": [
+  "hs",
+  "warehouse"
+ ],
+ "cta_h2": "Get a Vietnam quote",
+ "cta_p": "Send thickness, sheet size, bond, face and monthly quantity. A USD FOB Cochin quotation with a loading plan comes back within one business day. sales@cochinwood.in — +91 95674 10175.",
+ "_to_confirm": [
+  "Vietnamese customs duty and VAT rates",
+  "Vietnam's conformity requirement for imported plywood"
+ ]
+}

@@ -1,0 +1,45 @@
+{
+  "_wiring": "NOT YET READ BY THE BUILD. export_section.py loads content/export/export.json and nothing else; it does not scan this directory. To ship this lane: append this object (minus the keys whose names start with an underscore) to `countries` in export.json, and add \"chile\" to shared.related.order. Nothing else is needed - the hero, the crumb, the canonical, the schema, the sitemap entry and the back-links from the other lanes all follow.",
+  "_no_import_block_on_purpose": "This entry deliberately has no `import` block. export_section.import_essentials() renders shared.import.customs_duty verbatim, and that string is \"5% GCC Common External Tariff on CIF value\" - true for the six Gulf lanes and false for Chile. Rather than emit a wrong tariff to a real buyer, this lane carries its own import-essentials table inside chile.body.html, the way Sri Lanka and Israel carry no table at all.",
+  "_needs_edwin": [
+    "Chilean customs duty / IVA position for HS 4412 plywood - the body table carries a [TO CONFIRM] cell. Nothing on this site states one.",
+    "Chile's plant-health / biosecurity requirement for plywood and for wood packaging - the body table carries a second [TO CONFIRM] cell. No Chilean agency or scheme is named on this site, so none is named here.",
+    "The claim \"the longest sea leg we quote\" in the h1 lede and the first body paragraph. It comes from the lane brief, not from anything already published on the site (the mirror-image claim, Colombo as \"the shortest export lane we run\", is on sri-lanka.body.html). Confirm or cut. No transit figure is attached to it anywhere.",
+    "Whether CWI wants to name a usual discharge port for Chile. Nothing on the site names one, so the page says FOB Cochin to the port the buyer nominates."
+  ],
+  "slug": "chile",
+  "name_the": "Chile",
+  "name_plain": "Chile",
+  "title": "Indian Plywood Exporter to Chile — FOB Cochin | Cochin Wood",
+  "desc": "Import plywood from India to Chile: BWR, IS 710 marine, commercial and shuttering ply from Kochi, FOB Cochin in USD. Specify the bond for the voyage.",
+  "schema_name": "Indian Plywood Factory Exporting to Chile",
+  "crumb_leaf": "Plywood exporter from India to Chile, the longest sea leg we quote",
+  "kicker": "Export &middot; Chile",
+  "h1": "Plywood exporter from India to Chile, the longest sea leg we quote",
+  "lede": "BWR, IS 710 marine, commercial and film-faced shuttering plywood from Perumbavoor, Kerala, made by a group that has manufactured plywood since 1986. Quoted FOB Cochin in USD. On a voyage this long the bond grade is the decision that matters most.",
+  "tldr": "<strong>TL;DR:</strong> Chile is the one South American market on our export list and the longest sea leg we quote. We ship BWR, IS 710 BWP marine, commercial, film-faced shuttering and packing-grade plywood from Cochin Port, quoted in USD, FOB Cochin by default. Specify the bond for the voyage: MR is moisture-resistant, not waterproof. We do not publish a transit time for this lane because your forwarder chooses the routing. Quote replies within one business day.",
+  "ports_ship": "the Chilean discharge port you nominate",
+  "faq": [
+    [
+      "How long does a container take from Kochi to Chile?",
+      "We do not publish a transit time for this lane. The service and any transhipment your forwarder books is what decides it, and on the longest lane we run a made-up number would be the most expensive thing on the page. What we do put in writing is the schedule at our end: production lead time, the inspection window before loading, stuffing at the factory 40 km from Cochin Port, and gate-in."
+    ],
+    [
+      "Which bond grade should I order for a voyage this long?",
+      "MR is moisture-resistant, not waterproof, and it is the wrong board to put through weeks of sea air and then store in a damp yard. Where the panel will sit in humid conditions after it lands, specify BWR; where it will actually be wet, IS 710 BWP marine. We confirm the bond on the proforma invoice and every grade ships with its technical data sheet."
+    ],
+    [
+      "Do you quote CIF Chile, or only FOB Cochin?",
+      "FOB Cochin is the default, in USD under Incoterms 2020. FCA Cochin, CFR or CIF are quoted where agreed, against the freight the routing you choose actually attracts. Standard products ship on 50% advance with the balance before dispatch; custom specifications are 100% advance, by bank transfer (T/T)."
+    ],
+    [
+      "How are the panels packed for the voyage?",
+      "Palletised and strapped for sea transit. Plywood is dense and weighs out before it cubes out, so we load to the lower of the ship-line payload, about 26.7 tonnes, and the road limit at your end, and confirm the sheet count with the net and gross weights on the proforma invoice."
+    ]
+  ],
+  "faq_boiler": [
+    "warehouse"
+  ],
+  "cta_h2": "Get a Chile quote in one business day",
+  "cta_p": "Send thickness, sheet size, bond grade, quantity and your discharge port to sales@cochinwood.in or WhatsApp +91 95674 10175. A USD quote with a loading plan comes back within one business day."
+}

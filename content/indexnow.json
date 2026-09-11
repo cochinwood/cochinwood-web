@@ -1,0 +1,7 @@
+{
+  "host": "www.cochinwood.in",
+  "endpoint": "https://api.indexnow.org/indexnow",
+  "key_file": "content/indexnow/015ad99674249c7dc418af21415b06bc.txt",
+  "key_location": "https://www.cochinwood.in/015ad99674249c7dc418af21415b06bc.txt",
+  "source": "Preserved existing published ownership key from PR29; not rotated."
+}

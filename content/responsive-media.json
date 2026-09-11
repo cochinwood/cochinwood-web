@@ -1,0 +1,3335 @@
+{
+  "/files/Hero%20Optimized/Home.webp": [
+    {
+      "src": "/files/Responsive/home-1b7d40e8-400.webp",
+      "width": 400,
+      "sha256": "57f10634b3dc5abc246de62067c16df73678f85295baff7f152d77b65869e1f6"
+    },
+    {
+      "src": "/files/Responsive/home-1b7d40e8-640.webp",
+      "width": 640,
+      "sha256": "d3b6933547c1c436ff32bbd42ffeca4ba280b1df928f8f8848281862a6b021c4"
+    },
+    {
+      "src": "/files/Responsive/home-1b7d40e8-960.webp",
+      "width": 960,
+      "sha256": "e08f82450ac7416ebb203ce479d4b217f41e6815b96b1eaed84335c2ba80cb08"
+    },
+    {
+      "src": "/files/Responsive/home-1b7d40e8-1200.webp",
+      "width": 1200,
+      "sha256": "3e7abc10af88f73d7955b8ae3f26e8eaa2706f865ed003615ac7aef74b3c8651"
+    }
+  ],
+  "/files/Hero%20Optimized/Products.jpg": [
+    {
+      "src": "/files/Responsive/catalogue-materials-90cd5d16-320.webp",
+      "width": 320,
+      "sha256": "64710b01ac8860c7588a1e9300430013f6922f55cea492c6419e72dbf489a169"
+    },
+    {
+      "src": "/files/Responsive/catalogue-materials-90cd5d16-480.webp",
+      "width": 480,
+      "sha256": "d76d64ef2050eacddf72fd2d9472994543edf42c930c3f261e84e829a9900423"
+    },
+    {
+      "src": "/files/Responsive/catalogue-materials-90cd5d16-640.webp",
+      "width": 640,
+      "sha256": "18e61f5c72e5cbbb69733e0c89dca75c2f7004e6551049990ed8ef33b8938ace"
+    },
+    {
+      "src": "/files/Responsive/catalogue-materials-90cd5d16-720.webp",
+      "width": 720,
+      "sha256": "bc24bc943d2f7ed96442531618467c46a1478d0dc78d5fd97e5c4780f8287fcd"
+    },
+    {
+      "src": "/files/Responsive/catalogue-materials-90cd5d16-768.webp",
+      "width": 768,
+      "sha256": "9b2f5524ff2be7d6a709b987620be9a92674900fbc9b39a9d07c1ce610740643"
+    },
+    {
+      "src": "/files/Responsive/catalogue-materials-90cd5d16-960.webp",
+      "width": 960,
+      "sha256": "0ca463faa2349bb729ec8e570ce6cdff9cc10debc2d057fea9836b5b6f78be07"
+    },
+    {
+      "src": "/files/Responsive/catalogue-materials-90cd5d16-1200.webp",
+      "width": 1200,
+      "sha256": "f838b2bc4bceef023cec9f4ec3e167c3d5b8d89e25e9d61bc3973a89281f82e7"
+    }
+  ],
+  "/files/Plywood%20Product%20Photos/cwi-packing-plywood.webp": [
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-packing-plywood-320.webp",
+      "width": 320,
+      "sha256": "5f26341ac9bb104df496e1eb53b74a544188b2ca6ac66005bddc430f02d45d4a"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-packing-plywood-480.webp",
+      "width": 480,
+      "sha256": "0247dd21d47c18ffee8f28562cbff83c55567204de196ea64ba05afb70bac194"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-packing-plywood-640.webp",
+      "width": 640,
+      "sha256": "840bb2014cda39e6713ce2feb67e43612960e97424fed53a9f5cd3ed017277e1"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-packing-plywood-960.webp",
+      "width": 960,
+      "sha256": "5f2ce7b6569b5456b8da3c2592f6e6d731491867d39798e69bcae33523e4abd4"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-packing-plywood.webp",
+      "width": 1200,
+      "sha256": "06855298e2b05157a76e2dc5f973edf6cc5e4c2d95598262e984d44bc550126f"
+    }
+  ],
+  "/files/Plywood%20Product%20Photos/cwi-okoume-plywood.webp": [
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-okoume-plywood-320.webp",
+      "width": 320,
+      "sha256": "f9404d745df12abd97daf6a427b684c2cfa7cb8ef209bd9983632076483844a0"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-okoume-plywood-480.webp",
+      "width": 480,
+      "sha256": "f8f1a00b01338bed45fd733b2db63569d1f73126b2acc87fdc0abd455800ff72"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-okoume-plywood-640.webp",
+      "width": 640,
+      "sha256": "b34af0c9736c81426bd72fa2114e49e4d49ec63ff77c70b41f81c54b067a84cf"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-okoume-plywood-960.webp",
+      "width": 960,
+      "sha256": "acd33816d91c991632412c0662b57a5ea6a0b97853db6127c55fc558f8d84f8a"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-okoume-plywood.webp",
+      "width": 1200,
+      "sha256": "5869e9614dfb31854982afd505b6f313ff6e7e65c5156411849abde8f9a83443"
+    }
+  ],
+  "/files/Plywood%20Product%20Photos/cwi-rubberwood-plywood.webp": [
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-rubberwood-plywood-320.webp",
+      "width": 320,
+      "sha256": "eed06a031817080b61b2c268dbbc37dcccbd2f22533bba7c6da7bb9b1502bcd4"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-rubberwood-plywood-480.webp",
+      "width": 480,
+      "sha256": "b4dc1ff27ca509fe48a91c0a1f8a3fcbf186d77baa08904d8fa18bf2b4b807f8"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-rubberwood-plywood-640.webp",
+      "width": 640,
+      "sha256": "12594597f84d0983d976d62ee4cfaadda2817c6a91265c212abe5486cd4f7d98"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-rubberwood-plywood-960.webp",
+      "width": 960,
+      "sha256": "be59b6cbc12517ad0ffeac49610598e73fbe58bde0655aa2d0315f0f426f7c66"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-rubberwood-plywood.webp",
+      "width": 1200,
+      "sha256": "42dd13f1f7a06513b52f33b7302d4a7afa22e0f3b97b78bfc8aa447f946da8a7"
+    }
+  ],
+  "/files/Plywood%20Product%20Photos/cwi-commercial-plywood.webp": [
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-commercial-plywood-320.webp",
+      "width": 320,
+      "sha256": "314abe8b5be7819ac86f90f41ac7528947d5024ed522eebcdccd895ca8de1dc0"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-commercial-plywood-480.webp",
+      "width": 480,
+      "sha256": "352e2d6b099cd0f822061a23d5b15da9a902fa6a9a7e425395baed2f40bd9a75"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-commercial-plywood-640.webp",
+      "width": 640,
+      "sha256": "aaf0b58192fd0a7b3f481e3bf56fb1a923104f1a4f7b8137dda5ee293c03e1e3"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-commercial-plywood-960.webp",
+      "width": 960,
+      "sha256": "a25629f75ffdf0a0f429df21501decb81f71fe97f091b973823ba08844c257fa"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-commercial-plywood.webp",
+      "width": 1200,
+      "sha256": "2941f2d5f49bbb3998b1625d651da6613168aab30315128238063e2e45cd5e89"
+    }
+  ],
+  "/files/Plywood%20Product%20Photos/cwi-marine-plywood.webp": [
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-marine-plywood-320.webp",
+      "width": 320,
+      "sha256": "8319dc50f7a888de17c8fcaf121c226a1b2acf624498ae554097b11f5b1566e6"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-marine-plywood-480.webp",
+      "width": 480,
+      "sha256": "b4a2fdb49ac712af23f077813e4de0ea75baa69a42c8b2c2bc5ac8eec53990ae"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-marine-plywood-640.webp",
+      "width": 640,
+      "sha256": "dac3995fa8c05c852c063f12906596ebc967553bd429ed1cd099ee8f8524e69f"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-marine-plywood-960.webp",
+      "width": 960,
+      "sha256": "5bc691fe721f512186f241cff87c9aae071ee2c4387e1feb66b9a7b655976e2d"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-marine-plywood.webp",
+      "width": 1200,
+      "sha256": "a2f97e85aa136956bef3c033442be621563b084743047365b42496a13a4ffbd4"
+    }
+  ],
+  "/files/Plywood%20Product%20Photos/cwi-film-faced-brown.webp": [
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-film-faced-brown-320.webp",
+      "width": 320,
+      "sha256": "0bd8bd50b3c6c8aa402ae5096ac1189f8aea40b86f67d0a4dbb5c50e1c225f21"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-film-faced-brown-480.webp",
+      "width": 480,
+      "sha256": "94d5259041f56fe8c37bb7344a564de80fdb7d28ca79aa9577c8415819e3b561"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-film-faced-brown-640.webp",
+      "width": 640,
+      "sha256": "9c610aee21dbdcf123d1f9630ca786148c4ad9cf9d95a947b9a07c4fc38167cc"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-film-faced-brown-960.webp",
+      "width": 960,
+      "sha256": "27593a16e4cf421dfad43782722d9d513d0988dee5040aa71920617fc9a3db30"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-film-faced-brown.webp",
+      "width": 1200,
+      "sha256": "0539a5cd8c26f7ab9017d52ee50aeed6e5fc6e363085d11cbdab60570170deec"
+    }
+  ],
+  "/files/Plywood%20Product%20Photos/cwi-bwr-hardwood-plywood.webp": [
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-bwr-hardwood-plywood-320.webp",
+      "width": 320,
+      "sha256": "452920c35e39a49e34d1cccb9f5920b96573ce105ca1492bea8f593da6d87c65"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-bwr-hardwood-plywood-480.webp",
+      "width": 480,
+      "sha256": "28707104798b3a655fba59bcbcbacdf53c0c51189399d1c0e527c4b66360f863"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-bwr-hardwood-plywood-640.webp",
+      "width": 640,
+      "sha256": "4ebc32a1f87eccfc8036e56ab075ea02a8c52227d6acda93394791213a359f6c"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-bwr-hardwood-plywood-960.webp",
+      "width": 960,
+      "sha256": "6e2043eebd48faea603fddd67c84f05c2c70a53dd8499f61748e7741bb7891c2"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-bwr-hardwood-plywood.webp",
+      "width": 1200,
+      "sha256": "0e54ac79686e3733f2f7b5847f9144dbb520cf79409f56a49199642c4abc321f"
+    }
+  ],
+  "/files/Plywood%20Product%20Photos/cwi-anti-skid.webp": [
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-anti-skid-320.webp",
+      "width": 320,
+      "sha256": "177ecf3b784b35cf393938cdbc095d29690040364282bbeb7aa90f29b0a2fdea"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-anti-skid-480.webp",
+      "width": 480,
+      "sha256": "a18c5fe85d523882b3a6e639858753be4341dbb6b2db230d430f5e1d9d31204e"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-anti-skid-640.webp",
+      "width": 640,
+      "sha256": "8e03956da4df4ce0f1afbc39c6b6a31948f67d60c110d655c26fa193e9e0f495"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-anti-skid-960.webp",
+      "width": 960,
+      "sha256": "8710615a401f2488cbf3c0d2e39bf0f3b4cd6be286051270ff5ab8073b2f2929"
+    },
+    {
+      "src": "/files/Plywood%20Product%20Photos/cwi-anti-skid.webp",
+      "width": 1200,
+      "sha256": "63a20ccc972df674965377a7e74b3ed0f34b23704774cb8b878cb312c192142c"
+    }
+  ],
+  "/files/Process%20Illustrations/cwi-process-sanding.jpg": [
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-sanding-320.jpg",
+      "width": 320,
+      "sha256": "402014218bcee61d4af84489066c750e01ef9d759ab880152576b5055b1d5c54"
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-sanding-480.jpg",
+      "width": 480,
+      "sha256": "5c62ad733572b49894b42f0e830e900ae08b60bfb71b3530bd036346201119c6"
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-sanding-640.jpg",
+      "width": 640,
+      "sha256": "27b28da8a8a3ca038c9bd0bfe09f8a8d60e6a16b8d008109d67f7ac8f630f99c"
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-sanding-960.jpg",
+      "width": 960,
+      "sha256": "7e93c2381f9ae1bfce2b67afcc7a881de8baeb26ada55ab75787cb260a4de9c8"
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-sanding-1280.jpg",
+      "width": 1280,
+      "sha256": "85be484f3e8017be3bbf82e48471ec68b34bf72389d7667d6f1ea214754f9eb1"
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-sanding.jpg",
+      "width": 1600,
+      "sha256": "8a2e32e9440c52b882de9f9f460c0bd39f3e2b5aa54e65fef21d123cf812fcab"
+    }
+  ],
+  "/files/Process%20Illustrations/cwi-process-moisture.jpg": [
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-moisture-320.jpg",
+      "width": 320,
+      "sha256": "241606c9e45807e84e167f810bbe8759460184c189d850a93e854494677bbbdb"
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-moisture-480.jpg",
+      "width": 480,
+      "sha256": "97cbd4215d330d3ddd248fafb837fa9515bf722a682b9016538bc15155b68a75"
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-moisture-640.jpg",
+      "width": 640,
+      "sha256": "0967abf33a6d4886fffb8f1d83451276229b2d1584252812e9bfb46079b62051"
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-moisture-960.jpg",
+      "width": 960,
+      "sha256": "4e41a6238c5c9017f00e0892b9780bf7a11a9fb2dcaf2b676b742cef82a75c57"
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-moisture-1280.jpg",
+      "width": 1280,
+      "sha256": "d42456cec6411473de68eaf84b18fab30bce1e56a5265f41b73bbdbe9b791c0e"
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-moisture.jpg",
+      "width": 1600,
+      "sha256": "2d26cfd93d3bd68d9a81f260576e30555759bc26fedc9956098bdbcd530248cb"
+    }
+  ],
+  "/files/Process%20Illustrations/cwi-process-loading.jpg": [
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-loading-320.jpg",
+      "width": 320,
+      "sha256": "a9da6fcf98002ecb3f516b1f76c46d5218b9ffa8cee2bb797a53d4207258e6c6"
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-loading-480.jpg",
+      "width": 480,
+      "sha256": "8dc9c22124aa478412bf4270dfd1f509dbbbc769cf331bb3583c621a743c770c"
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-loading-640.jpg",
+      "width": 640,
+      "sha256": "a779c3320e01313a85b9e02f3c62d4ea8dcae6cf04252cfaf57ca4f53bf56c9c"
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-loading-960.jpg",
+      "width": 960,
+      "sha256": "8e4eed2f6be2d61c507b7c649aec9b10b4d6b1941cb14061497266dc553022a0"
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-loading-1280.jpg",
+      "width": 1280,
+      "sha256": "c2dbb937e5af13f8565a425ed0057986cfe878bc0ac75a1c45e237b3ada79b65"
+    },
+    {
+      "src": "/files/Process%20Illustrations/cwi-process-loading.jpg",
+      "width": 1600,
+      "sha256": "ad44f5ad1160bdae55162d7362080832973d853d894c5d70347646db14661dba"
+    }
+  ],
+  "/files/Product/eucalyptus.jpg": [
+    {
+      "src": "/files/Product/eucalyptus-320.jpg",
+      "width": 320,
+      "sha256": "0e785a122676da89ba5917e4d196f89f464368b7902d72ef54c1619e9b80cc7d"
+    },
+    {
+      "src": "/files/Product/eucalyptus-480.jpg",
+      "width": 480,
+      "sha256": "22c6dc744eaa020e097e8e1ea75aeafee397ca5916eb33ecf8d7f528ad6f5157"
+    },
+    {
+      "src": "/files/Product/eucalyptus-640.jpg",
+      "width": 640,
+      "sha256": "2244c6918dd1b9379e53c9cd10598e2f502fd14c9388467f7ba33b356701d4f2"
+    },
+    {
+      "src": "/files/Product/eucalyptus-960.jpg",
+      "width": 960,
+      "sha256": "179dff4595dcb1f91fafbe9f238693f251d784cdc2e947e9c215655dc4a58a51"
+    },
+    {
+      "src": "/files/Product/eucalyptus.jpg",
+      "width": 1024,
+      "sha256": "c25a3ff09b7c1c5aeddb5cb830f720a22067a40a07cfdeff373c0a03a78882f7"
+    }
+  ],
+  "/files/Product/rubberwood.jpg": [
+    {
+      "src": "/files/Product/rubberwood-320.jpg",
+      "width": 320,
+      "sha256": "5e96b2d3dd5610a58595628e041e500cc53aa6c473f02ace5bb4a11b155b30ca"
+    },
+    {
+      "src": "/files/Product/rubberwood-480.jpg",
+      "width": 480,
+      "sha256": "4cc709f0fed6a41ab63a54d3488c1b08ea6c4edad32de596c8f72d19ae2eacce"
+    },
+    {
+      "src": "/files/Product/rubberwood-640.jpg",
+      "width": 640,
+      "sha256": "38fee83b3d72434db041be72c134c2a59691bd09caef07b726fef4aa613112ba"
+    },
+    {
+      "src": "/files/Product/rubberwood-960.jpg",
+      "width": 960,
+      "sha256": "cad24a0c5b32b0262642babb95e17d61e009acefbc6c9aeb10c9370c8e34824c"
+    },
+    {
+      "src": "/files/Product/rubberwood.jpg",
+      "width": 1024,
+      "sha256": "2dcc24c420902be81f71b6e1c26b797116f7b182677029bd4b313cef9bc661f2"
+    }
+  ],
+  "/files/Product/acacia.jpg": [
+    {
+      "src": "/files/Product/acacia-320.jpg",
+      "width": 320,
+      "sha256": "180c070e5efe0785a7b6ca8f89b5ffadf1118b8d712c40a82bc71d7cb32d9ab3"
+    },
+    {
+      "src": "/files/Product/acacia-480.jpg",
+      "width": 480,
+      "sha256": "5425a0e60736dae3a883a2247c6b0b3699e49ee97453bc8d95c4201f35977cc2"
+    },
+    {
+      "src": "/files/Product/acacia-640.jpg",
+      "width": 640,
+      "sha256": "4f6341782c21c9e67fe90a3dfe293d4cd07049dbc940ef7a7ffe34c1cf5ddc10"
+    },
+    {
+      "src": "/files/Product/acacia-960.jpg",
+      "width": 960,
+      "sha256": "198b697f8baddee671d1c6f37fd29da2b6c4a7228867ef605b71ecb9fb1fb07e"
+    },
+    {
+      "src": "/files/Product/acacia.jpg",
+      "width": 1024,
+      "sha256": "d4d92617db5032f3ea382bdfaa09d1b8d02d45ea88eb2ef10d1488af2148e6b1"
+    }
+  ],
+  "/files/Product/mahogany.jpg": [
+    {
+      "src": "/files/Product/mahogany-320.jpg",
+      "width": 320,
+      "sha256": "6bb7a965b8fce911fb7654d9602f542e79d55b261f67963465441feb7b6152bf"
+    },
+    {
+      "src": "/files/Product/mahogany-480.jpg",
+      "width": 480,
+      "sha256": "7659527d781b0b863b92f8b9105e547a1032e1ed663c3500d91357a6cce658cb"
+    },
+    {
+      "src": "/files/Product/mahogany-640.jpg",
+      "width": 640,
+      "sha256": "ab147ba230ad4ac7a79f12d494761c7ca4e433a8388a83578bf65051ffbd3690"
+    },
+    {
+      "src": "/files/Product/mahogany-960.jpg",
+      "width": 960,
+      "sha256": "7e466aa97f729d5011eb199617d3bcfd6c174bf011a7d83633957059e8cfba64"
+    },
+    {
+      "src": "/files/Product/mahogany.jpg",
+      "width": 1024,
+      "sha256": "af186313747753130239f69e4c0e958136bcbd243a5fc705a9b5747df4e62024"
+    }
+  ],
+  "/files/Product/jackwood.jpg": [
+    {
+      "src": "/files/Product/jackwood-320.jpg",
+      "width": 320,
+      "sha256": "519c2d6876c4f0a38e96e013f0e66abde413bff6e8da314f7cf808a4894f5ada"
+    },
+    {
+      "src": "/files/Product/jackwood-480.jpg",
+      "width": 480,
+      "sha256": "e4cf6a642c679b9efb12d6d4b2e845ea7be0e12c256f4a5576e0a4fe348ed243"
+    },
+    {
+      "src": "/files/Product/jackwood-640.jpg",
+      "width": 640,
+      "sha256": "7494c8e743ff103f58fc0b96828009ccf0f5efff98df5014f42d979381660cda"
+    },
+    {
+      "src": "/files/Product/jackwood-960.jpg",
+      "width": 960,
+      "sha256": "876c659c57d32731ff262d09ab42801b46b4a2056ce81f307b24e27fd3b979c1"
+    },
+    {
+      "src": "/files/Product/jackwood.jpg",
+      "width": 1024,
+      "sha256": "1f4fb6bf177a7d4deec3946cc7ecf6a6954bace55906f5652a7857f97deddfe2"
+    }
+  ],
+  "/files/Product/silverwood.jpg": [
+    {
+      "src": "/files/Product/silverwood-320.jpg",
+      "width": 320,
+      "sha256": "959710204ea9a327e7b59bb56217a837bb4a37cc15786825d2df3d2c13dd4dbf"
+    },
+    {
+      "src": "/files/Product/silverwood-480.jpg",
+      "width": 480,
+      "sha256": "3b770ad041237cf81064a1e91b453acf4f2ecea1133955e541a6358fc9a200fb"
+    },
+    {
+      "src": "/files/Product/silverwood-640.jpg",
+      "width": 640,
+      "sha256": "22a52a248eac95228e2472e346be2c0156a30661915f6651fe07d1986fb5248f"
+    },
+    {
+      "src": "/files/Product/silverwood-960.jpg",
+      "width": 960,
+      "sha256": "fa9967e2b0f43ab105e5bf602242c34c6c1573e48e8b2dbb69bc09e291277337"
+    },
+    {
+      "src": "/files/Product/silverwood.jpg",
+      "width": 1024,
+      "sha256": "0f6b53edec2bd8d327410b821b9c8e284fa1e98a4bc7ac0cb413788d8411a0c2"
+    }
+  ],
+  "/files/Editorial/cabinetry.webp": [
+    {
+      "src": "/files/Editorial/cabinetry-400.webp",
+      "width": 400,
+      "sha256": "7c6d6c4093f4910e6d82b9a381f8a97d1f56a579bb7ece958c327d18c3f2e4a4"
+    },
+    {
+      "src": "/files/Editorial/cabinetry-800.webp",
+      "width": 800,
+      "sha256": "d714a3b3981f4cb3d8585130a75f7356c817ba72fdd39ad93e7e819ce498eac1"
+    },
+    {
+      "src": "/files/Editorial/cabinetry-1200.webp",
+      "width": 1200,
+      "sha256": "eeb454e8107d2a5bf8e85f64fe03d0864c64501dc2426741a29bde9388310cf3"
+    },
+    {
+      "src": "/files/Editorial/cabinetry.webp",
+      "width": 1536,
+      "sha256": "198b28e238e13906d0b4775ac282060e4c2fedd18e849194b821361db225cf86"
+    }
+  ],
+  "/files/Editorial/packing-case.webp": [
+    {
+      "src": "/files/Editorial/packing-case-400.webp",
+      "width": 400,
+      "sha256": "d340a62efea6cd2d3557351edc4c6977e660d33b015f76a79eb0c0a111e58af0"
+    },
+    {
+      "src": "/files/Editorial/packing-case-800.webp",
+      "width": 800,
+      "sha256": "f88f0bbf506893203c8eafe1400f373a069363b23a2c4aa40cdc8b3780beb1b9"
+    },
+    {
+      "src": "/files/Editorial/packing-case-1200.webp",
+      "width": 1200,
+      "sha256": "3edb509f425fe14e0baff55d0faf4e3bfe2d6952a54b25b184fa935bb1f9980a"
+    },
+    {
+      "src": "/files/Editorial/packing-case.webp",
+      "width": 1536,
+      "sha256": "5b73561c6d86361bf45ccd11298206f5933b887c34ef4664c6a4e6090c7b38fb"
+    }
+  ],
+  "/files/Editorial/finger-joint-detail.webp": [
+    {
+      "src": "/files/Editorial/finger-joint-detail-400.webp",
+      "width": 400,
+      "sha256": "0baa67b279f50e9688a14f155baefac63736b347352ad0fe739549184d769400"
+    },
+    {
+      "src": "/files/Editorial/finger-joint-detail-800.webp",
+      "width": 800,
+      "sha256": "377d1cfcdcf235193d6a53d9bf865dec658b0cb559b661a03e7a925dddd0198f"
+    },
+    {
+      "src": "/files/Editorial/finger-joint-detail-1200.webp",
+      "width": 1200,
+      "sha256": "1c8f7d7c08545ba4ead8171f8a6ef01d8cb5d57e51006efc60c0786db313fbbb"
+    },
+    {
+      "src": "/files/Editorial/finger-joint-detail.webp",
+      "width": 1536,
+      "sha256": "d2bfa4e1643e5666656ebe68f6fbf16ac7657e18126c262f1b7fcab521c59aae"
+    }
+  ],
+  "/files/Species/acacia-mangium-wood.webp": [
+    {
+      "src": "/files/Species/acacia-mangium-wood-320.webp",
+      "width": 320,
+      "sha256": "a36caa6e47fe620dee981e8c9675ecb6e02ea51145c0f6e10a5c2ac4156e3746"
+    },
+    {
+      "src": "/files/Species/acacia-mangium-wood-640.webp",
+      "width": 640,
+      "sha256": "d93553706ea739ca2ab06b8aacd6fc6a1ac23bb57a818514cc89fcf947d12615"
+    },
+    {
+      "src": "/files/Species/acacia-mangium-wood.webp",
+      "width": 880,
+      "sha256": "91169db1314a4b0527df460fc5c0b4e8f8524cdbc1efb650fdc918802e4f2c65"
+    }
+  ],
+  "/files/Species/acacia-mangium-botanical.webp": [
+    {
+      "src": "/files/Species/acacia-mangium-botanical-320.webp",
+      "width": 320,
+      "sha256": "52e6b302d9e5e49a570aabae2afa8eb83629cd778cb2511c28cebfe18a7f547c"
+    },
+    {
+      "src": "/files/Species/acacia-mangium-botanical.webp",
+      "width": 450,
+      "sha256": "4a1f20927cd5188fcd68dff1952934821b17f3ef1a5c4be278b2fb7ce31c712b"
+    }
+  ],
+  "/files/Species/birch-botanical.webp": [
+    {
+      "src": "/files/Species/birch-botanical-320.webp",
+      "width": 320,
+      "sha256": "aa0cf4b972ce080bba02534a5b8796d008b05ad8e0323a79af539247505b9933"
+    },
+    {
+      "src": "/files/Species/birch-botanical-640.webp",
+      "width": 640,
+      "sha256": "f1170040e48893db8b78b97fe6feff2cd102373e9e041955da624b4bdf11c7f7"
+    },
+    {
+      "src": "/files/Species/birch-botanical-960.webp",
+      "width": 960,
+      "sha256": "afcdbdf6d7bf76fc8f8bb21b520c8ad821cfaab9f5118600522c2fc1e3e6241e"
+    },
+    {
+      "src": "/files/Species/birch-botanical.webp",
+      "width": 1200,
+      "sha256": "e4c8dbc6931ea837b122557e9c70793f12108fea730ad31ee3c00acf53e164e7"
+    }
+  ],
+  "/files/Species/eucalyptus-botanical.webp": [
+    {
+      "src": "/files/Species/eucalyptus-botanical-320.webp",
+      "width": 320,
+      "sha256": "dd1afc663ca3c3a3f0de74a358e0c0741241f9ddb53ba32a623bc25ba1edf884"
+    },
+    {
+      "src": "/files/Species/eucalyptus-botanical.webp",
+      "width": 483,
+      "sha256": "9dbedf45bd9afce274985e3714648736388286e0692b77c39115de2000d21bab"
+    }
+  ],
+  "/files/Species/gmelina-wood.webp": [
+    {
+      "src": "/files/Species/gmelina-wood-320.webp",
+      "width": 320,
+      "sha256": "18d074a48a3cc8d62947a86e4acc8ac58c1d6ebdefec30457ea596ac23ad4fb4"
+    },
+    {
+      "src": "/files/Species/gmelina-wood-640.webp",
+      "width": 640,
+      "sha256": "cd8857aca41b2ec9846b38a2f6a97e4e5bc6c259a21346042dd28f75d5484f5d"
+    },
+    {
+      "src": "/files/Species/gmelina-wood.webp",
+      "width": 880,
+      "sha256": "74c514eb26d451d887b2fa54f07f3cff49c9e57929617925b5a0ed8e0a01bb88"
+    }
+  ],
+  "/files/Species/gmelina-botanical.webp": [
+    {
+      "src": "/files/Species/gmelina-botanical-320.webp",
+      "width": 320,
+      "sha256": "b51729eb9ee43279af6330e873ea6ec30061d6a1e8da30c62b94697ba7c55c7c"
+    },
+    {
+      "src": "/files/Species/gmelina-botanical-640.webp",
+      "width": 640,
+      "sha256": "3980815f29b603559312702fc28e7f518ca367bada9ac6305c5eb6caf1853fb7"
+    },
+    {
+      "src": "/files/Species/gmelina-botanical-960.webp",
+      "width": 960,
+      "sha256": "c0680f1d32e969771565f800aa9383dada90a5cbe35f961ccef1c9af71d0e763"
+    },
+    {
+      "src": "/files/Species/gmelina-botanical.webp",
+      "width": 1200,
+      "sha256": "361e754003f2b51152e43c0237738dd65c1a7f8a5f8b63783fb35cedb5807c11"
+    }
+  ],
+  "/files/Species/gurjan-wood.webp": [
+    {
+      "src": "/files/Species/gurjan-wood-320.webp",
+      "width": 320,
+      "sha256": "f29b835ee393f495c07b0bf0369a49d120079913101784ba92772b4a0b14f968"
+    },
+    {
+      "src": "/files/Species/gurjan-wood-640.webp",
+      "width": 640,
+      "sha256": "d9fe73558b47894e796cd2b8c9f2324bd9aa6db37ed01b9ef15e60bc90f9ad34"
+    },
+    {
+      "src": "/files/Species/gurjan-wood.webp",
+      "width": 880,
+      "sha256": "f91858d55235a581cd283b701125bcd3768137d7f4e405abd478200f5c54fb52"
+    }
+  ],
+  "/files/Species/gurjan-botanical.webp": [
+    {
+      "src": "/files/Species/gurjan-botanical-320.webp",
+      "width": 320,
+      "sha256": "53892090e8babfdfcd0d42c8e7b794310bb9617faa9d1c78452af51a2ef66d84"
+    },
+    {
+      "src": "/files/Species/gurjan-botanical-640.webp",
+      "width": 640,
+      "sha256": "007d5932a0f8db11f2191d04bc157f055a43f15269c7ba8136949adc6ccc2caa"
+    },
+    {
+      "src": "/files/Species/gurjan-botanical-960.webp",
+      "width": 960,
+      "sha256": "34271cc4a75d4c5f788cc9cd7b80c48e707cf219d0538b4581ed222614ffb349"
+    },
+    {
+      "src": "/files/Species/gurjan-botanical.webp",
+      "width": 1067,
+      "sha256": "42222bd59660da91b243261b5cb1238cdab1bd045a9a5ce50c7bdbe8c7270673"
+    }
+  ],
+  "/files/Species/jackwood-botanical.webp": [
+    {
+      "src": "/files/Species/jackwood-botanical-320.webp",
+      "width": 320,
+      "sha256": "c9398302beb10c8bb8cabdc41ee087e0931b6c3db3863f56c4dea6184ac4933e"
+    },
+    {
+      "src": "/files/Species/jackwood-botanical-640.webp",
+      "width": 640,
+      "sha256": "3f9ddada3931052340934251c2ca5a2835ba05669f06db85c5b1ed45f336eb60"
+    },
+    {
+      "src": "/files/Species/jackwood-botanical-960.webp",
+      "width": 960,
+      "sha256": "abb5550508fbdb24549d1e737a4dc5beacc6b1bad3b8bdec93674dda9a4f1f93"
+    },
+    {
+      "src": "/files/Species/jackwood-botanical.webp",
+      "width": 1067,
+      "sha256": "0f59b32a8678ac6d9e54da93791e69c56ace9cea48ba81777345a8b9e92f15f1"
+    }
+  ],
+  "/files/Species/mahogany-wood.webp": [
+    {
+      "src": "/files/Species/mahogany-wood-320.webp",
+      "width": 320,
+      "sha256": "5425ab73979d711b6e6737fdd6f8f55a7aea5dfbfefa3b56d39495d895df18e3"
+    },
+    {
+      "src": "/files/Species/mahogany-wood-640.webp",
+      "width": 640,
+      "sha256": "a68eaf330009a728a8c84b1d5e9c84424bae701263fb2dd069a95fb63fb92052"
+    },
+    {
+      "src": "/files/Species/mahogany-wood.webp",
+      "width": 791,
+      "sha256": "9b065d4aca97473eebc8491eb7503b572f08d9fc90c070943ce0273af6d6d5c8"
+    }
+  ],
+  "/files/Species/mahogany-botanical.webp": [
+    {
+      "src": "/files/Species/mahogany-botanical-320.webp",
+      "width": 320,
+      "sha256": "f2d5d357f750eced784003ea4cd76a6157c9757bbb4bfffd26367ea449a7037f"
+    },
+    {
+      "src": "/files/Species/mahogany-botanical-640.webp",
+      "width": 640,
+      "sha256": "8e4cf14080eebb0e9eecd14e2cf76aaf8014aeb4417163bfac80d45b3812bb7b"
+    },
+    {
+      "src": "/files/Species/mahogany-botanical.webp",
+      "width": 700,
+      "sha256": "1f2572fd16b5da6c9ae78b5609df20282a64524eeaec18d881eef4d3e8594f2d"
+    }
+  ],
+  "/files/Species/mango-wood.webp": [
+    {
+      "src": "/files/Species/mango-wood-320.webp",
+      "width": 320,
+      "sha256": "f4cb9e62a6eebb876352a166bb99997c555abca524a963338c13a6aa605b7608"
+    },
+    {
+      "src": "/files/Species/mango-wood-640.webp",
+      "width": 640,
+      "sha256": "c448b907832bb7f771ba3a5aed9f21d58d3a217b8de0e17984efb68f3e4f5b01"
+    },
+    {
+      "src": "/files/Species/mango-wood.webp",
+      "width": 750,
+      "sha256": "0ff3102d2fff241f43fe40b0f24e972cc87ce2c372d2d2fcbc743529a1f1b022"
+    }
+  ],
+  "/files/Species/mango-botanical.webp": [
+    {
+      "src": "/files/Species/mango-botanical-320.webp",
+      "width": 320,
+      "sha256": "77cb82eb5689a93fa52b91df3ef63dc2ead0b165e31f59b039db1e2d6e577f32"
+    },
+    {
+      "src": "/files/Species/mango-botanical-640.webp",
+      "width": 640,
+      "sha256": "8adb45c0bb7f1bb984d59c666bed4270684eaf96c07ed997edda591e634face6"
+    },
+    {
+      "src": "/files/Species/mango-botanical-960.webp",
+      "width": 960,
+      "sha256": "66bb77854b96c4ae800056b648a8a6262e348681a7d789bc75cc58c5d033475c"
+    },
+    {
+      "src": "/files/Species/mango-botanical.webp",
+      "width": 1200,
+      "sha256": "e0fbd4880dcc6ce1bb051d67e7416b303da05b5e8ddff4b59db5d7e8dc764652"
+    }
+  ],
+  "/files/Species/melia-dubia-botanical.webp": [
+    {
+      "src": "/files/Species/melia-dubia-botanical-320.webp",
+      "width": 320,
+      "sha256": "416a14210ae5d2e1be40c2e60e0b1592fee5040e18cca8887ce97f08015248e2"
+    },
+    {
+      "src": "/files/Species/melia-dubia-botanical-640.webp",
+      "width": 640,
+      "sha256": "68462e77c6b328f57c78b71103673097ec9ee2eabde7581171b061141a8a90b5"
+    },
+    {
+      "src": "/files/Species/melia-dubia-botanical-960.webp",
+      "width": 960,
+      "sha256": "4ffc9ab98b5b70df165b64bde658d02412b3e82e8aa115b2653f1a5ab36a315e"
+    },
+    {
+      "src": "/files/Species/melia-dubia-botanical.webp",
+      "width": 1200,
+      "sha256": "4596a165f3023c6b4b9ce931468783fd28ac190eb0305bc1063d001cb29b3641"
+    }
+  ],
+  "/files/Species/meranti-wood.webp": [
+    {
+      "src": "/files/Species/meranti-wood-320.webp",
+      "width": 320,
+      "sha256": "02798c3e7748e4ff05c94cdb9e68f379d06fc6168cde325b22a30a1f67b1c8dd"
+    },
+    {
+      "src": "/files/Species/meranti-wood-640.webp",
+      "width": 640,
+      "sha256": "aac13ef97cee85e314c924f8d3e6937ed8283c3cb792219432ca91ca6b295dea"
+    },
+    {
+      "src": "/files/Species/meranti-wood.webp",
+      "width": 880,
+      "sha256": "fd7ed32a742a0453c1c86026220a30b606be55b9c1a86c36c0baee99e3f5c112"
+    }
+  ],
+  "/files/Species/meranti-botanical.webp": [
+    {
+      "src": "/files/Species/meranti-botanical-320.webp",
+      "width": 320,
+      "sha256": "ec29371c0515b0b8cb866326597131587358d0039b8f8c1d5211626f1dc71f31"
+    },
+    {
+      "src": "/files/Species/meranti-botanical-640.webp",
+      "width": 640,
+      "sha256": "f2133827f5d91872ffc081f414ed9fb6527cea6ccae3736719d6137931c34f91"
+    },
+    {
+      "src": "/files/Species/meranti-botanical.webp",
+      "width": 844,
+      "sha256": "aa9d4cb443821d26a60599bac8f2ed0fdb06f59a7a9bcc01528cf8340bbe3146"
+    }
+  ],
+  "/files/Species/neem-botanical.webp": [
+    {
+      "src": "/files/Species/neem-botanical-320.webp",
+      "width": 320,
+      "sha256": "a741bab1a0a5f29d157cb1959d0be8ee7639e23fab8b47da8baf520280be8290"
+    },
+    {
+      "src": "/files/Species/neem-botanical-640.webp",
+      "width": 640,
+      "sha256": "c7c7b2d5077a31feb539fca573a1c784e40f99d7ba0ce17f2e58b1d013b507f4"
+    },
+    {
+      "src": "/files/Species/neem-botanical-960.webp",
+      "width": 960,
+      "sha256": "3e38352106573f518845aedc77e1d51e80148b390235228a8ccf78611b492573"
+    },
+    {
+      "src": "/files/Species/neem-botanical.webp",
+      "width": 1200,
+      "sha256": "325c4db16c186166e826d11450896c1d7fb0720c384d417469b55ac0122806c8"
+    }
+  ],
+  "/files/Species/okoume-wood.webp": [
+    {
+      "src": "/files/Species/okoume-wood-320.webp",
+      "width": 320,
+      "sha256": "844bb24b0254256ceab3338b417c5bfe57b21ec1466fa260dda9821409e96a6a"
+    },
+    {
+      "src": "/files/Species/okoume-wood-640.webp",
+      "width": 640,
+      "sha256": "4aa34b5dbfa645daac89940a41053bdee965bcc65e8843a87700b494df4ec6b6"
+    },
+    {
+      "src": "/files/Species/okoume-wood.webp",
+      "width": 724,
+      "sha256": "d88cada975603469f91626fc3fb7a7b0fc8c206d239d72c9f2596269e890d12d"
+    }
+  ],
+  "/files/Species/okoume-botanical.webp": [
+    {
+      "src": "/files/Species/okoume-botanical-320.webp",
+      "width": 320,
+      "sha256": "f3b1c249350c09ae7940a8a48a7e950350c4b4d474a0f4be681dc8f71e6b1d7f"
+    },
+    {
+      "src": "/files/Species/okoume-botanical.webp",
+      "width": 640,
+      "sha256": "c34c6927d5f7af8a6d8e5a4577f148a268dacb068c12b3ff78e72ca7a93a376e"
+    }
+  ],
+  "/files/Species/pine-wood.webp": [
+    {
+      "src": "/files/Species/pine-wood-320.webp",
+      "width": 320,
+      "sha256": "a7260bccd0a3593c5511d8a41d84964d3c22720282d62e2cd40979b60db4bab4"
+    },
+    {
+      "src": "/files/Species/pine-wood-640.webp",
+      "width": 640,
+      "sha256": "775b9b3074923b937dc2635513c24d154138e557cbf6aa5e63ca833d8c2a24d0"
+    },
+    {
+      "src": "/files/Species/pine-wood.webp",
+      "width": 649,
+      "sha256": "87bbee38c00fca2e9708ef3c53e68dbcdfaf186eaaf81bc842b53b3e43ff156b"
+    }
+  ],
+  "/files/Species/pine-botanical.webp": [
+    {
+      "src": "/files/Species/pine-botanical-320.webp",
+      "width": 320,
+      "sha256": "be8465fcbcd43a451c0dfce0af54e70e7ee6b1970d879620f70b711a388ff568"
+    },
+    {
+      "src": "/files/Species/pine-botanical-640.webp",
+      "width": 640,
+      "sha256": "57531f7f59faa19d8b9661bbed2fe4b9d247f7c8f12c4b5bda40cdcb4719dc52"
+    },
+    {
+      "src": "/files/Species/pine-botanical-960.webp",
+      "width": 960,
+      "sha256": "3d34feef516ff2bad5d3589ff0dff87c8d6968f6ac5c336e0a84f1987df24e25"
+    },
+    {
+      "src": "/files/Species/pine-botanical.webp",
+      "width": 1200,
+      "sha256": "ef0d96a18252a3d83d52da9f938756e658f6e31dbec4b5ec1d669b6808c6c792"
+    }
+  ],
+  "/files/Species/poplar-botanical.webp": [
+    {
+      "src": "/files/Species/poplar-botanical-320.webp",
+      "width": 320,
+      "sha256": "86d9412b4bee9aaa94e9fa35eb1dd16415546fe47b0f5ae296ef70091e525f84"
+    },
+    {
+      "src": "/files/Species/poplar-botanical-640.webp",
+      "width": 640,
+      "sha256": "6db1ecf0e3d8c243e824e560a89166ea808e899222a98a01719dacb1a03b05b3"
+    },
+    {
+      "src": "/files/Species/poplar-botanical-960.webp",
+      "width": 960,
+      "sha256": "1cb4c1499010da54d4e433df43924811a65e707b7c630b7e538253bef6e80018"
+    },
+    {
+      "src": "/files/Species/poplar-botanical.webp",
+      "width": 1200,
+      "sha256": "bbacdb20cc1c7827175db06b14e8f9dd95e9892be3803a6ccfd302372b135aea"
+    }
+  ],
+  "/files/Species/rubberwood-wood.webp": [
+    {
+      "src": "/files/Species/rubberwood-wood-320.webp",
+      "width": 320,
+      "sha256": "7ebe10105a7e90b7fca2b42d22877a5727df4e1367a53c20bacd1e4a39b4c9c8"
+    },
+    {
+      "src": "/files/Species/rubberwood-wood-640.webp",
+      "width": 640,
+      "sha256": "7f1df39353b17ad08924ae5b1e733966b34f093023f90f978f9603fe3999bdd1"
+    },
+    {
+      "src": "/files/Species/rubberwood-wood.webp",
+      "width": 880,
+      "sha256": "34e72e95750c008a9fd90aa8700e6dd3f6e022886cea5cf11c77af3f5144291b"
+    }
+  ],
+  "/files/Species/rubberwood-botanical.webp": [
+    {
+      "src": "/files/Species/rubberwood-botanical-320.webp",
+      "width": 320,
+      "sha256": "43e9ad8a6a534ba5739fa0d19898796f56334a53d236df4fb03184f227460d52"
+    },
+    {
+      "src": "/files/Species/rubberwood-botanical.webp",
+      "width": 431,
+      "sha256": "b5468c0c81df6f941ecb9f3a36dcd785d1dd9eed90d4cf14ce4105462f59829e"
+    }
+  ],
+  "/files/Species/sal-botanical.webp": [
+    {
+      "src": "/files/Species/sal-botanical-320.webp",
+      "width": 320,
+      "sha256": "be28fd10d5a42f2edb3bd5571abe3b30abb32ef2491c2ac463435ad15134d373"
+    },
+    {
+      "src": "/files/Species/sal-botanical-640.webp",
+      "width": 640,
+      "sha256": "2049f952fc20e0f513d2738ac20c2ca5d8deb6999924cd326239885ee3604007"
+    },
+    {
+      "src": "/files/Species/sal-botanical-960.webp",
+      "width": 960,
+      "sha256": "b8db6d610fe27bd3a009b264ba1224d25c06644c1c24f3ea10dbb2aad912fe3a"
+    },
+    {
+      "src": "/files/Species/sal-botanical.webp",
+      "width": 1200,
+      "sha256": "87428665526e3d3786e3e7fd0d73bdd7415f3c52d63e4453004ca1130c077bf9"
+    }
+  ],
+  "/files/Species/semul-wood.webp": [
+    {
+      "src": "/files/Species/semul-wood-320.webp",
+      "width": 320,
+      "sha256": "73d95f1f4bb1dc4d33e9662004cf04346702be25bbad5fd9f6f9f1675860ad6d"
+    },
+    {
+      "src": "/files/Species/semul-wood-640.webp",
+      "width": 640,
+      "sha256": "4db3099bdad775547686b9e8a2d5d5694d8df4eaab2f1fb60662aaea87fe62b8"
+    },
+    {
+      "src": "/files/Species/semul-wood.webp",
+      "width": 730,
+      "sha256": "1a492885614ba342455123955a8a633ba092a442c55b688ee50655f10b5ed76e"
+    }
+  ],
+  "/files/Species/semul-botanical.webp": [
+    {
+      "src": "/files/Species/semul-botanical-320.webp",
+      "width": 320,
+      "sha256": "c9437a7c56f8a1fb41442a10559cd693e9097e0688078dbac81ddcebd444bde9"
+    },
+    {
+      "src": "/files/Species/semul-botanical-640.webp",
+      "width": 640,
+      "sha256": "e85313de4eba4269c3d3344d9f1045fb00dfccfc0e7332e6960fbce577496a9e"
+    },
+    {
+      "src": "/files/Species/semul-botanical-960.webp",
+      "width": 960,
+      "sha256": "9ee1f3d3b86bc041c55589422147292535137e730d4494af0be83d643ca81978"
+    },
+    {
+      "src": "/files/Species/semul-botanical.webp",
+      "width": 1200,
+      "sha256": "456c01bec68f13884114bed44fa1c933c7ae50787f1ebd56bd0f58cbe06dd2f3"
+    }
+  ],
+  "/files/Species/sheesham-wood.webp": [
+    {
+      "src": "/files/Species/sheesham-wood-320.webp",
+      "width": 320,
+      "sha256": "ffb11d3b1c6dd00a6ca73063ad94b8a0c8c4aca0b9154cecfd2439f18061bf77"
+    },
+    {
+      "src": "/files/Species/sheesham-wood-640.webp",
+      "width": 640,
+      "sha256": "3cc1835bcfc8bbed3e1bd9a7913bcbb10588d4f6db34aa32dec0898dcf3b9d33"
+    },
+    {
+      "src": "/files/Species/sheesham-wood.webp",
+      "width": 800,
+      "sha256": "db343d5226e75d3fa96a1ee7611a46244f6a4d19639503eca856cfa7894ff9e7"
+    }
+  ],
+  "/files/Species/sheesham-botanical.webp": [
+    {
+      "src": "/files/Species/sheesham-botanical-320.webp",
+      "width": 320,
+      "sha256": "f8e53f89161a2f149810ec49017bb9b6626d86dec5cacb6c0e7fad79e2e2160e"
+    },
+    {
+      "src": "/files/Species/sheesham-botanical-640.webp",
+      "width": 640,
+      "sha256": "c624b874073b1d000a70906a4bea979266e1a5a68358d7214ee361c2b3210862"
+    },
+    {
+      "src": "/files/Species/sheesham-botanical-960.webp",
+      "width": 960,
+      "sha256": "5550f3ed7ee0f07b448916ee7fb10760682fedf27e38a01be25f2aecc6fe7a31"
+    },
+    {
+      "src": "/files/Species/sheesham-botanical.webp",
+      "width": 1200,
+      "sha256": "7b80d0b36c20ebf48d230257a5cc1fad9e4a356299c7228b84853feeeb3fcdc6"
+    }
+  ],
+  "/files/Species/silver-oak-wood.webp": [
+    {
+      "src": "/files/Species/silver-oak-wood-320.webp",
+      "width": 320,
+      "sha256": "65337fed6d625c5b33e9c33134e0f629c1bd94ca351cdc33b59bdcad739dcb67"
+    },
+    {
+      "src": "/files/Species/silver-oak-wood-640.webp",
+      "width": 640,
+      "sha256": "b571b9f1f026d5b198989ede7ce9b5dfd8d49ccd6b5faf3144195f5c82b2dcb1"
+    },
+    {
+      "src": "/files/Species/silver-oak-wood.webp",
+      "width": 800,
+      "sha256": "c4ac9f293a2c43605a0ff6a34e62b8de2234791c1d5a456a95b286214ed28b8d"
+    }
+  ],
+  "/files/Species/silver-oak-botanical.webp": [
+    {
+      "src": "/files/Species/silver-oak-botanical-320.webp",
+      "width": 320,
+      "sha256": "4263ad7d38b2172e4321c31dec7982a559fc24e98f487ef7a2a6e052558914ca"
+    },
+    {
+      "src": "/files/Species/silver-oak-botanical-640.webp",
+      "width": 640,
+      "sha256": "9af3fd667f53e2bbb5a67e09f1d7028acb7998d96542c6a4bef624d03d2ed68b"
+    },
+    {
+      "src": "/files/Species/silver-oak-botanical.webp",
+      "width": 768,
+      "sha256": "a3b3ed97231d5a97bc9283ea4ec39247156db24b8965982a53ec500f525872ad"
+    }
+  ],
+  "/files/Species/teak-wood.webp": [
+    {
+      "src": "/files/Species/teak-wood-320.webp",
+      "width": 320,
+      "sha256": "0db0ca980a269f76881479dde09e0d1d8bf324f116cc007914811463488df522"
+    },
+    {
+      "src": "/files/Species/teak-wood-640.webp",
+      "width": 640,
+      "sha256": "f1f801a9a845946ef44b6c7f6501c81fee33fb7adb6053b4d5ea2d964c3b0115"
+    },
+    {
+      "src": "/files/Species/teak-wood.webp",
+      "width": 769,
+      "sha256": "0bdd6042e3e294c370d6a5504205481bc836bcecbd66518f6c30784c18eb8db6"
+    }
+  ],
+  "/files/Species/teak-botanical.webp": [
+    {
+      "src": "/files/Species/teak-botanical-320.webp",
+      "width": 320,
+      "sha256": "56c82a73eab2ba07473febc47e5a4d7eba38f7e63013dd88a046a63970459e73"
+    },
+    {
+      "src": "/files/Species/teak-botanical-640.webp",
+      "width": 640,
+      "sha256": "910d8835788b011a1015d56befb630e757cde5caf65252b735d95cf2c2ce3b74"
+    },
+    {
+      "src": "/files/Species/teak-botanical-960.webp",
+      "width": 960,
+      "sha256": "2586e8d1c6de952b5945c2f6f7a295bd8266914a4e11f13e76efa2a4599c6ef9"
+    },
+    {
+      "src": "/files/Species/teak-botanical.webp",
+      "width": 1200,
+      "sha256": "851a74bce4a72c72023284ee043985100060500359855f1c84fe40244c215bbb"
+    }
+  ],
+  "/files/Species/casuarina-wood.webp": [
+    {
+      "src": "/files/Species/casuarina-wood-320.webp",
+      "width": 320,
+      "sha256": "b6072bd0112981fb11c81b481a0250ae94a72937ec3bc6081de9914db97eb305"
+    },
+    {
+      "src": "/files/Species/casuarina-wood.webp",
+      "width": 614,
+      "sha256": "e9bddb73c349960ea97378e8545785489d447413af452e61b0760e4991e3d806"
+    }
+  ],
+  "/files/Species/casuarina-botanical.webp": [
+    {
+      "src": "/files/Species/casuarina-botanical-320.webp",
+      "width": 320,
+      "sha256": "fa3bbae116cdb7f888da0547736e3f913e255b7dfc19bd69661282a89222aea2"
+    },
+    {
+      "src": "/files/Species/casuarina-botanical-640.webp",
+      "width": 640,
+      "sha256": "8d5fa7203a9c8c1713e32b2689f57e1841f6eedd79f58659712e078f9a5801c0"
+    },
+    {
+      "src": "/files/Species/casuarina-botanical-960.webp",
+      "width": 960,
+      "sha256": "d2660066bc5f0f690d875fd8ca6a06a55f0a1a35914f74e28cad4d1dbd8d7ca5"
+    },
+    {
+      "src": "/files/Species/casuarina-botanical.webp",
+      "width": 1060,
+      "sha256": "d05b3fb6760b831de00a00d2d922926822a23d44f0e09f5bd35d5a8b60c9a314"
+    }
+  ],
+  "/files/Species/subabul-wood.webp": [
+    {
+      "src": "/files/Species/subabul-wood-320.webp",
+      "width": 320,
+      "sha256": "d22f24cb7a32a53de382b4c866715aeb8c89a5f91fe369514ec8982d97b5276a"
+    },
+    {
+      "src": "/files/Species/subabul-wood-640.webp",
+      "width": 640,
+      "sha256": "59e79959c4ace34e64679dbdb65cffa90e2232a76df6d08deeaab50e6d80b57a"
+    },
+    {
+      "src": "/files/Species/subabul-wood.webp",
+      "width": 782,
+      "sha256": "8dd1b06f41dedc6d68c348f1ffbaa93a833a4ac57defc1f103bd90513f33464d"
+    }
+  ],
+  "/files/Species/subabul-botanical.webp": [
+    {
+      "src": "/files/Species/subabul-botanical-320.webp",
+      "width": 320,
+      "sha256": "1cd145a952dbf298cf41f25b6989dd3d5d8bd43cd1441addd404dc4366fe7a0d"
+    },
+    {
+      "src": "/files/Species/subabul-botanical-640.webp",
+      "width": 640,
+      "sha256": "8bdb8d8b8ef19a36f6df971cdf341d1f8eafdef889c5ca44379cce7b5d70389c"
+    },
+    {
+      "src": "/files/Species/subabul-botanical-960.webp",
+      "width": 960,
+      "sha256": "c18e3b4d0073f452c3b0f2629cfec7f6af39c67012ce55afcf7211d0d8697ee8"
+    },
+    {
+      "src": "/files/Species/subabul-botanical.webp",
+      "width": 1200,
+      "sha256": "c3e9499dcc0a0aeeac0646114d51d55ed6b67ae6ccd4d5fcfd0cd06328d69c92"
+    }
+  ],
+  "/files/Species/anjili-botanical.webp": [
+    {
+      "src": "/files/Species/anjili-botanical-320.webp",
+      "width": 320,
+      "sha256": "a833b80a3beb90134789a5f56f021c1dfeac6bcd807feba7d0b8878fdf4c2e17"
+    },
+    {
+      "src": "/files/Species/anjili-botanical-640.webp",
+      "width": 640,
+      "sha256": "cf27949d5ca0e3814f456542bea592f714956b89e3446010960514834b37780e"
+    },
+    {
+      "src": "/files/Species/anjili-botanical-960.webp",
+      "width": 960,
+      "sha256": "f6b872f205751e2175520b2e0ecb96696c035be6b0fb508d92eff956d048abf7"
+    },
+    {
+      "src": "/files/Species/anjili-botanical.webp",
+      "width": 1200,
+      "sha256": "90ead36a5e90718602551c4ef64ba3fcc2dd840df1a81122aee417a830e02a7b"
+    }
+  ],
+  "/files/Species/matti-botanical.webp": [
+    {
+      "src": "/files/Species/matti-botanical-320.webp",
+      "width": 320,
+      "sha256": "8562bbd2f1f71d9c1eed295a88f3eebefb40f46d0e06568fd65bbffc19fbf4e3"
+    },
+    {
+      "src": "/files/Species/matti-botanical-640.webp",
+      "width": 640,
+      "sha256": "5ac474d2bd942bed059d19b53478bb4b333a14eb053c3c620f3d04368fdfc430"
+    },
+    {
+      "src": "/files/Species/matti-botanical-960.webp",
+      "width": 960,
+      "sha256": "fb494b154e225f7583de2099b22da6e78efd8f4b1e221d785b6ca2b0db25ca7f"
+    },
+    {
+      "src": "/files/Species/matti-botanical.webp",
+      "width": 1200,
+      "sha256": "a266ac811a675d61c20fd1897324a1568ff7811e32b179bec60a7f010583dbb2"
+    }
+  ],
+  "/files/Species/irul-wood.webp": [
+    {
+      "src": "/files/Species/irul-wood-320.webp",
+      "width": 320,
+      "sha256": "3989d25cecd36b167b6be96942689e4ae35e9b60263c96689fb6edfbbdc19804"
+    },
+    {
+      "src": "/files/Species/irul-wood-640.webp",
+      "width": 640,
+      "sha256": "b8b220d023193ece1f64916718521e6f8920a0d3a57d2dd88e6ba3c85db33af0"
+    },
+    {
+      "src": "/files/Species/irul-wood.webp",
+      "width": 798,
+      "sha256": "f94527c9d4864dfddb52a7c9029fd21960618872ecaee199815a641ae5d6e9e2"
+    }
+  ],
+  "/files/Species/irul-botanical.webp": [
+    {
+      "src": "/files/Species/irul-botanical-320.webp",
+      "width": 320,
+      "sha256": "126983d0ac4ea76e315c3aacddf51f926cc5a625b518f2ae29ca7dcecb09f1d8"
+    },
+    {
+      "src": "/files/Species/irul-botanical-640.webp",
+      "width": 640,
+      "sha256": "7e581a4a59db28f503eb41bc1bfaab47cb2e750a7d01dff939be32f01001b4d7"
+    },
+    {
+      "src": "/files/Species/irul-botanical-960.webp",
+      "width": 960,
+      "sha256": "7c8db5ddb2d1bb5a9767061d52ff1ed252e308c18d2601c16afeca3d7c246dea"
+    },
+    {
+      "src": "/files/Species/irul-botanical.webp",
+      "width": 1200,
+      "sha256": "c9aa8f356bce921e82fdbf531f8e98ebd42bdaf0881e2b0e13502468092bf4b2"
+    }
+  ],
+  "/files/Species/venteak-botanical.webp": [
+    {
+      "src": "/files/Species/venteak-botanical-320.webp",
+      "width": 320,
+      "sha256": "06c096feead64d2eed213e6711304e1a23e754d27d0e2c1514c77f7cdd184706"
+    },
+    {
+      "src": "/files/Species/venteak-botanical-640.webp",
+      "width": 640,
+      "sha256": "6a614b79164454bf1f9895ef6eb6918774753e5075983858045a279049dd6278"
+    },
+    {
+      "src": "/files/Species/venteak-botanical-960.webp",
+      "width": 960,
+      "sha256": "c6403a3be1a4daa00d64a0f35febccacd48ca457c75d05d48c174e2f9e947feb"
+    },
+    {
+      "src": "/files/Species/venteak-botanical.webp",
+      "width": 1200,
+      "sha256": "afe260b4eb8b4c777e83f63523246da60c93f3111ffb75a382661f6db33b491e"
+    }
+  ],
+  "/files/Species/kadam-botanical.webp": [
+    {
+      "src": "/files/Species/kadam-botanical-320.webp",
+      "width": 320,
+      "sha256": "20a334b2fede8612abc2fb20cdfa998d7035c98e952ecd53ca2d0a71cee3008c"
+    },
+    {
+      "src": "/files/Species/kadam-botanical.webp",
+      "width": 506,
+      "sha256": "be811a76ccda133819b6b583f46ad8b00c7864c074f43bcfb8b5c16ca0650a22"
+    }
+  ],
+  "/files/Species/pala-wood.webp": [
+    {
+      "src": "/files/Species/pala-wood-320.webp",
+      "width": 320,
+      "sha256": "ea776eb50fb4f816a6745754d097bf8673d258ed5af9c0e54c8d3299be986634"
+    },
+    {
+      "src": "/files/Species/pala-wood-640.webp",
+      "width": 640,
+      "sha256": "e90c9b96488c6f9f482bc488ac0ca3329c1871d4633898e80b705c47cb738c71"
+    },
+    {
+      "src": "/files/Species/pala-wood.webp",
+      "width": 816,
+      "sha256": "34decf3891019c7641045003d5713508383eb42bc37cdabfead678aa234be82f"
+    }
+  ],
+  "/files/Species/pala-botanical.webp": [
+    {
+      "src": "/files/Species/pala-botanical-320.webp",
+      "width": 320,
+      "sha256": "c91870a36f630d366eef871e9ee0985ebae87342ea7c753f6d0848c534d3c9bf"
+    },
+    {
+      "src": "/files/Species/pala-botanical-640.webp",
+      "width": 640,
+      "sha256": "280c22f8e5087ee11d5b30cb4ac658980fed7e9cdb427ae104d6f001f2a0e00d"
+    },
+    {
+      "src": "/files/Species/pala-botanical-960.webp",
+      "width": 960,
+      "sha256": "ccfd7354f3458d4a17e826abd763b50e25746ab94f495713fc282906cc20561e"
+    },
+    {
+      "src": "/files/Species/pala-botanical.webp",
+      "width": 1200,
+      "sha256": "0a34763520e0a8d5c01cc7c706873cf3e20b749b5f01af884532e2b3b869b177"
+    }
+  ],
+  "/files/Brand/contact-materials.jpg": [
+    {
+      "src": "/files/Responsive/contact-materials-b8f176d5-400.webp",
+      "width": 400,
+      "sha256": "912040080f14fe948bc2d04679619071a04232cd9e70697e179f00fe7c74af9c"
+    },
+    {
+      "src": "/files/Responsive/contact-materials-b8f176d5-640.webp",
+      "width": 640,
+      "sha256": "017d0deaf8251b9dcf404a88f60375fb58bca78eeaa238e695a5842418cb1a7f"
+    },
+    {
+      "src": "/files/Responsive/contact-materials-b8f176d5-960.webp",
+      "width": 960,
+      "sha256": "870496a09782cff2c24496d140642f54eba4daea82b85dfb8842c2f8b92f191b"
+    },
+    {
+      "src": "/files/Responsive/contact-materials-b8f176d5-1200.webp",
+      "width": 1200,
+      "sha256": "e3e8bce401a4e04913c24a24f99378d8746bb416467866f47815b7122395808f"
+    }
+  ],
+  "/files/Brand/home-materials.webp": [
+    {
+      "src": "/files/Responsive/home-materials-4961fa24-400.webp",
+      "width": 400,
+      "sha256": "bf3b71a2d980a04ef524672e566b2530b3090c9d9449ea6c55f345bfcd42bc70"
+    },
+    {
+      "src": "/files/Responsive/home-materials-4961fa24-640.webp",
+      "width": 640,
+      "sha256": "8303aae920b037cfe16c8c63c60a79a3ea1aa662be10f3b4a3c95b64656e7a8c"
+    },
+    {
+      "src": "/files/Responsive/home-materials-4961fa24-960.webp",
+      "width": 960,
+      "sha256": "ca8845a5a7bb62bb2f252bc7c4bc5a9912ebc5d6a3399ab4bda425e5b023ff15"
+    },
+    {
+      "src": "/files/Responsive/home-materials-4961fa24-1200.webp",
+      "width": 1200,
+      "sha256": "3ec2ffabe0dd6c4afc40d739d146f93fcb2e3ddda59bdfddc4823c043f727379"
+    }
+  ],
+  "/files/CWI-Images/home_case_export.webp": [
+    {
+      "src": "/files/Responsive/home-case-export-a816dc1f-400.webp",
+      "width": 400,
+      "sha256": "434dd462b966056a4abc46c7993380e553a76bd75aad46ad702fde2f127bd310"
+    },
+    {
+      "src": "/files/Responsive/home-case-export-a816dc1f-640.webp",
+      "width": 640,
+      "sha256": "a1ac3d5c62f65a5f6582cf309f8b066a4d90dd13c4cf5316601eec5c7c630758"
+    },
+    {
+      "src": "/files/Responsive/home-case-export-a816dc1f-960.webp",
+      "width": 960,
+      "sha256": "dc1a1f0154960053acaeb84a927639079ed26e405fc9128f8ff85c04eee53450"
+    },
+    {
+      "src": "/files/Responsive/home-case-export-a816dc1f-1024.webp",
+      "width": 1024,
+      "sha256": "a164a102c673aa58638c6016cc394c1013395f5c8ec2577d3db2c85e7d7d7b08"
+    }
+  ],
+  "/files/CWI-Images/home_case_highrise.webp": [
+    {
+      "src": "/files/Responsive/home-case-highrise-2fd0fbd6-400.webp",
+      "width": 400,
+      "sha256": "8b8d43818024cead90e476b57d9f35e2144e90383fbe91e2121826bb6ed21784"
+    },
+    {
+      "src": "/files/Responsive/home-case-highrise-2fd0fbd6-640.webp",
+      "width": 640,
+      "sha256": "fb8d69305cca80312631cc3c153cf2e2fb73d43c178617dd3c34a6ca7fff6757"
+    },
+    {
+      "src": "/files/Responsive/home-case-highrise-2fd0fbd6-960.webp",
+      "width": 960,
+      "sha256": "6348bb4f827a715cdb916679a13166191d924fdbf4fe767b3c48d36d14e739a4"
+    },
+    {
+      "src": "/files/Responsive/home-case-highrise-2fd0fbd6-1024.webp",
+      "width": 1024,
+      "sha256": "d698bc6807bc35f163781021bb4471baf1a759ae3ace78222bd083f994fbe02a"
+    }
+  ],
+  "/files/CWI-Images/home_case_marine.webp": [
+    {
+      "src": "/files/Responsive/home-case-marine-cc464bda-400.webp",
+      "width": 400,
+      "sha256": "d8f6258b6ed540ec8b9531fef64ef58f03e4295b338c00cfc7aae437c0c7c000"
+    },
+    {
+      "src": "/files/Responsive/home-case-marine-cc464bda-640.webp",
+      "width": 640,
+      "sha256": "17aecfd57f9a02e289d0ad83b06a468b77e97234d3c0632ee8031c962b18026a"
+    },
+    {
+      "src": "/files/Responsive/home-case-marine-cc464bda-960.webp",
+      "width": 960,
+      "sha256": "974c214f1b73fab1b5e92ac73ed7ad7a1873b38419b8a5e6e643c0f7f34d56d0"
+    },
+    {
+      "src": "/files/Responsive/home-case-marine-cc464bda-1024.webp",
+      "width": 1024,
+      "sha256": "fc8c75889cddaf16a71f81cc26c4b17a18926707c23acb91668de241fe59c544"
+    }
+  ],
+  "/files/Enhanced%20Factory%20Photos/factory_24.jpg": [
+    {
+      "src": "/files/Responsive/factory-24-9a911c05-400.webp",
+      "width": 400,
+      "sha256": "2de60d310c978066bca5247890fa66b9e8cd0cc50bd5b74bdcebeb90cf8ca8d0"
+    },
+    {
+      "src": "/files/Responsive/factory-24-9a911c05-640.webp",
+      "width": 640,
+      "sha256": "b0705cbb114b5c27294ae45a92d78dcfc74c5d9442a2b4e1f249958afdc4043c"
+    },
+    {
+      "src": "/files/Responsive/factory-24-9a911c05-960.webp",
+      "width": 960,
+      "sha256": "d97b7bf6ce262fa316e35c92e8ef0d3fdb89af61c6a9a52b7d51477b0581e37c"
+    },
+    {
+      "src": "/files/Responsive/factory-24-9a911c05-1200.webp",
+      "width": 1200,
+      "sha256": "e281ce070c67de99cde94dc81fe3683fe84e4242557b1dc8530ef6b2b8836835"
+    },
+    {
+      "src": "/files/Responsive/factory-24-9a911c05-1280.webp",
+      "width": 1280,
+      "sha256": "2dfd2c4f84a0cfc5c757942aa855e124b3e25eeed3e8ea1a0c7235001f324a87"
+    }
+  ],
+  "/files/Enhanced%20Factory%20Photos/factory_42.jpg": [
+    {
+      "src": "/files/Responsive/factory-42-8cb32034-400.webp",
+      "width": 400,
+      "sha256": "2f641b5bf21d159d5c801d893dd1104acd2fe083418f0ae469935a5506b14b36"
+    },
+    {
+      "src": "/files/Responsive/factory-42-8cb32034-640.webp",
+      "width": 640,
+      "sha256": "312bee92ea88678e285f3d3492b83e6f62cb3e3dd32efa98ab8bf1d565ac4a7f"
+    },
+    {
+      "src": "/files/Responsive/factory-42-8cb32034-960.webp",
+      "width": 960,
+      "sha256": "fa00a95abfa26187a5decdeebcca5848d29d2404c35e3c2d69cec6b3f994e20f"
+    },
+    {
+      "src": "/files/Responsive/factory-42-8cb32034-1200.webp",
+      "width": 1200,
+      "sha256": "3ec1d128a26de76708631dfe7d60d13b94b80f71e46671d914195f17b694e83e"
+    },
+    {
+      "src": "/files/Responsive/factory-42-8cb32034-1280.webp",
+      "width": 1280,
+      "sha256": "7b474c70b368e0fac0dc89b0b519f3274bac73a6b17b17a61efb2e7de68cb53b"
+    }
+  ],
+  "/files/Logo/og/og-container-flooring.jpg": [
+    {
+      "src": "/files/Responsive/og-container-flooring-21d0d5c0-400.webp",
+      "width": 400,
+      "sha256": "28eba69e2511988fece9ffdc90acfe8a2a4b51c77ece6c339778267c15b66a79"
+    },
+    {
+      "src": "/files/Responsive/og-container-flooring-21d0d5c0-640.webp",
+      "width": 640,
+      "sha256": "e19795d4842c045c3fb6b658867e3370aca636e4252ab893b40ccbefa7f1cbed"
+    },
+    {
+      "src": "/files/Responsive/og-container-flooring-21d0d5c0-960.webp",
+      "width": 960,
+      "sha256": "04845fec79999171d897bfc3fec2bdad67ef5834116e7b6605aad7f7f97127da"
+    },
+    {
+      "src": "/files/Responsive/og-container-flooring-21d0d5c0-1200.webp",
+      "width": 1200,
+      "sha256": "ccd8e507d68d37481967b436323b7748007520015990ffa9ddda067812d182a9"
+    }
+  ],
+  "/files/Product/block-board.jpg": [
+    {
+      "src": "/files/Responsive/block-board-e3486381-400.webp",
+      "width": 400,
+      "sha256": "32d2cca1562099305913f1e1d95993281c9e62cf3dc399ffc60a3819bc0b277c"
+    },
+    {
+      "src": "/files/Responsive/block-board-e3486381-640.webp",
+      "width": 640,
+      "sha256": "40430afc5c922b505bad305465801ac55f167701b2457623ff76d4eddba7df88"
+    },
+    {
+      "src": "/files/Responsive/block-board-e3486381-960.webp",
+      "width": 960,
+      "sha256": "b125bf5631350fb05051a6901f0461f3215efe5aa87fb1ded85bae56d3e1754b"
+    },
+    {
+      "src": "/files/Responsive/block-board-e3486381-1024.webp",
+      "width": 1024,
+      "sha256": "f8c58c9667ed4e5287f209b77139d41526ead82264d07e4ceec810beda12e1ca"
+    }
+  ],
+  "/files/Product/cable-drums.jpg": [
+    {
+      "src": "/files/Responsive/cable-drums-5466607c-400.webp",
+      "width": 400,
+      "sha256": "b2bfed7260b4395d09ce26c0884f7aa03b07644a622928bbf15a64b6f54f052b"
+    },
+    {
+      "src": "/files/Responsive/cable-drums-5466607c-640.webp",
+      "width": 640,
+      "sha256": "9e8598b9ce04b0147e99888050a204f54d7f1b5918864bd2990d0a29e93c210e"
+    },
+    {
+      "src": "/files/Responsive/cable-drums-5466607c-960.webp",
+      "width": 960,
+      "sha256": "2db60bf74bf2c7f9cd33ffaf6102943bd44bddcc6097c7e915b267ba5b115a34"
+    },
+    {
+      "src": "/files/Responsive/cable-drums-5466607c-1024.webp",
+      "width": 1024,
+      "sha256": "d713505e156469cff9f97811f9945115e214f26354bb7a91d2a6cb43a37b7653"
+    }
+  ],
+  "/files/Product/crates.jpg": [
+    {
+      "src": "/files/Responsive/crates-dd22f2f0-400.webp",
+      "width": 400,
+      "sha256": "ac6362da48c38cfe814469af1776f7cf20270593ab550f65dece0d358e93a92c"
+    },
+    {
+      "src": "/files/Responsive/crates-dd22f2f0-640.webp",
+      "width": 640,
+      "sha256": "571a529c6e2397b67d1d2bcaf5262135202e2fb854daf03ec4625490295f621e"
+    },
+    {
+      "src": "/files/Responsive/crates-dd22f2f0-960.webp",
+      "width": 960,
+      "sha256": "64c25ff4323e5ed25ba05f2746debbc57bb4eea85a336bfdc1303bb19b3090cb"
+    },
+    {
+      "src": "/files/Responsive/crates-dd22f2f0-1024.webp",
+      "width": 1024,
+      "sha256": "b07a211e119ba581791cdd7d512a2b5d2db2324f6b9a110ea1034424933b348d"
+    }
+  ],
+  "/files/Product/pallets.jpg": [
+    {
+      "src": "/files/Responsive/pallets-acb97cfa-400.webp",
+      "width": 400,
+      "sha256": "4b19e4ae29d894e126de69a41d0413518ee3be744dad00e1d6387966dc95108b"
+    },
+    {
+      "src": "/files/Responsive/pallets-acb97cfa-640.webp",
+      "width": 640,
+      "sha256": "88be3ebf3801651576c73de40ddea1c673571ec3f1ba687c61c72a05916abdc0"
+    },
+    {
+      "src": "/files/Responsive/pallets-acb97cfa-960.webp",
+      "width": 960,
+      "sha256": "0c7ad9f918c0a188e79c9d8287758e4b1681dd98d82ca9da152397c11351a9b0"
+    },
+    {
+      "src": "/files/Responsive/pallets-acb97cfa-1024.webp",
+      "width": 1024,
+      "sha256": "3cf5cc235e3b6e101045f9256f88d2d1429491e4c8a85759b5dea8c6ea5d9ac7"
+    }
+  ],
+  "/files/Product/particle-board.jpg": [
+    {
+      "src": "/files/Responsive/particle-board-a83eeaa7-400.webp",
+      "width": 400,
+      "sha256": "96e5ff2fe84cd25b01df3e6aec06f480bba23fe5bdc4940514b37db71f165ca8"
+    },
+    {
+      "src": "/files/Responsive/particle-board-a83eeaa7-640.webp",
+      "width": 640,
+      "sha256": "767a88dc1aa807a786b5dade6410ea18b43391a13d8a8a23924510fdc9d211af"
+    },
+    {
+      "src": "/files/Responsive/particle-board-a83eeaa7-960.webp",
+      "width": 960,
+      "sha256": "b205384a8879e57191737754aeddd6f945aa4d5af583fbaf08f6b5bbbeef9f82"
+    },
+    {
+      "src": "/files/Responsive/particle-board-a83eeaa7-1024.webp",
+      "width": 1024,
+      "sha256": "bc4a1de12ab879e80c38db53bc7ac681549b8b3fc7dba8b75834711e82b003d0"
+    }
+  ],
+  "/files/Product/specialty-timbers.jpg": [
+    {
+      "src": "/files/Responsive/specialty-timbers-46918a71-400.webp",
+      "width": 400,
+      "sha256": "c21a1427eea330c559f94b59548e9474ea0dd79c5b67b7d9dd49e11c485fe145"
+    },
+    {
+      "src": "/files/Responsive/specialty-timbers-46918a71-640.webp",
+      "width": 640,
+      "sha256": "2d66f7c56f0f300e703ba875518e04e806498222728ae1a104fcfddc59e1bd83"
+    },
+    {
+      "src": "/files/Responsive/specialty-timbers-46918a71-960.webp",
+      "width": 960,
+      "sha256": "e1fd61e1507c8dfb29ede1e5ea6572bbd857babbc28e27977ce64caa9071cb3d"
+    },
+    {
+      "src": "/files/Responsive/specialty-timbers-46918a71-1024.webp",
+      "width": 1024,
+      "sha256": "ffb0eb9c30fd04dc17b8a3c928aa7af233412ae36cf4efed5e413dcf1d775bc8"
+    }
+  ],
+  "/files/Brand/solid-wood-materials.jpg": [
+    {
+      "src": "/files/Responsive/solid-wood-materials-66f00a15-400.webp",
+      "width": 400,
+      "sha256": "4bf8c857db87f5debfcab22e04e82927ffac460414572282e019dc534dac771e"
+    },
+    {
+      "src": "/files/Responsive/solid-wood-materials-66f00a15-640.webp",
+      "width": 640,
+      "sha256": "cfef067edb8eaac7a8262a4b8af9c5aa0327e51726eead9db3e61575339462f1"
+    },
+    {
+      "src": "/files/Responsive/solid-wood-materials-66f00a15-960.webp",
+      "width": 960,
+      "sha256": "0ff6fbd61a45f76955c9e01e9c58245c79487083f3d31f6da85d6060c9cadd85"
+    },
+    {
+      "src": "/files/Responsive/solid-wood-materials-66f00a15-1024.webp",
+      "width": 1024,
+      "sha256": "af5c5a830f7a1e2757d0192a880edbfd52715785d6a47fef0f0530ce88bf15b7"
+    }
+  ],
+  "/files/Enhanced%20Factory%20Photos/factory_08.jpg": [
+    {
+      "src": "/files/Responsive/factory-08-606f5364-400.webp",
+      "width": 400,
+      "sha256": "ad6d7d95feff10adf1857f42998162d1482d56543b71927e765970ac02531e9a"
+    },
+    {
+      "src": "/files/Responsive/factory-08-606f5364-640.webp",
+      "width": 640,
+      "sha256": "ee1a0200055b96f4a83becb4072923e9dd264d30b6480acfcaa1c7289f2acb91"
+    },
+    {
+      "src": "/files/Responsive/factory-08-606f5364-960.webp",
+      "width": 960,
+      "sha256": "c046f2ea8f0e87a3a66871ad90f3145daa3ef3e661ff4cab43f0d16f26da0f6c"
+    },
+    {
+      "src": "/files/Responsive/factory-08-606f5364-1200.webp",
+      "width": 1200,
+      "sha256": "c01045caf8670266c51d88b99448e471ac502fba494aa3a687e4b89beec29ac5"
+    },
+    {
+      "src": "/files/Responsive/factory-08-606f5364-1280.webp",
+      "width": 1280,
+      "sha256": "c83e84c6f7848b27794869bc9e2f008fdb6278972ab54de931557c5b4a66bf98"
+    }
+  ],
+  "/files/Enhanced%20Factory%20Photos/factory_44.webp": [
+    {
+      "src": "/files/Responsive/factory-44-51508017-400.webp",
+      "width": 400,
+      "sha256": "e07cbd6f910807dde3f6c0dc0007f4f95a4b19f0f1fe34231420340fc8459f51"
+    },
+    {
+      "src": "/files/Responsive/factory-44-51508017-640.webp",
+      "width": 640,
+      "sha256": "5a83e5210fe82c85263296587a449ec79421409ae10ccb8edf6a98762b03f34b"
+    },
+    {
+      "src": "/files/Responsive/factory-44-51508017-960.webp",
+      "width": 960,
+      "sha256": "c1357a61a63caf475da061054fb620eab4665cfbdd1ad4ac69adc7bdb5bc9504"
+    },
+    {
+      "src": "/files/Responsive/factory-44-51508017-1200.webp",
+      "width": 1200,
+      "sha256": "fecaac9d05a4b8d19d4821371981190f8ded2f38054749d986a68f0fd528d60e"
+    }
+  ],
+  "/files/Hero%20Optimized/Industries.jpg": [
+    {
+      "src": "/files/Responsive/industries-7cb122e7-400.webp",
+      "width": 400,
+      "sha256": "2329dee5da5a7c974ff77a66b983b321d8b4c769aadf10d0bc64c7e5e930f793"
+    },
+    {
+      "src": "/files/Responsive/industries-7cb122e7-640.webp",
+      "width": 640,
+      "sha256": "4d3104fb0b945504bad423bfd0c6140874b4765502a2a1f37aebdfbd865c13da"
+    },
+    {
+      "src": "/files/Responsive/industries-7cb122e7-960.webp",
+      "width": 960,
+      "sha256": "b452ff6fa58444ed35102a3667f370ed5832c0f5d5db88b42f84371a8beb605b"
+    },
+    {
+      "src": "/files/Responsive/industries-7cb122e7-1200.webp",
+      "width": 1200,
+      "sha256": "eb1a15f55d512dbd123b1e16a91c402fd24acef08f24ebb7927443360bd25cf6"
+    }
+  ],
+  "/files/Responsive/home-mobile-compact-590.webp": [
+    {
+      "src": "/files/Responsive/home-mobile-compact-320.webp",
+      "width": 320,
+      "sha256": "c79a2e2a14a7205df81907593bc761aa0564bec5926d405156947ce29bc08167"
+    },
+    {
+      "src": "/files/Responsive/home-mobile-compact-480.webp",
+      "width": 480,
+      "sha256": "928152e94e29983153b9402e660b01aa24e944ffab1f21ec291d771815ec6caf"
+    },
+    {
+      "src": "/files/Responsive/home-mobile-compact-590.webp",
+      "width": 590,
+      "sha256": "0e6ed07010cf516f6d3f984d5ddc1f3a975d02bc35844359715f117f672b7221"
+    }
+  ],
+  "/files/Responsive/home-mobile-phone-762.webp": [
+    {
+      "src": "/files/Responsive/home-mobile-phone-480.webp",
+      "width": 480,
+      "sha256": "9baeb2a5cfe36c1de66c7c477035818aae608da64de7dfd8301f949568105283"
+    },
+    {
+      "src": "/files/Responsive/home-mobile-phone-640.webp",
+      "width": 640,
+      "sha256": "45b5c8f25db97eadb7004c8b81e05956c4bead99d391fe1423fd4ce62cbe49b8"
+    },
+    {
+      "src": "/files/Responsive/home-mobile-phone-762.webp",
+      "width": 762,
+      "sha256": "7899726d54a4eec532a125d2c969431bdb9a206dade154dda71e19b6331aa768"
+    }
+  ],
+  "/files/Species/birch-wood.webp": [
+    {
+      "src": "/files/Species/birch-wood-320.webp",
+      "width": 320,
+      "sha256": "34196b1ae82032d7976fded03223c9251634566600d05bd878d7b10d3e62f7dc"
+    },
+    {
+      "src": "/files/Species/birch-wood-640.webp",
+      "width": 640,
+      "sha256": "b967004b97b17245af5167ae7f67c4856d624460b23d06c95a6ac9e6cc89c053"
+    },
+    {
+      "src": "/files/Species/birch-wood-960.webp",
+      "width": 960,
+      "sha256": "553a739818e17cd60615daeeab5224f9e4c5d3b4ab1ae03bf7a964a6ad6898e1"
+    },
+    {
+      "src": "/files/Species/birch-wood.webp",
+      "width": 985,
+      "sha256": "116cbdd5c1c654425c42bd74b3e472ebe34ccfdf125c0e3bbda249a7c34aca85"
+    }
+  ],
+  "/files/Species/eucalyptus-wood.webp": [
+    {
+      "src": "/files/Species/eucalyptus-wood-320.webp",
+      "width": 320,
+      "sha256": "49e043a249de2c9b2a078bf5e0117855d9ebd3ff368ae71dc34e1f02383df45f"
+    },
+    {
+      "src": "/files/Species/eucalyptus-wood-640.webp",
+      "width": 640,
+      "sha256": "b6f5ad2533acc707a768a6083c54a72214c76c6da98f7f1f748027e8cb6a4995"
+    },
+    {
+      "src": "/files/Species/eucalyptus-wood-960.webp",
+      "width": 960,
+      "sha256": "ed2f1cee33a39f747075c84d4574cbcc124753ad4e28acc2caaea26ea5cc103f"
+    },
+    {
+      "src": "/files/Species/eucalyptus-wood.webp",
+      "width": 1200,
+      "sha256": "6a74a80c46b898016b2ce6bd290553479c45199a3a0f66007d09fa4db2a69802"
+    }
+  ],
+  "/files/Species/jackwood-wood.webp": [
+    {
+      "src": "/files/Species/jackwood-wood-320.webp",
+      "width": 320,
+      "sha256": "f7e75777b85157c77fb0e5c93f481b7895f424d241d90968d4ab4727885b44fc"
+    },
+    {
+      "src": "/files/Species/jackwood-wood-640.webp",
+      "width": 640,
+      "sha256": "32799bdc0c9dbf013f379cdb664d76d2621cd64e55af4a88c71e03b2d46554ac"
+    },
+    {
+      "src": "/files/Species/jackwood-wood-960.webp",
+      "width": 960,
+      "sha256": "dcd0e70fddd04be31c36b0633019b4c2b2c8edc5cafab6d1a995116c0c85a3f0"
+    },
+    {
+      "src": "/files/Species/jackwood-wood.webp",
+      "width": 1200,
+      "sha256": "48041d0b1b34018733393f6730b0e28731b27d0f76f4099a088f99c4686c208e"
+    }
+  ],
+  "/files/Species/venteak-wood.webp": [
+    {
+      "src": "/files/Species/venteak-wood-320.webp",
+      "width": 320,
+      "sha256": "15fe0c7923577da29165fd1a5b5194507efed072502c1cae98542eada84df010"
+    },
+    {
+      "src": "/files/Species/venteak-wood-640.webp",
+      "width": 640,
+      "sha256": "f4940467a4428ae71331a4f6501977803986be3decdebf3ef5cd25b24ffc7ed5"
+    },
+    {
+      "src": "/files/Species/venteak-wood-960.webp",
+      "width": 960,
+      "sha256": "cb7dee935ec146e85aaaf48856ca25c99632022ecdf4ed1c2fd436d2b529a622"
+    },
+    {
+      "src": "/files/Species/venteak-wood.webp",
+      "width": 1200,
+      "sha256": "f6b1bce817a0024b8dd2782e862326e08743dbe1cfe40dd4ad7bedabecdfa3a3"
+    }
+  ],
+  "/files/Species/matti-wood.webp": [
+    {
+      "src": "/files/Species/matti-wood-320.webp",
+      "width": 320,
+      "sha256": "1e43018f77d488744dfa36e20e6a021c1c34bace10e595567ea56c8245714648"
+    },
+    {
+      "src": "/files/Species/matti-wood-640.webp",
+      "width": 640,
+      "sha256": "abb24ea76d678bb09459c5f7e32a6463b64d3364ad4ceecc9fbda141164c5a21"
+    },
+    {
+      "src": "/files/Species/matti-wood-960.webp",
+      "width": 960,
+      "sha256": "d84b599df0bd71735f06e7edd3958986a533901c5e8c7df5b4bc65a3c5d040aa"
+    },
+    {
+      "src": "/files/Species/matti-wood.webp",
+      "width": 1200,
+      "sha256": "6da2d60172a9ccc7a10187e22182d08a05d3821a60090be3ed25d5f5171d5e5d"
+    }
+  ],
+  "/files/Species/anjili-wood.webp": [
+    {
+      "src": "/files/Species/anjili-wood-320.webp",
+      "width": 320,
+      "sha256": "0563c5653f15f90c699d6fe0756dfd9478cc96626e8d0a9606e2a83c5b3b4f5f"
+    },
+    {
+      "src": "/files/Species/anjili-wood.webp",
+      "width": 370,
+      "sha256": "453c76fb1781b8d779d560a5b25aae587600c2ccc1371b5cb6792d4441bed1bf"
+    }
+  ],
+  "/files/Species/poplar-wood.webp": [
+    {
+      "src": "/files/Species/poplar-wood-320.webp",
+      "width": 320,
+      "sha256": "139072b102bb210b07fb6e6d1b051f96e6e93a18be53f9b5592d44ed88f9f8bc"
+    },
+    {
+      "src": "/files/Species/poplar-wood-640.webp",
+      "width": 640,
+      "sha256": "d79ff339517100d6948ae1f5bfe0374308c291dfe2786148a98ff2d0b9c558c3"
+    },
+    {
+      "src": "/files/Species/poplar-wood.webp",
+      "width": 880,
+      "sha256": "c1cb14f1e6008a9513570a66ab0d24c9ff256f6401d7188ea585df2d4ab9155b"
+    }
+  ],
+  "/files/Indian-Industry/plywood-face-layered-edge.webp": [
+    {
+      "src": "/files/Indian-Industry/plywood-face-layered-edge-320.webp",
+      "width": 320,
+      "sha256": "5647cafbf3e74a1e419159842ef5cbb093fdd3753784be70cf4e011d0e610d47"
+    },
+    {
+      "src": "/files/Indian-Industry/plywood-face-layered-edge-640.webp",
+      "width": 640,
+      "sha256": "e78607dff552ed7d818cc6f323c8536151a0798922f0cfc133a3baf77fd4bb93"
+    },
+    {
+      "src": "/files/Indian-Industry/plywood-face-layered-edge.webp",
+      "width": 938,
+      "sha256": "5b17a23beec245b95027e36674686237e0fe39893d51d11ea88f3f2e68509aa7"
+    }
+  ],
+  "/files/Indian-Industry/plywood-panel-flat-stack.webp": [
+    {
+      "src": "/files/Indian-Industry/plywood-panel-flat-stack-320.webp",
+      "width": 320,
+      "sha256": "5c1563aff3d27c211bbd041772194b4a3d0eef0cbc77f1e6bebd713e78832687"
+    },
+    {
+      "src": "/files/Indian-Industry/plywood-panel-flat-stack-640.webp",
+      "width": 640,
+      "sha256": "d00019b1adca2d2c492ce97d3b35dc80f91d8d08003f52a2aa77d9301c9d9427"
+    },
+    {
+      "src": "/files/Indian-Industry/plywood-panel-flat-stack.webp",
+      "width": 960,
+      "sha256": "9803e2382566bf70bca9963ad0d78fa740f59359164379a1dd72afc7f103d1c5"
+    }
+  ],
+  "/files/Indian-Industry/covered-lorry-timber-yard.webp": [
+    {
+      "src": "/files/Indian-Industry/covered-lorry-timber-yard-320.webp",
+      "width": 320,
+      "sha256": "68993a3defe9c6b059a236e3f3b2cfcb88456bf70b5fa4562df7dade24a6c757"
+    },
+    {
+      "src": "/files/Indian-Industry/covered-lorry-timber-yard-640.webp",
+      "width": 640,
+      "sha256": "9f5194a66584a0c12330a54b571967942d1fc8d0064fb7bf14a3cfa7fe4d0064"
+    },
+    {
+      "src": "/files/Indian-Industry/covered-lorry-timber-yard-960.webp",
+      "width": 960,
+      "sha256": "20e6620291ed3b72e5d4ae0e2e734519bcad9c6d8120de7e5f5fe7b559b64adc"
+    },
+    {
+      "src": "/files/Indian-Industry/covered-lorry-timber-yard.webp",
+      "width": 1600,
+      "sha256": "8b8be426e43fc0e83e941341371b011cedabab20d8cf1ca744fd31d01dd3364f"
+    }
+  ],
+  "/files/Indian-Industry/plywood-loaded-lorry-shed.webp": [
+    {
+      "src": "/files/Indian-Industry/plywood-loaded-lorry-shed-320.webp",
+      "width": 320,
+      "sha256": "7005412f97ccec4231694a377289a7a0d13182a7c2f831b90768516628b135f6"
+    },
+    {
+      "src": "/files/Indian-Industry/plywood-loaded-lorry-shed-640.webp",
+      "width": 640,
+      "sha256": "ff994c66e225332586e30bf96899157361cd4ec4f94f8b050c72d4c6973d9704"
+    },
+    {
+      "src": "/files/Indian-Industry/plywood-loaded-lorry-shed-960.webp",
+      "width": 960,
+      "sha256": "057a0bb15788e62e1c986ab4859683df6f2dd21bd7e35d85547f6c416e84e9cd"
+    },
+    {
+      "src": "/files/Indian-Industry/plywood-loaded-lorry-shed.webp",
+      "width": 1599,
+      "sha256": "a4f4e97288ad3c76b79025d21c700fd36af9bdc0952c129d8d3f50ca2d552ba1"
+    }
+  ],
+  "/files/Requested-2026-09/film-faced-shuttering.webp": [
+    {
+      "src": "/files/Requested-2026-09/film-faced-shuttering-320.webp",
+      "width": 320,
+      "sha256": "de61281f6a39756eeee187ee094b0ff73da536233ac2918ec951179e6c8de684"
+    },
+    {
+      "src": "/files/Requested-2026-09/film-faced-shuttering-640.webp",
+      "width": 640,
+      "sha256": "cd39a4cb7c3cccba3fd56643ebe364d8ca679bf03d162db254a47a053ab7d4f4"
+    },
+    {
+      "src": "/files/Requested-2026-09/film-faced-shuttering-960.webp",
+      "width": 960,
+      "sha256": "be7908a07a34a9519ca706e574d8ac215151b9dddb5d97c8dec64c45e41758e0"
+    },
+    {
+      "src": "/files/Requested-2026-09/film-faced-shuttering.webp",
+      "width": 1448,
+      "sha256": "69198e09de6f72dd684abec22c018647a164ecf435e77d1017e3c75d33dfc6a5"
+    }
+  ],
+  "/files/Requested-2026-09/container-flooring.webp": [
+    {
+      "src": "/files/Requested-2026-09/container-flooring-320.webp",
+      "width": 320,
+      "sha256": "cdca76db19649b07c338507eb67e79f82865df183832523b1b27762c65d3013e"
+    },
+    {
+      "src": "/files/Requested-2026-09/container-flooring-640.webp",
+      "width": 640,
+      "sha256": "e3adeb240268a0031ecde44b688b116ddaeb01abb0c86f42d0d6e06767e7a4c5"
+    },
+    {
+      "src": "/files/Requested-2026-09/container-flooring-960.webp",
+      "width": 960,
+      "sha256": "611388baa13f71c77d16ae718b0ec0fad991a9a75119ceb082f718c37d9a80a2"
+    },
+    {
+      "src": "/files/Requested-2026-09/container-flooring.webp",
+      "width": 1448,
+      "sha256": "878216d227b0b1c2c3f72fd249b994dff05a5cefdb7029f1a6a9c91e903fccf9"
+    }
+  ],
+  "/files/Requested-2026-09/blockboard-flush-doors.webp": [
+    {
+      "src": "/files/Requested-2026-09/blockboard-flush-doors-320.webp",
+      "width": 320,
+      "sha256": "8763b34c1173e364b8db1b6ff72bb55f753e8f2854449b25110cc2c72bcf6e7b"
+    },
+    {
+      "src": "/files/Requested-2026-09/blockboard-flush-doors-640.webp",
+      "width": 640,
+      "sha256": "35293abbb0b58116e1f5a020daae5eb676a2ed58be4292e86d58d9f140c568ab"
+    },
+    {
+      "src": "/files/Requested-2026-09/blockboard-flush-doors-960.webp",
+      "width": 960,
+      "sha256": "24ca8ddef2b2d894af98749f79493d14bbb2e7a421669d8250e17db3d2e787f7"
+    },
+    {
+      "src": "/files/Requested-2026-09/blockboard-flush-doors.webp",
+      "width": 1448,
+      "sha256": "cde9ad695f579d3b6f20f1d5ad3727c394ce2456c2e1c1e1c6c43e2ce50d4a33"
+    }
+  ],
+  "/files/Requested-2026-09/industries-formwork.webp": [
+    {
+      "src": "/files/Requested-2026-09/industries-formwork-320.webp",
+      "width": 320,
+      "sha256": "799c1efe0428875c1287446b8dbbe2d0d0385bacbb6e24840eda4dc74b4ed04a"
+    },
+    {
+      "src": "/files/Requested-2026-09/industries-formwork-640.webp",
+      "width": 640,
+      "sha256": "e5f2a08d38747995076014892851f48660b3fa13296914bc5496397170d85b21"
+    },
+    {
+      "src": "/files/Requested-2026-09/industries-formwork-960.webp",
+      "width": 960,
+      "sha256": "27b7880089890fb0ee0dfe3ab17188b0fab22f03e954f8b38168d7e7fa5e93ad"
+    },
+    {
+      "src": "/files/Requested-2026-09/industries-formwork.webp",
+      "width": 1448,
+      "sha256": "5987311994543c5b3192977b99f5ae9e3638fdca8f127d27b5df54ffe47024a4"
+    }
+  ],
+  "/files/Requested-2026-09/industries-joinery.webp": [
+    {
+      "src": "/files/Requested-2026-09/industries-joinery-320.webp",
+      "width": 320,
+      "sha256": "ef03f8c23fdd646ebbcfba6e73a8436376a41124dbcb17a469cc41581799fe9a"
+    },
+    {
+      "src": "/files/Requested-2026-09/industries-joinery-640.webp",
+      "width": 640,
+      "sha256": "5186d444a1f1063e59aa862ef68d6e41870850d163ca8c35395b8096c8080ca2"
+    },
+    {
+      "src": "/files/Requested-2026-09/industries-joinery-960.webp",
+      "width": 960,
+      "sha256": "964a7e2f51a90b3e6e7e7cb43d126e6c08ba755aace561b20213c5cf8bd91ce8"
+    },
+    {
+      "src": "/files/Requested-2026-09/industries-joinery.webp",
+      "width": 1448,
+      "sha256": "1b0a43410cbecef23128eb433389b6bb65ed6fc1bae7666e1e1d08519ec6070c"
+    }
+  ],
+  "/files/Editorial-2026/ispm-15-ht-stamp-validity-india-exporters-2026.webp": [
+    {
+      "src": "/files/Editorial-2026/ispm-15-ht-stamp-validity-india-exporters-2026-320.webp",
+      "width": 320,
+      "sha256": "fca74310f54a96fbe30262d349a743f95efbed1943cd4d79440fd869202eb0ec"
+    },
+    {
+      "src": "/files/Editorial-2026/ispm-15-ht-stamp-validity-india-exporters-2026-640.webp",
+      "width": 640,
+      "sha256": "6a86b36324b9ccd69fa15de388ceec9643e0e11b2f3864943c243197c2294b4a"
+    },
+    {
+      "src": "/files/Editorial-2026/ispm-15-ht-stamp-validity-india-exporters-2026-960.webp",
+      "width": 960,
+      "sha256": "34d79ecf1f018b3bec6828a17c616d0c8b963ac2af6e4260f007503bb72d5546"
+    },
+    {
+      "src": "/files/Editorial-2026/ispm-15-ht-stamp-validity-india-exporters-2026.webp",
+      "width": 1536,
+      "sha256": "66f995ce5e39070ab515a9485653c8793a6682eb109e1c25c3776cc300dca4b3"
+    }
+  ],
+  "/files/Editorial-2026/20ft-container-plywood-loading-sheet-count-by-thickness-weight-limited.webp": [
+    {
+      "src": "/files/Editorial-2026/20ft-container-plywood-loading-sheet-count-by-thickness-weight-limited-320.webp",
+      "width": 320,
+      "sha256": "09d1d8b6cbd3c9abd2215256f36a98af01e0ce74749797010b0a5039ded404d2"
+    },
+    {
+      "src": "/files/Editorial-2026/20ft-container-plywood-loading-sheet-count-by-thickness-weight-limited-640.webp",
+      "width": 640,
+      "sha256": "36cdf2b0d87e4cad51c84776f5c8381c36e80cd41ff50c483c9b4f4275104ae3"
+    },
+    {
+      "src": "/files/Editorial-2026/20ft-container-plywood-loading-sheet-count-by-thickness-weight-limited-960.webp",
+      "width": 960,
+      "sha256": "dae948b4ba19e151f2c81724c8a61eb04564b81349a69db3ed9e91ba884a8f60"
+    },
+    {
+      "src": "/files/Editorial-2026/20ft-container-plywood-loading-sheet-count-by-thickness-weight-limited.webp",
+      "width": 1536,
+      "sha256": "19ff23c3da05789494340fdc31b43cb51c6373644aa005d7be122ae3f3b5e188"
+    }
+  ],
+  "/files/Editorial-2026/bwr-vs-bwp-for-export-packing-when-mr-grade-will-fail-at-sea.webp": [
+    {
+      "src": "/files/Editorial-2026/bwr-vs-bwp-for-export-packing-when-mr-grade-will-fail-at-sea-320.webp",
+      "width": 320,
+      "sha256": "134bbe0d6e1f13dfd1a29890d2b5e92477e2bec264ec18974c26486a75251960"
+    },
+    {
+      "src": "/files/Editorial-2026/bwr-vs-bwp-for-export-packing-when-mr-grade-will-fail-at-sea-640.webp",
+      "width": 640,
+      "sha256": "5e2ae3e9be814d3d48d38ab80e2cd25f0e27534bb54d9693352af728b61e5e85"
+    },
+    {
+      "src": "/files/Editorial-2026/bwr-vs-bwp-for-export-packing-when-mr-grade-will-fail-at-sea-960.webp",
+      "width": 960,
+      "sha256": "66e3eb8ebfdb5584346cfbbe6cbb151062bad880b3e84f2d88af98cba281047b"
+    },
+    {
+      "src": "/files/Editorial-2026/bwr-vs-bwp-for-export-packing-when-mr-grade-will-fail-at-sea.webp",
+      "width": 1536,
+      "sha256": "917fc738befdd68594f27e9fd11628c97caeeb019941acd00a0144b88d84674a"
+    }
+  ],
+  "/files/Editorial-2026/fob-cochin-for-plywood-exporters-what-s-included-what-s-extra.webp": [
+    {
+      "src": "/files/Editorial-2026/fob-cochin-for-plywood-exporters-what-s-included-what-s-extra-320.webp",
+      "width": 320,
+      "sha256": "6e005f95b31361ce9abb7698b366ba0f041a7fc77b6e665e1fbe316106378c68"
+    },
+    {
+      "src": "/files/Editorial-2026/fob-cochin-for-plywood-exporters-what-s-included-what-s-extra-640.webp",
+      "width": 640,
+      "sha256": "a75e2a2b6181172df5f72f9a07b7a3aa3d6c2e0fa85ce829687a4300094eb690"
+    },
+    {
+      "src": "/files/Editorial-2026/fob-cochin-for-plywood-exporters-what-s-included-what-s-extra-960.webp",
+      "width": 960,
+      "sha256": "398d42358b2ed5299e1b2678a064299d3a2cb781fd4c7e09ab544e2da557e4ef"
+    },
+    {
+      "src": "/files/Editorial-2026/fob-cochin-for-plywood-exporters-what-s-included-what-s-extra.webp",
+      "width": 1536,
+      "sha256": "984da06862e9f3a41ff00bc8d05f36439c91f4ab68f3c2a621d818f236b30f40"
+    }
+  ],
+  "/files/Editorial-2026/plywood-cable-drum-flanges-is-10418-spec-sizing-sourcing-guide.webp": [
+    {
+      "src": "/files/Editorial-2026/plywood-cable-drum-flanges-is-10418-spec-sizing-sourcing-guide-320.webp",
+      "width": 320,
+      "sha256": "dbe4ecf4e8a5daa90ba2689fd06f328d27285ffda704d37427f547eb593b57ed"
+    },
+    {
+      "src": "/files/Editorial-2026/plywood-cable-drum-flanges-is-10418-spec-sizing-sourcing-guide-640.webp",
+      "width": 640,
+      "sha256": "582f38ece54d7453f02812f61fd294a4f10f5a144598484f43f688ced74c1660"
+    },
+    {
+      "src": "/files/Editorial-2026/plywood-cable-drum-flanges-is-10418-spec-sizing-sourcing-guide-960.webp",
+      "width": 960,
+      "sha256": "694681da87af6159804804a584fafa46bccadfcb6a83ac3e99420cee99991113"
+    },
+    {
+      "src": "/files/Editorial-2026/plywood-cable-drum-flanges-is-10418-spec-sizing-sourcing-guide.webp",
+      "width": 1536,
+      "sha256": "625f058e6e089aea0f677385c57a520cf15f2401068d44fc2fc1bd975fc88934"
+    }
+  ],
+  "/files/Editorial-2026/block-board-vs-plywood.webp": [
+    {
+      "src": "/files/Editorial-2026/block-board-vs-plywood-320.webp",
+      "width": 320,
+      "sha256": "0d5213841f34f19ce93c096ddc0e0e365678f01d232ba8f3bb06324f0b930782"
+    },
+    {
+      "src": "/files/Editorial-2026/block-board-vs-plywood-640.webp",
+      "width": 640,
+      "sha256": "0facb17b41dd91a99a0b2d1a27ad7f3de83f3d1fb2b321cc12b46993f7223471"
+    },
+    {
+      "src": "/files/Editorial-2026/block-board-vs-plywood-960.webp",
+      "width": 960,
+      "sha256": "2d6997c3baebc4618493ff5951a40e67c9f3a7bfb54b0ec6e2e7b1f807f5c88e"
+    },
+    {
+      "src": "/files/Editorial-2026/block-board-vs-plywood.webp",
+      "width": 1536,
+      "sha256": "2f7ad9aacec8b0d0939faee91a85a03dcbe2caa84100b3824cae727f656a6c43"
+    }
+  ],
+  "/files/Editorial-2026/is-710-vs-is-303-plywood.webp": [
+    {
+      "src": "/files/Editorial-2026/is-710-vs-is-303-plywood-320.webp",
+      "width": 320,
+      "sha256": "f83c9a601c3666f22fe12716d1d3d14d17d4bc444c54845c096f00bcdb985544"
+    },
+    {
+      "src": "/files/Editorial-2026/is-710-vs-is-303-plywood-640.webp",
+      "width": 640,
+      "sha256": "c5932c9fc077dbb870bd35528ff0f488fa288ffb129708e95597deb181c0bc61"
+    },
+    {
+      "src": "/files/Editorial-2026/is-710-vs-is-303-plywood-960.webp",
+      "width": 960,
+      "sha256": "e01727b558ea2349ecd4b3afa973bc4327f2cc622fb5df690f1e402163676c99"
+    },
+    {
+      "src": "/files/Editorial-2026/is-710-vs-is-303-plywood.webp",
+      "width": 1536,
+      "sha256": "c8e080fdaa8f3f0538b92a4472b2943fb6e28010be4e6aea579f4d2351df38c6"
+    }
+  ],
+  "/files/Editorial-2026/do-plywood-boxes-need-ispm-15.webp": [
+    {
+      "src": "/files/Editorial-2026/do-plywood-boxes-need-ispm-15-320.webp",
+      "width": 320,
+      "sha256": "7643f00f8f44d028a2b242b0a39e27bd0d4c0f59c7e702a1b76e21780c4459c7"
+    },
+    {
+      "src": "/files/Editorial-2026/do-plywood-boxes-need-ispm-15-640.webp",
+      "width": 640,
+      "sha256": "573d0f889b38bf0f7736e2584406f7a37450113d0e524f13036010139e7b6c8a"
+    },
+    {
+      "src": "/files/Editorial-2026/do-plywood-boxes-need-ispm-15-960.webp",
+      "width": 960,
+      "sha256": "1ed9e11a9c9591adbf9fd431a0a4ba569ba47ecc0f10f11aa38d12b35d382759"
+    },
+    {
+      "src": "/files/Editorial-2026/do-plywood-boxes-need-ispm-15.webp",
+      "width": 1536,
+      "sha256": "d43bfcf87c3c74142726e4ffd7d70ea6d7a60a79940ce0edf2b40e49dc34bc34"
+    }
+  ],
+  "/files/Editorial-2026/how-many-pours-does-film-faced-plywood-last.webp": [
+    {
+      "src": "/files/Editorial-2026/how-many-pours-does-film-faced-plywood-last-320.webp",
+      "width": 320,
+      "sha256": "1e9018f47815a26f0ab8d97523e901b6fc7b8f97dc09dcf06cf96280bd70334e"
+    },
+    {
+      "src": "/files/Editorial-2026/how-many-pours-does-film-faced-plywood-last-640.webp",
+      "width": 640,
+      "sha256": "54e84aa37635e91db315e94778a7cc6079690e861041a34f27a9b546764de046"
+    },
+    {
+      "src": "/files/Editorial-2026/how-many-pours-does-film-faced-plywood-last-960.webp",
+      "width": 960,
+      "sha256": "956e32c69fe3911f3eb58044cf09dca3f5b6ec165ce14033b38a7b662d4bff1d"
+    },
+    {
+      "src": "/files/Editorial-2026/how-many-pours-does-film-faced-plywood-last.webp",
+      "width": 1536,
+      "sha256": "edd7d632dd9396b6a6adcb8e12d3f825b995c093a3f5a60ffd6c1abb5c41ce20"
+    }
+  ],
+  "/files/Editorial-2026/iicl-tb-001-container-flooring-plywood.webp": [
+    {
+      "src": "/files/Editorial-2026/iicl-tb-001-container-flooring-plywood-320.webp",
+      "width": 320,
+      "sha256": "c14b93d08299e5456a9996086fbf0767113698b028f5794c08f4fa874fea18c9"
+    },
+    {
+      "src": "/files/Editorial-2026/iicl-tb-001-container-flooring-plywood-640.webp",
+      "width": 640,
+      "sha256": "996728e528b68829365f422437a68499455d3d82017c9adcca144c416f2ae08e"
+    },
+    {
+      "src": "/files/Editorial-2026/iicl-tb-001-container-flooring-plywood-960.webp",
+      "width": 960,
+      "sha256": "003a03f2745967dec35fdfc55819f8acf254a5e63aa379022fec3d693b308fd7"
+    },
+    {
+      "src": "/files/Editorial-2026/iicl-tb-001-container-flooring-plywood.webp",
+      "width": 1536,
+      "sha256": "96d7809092f993303140156d651aad302cb6c73c5a1b2dc3d9fafcec459ba9d8"
+    }
+  ],
+  "/files/Editorial-2026/okoume-vs-gurjan-plywood.webp": [
+    {
+      "src": "/files/Editorial-2026/okoume-vs-gurjan-plywood-320.webp",
+      "width": 320,
+      "sha256": "1e9bd6f13db37ab4a5fb0208334b2c7f9239e10f7c0b0ca7c260320edb7bdec3"
+    },
+    {
+      "src": "/files/Editorial-2026/okoume-vs-gurjan-plywood-640.webp",
+      "width": 640,
+      "sha256": "7d1a4f4468cc472c273dba5664dd91d74b4e892377c4778ca1d05caef3b2259f"
+    },
+    {
+      "src": "/files/Editorial-2026/okoume-vs-gurjan-plywood-960.webp",
+      "width": 960,
+      "sha256": "78ce850656b158caa37aa872c4fdc2d315bf0f191392151540b77d7b4bd33a89"
+    },
+    {
+      "src": "/files/Editorial-2026/okoume-vs-gurjan-plywood.webp",
+      "width": 1536,
+      "sha256": "0db38515d78ea36ee2d205192b8b19efb4b4dca153abc34a53700ee321f3b692"
+    }
+  ],
+  "/files/Editorial-2026/marine-plywood-thickness-guide.webp": [
+    {
+      "src": "/files/Editorial-2026/marine-plywood-thickness-guide-320.webp",
+      "width": 320,
+      "sha256": "00c816b177f640173b0f6b0b0631237dba01a7d309ef12c827cd3e97ef8ee206"
+    },
+    {
+      "src": "/files/Editorial-2026/marine-plywood-thickness-guide-640.webp",
+      "width": 640,
+      "sha256": "6beb77f5a3dfa6fbb97d1d8a73b20286980e70978cb9d40da5e6e6ccf8895cac"
+    },
+    {
+      "src": "/files/Editorial-2026/marine-plywood-thickness-guide-960.webp",
+      "width": 960,
+      "sha256": "48b4d26d444cea6e14d4a737e31bdf68c8c178a51c86431e95856a0832b4c1f1"
+    },
+    {
+      "src": "/files/Editorial-2026/marine-plywood-thickness-guide.webp",
+      "width": 1536,
+      "sha256": "2f9cea0d692c9555ef0c652dceb79f0f8b5a2ac85ba5329f683e40e88141e903"
+    }
+  ],
+  "/files/Editorial-2026/plywood-for-packing-cases.webp": [
+    {
+      "src": "/files/Editorial-2026/plywood-for-packing-cases-320.webp",
+      "width": 320,
+      "sha256": "25f0d098939a26a7ee0229507d4c722b1c8c1bc6c0f87207ec6d98be4c482d49"
+    },
+    {
+      "src": "/files/Editorial-2026/plywood-for-packing-cases-640.webp",
+      "width": 640,
+      "sha256": "823ee3effe91db158e79f3745773b5786dda18af409fbfcfc2374a3063858694"
+    },
+    {
+      "src": "/files/Editorial-2026/plywood-for-packing-cases-960.webp",
+      "width": 960,
+      "sha256": "271cd0aa51539003d6c1c2969d1a787ea8aa2dae7dba7dd4f794b4f320dd832e"
+    },
+    {
+      "src": "/files/Editorial-2026/plywood-for-packing-cases.webp",
+      "width": 1536,
+      "sha256": "694b5b998d8d18250550e8ba4a687f3df0d36f58a3368c21da7933407c531b97"
+    }
+  ],
+  "/files/Editorial-2026/ispm-15-export-crate-cost.webp": [
+    {
+      "src": "/files/Editorial-2026/ispm-15-export-crate-cost-320.webp",
+      "width": 320,
+      "sha256": "4ebdec3fb0adab532dd23a6de5d7530ed10ce9f132614e71bdd33884a997313c"
+    },
+    {
+      "src": "/files/Editorial-2026/ispm-15-export-crate-cost-640.webp",
+      "width": 640,
+      "sha256": "c44cc89c033d90f57c440ceb462bc05c633bebc8529d1a2df14cefe3a4aa3b70"
+    },
+    {
+      "src": "/files/Editorial-2026/ispm-15-export-crate-cost-960.webp",
+      "width": 960,
+      "sha256": "2c9d1c09626c7bb8712a1c0bb241b2c46735d778e97acb54b108e47da8383b96"
+    },
+    {
+      "src": "/files/Editorial-2026/ispm-15-export-crate-cost.webp",
+      "width": 1536,
+      "sha256": "91e56c60e6246a2164658c523af24de6c1e7980a6a979af8ad411e399ec5da66"
+    }
+  ],
+  "/files/Editorial-2026/fob-cochin-explained.webp": [
+    {
+      "src": "/files/Editorial-2026/fob-cochin-explained-320.webp",
+      "width": 320,
+      "sha256": "3dd8a62660b640776fa15885cd1cf6ff401c4bafb7784c658875c8a7c5f7def7"
+    },
+    {
+      "src": "/files/Editorial-2026/fob-cochin-explained-640.webp",
+      "width": 640,
+      "sha256": "ec02b8839f5c6c13a905612eb649a70cbf8b4a0ef7b0a9bfdf32835bcef45650"
+    },
+    {
+      "src": "/files/Editorial-2026/fob-cochin-explained-960.webp",
+      "width": 960,
+      "sha256": "dc28635bec162b7da92393e2c3a0e87935e1654247e8cdf55d39133a7e35c77a"
+    },
+    {
+      "src": "/files/Editorial-2026/fob-cochin-explained.webp",
+      "width": 1536,
+      "sha256": "6e37ad19212c5a375cb5c77dd9671bf59738a137433affac93a7fec67a20f1aa"
+    }
+  ],
+  "/files/Editorial-2026/rubberwood-plywood-explained.webp": [
+    {
+      "src": "/files/Editorial-2026/rubberwood-plywood-explained-320.webp",
+      "width": 320,
+      "sha256": "ee8c3d95887bb987c5d443a9ad07ceecaee8d828e16c9530633233f324cb58c5"
+    },
+    {
+      "src": "/files/Editorial-2026/rubberwood-plywood-explained-640.webp",
+      "width": 640,
+      "sha256": "f65c691d251885ca4a0ba7e0a631fc6a330ef7ce1420b78384c075563523415f"
+    },
+    {
+      "src": "/files/Editorial-2026/rubberwood-plywood-explained-960.webp",
+      "width": 960,
+      "sha256": "5312ff431bb36798fa9df7b108d7796084e4fef295c60db3621d5338060c2fec"
+    },
+    {
+      "src": "/files/Editorial-2026/rubberwood-plywood-explained.webp",
+      "width": 1536,
+      "sha256": "9efd8416548a85829f5109228bac2a45bfd394390a4b2f3e18ea42ebb5886b7d"
+    }
+  ],
+  "/files/Editorial-2026/bwp-and-bwr-plywood-explained.webp": [
+    {
+      "src": "/files/Editorial-2026/bwp-and-bwr-plywood-explained-320.webp",
+      "width": 320,
+      "sha256": "b7dadbebc2d13587ea6097c7fed456e0816e3852ebe35068cf93aae7ee19bc65"
+    },
+    {
+      "src": "/files/Editorial-2026/bwp-and-bwr-plywood-explained-640.webp",
+      "width": 640,
+      "sha256": "3a87b1bd48f863560f1439fce21f9ff4635ee7b1068772c3eb34eaf2d97e879e"
+    },
+    {
+      "src": "/files/Editorial-2026/bwp-and-bwr-plywood-explained-960.webp",
+      "width": 960,
+      "sha256": "b94ff492182d2d1cf7ac539fc28bf14886102821f1c063f3dcb14a02495f57fb"
+    },
+    {
+      "src": "/files/Editorial-2026/bwp-and-bwr-plywood-explained.webp",
+      "width": 1536,
+      "sha256": "355bfb438c34139467617ae8fcdb884daffda990102d1e1615cf128f371941e7"
+    }
+  ],
+  "/files/Editorial-2026/plywood-cable-drum-specifications.webp": [
+    {
+      "src": "/files/Editorial-2026/plywood-cable-drum-specifications-320.webp",
+      "width": 320,
+      "sha256": "36c0184bf5e7e154d9fc9397e356d8cca2c80736443ece09b88cbde40d03e94a"
+    },
+    {
+      "src": "/files/Editorial-2026/plywood-cable-drum-specifications-640.webp",
+      "width": 640,
+      "sha256": "1792a3654e324ca0b674d5e90a7f00406a3e794a7ece51bcc7caa52caf4d4046"
+    },
+    {
+      "src": "/files/Editorial-2026/plywood-cable-drum-specifications-960.webp",
+      "width": 960,
+      "sha256": "64fb7c83f5ca5361059439d4442ff6de145865cfc35107b4a158558839389d2e"
+    },
+    {
+      "src": "/files/Editorial-2026/plywood-cable-drum-specifications.webp",
+      "width": 1536,
+      "sha256": "4cf7a08894b98565eed27c6032aad4ed109762df95f4109f303fb048192671c0"
+    }
+  ],
+  "/files/Editorial-2026/export-crate-and-pallet-buying-checklist.webp": [
+    {
+      "src": "/files/Editorial-2026/export-crate-and-pallet-buying-checklist-320.webp",
+      "width": 320,
+      "sha256": "89527929db77adc7636e73749d177a83afcb2e36ab92dcfbf2e08125f743e012"
+    },
+    {
+      "src": "/files/Editorial-2026/export-crate-and-pallet-buying-checklist-640.webp",
+      "width": 640,
+      "sha256": "d0a7b9a987f1efffeb2d481f492ea36e3cefe41168af276b95c57fa402286636"
+    },
+    {
+      "src": "/files/Editorial-2026/export-crate-and-pallet-buying-checklist-960.webp",
+      "width": 960,
+      "sha256": "2f11a19a67b6721e8f49441d646d42c30ac4ce7789684ca1895e7dd0bf14c8a0"
+    },
+    {
+      "src": "/files/Editorial-2026/export-crate-and-pallet-buying-checklist.webp",
+      "width": 1536,
+      "sha256": "8c6ee55001367fd9166b1e9683e7c813c1a7473e768b8ed319fb2f149d50d15d"
+    }
+  ],
+  "/files/Editorial-2026/choosing-shuttering-plywood-for-site-builds.webp": [
+    {
+      "src": "/files/Editorial-2026/choosing-shuttering-plywood-for-site-builds-320.webp",
+      "width": 320,
+      "sha256": "d6f98aba16cbd41dc1fcd2f73c9dbe6a61e9fafeaf5d4a8a4fd236b31bcd8890"
+    },
+    {
+      "src": "/files/Editorial-2026/choosing-shuttering-plywood-for-site-builds-640.webp",
+      "width": 640,
+      "sha256": "a0f234b53cfc605ccec1d9828f6d9bb8f275a0ce6c4b10307cf3eb6d7eae5146"
+    },
+    {
+      "src": "/files/Editorial-2026/choosing-shuttering-plywood-for-site-builds-960.webp",
+      "width": 960,
+      "sha256": "41c75c6a858d997d47ffb4d006820912e4dc14e75132a219054a5645d4137c2b"
+    },
+    {
+      "src": "/files/Editorial-2026/choosing-shuttering-plywood-for-site-builds.webp",
+      "width": 1536,
+      "sha256": "457d202975c3fc64da6a014c2cb3382b44941ecb06d3c54d9b667e62dad95378"
+    }
+  ],
+  "/files/Editorial-2026/sourcing-flush-doors-and-block-boards-for-projects.webp": [
+    {
+      "src": "/files/Editorial-2026/sourcing-flush-doors-and-block-boards-for-projects-320.webp",
+      "width": 320,
+      "sha256": "cbe545480f08e730f5da4f322167da6ac8e924b54f6f383f61c6082e9a9c90de"
+    },
+    {
+      "src": "/files/Editorial-2026/sourcing-flush-doors-and-block-boards-for-projects-640.webp",
+      "width": 640,
+      "sha256": "7d7bf967baf81d82664633600fbd2c4dd0abbbf2fc67b307b043453d8442794d"
+    },
+    {
+      "src": "/files/Editorial-2026/sourcing-flush-doors-and-block-boards-for-projects-960.webp",
+      "width": 960,
+      "sha256": "1d06a3892370e036a763bcada4ff0172066f7bfc9a4927a363ef3a3e4f110985"
+    },
+    {
+      "src": "/files/Editorial-2026/sourcing-flush-doors-and-block-boards-for-projects.webp",
+      "width": 1536,
+      "sha256": "611a93b2a527969ac22e9dd28fb42a9cd8924f0dbe5528afc2b7204e2a5f0ae9"
+    }
+  ],
+  "/files/Editorial-2026/mr-or-bwr-for-fitted-joinery.webp": [
+    {
+      "src": "/files/Editorial-2026/mr-or-bwr-for-fitted-joinery-320.webp",
+      "width": 320,
+      "sha256": "3216097122cfcfec8b288f33a6c74962ec9105605e05598fbf468e56185407c2"
+    },
+    {
+      "src": "/files/Editorial-2026/mr-or-bwr-for-fitted-joinery-640.webp",
+      "width": 640,
+      "sha256": "ca9248ff6f1d47909354f1981df4fff953bf39a689eaa7819d95beecba877f8a"
+    },
+    {
+      "src": "/files/Editorial-2026/mr-or-bwr-for-fitted-joinery-960.webp",
+      "width": 960,
+      "sha256": "a5aa64a51a15e6cd552e8fed5dba4f3f3055c489eca9280a0f4da47fe69c6f3c"
+    },
+    {
+      "src": "/files/Editorial-2026/mr-or-bwr-for-fitted-joinery.webp",
+      "width": 1536,
+      "sha256": "cf7528e33b62b2ac15dfe94094ebd46a72d4b6221e1ba4ce75dfcf271a622824"
+    }
+  ],
+  "/files/Editorial-2026/buying-marine-plywood-for-boatyards.webp": [
+    {
+      "src": "/files/Editorial-2026/buying-marine-plywood-for-boatyards-320.webp",
+      "width": 320,
+      "sha256": "3133c662072f5da1f0038a1289330f216a68d695f98caafd847327c8236225f1"
+    },
+    {
+      "src": "/files/Editorial-2026/buying-marine-plywood-for-boatyards-640.webp",
+      "width": 640,
+      "sha256": "65e2308733350d9450123c655e59540ab9f662afba75f0b0b4feaf16914467f4"
+    },
+    {
+      "src": "/files/Editorial-2026/buying-marine-plywood-for-boatyards-960.webp",
+      "width": 960,
+      "sha256": "544848cd38d6139781f5c29d78f91a2b7357b4d984ee1af3cac7ac2b157ddb93"
+    },
+    {
+      "src": "/files/Editorial-2026/buying-marine-plywood-for-boatyards.webp",
+      "width": 1536,
+      "sha256": "a5fc76067532bc667f6f8dace6cc1833d649245450dd50991f61cf415eb8093e"
+    }
+  ],
+  "/files/Editorial-2026/how-plywood-is-made.webp": [
+    {
+      "src": "/files/Editorial-2026/how-plywood-is-made-320.webp",
+      "width": 320,
+      "sha256": "f75fc8675bb7c737ae0b718d35eb868f3328f74c6b6c6473625e6d6cc4be2680"
+    },
+    {
+      "src": "/files/Editorial-2026/how-plywood-is-made-640.webp",
+      "width": 640,
+      "sha256": "28b0ffa01958332e3f0eb120df53a40cd55429d40e30d9b157886baf187ae4ec"
+    },
+    {
+      "src": "/files/Editorial-2026/how-plywood-is-made-960.webp",
+      "width": 960,
+      "sha256": "8a7097aa5092fa8e85f948ccb11939688e35a58655ac5016f16327353759a8b2"
+    },
+    {
+      "src": "/files/Editorial-2026/how-plywood-is-made.webp",
+      "width": 1536,
+      "sha256": "f5f8ff05aa2abf28f15b0b1b81eff77fc5869591beb68431cebf9aae5146f0c7"
+    }
+  ],
+  "/files/Editorial-2026/how-to-get-an-accurate-plywood-quote.webp": [
+    {
+      "src": "/files/Editorial-2026/how-to-get-an-accurate-plywood-quote-320.webp",
+      "width": 320,
+      "sha256": "8a4d83e3d52cfd0ed9d7c0db7f91f1856bc0ba843a0ed6a059864f564b7f6438"
+    },
+    {
+      "src": "/files/Editorial-2026/how-to-get-an-accurate-plywood-quote-640.webp",
+      "width": 640,
+      "sha256": "db6c97a5fca16dfd4df9e07dfb7f9659c4a026669b32761f8e8f2854150e5ab2"
+    },
+    {
+      "src": "/files/Editorial-2026/how-to-get-an-accurate-plywood-quote-960.webp",
+      "width": 960,
+      "sha256": "af41693de94ff331ef78d312ecad2e441b22aec44689374552351ed691ea341a"
+    },
+    {
+      "src": "/files/Editorial-2026/how-to-get-an-accurate-plywood-quote.webp",
+      "width": 1536,
+      "sha256": "0ec24e0828d5d16005d3cb9a7ed4cd9634e1882eadcb333197b80f97936b3748"
+    }
+  ],
+  "/files/Editorial-2026/case-studies.webp": [
+    {
+      "src": "/files/Editorial-2026/case-studies-320.webp",
+      "width": 320,
+      "sha256": "4971c1c29f217a2cc664255f24cb0458d3e9a4aad54a36d1c66546f7bc02f8ed"
+    },
+    {
+      "src": "/files/Editorial-2026/case-studies-640.webp",
+      "width": 640,
+      "sha256": "996852603b39a7a1a9335722354833a9f38d2e5d56fd87be64da481d50d29dd4"
+    },
+    {
+      "src": "/files/Editorial-2026/case-studies-960.webp",
+      "width": 960,
+      "sha256": "d4bd56aa71516b2933fe4a41117e6cf3156a568318229280c01f7a355dd52e36"
+    },
+    {
+      "src": "/files/Editorial-2026/case-studies.webp",
+      "width": 1536,
+      "sha256": "f9b6d14ecdd7c977830117ec68cb9cecf2270dbcc5a8a1431b613efb505c50f0"
+    }
+  ],
+  "/files/Editorial-2026/export-documents-for-plywood-shipments.webp": [
+    {
+      "src": "/files/Editorial-2026/export-documents-for-plywood-shipments-320.webp",
+      "width": 320,
+      "sha256": "aefc90f07b68ee9aa92518567da6d7f949101bdac750c4ea61134176455daaca"
+    },
+    {
+      "src": "/files/Editorial-2026/export-documents-for-plywood-shipments-640.webp",
+      "width": 640,
+      "sha256": "6ace0dcc69a984677dcfac11e6779c97af07bc51cfd9f0f8fb3bb5b34f96f121"
+    },
+    {
+      "src": "/files/Editorial-2026/export-documents-for-plywood-shipments-960.webp",
+      "width": 960,
+      "sha256": "cdd4a08f3928b454d0c0f9cc22d4af4515f82f1c34b19d80ad41d4b8c668369f"
+    },
+    {
+      "src": "/files/Editorial-2026/export-documents-for-plywood-shipments.webp",
+      "width": 1536,
+      "sha256": "71b5f589912d2186f9eecb940dfc0e352d56bd77979e1377672de018e2d6c86e"
+    }
+  ],
+  "/files/Editorial-2026/is-4990-shuttering-plywood-standard-explained.webp": [
+    {
+      "src": "/files/Editorial-2026/is-4990-shuttering-plywood-standard-explained-320.webp",
+      "width": 320,
+      "sha256": "ae7c3a2b1abc73f0d7b2c36a7b8687710fa4c320bab33788624a1d407752ef08"
+    },
+    {
+      "src": "/files/Editorial-2026/is-4990-shuttering-plywood-standard-explained-640.webp",
+      "width": 640,
+      "sha256": "b1ed4ac46b010e3f8aef638d75deb97fe992b6e2aaed6077a9a0e353c510a9ef"
+    },
+    {
+      "src": "/files/Editorial-2026/is-4990-shuttering-plywood-standard-explained-960.webp",
+      "width": 960,
+      "sha256": "12eace8b75b06eab56d720588b6830d05b375e9895de0dc2ab1de071ebe6c415"
+    },
+    {
+      "src": "/files/Editorial-2026/is-4990-shuttering-plywood-standard-explained.webp",
+      "width": 1536,
+      "sha256": "90d9386f0dd7ee4472ecd2f879f0a4e75d19b5aa408feddc20ed07f69fb71e98"
+    }
+  ],
+  "/files/Editorial-2026/fsc-plywood-and-eudr-for-importers.webp": [
+    {
+      "src": "/files/Editorial-2026/fsc-plywood-and-eudr-for-importers-320.webp",
+      "width": 320,
+      "sha256": "c66aa400840bb7fde71e6e089b09aee4d695e1fad2b356dfc981dbe02b0d2ab0"
+    },
+    {
+      "src": "/files/Editorial-2026/fsc-plywood-and-eudr-for-importers-640.webp",
+      "width": 640,
+      "sha256": "8a6f0adc34a2c643f38ccb2cbf0bba2688ecd9b65541c1d2b7ebe3a0d393d429"
+    },
+    {
+      "src": "/files/Editorial-2026/fsc-plywood-and-eudr-for-importers-960.webp",
+      "width": 960,
+      "sha256": "7f3f6c6f0a9f7b1904083aa6d2d4744c2235e795dafbac5ce9d7540dbde06097"
+    },
+    {
+      "src": "/files/Editorial-2026/fsc-plywood-and-eudr-for-importers.webp",
+      "width": 1536,
+      "sha256": "105e87c2b9ec0b91079102ebb7c712ed787df95a439c806e511dd0394c409865"
+    }
+  ],
+  "/files/Editorial-2026/formaldehyde-compliance-for-plywood-exports.webp": [
+    {
+      "src": "/files/Editorial-2026/formaldehyde-compliance-for-plywood-exports-320.webp",
+      "width": 320,
+      "sha256": "b7b7e06465910899c4d606c42aa65ccab2aab97a762ee4fa7434b904bc3eab62"
+    },
+    {
+      "src": "/files/Editorial-2026/formaldehyde-compliance-for-plywood-exports-640.webp",
+      "width": 640,
+      "sha256": "70ec87f14d7ec1efc442a9f8f70eb708747522539c1e956470729f54b18f7288"
+    },
+    {
+      "src": "/files/Editorial-2026/formaldehyde-compliance-for-plywood-exports-960.webp",
+      "width": 960,
+      "sha256": "e5109eaca651f176775a27501a728de7f27bce2f48e40edd14a4b38248a63804"
+    },
+    {
+      "src": "/files/Editorial-2026/formaldehyde-compliance-for-plywood-exports.webp",
+      "width": 1536,
+      "sha256": "f572d57d65b37f8d89cb33d9aebaf5acd48e08458b40c6b0f86da47919f3d80e"
+    }
+  ],
+  "/files/Editorial-2026/mundra-vs-pipavav-for-plywood-exporters-which-port-which-cost.webp": [
+    {
+      "src": "/files/Editorial-2026/mundra-vs-pipavav-for-plywood-exporters-which-port-which-cost-320.webp",
+      "width": 320,
+      "sha256": "c0ca6c7fe673d509e878c293827a1634cfa21a9b4a7fbd79d251e26ba938d564"
+    },
+    {
+      "src": "/files/Editorial-2026/mundra-vs-pipavav-for-plywood-exporters-which-port-which-cost-640.webp",
+      "width": 640,
+      "sha256": "324fbdb6fab81b9519c4f7dc77fe8e338d898cfe688a01b31000969d70476d08"
+    },
+    {
+      "src": "/files/Editorial-2026/mundra-vs-pipavav-for-plywood-exporters-which-port-which-cost-960.webp",
+      "width": 960,
+      "sha256": "69d428f9c5a30fa8659ad87e13247758a28f7cbcb8aacda9e80baeb9c1a6a189"
+    },
+    {
+      "src": "/files/Editorial-2026/mundra-vs-pipavav-for-plywood-exporters-which-port-which-cost.webp",
+      "width": 1536,
+      "sha256": "beca8f7d179eac93c5c57fd2841ee3877a83b98bc8e7e80b3b57845b8a4ba118"
+    }
+  ],
+  "/files/Editorial-2026/plywood-crate-sizing-break-bulk-vs-container-which-spec-wins.webp": [
+    {
+      "src": "/files/Editorial-2026/plywood-crate-sizing-break-bulk-vs-container-which-spec-wins-320.webp",
+      "width": 320,
+      "sha256": "ea2a12000ed5ba8626da7401ec968f3d03f087b2da8242a71e39cf3084cdef76"
+    },
+    {
+      "src": "/files/Editorial-2026/plywood-crate-sizing-break-bulk-vs-container-which-spec-wins-640.webp",
+      "width": 640,
+      "sha256": "77cddaa7e1c9cc62dc467e687925b8fffce41515d830c5f4d84e3047d6b9f03e"
+    },
+    {
+      "src": "/files/Editorial-2026/plywood-crate-sizing-break-bulk-vs-container-which-spec-wins-960.webp",
+      "width": 960,
+      "sha256": "5830f3b924624eac7ea683a3fb909c6acc9378834c813172b40607391f952bab"
+    },
+    {
+      "src": "/files/Editorial-2026/plywood-crate-sizing-break-bulk-vs-container-which-spec-wins.webp",
+      "width": 1536,
+      "sha256": "3e91279ef1c3f48809b964e03e0c46fa92de534194aee2b4403909a061c7bc36"
+    }
+  ],
+  "/files/Editorial-2026/birch-vs-okoume-vs-gurjan-pick-the-right-face-veneer-for-export-packing.webp": [
+    {
+      "src": "/files/Editorial-2026/birch-vs-okoume-vs-gurjan-pick-the-right-face-veneer-for-export-packing-320.webp",
+      "width": 320,
+      "sha256": "1d2e12cbefc394e22c0832e9299b875e81874a27e7bca95df99d47e6c9111a1d"
+    },
+    {
+      "src": "/files/Editorial-2026/birch-vs-okoume-vs-gurjan-pick-the-right-face-veneer-for-export-packing-640.webp",
+      "width": 640,
+      "sha256": "68f3aa5af73dc51472e642034a4f6a8f8a5d255d2674e3c1243776e9ea658dd2"
+    },
+    {
+      "src": "/files/Editorial-2026/birch-vs-okoume-vs-gurjan-pick-the-right-face-veneer-for-export-packing-960.webp",
+      "width": 960,
+      "sha256": "96c3f1a206641a4c6ba466a6f271176e0c9d637cec78f931d7c6461b3d3cd815"
+    },
+    {
+      "src": "/files/Editorial-2026/birch-vs-okoume-vs-gurjan-pick-the-right-face-veneer-for-export-packing.webp",
+      "width": 1536,
+      "sha256": "2b8f90c5d3e016ca0c235ff6d9bc5cf4463de855b83593f9d5d302dd94fadbf6"
+    }
+  ],
+  "/files/Editorial-2026/plywood-boxes-for-machinery-triple-wall-vs-reinforced-single-wall.webp": [
+    {
+      "src": "/files/Editorial-2026/plywood-boxes-for-machinery-triple-wall-vs-reinforced-single-wall-320.webp",
+      "width": 320,
+      "sha256": "f237866006d04dc2e8dac5c4911116ca1166429c6443a0c5857c98f346ce0947"
+    },
+    {
+      "src": "/files/Editorial-2026/plywood-boxes-for-machinery-triple-wall-vs-reinforced-single-wall-640.webp",
+      "width": 640,
+      "sha256": "d4d4ae5612d01dd2972d1265fa926ecdc00f5b1ef986c3683b3fa52c5ea7ba63"
+    },
+    {
+      "src": "/files/Editorial-2026/plywood-boxes-for-machinery-triple-wall-vs-reinforced-single-wall-960.webp",
+      "width": 960,
+      "sha256": "bed2aa4adcb376dbe5e2101f55e8bb552361f8fcc5a72df88ed448aa464a22ab"
+    },
+    {
+      "src": "/files/Editorial-2026/plywood-boxes-for-machinery-triple-wall-vs-reinforced-single-wall.webp",
+      "width": 1536,
+      "sha256": "6eeaf0503be148f9ccd35f4f05215eab07cec34f3f5321d61a665b27d4262ce3"
+    }
+  ],
+  "/files/Editorial-2026/plywood-box-vs-wooden-crate-heavy-machinery-export.webp": [
+    {
+      "src": "/files/Editorial-2026/plywood-box-vs-wooden-crate-heavy-machinery-export-320.webp",
+      "width": 320,
+      "sha256": "0f8d039381c66d43ac842bef81363a4d9830c3335b5db6aba33d4ab1be1bb7ee"
+    },
+    {
+      "src": "/files/Editorial-2026/plywood-box-vs-wooden-crate-heavy-machinery-export-640.webp",
+      "width": 640,
+      "sha256": "ff722daeb7396deeb25722cf0d08f1bcf9355b8c29d993d38ae4ff2e299638ed"
+    },
+    {
+      "src": "/files/Editorial-2026/plywood-box-vs-wooden-crate-heavy-machinery-export-960.webp",
+      "width": 960,
+      "sha256": "b64697e4e92ee9fb79390fde7d626db1ce74140fcfc16cb765a8855ba4cbc1b0"
+    },
+    {
+      "src": "/files/Editorial-2026/plywood-box-vs-wooden-crate-heavy-machinery-export.webp",
+      "width": 1536,
+      "sha256": "6ae2bcdf9cd54793ad71761c776aaf86d7d61cb3f116cd53033307807d80a5ba"
+    }
+  ],
+  "/files/Editorial-2026/how-to-read-is-710-bwp-marine-plywood-test-certificate.webp": [
+    {
+      "src": "/files/Editorial-2026/how-to-read-is-710-bwp-marine-plywood-test-certificate-320.webp",
+      "width": 320,
+      "sha256": "f635d3b4dbb0159a7605e76d3e92c3527174d9b4506dc2167dccb925c157b930"
+    },
+    {
+      "src": "/files/Editorial-2026/how-to-read-is-710-bwp-marine-plywood-test-certificate-640.webp",
+      "width": 640,
+      "sha256": "bd3a9170f268ab084b0eef610a83a87b4ba83787d76f1463fe837776bb36a640"
+    },
+    {
+      "src": "/files/Editorial-2026/how-to-read-is-710-bwp-marine-plywood-test-certificate-960.webp",
+      "width": 960,
+      "sha256": "2b896de0b1b5c5db607db9f2d0ace0a1744f8eb69bcc5e9cacd82a75bac556ba"
+    },
+    {
+      "src": "/files/Editorial-2026/how-to-read-is-710-bwp-marine-plywood-test-certificate.webp",
+      "width": 1536,
+      "sha256": "173491d2fc0bc66530deadb50b0ada80586e22739f52cd2ce2fc571170e65d99"
+    }
+  ],
+  "/files/Editorial-2026/fob-cochin-vs-fca-mundra-gcc-plywood-incoterm.webp": [
+    {
+      "src": "/files/Editorial-2026/fob-cochin-vs-fca-mundra-gcc-plywood-incoterm-320.webp",
+      "width": 320,
+      "sha256": "90ee6c9fd3f47fcb3136e5eb2ce92cfe22ec3bf130d5b62c8c92dd16447f0c27"
+    },
+    {
+      "src": "/files/Editorial-2026/fob-cochin-vs-fca-mundra-gcc-plywood-incoterm-640.webp",
+      "width": 640,
+      "sha256": "a42b15d13ef022db2d0bd5de1e326a60499e68e4dea4550a18cddf031e637112"
+    },
+    {
+      "src": "/files/Editorial-2026/fob-cochin-vs-fca-mundra-gcc-plywood-incoterm-960.webp",
+      "width": 960,
+      "sha256": "56dacacf64ee1dfe753a4d722a2c182043f7c2443d78fddd21ce80cac492d938"
+    },
+    {
+      "src": "/files/Editorial-2026/fob-cochin-vs-fca-mundra-gcc-plywood-incoterm.webp",
+      "width": 1536,
+      "sha256": "24cd4773d9213e7e1f8eb1555e27412697fe0f65a931c3de4c1b3029b1105f1a"
+    }
+  ],
+  "/files/Editorial-2026/calibrated-okoume-furniture-plywood-e1-low-formaldehyde.webp": [
+    {
+      "src": "/files/Editorial-2026/calibrated-okoume-furniture-plywood-e1-low-formaldehyde-320.webp",
+      "width": 320,
+      "sha256": "fe855f2bdb263e22290072e3a62a0dfbe3d42bdefb7e905593c48fdd7e14e023"
+    },
+    {
+      "src": "/files/Editorial-2026/calibrated-okoume-furniture-plywood-e1-low-formaldehyde-640.webp",
+      "width": 640,
+      "sha256": "a066c8cf121447e90a6c83d90882cbfbc02fe07b74691e714df87a8d14a9af14"
+    },
+    {
+      "src": "/files/Editorial-2026/calibrated-okoume-furniture-plywood-e1-low-formaldehyde-960.webp",
+      "width": 960,
+      "sha256": "bb3ec847719f018eb4713c7c0aaa309acd4d635ff45bfe45c848622dfc16f282"
+    },
+    {
+      "src": "/files/Editorial-2026/calibrated-okoume-furniture-plywood-e1-low-formaldehyde.webp",
+      "width": 1536,
+      "sha256": "46a6b0778c6b44f4542fed75115a383a757eb3c30f92f12e8ca64f3cce997ab5"
+    }
+  ],
+  "/files/Editorial-2026/pallet-vs-loose-container-loading-plywood-exports.webp": [
+    {
+      "src": "/files/Editorial-2026/pallet-vs-loose-container-loading-plywood-exports-320.webp",
+      "width": 320,
+      "sha256": "81d31679c7f90117e7413ba4a95ea0f995e5765ffc66ea84d08550c9c87c7ed5"
+    },
+    {
+      "src": "/files/Editorial-2026/pallet-vs-loose-container-loading-plywood-exports-640.webp",
+      "width": 640,
+      "sha256": "08b1f19771da6646fe85b921691c65bfa9c2e12752074a136d82a829ce508f52"
+    },
+    {
+      "src": "/files/Editorial-2026/pallet-vs-loose-container-loading-plywood-exports-960.webp",
+      "width": 960,
+      "sha256": "e2084eb52878d6fbb97bc8cd542b0274b91ff20f00440e0fdb4684ad407ffb87"
+    },
+    {
+      "src": "/files/Editorial-2026/pallet-vs-loose-container-loading-plywood-exports.webp",
+      "width": 1536,
+      "sha256": "1614fc1e0a390d1833764cb5b861665c961a029b1597a7f6261d9b4bb5eedc44"
+    }
+  ],
+  "/files/Editorial-2026/hpl-vs-prelaminated-vs-lacquer-plywood-finishes.webp": [
+    {
+      "src": "/files/Editorial-2026/hpl-vs-prelaminated-vs-lacquer-plywood-finishes-320.webp",
+      "width": 320,
+      "sha256": "71ddd790909f1c422ffd23865b5653855c95699f2f903b9fea8f0be732533509"
+    },
+    {
+      "src": "/files/Editorial-2026/hpl-vs-prelaminated-vs-lacquer-plywood-finishes-640.webp",
+      "width": 640,
+      "sha256": "049c8df88765c98c9867b2d615452c21e7e1ebf6dd180a787705b5b551a0c257"
+    },
+    {
+      "src": "/files/Editorial-2026/hpl-vs-prelaminated-vs-lacquer-plywood-finishes-960.webp",
+      "width": 960,
+      "sha256": "75d7b702fc7f983a38184df26287cc7d5a23e7585be170b08449b29e8237e1f7"
+    },
+    {
+      "src": "/files/Editorial-2026/hpl-vs-prelaminated-vs-lacquer-plywood-finishes.webp",
+      "width": 1536,
+      "sha256": "53bdc27dc68c0f735b58740fa6efcfd0f869760534cf90499bcf027ea1e37919"
+    }
+  ],
+  "/files/Editorial-2026/how-to-read-a-plywood-grade-stamp.webp": [
+    {
+      "src": "/files/Editorial-2026/how-to-read-a-plywood-grade-stamp-320.webp",
+      "width": 320,
+      "sha256": "875b2e9a99c6f8a46d82e2d2c9a403e46bfceeeaeab68d9931e6887c2274caf1"
+    },
+    {
+      "src": "/files/Editorial-2026/how-to-read-a-plywood-grade-stamp-640.webp",
+      "width": 640,
+      "sha256": "8f0f609a1416bd3c34c1cafe61f005c24293a9fcdb38d219e20410e826d63e32"
+    },
+    {
+      "src": "/files/Editorial-2026/how-to-read-a-plywood-grade-stamp-960.webp",
+      "width": 960,
+      "sha256": "4e72cec7b76f939d40e4a75976963dac0367cd21c7f03b09ed98488ba8cdab4f"
+    },
+    {
+      "src": "/files/Editorial-2026/how-to-read-a-plywood-grade-stamp.webp",
+      "width": 1536,
+      "sha256": "62d20458320aa9b3dac80c5068f86df67ee3914377b510884fb33e517c479c9a"
+    }
+  ],
+  "/files/Editorial-2026/eucalyptus-vs-poplar-vs-hardwood-plywood-core.webp": [
+    {
+      "src": "/files/Editorial-2026/eucalyptus-vs-poplar-vs-hardwood-plywood-core-320.webp",
+      "width": 320,
+      "sha256": "af4c55b8fe61f02bbb44d27b31c1ef7dce8fb3b8b559fecfaed43ab23bee4b66"
+    },
+    {
+      "src": "/files/Editorial-2026/eucalyptus-vs-poplar-vs-hardwood-plywood-core-640.webp",
+      "width": 640,
+      "sha256": "b1cb08d6c872e1d7d6b7987b35b4f72917d6a2afb969c8033a965060ed4f6351"
+    },
+    {
+      "src": "/files/Editorial-2026/eucalyptus-vs-poplar-vs-hardwood-plywood-core-960.webp",
+      "width": 960,
+      "sha256": "11c6a0fac9a40e433c2d45293ea27804c9dacf9c2337cba6fbd62df0165b8466"
+    },
+    {
+      "src": "/files/Editorial-2026/eucalyptus-vs-poplar-vs-hardwood-plywood-core.webp",
+      "width": 1536,
+      "sha256": "68285c1f51da5fe07049ef012573a22d49a5122c66d89ef31f52db061ce830ab"
+    }
+  ],
+  "/files/Editorial-2026/fcl-vs-lcl-for-plywood-exports.webp": [
+    {
+      "src": "/files/Editorial-2026/fcl-vs-lcl-for-plywood-exports-320.webp",
+      "width": 320,
+      "sha256": "aef32eb38fc7e90f541026cbeabe8bb7ba30dc6f854426b0acdaed0202735554"
+    },
+    {
+      "src": "/files/Editorial-2026/fcl-vs-lcl-for-plywood-exports-640.webp",
+      "width": 640,
+      "sha256": "56e150a84d99fc61063480e0d3005edf18273cc75f32eb146c783a4a99321658"
+    },
+    {
+      "src": "/files/Editorial-2026/fcl-vs-lcl-for-plywood-exports-960.webp",
+      "width": 960,
+      "sha256": "3aa42a9d53a44287017eb940a565faf406fe993368c6cd140c0582ed288e85ee"
+    },
+    {
+      "src": "/files/Editorial-2026/fcl-vs-lcl-for-plywood-exports.webp",
+      "width": 1536,
+      "sha256": "1c490a7fa469821084a7dcbab051e7b012a8e28425715a8c006246121ef2bc22"
+    }
+  ],
+  "/files/Editorial-2026/ispm-15-heat-treatment-vs-methyl-bromide.webp": [
+    {
+      "src": "/files/Editorial-2026/ispm-15-heat-treatment-vs-methyl-bromide-320.webp",
+      "width": 320,
+      "sha256": "eb4d0dcb1518bdd36d54131ffd5d89b0fd6c7c737981c3909f8fb9ed77e4fa22"
+    },
+    {
+      "src": "/files/Editorial-2026/ispm-15-heat-treatment-vs-methyl-bromide-640.webp",
+      "width": 640,
+      "sha256": "e1f02a69d62e2180f303b576c92179e3e75ea8dffb67317ceff04fedb3c5f142"
+    },
+    {
+      "src": "/files/Editorial-2026/ispm-15-heat-treatment-vs-methyl-bromide-960.webp",
+      "width": 960,
+      "sha256": "94fe7a9457155ad5b14c1b6fe507abca8a472e67572ac1166dd97210c826d547"
+    },
+    {
+      "src": "/files/Editorial-2026/ispm-15-heat-treatment-vs-methyl-bromide.webp",
+      "width": 1536,
+      "sha256": "0362f5f924ea121b714e9abda776dff930cc4bd85280c5648ee51e8121e9889a"
+    }
+  ],
+  "/files/Editorial-2026/is-710-vs-is-303-plywood-materials-2026-09-07.webp": [
+    {
+      "src": "/files/Editorial-2026/is-710-vs-is-303-plywood-materials-2026-09-07-320.webp",
+      "width": 320,
+      "sha256": "ca32969118d444bcc1824836753c3b4b257be47471ab9a5739790673cd034b85"
+    },
+    {
+      "src": "/files/Editorial-2026/is-710-vs-is-303-plywood-materials-2026-09-07-640.webp",
+      "width": 640,
+      "sha256": "ad69aac64b7f497aa2139afff55124bfc656dab2d4a37ac14509841f4b748889"
+    },
+    {
+      "src": "/files/Editorial-2026/is-710-vs-is-303-plywood-materials-2026-09-07-960.webp",
+      "width": 960,
+      "sha256": "8872e0e3f43f713bc1133cb173147f12609d9c4b5abee9a1ac7d6254ca45c6df"
+    },
+    {
+      "src": "/files/Editorial-2026/is-710-vs-is-303-plywood-materials-2026-09-07.webp",
+      "width": 1536,
+      "sha256": "72c0074ce907bc6b41e5af2c04ad56200600ca573aa1cf97c9a4677fd11131b0"
+    }
+  ],
+  "/files/Species/anjili-kerala-end-grain.webp": [
+    {
+      "src": "/files/Species/anjili-kerala-end-grain-320.webp",
+      "width": 320,
+      "sha256": "cc99e5a53d909933b092021d37845ea12faeb802f87f7ca7da00ff1865335386"
+    },
+    {
+      "src": "/files/Species/anjili-kerala-end-grain-640.webp",
+      "width": 640,
+      "sha256": "995a6cc21a8d8ee909254d87f6b29c6980707d186322e13a736b8599719f297f"
+    },
+    {
+      "src": "/files/Species/anjili-kerala-end-grain-960.webp",
+      "width": 960,
+      "sha256": "0843374ace6814bedd33af19afb6674633c6f25f8461eab031a70195c04a3131"
+    },
+    {
+      "src": "/files/Species/anjili-kerala-end-grain.webp",
+      "width": 1600,
+      "sha256": "b16c06824e3f3d7de716b653695d172358f1c2c9b896956781ef576fbd149915"
+    }
+  ],
+  "/files/Species/melia-dubia-ai-visual.webp": [
+    {
+      "src": "/files/Species/melia-dubia-ai-visual-320.webp",
+      "width": 320,
+      "sha256": "eb66ae388a3ad466dfd01df755ee8775a152ae89aae4fb30044628136ec3d09e"
+    },
+    {
+      "src": "/files/Species/melia-dubia-ai-visual-640.webp",
+      "width": 640,
+      "sha256": "ef31984e4a6cff218d4f7a235620700ee1460bda59ac3fc999e09b688bc01056"
+    },
+    {
+      "src": "/files/Species/melia-dubia-ai-visual-960.webp",
+      "width": 960,
+      "sha256": "5b81d7b5c27b73ac32b2cc76c91a84c9bddff63366a4689c36bc160933dba58b"
+    },
+    {
+      "src": "/files/Species/melia-dubia-ai-visual.webp",
+      "width": 1448,
+      "sha256": "183d85571368ea53abefe66655ac0591e329d2e9cf4d642bd72003d4a8062bd0"
+    }
+  ],
+  "/files/Species/neem-ai-visual.webp": [
+    {
+      "src": "/files/Species/neem-ai-visual-320.webp",
+      "width": 320,
+      "sha256": "358bf10f6cc81b1a8b4f5b2905b5aa499141512af77c4d919a778f0aa54a5b0e"
+    },
+    {
+      "src": "/files/Species/neem-ai-visual-640.webp",
+      "width": 640,
+      "sha256": "1adda01090d208bbba4952975a70e5105a9b98e2fb70ea05c73c401e8dddc28b"
+    },
+    {
+      "src": "/files/Species/neem-ai-visual-960.webp",
+      "width": 960,
+      "sha256": "dd3d4d0e33ce551db141ffc10a2d771a842eb98220aaa1006400bc2212ac339d"
+    },
+    {
+      "src": "/files/Species/neem-ai-visual.webp",
+      "width": 1448,
+      "sha256": "b464deae41d176f2fb633ee644af72b8762e7a12cb11bec547c303d7035c7c4f"
+    }
+  ],
+  "/files/Species/kadam-ai-visual.webp": [
+    {
+      "src": "/files/Species/kadam-ai-visual-320.webp",
+      "width": 320,
+      "sha256": "ff7fa1763494d4933c8a58c04f00948d0838e714b155bed923e5d0764330b2c0"
+    },
+    {
+      "src": "/files/Species/kadam-ai-visual-640.webp",
+      "width": 640,
+      "sha256": "9149ea816b86f7db6e68242a4d2b08d7d0e948061e3387680ecab35efe2c87cc"
+    },
+    {
+      "src": "/files/Species/kadam-ai-visual-960.webp",
+      "width": 960,
+      "sha256": "5afaa29b771029bb9f71eb2e2d79c57ee6405d1bef52dc823d581caa001e8422"
+    },
+    {
+      "src": "/files/Species/kadam-ai-visual.webp",
+      "width": 1448,
+      "sha256": "cc11480ecd69f0f3b8289753adf9f722b24fb04479e720a1790dec3497c095e2"
+    }
+  ],
+  "/files/Species/sal-ai-visual.webp": [
+    {
+      "src": "/files/Species/sal-ai-visual-320.webp",
+      "width": 320,
+      "sha256": "7c8b800b180720d53cbef8156204e61ed8f9c6e51c1acd828487ccd3e3db42fa"
+    },
+    {
+      "src": "/files/Species/sal-ai-visual-640.webp",
+      "width": 640,
+      "sha256": "cb78c3dffbd85dfd724e207ee43d0b619a3808940b731bfee7bdf9480efe5584"
+    },
+    {
+      "src": "/files/Species/sal-ai-visual-960.webp",
+      "width": 960,
+      "sha256": "24739fd71a6a2a4a8a9416fa501275ca87ae7f4b0d39bd9f083464e9856c2619"
+    },
+    {
+      "src": "/files/Species/sal-ai-visual.webp",
+      "width": 1448,
+      "sha256": "0ca7aaed007f0618bf68de9844346a709c9ffea3d7f0d04211eedb3bdbd125dd"
+    }
+  ],
+  "/files/Premium-Hardwood/premium-hardwood-hero-v2-2026-09-08.webp": [
+    {
+      "src": "/files/Premium-Hardwood/premium-hardwood-hero-v2-2026-09-08-320.webp",
+      "width": 320,
+      "sha256": "37412c11a9f140f0c84dd56c2e1c9d00cb8422ed20f68ec880c4d8849b72afb4"
+    },
+    {
+      "src": "/files/Premium-Hardwood/premium-hardwood-hero-v2-2026-09-08-640.webp",
+      "width": 640,
+      "sha256": "bcecf33f7ee1c1c48d69172aaa11003177fb02a7261928a94bacecc14738212e"
+    },
+    {
+      "src": "/files/Premium-Hardwood/premium-hardwood-hero-v2-2026-09-08-960.webp",
+      "width": 960,
+      "sha256": "027dd7d4df3ab4ed6f6bfa9b75c2adb92426d6f648dc8f952ffe454e24de16a4"
+    },
+    {
+      "src": "/files/Premium-Hardwood/premium-hardwood-hero-v2-2026-09-08-1200.webp",
+      "width": 1200,
+      "sha256": "2d967cd18225a85ade46543b36cbf38ad6eb74d66c2c51de811b0d4e0bc5ec53"
+    },
+    {
+      "src": "/files/Premium-Hardwood/premium-hardwood-hero-v2-2026-09-08.webp",
+      "width": 1448,
+      "sha256": "7e5821f82dda291d4f008359c3fbaff7e097166c2111ebde53d3fca4edad69ea"
+    }
+  ]
+}

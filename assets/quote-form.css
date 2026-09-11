@@ -1,0 +1,16 @@
+/* Quote entries follow the existing contact form; each item has its own scope. */
+.cw-quote-form, .cw-quote-form > *, .cw-quote-item { min-width: 0; }
+.cw-quote-item { border: 0; border-top: 1px solid #b9c9c0; margin: 28px 0 0; padding: 18px 0 4px; display: grid; gap: 16px; }
+.cw-quote-item legend { padding: 0 12px 0 0; color: #1b4332; font: 600 19px/1.4 Poppins, sans-serif; }
+.cw-quote-item__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+.cw-quote-item__head p { margin: 0; color: #52635a; font-size: 14px; line-height: 1.6; }
+.cw-quote-form .cw-quote-help { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; font-weight: 400; line-height: 1.6; cursor: pointer; }
+.cw-quote-form .cw-quote-help input { width: 20px; height: 20px; flex: 0 0 20px; margin: 2px 0 0; accent-color: #007a5e; }
+.cw-quote-remove { flex-shrink: 0; border: 0; padding: 8px 0 8px 10px; background: transparent; color: #784536; font: 500 14px/1.5 Poppins, sans-serif; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.cw-quote-remove[hidden], .cw-quote-add button[hidden] { display: none; }
+.cw-quote-add { margin: 22px 0 14px; }
+.cw-quote-add .cw-note { margin: 10px 0 0; }
+.cw-quote-form input:not([type=checkbox]), .cw-quote-form select, .cw-quote-form textarea { width: 100%; max-width: 100%; box-sizing: border-box; font-size: 16px; }
+.cw-quote-form :focus-visible { outline: 3px solid #c49558; outline-offset: 3px; }
+.cw-quote-form .cw-form__err:not(:empty) { display: block; }
+@media (max-width: 620px) { .cw-quote-item .cw-row { grid-template-columns: 1fr; } .cw-quote-item { gap: 15px; } .cw-quote-item__head { flex-wrap: wrap; gap: 4px; } .cw-quote-remove { padding-left: 0; min-height: 44px; } .cw-quote-add .cw-btn { width: 100%; justify-content: center; } }

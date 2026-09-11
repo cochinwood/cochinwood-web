@@ -1,0 +1,57 @@
+{
+  "_note": "NOT YET WIRED. export_section.py reads only content/export/export.json; it does not read this directory. To publish this lane: append this object (minus the keys starting with an underscore) to `countries` in content/export/export.json, and add \"tanzania\" to shared.related.order so the other lanes link back to it. Nothing else is needed - the hero, breadcrumb, canonical, schema, sitemap entry and back-links all follow. The prose lives in content/export/tanzania.body.html. Written 3 September 2026.",
+  "_needs_edwin": [
+    "ports_ship / \"Clears at\" is set to Dar es Salaam, the market's principal container port. Confirm that is where CWI shipments to Tanzania actually discharge, and whether any other port should be named.",
+    "Customs duty and import taxes for Tanzania: no rate is stated anywhere on the site, so the table row is a marked placeholder.",
+    "Conformity / pre-shipment inspection requirement for Tanzania: the site claims no scheme for this market, so the table row is a marked placeholder.",
+    "Port-to-port transit time Kochi to Dar es Salaam: not published anywhere on the site."
+  ],
+  "slug": "tanzania",
+  "name_the": "Tanzania",
+  "name_plain": "Tanzania",
+  "title": "Indian Plywood Exporter to Tanzania — FOB Cochin | Cochin Wood",
+  "desc": "Import plywood from India to Tanzania — packing, commercial, shuttering and marine grades, FOB Cochin to Dar es Salaam. USD quotes in one business day.",
+  "schema_name": "Indian Plywood Factory Exporting to Tanzania",
+  "crumb_leaf": "Import plywood from India to Tanzania, direct from Kochi",
+  "kicker": "Export — Tanzania",
+  "h1": "Import plywood from India to Tanzania, direct from Kochi",
+  "lede": "Packing, commercial, shuttering and marine plywood, pressed in Perumbavoor and loaded 40 km from Cochin Port for Dar es Salaam. USD quotes on FOB Cochin terms, answered within one business day.",
+  "tldr": "<strong>TL;DR:</strong> Cochin Wood Industries is an Indian plywood factory exporting to Tanzania. Packing-grade, commercial, film-faced shuttering and marine plywood, plus ready-made boxes and crates, ship FOB Cochin to Dar es Salaam. Mixed loads and trial containers are normal. USD quotes, written reply within one business day.",
+  "ports_ship": "Dar es Salaam",
+  "faq": [
+    [
+      "Which port do you ship to for Tanzania?",
+      "Dar es Salaam, unless you tell us otherwise. The discharge port is named on the quotation, and if you clear elsewhere we will quote against that routing. We ship full-container loads from Cochin and hold no stock in Tanzania."
+    ],
+    [
+      "How long does a container take from Kochi to Dar es Salaam?",
+      "It depends on the carrier and the service, and we would rather confirm it for your booking than print a figure the next schedule change makes wrong. The sailing is confirmed alongside the quote, and shipping documents are shared before the vessel sails."
+    ],
+    [
+      "Can I order a trial container with more than one product in it?",
+      "Yes. Mixed loads are standard on this lane, not a special request. Two or three products in one container, each with its own sheet count and weight on the packing list, lets you put more than one grade in front of your customers before committing to a programme. Tell us what you want to test and the quote is built around it."
+    ],
+    [
+      "What import duty will I pay on plywood in Tanzania?",
+      "We do not state a rate for Tanzania. We have never published one, and a wrong tariff is an expensive thing for a buyer to be handed. Duty and any import tax are set by the destination schedule against the line your goods are classified under, and applied at import. We state the HS code on the commercial invoice and issue the certificate of origin; your clearing agent confirms the line and the rate in force. We do not give customs rulings and will not promise a duty outcome."
+    ],
+    [
+      "Do you supply certification for import into Tanzania?",
+      "Tell us what your import needs at enquiry, not after the goods are pressed. A certificate, test report or pre-shipment inspection decides which mill the order is placed with, and it cannot be added retrospectively. Each mill holds its own BIS licence; whatever applies to your order is named on the quotation by holder, number and product scope. Inspection by you or an agency you appoint is welcome and we hold the goods for it."
+    ],
+    [
+      "Do the plywood sheets need ISPM-15 treatment or fumigation for Tanzania?",
+      "No. Plywood is a processed wood product and is exempt from ISPM-15, so the panels carry no heat-treatment stamp and need no fumigation certificate. The standard covers solid-wood packaging &mdash; pallets, crates, dunnage. Where we supply those, they are produced under an ISPM-15 compliant process with the marks and paperwork in order."
+    ],
+    [
+      "What are your payment terms for Tanzania orders?",
+      "Standard products ship against 50% advance with the balance payable before dispatch; custom builds are 100% advance. We accept bank transfer (T/T), and all export invoicing is in US dollars. If you have not traded with us before, <a href=\"/company-verification\">company verification</a> lists every registration we hold and the government portal you can check it on."
+    ]
+  ],
+  "faq_boiler": [
+    "hs",
+    "warehouse"
+  ],
+  "cta_h2": "Get a written quote for Tanzania",
+  "cta_p": "Send thickness, sheet size, grade, quantity and discharge port. A USD quote on FOB Cochin terms comes back within one business day. Write to sales@cochinwood.in or call +91&nbsp;95674&nbsp;10175."
+}

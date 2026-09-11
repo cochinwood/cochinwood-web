@@ -1,0 +1,64 @@
+/* Shared body rhythm. Hero geometry, header and section-navigation offsets
+   remain owned by their existing components. */
+body #main {
+  --cw-body-space: clamp(40px, 4.5vw, 64px);
+}
+body.cw-contentpage #main :is(.cwp__spec, .cwp__why, .cwp__faq, .cwp__visuals) {
+  padding-block: var(--cw-body-space);
+}
+
+/* Avoid stacking the sector introduction's bottom padding with a second
+   large top padding before the first sector image. */
+body.cw-contentpage #main .cwind-rb .cwsec-head {
+  padding-top: clamp(32px, 4vw, 52px);
+  padding-bottom: 20px;
+}
+body.cw-contentpage #main .cwind-rb .cwsec {
+  padding-block: 40px 48px;
+}
+body.cw-contentpage #main .cwind-rb .cwsec-head + .cwsec {
+  padding-top: 20px;
+}
+body.cw-contentpage #main .cwind-rb .cwown,
+body.cw-contentpage #main .cwind-rb .cwind2 {
+  padding-block: 48px;
+}
+
+/* Catalogue groups stay distinct without two adjacent 88px blank bands. */
+body #main .cw-section.cw-catalogue-family {
+  padding-block: 52px;
+}
+body.cw-contentpage #main .cwp__pillars { margin-top: 32px; }
+body.cw-contentpage #main .cwp__gallery { margin-top: 28px; }
+
+/* Search, topic headings and results read as one working directory. */
+body #main .cw-blog-directory { padding-bottom: 52px; }
+body #main .cw-blog-directory .cw-blogtools {
+  padding-bottom: 20px;
+  margin-bottom: 28px;
+}
+body #main .cw-blog-directory .cw-blog-group { margin-bottom: 40px; }
+body #main .cw-blog-directory .cw-blog-group:last-of-type { margin-bottom: 0; }
+
+@media (max-width: 760px) {
+  body.cw-contentpage #main .cwind-rb .cwsec-head { padding-top: 28px; padding-bottom: 16px; }
+  body.cw-contentpage #main .cwind-rb .cwsec { padding-block: 28px 36px; }
+  body.cw-contentpage #main .cwind-rb .cwsec-head + .cwsec { padding-top: 16px; }
+  body.cw-contentpage #main .cwind-rb .cwown,
+  body.cw-contentpage #main .cwind-rb .cwind2 { padding-block: 36px; }
+  body #main .cw-section.cw-catalogue-family { padding-block: 36px; }
+  body #main .cw-blog-directory { padding-bottom: 40px; }
+  body #main .cw-blog-directory .cw-blogtools { padding-bottom: 18px; margin-bottom: 24px; }
+  body #main .cw-blog-directory .cw-blog-group { margin-bottom: 32px; }
+}
+
+/* Desktop Home: keep the image-led sections and process interaction, while
+   removing the cumulative 180–230px padding between their contents. */
+@media (min-width: 1001px) {
+  body.cw-home #main .cx-intro { padding-top: 64px; padding-bottom: 64px; }
+  body.cw-home #main .cx-materials { padding-bottom: 64px; }
+  body.cw-home #main .cx-applications { padding-top: 64px; padding-bottom: 56px; }
+  body.cw-home #main .cx-process { padding-top: 64px; padding-bottom: 64px; }
+  body.cw-home #main .cx-knowledge { padding-top: 64px; padding-bottom: 64px; }
+  body.cw-home #main .cx-next { padding-top: 64px; padding-bottom: 64px; }
+}

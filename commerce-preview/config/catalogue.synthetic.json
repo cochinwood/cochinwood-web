@@ -1,0 +1,190 @@
+{
+  "schema_version": 1,
+  "version": "synthetic-test-only-v1",
+  "synthetic": true,
+  "approval": {
+    "status": "approved",
+    "approved_by": "synthetic-test-fixture",
+    "approved_at": "2026-09-07T00:00:00+05:30"
+  },
+  "currency": "INR",
+  "tax": {
+    "mode": "inclusive",
+    "rate_basis_points": 1800,
+    "approved": true,
+    "note": "Fictional test setting, not approved tax treatment."
+  },
+  "products": [
+    {
+      "sku": "prem_hw_gurjan_12",
+      "staff_product_key": "prem_hw_gurjan",
+      "name": "Cochin Premium Hardwood",
+      "description": "Gurjan BWR (MUF) plywood. Proposed 8 × 4 ft sheet, 12 mm thickness.",
+      "brand": "Cochin Wood",
+      "size": "8 × 4 ft",
+      "thickness_mm": 12,
+      "finished_dimensions_mm": {
+        "length": 2440,
+        "width": 1220
+      },
+      "tolerance_mm": 1,
+      "unit_price_paise": 10000,
+      "stock": 30,
+      "min_quantity": 1,
+      "max_quantity": 10,
+      "active": true,
+      "product_identity_approved": true,
+      "image_url": "/files/Plywood%20Product%20Photos/cwi-bwr-hardwood-plywood.webp",
+      "actual_product_photo_url": "https://commerce-preview.invalid/images/prem_hw_gurjan_12.webp",
+      "image_approved": true,
+      "product_url": "https://commerce-preview.invalid/shop/prem_hw_gurjan_12",
+      "gtin": null,
+      "mpn": null,
+      "identifiers_reviewed": true,
+      "identifiers_not_assigned": true
+    },
+    {
+      "sku": "prem_hw_gurjan_18",
+      "staff_product_key": "prem_hw_gurjan",
+      "name": "Cochin Premium Hardwood",
+      "description": "Gurjan BWR (MUF) plywood. Proposed 8 × 4 ft sheet, 18 mm thickness.",
+      "brand": "Cochin Wood",
+      "size": "8 × 4 ft",
+      "thickness_mm": 18,
+      "finished_dimensions_mm": {
+        "length": 2440,
+        "width": 1220
+      },
+      "tolerance_mm": 1,
+      "unit_price_paise": 11000,
+      "stock": 30,
+      "min_quantity": 1,
+      "max_quantity": 10,
+      "active": true,
+      "product_identity_approved": true,
+      "image_url": "/files/Plywood%20Product%20Photos/cwi-bwr-hardwood-plywood.webp",
+      "actual_product_photo_url": "https://commerce-preview.invalid/images/prem_hw_gurjan_18.webp",
+      "image_approved": true,
+      "product_url": "https://commerce-preview.invalid/shop/prem_hw_gurjan_18",
+      "gtin": null,
+      "mpn": null,
+      "identifiers_reviewed": true,
+      "identifiers_not_assigned": true
+    },
+    {
+      "sku": "prem_marine_gurjan_12",
+      "staff_product_key": "prem_marine_gurjan",
+      "name": "Cochin Premium Marine",
+      "description": "Gurjan BWP (PF) plywood. Proposed 8 × 4 ft sheet, 12 mm thickness.",
+      "brand": "Cochin Wood",
+      "size": "8 × 4 ft",
+      "thickness_mm": 12,
+      "finished_dimensions_mm": {
+        "length": 2440,
+        "width": 1220
+      },
+      "tolerance_mm": 1,
+      "unit_price_paise": 12000,
+      "stock": 30,
+      "min_quantity": 1,
+      "max_quantity": 10,
+      "active": true,
+      "product_identity_approved": true,
+      "image_url": "/files/Plywood%20Product%20Photos/cwi-marine-plywood.webp",
+      "actual_product_photo_url": "https://commerce-preview.invalid/images/prem_marine_gurjan_12.webp",
+      "image_approved": true,
+      "product_url": "https://commerce-preview.invalid/shop/prem_marine_gurjan_12",
+      "gtin": null,
+      "mpn": null,
+      "identifiers_reviewed": true,
+      "identifiers_not_assigned": true
+    },
+    {
+      "sku": "prem_marine_gurjan_18",
+      "staff_product_key": "prem_marine_gurjan",
+      "name": "Cochin Premium Marine",
+      "description": "Gurjan BWP (PF) plywood. Proposed 8 × 4 ft sheet, 18 mm thickness.",
+      "brand": "Cochin Wood",
+      "size": "8 × 4 ft",
+      "thickness_mm": 18,
+      "finished_dimensions_mm": {
+        "length": 2440,
+        "width": 1220
+      },
+      "tolerance_mm": 1,
+      "unit_price_paise": 13000,
+      "stock": 30,
+      "min_quantity": 1,
+      "max_quantity": 10,
+      "active": true,
+      "product_identity_approved": true,
+      "image_url": "/files/Plywood%20Product%20Photos/cwi-marine-plywood.webp",
+      "actual_product_photo_url": "https://commerce-preview.invalid/images/prem_marine_gurjan_18.webp",
+      "image_approved": true,
+      "product_url": "https://commerce-preview.invalid/shop/prem_marine_gurjan_18",
+      "gtin": null,
+      "mpn": null,
+      "identifiers_reviewed": true,
+      "identifiers_not_assigned": true
+    }
+  ],
+  "delivery": {
+    "state": "Kerala",
+    "country": "IN",
+    "postcodes": [
+      "683542",
+      "682001"
+    ],
+    "shipping_paise": 5000,
+    "approved": true,
+    "rules": [
+      {
+        "id": "synthetic-local",
+        "postcodes": [
+          "683542"
+        ],
+        "min_quantity": 1,
+        "max_quantity": 40,
+        "shipping_paise": 5000,
+        "min_days": 2,
+        "max_days": 4
+      },
+      {
+        "id": "synthetic-cochin",
+        "postcodes": [
+          "682001"
+        ],
+        "min_quantity": 1,
+        "max_quantity": 40,
+        "shipping_paise": 7500,
+        "min_days": 3,
+        "max_days": 5
+      }
+    ]
+  },
+  "policies": {
+    "approved": true,
+    "version": "synthetic-only-v1",
+    "delivery_url": "https://commerce-preview.invalid/delivery",
+    "returns_url": "https://commerce-preview.invalid/returns",
+    "cancellation_url": "https://commerce-preview.invalid/cancellation",
+    "unloading": "Fictional preview term. Confirm before launch.",
+    "damage_reporting": "Fictional preview term. Confirm before launch.",
+    "cancellation": "Fictional preview term. Confirm before launch.",
+    "refunds": "Simulation only; no money moves."
+  },
+  "payment": {
+    "provider": "icici-direct-upi",
+    "enabled": false,
+    "uat_passed": false,
+    "commercial_terms_approved": false
+  },
+  "merchant": {
+    "enabled": false,
+    "checkout_verified": false,
+    "landing_pages_verified": false,
+    "shipping_verified": false,
+    "returns_verified": false
+  },
+  "disclaimer": "FICTIONAL TEST DATA. These are not selling prices, stock or delivery promises. No money is collected."
+}

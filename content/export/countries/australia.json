@@ -1,0 +1,72 @@
+{
+ "_wiring": [
+  "NOT YET READ BY THE BUILDER. export_section.py:_load() reads content/export/export.json only;",
+  "its build() iterates data['countries']. To wire this lane up: append this object (minus the",
+  "keys prefixed with an underscore) to `countries` in export.json, and add \"australia\" to",
+  "shared.related.order so the other lanes back-link to it. Nothing else is needed -- the hero,",
+  "breadcrumbs, WebPage/FAQPage schema, sitemap entry and related strip all derive from this.",
+  "Prose lives in content/export/australia.body.html.",
+  "",
+  "NO `import` KEY ON PURPOSE. import_essentials() builds its HS-code, customs-duty,",
+  "landed-cost-note, documents and ISPM-15 rows from shared['import'], and shared['import']",
+  "['customs_duty'] is hardcoded '5% GCC Common External Tariff on CIF value'. Rendering that",
+  "on an Australian page would be a false tariff claim, and the fixed row set has no slot for",
+  "biosecurity or fumigation, which is the whole point of this lane. The lane therefore carries",
+  "its own <section id=\"import\"> table inside australia.body.html, the way Sri Lanka and Israel",
+  "carry no import block at all.",
+  "",
+  "faq_boiler is ['warehouse'] only: the 'hs', 'duty', 'standards' and 'documents' templates in",
+  "shared.faq_templates are GCC-specific and interpolate keys that only exist inside `import`."
+ ],
+ "_placeholders": [
+  "[RATE TO CONFIRM] x2 -- Australian customs duty and GST at import. [TRANSIT TO CONFIRM] x1 --",
+  "no Cochin-to-Australia port-to-port figure exists anywhere on the site; the only sourced",
+  "statement is that deep-sea Australia sits in the 21-day-plus band (the triple-wall crate",
+  "post). No Australian port is named anywhere on the site either, so the page says 'the",
+  "Australian port you nominate' rather than inventing one. All in australia.body.html.",
+  "No AS/NZS standard is claimed: the site has never claimed one."
+ ],
+ "slug": "australia",
+ "name_the": "Australia",
+ "name_plain": "Australia",
+ "title": "Indian Plywood Exporter to Australia - FOB Cochin | Cochin Wood",
+ "desc": "Import plywood from India to Australia: packing ply, ISPM-15 crates and pallets, marine and commercial panels. FOB Cochin, USD quotes, biosecurity handled.",
+ "schema_name": "Indian Plywood Factory Exporting to Australia",
+ "crumb_leaf": "Indian plywood exporter to Australia, FOB Cochin",
+ "kicker": "Export &middot; Australia",
+ "h1": "Indian plywood exporter to Australia, FOB Cochin",
+ "lede": "Packing-grade plywood, ISPM-15 crates and pallets, marine and commercial panels from Perumbavoor, Kerala, made by a group manufacturing since 1986. Quoted in USD, FOB Cochin to the Australian port you nominate.",
+ "tldr": "<strong>In short:</strong> Australia is the only lane we run into Oceania, and it is a deep-sea voyage in the 21-day-plus band. Packing-grade MR (IS 303), commercial and BWR panels, marine ply, and boxes, crates and pallets &mdash; 1165&nbsp;x&nbsp;1165&nbsp;mm is the Australian pallet footprint. Panels are exempt from ISPM-15; our solid-wood packing is heat-treated and stencilled with the IPPC mark, country code IN, treatment code HT and the registered facility number. FOB Cochin, USD, quote replies within one business day.",
+ "ports_ship": "the Australian port you nominate",
+ "faq": [
+  [
+   "Does plywood need ISPM-15 treatment or fumigation for Australia?",
+   "Plywood panels are processed wood and exempt from ISPM-15, so bare sheets carry no heat-treatment stamp and need none. Solid-wood packaging is the opposite case: ours is heat-treated at registered facilities and stencilled with the IPPC mark, country code IN, treatment code HT and the registered facility number, which is the standard for exports to the EU, the UK and Australia. Where a destination calls for fumigation, the buyer specifies it and we arrange and bill it; it is not inside an FOB Cochin price."
+  ],
+  [
+   "What gets a container opened at the wharf?",
+   "Three things, in our experience. Bark residue on solid-wood components &mdash; bark is prohibited regardless of treatment, so a valid HT stamp does not rescue a member that still carries bark. A repaired crate where the replaced runner has no visible IPPC mark. And wood packaging arriving without a valid ISPM-15 mark at all, which is the usual trigger for fumigation at destination."
+  ],
+  [
+   "Which grade and build should I specify for the Australia lane?",
+   "For export crating our own packing notes recommend BWR or BWP plywood with an okoume face: the lower density means a lighter crate, which matters when sea freight is rated on chargeable weight. Where crate gross weight reaches 1,500 kg, the cargo is irregular or top-heavy, or two-high stacking is expected in the hold, we spec a triple-wall build rather than reinforced single-wall."
+  ],
+  [
+   "What pallet sizes do you build for Australia?",
+   "1165 x 1165 mm is the Australian footprint. We also build 1200 x 1000 mm ISO and 1200 x 800 mm Euro, in plywood or timber, to your reuse cycle."
+  ],
+  [
+   "Do you quote FOB Cochin or CIF for Australian buyers?",
+   "FOB Cochin is our default term. A CIF figure to your nominated Australian port is available on request, priced against current freight. All export quotes are issued in USD, and we reply within one business day."
+  ],
+  [
+   "What are your payment terms for Australian buyers?",
+   "Standard products ship against 50 percent advance with the balance before dispatch. Custom specifications are 100 percent advance. We accept bank transfer (T/T)."
+  ]
+ ],
+ "faq_boiler": [
+  "warehouse"
+ ],
+ "cta_h2": "Get an Australia quote in one business day",
+ "cta_p": "Send thickness, sheet size, grade, quantity and your discharge port, and tell us whether the shipment includes solid-wood packing. A written USD quote comes back within one business day. sales@cochinwood.in or +91 95674 10175."
+}

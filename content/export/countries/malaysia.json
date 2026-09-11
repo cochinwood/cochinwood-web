@@ -1,0 +1,45 @@
+{
+ "_note": "NOT YET WIRED. export_section.py::_load() reads content/export/export.json only; it does not read this directory, so this lane does not build yet. To ship it: append this object (minus the keys prefixed with _) to `countries` in export.json and add its slug to shared.related.order, OR extend _load() to merge content/export/countries/*.json into data['countries']. Deliberately NO `import` block: import_essentials() takes customs_duty from shared.import, which reads '5% GCC Common External Tariff', and the duty/standards/documents faq_templates are GCC-worded too. Giving a non-GCC lane that block would print a wrong tariff. The import table for this lane lives in <slug>.body.html instead, the way Sri Lanka and Israel carry theirs in prose.",
+ "slug": "malaysia",
+ "name_the": "Malaysia",
+ "name_plain": "Malaysia",
+ "title": "Indian Plywood Exporter to Malaysia — FOB Cochin",
+ "desc": "Plywood exporter to Malaysia — Okoume-faced, BWR and packing panels from Kochi, India. FOB Cochin, USD quotes, priced against local supply. Request a quote.",
+ "schema_name": "Indian Plywood Factory Exporting to Malaysia",
+ "crumb_leaf": "Plywood exporter to Malaysia: Indian panels bought on spec and price",
+ "kicker": "Export — Malaysia",
+ "h1": "Plywood exporter to Malaysia: Indian panels bought on spec and price",
+ "lede": "Malaysia is not short of plywood, so we will not pretend proximity is the argument. We press calibrated Okoume-faced, BWR and packing-grade panels in Perumbavoor, Kerala, and quote them FOB Cochin in USD for you to set against your local number.",
+ "tldr": "<strong>In short:</strong> Cochin Wood Industries is a plywood manufacturer in Kerala, India. For Malaysian buyers the case is specification and price, not distance: calibrated Okoume-faced panels on a eucalyptus core, <a href=\"/bwr-hardwood-plywood\">BWR hardwood plywood</a>, packing-grade MR board to IS 303 and film-faced shuttering ply. USD quotes, FOB Cochin, replies within one business day.",
+ "ports_ship": "the discharge port you nominate",
+ "faq": [
+  [
+   "Why import plywood from India when Malaysia has local supply?",
+   "Only two reasons hold up: a construction you cannot easily buy locally, or a better number for the same specification. We press to your sheet rather than sell you what is already stacked, and a USD FOB Cochin quote with a loading plan comes back within one business day. If it does not beat your local price, it does not."
+  ],
+  [
+   "Which port in Malaysia do you ship plywood to?",
+   "The one you nominate. We sell FOB Cochin, so your forwarder books the ocean carriage and names the discharge port; we manufacture, pack, complete Indian export clearance and deliver the goods on board. Tell us the port at enquiry and it goes on the proforma invoice."
+  ],
+  [
+   "Can I get samples before committing to a container?",
+   "Yes. Samples are available and chargeable. Most first-time buyers check the face, the thickness calibration and the core before ordering a trial container."
+  ],
+  [
+   "What are your payment terms for Malaysian buyers?",
+   "50% advance with the order and the balance before dispatch for standard products; 100% advance for custom specifications. Payment is by bank transfer (T/T), and quotes are in USD."
+  ]
+ ],
+ "faq_boiler": [
+  "hs",
+  "warehouse"
+ ],
+ "cta_h2": "Get a Malaysia quote",
+ "cta_p": "Send thickness, sheet size, bond, face and monthly quantity. A USD FOB Cochin quotation comes back within one business day, with the loading plan attached. sales@cochinwood.in — +91 95674 10175.",
+ "_to_confirm": [
+  "Malaysian customs duty and sales tax rates",
+  "Malaysia's conformity requirement for imported plywood",
+  "typical Cochin-Malaysia sailing time",
+  "the default discharge port for this lane"
+ ]
+}

@@ -1,0 +1,45 @@
+{
+ "_note": "NOT YET WIRED. export_section.py::_load() reads content/export/export.json only; it does not read this directory, so this lane does not build yet. To ship it: append this object (minus the keys prefixed with _) to `countries` in export.json and add its slug to shared.related.order, OR extend _load() to merge content/export/countries/*.json into data['countries']. Deliberately NO `import` block: import_essentials() takes customs_duty from shared.import, which reads '5% GCC Common External Tariff', and the duty/standards/documents faq_templates are GCC-worded too. Giving a non-GCC lane that block would print a wrong tariff. The import table for this lane lives in <slug>.body.html instead, the way Sri Lanka and Israel carry theirs in prose.",
+ "slug": "turkey",
+ "name_the": "Turkey",
+ "name_plain": "Turkey",
+ "title": "Indian Plywood Exporter to Turkey — FOB Cochin",
+ "desc": "Plywood exporter to Turkey — packing, BWR and Okoume-faced panels from Kochi, India. FOB Cochin, USD quotes, buyer-nominated freight. Request a quote.",
+ "schema_name": "Indian Plywood Factory Exporting to Turkey",
+ "crumb_leaf": "Plywood exporter to Turkey: packing, BWR and Okoume-faced panels from Kochi",
+ "kicker": "Export — Turkey",
+ "h1": "Plywood exporter to Turkey: packing, BWR and Okoume-faced panels from Kochi",
+ "lede": "If you import plywood from India to Turkey — for industrial packing, joinery, or formwork on site — we press it in Perumbavoor, Kerala, 40&nbsp;km from Cochin Port, and quote it FOB Cochin in USD. You nominate the vessel and the discharge port.",
+ "tldr": "<strong>In short:</strong> Cochin Wood Industries is a plywood manufacturer in Kerala, India. For Turkish buyers the range is packing-grade MR plywood to IS 303, <a href=\"/bwr-hardwood-plywood\">BWR hardwood panels</a>, calibrated Okoume-faced board and film-faced shuttering ply. USD quotes, FOB Cochin, 50% advance with the balance before dispatch. Quote replies within one business day.",
+ "ports_ship": "the discharge port you nominate",
+ "faq": [
+  [
+   "Do you quote CIF to Turkey, or FOB Cochin?",
+   "FOB Cochin is the default and every quote is in USD, under Incoterms 2020. FCA Cochin applies where a sealed container is handed to the carrier you nominate, and we quote CFR or CIF where that is agreed at enquiry. Whichever term we use, the quotation names the place it applies to."
+  ],
+  [
+   "Which port in Turkey do you ship plywood to?",
+   "The one you nominate. We sell FOB Cochin, so your forwarder books the ocean carriage and names the discharge port; we manufacture, pack, complete Indian export clearance and deliver the goods on board. Tell us the port at enquiry and it goes on the proforma invoice."
+  ],
+  [
+   "What are your payment terms for Turkish buyers?",
+   "50% advance with the order and the balance before dispatch for standard products; 100% advance for custom specifications. Payment is by bank transfer (T/T), and quotes are in USD."
+  ],
+  [
+   "Can the panels be certified for my Turkish customer?",
+   "Only where we can name the certificate. Each mill holds its own BIS licence, so there is no single CM/L number covering everything we sell, and any certificate or test report that applies to your order is identified on the quotation by holder, number and product scope. FSC chain of custody or a CE Declaration of Performance has to be asked for at enquiry — it decides which mill your order is placed with and cannot be added after the panels are pressed."
+  ]
+ ],
+ "faq_boiler": [
+  "hs",
+  "warehouse"
+ ],
+ "cta_h2": "Get a Turkey quote",
+ "cta_p": "Send thickness, sheet size, grade or face, and monthly quantity. A USD FOB Cochin quotation comes back within one business day. sales@cochinwood.in — +91 95674 10175.",
+ "_to_confirm": [
+  "Turkish customs duty and VAT rates",
+  "Turkey's conformity requirement for imported plywood",
+  "typical Cochin-Turkey sailing time",
+  "the default discharge port for this lane"
+ ]
+}

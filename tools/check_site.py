@@ -264,29 +264,84 @@ def check_links():
 # ---------------------------------------------------------------------------------------------
 FORM_FIELDS = ["name", "company", "email", "phone", "products", "destination", "description"]
 
+# Established native fallback fields. The current v2 controller additionally serializes each
+# product independently; the Worker persists that payload in lead_enquiries.
+PACKED_FIELDS = ["spec_grade", "quantity", "incoterm"]
+
+# The retired CRM webform. Its subscription lapses on 3 Sep 2026; a form posting there would show
+# the buyer a success page while the enquiry reached nobody, which is the worst shape this failure
+# can take. Named here so a reappearance is caught by this file rather than by a silent quarter.
+DEAD_CRM = ["crm.zoho.in", "WebToLeadForm", "LEADCF", "xnQsjsdp", "xmIwtLD"]
+
 def check_quote_form():
-    p = ROOT / "contact.html"
-    if not p.exists():
-        bad("quote-form", "contact.html", "missing")
+    # BOTH LAYOUTS, and that is the entire point of this line. cf-live is a flat mirror with
+    # contact.html at the root, while `python build.py` emits pretty URLs and puts the page at
+    # contact/index.html. This check only ever looked for the flat name, so against a built tree it
+    # reported a bare "contact.html missing" -- which reads like a harmless layout quirk -- and NOT
+    # ONE of the assertions below ever ran. That is how the build carried a quote form still posting
+    # to the retired CRM webform: the single check written to catch exactly that could not see the
+    # file it was written to check.
+    cands = [ROOT / "contact.html", ROOT / "contact" / "index.html"]
+    p = next((c for c in cands if c.exists()), None)
+    if p is None:
+        bad("quote-form", "contact.html",
+            "missing -- looked for " + " and ".join(rel(c) for c in cands))
         return 0
+    where = rel(p)
     src = p.read_text(encoding="utf-8", errors="replace")
+    controller = src
+    quote_scripts = re.findall(r'<script\b[^>]*src="(/assets/quote-form(?:\.[a-f0-9]+)?\.js)"', src)
+    for script in quote_scripts:
+        script_path = ROOT / unquote(script.lstrip('/'))
+        if not script_path.is_file():
+            bad("quote-form", where, f"quote controller is missing: {script}")
+        else:
+            controller += '\n' + script_path.read_text(encoding="utf-8")
+    if 'data-quote-item' in src:
+        if not quote_scripts:
+            bad("quote-form", where, "multi-product controls have no versioned quote controller")
+        for field in ['product', 'grade', 'thickness', 'dimensions', 'quantity', 'unit', 'help_me_choose']:
+            if f'data-item-field="{field}"' not in src:
+                bad("quote-form", where, f"per-product field {field} is missing")
+        for expected in ['version:2,items:items', 'rows().map(itemValue)', 'submittedSignature', 'enquiry_id']:
+            if expected not in controller:
+                bad("quote-form", where, f"multi-product serialization/retry contract missing: {expected}")
     if 'action="https://www.cochinwood.in/web-lead"' not in src:
-        bad("quote-form", "contact.html", "the form no longer posts to /web-lead on the Worker")
+        bad("quote-form", where, "the form no longer posts to /web-lead on the Worker")
     for f in FORM_FIELDS:
         if f'name="{f}"' not in src:
-            bad("quote-form", "contact.html",
+            bad("quote-form", where,
                 f'field name="{f}" is gone; the Worker reads it and would store it empty')
+    for f in PACKED_FIELDS:
+        if f'name="{f}"' not in src:
+            bad("quote-form", where,
+                f'field name="{f}" is gone; the Worker never reads it directly, so it reaches the '
+                f'lead book only via the data-pack loop below')
+        elif f'data-pack=' not in src:
+            bad("quote-form", where,
+                f'name="{f}" is present but nothing carries data-pack; it would be posted and '
+                f'dropped, losing the thickness/quantity/quote basis off every enquiry')
+    for dead in DEAD_CRM:
+        if dead in src:
+            bad("quote-form", where,
+                f'"{dead}" is back. The CRM webform was retired and its subscription is cancelled; '
+                f'a form posting there thanks the buyer and delivers the enquiry nowhere')
     if 'name="cwq2_website"' not in src:
-        bad("quote-form", "contact.html", "the honeypot field is gone, so the first spam gate is open")
+        bad("quote-form", where, "the honeypot field is gone, so the first spam gate is open")
     if "data-sitekey=" not in src:
-        bad("quote-form", "contact.html", "the Turnstile widget has no sitekey")
+        bad("quote-form", where, "the Turnstile widget has no sitekey")
     if 'data-error-callback="cwq2TsFail"' not in src:
-        bad("quote-form", "contact.html",
+        bad("quote-form", where,
             "the Turnstile error-callback is gone. It is the ONLY thing that reports the widget "
             "refusing real buyers -- the hourly probe is signed past that gate and an automated "
             "browser is never issued a token, so losing this is a silent blind spot")
     if "/ts-fail" not in src:
-        bad("quote-form", "contact.html", "the beacon no longer points at /ts-fail")
+        bad("quote-form", where, "the beacon no longer points at /ts-fail")
+    if "cf-turnstile-response" not in controller:
+        bad("quote-form", where,
+            "nothing checks for a Turnstile token before submitting. Without that gate a buyer "
+            "whose challenge failed is shown the ordinary thank-you while the Worker refuses the "
+            "enquiry -- the success card keys off nothing but ?sent=1")
     return 1
 
 

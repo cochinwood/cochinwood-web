@@ -1,0 +1,46 @@
+{
+ "_note": "NOT YET WIRED. export_section.py::_load() reads content/export/export.json only; it does not read this directory, so this lane does not build yet. To ship it: append this object (minus the keys prefixed with _) to `countries` in export.json and add its slug to shared.related.order, OR extend _load() to merge content/export/countries/*.json into data['countries']. Deliberately NO `import` block: import_essentials() takes customs_duty from shared.import, which reads '5% GCC Common External Tariff', and the duty/standards/documents faq_templates are GCC-worded too. Giving a non-GCC lane that block would print a wrong tariff. The import table for this lane lives in <slug>.body.html instead, the way Sri Lanka and Israel carry theirs in prose.",
+ "slug": "bangladesh",
+ "name_the": "Bangladesh",
+ "name_plain": "Bangladesh",
+ "title": "Indian Plywood Exporter to Bangladesh — FOB Cochin",
+ "desc": "Plywood exporter to Bangladesh — packing-grade ply, ISPM-15 crates and pallets from Kochi, India. FOB Cochin, USD quotes, short sea lane. Request a quote.",
+ "schema_name": "Indian Plywood Factory Exporting to Bangladesh",
+ "crumb_leaf": "Plywood exporter to Bangladesh: packing plywood, crates and pallets from Kochi",
+ "kicker": "Export — Bangladesh",
+ "h1": "Plywood exporter to Bangladesh: packing plywood, crates and pallets from Kochi",
+ "lede": "A short lane lets you order against a project rather than a forecast. We press packing-grade plywood, and build boxes, crates and pallets, in Perumbavoor, Kerala — 40&nbsp;km from Cochin Port — and quote it FOB Cochin in USD.",
+ "tldr": "<strong>In short:</strong> Cochin Wood Industries is a plywood manufacturer in Kerala, India, exporting to Bangladesh. The core range is packing-grade MR plywood to IS 303 in 6-18&nbsp;mm, ready-made <a href=\"/plywood-boxes-crates\">boxes and crates</a>, and <a href=\"/plywood-pallets\">pallets</a> with ISPM-15 treated solid-wood components. USD quotes, FOB Cochin, replies within one business day.",
+ "ports_ship": "the discharge port you nominate",
+ "faq": [
+  [
+   "Which port in Bangladesh do you ship plywood to?",
+   "The one you nominate. We sell FOB Cochin, so your forwarder books the ocean carriage and names the discharge port; we manufacture, pack, complete Indian export clearance and deliver the goods on board. Tell us the port at enquiry and it goes on the proforma invoice."
+  ],
+  [
+   "Will my shipment qualify for a duty concession as Indian-origin goods?",
+   "We do not give customs rulings and we will not promise a duty outcome. What we do is confirm the HS code each product ships under and prepare the Certificate of Origin a preference claim needs. Whether a concession applies to your line, and on what rules-of-origin conditions, is for your clearing agent to confirm — ask before you order, not after."
+  ],
+  [
+   "Can you supply ISPM-15 stamped crates and pallets for onward export?",
+   "Yes. Plywood panels are exempt from ISPM-15, but the solid-wood packing we ship — pallets, runners and bearers — is treated and stamped, so cargo repacked in Bangladesh for onward export is not held for want of a mark."
+  ],
+  [
+   "What are your payment terms for buyers in Bangladesh?",
+   "50% advance with the order and the balance before dispatch for standard products; 100% advance for custom specifications. Payment is by bank transfer (T/T), and quotes are in USD."
+  ]
+ ],
+ "faq_boiler": [
+  "hs",
+  "warehouse"
+ ],
+ "cta_h2": "Get a Bangladesh quote",
+ "cta_p": "Send thickness, sheet size, grade and monthly quantity, or the internal dimensions if you want cases built. A USD FOB Cochin quotation comes back within one business day. sales@cochinwood.in — +91 95674 10175.",
+ "_to_confirm": [
+  "Bangladeshi customs duty and VAT rates",
+  "which trade arrangement, if any, covers India-origin plywood into Bangladesh",
+  "Bangladesh's conformity requirement for imported plywood",
+  "typical Cochin-Bangladesh sailing time",
+  "the default discharge port for this lane"
+ ]
+}
