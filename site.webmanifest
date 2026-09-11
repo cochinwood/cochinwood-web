@@ -1,0 +1,21 @@
+{
+  "name": "Cochin Wood Industries",
+  "short_name": "Cochin Wood",
+  "description": "Plywood manufacturer and exporter in Kerala, India since 1986.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1f5132",
+  "icons": [
+    {
+      "src": "/assets/icons/logo-80.png",
+      "sizes": "80x80",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
