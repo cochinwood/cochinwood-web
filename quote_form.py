@@ -36,10 +36,10 @@ def render_quote_form(products, incoterms, sitekey, script_src):
   <label class="cw-quote-help" for="q-help-__INDEX__"><input id="q-help-__INDEX__" name="help_me_choose" type="checkbox" value="1" data-item-field="help_me_choose">Help me choose this product or its specification</label>
   <div class="cw-row">
     <div><label for="q-grade-__INDEX__">Grade, if known</label><input id="q-grade-__INDEX__" name="grade" data-item-field="grade" maxlength="80" placeholder="e.g. BWP, IS 710" data-pack="Grade"></div>
-    <div><label for="q-thickness-__INDEX__">Thickness, if known</label><input id="q-thickness-__INDEX__" name="thickness" data-item-field="thickness" maxlength="40" placeholder="e.g. 18 mm" data-pack="Thickness"></div>
+    <div><label for="q-thickness-__INDEX__">Thickness, if known</label><input id="q-thickness-__INDEX__" name="thickness" data-item-field="thickness" maxlength="40" placeholder="e.g. 18 mm" data-pack="Thickness" list="cwq-thickness-presets"></div>
   </div>
   <div class="cw-row">
-    <div><label for="q-dimensions-__INDEX__">Size / dimensions, if known</label><input id="q-dimensions-__INDEX__" name="dimensions" data-item-field="dimensions" maxlength="80" placeholder="e.g. 2440 × 1220 mm" data-pack="Dimensions"></div>
+    <div><label for="q-dimensions-__INDEX__">Size / dimensions, if known</label><input id="q-dimensions-__INDEX__" name="dimensions" data-item-field="dimensions" maxlength="80" placeholder="e.g. 2440 × 1220 mm" data-pack="Dimensions" list="cwq-dimensions-presets"></div>
     <div><label for="q-quantity-__INDEX__">Quantity, if known</label><input id="q-quantity-__INDEX__" name="quantity" data-item-field="quantity" maxlength="40" inputmode="decimal" placeholder="e.g. 500" data-pack="Quantity"></div>
   </div>
   <div><label for="q-unit-__INDEX__">Quantity unit</label><select id="q-unit-__INDEX__" name="unit" data-item-field="unit" data-pack="Unit"><option value="">Not sure yet</option><option>Sheets</option><option>Pieces</option><option>CBM</option><option>20ft containers</option><option>40ft containers</option></select></div>
@@ -56,6 +56,8 @@ def render_quote_form(products, incoterms, sitekey, script_src):
   <div class="cw-row"><div><label for="q-em">Work email *</label><input id="q-em" type="email" name="email" autocomplete="email" maxlength="160" required></div><div><label for="q-ph">WhatsApp / phone *</label><input id="q-ph" type="tel" name="phone" autocomplete="tel" maxlength="40" required></div></div>
   <div id="cwq-items">{item.replace('__INDEX__', '1')}</div>
   <template id="cwq-item-template">{item}</template>
+  <datalist id="cwq-thickness-presets"><option value="6 mm"></option><option value="9 mm"></option><option value="12 mm"></option><option value="16 mm"></option><option value="18 mm"></option><option value="25 mm"></option></datalist>
+  <datalist id="cwq-dimensions-presets"><option value="2440 × 1220 mm (8 × 4 ft)"></option><option value="2140 × 1220 mm (7 × 4 ft)"></option><option value="1840 × 1220 mm (6 × 4 ft)"></option><option value="2440 × 920 mm (8 × 3 ft)"></option><option value="2140 × 920 mm (7 × 3 ft)"></option></datalist>
   <div class="cw-quote-add"><button type="button" class="cw-btn cw-btn--g" id="cwq-add-item" hidden>Add another product</button><p class="cw-note" id="cwq-item-status" role="status" aria-live="polite"></p></div>
   <p class="cw-note" id="q-guidance">Not sure of a specification? Choose “Help me choose” for that item and describe its use below.</p>
   <div class="cw-row"><div><label for="q-port">Delivery city / destination port *</label><input id="q-port" name="destination" maxlength="120" placeholder="e.g. Kochi, or Jebel Ali, UAE" required></div><div><label for="q-inco">Quote basis</label><select id="q-inco" name="incoterm" data-pack="Quote basis"><option value="">Not sure — advise me</option>{basis}</select></div></div>

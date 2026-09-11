@@ -44,7 +44,7 @@ def render_home(link, image, media, wood_path):
   <div class="cx-hero__image">{hero}</div>
   <div class="cw-wrap cx-hero__content">
     <p class="cx-kicker"><span></span> Manufactured in Kerala. Made for your work.</p>
-    <h1 id="cx-hero-title">Engineered wood.<br><em>Made to your spec.</em></h1>
+    <h1 id="cx-hero-title">Engineered wood. <br><em>Made to your spec.</em></h1>
     <p class="cx-hero__lead">Plywood, board and timber for construction, interiors and industrial packaging. Group manufacturing heritage since 1986.</p>
     <a class="cx-button cx-button--light" href="{link('/products')}">Explore the range <span aria-hidden="true">↗</span></a>
   </div>
@@ -52,26 +52,26 @@ def render_home(link, image, media, wood_path):
 </section>
 {section_nav}
 <section class="cx-intro cw-wrap" id="materials">
-  <div data-reveal><p class="cx-kicker">Rooted in Kerala. Built on experience.</p><h2>Good work begins<br>with the <em>right material.</em></h2></div>
+  <div data-reveal><p class="cx-kicker">Rooted in Kerala. Built on experience.</p><h2>Good work begins <br>with the <em>right material.</em></h2></div>
   <div class="cx-intro__detail" data-reveal><p>From the panel inside a finished room to the case protecting a shipment, the material has a job to do. We help you specify it.</p><a class="cx-text-link" href="{link('/about')}">Get to know Cochin Wood <span aria-hidden="true">↗</span></a><div class="cx-intro__facts"><span><b>1986</b>Our group’s manufacturing roots</span><span><b>16</b>Product lines to work with</span></div></div>
 </section>
 <section class="cx-materials cw-wrap" aria-labelledby="cx-materials-title">
-  <div class="cx-section-heading" data-reveal><div><p class="cx-kicker">The collection</p><h2 id="cx-materials-title">A material for<br>what you’re making.</h2></div><a class="cx-text-link" href="{link('/products')}">View the full catalogue <span aria-hidden="true">↗</span></a></div>
+  <div class="cx-section-heading" data-reveal><div><p class="cx-kicker">The collection</p><h2 id="cx-materials-title">A material for <br>what you’re making.</h2></div><a class="cx-text-link" href="{link('/products')}">View the full catalogue <span aria-hidden="true">↗</span></a></div>
   <div class="cx-families">{family_cards}</div>
 </section>
 <section class="cx-applications" aria-labelledby="cx-applications-title"><div class="cw-wrap">
-  <div class="cx-section-heading" data-reveal><div><p class="cx-kicker">Across industries</p><h2 id="cx-applications-title">Materials at work.<br>Across industries.</h2></div><p>Strength for the structure. Finish for the interior. Protection for the journey. Start with what your work demands.</p></div>
+  <div class="cx-section-heading" data-reveal><div><p class="cx-kicker">Across industries</p><h2 id="cx-applications-title">Materials at work. <br>Across industries.</h2></div><p>Strength for the structure. Finish for the interior. Protection for the journey. Start with what your work demands.</p></div>
   <div class="cx-applications__grid">{application_cards}</div>
   <div class="cx-section-foot"><span>Illustrations of typical applications</span><a class="cx-text-link" href="{link('/industries')}">Explore your industry <span aria-hidden="true">↗</span></a></div>
 </div></section>
 <section class="cx-process cw-wrap" aria-labelledby="cx-process-title">
-  <div class="cx-section-heading" data-reveal><div><p class="cx-kicker">The details make the difference</p><h2 id="cx-process-title">Your specification.<br>Through every step.</h2></div><p>A clear brief becomes a clear order. Here is how we work through the material, checks and delivery with you.</p></div>
+  <div class="cx-section-heading" data-reveal><div><p class="cx-kicker">The details make the difference</p><h2 id="cx-process-title">Your specification. <br>Through every step.</h2></div><p>A clear brief becomes a clear order. Here is how we work through the material, checks and delivery with you.</p></div>
   <div class="cx-process__layout"><div class="cx-process__visual"><div class="cx-process__images">{process_images}</div></div><div class="cx-process__steps">{process_steps}</div></div>
   <a class="cx-text-link" href="{link('/plywood-factory')}">Explore the production process <span aria-hidden="true">↗</span></a>
 </section>
 <section class="cx-knowledge" id="wood-guide"><div class="cw-wrap cx-knowledge__layout">
   <div class="cx-knowledge__image" data-reveal="image">{wood}<span class="cx-knowledge__label">Grain. Density. Character.</span></div>
-  <div class="cx-knowledge__copy" data-reveal><p class="cx-kicker">The Wood Encyclopedia</p><h2>Every wood<br>has a <em>character.</em></h2><p>Understand the grain, weight and working properties behind your material choices. Explore practical species notes and cited research.</p><a class="cx-button" href="{link(wood_path)}">Know your wood <span aria-hidden="true">↗</span></a></div>
+  <div class="cx-knowledge__copy" data-reveal><p class="cx-kicker">The Wood Encyclopedia</p><h2>Every wood <br>has a <em>character.</em></h2><p>Understand the grain, weight and working properties behind your material choices. Explore practical species notes and cited research.</p><a class="cx-button" href="{link(wood_path)}">Know your wood <span aria-hidden="true">↗</span></a></div>
 </div></section>
-<section class="cx-next" id="enquire"><div class="cw-wrap"><div data-reveal><p class="cx-kicker">Let’s put your plans into material</p><h2>Tell us what<br>you’re making.</h2></div><div class="cx-next__action" data-reveal><p>Share the application, quantity and destination. We’ll help with the next step.</p><a class="cx-button cx-button--light" href="{link('/contact#quote')}">Get a quote <span aria-hidden="true">↗</span></a><a class="cx-next__export" href="{link('/export')}">Planning an export order? Explore destinations ↗</a></div></div></section>
+<section class="cx-next" id="enquire"><div class="cw-wrap"><div data-reveal><p class="cx-kicker">Let’s put your plans into material</p><h2>Tell us what <br>you’re making.</h2></div><div class="cx-next__action" data-reveal><p>Share the application, quantity and destination. We’ll help with the next step.</p><a class="cx-button cx-button--light" href="{link('/contact#quote')}">Get a quote <span aria-hidden="true">↗</span></a><a class="cx-next__export" href="{link('/export')}">Planning an export order? Explore destinations ↗</a></div></div></section>
 '''
