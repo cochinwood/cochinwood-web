@@ -596,13 +596,11 @@ def header(path="/"):
   </nav>
 </div></header>'''
 
-# The one company profile that exists. It is written once and used twice -- the
-# Organization schema's sameAs and the footer link -- because a profile Google is
-# told about but a reader cannot reach is half a fact. A LinkedIn company page
-# and a Google Business Profile were both recommended by the 4 Sep 2026 audit and
-# NEITHER HAS BEEN CREATED: a sameAs pointing at a 404 is worse than an absent
-# one, so nothing is guessed here until those pages actually exist.
+# The company profiles that exist. They are written once and used twice -- the
+# Organization schema's sameAs and the footer links -- because a profile Google is
+# told about but a reader cannot reach is half a fact.
 INSTAGRAM_URL = "https://www.instagram.com/cochinwood/"
+LINKEDIN_URL = "https://www.linkedin.com/company/cochin-wood-industries/"
 
 def footer():
     prod = (f'<a href="{u("/products#plywood-boards")}">Plywood &amp; boards</a>'
@@ -630,7 +628,7 @@ def footer():
     <div class="cw-ft__brand"><a class="cw-hd__brand" href="{u('/')}" aria-label="Cochin Wood Industries — Home" title="Home"><img src="{u('/assets/icons/logo-80.png')}" alt="Cochin Wood Industries logo" width="80" height="80" loading="lazy"><span class="cw-hd__wordmark"><b>Cochin Wood</b><span>Industries</span></span></a><p>Plywood, board and timber from Kerala. Made to specification, for India and export.</p><p>Part of a group manufacturing in Perumbavoor since 1986.</p></div>
     <nav aria-label="Products"><p class="cw-ft__h">Products</p>{prod}</nav>
     <nav aria-label="Explore"><p class="cw-ft__h">Explore</p><a href="{u('/products')}">All products</a><a href="{u(WOOD_PATH)}">{WOOD_LABEL}</a><a href="{u('/resources')}">Resources</a><a href="{u('/blogs/post/case-studies')}">Case studies</a><a href="{u('/industries')}">Industries</a><a href="{u('/export')}">Export</a><a href="{u('/supply-markets')}">Supply markets</a><a href="{u('/about')}">About</a><a href="{u('/company-verification')}">Company verification</a><a href="{u('/faq')}">FAQ</a></nav>
-    <nav aria-label="Contact"><p class="cw-ft__h">Contact</p><a href="tel:{CONTACT['phone_href']}">{CONTACT['phone_disp']}</a><a href="mailto:{CONTACT['email']}">{CONTACT['email']}</a><a href="https://maps.google.com/?q=Thoppilan+Building+Vattakattupady+Rayamangalam+Perumbavoor+Kerala+683542" target="_blank" rel="noopener">{CONTACT['addr']}</a><a href="{INSTAGRAM_URL}" target="_blank" rel="noopener">Instagram</a></nav>
+    <nav aria-label="Contact"><p class="cw-ft__h">Contact</p><a href="tel:{CONTACT['phone_href']}">{CONTACT['phone_disp']}</a><a href="mailto:{CONTACT['email']}">{CONTACT['email']}</a><a href="https://maps.google.com/?q=Thoppilan+Building+Vattakattupady+Rayamangalam+Perumbavoor+Kerala+683542" target="_blank" rel="noopener">{CONTACT['addr']}</a><a href="{INSTAGRAM_URL}" target="_blank" rel="noopener">Instagram</a><a href="{LINKEDIN_URL}" target="_blank" rel="noopener">LinkedIn</a></nav>
   </div>
   <div class="cw-ft__bar"><span>&copy; 2026 Cochin Wood Industries Pvt Ltd. Group established 1986.</span>
   <span><a href="{u('/privacy-policy')}" style="display:inline">Privacy</a> &middot; <a href="{u('/terms-and-conditions')}" style="display:inline">Terms</a></span></div>
