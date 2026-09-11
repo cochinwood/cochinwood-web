@@ -592,7 +592,7 @@ def header(path="/"):
   <a class="cw-hd__brand" href="{u('/')}" aria-label="Cochin Wood Industries — Home" title="Home"><img src="{u('/assets/icons/logo-80.png')}" alt="Cochin Wood Industries logo" width="80" height="80" decoding="async"><span class="cw-hd__wordmark"><b>Cochin Wood</b><span>Industries</span></span></a>
   <button class="cw-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav">&#9776;</button>
   <nav class="cw-nav" id="nav" aria-label="Primary">
-    {links}<a class="cw-cta" href="{u('/contact')}">Get a quote</a>
+    {links}<a class="cw-cta" href="{u('/contact')}#quote">Get a quote</a>
   </nav>
 </div></header>'''
 
@@ -632,7 +632,7 @@ def footer():
     <nav aria-label="Explore"><p class="cw-ft__h">Explore</p><a href="{u('/products')}">All products</a><a href="{u(WOOD_PATH)}">{WOOD_LABEL}</a><a href="{u('/resources')}">Resources</a><a href="{u('/blogs/post/case-studies')}">Case studies</a><a href="{u('/industries')}">Industries</a><a href="{u('/export')}">Export</a><a href="{u('/supply-markets')}">Supply markets</a><a href="{u('/about')}">About</a><a href="{u('/company-verification')}">Company verification</a><a href="{u('/faq')}">FAQ</a></nav>
     <nav aria-label="Contact"><p class="cw-ft__h">Contact</p><a href="tel:{CONTACT['phone_href']}">{CONTACT['phone_disp']}</a><a href="mailto:{CONTACT['email']}">{CONTACT['email']}</a><a href="https://maps.google.com/?q=Thoppilan+Building+Vattakattupady+Rayamangalam+Perumbavoor+Kerala+683542" target="_blank" rel="noopener">{CONTACT['addr']}</a><a href="{INSTAGRAM_URL}" target="_blank" rel="noopener">Instagram</a></nav>
   </div>
-  <div class="cw-ft__bar"><span>&copy; 2026 Cochin Wood Industries Pvt Ltd. Group established 1986.</span>
+  <div class="cw-ft__bar"><span>&copy; 2026 Cochin Wood Industries Pvt Ltd. CIN: {CIN}. Group established 1986.</span>
   <span><a href="{u('/privacy-policy')}" style="display:inline">Privacy</a> &middot; <a href="{u('/terms-and-conditions')}" style="display:inline">Terms</a></span></div>
 </div></footer>'''
 

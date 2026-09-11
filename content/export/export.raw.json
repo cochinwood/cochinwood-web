@@ -21,7 +21,7 @@
    ],
    [
     "How many plywood sheets fit in a 20ft or 40ft container?",
-    "It depends on weight, not volume. Plywood reaches a container's permitted payload before the space fills, and destination road limits can lower the cap further, so the count varies with thickness, density and lane. Every quote includes a loading plan with sheets per container and net and gross weights."
+    "It depends on both weight and volume: for thicknesses up to roughly 20 mm, weight governs and reaches the permitted payload before the container space fills; for thicker boards, volume governs. Destination road limits can also lower the payload cap, so the count varies with thickness, density and lane. Every quote includes a loading plan with sheets per container and net and gross weights."
    ],
    [
     "How quickly can you send an export quote?",
