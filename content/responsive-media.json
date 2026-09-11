@@ -641,12 +641,12 @@
     {
       "src": "/files/Species/birch-botanical-960.webp",
       "width": 960,
-      "sha256": "afcdbdf6d7bf76fc8f8bb21b520c8ad821cfaab9f5118600522c2fc1e3e6241e"
+      "sha256": "3d78478391a28c25194610686768998914c52d025fc800d845d8aebd91a58dbf"
     },
     {
       "src": "/files/Species/birch-botanical.webp",
       "width": 1200,
-      "sha256": "e4c8dbc6931ea837b122557e9c70793f12108fea730ad31ee3c00acf53e164e7"
+      "sha256": "56dbaadec7d9d3ea9abe2dac273628997539201a64b007643987c375d356e256"
     }
   ],
   "/files/Species/eucalyptus-botanical.webp": [
@@ -731,12 +731,12 @@
     {
       "src": "/files/Species/gurjan-botanical-960.webp",
       "width": 960,
-      "sha256": "34271cc4a75d4c5f788cc9cd7b80c48e707cf219d0538b4581ed222614ffb349"
+      "sha256": "9c4bf5edb885609c46e3b1aaaaf334e3e5394d7fcc310694affc1ef53fc9e17c"
     },
     {
       "src": "/files/Species/gurjan-botanical.webp",
       "width": 1067,
-      "sha256": "42222bd59660da91b243261b5cb1238cdab1bd045a9a5ce50c7bdbe8c7270673"
+      "sha256": "add18e8af0890400d9605b419b75367b34c774e08389277a71a19d351f7b71bd"
     }
   ],
   "/files/Species/jackwood-botanical.webp": [
@@ -853,7 +853,7 @@
     {
       "src": "/files/Species/melia-dubia-botanical.webp",
       "width": 1200,
-      "sha256": "4596a165f3023c6b4b9ce931468783fd28ac190eb0305bc1063d001cb29b3641"
+      "sha256": "03510f6f40dd55f7391eb4e27fbdd9bf0e017f45c89650bc759001b9e9a9c4e0"
     }
   ],
   "/files/Species/meranti-wood.webp": [
@@ -977,7 +977,7 @@
     {
       "src": "/files/Species/pine-botanical.webp",
       "width": 1200,
-      "sha256": "ef0d96a18252a3d83d52da9f938756e658f6e31dbec4b5ec1d669b6808c6c792"
+      "sha256": "a6a993e5faf4e7a35b5b7f913aba21b0a9c9dac9a6db55daa2a40554600fb8a0"
     }
   ],
   "/files/Species/poplar-botanical.webp": [
@@ -1050,7 +1050,7 @@
     {
       "src": "/files/Species/sal-botanical.webp",
       "width": 1200,
-      "sha256": "87428665526e3d3786e3e7fd0d73bdd7415f3c52d63e4453004ca1130c077bf9"
+      "sha256": "0da4658c6435b1f9badb83a9ebaae74c6861ca155030621cece5bdea68b0c845"
     }
   ],
   "/files/Species/semul-wood.webp": [
@@ -1089,7 +1089,7 @@
     {
       "src": "/files/Species/semul-botanical.webp",
       "width": 1200,
-      "sha256": "456c01bec68f13884114bed44fa1c933c7ae50787f1ebd56bd0f58cbe06dd2f3"
+      "sha256": "c855c85629c4412077ff190f38085a3b419375c56163bb7c050e862368b49927"
     }
   ],
   "/files/Species/sheesham-wood.webp": [
@@ -1162,7 +1162,7 @@
     {
       "src": "/files/Species/silver-oak-botanical.webp",
       "width": 768,
-      "sha256": "a3b3ed97231d5a97bc9283ea4ec39247156db24b8965982a53ec500f525872ad"
+      "sha256": "3176245fcadbcd502a3879d3197ee228abbde2cd286fd040cd466b8ce4c40e24"
     }
   ],
   "/files/Species/teak-wood.webp": [
@@ -1230,12 +1230,12 @@
     {
       "src": "/files/Species/casuarina-botanical-960.webp",
       "width": 960,
-      "sha256": "d2660066bc5f0f690d875fd8ca6a06a55f0a1a35914f74e28cad4d1dbd8d7ca5"
+      "sha256": "4df1fa4daa327ffbca7cc3b18fcf432b9467131616b09abd648c48933a21b7d7"
     },
     {
       "src": "/files/Species/casuarina-botanical.webp",
       "width": 1060,
-      "sha256": "d05b3fb6760b831de00a00d2d922926822a23d44f0e09f5bd35d5a8b60c9a314"
+      "sha256": "74c9eed9099d76da9f2173f36d987917a87b97ef51f965ae296b70ebd4f12f60"
     }
   ],
   "/files/Species/subabul-wood.webp": [
@@ -1296,7 +1296,7 @@
     {
       "src": "/files/Species/anjili-botanical.webp",
       "width": 1200,
-      "sha256": "90ead36a5e90718602551c4ef64ba3fcc2dd840df1a81122aee417a830e02a7b"
+      "sha256": "f4adddb377af92a323b1a104395153b10e8b430b465b7580efd6cf3e77f37488"
     }
   ],
   "/files/Species/matti-botanical.webp": [
@@ -1352,12 +1352,12 @@
     {
       "src": "/files/Species/irul-botanical-960.webp",
       "width": 960,
-      "sha256": "7c8db5ddb2d1bb5a9767061d52ff1ed252e308c18d2601c16afeca3d7c246dea"
+      "sha256": "4aca931ca3e8d970f311df9b17216e716b3d82aab8c8ef449c2b06cfe169dbd4"
     },
     {
       "src": "/files/Species/irul-botanical.webp",
       "width": 1200,
-      "sha256": "c9aa8f356bce921e82fdbf531f8e98ebd42bdaf0881e2b0e13502468092bf4b2"
+      "sha256": "8dfa77e2fd889acfd75e93d465de8f46c3ddcaa68b559ee0b8edaa81dc5d4200"
     }
   ],
   "/files/Species/venteak-botanical.webp": [
@@ -1430,7 +1430,7 @@
     {
       "src": "/files/Species/pala-botanical.webp",
       "width": 1200,
-      "sha256": "0a34763520e0a8d5c01cc7c706873cf3e20b749b5f01af884532e2b3b869b177"
+      "sha256": "4451200a94a9453e2de83e9d752dd6473fb8689b98e955313bd7fe3c8d44103e"
     }
   ],
   "/files/Brand/contact-materials.jpg": [
