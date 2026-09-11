@@ -877,6 +877,10 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
     ]
     if path == "/":
         preload_items.append(f'<link rel="preload" href="{u("/files/Hero%20Optimized/Home.webp")}" as="image" type="image/webp" fetchpriority="high">')
+        website_schema = '''<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","@id":"https://www.cochinwood.in/#website","url":"https://www.cochinwood.in/","name":"Cochin Wood Industries","inLanguage":"en-IN","publisher":{"@id":"https://www.cochinwood.in/#organization"}}
+</script>'''
+        extra_head = extra_head + "\n" + website_schema
     preloads = "\n".join(preload_items)
     if "<main" not in body:
         body = f'<main id="main">{body}</main>'
@@ -893,6 +897,7 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
 <link rel="icon" type="image/png" sizes="32x32" href="{u('/assets/icons/favicon-32.png')}">
 <link rel="icon" type="image/png" sizes="16x16" href="{u('/assets/icons/favicon-16.png')}">
 <link rel="apple-touch-icon" href="{u('/assets/icons/apple-touch-icon.png')}">
+<link rel="manifest" href="{u('/site.webmanifest')}">
 <meta property="og:type" content="{og_type}">
 <meta property="og:site_name" content="Cochin Wood Industries">
 <meta property="og:locale" content="en_IN">
@@ -3225,6 +3230,28 @@ def assets_and_meta():
     # LIVE, so it can never disagree with where the sitemap actually is; today
     # that renders byte-for-byte what live serves, trailing no-newline included.
     write("robots.txt", ROBOTS_TXT + f"Sitemap: {LIVE}/sitemap.xml")
+    manifest_data = json.dumps({
+        "name": "Cochin Wood Industries",
+        "short_name": "Cochin Wood",
+        "description": "Plywood manufacturer and exporter in Kerala, India since 1986.",
+        "start_url": "/",
+        "display": "standalone",
+        "background_color": "#ffffff",
+        "theme_color": "#1f5132",
+        "icons": [
+            {
+                "src": "/assets/icons/logo-80.png",
+                "sizes": "80x80",
+                "type": "image/png"
+            },
+            {
+                "src": "/assets/icons/apple-touch-icon.png",
+                "sizes": "180x180",
+                "type": "image/png"
+            }
+        ]
+    }, indent=2)
+    write("site.webmanifest", manifest_data)
 
 def _build():
     fingerprint_assets()         # hashes must exist before any page references them
