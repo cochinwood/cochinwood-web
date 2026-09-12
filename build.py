@@ -2149,7 +2149,7 @@ LIVE_REF_NAME = "origin/cf-live"                         # where the pin came fr
 # source build before this re-pin already reproduced every live blob except the four
 # destination-guide fixes owned by this branch and sitemap-post.xml, proving that the
 # pin move preserves PR39 and the rest of the shipped tree rather than overwriting it.
-LIVE_SHA = "a9178b958c5de667f8ddaadff9ab5bbc212f199e"    # Reviewed PR40 merge; see docs/cf-live-pin-review-premium-hardwood-2026-09-08.md
+LIVE_SHA = "5e8fdcf484f7659cc178385978a01e4decc34497"    # Reviewed live baseline; see docs/website-review-release-2026-09-12.md
 LIVE_REF = LIVE_SHA                # what git is actually handed, so no fetch can move it
 LIVE_PIN = LIVE_REF_NAME + "@" + LIVE_SHA[:12]           # what the banner and dist/ record
 LIVE_HASHED_ASSET_RE = re.compile(
