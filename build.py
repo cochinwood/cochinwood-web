@@ -592,7 +592,7 @@ def header(path="/"):
   <a class="cw-hd__brand" href="{u('/')}" aria-label="Cochin Wood Industries — Home" title="Home"><img src="{u('/assets/icons/logo-80.png')}" alt="Cochin Wood Industries logo" width="80" height="80" decoding="async"><span class="cw-hd__wordmark"><b>Cochin Wood</b><span>Industries</span></span></a>
   <button class="cw-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav">&#9776;</button>
   <nav class="cw-nav" id="nav" aria-label="Primary">
-    {links}<a class="cw-cta" href="{u('/contact')}">Get a quote</a>
+    {links}<a class="cw-cta" href="{u('/contact#quote')}">Get a quote</a>
   </nav>
 </div></header>'''
 
@@ -630,7 +630,7 @@ def footer():
     <nav aria-label="Explore"><p class="cw-ft__h">Explore</p><a href="{u('/products')}">All products</a><a href="{u(WOOD_PATH)}">{WOOD_LABEL}</a><a href="{u('/resources')}">Resources</a><a href="{u('/blogs/post/case-studies')}">Case studies</a><a href="{u('/industries')}">Industries</a><a href="{u('/export')}">Export</a><a href="{u('/supply-markets')}">Supply markets</a><a href="{u('/about')}">About</a><a href="{u('/company-verification')}">Company verification</a><a href="{u('/faq')}">FAQ</a></nav>
     <nav aria-label="Contact"><p class="cw-ft__h">Contact</p><a href="tel:{CONTACT['phone_href']}">{CONTACT['phone_disp']}</a><a href="mailto:{CONTACT['email']}">{CONTACT['email']}</a><a href="https://maps.google.com/?q=Thoppilan+Building+Vattakattupady+Rayamangalam+Perumbavoor+Kerala+683542" target="_blank" rel="noopener">{CONTACT['addr']}</a><a href="{INSTAGRAM_URL}" target="_blank" rel="noopener">Instagram</a><a href="{LINKEDIN_URL}" target="_blank" rel="noopener">LinkedIn</a></nav>
   </div>
-  <div class="cw-ft__bar"><span>&copy; 2026 Cochin Wood Industries Pvt Ltd. Group established 1986.</span>
+  <div class="cw-ft__bar"><span>&copy; 2026 Cochin Wood Industries Pvt Ltd. Group established 1986. CIN: {CIN}.</span>
   <span><a href="{u('/privacy-policy')}" style="display:inline">Privacy</a> &middot; <a href="{u('/terms-and-conditions')}" style="display:inline">Terms</a></span></div>
 </div></footer>'''
 
@@ -884,6 +884,8 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
         body = f'<main id="main">{body}</main>'
     else:
         body = body.replace("<main", '<main id="main"', 1)
+    calculator_script = ('<script src="' + u('/assets/' + ASSETS['container-calculator.js']) + '" defer></script>'
+                         if path == '/rubberwood-plywood-container-weight' else '')
     return f'''<!doctype html>
 <html lang="en-IN">
 <head>
@@ -923,7 +925,7 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
 <script src="{u('/assets/' + ASSETS['site.js'])}" defer></script>
 <script src="{u('/assets/' + ASSETS['page-navigation.js'])}" defer></script>
 <script src="{u('/assets/' + ASSETS['experience-motion.js'])}" defer></script>
-<script src="{u('/assets/' + ASSETS['search-measurement.js'])}" defer></script>{beacon_tag()}
+<script src="{u('/assets/' + ASSETS['search-measurement.js'])}" defer></script>{calculator_script}{beacon_tag()}
 </body>
 </html>'''
 
@@ -2152,7 +2154,7 @@ LIVE_REF = LIVE_SHA                # what git is actually handed, so no fetch ca
 LIVE_PIN = LIVE_REF_NAME + "@" + LIVE_SHA[:12]           # what the banner and dist/ record
 LIVE_HASHED_ASSET_RE = re.compile(
     r"^assets/(?:bundle|cw-events|encyclopedia-navigation|experience-motion|"
-    r"page-navigation|quote-form|search-measurement|site)\.[0-9a-f]{8}\.(?:css|js)$"
+    r"page-navigation|quote-form|search-measurement|container-calculator|site)\.[0-9a-f]{8}\.(?:css|js)$"
 )
 
 CARRIED_ROOT_FILES = {
@@ -2833,7 +2835,7 @@ def build_redirects():
 
 # ---------------- assets + meta ----------------
 # One request instead of five; order preserved so cascade behaviour is unchanged.
-CSS_BUNDLE = ["fonts.css", "site.css", "guide.css", "wood-enc.css", "shell.css", "components.css", "visual-system.css", "experience.css", "experience-inner.css", "experience-motion.css", "blog-index.css", "blog-navigation.css", "catalogue-navigation.css", "inner-hero.css", "page-navigation.css", "encyclopedia-navigation.css", "privacy-choices.css", "regional-navigation.css", "viewport-heroes.css", "quote-form.css", "brand-consistency.css", "content-spacing.css", "export-guides.css"]
+CSS_BUNDLE = ["fonts.css", "site.css", "guide.css", "wood-enc.css", "shell.css", "components.css", "visual-system.css", "experience.css", "experience-inner.css", "experience-motion.css", "blog-index.css", "blog-navigation.css", "catalogue-navigation.css", "inner-hero.css", "page-navigation.css", "encyclopedia-navigation.css", "privacy-choices.css", "regional-navigation.css", "viewport-heroes.css", "quote-form.css", "brand-consistency.css", "content-spacing.css", "export-guides.css", "container-calculator.css"]
 
 def _css_fix_urls(css, name):
     """Resolve /files/... backgrounds; neutralise the ones with no source file."""
@@ -2884,12 +2886,14 @@ def css_bundle_content():
 # September 2027, with no URL left to push a fix through.
 ASSETS = {"page-navigation.js": "page-navigation.js", "quote-form.js": "quote-form.js", "search-measurement.js": "search-measurement.js", "encyclopedia-navigation.js": "encyclopedia-navigation.js", "experience-motion.js": "experience-motion.js", "bundle.css": "bundle.css", "site.js": "site.js", "cw-events.js": "cw-events.js"}
 
+ASSETS["container-calculator.js"] = "container-calculator.js"
+
 def _digest(data):
     if isinstance(data, str): data = data.encode("utf-8")
     return hashlib.sha256(data).hexdigest()[:8]
 
 def fingerprint_assets():
-    for name in ("page-navigation.js", "quote-form.js"):
+    for name in ("page-navigation.js", "quote-form.js", "container-calculator.js"):
         ASSETS[name] = name[:-3] + '.' + _digest(read_lf(os.path.join(ROOT, 'assets', name))) + '.js'
     ASSETS["search-measurement.js"] = f"search-measurement.{_digest(read_lf(os.path.join(ROOT, 'assets', 'search-measurement.js')))}.js"
     ASSETS["encyclopedia-navigation.js"] = f"encyclopedia-navigation.{_digest(read_lf(os.path.join(ROOT, 'assets', 'encyclopedia-navigation.js')))}.js"
@@ -3026,7 +3030,7 @@ def assets_and_meta():
     # Publish the two fingerprinted scripts under their hashed names, so the
     # year-long immutable header below is only ever attached to a name that
     # changes when the bytes do.
-    for key, plain_name in (("site.js", "site.js"), ("cw-events.js", "cw-events.js"), ("experience-motion.js", "experience-motion.js"), ("encyclopedia-navigation.js", "encyclopedia-navigation.js"), ("search-measurement.js", "search-measurement.js"), ("page-navigation.js", "page-navigation.js"), ("quote-form.js", "quote-form.js")):
+    for key, plain_name in (("container-calculator.js", "container-calculator.js"), ("site.js", "site.js"), ("cw-events.js", "cw-events.js"), ("experience-motion.js", "experience-motion.js"), ("encyclopedia-navigation.js", "encyclopedia-navigation.js"), ("search-measurement.js", "search-measurement.js"), ("page-navigation.js", "page-navigation.js"), ("quote-form.js", "quote-form.js")):
         hashed = ASSETS.get(key)
         plain = os.path.join(dst, plain_name)
         if hashed and hashed != plain_name and os.path.exists(plain):
@@ -3137,7 +3141,7 @@ def assets_and_meta():
     day       = "  Cache-Control: public, max-age=86400\n"
     hashed_rules = "".join(
         f"/assets/{ASSETS[k]}\n" + immutable
-        for k in ("bundle.css", "site.js", "cw-events.js", "experience-motion.js", "encyclopedia-navigation.js", "search-measurement.js", "page-navigation.js", "quote-form.js") if ASSETS.get(k))
+        for k in ("bundle.css", "site.js", "cw-events.js", "experience-motion.js", "encyclopedia-navigation.js", "search-measurement.js", "page-navigation.js", "quote-form.js", "container-calculator.js") if ASSETS.get(k))
     # THE PUBLISHED TREE MUST SAY WHICH COMMIT IT WAS BUILT FROM. A changing,
     # derived portion of dist/ is copied out of cf-live's object store, and a dist/ that does
     # not name that commit cannot be audited once the terminal that printed the
