@@ -1,0 +1,23 @@
+.cwi-container-table{max-width:100%;overflow-x:auto}
+.cwi-container-table:focus-visible{outline:3px solid #007a5e;outline-offset:3px}
+.cwi-container-calc{margin:28px 0;padding:clamp(18px,4vw,32px);background:#f4f7f5;border:1px solid #d0ded6;color:#243029}
+.cwi-container-calc h3{margin-top:0;font-family:Poppins,system-ui,sans-serif;font-size:clamp(1.2rem,2vw,1.5rem);line-height:1.35;color:#1b4332}
+.cwi-container-calc fieldset{min-width:0;border:0;padding:0;margin:20px 0}
+.cwi-container-calc legend{padding:0;margin-bottom:16px;font-weight:600}
+.cwi-container-calc__inputs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.cwi-container-calc label{display:block;font-size:.9rem;font-weight:600;margin-bottom:6px}
+.cwi-container-calc input,.cwi-container-calc select{display:block;width:100%;min-width:0;min-height:48px;box-sizing:border-box;padding:11px 12px;background:#fff;color:#243029;border:1px solid #7e9185;border-radius:2px;font:inherit;font-size:1rem}
+.cwi-container-calc input:focus-visible,.cwi-container-calc select:focus-visible{outline:3px solid #007a5e;outline-offset:3px}
+.cwi-container-calc [aria-invalid=true]{border-color:#9c2828;box-shadow:inset 0 0 0 1px #9c2828}
+.cwi-container-calc__hint{display:block;font-size:.8rem;line-height:1.55;color:#4a5c50;margin-top:7px}
+.cwi-container-calc__error{color:#842121;background:#fff2ef;border-left:3px solid #9c2828;padding:14px}
+.cwi-container-calc__outputs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:24px 0;padding:20px 0;border-block:1px solid #b9cbbf}
+.cwi-container-calc__outputs div{min-width:0}
+.cwi-container-calc dt{font-size:.8rem;line-height:1.5;color:#4a5c50}
+.cwi-container-calc dd{font-size:clamp(1.35rem,3vw,1.85rem);font-weight:600;line-height:1.4;margin:5px 0 0;color:#1b4332;font-variant-numeric:tabular-nums}
+.cwi-container-calc__limit{font-weight:600;color:#1b4332}
+.cwi-container-calc details{margin-top:24px;border-top:1px solid #b9cbbf;padding-top:18px}
+.cwi-container-calc summary{cursor:pointer;font-weight:600;min-height:32px}
+.cwi-container-calc details p{font-size:.88rem}
+.cwi-container-calc [hidden]{display:none!important}
+@media(max-width:560px){.cwi-container-calc__inputs{grid-template-columns:1fr}.cwi-container-calc__outputs{grid-template-columns:1fr;gap:14px}.cwi-container-calc__outputs div{display:flex;align-items:baseline;justify-content:space-between;gap:14px}.cwi-container-calc dt{max-width:55%}.cwi-container-calc dd{white-space:nowrap;margin:0}}
