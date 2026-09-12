@@ -51,8 +51,9 @@ def verify(dist, publication, ref=None):
     changed = sorted(name for name in built.keys() & tracked.keys() if built[name] != tracked[name])
     return {
         'ok': not (missing or extra or changed),
-        'source_commit': git(Path(__file__).resolve().parents[1], 'rev-parse', 'HEAD').decode().strip(),
+        'verification_tool_commit': git(Path(__file__).resolve().parents[1], 'rev-parse', 'HEAD').decode().strip(),
         'publication_ref': ref or 'staged index',
+        'publication_commit': git(publication, 'rev-parse', ref + '^{commit}').decode().strip() if ref else None,
         'build_files': len(built), 'publication_files': len(tracked),
         'missing_in_publication': missing, 'extra_in_publication': extra,
         'different_bytes': changed, 'sha256': inventory,
