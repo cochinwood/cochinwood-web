@@ -4,9 +4,9 @@
 
 Production is `cf-live` in `cochinwood/cochinwood-web`, served by the Cloudflare Pages project `cochinwood-web` at https://www.cochinwood.in. A merge or push to `cf-live` deploys immediately. Its files are generated publication output.
 
-The source is this lineage: `build.py`, `export_section.py`, `content/`, `assets/` and `tools/`. Do not fix production HTML by hand: the next build would overwrite it. `master` and older migration branches are historical.
+The current source home is `master` in `cochinwood/cochinwood-web`: `build.py`, `export_section.py`, `content/`, `assets/` and `tools/`. Do not fix production HTML by hand: the next build would overwrite it. Older migration and preparation branches are historical or unmerged work; reconcile reviewed changes into the current source without replacing newer assets or content. A local checkout may be on an obsolete branch, so inspect its branch and commit before editing.
 
-Run `python build.py` to create `dist/`. The site has 253 indexed pages plus its 404 page. Total file count varies with assets; use the actual build inventory.
+Run `python build.py` to create `dist/`. Page and asset counts change with the source. Use the actual build inventory rather than an old fixed count. A completed source commit is not a completed release: confirm it is included in the reviewed publication tree and verify the resulting production bytes.
 
 ## Preserve the agreed visual identity
 
