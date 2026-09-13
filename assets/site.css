@@ -538,3 +538,5 @@ p a, li a {min-height:0;min-width:0;display:inline;}
 
 
 }
+html, body { overflow-x: clip; }
+main img, main video, main svg { max-width: 100%; }
