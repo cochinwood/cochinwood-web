@@ -601,6 +601,7 @@ def header(path="/"):
 # told about but a reader cannot reach is half a fact.
 INSTAGRAM_URL = "https://www.instagram.com/cochinwood/"
 LINKEDIN_URL = "https://www.linkedin.com/company/cochin-wood-industries/"
+WA_URL = f"https://wa.me/{CONTACT['wa']}?text=Hello%20Cochin%20Wood%2C%20I%20would%20like%20to%20inquire%20about%20plywood%20specifications%20and%20pricing."
 
 def footer():
     prod = (f'<a href="{u("/products#plywood-boards")}">Plywood &amp; boards</a>'
@@ -662,7 +663,7 @@ AREA_SERVED = json.dumps(EXPORT_ISO, separators=(",", ":"))
 # mis-slotted: the district is not a PostalAddress field, and the human-readable
 # line in the footer still says it.
 ORG_SCHEMA = '''<script type="application/ld+json">
-{"@context":"https://schema.org","@type":["Organization","LocalBusiness"],"@id":"https://www.cochinwood.in/#organization","name":"Cochin Wood Industries","url":"https://www.cochinwood.in/","logo":"https://www.cochinwood.in/assets/logo.png","image":"''' + LIVE + ORG_IMAGE_REF + '''","email":"sales@cochinwood.in","telephone":"+919567410175","address":{"@type":"PostalAddress","streetAddress":"15-236/B, Thoppilan Building, Vattakattupady, Rayamangalam","addressLocality":"Perumbavoor","addressRegion":"Kerala","postalCode":"683542","addressCountry":"IN"},"parentOrganization":{"@type":"Organization","name":"Cochin Wood Group","foundingDate":"1986"},"areaServed":''' + AREA_SERVED + ''',"sameAs":["''' + INSTAGRAM_URL + '''"],"description":"Plywood manufacturer in Kochi, Kerala - packing, Okoume, marine and film-faced shuttering plywood, sawn timber and export crates."}
+{"@context":"https://schema.org","@type":["Organization","LocalBusiness"],"@id":"https://www.cochinwood.in/#organization","name":"Cochin Wood Industries","url":"https://www.cochinwood.in/","logo":"https://www.cochinwood.in/assets/logo.png","image":"''' + LIVE + ORG_IMAGE_REF + '''","email":"sales@cochinwood.in","telephone":"+919567410175","address":{"@type":"PostalAddress","streetAddress":"15-236/B, Thoppilan Building, Vattakattupady, Rayamangalam","addressLocality":"Perumbavoor","addressRegion":"Kerala","postalCode":"683542","addressCountry":"IN"},"parentOrganization":{"@type":"Organization","name":"Cochin Wood Group","foundingDate":"1986"},"areaServed":''' + AREA_SERVED + ''',"sameAs":["''' + INSTAGRAM_URL + '''","''' + LINKEDIN_URL + '''"],"description":"Plywood manufacturer in Kochi, Kerala - packing, Okoume, marine and film-faced shuttering plywood, sawn timber and export crates."}
 </script>'''
 
 # Fonts used above the fold on every page — preloaded so the header does not reflow.
@@ -792,7 +793,8 @@ def product_schema(slug):
             "image": hero[0] if hero else OG_IMAGE,
             "category": "Plywood, board and timber",
             "brand": {"@type": "Brand", "name": "Cochin Wood Industries"},
-            "manufacturer": {"@id": LIVE + "/#organization"}}
+            "manufacturer": {"@id": LIVE + "/#organization"},
+            "countryOfOrigin": {"@type": "Country", "name": "India"}}
     return ('<script type="application/ld+json">'
             + json.dumps(data, separators=(",", ":")) + '</script>')
 
@@ -2866,8 +2868,11 @@ def css_bundle_content():
             # was already the same bytes and the same hash on every platform
             # while site.js and fonts.css were not. A raw read here would put
             # this file in the same trap they were in.
-            parts.append(f"/* --- {name} --- */\n" + _css_fix_urls(open(fp, encoding="utf-8").read(), name))
-        _bundle_css = "\n".join(parts)
+            parts.append(_css_fix_urls(open(fp, encoding="utf-8").read(), name))
+        raw_bundle = "\n".join(parts)
+        cleaned = re.sub(r'/\*.*?\*/', '', raw_bundle, flags=re.DOTALL)
+        marker = "/* Cochin Wood visual system: consistent preserved page families. */\n"
+        _bundle_css = marker + "\n".join(l.strip() for l in cleaned.splitlines() if l.strip())
     return _bundle_css
 
 # ONLY A CONTENT-ADDRESSED NAME MAY CARRY THE IMMUTABLE HEADER, so these three --
@@ -3039,6 +3044,9 @@ def assets_and_meta():
             os.remove(plain)      # unhashed leftover would get pinned for a year
     build_css_bundle()
     open(os.path.join(DIST, ".nojekyll"), "w").close()
+    ico_src = os.path.join(src, "favicon.ico")
+    if os.path.exists(ico_src):
+        copy_lf(ico_src, os.path.join(DIST, "favicon.ico"))
     # Cloudflare Pages headers (ignored by GitHub Pages, honoured by CF Pages).
     #
     # The Content-Security-Policy below is carried VERBATIM from what production serves
@@ -3176,6 +3184,7 @@ def assets_and_meta():
         # keeps its filename forever, so it can never be pinned like the hashed
         # assets above.
         "/favicon.png\n" + day +
+        "/favicon.ico\n" + day +
         # Restored VERBATIM from cf-live, both lines. The CORS header is load-bearing:
         # these are the images other sites and the app hotlink, and dropping
         # Access-Control-Allow-Origin breaks every canvas/fetch consumer of them.
