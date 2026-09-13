@@ -1,5 +1,5 @@
 # built from origin/cf-live@5e8fdcf484f7 -- the pin lives in build.py as LIVE_SHA
-/assets/bundle.16eb5fba.css
+/assets/bundle.93bfed59.css
   Cache-Control: public, max-age=31536000, immutable
 /assets/site.d0e3b5c7.js
   Cache-Control: public, max-age=31536000, immutable
@@ -28,6 +28,8 @@
 /assets/logo.png
   Cache-Control: public, max-age=86400
 /favicon.png
+  Cache-Control: public, max-age=86400
+/favicon.ico
   Cache-Control: public, max-age=86400
 /files/*
   Access-Control-Allow-Origin: *
