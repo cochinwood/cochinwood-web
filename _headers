@@ -1,5 +1,7 @@
 # built from origin/cf-live@5e8fdcf484f7 -- the pin lives in build.py as LIVE_SHA
-/assets/bundle.faed26b1.css
+/assets/bundle.eba2ca64.css
+  Cache-Control: public, max-age=31536000, immutable
+/assets/print.cdc7a549.css
   Cache-Control: public, max-age=31536000, immutable
 /assets/site.c6a8ed6d.js
   Cache-Control: public, max-age=31536000, immutable
@@ -15,6 +17,8 @@
   Cache-Control: public, max-age=31536000, immutable
 /assets/quote-form.98c2da2a.js
   Cache-Control: public, max-age=31536000, immutable
+/assets/quick-inquiry.cced64e0.js
+  Cache-Control: public, max-age=31536000, immutable
 /assets/container-calculator.ea9e2f64.js
   Cache-Control: public, max-age=31536000, immutable
 /assets/fonts/*
@@ -24,6 +28,8 @@
 /assets/og/*
   Cache-Control: public, max-age=86400
 /assets/icons/*
+  Cache-Control: public, max-age=86400
+/assets/tds/*
   Cache-Control: public, max-age=86400
 /assets/logo.png
   Cache-Control: public, max-age=86400
@@ -40,8 +46,7 @@
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
-  Content-Security-Policy: base-uri 'self'; object-src 'none'; frame-ancestors 'self'
-  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' https://challenges.cloudflare.com https://static.cloudflareinsights.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; font-src 'self'; connect-src 'self' https://www.cochinwood.in https://challenges.cloudflare.com https://cloudflareinsights.com https://*.google-analytics.com https://www.googletagmanager.com; frame-src https://challenges.cloudflare.com; form-action 'self' https://www.cochinwood.in; base-uri 'self'; object-src 'none'; frame-ancestors 'self'
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://static.cloudflareinsights.com https://www.googletagmanager.com; script-src-attr 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; font-src 'self'; connect-src 'self' https://www.cochinwood.in https://challenges.cloudflare.com https://cloudflareinsights.com https://*.google-analytics.com https://www.googletagmanager.com; frame-src https://challenges.cloudflare.com; form-action 'self' https://www.cochinwood.in; base-uri 'self'; object-src 'none'; frame-ancestors 'self'
   X-Frame-Options: SAMEORIGIN
   Strict-Transport-Security: max-age=31536000; includeSubDomains
   Permissions-Policy: geolocation=(), camera=(), microphone=(), interest-cohort=()
