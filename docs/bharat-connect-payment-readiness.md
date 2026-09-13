@@ -1,4 +1,4 @@
-﻿# Bharat Connect (B2B) Payment Integration Readiness
+# Bharat Connect (B2B) Payment Integration Readiness
 
 Research & confirmation date: 13 September 2026.  
 This document records the company owner's decision to adopt **Bharat Connect for Business via Zoho Books** as the official payment integration for Cochin Wood Industries Private Limited, superseding previous direct ICICI merchant API investigations.
@@ -82,7 +82,21 @@ The commerce engine configuration (`commerce-preview/config/catalogue.proposed.j
 
 ---
 
-## 5. Next Operational Steps for Company Staff
+## 5. Processing Fee Policy: Zero Merchant Expense
+
+On 13 September 2026, the company owner established an explicit policy: **Cochin Wood Industries will not absorb payment processing charges or transaction fees.**
+
+1. **Zero-Fee Primary Channel (UPI)**:
+   - Bank-to-bank UPI transfers via Google Pay, PhonePe, BHIM, Paytm, CRED, etc., carry **0% MDR** by statutory mandate. Neither CWI nor the customer incurs any percentage deduction.
+2. **Customer-Borne Convenience Charges**:
+   - In Zoho Books (`Online Payments` -> `Preferences`), the option **"Charge customer for payment gateway processing fees"** is toggled on.
+   - Any transaction fee charged by banking networks (e.g. Net Banking or NEFT/RTGS gateway costs) is automatically added to the customer's checkout total as a convenience charge. Cochin Wood receives 100% of the invoice face value.
+3. **Credit Cards Excluded for Wholesale Plywood**:
+   - To protect business margins on high-ticket plywood consignments (₹50,000–₹2,00,000+), credit card acceptance is disabled. Wholesale and retail buyers pay via UPI, Net Banking, or Direct Bank Transfer/Bharat Connect.
+
+---
+
+## 6. Next Operational Steps for Company Staff
 
 1. **Map Frequent B2B Contacts**:
    - In Zoho Books (`settings/integrations/bharat-connect`), click **"Link Now"** to map existing contractor, dealer, and business customer records to their fetched Bharat Connect B2B IDs.

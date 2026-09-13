@@ -191,7 +191,7 @@
       "required": "Recorded live launch verification"
     }
   ],
-  "config_sha256": "664266246b18f1f4bc8cc0d1ba57f114759b4096dc91f4a41eaca5a50f0ff2ba",
+  "config_sha256": "40a7367b69aff8779dfa41bc6826e541c09ee40f512b7a10aea972eb935997b9",
   "version": "proposal-2026-09-08-photo-damage-inputs",
   "synthetic": false,
   "proposed_variants": 4

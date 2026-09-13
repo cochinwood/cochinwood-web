@@ -259,6 +259,14 @@
     "gstin": "32AAJCC9689H1Z5",
     "platform": "Zoho Books (Zoho Payment Technologies / NPCI Bharat Connect)",
     "status_in_zoho": "ACTIVE",
+    "fee_policy": {
+      "absorb_processing_fees": false,
+      "pass_convenience_fee_to_customer": true,
+      "credit_cards_enabled": false,
+      "allowed_payment_modes": ["upi", "netbanking", "neft_rtgs"],
+      "owner_decision_date": "2026-09-13",
+      "owner_instruction": "Cochin Wood does not bear payment processing fees. UPI carries 0% MDR; any banking or gateway transaction fees must be borne by the customer."
+    },
     "enabled": false,
     "uat_passed": false,
     "commercial_terms_approved": false,
