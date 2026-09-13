@@ -114,6 +114,42 @@ CONTINENT_COUNT  = len(EXPORT_GROUPS)
 _NUMWORD = {1: "one", 2: "two", 3: "three", 4: "four",
             5: "five", 6: "six", 7: "seven", 8: "eight"}
 
+# Regional export pages are deliberately different buying guides, not copies of
+# one generic page.  Where a buyer is searching from a particular market, the
+# locale hint is useful, but it must be generated from the approved market list
+# so every page carries the same complete alternate set.  These are English
+# regional variants (not translations); translated pages can be added later with
+# their own language codes without changing this mechanism.
+_EXPORT_SLUG_OVERRIDES = {
+    "AE": "uae", "SA": "saudi-arabia", "LK": "sri-lanka",
+    "DO": "dominican-republic", "PR": "puerto-rico",
+    "ZA": "south-africa", "GB": "united-kingdom", "US": "united-states",
+}
+def _export_slug(country):
+    return _EXPORT_SLUG_OVERRIDES.get(country["iso"],
+        re.sub(r"[^a-z0-9]+", "-", country["name"].lower()).strip("-"))
+
+EXPORT_LOCALE_ALTERNATES = [
+    (country["iso"].upper(), _export_slug(country)) for country in EXPORT_COUNTRIES
+]
+
+def hreflang_head(path):
+    """Return complete regional alternate links for export country pages.
+
+    Google requires each alternate to list itself and the other alternates.  The
+    export hub is the x-default destination; country pages carry all 28 English
+    regional variants plus that fallback.  Other pages receive no hreflang tags.
+    """
+    if path == "/export":
+        return f'<link rel="alternate" hreflang="x-default" href="{LIVE}/export">'
+    slug = path.removeprefix("/export/").rstrip("/")
+    if not path.startswith("/export/") or not any(s == slug for _iso, s in EXPORT_LOCALE_ALTERNATES):
+        return ""
+    links = [f'<link rel="alternate" hreflang="en-{iso}" href="{LIVE}/export/{s}">'
+             for iso, s in EXPORT_LOCALE_ALTERNATES]
+    links.append(f'<link rel="alternate" hreflang="x-default" href="{LIVE}/export">')
+    return "\n".join(links)
+
 def _group_phrase(g):
     names = _oxford(_prose(c) for c in g.get("countries", []))
     # "Australia in Australia" is silly, and naming Oceania alongside Australia
@@ -798,6 +834,56 @@ def product_schema(slug):
     return ('<script type="application/ld+json">'
             + json.dumps(data, separators=(",", ":")) + '</script>')
 
+# Quote-only products need a low-friction path to the same sales desk, but the
+# action must not imply that a public price sheet exists.  The form below opens
+# a buyer-composed WhatsApp enquiry; it never creates an unverified lead or
+# bypasses the existing Turnstile-protected quote form.
+QUICK_PRODUCT_NAMES = {
+    "packing-plywood": "Packing Plywood", "okoume-plywood": "Okoume Plywood",
+    "rubberwood-plywood": "Rubberwood Plywood", "commercial-plywood": "Commercial Plywood",
+    "marine-plywood": "Marine Plywood", "film-faced-shuttering-plywood": "Film-Faced Shuttering Plywood",
+    "container-flooring-plywood": "Container Flooring Plywood", "bwr-hardwood-plywood": "BWR Hardwood Plywood",
+    "chequered-anti-skid-plywood": "Chequered Anti-Skid Plywood", "block-board-flush-doors": "Block Board",
+    "finger-joint-board": "Finger-Joint Board", "particle-board": "Particle Board",
+    "plywood-boxes-crates": "Plywood Boxes and Crates", "plywood-pallets": "Plywood Pallets",
+    "plywood-cable-drums": "Plywood Cable Drums", "sawn-timber": "Sawn Timber",
+    "premium-hardwood-plywood": "Premium Hardwood Plywood",
+}
+
+TDS_DOCUMENTS = {
+    "marine-plywood": ("IS 710 Marine BWP", "tds-is-710-marine-bwp.pdf"),
+    "commercial-plywood": ("IS 303 Commercial MR/BWR", "tds-is-303-commercial-mr-bwr.pdf"),
+    "okoume-plywood": ("Calibrated Okoume E1", "tds-calibrated-okoume-e1.pdf"),
+    "film-faced-shuttering-plywood": ("Film-Faced Shuttering", "tds-film-faced-shuttering.pdf"),
+}
+
+def quick_inquiry_markup(path):
+    slug = path.strip("/")
+    product = QUICK_PRODUCT_NAMES.get(slug)
+    if not product:
+        return "", ""
+    product_q = urllib.parse.quote(product)
+    form = f'''<section class="cw-quick-inquiry" aria-labelledby="cw-quick-title">
+  <div class="cw-quick-inquiry__inner">
+    <p class="cw-quick-inquiry__eyebrow">Quick enquiry</p>
+    <h2 id="cw-quick-title">Send the essentials. We will confirm the exact quote.</h2>
+    <p class="cw-quick-inquiry__lead">Give the sales desk the basic requirement and we will follow up on WhatsApp. Price, availability and final terms depend on the written specification, quantity and destination.</p>
+    <form class="cw-quick-inquiry__form" data-quick-inquiry data-product="{esc(product)}">
+      <label><span>Name</span><input name="name" autocomplete="name" required></label>
+      <label><span>Phone or WhatsApp</span><input name="phone" type="tel" autocomplete="tel" required></label>
+      <label><span>Thickness / sheet size</span><input name="spec" placeholder="e.g. 18 mm, 8 × 4 ft" required></label>
+      <label><span>Quantity or use</span><input name="quantity" placeholder="e.g. 500 sheets or export crates" required></label>
+      <button class="cw-quick-inquiry__submit" type="submit">Send on WhatsApp</button>
+      <p class="cw-quick-inquiry__status" data-quick-status role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>'''
+    sticky = f'''<nav class="cw-mobile-actionbar" aria-label="Product enquiry actions">
+  <a href="https://wa.me/{CONTACT['wa']}?text=Hello%20Cochin%20Wood%2C%20I%20would%20like%20to%20enquire%20about%20{product_q}." target="_blank" rel="noopener noreferrer" data-cw-event="whatsapp_click">WhatsApp enquiry</a>
+  <a href="{u('/contact?product=' + urllib.parse.quote(slug) + '#quote')}" data-cw-event="quote_click">Request a quote</a>
+</nav>'''
+    return form, sticky
+
 def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
          og_type="website", show_crumbs=True, self_url=True):
     canonical = LIVE + path
@@ -882,6 +968,12 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
 </script>'''
         extra_head = extra_head + "\n" + website_schema
     preloads = "\n".join(preload_items)
+    quick_form, quick_sticky = quick_inquiry_markup(path)
+    quick_script = ('\n<script src="' + u('/assets/' + ASSETS['quick-inquiry.js']) + '" defer></script>'
+                    if quick_form else '')
+    print_link = ('\n<link rel="stylesheet" href="' + u('/assets/' + ASSETS['print.css']) + '" media="print">'
+                  if ASSETS.get('print.css') else '')
+    regional_alternates = hreflang_head(path)
     if "<main" not in body:
         body = f'<main id="main">{body}</main>'
     else:
@@ -896,6 +988,7 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
 <title>{esc(page_title)}</title>
 <meta name="description" content="{esc(desc)}">
 {self_tags}
+{regional_alternates}
 <link rel="icon" type="image/png" sizes="32x32" href="{u('/assets/icons/favicon-32.png')}">
 <link rel="icon" type="image/png" sizes="16x16" href="{u('/assets/icons/favicon-16.png')}">
 <link rel="apple-touch-icon" href="{u('/assets/icons/apple-touch-icon.png')}">
@@ -914,20 +1007,23 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
 <meta name="theme-color" content="#1f5132">
 {preloads}
 <link rel="stylesheet" href="{u('/assets/' + ASSETS['bundle.css'])}">
+{print_link}
 {extra_head}</head>
 <body class="{body_class}">
 <a class="cw-skip" href="#main">Skip to content</a>
 {header(path)}
 {crumb_nav}
 {body}
+{quick_form}
 {footer()}
 {measurement_controls(u)}
+{quick_sticky}
 <a class="cw-wa" href="https://wa.me/{CONTACT['wa']}?text=Hello%20Cochin%20Wood,%20I%20would%20like%20to%20enquire%20about%20plywood%20specifications%20and%20pricing." target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" focusable="false"><path fill="currentColor" d="M.06 24l1.68-6.16A11.87 11.87 0 010 11.9C0 5.33 5.36 0 11.95 0a11.9 11.9 0 018.42 3.48 11.75 11.75 0 013.49 8.37c0 6.56-5.36 11.9-11.96 11.9-2 0-3.96-.5-5.7-1.45L.06 24zm6.6-3.8c1.68.99 3.28 1.58 5.4 1.58 5.45 0 9.9-4.42 9.9-9.87a9.8 9.8 0 00-2.9-6.99 9.9 9.9 0 00-7-2.9C6.6 2.02 2.15 6.44 2.15 11.9c0 2.2.62 3.85 1.67 5.57l-.99 3.6 3.83-.87zm11.6-5.5c-.08-.13-.28-.2-.58-.35-.3-.15-1.76-.86-2.03-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.14-.14.3-.36.45-.53.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41z"/></svg></a>
 <button class="cw-top" type="button" aria-label="Back to top" hidden>&uarr;</button>
 <script src="{u('/assets/' + ASSETS['site.js'])}" defer></script>
 <script src="{u('/assets/' + ASSETS['page-navigation.js'])}" defer></script>
 <script src="{u('/assets/' + ASSETS['experience-motion.js'])}" defer></script>
-<script src="{u('/assets/' + ASSETS['search-measurement.js'])}" defer></script>{calculator_script}{beacon_tag()}
+<script src="{u('/assets/' + ASSETS['search-measurement.js'])}" defer></script>{calculator_script}{beacon_tag()}{quick_script}
 </body>
 </html>'''
 
@@ -1725,6 +1821,13 @@ def process_content(body, slug=None):
     if slug in {s for s, _, _ in PRODUCTS} or slug == "premium-hardwood-plywood":
         body = re.sub(r'href="/contact(?:#quote)?"',
                       'href="/contact?product=' + urllib.parse.quote(slug) + '#quote"', body)
+    if slug in TDS_DOCUMENTS:
+        label, filename = TDS_DOCUMENTS[slug]
+        body += (f'<section class="cw-tds-download" aria-labelledby="cw-tds-title-{esc(slug)}">'
+                 f'<div><p class="cw-tds-download__eyebrow">Technical data sheet</p>'
+                 f'<h2 id="cw-tds-title-{esc(slug)}">{esc(label)}</h2>'
+                 f'<p>Download the one-page specification summary. It contains material, bond, dimensions and application notes; price and final availability are confirmed in the written quote.</p></div>'
+                 f'<a class="cw-tds-download__link" href="/assets/tds/{filename}" download>Download the TDS (PDF)</a></section>')
     return rewrite_links(prune_images(body, slug))
 
 _LD_BLOCK = re.compile(r'<script type="application/ld\+json">(.*?)</script>', re.S)
@@ -2063,9 +2166,16 @@ def build_sitemap():
     XMLNS = ('xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
              'xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 '
              'http://www.sitemaps.org/schemas/sitemap/0.9/{}" '
-             'xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"')
+             'xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
+             'xmlns:xhtml="http://www.w3.org/1999/xhtml"')
     def child(name, ps):
-        items = "\n".join(f"  <url><loc>{LIVE + p}</loc><lastmod>{lastmod(p)}</lastmod></url>"
+        def alternates(path):
+            if not path.startswith("/export/"):
+                return ""
+            return "".join(f'<xhtml:link rel="alternate" hreflang="en-{iso}" href="{LIVE}/export/{slug}" />'
+                            for iso, slug in EXPORT_LOCALE_ALTERNATES) + \
+                   f'<xhtml:link rel="alternate" hreflang="x-default" href="{LIVE}/export" />'
+        items = "\n".join(f"  <url><loc>{LIVE + p}</loc><lastmod>{lastmod(p)}</lastmod>{alternates(p)}</url>"
                           for p in ps)
         write(name, '<?xml version="1.0" encoding="UTF-8"?>\n'
               f'<urlset {XMLNS.format("sitemap.xsd")}>\n' + items + '\n</urlset>\n')
@@ -2356,6 +2466,11 @@ PORTED_REDIRECTS = """
 # it sits above the first wildcard rule, it is outside the 100-rule window
 # entirely, so no number of additions below can push it off the end.
 /404 / 301
+
+# Optional compatibility alias for agents that probe the reserved well-known
+# namespace. The llms.txt proposal itself uses the root /llms.txt path; this
+# redirect is harmless and keeps both discovery conventions working.
+/.well-known/llms.txt /llms.txt 301
 
 # The 21 doubled-segment URLs from GSC, consolidated to one wildcard. cf-live's
 # file said Pages "silently drops the :splat form" here; re-measured 31 Aug 2026
@@ -2837,7 +2952,7 @@ def build_redirects():
 
 # ---------------- assets + meta ----------------
 # One request instead of five; order preserved so cascade behaviour is unchanged.
-CSS_BUNDLE = ["fonts.css", "site.css", "guide.css", "wood-enc.css", "shell.css", "components.css", "visual-system.css", "experience.css", "experience-inner.css", "experience-motion.css", "blog-index.css", "blog-navigation.css", "catalogue-navigation.css", "inner-hero.css", "page-navigation.css", "encyclopedia-navigation.css", "privacy-choices.css", "regional-navigation.css", "viewport-heroes.css", "quote-form.css", "brand-consistency.css", "content-spacing.css", "export-guides.css", "container-calculator.css"]
+CSS_BUNDLE = ["fonts.css", "site.css", "guide.css", "wood-enc.css", "shell.css", "components.css", "visual-system.css", "experience.css", "experience-inner.css", "experience-motion.css", "blog-index.css", "blog-navigation.css", "catalogue-navigation.css", "inner-hero.css", "page-navigation.css", "encyclopedia-navigation.css", "privacy-choices.css", "regional-navigation.css", "viewport-heroes.css", "quote-form.css", "quick-inquiry.css", "brand-consistency.css", "content-spacing.css", "export-guides.css", "container-calculator.css"]
 
 def _css_fix_urls(css, name):
     """Resolve /files/... backgrounds; neutralise the ones with no source file."""
@@ -2851,29 +2966,64 @@ def _css_fix_urls(css, name):
     return re.sub(r"url\((['\"]?)(/files/[^)'\"]+)\1\)", sub, css)
 
 _bundle_css = None
+_print_css = None
+
+def _split_print_rules(css):
+    """Remove top-level @media print blocks and return (screen, print) CSS."""
+    screen, print_rules, cursor = [], [], 0
+    pattern = re.compile(r'@media\s+print\s*\{', re.I)
+    while True:
+        match = pattern.search(css, cursor)
+        if not match:
+            screen.append(css[cursor:])
+            break
+        screen.append(css[cursor:match.start()])
+        opening = css.find('{', match.start(), match.end())
+        depth, i, quote = 1, opening + 1, None
+        while i < len(css) and depth:
+            ch = css[i]
+            if quote:
+                if ch == quote and css[i - 1] != '\\\\': quote = None
+            elif ch in ('"', "'"):
+                quote = ch
+            elif ch == '{': depth += 1
+            elif ch == '}': depth -= 1
+            i += 1
+        if depth:
+            screen.append(css[match.start():])
+            break
+        print_rules.append(css[match.start():i])
+        cursor = i
+    return "".join(screen), "\n".join(print_rules)
+
+def _prepare_css_bundles():
+    global _bundle_css, _print_css
+    if _bundle_css is not None and _print_css is not None:
+        return
+    src = os.path.join(ROOT, "assets")
+    parts = []
+    for name in CSS_BUNDLE:
+        fp = os.path.join(src, name)
+        if not os.path.exists(fp):
+            warn(f"css bundle: missing {name}"); continue
+        # TEXT MODE ON PURPOSE: newline normalisation keeps the hash stable on
+        # Windows and CI, while _css_fix_urls() registers referenced media.
+        parts.append(_css_fix_urls(open(fp, encoding="utf-8").read(), name))
+    screen_raw, print_raw = _split_print_rules("\n".join(parts))
+    marker = "/* Cochin Wood visual system: consistent preserved page families. */\n"
+    clean = lambda value: marker + "\n".join(
+        line.strip() for line in re.sub(r'/\*.*?\*/', '', value, flags=re.DOTALL).splitlines() if line.strip())
+    _bundle_css, _print_css = clean(screen_raw), clean(print_raw)
+
 def css_bundle_content():
-    """Concatenated CSS bundle. Memoised: the hash is needed before pages render,
-    and _css_fix_urls() must only record its /files/ references once."""
-    global _bundle_css
-    if _bundle_css is None:
-        src = os.path.join(ROOT, "assets")
-        parts = []
-        for name in CSS_BUNDLE:
-            fp = os.path.join(src, name)
-            if not os.path.exists(fp):
-                warn(f"css bundle: missing {name}"); continue
-            # TEXT MODE ON PURPOSE, DO NOT "OPTIMISE" THIS TO A BINARY READ.
-            # Python's universal newlines fold the six sources' CRLF to \n on the
-            # way in and write() pins \n on the way out, which is why bundle.css
-            # was already the same bytes and the same hash on every platform
-            # while site.js and fonts.css were not. A raw read here would put
-            # this file in the same trap they were in.
-            parts.append(_css_fix_urls(open(fp, encoding="utf-8").read(), name))
-        raw_bundle = "\n".join(parts)
-        cleaned = re.sub(r'/\*.*?\*/', '', raw_bundle, flags=re.DOTALL)
-        marker = "/* Cochin Wood visual system: consistent preserved page families. */\n"
-        _bundle_css = marker + "\n".join(l.strip() for l in cleaned.splitlines() if l.strip())
+    """Concatenated screen CSS bundle, with print rules extracted."""
+    _prepare_css_bundles()
     return _bundle_css
+
+def print_css_content():
+    """The extracted print-only stylesheet loaded with media=print."""
+    _prepare_css_bundles()
+    return _print_css
 
 # ONLY A CONTENT-ADDRESSED NAME MAY CARRY THE IMMUTABLE HEADER, so these three --
 # the only files here whose bytes change from deploy to deploy -- carry a content
@@ -2889,7 +3039,7 @@ def css_bundle_content():
 # build serves it from /assets/ where the pin is a year. Publish it under a fixed
 # name and a broken beacon is frozen in every returning buyer's browser until
 # September 2027, with no URL left to push a fix through.
-ASSETS = {"page-navigation.js": "page-navigation.js", "quote-form.js": "quote-form.js", "search-measurement.js": "search-measurement.js", "encyclopedia-navigation.js": "encyclopedia-navigation.js", "experience-motion.js": "experience-motion.js", "bundle.css": "bundle.css", "site.js": "site.js", "cw-events.js": "cw-events.js"}
+ASSETS = {"page-navigation.js": "page-navigation.js", "quote-form.js": "quote-form.js", "quick-inquiry.js": "quick-inquiry.js", "search-measurement.js": "search-measurement.js", "encyclopedia-navigation.js": "encyclopedia-navigation.js", "experience-motion.js": "experience-motion.js", "bundle.css": "bundle.css", "print.css": "print.css", "site.js": "site.js", "cw-events.js": "cw-events.js"}
 
 ASSETS["container-calculator.js"] = "container-calculator.js"
 
@@ -2898,11 +3048,12 @@ def _digest(data):
     return hashlib.sha256(data).hexdigest()[:8]
 
 def fingerprint_assets():
-    for name in ("page-navigation.js", "quote-form.js", "container-calculator.js"):
+    for name in ("page-navigation.js", "quote-form.js", "quick-inquiry.js", "container-calculator.js"):
         ASSETS[name] = name[:-3] + '.' + _digest(read_lf(os.path.join(ROOT, 'assets', name))) + '.js'
     ASSETS["search-measurement.js"] = f"search-measurement.{_digest(read_lf(os.path.join(ROOT, 'assets', 'search-measurement.js')))}.js"
     ASSETS["encyclopedia-navigation.js"] = f"encyclopedia-navigation.{_digest(read_lf(os.path.join(ROOT, 'assets', 'encyclopedia-navigation.js')))}.js"
     ASSETS["bundle.css"] = f"bundle.{_digest(css_bundle_content())}.css"
+    ASSETS["print.css"] = f"print.{_digest(print_css_content())}.css"
     motion_path = os.path.join(ROOT, "assets", "experience-motion.js")
     ASSETS["experience-motion.js"] = f"experience-motion.{_digest(read_lf(motion_path))}.js"
     jp = os.path.join(ROOT, "assets", "site.js")
@@ -2945,6 +3096,9 @@ def beacon_tag():
 
 def build_css_bundle():
     write("assets/" + ASSETS["bundle.css"], css_bundle_content())
+
+def build_print_css():
+    write("assets/" + ASSETS["print.css"], print_css_content())
 
 # Live robots.txt, verbatim minus its final Sitemap line (appended from LIVE at
 # the write site in assets_and_meta, where the why of all this is recorded).
@@ -3035,7 +3189,7 @@ def assets_and_meta():
     # Publish the two fingerprinted scripts under their hashed names, so the
     # year-long immutable header below is only ever attached to a name that
     # changes when the bytes do.
-    for key, plain_name in (("container-calculator.js", "container-calculator.js"), ("site.js", "site.js"), ("cw-events.js", "cw-events.js"), ("experience-motion.js", "experience-motion.js"), ("encyclopedia-navigation.js", "encyclopedia-navigation.js"), ("search-measurement.js", "search-measurement.js"), ("page-navigation.js", "page-navigation.js"), ("quote-form.js", "quote-form.js")):
+    for key, plain_name in (("container-calculator.js", "container-calculator.js"), ("site.js", "site.js"), ("cw-events.js", "cw-events.js"), ("experience-motion.js", "experience-motion.js"), ("encyclopedia-navigation.js", "encyclopedia-navigation.js"), ("search-measurement.js", "search-measurement.js"), ("page-navigation.js", "page-navigation.js"), ("quote-form.js", "quote-form.js"), ("quick-inquiry.js", "quick-inquiry.js")):
         hashed = ASSETS.get(key)
         plain = os.path.join(dst, plain_name)
         if hashed and hashed != plain_name and os.path.exists(plain):
@@ -3043,6 +3197,7 @@ def assets_and_meta():
         elif not hashed and os.path.exists(plain):
             os.remove(plain)      # unhashed leftover would get pinned for a year
     build_css_bundle()
+    build_print_css()
     open(os.path.join(DIST, ".nojekyll"), "w").close()
     ico_src = os.path.join(src, "favicon.ico")
     if os.path.exists(ico_src):
@@ -3061,23 +3216,9 @@ def assets_and_meta():
     # framing this site inside its own page, and base-uri stops an injected <base> tag
     # re-pointing every relative URL on the page.
     #
-    # script-src, frame-src, connect-src and default-src are deliberately ABSENT, exactly
-    # as on live. /contact runs Cloudflare Turnstile: it loads
-    # https://challenges.cloudflare.com/turnstile/v0/api.js, frames the widget from that
-    # same origin and calls back to it. Any one of those four directives, added without
-    # also allow-listing challenges.cloudflare.com, would kill every quote submission on
-    # the site while the page still looked perfectly healthy -- worse than no CSP at all.
-    # base-uri, object-src and frame-ancestors govern none of those three things, which
-    # is why this policy is safe to enforce unchanged. The pages also still carry inline
-    # JS, so any script-src short of 'unsafe-inline' would break them anyway. Tighten
-    # only with a policy that has been tested against a real Turnstile submission.
-    #
-    # ---- THE POLICY THAT WOULD REPLACE IT IS STAGED IN REPORT-ONLY, NOT ENFORCED ----
-    #
-    # This repository publishes on merge, and a wrong script-src takes the JavaScript
-    # down on all 253 pages while every one of them still looks healthy. So the real
-    # policy goes into Content-Security-Policy-Report-Only first: the browser evaluates
-    # it, says what it WOULD have blocked, and blocks nothing.
+    # /contact runs Cloudflare Turnstile: it loads the challenge script, frames the
+    # widget and calls back to that origin. The enforced policy below allow-lists those
+    # paths, keeps the reviewed inline bootstrap working, and removes unsafe-eval.
     #
     # The origin list is counted, not guessed -- it is every external thing the built
     # tree actually loads. challenges.cloudflare.com serves the Turnstile script on
@@ -3091,7 +3232,20 @@ def assets_and_meta():
     # makes default-src 'self' the right floor. The data: in img-src is the one non-file
     # image: the SVG wave bundle.css draws as a background.
     #
-    # WHERE IT WILL FIRE, so the reports are read as expected rather than as news:
+    # The origin list is counted, not guessed -- it is every external thing the built
+    # tree actually loads. challenges.cloudflare.com serves the Turnstile script on
+    # /contact, opens the widget's iframe and is called back by it, which is three
+    # directives (script-src, frame-src, connect-src). static.cloudflareinsights.com
+    # serves the page-view beacon Cloudflare injects at the edge and posts to
+    # cloudflareinsights.com. Everything else is same-origin or an explicitly named
+    # Google endpoint.
+    #
+    # The policy intentionally keeps style-src 'unsafe-inline' and script-src 'unsafe-inline'
+    # until the imported page snippets and Turnstile bootstrap are migrated to hashes or
+    # nonces. That is a separate tightening step; it is not a reason to leave all script
+    # sources in Report-Only mode.
+    #
+    # WHERE THE INLINE CODE LIVES:
     #   * /contact. Its two inline <script> blocks (QUOTE_JS) and the inline onerror= on
     #     the Turnstile tag are the whole of the site's inline JavaScript, and script-src
     #     without 'unsafe-inline' refuses all three. JSON-LD is a data block, never
@@ -3107,12 +3261,8 @@ def assets_and_meta():
     #     the comment above the form): served from a preview origin, 'self' alone would
     #     block the submission and the beacon, and the preview is where this gets tested.
     #
-    # NOTHING COLLECTS THESE YET. No report-uri/report-to, because there is no endpoint
-    # to name and pointing one at a URL that does not collect is worse than admitting it:
-    # violations appear in the browser console and nowhere else, so observing them means
-    # opening the pages, /contact first. PROMOTE THE ENFORCED HEADER ONLY ONCE THIS ONE
-    # HAS RUN CLEAN -- moving the same directive list up one header name is the whole
-    # change, and until then nothing about what the site serves today is altered.
+    # Nothing collects CSP reports yet; the header is enforced and can be tightened
+    # further once the remaining inline snippets are migrated.
     # Production also carries a permissive Content-Security-Policy-Report-Only from a
     # Cloudflare zone rule (audit, 4 Sep 2026). This does not replace it: two
     # report-only policies are evaluated independently, and that one can only be removed
@@ -3149,7 +3299,7 @@ def assets_and_meta():
     day       = "  Cache-Control: public, max-age=86400\n"
     hashed_rules = "".join(
         f"/assets/{ASSETS[k]}\n" + immutable
-        for k in ("bundle.css", "site.js", "cw-events.js", "experience-motion.js", "encyclopedia-navigation.js", "search-measurement.js", "page-navigation.js", "quote-form.js", "container-calculator.js") if ASSETS.get(k))
+        for k in ("bundle.css", "print.css", "site.js", "cw-events.js", "experience-motion.js", "encyclopedia-navigation.js", "search-measurement.js", "page-navigation.js", "quote-form.js", "quick-inquiry.js", "container-calculator.js") if ASSETS.get(k))
     # THE PUBLISHED TREE MUST SAY WHICH COMMIT IT WAS BUILT FROM. A changing,
     # derived portion of dist/ is copied out of cf-live's object store, and a dist/ that does
     # not name that commit cannot be audited once the terminal that printed the
@@ -3172,6 +3322,7 @@ def assets_and_meta():
         # replaced logo or share card reaches everyone the same day instead of next year.
         "/assets/og/*\n" + day +
         "/assets/icons/*\n" + day +
+        "/assets/tds/*\n" + day +
         "/assets/logo.png\n" + day +
         # THE ROOT FAVICON IS BACK, SO ITS CACHE RULE HAS TO COME BACK WITH IT.
         # carry_live_assets() writes cf-live's favicon.png to the dist root again
@@ -3208,12 +3359,13 @@ def assets_and_meta():
         "/*\n"
         "  X-Content-Type-Options: nosniff\n"
         "  Referrer-Policy: strict-origin-when-cross-origin\n"
-        "  Content-Security-Policy: base-uri 'self'; object-src 'none'; frame-ancestors 'self'\n"
-        # Staged, not enforced -- it reports and blocks nothing. Same three directives as
-        # the enforced line above, so promoting it later is a rename, not a rewrite.
-        "  Content-Security-Policy-Report-Only: "
-        "default-src 'self'; "
-        "script-src 'self' https://challenges.cloudflare.com https://static.cloudflareinsights.com https://www.googletagmanager.com; "
+        # The previously staged policy is now enforced. Inline scripts are limited
+        # to the reviewed Turnstile diagnostic and form bootstrap on /contact; all
+        # executable external code remains same-origin or on an explicitly named
+        # Cloudflare/Google endpoint. unsafe-eval is intentionally absent.
+        "  Content-Security-Policy: default-src 'self'; "
+        "script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://static.cloudflareinsights.com https://www.googletagmanager.com; "
+        "script-src-attr 'unsafe-inline'; "
         "style-src 'self' 'unsafe-inline'; "
         "img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; "
         "font-src 'self'; "
