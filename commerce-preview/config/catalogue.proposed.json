@@ -253,8 +253,12 @@
     "refunds": null
   },
   "payment": {
-    "provider": "icici-direct-upi",
-    "model": "upi_bank_verified_invoice",
+    "provider": "bharat-connect-zoho",
+    "model": "bharat_connect_invoice",
+    "b2b_id": "CWIPL",
+    "gstin": "32AAJCC9689H1Z5",
+    "platform": "Zoho Books (Zoho Payment Technologies / NPCI Bharat Connect)",
+    "status_in_zoho": "ACTIVE",
     "enabled": false,
     "uat_passed": false,
     "commercial_terms_approved": false,

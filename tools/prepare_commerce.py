@@ -241,14 +241,14 @@ def issues(config, release=True):
         for field in ('enabled', 'uat_passed', 'commercial_terms_approved'):
             need(payment.get(field) is True, f'payment.{field}', 'Tested payment workflow and approved payment terms')
         model = payment.get('model')
-        need(model in ('icici_api', 'upi_bank_verified_invoice'), 'payment.model',
-             'Explicitly approved automatic ICICI or bank-verified invoice payment workflow')
+        need(model in ('icici_api', 'upi_bank_verified_invoice', 'bharat_connect_invoice'), 'payment.model',
+             'Explicitly approved automatic ICICI, Bharat Connect, or bank-verified invoice payment workflow')
         # Google permits invoicing, but a quotation-only or unverified QR journey
         # is not a complete purchase. These are evidence gates, not activation.
         if model == 'icici_api':
             for field in ('callback_verified', 'status_reconciliation_verified', 'refunds_verified'):
                 need(payment.get(field) is True, f'payment.{field}', 'Verified bank API payment, reconciliation and refund checks')
-        elif model == 'upi_bank_verified_invoice':
+        elif model in ('upi_bank_verified_invoice', 'bharat_connect_invoice'):
             for field in ('bank_credit_verification_verified', 'invoice_acceptance_verified',
                           'late_payment_handling_verified', 'refunds_verified'):
                 need(payment.get(field) is True, f'payment.{field}', 'Verified invoice and actual bank-credit handling, including exceptions and refunds')

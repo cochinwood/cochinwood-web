@@ -270,6 +270,18 @@ class MerchantPreparationTests(unittest.TestCase):
         self.assertIn('products.prem_hw_gurjan_12.copy', fields)
         self.assertIn('products.prem_hw_gurjan_12.mpn', fields)
 
+    def test_bharat_connect_invoice_payment_model_passes(self):
+        c = approved_fixture()
+        c['payment'].update(
+            provider='bharat-connect-zoho',
+            model='bharat_connect_invoice',
+            bank_credit_verification_verified=True,
+            invoice_acceptance_verified=True,
+            late_payment_handling_verified=True,
+            refunds_verified=True,
+        )
+        self.assertEqual(issues(c), [])
+
 
 if __name__ == '__main__':
     unittest.main()

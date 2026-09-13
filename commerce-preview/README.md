@@ -71,7 +71,7 @@ The reviewed output for 7 September 2026 is in:
 
 Key files: `browser-proof.json`, `shop-actual-desktop.png`, `shop-test-desktop.png`, `shop-test-390.png`, `staff-owner-desktop.png`, `staff-owner-390.png`, and `checkout-test-paid.png`.
 
-The owner selected ICICI UPI with staff checking actual bank credit, after staff confirms freight and the customer accepts the complete issued invoice. The first live design extends the existing app's issued PI and Orders workflow; this cart and its separate ledger remain an isolated test harness. An automatic bank API is a future option, not a prerequisite for the selected manual direction.
+The owner selected Bharat Connect for Business via Zoho Books (active B2B ID `CWIPL`, GSTIN `32AAJCC9689H1Z5`) with automated payment reconciliation upon payment via UPI / NetBanking / NEFT, after staff confirms freight and the customer accepts the complete issued invoice. The first live design extends the existing app's issued PI and Orders workflow; this cart and its separate ledger remain an isolated test harness. Direct ICICI merchant API onboarding is superseded.
 
 The owner approved the two nominal 8 × 4 ft Hardwood sheet prices: 12 mm ₹2,368 + ₹426.24 GST = ₹2,794.24; 18 mm ₹2,720 + ₹489.60 GST = ₹3,209.60. The configuration records these exact prices including 18% GST. Freight remains separate. Before payable offers, confirm stock handling, product specifications and exact-product photographs, seller/invoice details, delivery eligibility/timing and operating terms. Commercial remains excluded and Marine remains held. Approval of these prices does not approve the full catalogue or enable purchasing.
 

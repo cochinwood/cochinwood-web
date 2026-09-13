@@ -14,7 +14,11 @@ The initial proposed purchase options are **Premium Hardwood, nominal 8 × 4 ft,
 
 ### Owner decisions added on 7 September
 
-The owner selected **ICICI UPI with staff checking actual bank credit before fulfilment**. Staff will confirm freight, then the customer will accept the full invoice before paying. This is the first-launch payment direction; automatic ICICI API onboarding can continue separately. A screenshot, UPI-app return or customer-entered transaction reference cannot mark an order paid.
+The owner selected **invoice payment with verified credit before fulfilment**. Staff will confirm freight, then the customer will accept the full invoice before paying. This is the first-launch payment direction. A screenshot, UPI-app return or customer-entered transaction reference cannot mark an order paid.
+
+### Owner decision added on 13 September: Bharat Connect via Zoho Books
+
+The owner decided to use **Bharat Connect for Business via Zoho Books** instead of a direct ICICI UPI integration. Bharat Connect is already **ACTIVE** in Cochin Wood's Zoho Books account (GSTIN: `32AAJCC9689H1Z5`, B2B ID: `CWIPL`, powered by Zoho Payment Technologies Pvt Ltd and NPCI Bharat BillPay Ltd). When staff issues an invoice with confirmed freight, it is presented on the Bharat Connect network; customers can pay via UPI (BHIM, Google Pay, PhonePe, Paytm, CRED), Net Banking, or NEFT/RTGS; and Zoho Books reconciles the payment automatically without manual bank-statement review. See [Bharat Connect readiness](bharat-connect-payment-readiness.md). Direct ICICI merchant API onboarding is superseded.
 
 The owner requested a review table using the app's current rates **plus ₹20 per square foot**, then explicitly approved the exact two Hardwood prices including **18% GST**: 12 mm ₹2,794.24 and 18 mm ₹3,209.60 per nominal 8 × 4 ft sheet. Freight is separate. This approval is limited to those two sheet prices and their GST treatment; stock, specifications and the overall purchase launch remain pending.
 
@@ -22,7 +26,7 @@ On 8 September, the owner was asked whether archived source `cwi_wa_482_938x1280
 
 The owner also set the damage/shortage reporting requirement with the exact answer **“Within 24 hours of delivery, with photos.”** The proposed configuration now records the customer term “Report damage or shortages within 24 hours of delivery and include photographs.” This closes only the reporting deadline and evidence input. Remedy, inspection or collection, after-dispatch returns and the time to initiate an accepted refund remain pending.
 
-The offline Merchant exporter now accepts an explicitly reviewed invoice workflow as an alternative to the bank API, while requiring evidence of bank-credit verification, invoice acceptance, late-payment handling, refunds, final charges, purchase confirmation and delivery estimates. The proposed configuration records the chosen model but leaves all launch-verification flags false. No live payment or Merchant offer is enabled.
+The offline Merchant exporter accepts this explicitly reviewed invoice workflow as an alternative to the bank API, while requiring evidence of bank-credit verification, invoice acceptance, late-payment handling, refunds, final charges, purchase confirmation and delivery estimates. The proposed configuration records the chosen model but leaves all launch-verification flags false. No live payment or Merchant offer is enabled.
 
 [Google's checkout requirements](https://support.google.com/merchants/answer/10249082?hl=en) permit invoicing, but a quotation-only website is not eligible. The freight-review stage must lead to a complete online purchase at a final, accepted total. Billing addresses must be independent of the Kerala delivery restriction. The existing Merchant shipping policy covering all India with a ₹300,000 minimum and a 6–25-business-day estimate must be reconciled before offers are submitted; it is not the approved Kerala policy.
 
