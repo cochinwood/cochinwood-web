@@ -601,6 +601,7 @@ def header(path="/"):
 # told about but a reader cannot reach is half a fact.
 INSTAGRAM_URL = "https://www.instagram.com/cochinwood/"
 LINKEDIN_URL = "https://www.linkedin.com/company/cochin-wood-industries/"
+WA_URL = f"https://wa.me/{CONTACT['wa']}?text=Hello%20Cochin%20Wood%2C%20I%20would%20like%20to%20inquire%20about%20plywood%20specifications%20and%20pricing."
 
 def footer():
     prod = (f'<a href="{u("/products#plywood-boards")}">Plywood &amp; boards</a>'
@@ -628,7 +629,7 @@ def footer():
     <div class="cw-ft__brand"><a class="cw-hd__brand" href="{u('/')}" aria-label="Cochin Wood Industries — Home" title="Home"><img src="{u('/assets/icons/logo-80.png')}" alt="Cochin Wood Industries logo" width="80" height="80" loading="lazy"><span class="cw-hd__wordmark"><b>Cochin Wood</b><span>Industries</span></span></a><p>Plywood, board and timber from Kerala. Made to specification, for India and export.</p><p>Part of a group manufacturing in Perumbavoor since 1986.</p></div>
     <nav aria-label="Products"><p class="cw-ft__h">Products</p>{prod}</nav>
     <nav aria-label="Explore"><p class="cw-ft__h">Explore</p><a href="{u('/products')}">All products</a><a href="{u(WOOD_PATH)}">{WOOD_LABEL}</a><a href="{u('/resources')}">Resources</a><a href="{u('/blogs/post/case-studies')}">Case studies</a><a href="{u('/industries')}">Industries</a><a href="{u('/export')}">Export</a><a href="{u('/supply-markets')}">Supply markets</a><a href="{u('/about')}">About</a><a href="{u('/company-verification')}">Company verification</a><a href="{u('/faq')}">FAQ</a></nav>
-    <nav aria-label="Contact"><p class="cw-ft__h">Contact</p><a href="tel:{CONTACT['phone_href']}">{CONTACT['phone_disp']}</a><a href="mailto:{CONTACT['email']}">{CONTACT['email']}</a><a href="https://maps.google.com/?q=Thoppilan+Building+Vattakattupady+Rayamangalam+Perumbavoor+Kerala+683542" target="_blank" rel="noopener">{CONTACT['addr']}</a><a href="{INSTAGRAM_URL}" target="_blank" rel="noopener">Instagram</a><a href="{LINKEDIN_URL}" target="_blank" rel="noopener">LinkedIn</a></nav>
+    <nav aria-label="Contact"><p class="cw-ft__h">Contact</p><a href="tel:{CONTACT['phone_href']}">{CONTACT['phone_disp']}</a><a href="{WA_URL}" target="_blank" rel="noopener">WhatsApp</a><a href="mailto:{CONTACT['email']}">{CONTACT['email']}</a><a href="https://maps.google.com/?q=Thoppilan+Building+Vattakattupady+Rayamangalam+Perumbavoor+Kerala+683542" target="_blank" rel="noopener">{CONTACT['addr']}</a><a href="{INSTAGRAM_URL}" target="_blank" rel="noopener">Instagram</a><a href="{LINKEDIN_URL}" target="_blank" rel="noopener">LinkedIn</a></nav>
   </div>
   <div class="cw-ft__bar"><span>&copy; 2026 Cochin Wood Industries Pvt Ltd. Group established 1986.</span>
   <span><a href="{u('/privacy-policy')}" style="display:inline">Privacy</a> &middot; <a href="{u('/terms-and-conditions')}" style="display:inline">Terms</a></span></div>
@@ -662,7 +663,7 @@ AREA_SERVED = json.dumps(EXPORT_ISO, separators=(",", ":"))
 # mis-slotted: the district is not a PostalAddress field, and the human-readable
 # line in the footer still says it.
 ORG_SCHEMA = '''<script type="application/ld+json">
-{"@context":"https://schema.org","@type":["Organization","LocalBusiness"],"@id":"https://www.cochinwood.in/#organization","name":"Cochin Wood Industries","url":"https://www.cochinwood.in/","logo":"https://www.cochinwood.in/assets/logo.png","image":"''' + LIVE + ORG_IMAGE_REF + '''","email":"sales@cochinwood.in","telephone":"+919567410175","address":{"@type":"PostalAddress","streetAddress":"15-236/B, Thoppilan Building, Vattakattupady, Rayamangalam","addressLocality":"Perumbavoor","addressRegion":"Kerala","postalCode":"683542","addressCountry":"IN"},"parentOrganization":{"@type":"Organization","name":"Cochin Wood Group","foundingDate":"1986"},"areaServed":''' + AREA_SERVED + ''',"sameAs":["''' + INSTAGRAM_URL + '''"],"description":"Plywood manufacturer in Kochi, Kerala - packing, Okoume, marine and film-faced shuttering plywood, sawn timber and export crates."}
+{"@context":"https://schema.org","@type":["Organization","LocalBusiness"],"@id":"https://www.cochinwood.in/#organization","name":"Cochin Wood Industries","url":"https://www.cochinwood.in/","logo":"https://www.cochinwood.in/assets/logo.png","image":"''' + LIVE + ORG_IMAGE_REF + '''","email":"sales@cochinwood.in","telephone":"+919567410175","address":{"@type":"PostalAddress","streetAddress":"15-236/B, Thoppilan Building, Vattakattupady, Rayamangalam","addressLocality":"Perumbavoor","addressRegion":"Kerala","postalCode":"683542","addressCountry":"IN"},"parentOrganization":{"@type":"Organization","name":"Cochin Wood Group","foundingDate":"1986"},"areaServed":''' + AREA_SERVED + ''',"sameAs":["''' + INSTAGRAM_URL + '''","''' + LINKEDIN_URL + '''"],"description":"Plywood manufacturer in Kochi, Kerala - packing, Okoume, marine and film-faced shuttering plywood, sawn timber and export crates."}
 </script>'''
 
 # Fonts used above the fold on every page — preloaded so the header does not reflow.
@@ -792,7 +793,8 @@ def product_schema(slug):
             "image": hero[0] if hero else OG_IMAGE,
             "category": "Plywood, board and timber",
             "brand": {"@type": "Brand", "name": "Cochin Wood Industries"},
-            "manufacturer": {"@id": LIVE + "/#organization"}}
+            "manufacturer": {"@id": LIVE + "/#organization"},
+            "countryOfOrigin": {"@type": "Country", "name": "India"}}
     return ('<script type="application/ld+json">'
             + json.dumps(data, separators=(",", ":")) + '</script>')
 
@@ -1424,7 +1426,7 @@ def contact():
   <div class="cw-contact-grid"><div class="cw-contact-main">{form}</div>
   <aside class="cw-contact-aside" aria-label="Contact and company details">
     <h2>Prefer a conversation?</h2><p>Our sales desk can help with the product, specification and delivery plan.</p>
-    <p><a href="tel:{CONTACT['phone_href']}">{CONTACT['phone_disp']}</a><br><a href="mailto:{CONTACT['email']}">{CONTACT['email']}</a></p>
+    <p><a href="tel:{CONTACT['phone_href']}">{CONTACT['phone_disp']}</a> &middot; <a href="{WA_URL}" target="_blank" rel="noopener">WhatsApp</a><br><a href="mailto:{CONTACT['email']}">{CONTACT['email']}</a></p>
     <p class="cw-note">We reply within one business day.</p>
     <hr><h2>Company details</h2><p><strong>Principal place of business</strong><br>{CONTACT['addr']}</p>
     <p class="cw-note">Cochin Wood Industries Private Limited<br>GSTIN {GSTIN}<br>CIN {CIN}<br><a href="{u('/company-verification')}">Verify our registrations &rarr;</a></p>
@@ -2864,8 +2866,11 @@ def css_bundle_content():
             # was already the same bytes and the same hash on every platform
             # while site.js and fonts.css were not. A raw read here would put
             # this file in the same trap they were in.
-            parts.append(f"/* --- {name} --- */\n" + _css_fix_urls(open(fp, encoding="utf-8").read(), name))
-        _bundle_css = "\n".join(parts)
+            parts.append(_css_fix_urls(open(fp, encoding="utf-8").read(), name))
+        raw_bundle = "\n".join(parts)
+        cleaned = re.sub(r'/\*.*?\*/', '', raw_bundle, flags=re.DOTALL)
+        marker = "/* Cochin Wood visual system: consistent preserved page families. */\n"
+        _bundle_css = marker + "\n".join(l.strip() for l in cleaned.splitlines() if l.strip())
     return _bundle_css
 
 # ONLY A CONTENT-ADDRESSED NAME MAY CARRY THE IMMUTABLE HEADER, so these three --
@@ -3035,6 +3040,9 @@ def assets_and_meta():
             os.remove(plain)      # unhashed leftover would get pinned for a year
     build_css_bundle()
     open(os.path.join(DIST, ".nojekyll"), "w").close()
+    ico_src = os.path.join(src, "favicon.ico")
+    if os.path.exists(ico_src):
+        copy_lf(ico_src, os.path.join(DIST, "favicon.ico"))
     # Cloudflare Pages headers (ignored by GitHub Pages, honoured by CF Pages).
     #
     # The Content-Security-Policy below is carried VERBATIM from what production serves
@@ -3172,6 +3180,7 @@ def assets_and_meta():
         # keeps its filename forever, so it can never be pinned like the hashed
         # assets above.
         "/favicon.png\n" + day +
+        "/favicon.ico\n" + day +
         # Restored VERBATIM from cf-live, both lines. The CORS header is load-bearing:
         # these are the images other sites and the app hotlink, and dropping
         # Access-Control-Allow-Origin breaks every canvas/fetch consumer of them.
