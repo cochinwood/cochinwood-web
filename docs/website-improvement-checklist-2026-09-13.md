@@ -2,7 +2,7 @@
 
 | Priority | Item | Current state | Evidence / next action |
 |---:|---|---|---|
-| 1 | Clarify thickness specifications | Waiting for approved finished ranges and permitted tolerances. The site continues to describe nominal values and quote-specific minus tolerance without inventing a manufacturing range. | Confirm approved ranges; then update the relevant product tables and quote guidance. |
+| 1 | Clarify thickness specifications | Owner-approved standard and occasional sizes now published. Standard supply is 6–18mm; 19, 20, 22, 25, 30, 35 and 40mm are occasional against order. Availability, quantity and minus tolerance remain quote-confirmed. | Verify the updated product pages after publication. |
 | 2 | Improve enquiry completeness | Implemented duplicate-item control, live item summaries, clearer destination guidance, optional domestic PIN and optional required-by date. The version-2 enquiry payload and notification text preserve both new fields. | Run the browser journey and backend persistence tests. |
 | 3 | Strengthen sales follow-up | Existing app already records owner, first call timestamp, notes, follow-ups, qualification and links to customers/issued documents. | Confirm whether an explicit commercial-stage field is still needed after the current workflow review; do not create duplicate alerts. |
 | 4 | Test with unfamiliar buyers | Test script and recording sheet prepared. No participant session has been represented as complete. | Arrange 3–5 buyers or run a labelled internal pilot. |
