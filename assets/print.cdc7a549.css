@@ -1,0 +1,35 @@
+/* Cochin Wood visual system: consistent preserved page families. */
+@media print {
+.cw-hd, .cw-ft, .cw-wa, .cw-top, .cw-skip, .cw-crumb, .cw-blogtools { display: none !important; }
+body { background: #fff; }
+a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .85em; word-break: break-all; }
+}
+@media print{.cx-hero{min-height:auto;background:white;color:#172a22}.cx-hero h1,.cx-hero h1 em,.cx-hero .cx-kicker,.cx-hero__lead{color:#172a22}.cx-hero__image,.cx-hero::after,.cx-hero__base{display:none}.cx-process__visual{position:static}.cx-process__layout{display:block}.cx-process__frame{display:none}.cx-process__step{min-height:0;padding-block:20px}.cx-applications,.cx-next{background:white;color:#172a22}.cx-applications h2,.cx-next h2{color:#172a22}.cw-hd,.cw-ft{display:none}}
+@media print{.cw-reveal-enter{animation:none!important}img[data-parallax]{translate:none!important}[data-process-image]{filter:none!important}}
+@media print{.cw-blogtools,.cw-blog-topics{display:none}.cw-blog-browse{display:block}.cw-blog-group[hidden],.cw-bloglist a[hidden]{display:block!important}}
+@media print {
+.cw-blog-post #main .cw-reading-layout { display: block; width: 100%; }
+.cw-blog-post #main :is(.cw-reading-aside, .cw-article-route) { display: none; }
+}
+@media print {
+.cw-catalogue-compare { padding: 0; background: #fff; }
+.cw-catalogue-compare .cw-section__head p, .cw-compare-actions, .cw-catalogue-compare + .cw-band { display: none !important; }
+.cw-compare-scroll { overflow: visible; border: 0; }
+.cw-compare-table { min-width: 0; font-size: 8pt; }
+.cw-compare-table th, .cw-compare-table td { padding: 6pt; }
+.cw-compare-table a { color: #000; text-decoration: none; }
+}
+@media print {
+body #main .cw-page-hero__inner { min-height: 0; padding: 0; }
+body #main .cw-page-hero__breadcrumbs { display: none; }
+}
+@media print{.cw-page-navigation,.cw-section-bar{display:none}}
+@media print { [data-wood-group][hidden], [data-wood-card][hidden] { display: block !important; } }
+@media print {
+body #main .cw-page-hero__media,body #main .cw-page-hero__media img {height:auto;min-height:0}
+.cx-hero {min-height:auto}
+}
+@media print {
+body.cw-export-country #main .cw-page-hero__inner { padding: 0; }
+body.cw-export-country #main .cw-page-hero__text { display: block; }
+}
