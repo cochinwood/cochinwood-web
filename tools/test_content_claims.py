@@ -783,6 +783,72 @@ class LoadFigureConsistencyTests(unittest.TestCase):
                               % (self.describe(record), self.BAND_LABEL[key], low, high, pages, self.CLASS_BAND))
         self.assertGreaterEqual(checked, 10, 'the class check found almost no vehicle-tied load figures; is dist built?')
 
+    DEFERS = re.compile(r'stated with the quote|stated on the proforma invoice|proforma invoice states', re.I)
+    WITHHELD = (('tonnes', re.compile(r'\btonnage\b', re.I)), ('sheets', re.compile(r'\bcount\b', re.I)),
+                ('m3', re.compile(r'\bvolume\b', re.I)))
+    RATING_NAME = re.compile(r'tonners?', re.I)     # "multi-axle 22-tonners take 3-4 days" names a truck, not a load
+
+    @classmethod
+    def withheld_units(cls, units):
+        """The load units a page defers: "the tonnage and sheet count ... are stated with the quote" -> tonnes, sheets."""
+        found = set()
+        for unit in units:
+            for sentence in LF.split_sentences(unit['text']):
+                if cls.DEFERS.search(sentence):
+                    found.update(name for name, word in cls.WITHHELD if word.search(sentence))
+        return found
+
+    @classmethod
+    def withheld_but_stated(cls, records, units_of):
+        """(record, withheld units): a vehicle load in a unit the same page says is stated only with the quote."""
+        by_page, found = {}, []
+        for record in records:
+            if (record['unit'] in ('sheets', 'tonnes', 'm3') and cls.vehicle_load(record)
+                    and not cls.RATING_NAME.fullmatch(record.get('unit_text') or '')):
+                by_page.setdefault(record['page'], []).append(record)
+        for page, recs in sorted(by_page.items()):
+            withheld = cls.withheld_units(units_of(page))
+            found.extend((record, sorted(withheld)) for record in recs if record['unit'] in withheld)
+        return found
+
+    def test_a_load_deferred_to_the_quote_is_not_also_stated(self):
+        """Gap (h): hedging one sentence left the page's other figures unread. Cuttack's body said "the tonnage and
+        sheet count depend on the truck and thickness and are stated with the quote" while its FAQ still gave "a full
+        single-axle truck (about 600-700 sheets of 12 mm)"; Bhopal's body said the same beside the FAQ's "around 18
+        tonnes of plywood (roughly one 32-ft truck densely loaded)". The figures agree; the page contradicts itself."""
+        def page(body):
+            markup = ('<html><head><meta name="description" content="Synthetic page."></head><body><main>%s</main>'
+                      '</body></html>' % body)
+            return LF.page_records('synthetic.html', LF.extract_units_from_html(markup)), LF.extract_units_from_html(markup)
+
+        def flagged(body):
+            records, units = page(body)
+            return {(record['source'], record['unit']) for record, _ in self.withheld_but_stated(records, lambda _: units)}
+
+        deferred = ('<p>A 32-foot single-axle full truck takes 5-7 days. This is the right answer for full truckloads of '
+                    'sheets; the tonnage and sheet count depend on the truck and thickness and are stated with the quote.</p>')
+        self.assertEqual(flagged(deferred + '<h2>FAQ</h2><h3>What is the minimum order?</h3><p>Practically, a full '
+                                 'single-axle truck (about 600-700 sheets of 12 mm in 8x4 ft, or equivalent mix).</p>'),
+                         {('faq', 'sheets')}, 'Cuttack: a deferred sheet count stated in an FAQ answer')
+        self.assertEqual(flagged(deferred + '<h2>FAQ</h2><h3>What is the minimum order?</h3><p>For full-truck road, around '
+                                 '18 tonnes of plywood (roughly one 32-ft truck densely loaded).</p>'),
+                         {('faq', 'tonnes')}, 'Bhopal: a deferred tonnage stated in an FAQ answer')
+        self.assertEqual(flagged('<p>A 32-ft single-axle truck is best for full-load orders of 18-22 tonnes; the sheet count '
+                                 'depends on the truck and thickness and is stated with the quote.</p>'), set(),
+                         'a tonnage beside a deferred sheet count is not a contradiction')
+        self.assertEqual(flagged('<p>A 32-foot single-axle truck clears the run in 56-72 hours. Multi-axle 22-tonners on the '
+                                 'same lane take 3-4 days.</p><h2>FAQ</h2><h3>What is the minimum order?</h3><p>One full '
+                                 '32-foot truck; the tonnage and sheet count depend on the truck and thickness and are '
+                                 'stated with the quote.</p>'), set(), 'a truck named by its rating states no load')
+        self.assertEqual(flagged('<p>A 32-foot single-axle full truck takes 5-7 days. This is the right answer for full '
+                                 "truckloads of sheets, each loaded within the truck's permitted payload.</p><h2>FAQ</h2>"
+                                 '<h3>What is the minimum order?</h3><p>Practically, a full single-axle truck (about 600-700 '
+                                 'sheets of 12 mm in 8x4 ft, or equivalent mix).</p>'), set(), 'a payload clause defers nothing')
+        found = self.withheld_but_stated(self.records, lambda page: LF.extract_units(str(DIST / page)))
+        for record, withheld in found:
+            with self.subTest(page=record['page'], figure=record['text'][:120]):
+                self.fail('%s: the page says its %s are stated with the quote' % (self.describe(record), ' and '.join(withheld)))
+
     AXLE_CONFLICT = re.compile(
         r"(?:\bsingle[- ]axle|\bSXL)\b(?:\s+(?!(?:or|and|to|vs|versus)\b)[\w’'-]+)?\s+(?:multi[- ]axle|MXL)\b|"
         r"(?:\bmulti[- ]axle|\bMXL)\b(?:\s+(?!(?:or|and|to|vs|versus)\b)[\w’'-]+)?\s+(?:single[- ]axle|SXL)\b", re.I)
