@@ -1,18 +1,18 @@
 {
-  "description": "PR34 output before country-guide hero removal; only decorative hero media excluded",
+  "description": "Export guides as published on cf-live 103efa27 (15 Sep 2026): PR34 baseline plus the reviewed, published changes from PRs #52 (container-loading correction), #54 (Organization sameAs LinkedIn) and #60 (Arabic and Turkish buyer summaries); only decorative hero media excluded",
   "pages": {
     "/export": {
       "blocks": {
         "count": 59,
-        "sha256": "23c05a4ef4f183a07e2c4c1a4258f7bda5f8e23df7dbb5e38e0cb0f33b3e124d"
+        "sha256": "191f706440b17ac8043869fb3883759092b188e2dff498d1b5bf19d0819f18ed"
       },
       "links": {
-        "count": 54,
-        "sha256": "080fbe805143907e072ef4b9b4f0d850677d555ca6eaa106f18fc66f5fba6178"
+        "count": 55,
+        "sha256": "020de77e51e93dd0f388db00257ddee38d4328ad49f6f783e9e496cbda7e607b"
       },
       "anchors": {
         "count": 9,
-        "sha256": "d3064628314cb06073db7cd2335ede5d21b20bb4d8452753a39708f726bc8248"
+        "sha256": "999127baa7b34d10a3dd85ab28879c75a18e3ebd57fdceb06fa89b4edd314c0b"
       },
       "tables": {
         "count": 1,
@@ -20,7 +20,7 @@
       },
       "schemas": {
         "count": 4,
-        "sha256": "b6a12a7949170898a85c7b37b3d16a30dc6d00ffbf058e4ca45cbce4d27201bf"
+        "sha256": "d109c82a8a0b7afa8f49bf9885d028a15a983d8f97d6266bdd6dd3da13966178"
       },
       "metadata": {
         "count": 14,
@@ -46,7 +46,7 @@
       },
       "schemas": {
         "count": 4,
-        "sha256": "2a09b563e4f44a926a1871831aec76375784a0b68b4524b4283f99ecf4607d55"
+        "sha256": "0f941679393d3eb04e423a72bfd4f6457d9128f8b9c5ea3cfd431551e1d336b4"
       },
       "metadata": {
         "count": 14,
@@ -72,7 +72,7 @@
       },
       "schemas": {
         "count": 4,
-        "sha256": "502b77c78da19c2c37a76099081555f5778529417a885b49ee319163d0e3ed3c"
+        "sha256": "8fcfa086edb759f2cf639942934e31fe68044f97b88f82af9cfd7c1a562f87bd"
       },
       "metadata": {
         "count": 14,
@@ -98,7 +98,7 @@
       },
       "schemas": {
         "count": 4,
-        "sha256": "26b5b29f3febf8663cee2f042bed73f6b3b36d3f0aa3de37b1c0e49bea157ada"
+        "sha256": "8f4b9c83ad6925cd54affe43cdde605563233a5b407b95788d98b2ae31976821"
       },
       "metadata": {
         "count": 14,
@@ -124,7 +124,7 @@
       },
       "schemas": {
         "count": 4,
-        "sha256": "8f73bc575c92a4cb2766182784e7e70076ad49af53927a2a903c580550c79666"
+        "sha256": "4b7444c72e296e79e26ba61fdbf6814dbe97ac4c7bf862f2d0b84acbdc390d33"
       },
       "metadata": {
         "count": 14,
@@ -150,7 +150,7 @@
       },
       "schemas": {
         "count": 4,
-        "sha256": "4ae051fca0aee9b83a9ef33e0ce76d05a89d17d6178fa5b918b2aae3a3e941b7"
+        "sha256": "17eef27512e04e60aae62f591fc2305ba12823282428ab700306f6824177b989"
       },
       "metadata": {
         "count": 14,
@@ -176,7 +176,7 @@
       },
       "schemas": {
         "count": 4,
-        "sha256": "5c10ab2c3a0fe844794f3bb21198e9b19354431f246f11f61f87574708072718"
+        "sha256": "0a6778f966645b7ca50042c5ad2c93497b25577fbd6bb5a186542e987b36943b"
       },
       "metadata": {
         "count": 14,
@@ -202,7 +202,7 @@
       },
       "schemas": {
         "count": 4,
-        "sha256": "e90ecf537429839695019c0a30e6b1e2ddfde9a5d45fe8c52c41edb37da112e8"
+        "sha256": "e8dc0427decbc4edde17129f45bd4f1b22d9f1f7f05457504fc91007b68ca604"
       },
       "metadata": {
         "count": 14,
@@ -228,7 +228,7 @@
       },
       "schemas": {
         "count": 4,
-        "sha256": "a7f6f12835be889a80c22e1a44a0855f5d31d73c7cbea3f02a051c3c9113b8a4"
+        "sha256": "0364893dcade07e040339c1ff33175850dbdcca753506f61935fda1119b7dacf"
       },
       "metadata": {
         "count": 14,
@@ -254,7 +254,7 @@
       },
       "schemas": {
         "count": 4,
-        "sha256": "89cce79db0b93726acaede78bcdaa64a06da1c6e8662c5b5b0e59744e1447fa8"
+        "sha256": "66ad0507aecd5f4cce2b14e4563e461fd765a427f81004b22cf12298db5f527f"
       },
       "metadata": {
         "count": 14,
@@ -280,7 +280,7 @@
       },
       "schemas": {
         "count": 4,
-        "sha256": "6ec8b90c817f335af3998f1268feb6a762f2dff881797ce4a4539e84ef561431"
+        "sha256": "bb70259c370bbf8d0a75a65f72934451dae4073d796bd3065cb094d276be588b"
       },
       "metadata": {
         "count": 14,
@@ -306,7 +306,7 @@
       },
       "schemas": {
         "count": 4,
-        "sha256": "8281cff5ad15822f429440907c76702165f29d9d298eece93ea03bd058bf8e0a"
+        "sha256": "feb5c9784e7db394b86dea6f1aaa991ba08995ef07e7995d7def13acddc3e831"
       },
       "metadata": {
         "count": 14,
@@ -332,7 +332,7 @@
       },
       "schemas": {
         "count": 4,
-        "sha256": "21eec3696d0af2d661cff695f909e2a6db40da026486e88c93d91a8ed092edef"
+        "sha256": "dd273296c4d22e97c4661498fbfb7fce662bd7b66ac483a2882349f999f99564"
       },
       "metadata": {
         "count": 14,
@@ -342,11 +342,11 @@
     "/export/mauritius": {
       "blocks": {
         "count": 102,
-        "sha256": "fcfe3a39133d2f2ebcd93b99aae603d2d06aea0947dfbe8e1e1efc5205a197c0"
+        "sha256": "3fa9e22524458130cd129f995b5447bdebc228037af07a4bf872da035a5ba8b8"
       },
       "links": {
         "count": 59,
-        "sha256": "92c08de1f3b7a5498f7a1a356693aa6f9926e2395365d6d4ca7f541e757d08e1"
+        "sha256": "37a6b929b3e169c5fbd89aabaabbefdf67ce20f624ecc6d29c0be2651a424f50"
       },
       "anchors": {
         "count": 11,
@@ -358,7 +358,7 @@
       },
       "schemas": {
         "count": 4,
-        "sha256": "7fa9640768d08052f30dfdaef1d610e60bbaf70388fc580fb9b759c80df25bea"
+        "sha256": "d55768127150b67805b6f5fa649c6b3da0aef0621ff62037dcb8a6cda2d4a86e"
       },
       "metadata": {
         "count": 14,
@@ -384,7 +384,7 @@
       },
       "schemas": {
         "count": 4,
-        "sha256": "647eab56d2f97a09cdf42fd91485412561b5de5e91daae088aa4a66ac43f2ae2"
+        "sha256": "72d07147a79026597eb8702628db955e3293e3c071deb8573eeba2b54193fa53"
       },
       "metadata": {
         "count": 14,
@@ -410,7 +410,7 @@
       },
       "schemas": {
         "count": 4,
-        "sha256": "c3fbd7c78ad6fa80180346594fd54a6b444f631d33b46953f2996d6f2b1ba55f"
+        "sha256": "dc4ed6331376f3b0f09455aa189514cc6250b076a9ff5b7ce615f9885671f97b"
       },
       "metadata": {
         "count": 14,
@@ -436,7 +436,7 @@
       },
       "schemas": {
         "count": 4,
-        "sha256": "b5e770a032ea32e27e78ca4003bbbabe0788809534541f3daaf1f91ffe7e96f8"
+        "sha256": "d60c0fcfd7f5aea45d109290fd9db2665622dee0b0fa5bb7f550f31f97a3cfc5"
       },
       "metadata": {
         "count": 14,
@@ -462,7 +462,7 @@
       },
       "schemas": {
         "count": 4,
-        "sha256": "e06313725cfd944e258dabe117388dd5ad279918b78987e85141d87ad359daef"
+        "sha256": "ee29964a31c0ea90e417a4b82a0d73ac62e81c709d10826a4260b07f5dfc4e37"
       },
       "metadata": {
         "count": 14,
@@ -488,7 +488,7 @@
       },
       "schemas": {
         "count": 4,
-        "sha256": "316c48d425a3969027dca16d368756dcb8ab3798350aa00a3cb6803afc674b41"
+        "sha256": "8ce3c545267effce7d52f4547e4fa340c606c93f855b854d3fe3a8c3d33d05a9"
       },
       "metadata": {
         "count": 14,
@@ -497,16 +497,16 @@
     },
     "/export/saudi-arabia": {
       "blocks": {
-        "count": 99,
-        "sha256": "89e63baf8a65885bfdd50c7d81ae6fa32e0f4ea4008a87d2be553f793efcc7ad"
+        "count": 103,
+        "sha256": "023e0ee8e27b056bcc74c9c9adbb1bcca6bb7b3dcf5cfd48bae3c80f88e93139"
       },
       "links": {
-        "count": 56,
-        "sha256": "1f962867feb228b196909041dc27a3e64b3b11a806720ccfdfa5de1cfa357402"
+        "count": 57,
+        "sha256": "5e7a0d24229073851c91ecd79dae152b450ad587ec86be6c4df8fb0ec6f66f99"
       },
       "anchors": {
-        "count": 11,
-        "sha256": "29fa8f0e8541ca976c33e9aafe2bc36d7a256abc2ee216d7e42faf0724c7b45a"
+        "count": 12,
+        "sha256": "e4c936dff17c8df0fceac1c2225407eb62b0890454674d0b0d7229c66b4ebf72"
       },
       "tables": {
         "count": 2,
@@ -514,7 +514,7 @@
       },
       "schemas": {
         "count": 4,
-        "sha256": "6c1d0772cab50c6e9fb88d155b1f5bb1848277b5795b181458bf03d7e69b0ead"
+        "sha256": "be7f2218c668c01ddf7decd1558d43578ece1ab6170b5f0a93bcc91d70e5732e"
       },
       "metadata": {
         "count": 14,
@@ -540,7 +540,7 @@
       },
       "schemas": {
         "count": 4,
-        "sha256": "56d7ee056180e8852bda9e170b69b52d4178851137b3eaa5152dfbcaa9abe8cd"
+        "sha256": "eaac94beb6d8b2081b7b031f22843dd93395e14a1dee1394df6f0faf69bdf996"
       },
       "metadata": {
         "count": 14,
@@ -550,11 +550,11 @@
     "/export/south-africa": {
       "blocks": {
         "count": 100,
-        "sha256": "a0a43dc418cd2188e3a5ccbe3172ba632cb50295f1659f6d033e5ae099f3d1cb"
+        "sha256": "18741431b1acda618820764735da0a27574cec9a546bf64181ec97bcdcb07a82"
       },
       "links": {
         "count": 56,
-        "sha256": "54ff3f9ef2687ef7f1def01d97825a003c1a90b5b733a7b853b0eb9be6127f4b"
+        "sha256": "7c55b2ec67006b6164ade60b9fc165f86304d8d7aea79af06add07b25f8fdaa0"
       },
       "anchors": {
         "count": 11,
@@ -566,7 +566,7 @@
       },
       "schemas": {
         "count": 4,
-        "sha256": "e69df8369528e06873f290967e88f6e7095e67b4eb84dc25c249ba21b3c6f850"
+        "sha256": "7ead1d0ad4426ef21c1edb9dfd31db07d0ccf259879a7646cb3dad3fc9acf699"
       },
       "metadata": {
         "count": 14,
@@ -592,7 +592,7 @@
       },
       "schemas": {
         "count": 4,
-        "sha256": "254cfb45f47045b0abca46b91781ff4d2f0149e87143f327bd1b722fdc8ba535"
+        "sha256": "722333780e0cc85c76a51aec24f61d745f139d2cde33a4182c11a88676a16d74"
       },
       "metadata": {
         "count": 14,
@@ -602,11 +602,11 @@
     "/export/tanzania": {
       "blocks": {
         "count": 103,
-        "sha256": "954c9f7b8e983bea3e3963f8335078bfa8572259404f148768d13f2e24d173c1"
+        "sha256": "6cc14feaffb2204016fb6e28e00e4635596c3317d8fa0395d3bb3616198fc2fc"
       },
       "links": {
         "count": 58,
-        "sha256": "e98c1d825c8dcf7f70afe86ac7248f55b20cf0e08395a86703ac75dca2fa0b40"
+        "sha256": "c0f7fbe3353ca2a3cd9f4376cdb68b90e81ef5ddf5e5af3c5701a9d7c48841fc"
       },
       "anchors": {
         "count": 11,
@@ -618,7 +618,7 @@
       },
       "schemas": {
         "count": 4,
-        "sha256": "4907a0d825d740cb96e3c5bd5cf8189beff45ba91d276f7b53c67ab7ba66e2ee"
+        "sha256": "3f9b394925cc47a1c91de70f51b9758fb5d32f888fc300b2b76dcf1f0c20bcb7"
       },
       "metadata": {
         "count": 14,
@@ -627,16 +627,16 @@
     },
     "/export/turkey": {
       "blocks": {
-        "count": 81,
-        "sha256": "3b11d97a361ecc752574577bf538973f1944256c38f3672296c61d465a05ff52"
+        "count": 85,
+        "sha256": "3793cdf6ffb6bb8fde09c5a7bbeab3c9e74e551432c9afd336ba6e358e9cd469"
       },
       "links": {
-        "count": 56,
-        "sha256": "a440e5a6966405c37c0376c7cd502053570fbe88f6e3b8db4b50ab36373e8166"
+        "count": 57,
+        "sha256": "bf5dc127734c57bda3092561fed6c607d2343cc9a3ed20237841f81379a3aa2f"
       },
       "anchors": {
-        "count": 9,
-        "sha256": "d462bb8e0c8246d0fa1d37fc2a4a79f585ba89011f40fac5573a15b3abd5a85e"
+        "count": 10,
+        "sha256": "3930ddf9deae3b58b8619d834891b401b86a1f8d4467a9c87c1ee2e58c328cad"
       },
       "tables": {
         "count": 2,
@@ -644,7 +644,7 @@
       },
       "schemas": {
         "count": 4,
-        "sha256": "4a7791541b11f65e313155400c719e24c0e0bef719c7b555369bf29556431c60"
+        "sha256": "f739c627cf75107b301b1b18fe3f9f332d05ede639993d4c39c597c421525668"
       },
       "metadata": {
         "count": 14,
@@ -653,16 +653,16 @@
     },
     "/export/uae": {
       "blocks": {
-        "count": 100,
-        "sha256": "5825f3f9c5d42d1e9f98590d390f7b089884264b2c8bca77cd4179078f01cb21"
+        "count": 104,
+        "sha256": "4d1c70cc7d9542f4a2ca9defec523e62aa21d60ce4ff581f2e20400b650ce1f9"
       },
       "links": {
-        "count": 55,
-        "sha256": "804c3e33c5c9652d516847fdf3bcb25cf2990190693be55a33af0296f3a24153"
+        "count": 56,
+        "sha256": "78bf921e7ce903adb8322534dab58330a42df6562fee7dcc2709227318582b09"
       },
       "anchors": {
-        "count": 10,
-        "sha256": "59427211954e101f3b8b5074352ddbc6cff7a53032b718748151b325cc7fd8ca"
+        "count": 11,
+        "sha256": "f1edcf3f0b117a8978ccd92d72a227721127dacdae9d77fb0c8294270d8b5996"
       },
       "tables": {
         "count": 2,
@@ -670,7 +670,7 @@
       },
       "schemas": {
         "count": 4,
-        "sha256": "98f14199a9a31887dcb51ade7287ab26fb1dc118b656749bc470d1aa3a3c6328"
+        "sha256": "e3a5529e6d262b3a45ccb5d6d00ea4acba4e3c3856be1274e04777eccd33f205"
       },
       "metadata": {
         "count": 14,
@@ -696,7 +696,7 @@
       },
       "schemas": {
         "count": 4,
-        "sha256": "e63dd883a8c9a7ec852123c6654a2f7312c1a86c8dd8006785fa762c53cff223"
+        "sha256": "61741a7a1f5251c55eac3f2108a37168aaca42d14e10136af1feb9e1f55671e1"
       },
       "metadata": {
         "count": 14,
@@ -722,7 +722,7 @@
       },
       "schemas": {
         "count": 4,
-        "sha256": "6c91df3b00d0f154404efe72bfedee7ca195a55944ec4265fb8055ceb6582270"
+        "sha256": "d591b6db84b5cc4ffdd1f433e7fab88dc9b443be3ffd0077a5060f64e3721b41"
       },
       "metadata": {
         "count": 14,
@@ -748,7 +748,7 @@
       },
       "schemas": {
         "count": 4,
-        "sha256": "b8b4a1069a94ee40de61060d733f5962ed03b1a6d036bb6987b4c292dab7af21"
+        "sha256": "7f20fe5c3fafacc9f9e414856cc336adf1f16dd86ec408f5b7022f42d0deea1e"
       },
       "metadata": {
         "count": 14,
@@ -782,8 +782,8 @@
     "content/export/countries/united-states.json": "9f9fcfdc7d1b9f5665347b9ff3acc855ee09dc7d82f96e64c1f24aebe10c3a04",
     "content/export/countries/vietnam.json": "3b33ba400248b0ebe99ac41a929d515909ce9223f416e7f820ffb5a4b299efc8",
     "content/export/dominican-republic.body.html": "03a2599499c91146a9c7a251a3e72218719bfb1f99b3c76b1f6e00f2305ba766",
-    "content/export/export.json": "104166ed7a783ebe68ccb102e9497dc9b4c41dcf10eba94ae0b743fc90e7b202",
-    "content/export/export.raw.json": "bb0623178c6cbbcb4e71361839978be9ec1aea2e171fe465c7c2ae9426324f00",
+    "content/export/export.json": "2eb0e4550bf149bdfbd437f8cc11ce17a4098d9ff3a304f2c2c00175b5191250",
+    "content/export/export.raw.json": "201cc1239a788bddc47326d877ee2376c0ba54692d0cab5cab14e6eb0b8ab69a",
     "content/export/germany.body.html": "b4d2c8bec4e9f7560365a4795c7b84c9ad3c100f8e9ba8164d83fdcf783e044f",
     "content/export/haiti.body.html": "2f1848bc41dac312d89ffae63d3d4a1a80a347f108d64c3b5a062aa4557fba03",
     "content/export/hub.body.html": "0c617138c68b4894dc999b797710f398ccc46142aedcd09b8bfcd8f8d1d76eb3",
@@ -792,18 +792,18 @@
     "content/export/kuwait.body.html": "cbdc79c4dc7196eff8590c7d4396fac9b3c9d25d4c4db3b930b4fcf98afb4cee",
     "content/export/malaysia.body.html": "ee7cb23054d4a146933aa0c005241896f4469541ada112a16439505c824537d7",
     "content/export/maldives.body.html": "ca5efa4a02502c5afd0c26c1f33dc734c488b0e0f434e459e0fa12b509c332f3",
-    "content/export/mauritius.body.html": "cacbd88cb8befe3b441d34da20262a646cb4751f63bec352faf6ab1286fee9fe",
+    "content/export/mauritius.body.html": "289a0450cb269b67f7ae6bd899ce37d19bc8801623c8b7178cafa3e3c0c8abed",
     "content/export/netherlands.body.html": "0221b4ab26870f74b7814c4de098f32055ae35f19487bd54b949de466a96f0df",
     "content/export/nigeria.body.html": "00bd64dd6915c9abfb14178c4fad51baca2f5ff975883410f7925941e76e6dc4",
     "content/export/oman.body.html": "404b9a9ab27e49b1fe60204248e4a6ece62f50097625be6e51d58d66724c68eb",
-    "content/export/published-patches.json": "7ea46aa340a060c8341bb3a7008513650d93c46557b1a05abd9269abbc2864ff",
+    "content/export/published-patches.json": "35d96e6debb6a765fa72df1f1e6c567480eace4934f095cd34b9fdf2aeb62396",
     "content/export/puerto-rico.body.html": "56bf1f1ec3fb62ca5c887e2d1c4349994e186f76ff423c3ef4cd18c73a097a62",
     "content/export/qatar.body.html": "459eb58032342ad67260ad5b7ff45553d47bed742205a36c036be1f0d38b4c68",
     "content/export/saudi-arabia.body.html": "7c7a092c2fb77101e1d0e7696b8cb30d8ae180f746117e5e7d76008f24e948be",
     "content/export/singapore.body.html": "69fa763e53e0a4575e52347d3533efb9c907af87932a2b64657b60ea42e320f2",
-    "content/export/south-africa.body.html": "e18d9c05bf50df22e4a58c2a6c30098839d8b508df418a85aa46d8310358db78",
+    "content/export/south-africa.body.html": "be25aa0edb37229d67c0a2e159bf4ff670521875e12f9e9ec31bfa3212315568",
     "content/export/sri-lanka.body.html": "e4491d652777e316d8821256b2eb3e81f03427b0dc3e9bad62a291b85ed1e58b",
-    "content/export/tanzania.body.html": "e97a66d842e6a6cabdaabb656b2326f3f7da117c8764d9a6c7f98f5a55d2ac86",
+    "content/export/tanzania.body.html": "78876e913d556c7d63388f87de3a0a8d84f9272418f3f207256f2605ad6ad208",
     "content/export/turkey.body.html": "d3243b28aeaef847e3f5170d25c575a3cbde1d048ebd8889ae77c63dad0e3ee3",
     "content/export/uae.body.html": "9906e1b654d505e28a6046f154b77a5f554c6a24597f81d8bd0a9dbb7adce55e",
     "content/export/united-kingdom.body.html": "6ea0ab2ad8111a527a2542a835c61c1d5c80e9dc23b67800a108011ec6ce197d",
