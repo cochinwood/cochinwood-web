@@ -198,8 +198,8 @@ class ContentClaimsTests(unittest.TestCase):
          'third-party NABL laboratory test fee'),
         ('blogs/post/fob-cochin-for-plywood-exporters-what-s-included-what-s-extra.html', 'save ₹4,000-₹8,000 per shipment in avoided storage',
          'third-party CFS storage charges avoided'),
-        ('blogs/post/ispm-15-ht-stamp-validity-india-exporters-2026.html', 'at a yard rate of roughly 600 to 1,200 INR per cubic metre',
-         'third-party heat-treatment yard charge'),
+        ('blogs/post/ispm-15-ht-stamp-validity-india-exporters-2026.html',
+         "at a third-party treatment yard's rate of roughly 600 to 1,200 INR per cubic metre", 'third-party heat-treatment yard charge'),
         ('blogs/post/mundra-vs-pipavav-for-plywood-exporters-which-port-which-cost.html', '+₹400 to Mundra', 'third-party road haulage delta'),
         ('blogs/post/mundra-vs-pipavav-for-plywood-exporters-which-port-which-cost.html', '+₹350 to Mundra', 'third-party road haulage delta'),
         ('blogs/post/mundra-vs-pipavav-for-plywood-exporters-which-port-which-cost.html', '+₹900 to Mundra', 'third-party road haulage delta'),
@@ -210,8 +210,9 @@ class ContentClaimsTests(unittest.TestCase):
          'third-party reefer pricing difference'),
         ('blogs/post/mundra-vs-pipavav-for-plywood-exporters-which-port-which-cost.html', 'save ₹40,000+ per shipment',
          'third-party CHA routing saving'),
-        ('blogs/post/mundra-vs-pipavav-for-plywood-exporters-which-port-which-cost.html', 'loads under ₹15 lakh of cargo value',
-         'cargo-value routing threshold with no quantity, so no rate can be derived; the 8 Sep record keeps cargo values'),
+        # No CWI cargo value: Mundra's "loads under Rs 15 lakh of cargo value" beside its 25-tonne crossover
+        # gave a unit price (about Rs 60/kg) and was removed on 15 Sep. An amount that combines with a CWI
+        # quantity on the same page into a CWI unit price does not belong here, whatever its reason says.
         ('blogs/post/plywood-boxes-for-machinery-triple-wall-vs-reinforced-single-wall.html', 'Cargo value is ≥ ₹50 lakh',
          "the customer's cargo value"),
         ('blogs/post/plywood-cable-drum-flanges-is-10418-spec-sizing-sourcing-guide.html', 'not a risk worth saving ₹400 on',
@@ -225,22 +226,91 @@ class ContentClaimsTests(unittest.TestCase):
         ('blogs/post/plywood-supply-to-tiruchirapalli.html', '₹2,200-₹2,800 each way', 'third-party highway tolls'),
         ('blogs/post/plywood-supply-to-vizag.html', '₹65,000 crore cumulative exports', 'macro export statistic'),
     )
+    FOREIGN_MONEY = re.compile(r"(?:US\$|\$|\bUSD|\bEUR|€|\bAED|\bSAR|\bQAR|\bOMR|\bKWD|\bBHD|\bGBP|£)\s?\d[\d,.]*(?![\d,.]|\s?x\s?\d)"
+                               r"|\b\d[\d,.]*\s?(?:USD|EUR|AED|SAR|QAR|OMR|KWD|BHD|GBP|dollars?|dirhams?|riyals?)\b", re.I)
+    REVIEWED_FOREIGN_AMOUNTS = (
+        ('blogs/post/mundra-vs-pipavav-for-plywood-exporters-which-port-which-cost.html',
+         '$250–$320 ex-Mundra, $280–$340 ex-Pipavav', 'third-party ocean freight to Jebel Ali'),
+        ('blogs/post/plywood-supply-to-hyderabad.html', '$5.9 billion in pharma exports', 'macro export statistic'),
+        ('blogs/post/plywood-supply-to-jubail.html', 'SAR 525 billion', 'macro investment statistic'),
+        ('blogs/post/plywood-supply-to-jubail.html', 'SAR 67.5 billion', 'macro investment statistic'),
+        ('export/tanzania.html', 'subject to a USD 250 minimum', 'third-party pre-shipment inspection fee'),
+    )
 
-    def test_no_rupee_trade_value_is_published(self):
+    @classmethod
+    def money_outside_review(cls, page, sentence):
+        """Money amounts left in a published sentence once its reviewed amounts are taken out."""
+        remainder, used = sentence, set()
+        for reviewed_page, amount, _reason in cls.REVIEWED_RUPEE_AMOUNTS + cls.REVIEWED_FOREIGN_AMOUNTS:
+            if reviewed_page == page and amount in remainder:
+                remainder = remainder.replace(amount, ' ')
+                used.add((reviewed_page, amount))
+        left = [m.group(0) for pattern in (cls.RUPEE_VALUE, cls.FOREIGN_MONEY) for m in pattern.finditer(remainder)]
+        return left, used
+
+    def test_no_money_trade_value_is_published(self):
         used = set()
         for name, sentences in published_sentences().items():
             for sentence in sentences:
-                if not self.RUPEE_VALUE.search(sentence):
+                left, found = self.money_outside_review(name, sentence)
+                used |= found
+                if left:
+                    with self.subTest(page=name, sentence=sentence[:180]):
+                        self.fail(f'money amount outside the reviewed lists: {left}')
+        reviewed = {(page, amount) for page, amount, _r in self.REVIEWED_RUPEE_AMOUNTS + self.REVIEWED_FOREIGN_AMOUNTS}
+        self.assertEqual(reviewed - used, set(), 'a reviewed amount no longer appears; remove it from the list')
+
+    # A table column headed by a rate, price or cost, or by a currency or price unit, carries no figures:
+    # CWI rate cards read "On request". Two columns carry numbers that are not CWI prices.
+    PRICED_HEADER = re.compile(r"\b(?:rates?|prices?|pricing|costs?)\b|₹|\bRs\b|\bINR\b|/\s?sq\.?\s?ft|per\s+sq\.?\s?ft|"
+                               r"per sheet|per cft|/\s?cft|\bUSD\b|\$", re.I)
+    REVIEWED_PRICED_COLUMNS = (
+        ('blogs/post/mundra-vs-pipavav-for-plywood-exporters-which-port-which-cost.html', 'Cost delta (₹/MT)',
+         'third-party road haulage deltas, the same amounts as the reviewed rupee list'),
+        ('blogs/post/ispm-15-ht-stamp-validity-india-exporters-2026.html', 'Typical cost impact',
+         'the figures are days and hours of delay, not money'),
+    )
+
+    @staticmethod
+    def priced_numeric_cells(markup):
+        """[(header, cell)] for every figure in a table column whose header names a price, rate, cost or currency."""
+        found = []
+        for table in re.findall(r'<table\b.*?</table>', markup, re.S | re.I):
+            rows = [[' '.join(html.unescape(re.sub(r'<[^>]+>', ' ', cell)).split())
+                     for cell in re.findall(r'<t[hd]\b[^>]*>(.*?)</t[hd]>', row, re.S | re.I)]
+                    for row in re.findall(r'<tr\b.*?</tr>', table, re.S | re.I)]
+            if not rows:
+                continue
+            for column, header in enumerate(rows[0]):
+                if ContentClaimsTests.PRICED_HEADER.search(header):
+                    found.extend((header, row[column]) for row in rows[1:]
+                                 if column < len(row) and re.search(r'\d', row[column]))
+        return found
+
+    def test_price_columns_in_tables_carry_no_figures(self):
+        reviewed = {(page, header) for page, header, _reason in self.REVIEWED_PRICED_COLUMNS}
+        used = set()
+        for path in sorted((ROOT / 'dist').rglob('*.html')):
+            name = path.relative_to(ROOT / 'dist').as_posix()
+            for header, cell in self.priced_numeric_cells(path.read_text(encoding='utf-8')):
+                if (name, header) in reviewed:
+                    used.add((name, header))
                     continue
-                remainder = sentence
-                for page, amount, _reason in self.REVIEWED_RUPEE_AMOUNTS:
-                    if page == name and amount in remainder:
-                        remainder = remainder.replace(amount, ' ')
-                        used.add((page, amount))
-                with self.subTest(page=name, sentence=sentence[:180]):
-                    self.assertIsNone(self.RUPEE_VALUE.search(remainder), 'rupee amount outside the reviewed list')
-        stale = {(page, amount) for page, amount, _reason in self.REVIEWED_RUPEE_AMOUNTS} - used
-        self.assertEqual(stale, set(), 'a reviewed rupee amount no longer appears; remove it from the list')
+                with self.subTest(page=name, header=header, cell=cell):
+                    self.fail('a price, rate or cost column carries a figure')
+        self.assertEqual(reviewed - used, set(), 'a reviewed price column no longer exists; remove it from the list')
+
+    def test_price_detectors_fail_a_deliberately_broken_copy(self):
+        left, _used = self.money_outside_review('blogs/post/plywood-supply-to-jubail.html',
+                                                'Industrial investment in Jubail crossed SAR 525 billion; 12 mm packing ply is USD 14.50 per sheet.')
+        self.assertEqual(left, ['USD 14.50'])
+        self.assertEqual(self.money_outside_review('blogs/post/plywood-supply-to-goa.html', 'EUR 1200x800 mm pallets.')[0], [])
+        self.assertEqual(self.money_outside_review('blogs/post/plywood-supply-to-aurangabad.html',
+                                                   'A full truckload (around ₹6-8 lakh of mixed packing ply).')[0], ['₹6', 'lakh'])
+        broken = ('<table><thead><tr><th>Thickness</th><th>Rate (Rs/sq.ft)</th></tr></thead><tbody>'
+                  '<tr><td>12 mm</td><td>33.50</td></tr><tr><td>18 mm</td><td>On request</td></tr></tbody></table>'
+                  '<table><tr><th>Heavy CKD/SKD plywood crates</th><th>Chennai auto OEM lines</th></tr><tr><td>18 mm</td><td>2 t</td></tr></table>')
+        self.assertEqual(self.priced_numeric_cells(broken), [('Rate (Rs/sq.ft)', '33.50')])
     SHEET_FIGURE = re.compile(r"(\d[\d,]*)\s*(?:(?:to|-|–|—)\s*(\d[\d,]*)\s*)?(?:full\s+)?sheets"
                               r"(?:\s+(?:of\s+)?(\d+(?:\.\d+)?)\s?mm)?", re.I)
 
