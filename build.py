@@ -810,9 +810,10 @@ def seo_title(title):
 # is not inside a single visible block of that page. The test cannot see whether a
 # value keeps its sentence's hedge; that stays a human review for every new entry.
 # A page with no entry keeps the bare Product. Names are ours; values are the page's.
-# Reviewed 15 Sep 2026 against the built pages: 82 facts on the sixteen pages, each
+# Reviewed 15 Sep 2026 against the built pages: 83 facts on the sixteen pages, each
 # checked for evidence, business risk and schema fit. Facts a page only hedges (E1,
 # IS 303 on rubberwood, faces "on request") were left out rather than reworded.
+# The cable drums' IS 10418 was added once Edwin confirmed it and the page stated it.
 PRODUCT_FACTS = {
     "packing-plywood": {
         "properties": [
@@ -933,6 +934,7 @@ PRODUCT_FACTS = {
         ]},
     "plywood-cable-drums": {
         "properties": [
+            ("Standard", "IS 10418"),
             ("Flange diameter", "600 – 3000 mm"),
             ("Flange", "Phenolic-bonded plywood flanges"),
             ("Arbor / barrel", "hardwood arbor / barrel"),
