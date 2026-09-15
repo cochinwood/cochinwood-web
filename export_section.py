@@ -128,6 +128,35 @@ def tldr(d):
             f'<p>{d["tldr"]}</p></div></div>')
 
 
+def localized_summary(d):
+    """Short, reviewed language cards for the three highest-value corridors.
+
+    These are summaries, not alternate canonical pages. Every commercial number
+    repeats a fact already present in the lane's English source; uncertain transit
+    times remain explicitly subject to the carrier and written quotation.
+    """
+    slug = d.get("slug")
+    if slug == "uae":
+        return '''<section class="cw-locale-summary" lang="ar" dir="rtl" aria-labelledby="cw-locale-uae">
+  <h2 id="cw-locale-uae">ملخص للمشترين في الإمارات</h2>
+  <p>نشحن ألواح التغليف والشترنغ والأنواع التجارية من كوتشي إلى جبل علي. شروط التصدير الافتراضية هي FOB كوتشي، ويمكن طلب CIF جبل علي. الإبحار المباشر يستغرق عادةً 4 إلى 7 أيام من ميناء إلى ميناء، ونؤكد وقت الإنتاج والتحميل في العرض المكتوب.</p>
+  <p>يحدد المخلص الجمركي بند HS والرسوم وضريبة القيمة المضافة عند الاستيراد؛ ونوفر الفاتورة التجارية وقائمة التعبئة وشهادة المنشأ والمستندات الفنية. أرسل السماكة والمقاس والكمية إلى فريق المبيعات للحصول على عرض مكتوب.</p>
+</section>'''
+    if slug == "saudi-arabia":
+        return '''<section class="cw-locale-summary" lang="ar" dir="rtl" aria-labelledby="cw-locale-saudi">
+  <h2 id="cw-locale-saudi">ملخص للمشترين في المملكة العربية السعودية</h2>
+  <p>نورد ألواح الشترنغ والتغليف من كوتشي بشروط FOB كوتشي، إلى ميناء جدة أو الدمام الذي يحدده المشتري. يحدد خط الشحن ووكيل الشحن مدة العبور، ونؤكد جدول الإنتاج والتحميل في العرض.</p>
+  <p>يتولى المستورد تسجيل المطابقة عبر منصة سابر. نوفر الفاتورة التجارية وقائمة التعبئة وشهادة المنشأ ونشرات البيانات الفنية اللازمة، بينما يؤكد المخلص بند HS والرسوم والضريبة السارية.</p>
+</section>'''
+    if slug == "turkey":
+        return '''<section class="cw-locale-summary" lang="tr" aria-labelledby="cw-locale-turkey">
+  <h2 id="cw-locale-turkey">Türkiye'deki alıcılar için kısa bilgi</h2>
+  <p>Kontrplak ve kalibre Okoume panelleri Hindistan'dan sevk ediyoruz. Varsayılan şart FOB Cochin ve teklifler USD cinsindendir; boşaltma limanını ve taşıyıcıyı siz belirlersiniz. Üretim, yükleme ve deniz transit süresi seçilen liman ve taşıyıcıya göre yazılı teklifte teyit edilir.</p>
+  <p>Kontrplak ithalatındaki HS 4412 alt sınıfları ürün yapısına ve yüz türüne göre değişir. Gümrük müşaviriniz nihai tarife, vergi ve uygunluk şartlarını teyit eder; biz ticari fatura, çeki listesi, menşe şahadetnamesi ve geçerli teknik belgeleri sağlarız.</p>
+</section>'''
+    return ""
+
+
 def import_essentials(shared, d):
     """The "Import essentials" table. Six GCC lanes carry it; Sri Lanka and
     Israel never had one, so they do not get one invented for them."""
@@ -229,7 +258,7 @@ def webpage_ld(shared, d, path):
 
 def page(shared, d, path, prose, crumbs, src):
     faq, faq_ld = faq_block(faq_items(shared, d))
-    body = (hero(shared, d) + "\n" + tldr(d) + "\n"
+    body = (hero(shared, d) + "\n" + tldr(d) + "\n" + localized_summary(d) + "\n"
             + '<article class="cwg__body"><div class="cwg__container">'
             + prose + import_essentials(shared, d)
             + "</div></article>\n" + faq + "\n"

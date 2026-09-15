@@ -10,7 +10,7 @@
   var error = document.getElementById('cwq2-error'), nextId = 2, retryKey = '', submittedSignature = '', sourcePage = '';
   var maxItems = Number(form.dataset.maxItems) || 20;
   var fields = ['product','grade','thickness','dimensions','quantity','unit','help_me_choose'];
-  var shared = ['name','company','email','phone','destination','incoterm','description'];
+  var shared = ['name','company','email','phone','destination','incoterm','delivery_pin','required_by','description'];
   var presets = {
     'packing-plywood':'Packing Plywood','commercial-plywood':'Commercial Plywood',
     'okoume-plywood':'Okoume Plywood','rubberwood-plywood':'Rubberwood Plywood',
@@ -40,6 +40,16 @@
       else field.value = typeof item[key] === 'string' ? item[key] : '';
     });
   }
+  function updateSummary(row) {
+    var item = itemValue(row), bits = [];
+    if (item.help_me_choose && !item.product) bits.push('Help me choose');
+    else if (item.product) bits.push(item.product);
+    if (item.thickness) bits.push(item.thickness);
+    if (item.dimensions) bits.push(item.dimensions);
+    if (item.quantity || item.unit) bits.push([item.quantity, item.unit].filter(Boolean).join(' '));
+    var summary = row.querySelector('[data-item-summary]');
+    if (summary) summary.textContent = bits.length ? bits.join(' · ') : 'Nothing specified yet.';
+  }
   function renumber() {
     var all = rows();
     all.forEach(function (row, i) {
@@ -47,7 +57,13 @@
       var remove = row.querySelector('[data-remove-item]');
       remove.hidden = all.length === 1;
       remove.setAttribute('aria-label','Remove product '+(i+1));
+      var duplicate = row.querySelector('[data-duplicate-item]');
+      if (duplicate) {
+        duplicate.disabled = all.length >= maxItems;
+        duplicate.setAttribute('aria-label','Duplicate product '+(i+1));
+      }
       row.querySelector('[data-item-field="product"]').required = !row.querySelector('[data-item-field="help_me_choose"]').checked;
+      updateSummary(row);
     });
     add.disabled = all.length >= maxItems;
   }
@@ -111,6 +127,16 @@
     newItem(null,true); status.textContent = 'Product '+rows().length+' added. Add its own specification and quantity.'; saveDraft();
   });
   host.addEventListener('click',function (event) {
+    var duplicate = event.target.closest('[data-duplicate-item]');
+    if (duplicate) {
+      var source = duplicate.closest('[data-quote-item]');
+      if (source && rows().length < maxItems) {
+        newItem(itemValue(source), true);
+        status.textContent = 'Product '+rows().length+' duplicated. Change its specification or quantity as needed.';
+        saveDraft();
+      }
+      return;
+    }
     var button = event.target.closest('[data-remove-item]');
     if (!button || rows().length <= 1) return;
     var row = button.closest('[data-quote-item]'), all = rows(), index = all.indexOf(row);
@@ -150,7 +176,7 @@
       error.innerHTML = 'Verification has not finished, so this cannot be sent yet. Give it a moment and try again — or contact the sales desk on <a href="https://wa.me/919567410175">WhatsApp</a> or <a href="mailto:sales@cochinwood.in">sales@cochinwood.in</a>. Your product entries are unchanged.';
       error.style.display = 'block'; error.scrollIntoView({block:'center',behavior:'auto'}); return;
     }
-    form.elements.enquiry.value = JSON.stringify({version:2,items:items,destination:value('destination'),incoterm:value('incoterm'),source_page:sourcePage,original_text:value('description')});
+    form.elements.enquiry.value = JSON.stringify({version:2,items:items,destination:value('destination'),incoterm:value('incoterm'),delivery_pin:value('delivery_pin'),required_by:value('required_by'),source_page:sourcePage,original_text:value('description')});
     form.elements.spec_grade.value = [items[0].thickness,items[0].grade].filter(Boolean).join(' ');
     var signature = JSON.stringify({enquiry:form.elements.enquiry.value,name:value('name'),company:value('company'),email:value('email'),phone:value('phone')});
     // An identical retry keeps its key. Changed items/contact details must not replay older data.

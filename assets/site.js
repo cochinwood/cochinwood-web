@@ -252,4 +252,14 @@
     window.addEventListener("popstate", restore);
     restore();
   }
+
+  /* A buyer can take the comparison to a purchasing meeting or a factory call.
+     Keep this in the shared script so the button works under the site's CSP and
+     the print view remains a normal browser action with no extra page or route. */
+  document.addEventListener("click", function (event) {
+    var button = event.target.closest("[data-print-catalogue]");
+    if (!button) return;
+    event.preventDefault();
+    window.print();
+  });
 })();

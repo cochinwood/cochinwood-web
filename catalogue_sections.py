@@ -51,6 +51,28 @@ def render_catalogue(link, visual_image, media, products, product_card):
         + ' <b aria-hidden="true">↗</b></span></div></a>'
         for slug, label in TIMBER
     )
+    comparison = '''<section class="cw-section cw-catalogue-compare" id="compare"><div class="cw-wrap">
+      <div class="cw-section__head"><div><p class="cw-eyebrow">Quick comparison</p><h2>Choose by application.</h2></div>
+        <p>Use this as a starting point, then confirm the exact grade, thickness, face and tolerance on the written quotation.</p></div>
+      <div class="cw-compare-scroll"><table class="cw-compare-table"><caption class="sr-only">Cochin Wood product comparison</caption>
+        <thead><tr><th scope="col">Product family</th><th scope="col">Suitable applications</th><th scope="col">Bond / grade</th><th scope="col">Core / surface</th><th scope="col">Thickness choices</th><th scope="col">Important limitation</th></tr></thead>
+        <tbody>
+          <tr><th scope="row"><a href="/packing-plywood">Packing-grade plywood</a></th><td>Cases, crates and pallets</td><td>MR; IS 303 when specified</td><td>Rubberwood or eucalyptus hardwood core; Okoume or Gurjan face options</td><td>6–18 mm typical; 19, 20, 22, 25, 30, 35 and 40 mm available occasionally against order</td><td>Minus tolerance; confirm the tolerance on the quote. Not for permanent wet service.</td></tr>
+          <tr><th scope="row"><a href="/commercial-plywood">Commercial plywood</a></th><td>Dry interiors, furniture and cabinetry; BWR for humid rooms</td><td>IS 303 MR or BWR</td><td>Hardwood or mixed hardwood core; Gurjan / keruing faces</td><td>MR 4–25 mm; BWR 6–25 mm</td><td>Choose BWR for humidity. Marine plywood is a separate product.</td></tr>
+          <tr><th scope="row"><a href="/marine-plywood">Marine plywood</a></th><td>Boatbuilding, hulls, decks and prolonged wet duty</td><td>IS 710 BWP; phenol-formaldehyde bond</td><td>Full hardwood, gap-free core veneers</td><td>4–25 mm</td><td>Confirm any BS 1088 requirement and the final construction on the quote.</td></tr>
+          <tr><th scope="row"><a href="/film-faced-shuttering-plywood">Film-faced shuttering</a></th><td>Concrete formwork</td><td>IS 303 BWR; phenolic WBP</td><td>Full-hardwood core; phenolic film both faces</td><td>12, 15, 18, 21 and 25 mm</td><td>Working life depends on handling and edge care; state the pour programme.</td></tr>
+          <tr><th scope="row"><a href="/container-flooring-plywood">Container flooring</a></th><td>Container floors and rolling cargo loads</td><td>IICL TB-001; phenol-formaldehyde WBP</td><td>Full hardwood core; phenolic film and anti-slip wire-mesh surface</td><td>28 mm (±0.5); 21/27/30 mm by request</td><td>Machining follows the container model drawing; verify the model before order.</td></tr>
+          <tr><th scope="row"><a href="/chequered-anti-skid-plywood">Chequered anti-skid</a></th><td>Vehicle and trailer decks, scaffold platforms and walkways</td><td>Phenol-formaldehyde WBP</td><td>Marine / hardwood core; chequer or wire-mesh phenolic film</td><td>12–28 mm</td><td>Pattern, edges and final face construction are confirmed per quotation.</td></tr>
+          <tr><th scope="row"><a href="/okoume-plywood">Okoume-faced plywood</a></th><td>Export packing faces, painted furniture and joinery</td><td>MR base to IS 303; BWR base and calibrated options on request</td><td>Okoume face; eucalyptus core for the calibrated option</td><td>6, 8, 12, 15 and 18 mm typical for MR packing</td><td>Okoume is a face option, not a bond grade. Confirm the base bond and calibration.</td></tr>
+        </tbody>
+      </table></div>
+      <div class="cw-compare-actions"><p>Need a tighter tolerance, a calibrated panel or a custom size?</p><a class="cw-btn cw-btn--p" href="/contact#quote">Request a written specification</a><button type="button" class="cw-btn cw-btn--g" data-print-catalogue>Print this comparison</button></div>
+    </div></section>'''
+    for route in ('packing-plywood', 'commercial-plywood', 'marine-plywood',
+                  'film-faced-shuttering-plywood', 'container-flooring-plywood',
+                  'chequered-anti-skid-plywood', 'okoume-plywood'):
+        comparison = comparison.replace(f'href="/{route}"', f'href="{href("/" + route)}"')
+    comparison = comparison.replace('href="/contact#quote"', f'href="{href("/contact#quote")}"')
     return f'''<section class="cw-hero cw-hero--light"><div class="cw-wrap"><div class="cw-hero__layout">
       <div class="cw-hero__content"><p class="cw-hero__ey">Plywood, packaging &amp; timber</p>
         <h1>The full <em>catalogue.</em></h1><p>Find the panel, packing case or timber your work needs.</p>
@@ -75,4 +97,5 @@ def render_catalogue(link, visual_image, media, products, product_card):
       <div class="cw-timber-grid">{timber_cards}</div>
       <p class="cw-catalogue-crosslink"><a href="{href('/sawn-timber')}">See sawn timber forms, specifications and ordering details →</a></p>
     </div></section>
+    {comparison}
     <section class="cw-band"><div class="cw-wrap cw-band__in"><div><h2>Start with what you’re making.</h2><p>Send the application and destination. We’ll help you choose a suitable material.</p></div><a class="cw-btn cw-btn--p" href="{href('/contact#quote')}">Help me choose →</a></div></section>'''
