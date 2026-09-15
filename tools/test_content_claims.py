@@ -150,6 +150,15 @@ class ContentClaimsTests(unittest.TestCase):
                     with self.subTest(page=name, sentence=sentence[:180]):
                         self.fail('lighter panel promised more sheets without the weight condition')
 
+    def test_loading_guide_keeps_its_search_title(self):
+        # The article's headline gained "Payload and Space"; its <title> must stay the phrase
+        # cf-live serves (103efa27), not collapse to "20ft Container Plywood Loading".
+        page = (ROOT / 'dist/blogs/post/20ft-container-plywood-loading-sheet-count-by-thickness-weight-limited.html'
+                ).read_text(encoding='utf-8')
+        title = re.search(r'<title>([^<]*)</title>', page).group(1)
+        self.assertEqual(title, '20ft Container Plywood Loading: Sheet Count by Thickness')
+        self.assertLessEqual(len(title), 62)
+
     def test_worked_sheet_counts_state_the_layout_ceiling(self):
         pallet = ' '.join(published_sentences()['blogs/post/pallet-vs-loose-container-loading-plywood-exports.html'])
         self.assertIn('weight ceiling loaded loose is 26,500 ÷ 30 ≈ 883 sheets', pallet)

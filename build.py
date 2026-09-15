@@ -754,6 +754,8 @@ TITLE_OVERRIDES = {
         "ISPM-15 HT Stamp Validity & Re-Stamping Rules",
     "Plywood Crate Sizing: Break-Bulk vs Container - Which Spec Wins?":
         "Plywood Crate Sizing: Break-Bulk vs Container",
+    "20ft Container Plywood Loading: Sheet Count by Thickness, Payload and Space":
+        "20ft Container Plywood Loading: Sheet Count by Thickness",
 }
 
 def seo_title(title):
