@@ -810,9 +810,10 @@ def seo_title(title):
 # is not inside a single visible block of that page. The test cannot see whether a
 # value keeps its sentence's hedge; that stays a human review for every new entry.
 # A page with no entry keeps the bare Product. Names are ours; values are the page's.
-# Reviewed 15 Sep 2026 against the built pages: 82 facts on the sixteen pages, each
+# Reviewed 15 Sep 2026 against the built pages: 83 facts on the sixteen pages, each
 # checked for evidence, business risk and schema fit. Facts a page only hedges (E1,
 # IS 303 on rubberwood, faces "on request") were left out rather than reworded.
+# The cable drums' IS 10418 was added once Edwin confirmed it and the page stated it.
 PRODUCT_FACTS = {
     "packing-plywood": {
         "properties": [
@@ -933,6 +934,7 @@ PRODUCT_FACTS = {
         ]},
     "plywood-cable-drums": {
         "properties": [
+            ("Standard", "IS 10418"),
             ("Flange diameter", "600 – 3000 mm"),
             ("Flange", "Phenolic-bonded plywood flanges"),
             ("Arbor / barrel", "hardwood arbor / barrel"),
@@ -2414,7 +2416,11 @@ LIVE_REF_NAME = "origin/cf-live"                         # where the pin came fr
 # source build before this re-pin already reproduced every live blob except the four
 # destination-guide fixes owned by this branch and sitemap-post.xml, proving that the
 # pin move preserves PR39 and the rest of the shipped tree rather than overwriting it.
-LIVE_SHA = "5e8fdcf484f7659cc178385978a01e4decc34497"    # Reviewed live baseline; see docs/website-review-release-2026-09-12.md
+# Moved 15 Sep 2026 from 5e8fdcf4 to the PR #62 production merge after reviewing the
+# window (PRs #52-#62): the carried inputs are unchanged, and a build at the new pin
+# matches cf-live except the provenance line in _headers. See
+# docs/cf-live-pin-review-2026-09-15.md.
+LIVE_SHA = "7d588f16b0036b5f4b825ac96b4d8df78d99dff4"    # Reviewed live baseline; see docs/cf-live-pin-review-2026-09-15.md
 LIVE_REF = LIVE_SHA                # what git is actually handed, so no fetch can move it
 LIVE_PIN = LIVE_REF_NAME + "@" + LIVE_SHA[:12]           # what the banner and dist/ record
 LIVE_HASHED_ASSET_RE = re.compile(
