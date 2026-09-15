@@ -2455,6 +2455,11 @@ LIVE_REF_NAME = "origin/cf-live"                         # where the pin came fr
 # reviewing its one-publication window (fed0caf1): 1,168 paths at both revisions, three
 # generated files modified (_headers, plywood-cable-drums.html, sitemap-cms.xml) and every
 # carried input unchanged. See docs/cf-live-pin-review-2026-09-15b.md.
+# Moved on 15 Sep 2026 to 1d699b6e, the production merge of PR #67 (publication 3baf5ab4 of source
+# 0b9f91f4, PR #66; Pages deployment 9140498e), after reviewing its one-publication window: 1,168 paths at
+# both revisions, 85 generated files modified, none added or removed, and every carried input (files/,
+# assets/, the site-checks workflow, the IndexNow key, llms.txt, favicon.png, the OG image) unchanged.
+# See docs/cf-live-pin-review-2026-09-15c.md.
 LIVE_SHA = "1d699b6ef4c315489117c3d5af6d5bdb8c91f100"    # Reviewed live baseline; see docs/cf-live-pin-review-2026-09-15c.md
 LIVE_REF = LIVE_SHA                # what git is actually handed, so no fetch can move it
 LIVE_PIN = LIVE_REF_NAME + "@" + LIVE_SHA[:12]           # what the banner and dist/ record
