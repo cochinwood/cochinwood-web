@@ -155,15 +155,72 @@ class ContentClaimsTests(unittest.TestCase):
         self.assertIn('weight ceiling loaded loose is 26,500 ÷ 30 ≈ 883 sheets', pallet)
         self.assertIn('layout ceiling of about 564 sheets', pallet)
 
+    # Owner confirmation, 10 Sep 2026: the group holds no MIL-spec, UN/Class 9 or FDA
+    # certification. No page may name a defence unit as a customer, claim a defence or
+    # ordnance track record, or imply dangerous-goods packaging. A sentence using one of
+    # these terms passes only as an exact, reviewed sentence below, with the reason.
+    DEFENCE_OR_DANGEROUS_GOODS = re.compile(
+        r'ordnance|\bOF[BKT]\b|ammunition|defen[cs]e[- ](?:grade|spec|packing)|military|\bMIL[- ]|hazardous|'
+        r'dangerous[- ]goods|Class[- ]?9|UN[- ]spec|FDA[- ]grade|Sukhoi|\bHAL\b|\bBEL\b', re.I)
+    REVIEWED_SENTENCES = {
+        ('export/nigeria.html',
+         'Nigeria requires SONCAP (Standards Organisation of Nigeria Conformity Assessment Programme) for plywood and other '
+         'wood panels — they fall outside SON’s narrow exemption list (food, medicines, raw-material chemicals for '
+         'manufacturers, military equipment, contraband, and most used goods), so the general rule applies.'):
+            'quotes the import regulator’s exemption list; says nothing about our products',
+        ('woods-we-use/venteak.html',
+         'It is used for packing cases, tea-chest battens, ammunition boxes, plywood and veneer, door and window frames.'):
+            'cited trade uses of the species',
+        ('woods-we-use/venteak.html',
+         'On fastening, there is no dedicated nailing rating in the sources, but its long service in packing cases, crates and '
+         'ammunition boxes shows it holds nails and screws well enough in use — provided you work with well-seasoned material '
+         'and pre-bore near ends and edges on the denser sections to avoid splitting.1'):
+            'cited trade uses of the species',
+        ('woods-we-use/venteak.html',
+         'The standard references list benteak for packing cases, tea-chest battens, ammunition and explosive boxes, and wooden '
+         'cases and crates, as well as class-I plywood, veneers and blockboard.1 That is a strong fit for anyone building export '
+         'crates or panel-based packaging: it gives real strength and nail-holding at a weight below teak.'):
+            'cited trade uses of the species',
+        ('woods-we-use/venteak.html',
+         'It saws and machines cleanly, it is peeled for class-I plywood and veneers, and it holds fastenings well enough for '
+         'crates and ammunition boxes.'):
+            'cited trade uses of the species',
+        ('blogs/post/plywood-supply-to-chennai.html',
+         "Defence and aerospace tier-1s feeding BEL and HAL use moisture-barrier lined crates; we build the plywood case to the "
+         "buyer's drawing and moisture specification, and hold no military packing certification."):
+            'describes local demand and states that we hold no military packing certification',
+        ('blogs/post/plywood-supply-to-chennai.html',
+         'We are not a UN-certified packaging manufacturer, so if the consignment needs a UN-marked Class-9 package, that '
+         'certification has to come from a certified packer; we build the timber work to the drawing they issue.'):
+            'states that we are not UN-certified',
+        ('blogs/post/plywood-supply-to-hyderabad.html',
+         "Exporters in the defence cluster at the city's edge ship in sealed crates with desiccant cavities; we build the timber "
+         "case and the desiccant cavity to the buyer's drawing, and hold no military packing certification."):
+            'states that we hold no military packing certification',
+        ('blogs/post/plywood-supply-to-tiruchirapalli.html',
+         'Ordnance Factory Tiruchirapalli (OFT) — small-arms production at Thiruvarambur.'):
+            'names a local unit; states no relationship or packing claim',
+        ('blogs/post/plywood-supply-to-tiruchirapalli.html',
+         "We build to the buyer's drawing and hold no military packing certification."):
+            'non-certification statement',
+        ('blogs/post/plywood-supply-to-jabalpur.html',
+         "We hold no military packing certification; any defence packing specification is certified by the buyer's approved packer."):
+            'non-certification statement',
+    }
+
     def test_no_page_implies_military_or_dangerous_goods_packing_certification(self):
-        # Owner confirmation, 10 Sep 2026: no MIL-spec, UN/Class 9 or FDA certification.
-        unsupported = re.compile(r'\bMIL[- ]?(?:spec|STD)\b|defen[cs]e[- ](?:spec|grade)\b|military packing standards?\b|'
-                                 r'ammunition[- ]grade|OFB packing standard|Class[- ]?9 dangerous[- ]goods crates', re.I)
+        seen = set()
         for name, sentences in published_sentences().items():
             for sentence in sentences:
-                with self.subTest(page=name):
-                    self.assertIsNone(unsupported.search(sentence), sentence[:200])
-        for city in ('chennai', 'hyderabad'):
+                if not self.DEFENCE_OR_DANGEROUS_GOODS.search(sentence):
+                    continue
+                if (name, sentence) in self.REVIEWED_SENTENCES:
+                    seen.add((name, sentence))
+                    continue
+                with self.subTest(page=name, sentence=sentence[:200]):
+                    self.fail('defence, ordnance or dangerous-goods wording outside the reviewed sentences')
+        self.assertEqual(set(self.REVIEWED_SENTENCES) - seen, set(), 'a reviewed sentence no longer exists; remove it')
+        for city in ('chennai', 'hyderabad', 'tiruchirapalli', 'jabalpur'):
             self.assertIn('hold no military packing certification',
                           ' '.join(published_sentences()['blogs/post/plywood-supply-to-' + city + '.html']))
 
