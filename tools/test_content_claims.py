@@ -222,7 +222,6 @@ class ContentClaimsTests(unittest.TestCase):
         ('blogs/post/plywood-supply-to-guntur.html', 'hundreds of crores of FCV leaf', 'macro trade statistic'),
         ('blogs/post/plywood-supply-to-guntur.html', '1.5 lakh bags', 'a count of bags, not money'),
         ('blogs/post/plywood-supply-to-karur.html', 'Rs 8,000-crore mark', 'macro export statistic'),
-        ('blogs/post/plywood-supply-to-tiruppur.html', 'Rs 30,000 crore worth of knitwear', 'macro export statistic'),
         ('blogs/post/plywood-supply-to-tiruchirapalli.html', '₹2,200-₹2,800 each way', 'third-party highway tolls'),
         ('blogs/post/plywood-supply-to-vizag.html', '₹65,000 crore cumulative exports', 'macro export statistic'),
     )
