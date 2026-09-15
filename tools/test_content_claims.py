@@ -125,7 +125,16 @@ class ContentClaimsTests(unittest.TestCase):
         r"binding constraint is kilograms|(?<![/-])\bweight-limited\b(?! to volume-limited)|fills? up by weight|"
         r"weight first|payload first|with space (?:still showing|to spare)|set by weight|space the sheets take|"
         r"(?:reach|hit)\w*\s+(?:the|its|that|a)\s+(?:container'?s?\s+)?(?:permitted\s+)?(?:payload|weight)\b[^.]*?before|"
-        r"loaded to (?:the |your destination.s )?(?:road )?weight limit|weight question, not a volume", re.I)
+        r"loaded to (?:the |your destination.s )?(?:road )?weight limit|weight question, not a volume|"
+        # near-synonyms
+        r"weight governs|payload (?:decides|governs|sets the)|"
+        # tonnage and "to the weight cap" loading claims: a container is loaded WITHIN its limits
+        r"(?:containers?|box(?:es)?)\b[^.]{0,20}loaded (?:to|at) (?:about )?\d|loaded (?:to|at) about \d|"
+        r"(?:^|\bload(?:ed|s|ing)? )to the lower of the (?:ship-line )?payload|"
+        r"(?:built|loading|loaded|load|planned) to (?:the |its |CSC and )?(?:container.s |destination )?(?:road )?(?:weight|payload)|"
+        r"loaded to the limit", re.I)
+    # A 20 ft box cannot hold more 12 mm sheets than the guide's capacity-only ceiling (923 at 33 m3).
+    TWENTY_FT_12MM = re.compile(r"(\d[\d,]*) (?:to|-|–) (\d[\d,]*) sheets of 12 ?mm", re.I)
     LIGHTER_ADDS_SHEETS = re.compile(r"lighter[^.]*(?:more (?:usable )?sheets|adds? sheets)|"
                                      r"more (?:usable )?sheets[^.]*(?:before it hits|same booking)", re.I)
     ONLY_WHEN_WEIGHT_BINDS = re.compile(r"(?:only |)(?:when|where) weight (?:rather than the sheet layout )?is the binding limit", re.I)
@@ -136,6 +145,12 @@ class ContentClaimsTests(unittest.TestCase):
                 if self.WEIGHT_ALONE.search(sentence):
                     with self.subTest(page=name, sentence=sentence[:180]):
                         self.fail('loading claim says weight alone sets the count')
+        for name, sentences in published_sentences().items():
+            for sentence in sentences:
+                counts = self.TWENTY_FT_12MM.search(sentence)
+                if counts and re.search(r'20[- ]?(?:ft|foot)', sentence, re.I):
+                    with self.subTest(page=name, sentence=sentence[:180]):
+                        self.assertLessEqual(int(counts.group(2).replace(',', '')), 923)
         everything = '\n'.join(s for sentences in published_sentences().values() for s in sentences)
         for old in (r'28 tonnes? (?:of cargo )?for a 40 ft', r'22-24 tonnes of packing-grade ply',
                     r'Sheet Count by Thickness \(Weight-Limited\)'):
@@ -159,6 +174,13 @@ class ContentClaimsTests(unittest.TestCase):
         self.assertEqual(title, '20ft Container Plywood Loading: Sheet Count by Thickness')
         self.assertLessEqual(len(title), 62)
 
+    def test_pallet_article_headline_and_title_name_both_ceilings(self):
+        page = (ROOT / 'dist/blogs/post/pallet-vs-loose-container-loading-plywood-exports.html').read_text(encoding='utf-8')
+        self.assertEqual(re.search(r'<title>([^<]*)</title>', page).group(1),
+                         'Pallet vs Loose Plywood Loading: Weight and Layout Ceilings')
+        self.assertIn('>Pallet vs Loose Container Loading for Plywood: Weight and Layout Ceilings</h1>', page)
+        self.assertNotIn('Weight-Limit Tradeoff', page)
+
     def test_worked_sheet_counts_state_the_layout_ceiling(self):
         pallet = ' '.join(published_sentences()['blogs/post/pallet-vs-loose-container-loading-plywood-exports.html'])
         self.assertIn('weight ceiling loaded loose is 26,500 ÷ 30 ≈ 883 sheets', pallet)
@@ -170,7 +192,10 @@ class ContentClaimsTests(unittest.TestCase):
     # these terms passes only as an exact, reviewed sentence below, with the reason.
     DEFENCE_OR_DANGEROUS_GOODS = re.compile(
         r'ordnance|\bOF[BKT]\b|ammunition|defen[cs]e[- ](?:grade|spec|packing)|military|\bMIL[- ]|hazardous|'
-        r'dangerous[- ]goods|Class[- ]?9|UN[- ]spec|FDA[- ]grade|Sukhoi|\bHAL\b|\bBEL\b', re.I)
+        r'dangerous[- ]goods|Class[- ]?9|UN[- ]spec|FDA[- ]grade|Sukhoi|\bHAL\b|\bBEL\b|'
+        # defence packing offers that avoid the words above ("defence dispatch boxes")
+        r'dispatch box|defen[cs]e[^.]{0,40}(?:box|case|crate|packing|dispatch)|'
+        r'(?:box|case|crate|packing)e?s?[^.]{0,30}defen[cs]e', re.I)
     REVIEWED_SENTENCES = {
         ('export/nigeria.html',
          'Nigeria requires SONCAP (Standards Organisation of Nigeria Conformity Assessment Programme) for plywood and other '

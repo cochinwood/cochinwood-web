@@ -756,6 +756,8 @@ TITLE_OVERRIDES = {
         "Plywood Crate Sizing: Break-Bulk vs Container",
     "20ft Container Plywood Loading: Sheet Count by Thickness, Payload and Space":
         "20ft Container Plywood Loading: Sheet Count by Thickness",
+    "Pallet vs Loose Container Loading for Plywood: Weight and Layout Ceilings":
+        "Pallet vs Loose Plywood Loading: Weight and Layout Ceilings",
 }
 
 def seo_title(title):
