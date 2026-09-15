@@ -2455,7 +2455,7 @@ LIVE_REF_NAME = "origin/cf-live"                         # where the pin came fr
 # reviewing its one-publication window (fed0caf1): 1,168 paths at both revisions, three
 # generated files modified (_headers, plywood-cable-drums.html, sitemap-cms.xml) and every
 # carried input unchanged. See docs/cf-live-pin-review-2026-09-15b.md.
-LIVE_SHA = "103efa27393106b7e58836a616c49d271e5fda56"    # Reviewed live baseline; see docs/cf-live-pin-review-2026-09-15b.md
+LIVE_SHA = "1d699b6ef4c315489117c3d5af6d5bdb8c91f100"    # Reviewed live baseline; see docs/cf-live-pin-review-2026-09-15c.md
 LIVE_REF = LIVE_SHA                # what git is actually handed, so no fetch can move it
 LIVE_PIN = LIVE_REF_NAME + "@" + LIVE_SHA[:12]           # what the banner and dist/ record
 LIVE_HASHED_ASSET_RE = re.compile(
