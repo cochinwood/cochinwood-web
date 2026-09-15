@@ -88,12 +88,15 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--dist', type=Path, default=ROOT / 'dist')
     parser.add_argument('--capture', action='store_true', help='One-time capture; refuses an existing baseline')
+    parser.add_argument('--description', default='PR34 output before country-guide hero removal; only decorative hero media excluded',
+                        help='What the captured baseline represents. To refresh after reviewed, published changes, '
+                             'delete the fixture, rebuild dist and capture again with a description naming the review.')
     args = parser.parse_args()
     if args.capture:
         if BASELINE.exists():
             raise SystemExit('Refusing to overwrite the reviewed pre-change baseline')
         BASELINE.parent.mkdir(parents=True, exist_ok=True)
-        BASELINE.write_text(json.dumps({'description': 'PR34 output before country-guide hero removal; only decorative hero media excluded',
+        BASELINE.write_text(json.dumps({'description': args.description,
                                       'pages': inspect(args.dist), 'source_files': source_hashes()},
                                      indent=2, ensure_ascii=False) + '\n', encoding='utf-8', newline='\n')
         print('Captured 29 pages and exact export source hashes')

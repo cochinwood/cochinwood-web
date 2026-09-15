@@ -754,6 +754,10 @@ TITLE_OVERRIDES = {
         "ISPM-15 HT Stamp Validity & Re-Stamping Rules",
     "Plywood Crate Sizing: Break-Bulk vs Container - Which Spec Wins?":
         "Plywood Crate Sizing: Break-Bulk vs Container",
+    "20ft Container Plywood Loading: Sheet Count by Thickness, Payload and Space":
+        "20ft Container Plywood Loading: Sheet Count by Thickness",
+    "Pallet vs Loose Container Loading for Plywood: Weight and Layout Ceilings":
+        "Pallet vs Loose Plywood Loading: Weight and Layout Ceilings",
 }
 
 def seo_title(title):
@@ -2301,7 +2305,8 @@ def build_export():
 # on the table -- so the build emits the same three files instead of one flat
 # urlset. Split exactly as live splits: blog posts under /blogs/post/ go in
 # -post, every other page in -cms; each URL appears in exactly one child.
-# The children carry <loc> + a truthful git-dated <lastmod>. Live's Zoho-era
+# The children carry <loc> + a <lastmod> that changes only when that page's own
+# content does (sitemap_lastmod.py; tools/seed_sitemap_lastmod.py). Live's Zoho-era
 # <priority>/<changefreq> are not reproduced: they were per-page settings of an
 # engine that no longer builds this site, unrecoverable for pages Zoho never
 # had, and Google documents both fields as ignored.
@@ -2314,7 +2319,33 @@ def build_sitemap():
             if rel == "404.html": continue    # the error page: C-22 sends /404 home
             paths.append("/" if rel == "index.html" else "/" + rel[:-len(".html")])
     paths = sorted(set(paths))
+    # Each page is dated by its own content, compared with the same page in the pinned
+    # production tree (see sitemap_lastmod.py): unchanged keeps the lastmod that tree
+    # publishes, changed or new takes this source revision's date. The per-source git
+    # dates are only the fallback for a clone that cannot read the pin or its history.
+    import sitemap_lastmod
+    def read_built(rel):
+        with open(os.path.join(DIST, rel), encoding="utf-8") as f:
+            return f.read()
+    seed_file = os.path.join(ROOT, "content", "sitemap-lastmod-seed.json")
+    seed = {}
+    if os.path.exists(seed_file):
+        with open(seed_file, encoding="utf-8") as f:
+            seed = json.load(f)["pages"]
+    dated = sitemap_lastmod.lastmods(paths, read_built, LIVE_REF, ROOT, seed)
+    if dated is None:
+        warn(f"sitemap <lastmod> fell back to source-file git dates: {LIVE_PIN}'s sitemaps or this "
+             f"source revision could not be read -- `git fetch origin` and rebuild before publishing")
+        content_dates, redated = {}, None
+    else:
+        content_dates, redated, _revision_date = dated
+    # Production past the pin redates every page published since, on every build. Say so, with the URLs.
+    drift = sitemap_lastmod.pin_drift_warning(LIVE_SHA, sitemap_lastmod.remote_tip(ROOT), redated)
+    if drift:
+        warn(drift)
     def lastmod(path):
+        if path in content_dates:
+            return content_dates[path]
         rel = path.strip("/")
         output = (rel + ".html") if rel else "index.html"
         return _page_lastmod.get(output) or git_date(_page_source.get(output, "build.py"))
@@ -2420,7 +2451,11 @@ LIVE_REF_NAME = "origin/cf-live"                         # where the pin came fr
 # window (PRs #52-#62): the carried inputs are unchanged, and a build at the new pin
 # matches cf-live except the provenance line in _headers. See
 # docs/cf-live-pin-review-2026-09-15.md.
-LIVE_SHA = "7d588f16b0036b5f4b825ac96b4d8df78d99dff4"    # Reviewed live baseline; see docs/cf-live-pin-review-2026-09-15.md
+# Moved again 15 Sep 2026 from 7d588f16 to 103efa27, the PR #64 production merge, after
+# reviewing its one-publication window (fed0caf1): 1,168 paths at both revisions, three
+# generated files modified (_headers, plywood-cable-drums.html, sitemap-cms.xml) and every
+# carried input unchanged. See docs/cf-live-pin-review-2026-09-15b.md.
+LIVE_SHA = "103efa27393106b7e58836a616c49d271e5fda56"    # Reviewed live baseline; see docs/cf-live-pin-review-2026-09-15b.md
 LIVE_REF = LIVE_SHA                # what git is actually handed, so no fetch can move it
 LIVE_PIN = LIVE_REF_NAME + "@" + LIVE_SHA[:12]           # what the banner and dist/ record
 LIVE_HASHED_ASSET_RE = re.compile(

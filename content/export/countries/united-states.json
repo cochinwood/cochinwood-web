@@ -11,11 +11,11 @@
   "title": "Indian Plywood Exporter to the USA — FOB Cochin | Cochin Wood",
   "desc": "Import plywood from India to the United States: packing, Okoume and shuttering ply, FOB Cochin in USD. CARB or TSCA Title VI named at enquiry.",
   "schema_name": "Indian Plywood Factory Exporting to the United States",
-  "crumb_leaf": "Indian plywood exporter to the United States, loaded to a US road weight",
+  "crumb_leaf": "Indian plywood exporter to the United States, loaded within a US road weight limit",
   "kicker": "Export &middot; United States",
-  "h1": "Indian plywood exporter to the United States, loaded to a US road weight",
+  "h1": "Indian plywood exporter to the United States, loaded within a US road weight limit",
   "lede": "Packing-grade, Okoume-faced and film-faced shuttering plywood from Perumbavoor, Kerala, made by a group that has manufactured plywood since 1986. Quoted FOB Cochin in USD. If your entry needs CARB or TSCA Title VI, say so at enquiry — it decides which mill presses the order.",
-  "tldr": "<strong>TL;DR:</strong> We ship plywood from Cochin Port to the United States, quoted in USD on FOB Cochin terms. Two things settle a US order before the price does. The formaldehyde certification your entry needs — CARB or TSCA Title VI — has to be named at enquiry, because it decides which mill presses the panels and cannot be added afterwards. And the container is loaded to about 20 tonnes for US highway transport rather than to the roughly 26.7-tonne ship-line payload. Quote replies within one business day.",
+  "tldr": "<strong>TL;DR:</strong> We ship plywood from Cochin Port to the United States, quoted in USD on FOB Cochin terms. Two things settle a US order before the price does. The formaldehyde certification your entry needs — CARB or TSCA Title VI — has to be named at enquiry, because it decides which mill presses the panels and cannot be added afterwards. And for US highway transport the container is loaded within a road limit of about 20 tonnes rather than the roughly 26.7-tonne ship-line payload, with the sheet count checked against the space as well. Quote replies within one business day.",
   "ports_ship": "the US discharge port you nominate",
   "faq": [
     [
@@ -28,7 +28,7 @@
     ],
     [
       "How many plywood sheets fit in a container for the United States?",
-      "Weight decides it, not volume. We load to the lower of the ship-line payload, about 26.7 tonnes, and the destination road limit, which for US highway transport is about 20 tonnes. The exact sheet count and the net and gross weights are confirmed per booking on the proforma invoice."
+      "It depends on the container and the sheet. We load within the lower of the ship-line payload, about 26.7 tonnes, and the destination road limit, which for US highway transport is about 20 tonnes, and check that the sheets fit the container. The exact sheet count and the net and gross weights are confirmed per booking on the proforma invoice."
     ],
     [
       "Do you quote FOB or CIF for US buyers?",
