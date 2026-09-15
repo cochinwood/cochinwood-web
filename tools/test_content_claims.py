@@ -4,6 +4,7 @@ Run after python build.py. Checks include metadata/JSON-LD, not just visible pro
 """
 import html
 import json
+import math
 import re
 import unittest
 from html.parser import HTMLParser
@@ -133,7 +134,113 @@ class ContentClaimsTests(unittest.TestCase):
         r"(?:^|\bload(?:ed|s|ing)? )to the lower of the (?:ship-line )?payload|"
         r"(?:built|loading|loaded|load|planned) to (?:the |its |CSC and )?(?:container.s |destination )?(?:road )?(?:weight|payload)|"
         r"loaded to the limit", re.I)
-    BOX_MENTION = re.compile(r"\b(20|40)[- ]?(?:ft|foot|feet)\b|\b(40) ?HC\b", re.I)
+    BOX_MENTION = re.compile(r"\b(20|40)[- ]?(?:ft|foot|feet)\b|\b(20|40)['’′]|\b(40) ?HC\b", re.I)
+    GUIDE_SLUG = '20ft-container-plywood-loading-sheet-count-by-thickness-weight-limited'
+    PLYWOOD_TONNAGE = re.compile(r"(\d+(?:\.\d+)?)(?:\s*(?:to|-|–|—)\s*(\d+(?:\.\d+)?))?\s*(?:tonnes|tons|MT|t)\s+of\s+"
+                                 r"(?:(?:mixed|finished|bare|packing-grade|packing|commercial|sheet)\s+)*(?:plywood|ply\b|sheet stock)", re.I)
+    PAIR_SHEETS = re.compile(r"(\d[\d,]*)\s*(?:(?:to|-|–|—)\s*(\d[\d,]*)\s*)?(?:full\s+)?sheets\s+(?:of\s+|at\s+)?(\d+(?:\.\d+)?)\s?mm", re.I)
+    PAIR_TONNES = re.compile(r"(\d+(?:\.\d+)?)(?:\s*(?:to|-|–|—)\s*(\d+(?:\.\d+)?))?\s*(?:tonnes|tons|MT)\b", re.I)
+
+    @classmethod
+    def boxes_in(cls, sentence):
+        return [(m.start(), next(g for g in m.groups() if g)) for m in cls.BOX_MENTION.finditer(sentence)]
+
+    @classmethod
+    def guide_planning(cls):
+        """(20ft internal volume in m3, planning density in kg/m3), read from the loading guide itself."""
+        page = cls.posts[cls.GUIDE_SLUG]['html']
+        volume = float(re.search(r'20ft general purpose</td>\s*<td>(\d+(?:\.\d+)?) m', page).group(1))
+        density = float(re.search(r'illustrative density of (\d+) kg', page).group(1))
+        return volume, density
+
+    def test_twenty_foot_plywood_tonnage_fits_the_box(self):
+        # 33 m3 x 650 kg/m3 = 21.45 t is the most plywood a 20 ft box can hold at the guide's density,
+        # whatever its payload; the guide rounds to one decimal, so the limit is 21.5 t.
+        volume, density = self.guide_planning()
+        limit = math.ceil(volume * density / 100) / 10
+        for name, sentences in published_sentences().items():
+            for sentence in sentences:
+                boxes = self.boxes_in(sentence)
+                for load in self.PLYWOOD_TONNAGE.finditer(sentence):
+                    before = [box for at, box in boxes if at < load.start()]
+                    box = before[-1] if before else (boxes[0][1] if boxes else None)
+                    if box != '20':
+                        continue
+                    with self.subTest(page=name, sentence=sentence[:180]):
+                        self.assertLessEqual(float(load.group(2) or load.group(1)), limit)
+
+    def test_sheet_counts_agree_with_their_own_tonnage(self):
+        # "800-900 sheets at 12 mm" is 18.6-20.9 t at the guide's density, not "8-9 tonnes".
+        # The sheet range's mass must overlap the stated tonnage range widened by 15 per cent.
+        _volume, density = self.guide_planning()
+        for name, sentences in published_sentences().items():
+            for sentence in sentences:
+                sheets, tonnes = self.PAIR_SHEETS.search(sentence), self.PAIR_TONNES.search(sentence)
+                if not (sheets and tonnes):
+                    continue
+                sheet_kg = 2.44 * 1.22 * float(sheets.group(3)) / 1000 * density
+                mass_low = int(sheets.group(1).replace(',', '')) * sheet_kg / 1000
+                mass_high = int((sheets.group(2) or sheets.group(1)).replace(',', '')) * sheet_kg / 1000
+                stated_low, stated_high = float(tonnes.group(1)), float(tonnes.group(2) or tonnes.group(1))
+                with self.subTest(page=name, sentence=sentence[:180]):
+                    self.assertTrue(mass_high >= stated_low * 0.85 and mass_low <= stated_high * 1.15,
+                                    f'{mass_low:.1f}-{mass_high:.1f} t of sheets against {stated_low}-{stated_high} t stated')
+
+    # Rates are never published (owner decision 28 Jul 2026, 9d903cac; re-applied 8 Sep,
+    # policy-and-image-decisions-2026-09-08.md). A rupee amount may stay only if it is not a CWI
+    # trade price and cannot be combined with a sheet count or tonnage to derive one: the categories
+    # that record keeps are third-party costs, cargo values, the cable-drum fumigation-risk figure and
+    # macro statistics. Each surviving amount is listed with its reason.
+    RUPEE_VALUE = re.compile(r'₹\s?\d|\bRs\.?\s?\d|\bINR\s?\d|\d[\d,.]*\+?\s?INR\b|\b(?:lakhs?|crores?)\b|'
+                             r'\b\d[\d,.]*\s?rupees?\b|thousand rupees', re.I)
+    REVIEWED_RUPEE_AMOUNTS = (
+        ('blogs/post/bwr-vs-bwp-for-export-packing-when-mr-grade-will-fail-at-sea.html', 'costs a few thousand rupees per panel',
+         'third-party NABL laboratory test fee'),
+        ('blogs/post/fob-cochin-for-plywood-exporters-what-s-included-what-s-extra.html', 'save ₹4,000-₹8,000 per shipment in avoided storage',
+         'third-party CFS storage charges avoided'),
+        ('blogs/post/ispm-15-ht-stamp-validity-india-exporters-2026.html', 'at a yard rate of roughly 600 to 1,200 INR per cubic metre',
+         'third-party heat-treatment yard charge'),
+        ('blogs/post/mundra-vs-pipavav-for-plywood-exporters-which-port-which-cost.html', '+₹400 to Mundra', 'third-party road haulage delta'),
+        ('blogs/post/mundra-vs-pipavav-for-plywood-exporters-which-port-which-cost.html', '+₹350 to Mundra', 'third-party road haulage delta'),
+        ('blogs/post/mundra-vs-pipavav-for-plywood-exporters-which-port-which-cost.html', '+₹900 to Mundra', 'third-party road haulage delta'),
+        ('blogs/post/mundra-vs-pipavav-for-plywood-exporters-which-port-which-cost.html', '+₹600 to Mundra', 'third-party road haulage delta'),
+        ('blogs/post/mundra-vs-pipavav-for-plywood-exporters-which-port-which-cost.html', 'cheaper by ₹15,000–₹20,000 per truck',
+         'third-party line-haul difference'),
+        ('blogs/post/mundra-vs-pipavav-for-plywood-exporters-which-port-which-cost.html', 'within ₹3,000–₹5,000 per box',
+         'third-party reefer pricing difference'),
+        ('blogs/post/mundra-vs-pipavav-for-plywood-exporters-which-port-which-cost.html', 'save ₹40,000+ per shipment',
+         'third-party CHA routing saving'),
+        ('blogs/post/mundra-vs-pipavav-for-plywood-exporters-which-port-which-cost.html', 'loads under ₹15 lakh of cargo value',
+         'cargo-value routing threshold with no quantity, so no rate can be derived; the 8 Sep record keeps cargo values'),
+        ('blogs/post/plywood-boxes-for-machinery-triple-wall-vs-reinforced-single-wall.html', 'Cargo value is ≥ ₹50 lakh',
+         "the customer's cargo value"),
+        ('blogs/post/plywood-cable-drum-flanges-is-10418-spec-sizing-sourcing-guide.html', 'not a risk worth saving ₹400 on',
+         'the fumigation-risk figure the 8 Sep record keeps'),
+        ('blogs/post/plywood-supply-to-coimbatore.html', '₹40,000 crore in knitwear exports', 'macro export statistic'),
+        ('blogs/post/plywood-supply-to-delhi-ncr.html', '₹15,000 crore a year', 'macro export statistic'),
+        ('blogs/post/plywood-supply-to-guntur.html', 'hundreds of crores of FCV leaf', 'macro trade statistic'),
+        ('blogs/post/plywood-supply-to-guntur.html', '1.5 lakh bags', 'a count of bags, not money'),
+        ('blogs/post/plywood-supply-to-karur.html', 'Rs 8,000-crore mark', 'macro export statistic'),
+        ('blogs/post/plywood-supply-to-tiruppur.html', 'Rs 30,000 crore worth of knitwear', 'macro export statistic'),
+        ('blogs/post/plywood-supply-to-tiruchirapalli.html', '₹2,200-₹2,800 each way', 'third-party highway tolls'),
+        ('blogs/post/plywood-supply-to-vizag.html', '₹65,000 crore cumulative exports', 'macro export statistic'),
+    )
+
+    def test_no_rupee_trade_value_is_published(self):
+        used = set()
+        for name, sentences in published_sentences().items():
+            for sentence in sentences:
+                if not self.RUPEE_VALUE.search(sentence):
+                    continue
+                remainder = sentence
+                for page, amount, _reason in self.REVIEWED_RUPEE_AMOUNTS:
+                    if page == name and amount in remainder:
+                        remainder = remainder.replace(amount, ' ')
+                        used.add((page, amount))
+                with self.subTest(page=name, sentence=sentence[:180]):
+                    self.assertIsNone(self.RUPEE_VALUE.search(remainder), 'rupee amount outside the reviewed list')
+        stale = {(page, amount) for page, amount, _reason in self.REVIEWED_RUPEE_AMOUNTS} - used
+        self.assertEqual(stale, set(), 'a reviewed rupee amount no longer appears; remove it from the list')
     SHEET_FIGURE = re.compile(r"(\d[\d,]*)\s*(?:(?:to|-|–|—)\s*(\d[\d,]*)\s*)?(?:full\s+)?sheets"
                               r"(?:\s+(?:of\s+)?(\d+(?:\.\d+)?)\s?mm)?", re.I)
 
@@ -170,7 +277,7 @@ class ContentClaimsTests(unittest.TestCase):
         thinnest = min(table)
         for name, sentences in published_sentences().items():
             for sentence in sentences:
-                boxes = [(m.start(), m.group(1) or m.group(2)) for m in self.BOX_MENTION.finditer(sentence)]
+                boxes = self.boxes_in(sentence)
                 if not boxes:
                     continue
                 for figure in self.SHEET_FIGURE.finditer(sentence):
