@@ -23,9 +23,10 @@ before relying on this record for a release.
 
 `git ls-tree -r --name-only` reports 1,168 paths at both revisions. `git diff --name-status
 7d588f16 103efa27` reports none added, none removed and 3 modified: `_headers`,
-`plywood-cable-drums.html` and `sitemap-cms.xml`. They are the generated output of the reviewed
-PR #65 source change (IS 10418 on the cable drums page and in its Product markup). No `assets/`
-path changed.
+`plywood-cable-drums.html` and `sitemap-cms.xml`. They are the generated output that PR #64
+(`fed0caf1`, merged as `103efa27`) published on `cf-live`: IS 10418 on the cable drums page and in
+its Product markup. The same source change landed on `master` as PR #65 (`21f8fbd1`, merged as
+`4a7d1315`). No `assets/` path changed.
 
 The inputs every build copies from the pinned tree are unchanged (`git rev-parse <rev>:<path>`):
 

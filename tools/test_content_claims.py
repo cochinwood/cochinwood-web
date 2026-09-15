@@ -133,8 +133,55 @@ class ContentClaimsTests(unittest.TestCase):
         r"(?:^|\bload(?:ed|s|ing)? )to the lower of the (?:ship-line )?payload|"
         r"(?:built|loading|loaded|load|planned) to (?:the |its |CSC and )?(?:container.s |destination )?(?:road )?(?:weight|payload)|"
         r"loaded to the limit", re.I)
-    # A 20 ft box cannot hold more 12 mm sheets than the guide's capacity-only ceiling (923 at 33 m3).
-    TWENTY_FT_12MM = re.compile(r"(\d[\d,]*) (?:to|-|–) (\d[\d,]*) sheets of 12 ?mm", re.I)
+    BOX_MENTION = re.compile(r"\b(20|40)[- ]?(?:ft|foot|feet)\b|\b(40) ?HC\b", re.I)
+    SHEET_FIGURE = re.compile(r"(\d[\d,]*)\s*(?:(?:to|-|–|—)\s*(\d[\d,]*)\s*)?(?:full\s+)?sheets"
+                              r"(?:\s+(?:of\s+)?(\d+(?:\.\d+)?)\s?mm)?", re.I)
+
+    @classmethod
+    def guide_ceilings(cls):
+        """{box: {thickness: capacity-only ceiling}} read from the loading guide's own table, plus its formula.
+
+        The guide states the rule: the smaller of payload / sheet weight and internal volume / sheet
+        volume, at 650 kg/m3, for 2440 x 1220 mm sheets, 33 m3 / 28,000 kg (20ft) and 67 m3 / 26,500 kg
+        (40ft). The formula is checked against every published row before it is used for other thicknesses."""
+        page = cls.posts['20ft-container-plywood-loading-sheet-count-by-thickness-weight-limited']['html']
+        rows = Rows()
+        rows.feed(page)
+        table = {}
+        for row in rows.rows:
+            fields = re.fullmatch(r'(\d+) mm ([\d.]+) kg ([\d,]+) ([\d,]+) ([\d,]+)', row)
+            if fields:
+                table[int(fields[1])] = {'20': int(fields[3].replace(',', '')), '40': int(fields[4].replace(',', ''))}
+
+        def formula(box, thickness):
+            volume = 2.44 * 1.22 * thickness / 1000
+            space, payload = {'20': (33, 28000), '40': (67, 26500)}[box]
+            return int(min(payload / (volume * 650), space / volume))
+        for thickness, ceilings in table.items():
+            for box, published in ceilings.items():
+                assert formula(box, thickness) == published, (box, thickness, published)
+        return table, formula
+
+    def test_container_sheet_counts_stay_within_the_guide_ceilings(self):
+        # Any sheet figure in a sentence that names a 20 ft or 40 ft box: above the thinnest published
+        # row's ceiling for that box it fails outright ("1,800-2,200 sheets depending on thickness");
+        # with a stated thickness it must not exceed that thickness's ceiling ("650 sheets of 18 mm").
+        table, formula = self.guide_ceilings()
+        thinnest = min(table)
+        for name, sentences in published_sentences().items():
+            for sentence in sentences:
+                boxes = [(m.start(), m.group(1) or m.group(2)) for m in self.BOX_MENTION.finditer(sentence)]
+                if not boxes:
+                    continue
+                for figure in self.SHEET_FIGURE.finditer(sentence):
+                    before = [box for at, box in boxes if at < figure.start()]
+                    box = before[-1] if before else boxes[0][1]
+                    high = int((figure.group(2) or figure.group(1)).replace(',', ''))
+                    limit = table[thinnest][box]
+                    if figure.group(3):
+                        limit = min(limit, formula(box, float(figure.group(3))))
+                    with self.subTest(page=name, sentence=sentence[:180]):
+                        self.assertLessEqual(high, limit, f'{high} sheets in a {box} ft box exceeds the guide ceiling {limit}')
     LIGHTER_ADDS_SHEETS = re.compile(r"lighter[^.]*(?:more (?:usable )?sheets|adds? sheets)|"
                                      r"more (?:usable )?sheets[^.]*(?:before it hits|same booking)", re.I)
     ONLY_WHEN_WEIGHT_BINDS = re.compile(r"(?:only |)(?:when|where) weight (?:rather than the sheet layout )?is the binding limit", re.I)
@@ -145,12 +192,6 @@ class ContentClaimsTests(unittest.TestCase):
                 if self.WEIGHT_ALONE.search(sentence):
                     with self.subTest(page=name, sentence=sentence[:180]):
                         self.fail('loading claim says weight alone sets the count')
-        for name, sentences in published_sentences().items():
-            for sentence in sentences:
-                counts = self.TWENTY_FT_12MM.search(sentence)
-                if counts and re.search(r'20[- ]?(?:ft|foot)', sentence, re.I):
-                    with self.subTest(page=name, sentence=sentence[:180]):
-                        self.assertLessEqual(int(counts.group(2).replace(',', '')), 923)
         everything = '\n'.join(s for sentences in published_sentences().values() for s in sentences)
         for old in (r'28 tonnes? (?:of cargo )?for a 40 ft', r'22-24 tonnes of packing-grade ply',
                     r'Sheet Count by Thickness \(Weight-Limited\)'):
@@ -196,6 +237,12 @@ class ContentClaimsTests(unittest.TestCase):
         # defence packing offers that avoid the words above ("defence dispatch boxes")
         r'dispatch box|defen[cs]e[^.]{0,40}(?:box|case|crate|packing|dispatch)|'
         r'(?:box|case|crate|packing)e?s?[^.]{0,30}defen[cs]e', re.I)
+    # A defence packing OFFER anywhere in the sentence, however far apart the words are. A neutral
+    # description of local industry ("... sub-assemblies all move in wooden cases") has no offer cue.
+    DEFENCE_TERM = re.compile(r'defen[cs]e|ordnance|military', re.I)
+    PACKING_NOUN = re.compile(r'\b(?:box|boxes|case|cases|crate|crates|packing|packag(?:e|es|ing)|pallets?|skids?)\b', re.I)
+    OFFER_CUE = re.compile(r'\bwe (?:build|supply|offer|deliver|make|ship|quote|recommend|pick)\b|\btypical\b[^.]*\buse\b|'
+                           r'\bpick\b|\brecommended\b|\bdefault for\b|\bsized for\b|\bbuilt to\b', re.I)
     REVIEWED_SENTENCES = {
         ('export/nigeria.html',
          'Nigeria requires SONCAP (Standards Organisation of Nigeria Conformity Assessment Programme) for plywood and other '
@@ -242,11 +289,28 @@ class ContentClaimsTests(unittest.TestCase):
             'non-certification statement',
     }
 
+    def is_defence_packing_offer(self, sentence):
+        return bool(self.DEFENCE_TERM.search(sentence) and self.PACKING_NOUN.search(sentence)
+                    and self.OFFER_CUE.search(sentence))
+
+    def test_defence_offer_window_spans_the_whole_sentence_but_not_local_descriptions(self):
+        # Offers the 40-character window cannot see, and descriptions it must leave alone.
+        for offer in ('We build heavy bolted cases for defence vehicle sub-assemblies and support equipment programmes.',
+                      'Pick BWR with Gurjan face for captive returnable packaging and long-life defence vehicle sub-assembly work.',
+                      'Typical use: engineering outloads and anything the ordnance units around the city ship in crates.'):
+            with self.subTest(offer=offer):
+                self.assertTrue(self.is_defence_packing_offer(offer))
+        neutral = ('Railway coach interior fit-out parts, defence vehicle sub-assemblies and support equipment all move '
+                   'in bolted, ISPM-15 stamped wooden cases.')
+        self.assertFalse(self.is_defence_packing_offer(neutral))
+
     def test_no_page_implies_military_or_dangerous_goods_packing_certification(self):
         seen = set()
         for name, sentences in published_sentences().items():
             for sentence in sentences:
-                if not self.DEFENCE_OR_DANGEROUS_GOODS.search(sentence):
+                offer = (self.DEFENCE_TERM.search(sentence) and self.PACKING_NOUN.search(sentence)
+                         and self.OFFER_CUE.search(sentence))
+                if not (self.DEFENCE_OR_DANGEROUS_GOODS.search(sentence) or offer):
                     continue
                 if (name, sentence) in self.REVIEWED_SENTENCES:
                     seen.add((name, sentence))

@@ -1,5 +1,5 @@
 {
-  "description": "Export guides after branch fix/content-accuracy-20260915 second review (15 Sep 2026): cf-live 103efa27 plus the reviewed loading wording (either weight or sheet layout may govern; loaded within the limits) on the hub summary and 25 country guides; only decorative hero media excluded",
+  "description": "Export guides after branch fix/content-accuracy-20260915 final re-check (15 Sep 2026): cf-live 103efa27 plus the reviewed loading wording (either weight or sheet layout may govern; loaded within the limits) on the hub summary and 25 country guides; only decorative hero media excluded",
   "pages": {
     "/export": {
       "blocks": {
@@ -238,7 +238,7 @@
     "/export/kenya": {
       "blocks": {
         "count": 103,
-        "sha256": "d01541a0d5a2d07b21fd9ee8120c9abbe0e1c43fcd7ef72ec772662c5680db46"
+        "sha256": "3c4651f8e74393725692ed5f41c933f32cc36fc53054aed3621773cd917b813a"
       },
       "links": {
         "count": 57,
@@ -254,7 +254,7 @@
       },
       "schemas": {
         "count": 4,
-        "sha256": "f46aa8ef9d9a4b45c22b44dbd7e9731ccfbeaf4f04b36c86a4bb5ea8621388e7"
+        "sha256": "cd3d594b495fd86f2958ee1bb781dcf9d9c0751143fbc3953d3350d3973f7463"
       },
       "metadata": {
         "count": 14,
@@ -680,7 +680,7 @@
     "/export/united-kingdom": {
       "blocks": {
         "count": 98,
-        "sha256": "f86edf96cacb663cc1e0d6eda238652eca16b58ddacc99fac23d97cc0a5a9e07"
+        "sha256": "7b8b3b64117a6243cd7007779b61fa168e3a118267f204e5df6b836009fccc3f"
       },
       "links": {
         "count": 56,
@@ -696,7 +696,7 @@
       },
       "schemas": {
         "count": 4,
-        "sha256": "51f760b8f302a22400cbdbba854bdd94335d495e1a027753422494b9a8235c53"
+        "sha256": "b1e9353dd313f27aa99cf689a7f7a49c5cc5ecefbc30aa3c2ebd2590b3ec6521"
       },
       "metadata": {
         "count": 14,
@@ -706,15 +706,15 @@
     "/export/united-states": {
       "blocks": {
         "count": 90,
-        "sha256": "6923c5dcd87a24bef2d0a065f1e0e7bcf009387149e1d5fc9752df7899bd812e"
+        "sha256": "82cea2816fa948537819dcf4bf177e4041a25e51f2c5e9304197a1beda91c92b"
       },
       "links": {
         "count": 58,
-        "sha256": "5def7533a6561154fc4ecc223cb0f44ee08208e89d2456bd865a49532b2d2cd1"
+        "sha256": "8456d8e3b1c8be6c5ac59c31d277bfa83aa5ce068952e3df0048212b42876082"
       },
       "anchors": {
         "count": 11,
-        "sha256": "f743d0f91c4599861ac11b0394d7b680941612962b92dbad31082f5b53dd8698"
+        "sha256": "f72ee5dc93ea76364523376151d1602de023cfa911a99977ca5b0f115fa1e0e1"
       },
       "tables": {
         "count": 2,
@@ -722,7 +722,7 @@
       },
       "schemas": {
         "count": 4,
-        "sha256": "b9ea0d2b9a0b589755c5a6328e219ae224b936ae3b0cabf32cbf919044c943e9"
+        "sha256": "2ddf269bae7c0f2edcf5f513f7032f965545f8eed5a3dfc35bce801dd937a4a2"
       },
       "metadata": {
         "count": 14,
@@ -767,7 +767,7 @@
     "content/export/countries/dominican-republic.json": "41d75af860c7adb438489e4087d1d7e94cf742c01610afd90c2c841ecbbb060d",
     "content/export/countries/germany.json": "4c08206f50f80bc6ee972fd209a33cfe888a5dbd11fcdaef854d6325b5270380",
     "content/export/countries/haiti.json": "e76ffe01cc1bbc7b38781c06451df01dff3cf33a39c856467d32f2a240db7b4b",
-    "content/export/countries/kenya.json": "2d99afab14e5d0fc9e620c6cf436525a3dfa937395ad7fbcbd9b3f8355203998",
+    "content/export/countries/kenya.json": "8b2538b078963b15415e37a206884e2b76d57811c2f2bfb308139e57cd3e5991",
     "content/export/countries/malaysia.json": "48677d2e9a396cc25eb58a66518e4ea3c51c177169fe9a64e5d9bd953196d8f8",
     "content/export/countries/maldives.json": "a4de1a1a6dc450a8d79a06890c9adb59c1064682b774abc06637dba9f4c6d30f",
     "content/export/countries/mauritius.json": "d206c5396b87857dbcb29606882e6964c45b6318bcb1d5d2c645b061bb8f8704",
@@ -778,8 +778,8 @@
     "content/export/countries/south-africa.json": "37368ce5a3ff6bb4d6cfea5466e47a1aa48e990acfdedd51946e2e460ea96dec",
     "content/export/countries/tanzania.json": "41fcd78f4660d573fbb570c03a1224e463ca8b4e070a85e335ec54450edc50b0",
     "content/export/countries/turkey.json": "fb8489420b5c832efa4c995c3ddf4580a4190d9b686b1340abecaeb3a053a811",
-    "content/export/countries/united-kingdom.json": "fb56448419a6caec2d5bfe5636e1d81c1720e323a96b6ab3c96c755ae2f3eb39",
-    "content/export/countries/united-states.json": "8b01ca5965bba4bd4560eb1a328df8d00d3c17f691595a29abe2a3ebc61b510b",
+    "content/export/countries/united-kingdom.json": "26d21e7e721e1039a58dd4dcb8f3f5380b5e20f98e2cf67d56b05dacb3547296",
+    "content/export/countries/united-states.json": "8e5967ed54a37df2791d56c852a81b387778f9c7048f56cdd2bd6370039c7a4f",
     "content/export/countries/vietnam.json": "3b33ba400248b0ebe99ac41a929d515909ce9223f416e7f820ffb5a4b299efc8",
     "content/export/dominican-republic.body.html": "c031a3ad4c0999eb5beae285c1bd74d736a1a6497a5dfa75395782b66bd3f52a",
     "content/export/export.json": "783bef335470cc0bc79886a17f6c114a8469ce62836ad9350ebeb84c5da3524b",
@@ -806,8 +806,8 @@
     "content/export/tanzania.body.html": "dddcd77978da5ed77e438ae40f67d3cdb3e7296b8a7828fc8a1fb8d02f37156b",
     "content/export/turkey.body.html": "9c8f0748e06f211b8906ba3cd9d037bd386c155d86492368f78c1803130c738e",
     "content/export/uae.body.html": "4c51724b1364f7b828c2b714ff91ce07c7d01e0be01f7ecc4bb73011b6aa1596",
-    "content/export/united-kingdom.body.html": "c972d6f5c9e60fadb8a22d855a64133782565729cdc1d627505c5ddf81252590",
-    "content/export/united-states.body.html": "17ecc58316964ac831301579d408cf68596e30d34da574447498d6a2fec9d476",
+    "content/export/united-kingdom.body.html": "ba4a29875a504e302dda9081a935498e3fb7b2d54701281e35358979bc558cd3",
+    "content/export/united-states.body.html": "9be3add44b25470388cdcadca4139d1b33e20e9686724fc46f092fdd94d729a8",
     "content/export/vietnam.body.html": "809c0d984c9d5e29cd3b098a8274aa1bfb9c31c0ff6953fe3879cc20e0c6949d"
   }
 }
