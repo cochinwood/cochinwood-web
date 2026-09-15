@@ -804,6 +804,146 @@ def seo_title(title):
     warn(f"title still {len(head)} chars, no safe trim: {head}")
     return head
 
+# What a product page already says about the product itself, for its Product
+# markup. Every value is copied VERBATIM from the visible text of that page -- no
+# paraphrase, no added unit -- and tools/test_product_schema_facts.py fails if one
+# is not, so the markup can never say more than the buyer reads. A page with no
+# entry keeps the bare Product. Names are ours; values are the page's own words.
+# Reviewed 15 Sep 2026 against the built pages: 81 facts on the sixteen pages, each
+# checked for evidence, business risk and schema fit. Facts a page only hedges (E1,
+# IS 303 on rubberwood, faces "on request") were left out rather than reworded.
+PRODUCT_FACTS = {
+    "packing-plywood": {
+        "properties": [
+            ("Core", "rubberwood or eucalyptus"),
+            ("Glue / bond", "MR-bonded"),
+            ("Thickness", "6–18mm"),
+            ("Sheet size", "8×4 ft (2440×1220 mm)"),
+            ("Moisture content", "15% or below at dispatch"),
+        ]},
+    "okoume-plywood": {
+        "properties": [
+            ("Face", "Okoume (Aucoumea klaineana)"),
+            ("Core", "A hardwood core — rubberwood or eucalyptus"),
+            ("Glue / bond", "MR or BWR"),
+            ("Sheet size", "8×4 ft (2440×1220 mm)"),
+        ]},
+    "rubberwood-plywood": {
+        "properties": [
+            ("Glue / bond", "MR-bonded"),
+            ("Thickness", "6–18mm"),
+            ("Use", "packing and general commercial work"),
+        ]},
+    "commercial-plywood": {
+        "properties": [
+            ("Standard", "IS 303 Commercial MR/BWR"),
+            ("Glue / bond (BWR grade)", "Melamine-fortified UF / phenolic glue line"),
+            ("Glue / bond (MR grade)", "Urea-formaldehyde glue line"),
+            ("Core (MR grade)", "Hardwood / mixed hardwood, gap-free"),
+            ("Sheet size", "1220 × 2440 mm and custom cut-to-size"),
+            ("Use", "joinery, cabinetry and interiors"),
+        ]},
+    "marine-plywood": {
+        "properties": [
+            ("Standard", "IS 710 (BWP)"),
+            ("Glue / bond", "100% phenol-formaldehyde — boiling-waterproof glue line"),
+            ("Core", "Full hardwood core veneers, gap-free"),
+            ("Thickness", "4 – 25 mm"),
+            ("Sheet size", "1220 × 2440 mm; custom cut-to-size"),
+            ("Use", "Boatbuilding, hulls and decks, wet interiors"),
+        ]},
+    "film-faced-shuttering-plywood": {
+        "properties": [
+            ("Face", "120–220 gsm phenolic film on both faces"),
+            ("Core", "Hardwood, full-hardwood construction"),
+            ("Thickness", "12, 15, 18, 21 and 25 mm"),
+            ("Sheet size", "1220 × 2440 mm; 1830 × 915 mm and custom"),
+            ("Edges", "Acrylic-sealed against water ingress"),
+        ]},
+    "container-flooring-plywood": {
+        "material": "keruing / apitong / mixed tropical hardwood",
+        "properties": [
+            ("Core", "Full hardwood core"),
+            ("Thickness", "28 mm board"),
+            ("Sheet size", "2440 × 1220 mm; 2400 × 1160 mm"),
+            ("Density", "700–800 kg/m³"),
+            ("Glue / bond", "Phenol-formaldehyde, WBP"),
+            ("Face", "Phenolic film both faces; anti-slip wire-mesh pattern one side"),
+            ("Moisture content", "< 14%"),
+        ]},
+    "bwr-hardwood-plywood": {
+        "properties": [
+            ("Standard", "IS 303 BWR (boiling-water-resistant)"),
+            ("Glue / bond", "Melamine-fortified UF / phenolic glue line"),
+            ("Face", "Gurjan / keruing hardwood"),
+            ("Core", "Gap-free hardwood veneers"),
+            ("Thickness", "6 – 25 mm"),
+            ("Sheet size", "1220 × 2440 mm; custom cut-to-size"),
+            ("Use", "humid interiors"),
+        ]},
+    "chequered-anti-skid-plywood": {
+        "properties": [
+            ("Face", "Chequer or wire-mesh anti-slip phenolic film"),
+            ("Core", "Phenolic-bonded marine / hardwood core"),
+            ("Glue / bond", "Phenol-formaldehyde, WBP"),
+            ("Thickness", "12 – 28 mm"),
+            ("Sheet size", "1220 × 2440 mm; custom cut-to-size"),
+            ("Use", "trailer and vehicle decks, walkways"),
+        ]},
+    "plywood-boxes-crates": {
+        "properties": [
+            ("Construction", "Plywood panels on a sawn-timber frame, skid or runner base"),
+            ("Closure", "Nailed, clip (re-openable) or fully collapsible / knock-down"),
+            ("Use", "Sea, air and road freight"),
+            ("Treatment", "ISPM-15 heat-treated and stamped on solid-wood frame members"),
+        ]},
+    "plywood-pallets": {
+        "properties": [
+            ("Construction", "perimeter, block or stringer"),
+            ("Entry", "Two-way and four-way"),
+            ("Deck", "Plywood top/bottom deck, or sawn-board deck on request"),
+            ("Treatment", "ISPM-15 heat-treated and stamped where solid wood is used"),
+        ]},
+    "block-board-flush-doors": {
+        "properties": [
+            ("Standard (block board)", "IS 1659"),
+            ("Core (block board)", "Seasoned hardwood battens, edge-glued"),
+            ("Thickness (block board)", "18 – 40 mm"),
+            ("Sheet size (block board)", "1220 × 2440 mm; custom"),
+            ("Standard (flush door)", "IS 2202"),
+            ("Glue / bond (flush door)", "BWR / BWP bonding"),
+            ("Core (flush door)", "Solid / block core with hardwood lipping on all edges"),
+            ("Finish (flush door)", "Veneered, pre-laminated, PU-finished or skin door"),
+        ]},
+    "finger-joint-board": {
+        "material": "Rubberwood, mango, mixed hardwoods",
+        "properties": [
+            ("Thickness", "16 – 40 mm"),
+            ("Processing", "Kiln-dried, calibrated and sanded"),
+            ("Use", "stair treads, table tops, worktops and frames"),
+        ]},
+    "particle-board": {
+        "properties": [
+            ("Thickness", "9 – 25 mm"),
+            ("Sheet size", "1220 × 2440 mm; custom"),
+            ("Finish", "Plain, or pre-laminated one/both sides in a range of décors"),
+            ("Use", "Dry interior cabinetry, low-load shelving"),
+        ]},
+    "plywood-cable-drums": {
+        "properties": [
+            ("Flange diameter", "600 – 3000 mm"),
+            ("Flange", "Phenolic-bonded plywood flanges"),
+            ("Arbor / barrel", "hardwood arbor / barrel"),
+            ("Tie-rods", "galvanised steel tie-rods"),
+            ("Use", "Power, control, telecom and fibre-optic cable"),
+            ("Treatment", "solid-wood arbor and members are heat-treated and stamped to ISPM-15 for export"),
+        ]},
+    "sawn-timber": {
+        "properties": [
+            ("Form", "logs, beams, planks or custom cuts"),
+        ]},
+}
+
 def product_schema(slug):
     """Factual Product markup, without claiming Google rich-result eligibility.
 
@@ -816,7 +956,12 @@ def product_schema(slug):
     on the page. A bare Product -- name, description, image, brand, category,
     url -- is valid Schema.org, and it is everything we can honestly state.
     Google product snippets additionally require offers, review or aggregateRating;
-    these quote-only pages deliberately do not claim that eligibility."""
+    these quote-only pages deliberately do not claim that eligibility.
+
+    NOR IS THERE A sku OR mpn. No catalogue code is printed on these pages, and a
+    code made up for the markup is a part number nobody can order by (a 15 Sep 2026
+    proposal, PR #61, did exactly that and was closed). The only additions are
+    material and additionalProperty from PRODUCT_FACTS: the page's own words."""
     row = next((r for r in PRODUCTS if r[0] == slug), None)
     if not row: return ""
     _, name, desc = row
@@ -831,6 +976,12 @@ def product_schema(slug):
             "brand": {"@type": "Brand", "name": "Cochin Wood Industries"},
             "manufacturer": {"@id": LIVE + "/#organization"},
             "countryOfOrigin": {"@type": "Country", "name": "India"}}
+    facts = PRODUCT_FACTS.get(slug, {})
+    if facts.get("material"):
+        data["material"] = facts["material"]
+    if facts.get("properties"):
+        data["additionalProperty"] = [{"@type": "PropertyValue", "name": n, "value": v}
+                                      for n, v in facts["properties"]]
     return ('<script type="application/ld+json">'
             + json.dumps(data, separators=(",", ":")) + '</script>')
 
