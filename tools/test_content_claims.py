@@ -113,6 +113,86 @@ class ContentClaimsTests(unittest.TestCase):
         for old in ('Past about 20 mm, the geometry flips', '~1,225 sheets', 'freight drops by close to 40%'):
             self.assertNotIn(old, page)
 
+    # Pages about sawn timber species, not plywood; their density and stacking differ.
+    TIMBER_PAGES = {'woods-we-use/matti.html', 'woods-we-use/venteak.html'}
+
+    def test_weight_before_space_is_never_stated_for_every_container(self):
+        # The loading guide: at 650 kg/m3, 28 t needs about 43.1 m3 against a 20ft box's
+        # 33 m3, while 26.5 t takes about 40.8 of a 40ft box's 67 m3. So "weighs out before
+        # it cubes out" holds for a 40ft box, not for plywood in general.
+        claim = re.compile(r'weighs? out|cubes? out|fills? up by weight|weight, not (?:by )?(?:space|volume)|'
+                           r'weight question, not a volume|(?:reach|hit)\w*\s+(?:the|its)\s+(?:container\'?s?\s+)?'
+                           r'(?:permitted\s+)?(?:payload|weight)\b[^.]*?before', re.I)
+        for name, sentences in published_sentences().items():
+            if name in self.TIMBER_PAGES:
+                continue
+            for sentence in sentences:
+                if claim.search(sentence) and not re.search(r'40\s?-?(?:ft|foot)', sentence, re.I):
+                    with self.subTest(page=name, sentence=sentence[:160]):
+                        self.fail('container loading claim without its container')
+        everything = '\n'.join(s for sentences in published_sentences().values() for s in sentences)
+        for old in (r'28 tonnes? (?:of cargo )?for a 40 ft', r'22-24 tonnes of packing-grade ply',
+                    r'Sheet Count by Thickness \(Weight-Limited\)'):
+            self.assertNotRegex(everything, old)
+
+
+class Surface(HTMLParser):
+    """What a reader or crawler is told: visible text, meta content and JSON-LD strings."""
+    BREAKS = {'p', 'li', 'td', 'th', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'br', 'figcaption', 'title'}
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.parts, self.skip, self.ld = [], 0, None
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        if tag == 'script' and attrs.get('type') == 'application/ld+json':
+            self.ld = []
+        elif tag in ('script', 'style'):
+            self.skip += 1
+        elif tag == 'meta' and attrs.get('content'):
+            self.parts.extend(('\n', attrs['content'], '\n'))
+        elif tag in self.BREAKS:
+            self.parts.append('\n')
+
+    def handle_endtag(self, tag):
+        if tag == 'script' and self.ld is not None:
+            def walk(value):
+                if isinstance(value, dict):
+                    for item in value.values():
+                        walk(item)
+                elif isinstance(value, list):
+                    for item in value:
+                        walk(item)
+                elif isinstance(value, str):
+                    self.parts.extend(('\n', value, '\n'))
+            walk(json.loads(''.join(self.ld)))
+            self.ld = None
+        elif tag in ('script', 'style') and self.skip:
+            self.skip -= 1
+        elif tag in self.BREAKS:
+            self.parts.append('\n')
+
+    def handle_data(self, data):
+        if self.ld is not None:
+            self.ld.append(data)
+        elif not self.skip:
+            self.parts.append(data)
+
+
+_SENTENCES = {}
+
+
+def published_sentences():
+    if not _SENTENCES:
+        for path in sorted((ROOT / 'dist').rglob('*.html')):
+            parser = Surface()
+            parser.feed(path.read_text(encoding='utf-8'))
+            text = ''.join(parser.parts)
+            _SENTENCES[path.relative_to(ROOT / 'dist').as_posix()] = [
+                s.strip() for line in text.split('\n') for s in re.split(r'(?<=[.!?])\s+', line) if s.strip()]
+    return _SENTENCES
+
 
 if __name__ == '__main__':
     unittest.main()
