@@ -1,0 +1,114 @@
+{
+ "description": "Pages whose pinned sitemap lastmod predates a later change to their title, description or structured data on cf-live. Written by tools/seed_sitemap_lastmod.py; sitemap_lastmod.py uses a date only while the page keeps this fingerprint.",
+ "pin": "7d588f16b0036b5f4b825ac96b4d8df78d99dff4",
+ "pages": {
+  "/block-board-flush-doors": {
+   "fingerprint": "d03d630cb9435f92dc6eca3ee3eedf1c5795d5eda7a4ae8a741536dfc98a0e98",
+   "lastmod": "2026-09-15"
+  },
+  "/bwr-hardwood-plywood": {
+   "fingerprint": "a919f77ae0355e38073705bc68dc4644ee1f2af89af2075d1c7d4bf2ba18b6c5",
+   "lastmod": "2026-09-15"
+  },
+  "/chequered-anti-skid-plywood": {
+   "fingerprint": "34555264fe55060cb224b144a40ff412c4c48b98719f6528c525102a25a607d6",
+   "lastmod": "2026-09-15"
+  },
+  "/commercial-plywood": {
+   "fingerprint": "f3ea3658c67abacb55ecd7c93c6ea39fd46af0c6dc67b714e2c68e2c20787b2b",
+   "lastmod": "2026-09-15"
+  },
+  "/container-flooring-plywood": {
+   "fingerprint": "3ea0d287f64a95867f874f3bb7e6b11d475c3d40e17ad6ecca3e15072f657312",
+   "lastmod": "2026-09-15"
+  },
+  "/export": {
+   "fingerprint": "2976feb2441becac6f347f11a7001c327c45d2b01d80a53b2bf061ed3de6abe5",
+   "lastmod": "2026-09-12"
+  },
+  "/film-faced-shuttering-plywood": {
+   "fingerprint": "5cca57a8dd7017937d9afdc1a0e00f284b4f80ea58e28a0f639eda0775cfdc05",
+   "lastmod": "2026-09-15"
+  },
+  "/finger-joint-board": {
+   "fingerprint": "4dbab539fc7756f6a8bf3ce287cbc68d890ac77f940e75797d728f27cd99ed6d",
+   "lastmod": "2026-09-15"
+  },
+  "/marine-plywood": {
+   "fingerprint": "6a1aa56a48ce3d42a733e5414ff442b92a4bb325401170d7ed5a0ad0d6dd09f8",
+   "lastmod": "2026-09-15"
+  },
+  "/okoume-plywood": {
+   "fingerprint": "c2eb00749018e8064a1651ae9a3aedaf9d22e0750d0eb97700fbae8731d9e254",
+   "lastmod": "2026-09-15"
+  },
+  "/packing-plywood": {
+   "fingerprint": "d13dd7a4df1647a4bdaa4d2443f8153878c5b97f0060ab46e28311634b7f26b0",
+   "lastmod": "2026-09-15"
+  },
+  "/particle-board": {
+   "fingerprint": "3b002582c8e151919d447fd60b3edb44ff9f8e4d94f4b64bacfbc62d1ed648d8",
+   "lastmod": "2026-09-15"
+  },
+  "/plywood-boxes-crates": {
+   "fingerprint": "8a4ccdaa21f6ae8f3d8988f382fadcf7a3969d1d41b58c88202da7cfc76f3999",
+   "lastmod": "2026-09-15"
+  },
+  "/plywood-cable-drums": {
+   "fingerprint": "f68fd87ca14955bff9a574b436610a0d097e8b22c1f57d306d32bd332cb633f4",
+   "lastmod": "2026-09-15"
+  },
+  "/plywood-pallets": {
+   "fingerprint": "982f76779e53888753995821a89fbd14e7f6d2254dfca6ea2822370848a51bf3",
+   "lastmod": "2026-09-15"
+  },
+  "/return-refund-policy": {
+   "fingerprint": "37dd1ce2e1f90de65ff555f4e68ab9a75f38361fd8118233cbaa02651bc9098c",
+   "lastmod": "2026-09-12"
+  },
+  "/rubberwood-plywood": {
+   "fingerprint": "bf4afba6234592eb0062b89c55a22783dad9bbe1a4702e05afa727777d2af61a",
+   "lastmod": "2026-09-15"
+  },
+  "/sawn-timber": {
+   "fingerprint": "0ed0a1e6acea8f610e47763f166b35da9fc2ae5e4c0d972d00efaf7ce4086e65",
+   "lastmod": "2026-09-15"
+  },
+  "/shipping-policy": {
+   "fingerprint": "e28d0c4be713cf82a2246405e903adc7cddc42e0c31c082841f08a19eb06341e",
+   "lastmod": "2026-09-05"
+  },
+  "/woods-we-use/anjili": {
+   "fingerprint": "9fc818aede361445a9885029ae3e57c6772e3c01635ee3fe8e59b619c4320fe8",
+   "lastmod": "2026-09-05"
+  },
+  "/woods-we-use/casuarina": {
+   "fingerprint": "903e6c22eebd49b847f28860d8c9fbdeeac9dac345008a8c05aa9fd7ca133f9b",
+   "lastmod": "2026-09-05"
+  },
+  "/woods-we-use/gurjan": {
+   "fingerprint": "d273606eca5144bdb5506207bfb282180f1ef81505c9cd86a78fb522a75fa8d8",
+   "lastmod": "2026-09-05"
+  },
+  "/woods-we-use/irul": {
+   "fingerprint": "fbb010a51629b0c53751cf63953608bfb443e32edd4a753d50317345e8af83b2",
+   "lastmod": "2026-09-05"
+  },
+  "/woods-we-use/matti": {
+   "fingerprint": "3b054b5e8961d404109a31cf2b0e8254fa3c315318b5bedefd210b9e2b793120",
+   "lastmod": "2026-09-05"
+  },
+  "/woods-we-use/meranti": {
+   "fingerprint": "88383aad457ddcf460f6b499d4420ac22922834e77df7b73e1b1f0720c6b8423",
+   "lastmod": "2026-09-05"
+  },
+  "/woods-we-use/pala": {
+   "fingerprint": "88ecac56c4717da9b843e08ef490a1931247442629752c960945f5f60b643ae6",
+   "lastmod": "2026-09-05"
+  },
+  "/woods-we-use/venteak": {
+   "fingerprint": "ca31d2b0d561b8c1c549bb196b95d40732dc2228d25ab916879b3efaf5c3f1de",
+   "lastmod": "2026-09-05"
+  }
+ }
+}

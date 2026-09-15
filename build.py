@@ -2301,7 +2301,8 @@ def build_export():
 # on the table -- so the build emits the same three files instead of one flat
 # urlset. Split exactly as live splits: blog posts under /blogs/post/ go in
 # -post, every other page in -cms; each URL appears in exactly one child.
-# The children carry <loc> + a truthful git-dated <lastmod>. Live's Zoho-era
+# The children carry <loc> + a <lastmod> that changes only when that page's own
+# content does (sitemap_lastmod.py; tools/seed_sitemap_lastmod.py). Live's Zoho-era
 # <priority>/<changefreq> are not reproduced: they were per-page settings of an
 # engine that no longer builds this site, unrecoverable for pages Zoho never
 # had, and Google documents both fields as ignored.
@@ -2314,7 +2315,29 @@ def build_sitemap():
             if rel == "404.html": continue    # the error page: C-22 sends /404 home
             paths.append("/" if rel == "index.html" else "/" + rel[:-len(".html")])
     paths = sorted(set(paths))
+    # Each page is dated by its own content, compared with the same page in the pinned
+    # production tree (see sitemap_lastmod.py): unchanged keeps the lastmod that tree
+    # publishes, changed or new takes this source revision's date. The per-source git
+    # dates are only the fallback for a clone that cannot read the pin or its history.
+    import sitemap_lastmod
+    def read_built(rel):
+        with open(os.path.join(DIST, rel), encoding="utf-8") as f:
+            return f.read()
+    seed_file = os.path.join(ROOT, "content", "sitemap-lastmod-seed.json")
+    seed = {}
+    if os.path.exists(seed_file):
+        with open(seed_file, encoding="utf-8") as f:
+            seed = json.load(f)["pages"]
+    dated = sitemap_lastmod.lastmods(paths, read_built, LIVE_REF, ROOT, seed)
+    if dated is None:
+        warn(f"sitemap <lastmod> fell back to source-file git dates: {LIVE_PIN}'s sitemaps or this "
+             f"source revision could not be read -- `git fetch origin` and rebuild before publishing")
+        content_dates, redated = {}, None
+    else:
+        content_dates, redated, _revision_date = dated
     def lastmod(path):
+        if path in content_dates:
+            return content_dates[path]
         rel = path.strip("/")
         output = (rel + ".html") if rel else "index.html"
         return _page_lastmod.get(output) or git_date(_page_source.get(output, "build.py"))
