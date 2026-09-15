@@ -2337,6 +2337,10 @@ def build_sitemap():
         content_dates, redated = {}, None
     else:
         content_dates, redated, _revision_date = dated
+    # Production past the pin redates every page published since, on every build. Say so, with the URLs.
+    drift = sitemap_lastmod.pin_drift_warning(LIVE_SHA, sitemap_lastmod.remote_tip(ROOT), redated)
+    if drift:
+        warn(drift)
     def lastmod(path):
         if path in content_dates:
             return content_dates[path]
@@ -2445,7 +2449,7 @@ LIVE_REF_NAME = "origin/cf-live"                         # where the pin came fr
 # window (PRs #52-#62): the carried inputs are unchanged, and a build at the new pin
 # matches cf-live except the provenance line in _headers. See
 # docs/cf-live-pin-review-2026-09-15.md.
-LIVE_SHA = "7d588f16b0036b5f4b825ac96b4d8df78d99dff4"    # Reviewed live baseline; see docs/cf-live-pin-review-2026-09-15.md
+LIVE_SHA = "103efa27393106b7e58836a616c49d271e5fda56"    # Reviewed live baseline; see docs/cf-live-pin-review-2026-09-15b.md
 LIVE_REF = LIVE_SHA                # what git is actually handed, so no fetch can move it
 LIVE_PIN = LIVE_REF_NAME + "@" + LIVE_SHA[:12]           # what the banner and dist/ record
 LIVE_HASHED_ASSET_RE = re.compile(

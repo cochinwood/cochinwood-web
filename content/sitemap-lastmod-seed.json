@@ -1,6 +1,6 @@
 {
  "description": "Pages whose pinned sitemap lastmod predates a later change to their title, description or structured data on cf-live. Written by tools/seed_sitemap_lastmod.py; sitemap_lastmod.py uses a date only while the page keeps this fingerprint.",
- "pin": "7d588f16b0036b5f4b825ac96b4d8df78d99dff4",
+ "pin": "103efa27393106b7e58836a616c49d271e5fda56",
  "pages": {
   "/block-board-flush-doors": {
    "fingerprint": "d03d630cb9435f92dc6eca3ee3eedf1c5795d5eda7a4ae8a741536dfc98a0e98",
@@ -52,10 +52,6 @@
   },
   "/plywood-boxes-crates": {
    "fingerprint": "8a4ccdaa21f6ae8f3d8988f382fadcf7a3969d1d41b58c88202da7cfc76f3999",
-   "lastmod": "2026-09-15"
-  },
-  "/plywood-cable-drums": {
-   "fingerprint": "f68fd87ca14955bff9a574b436610a0d097e8b22c1f57d306d32bd332cb633f4",
    "lastmod": "2026-09-15"
   },
   "/plywood-pallets": {

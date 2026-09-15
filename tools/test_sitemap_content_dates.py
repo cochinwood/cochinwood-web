@@ -91,6 +91,25 @@ class ResolveTests(unittest.TestCase):
         self.assertEqual(changed, ['/edited-since'])
 
 
+class PinDriftTests(unittest.TestCase):
+    PIN = '103efa27393106b7e58836a616c49d271e5fda56'
+    TIP = 'fed0caf1c9db1e2005f80ea7c7a06461bdb3f783'
+
+    def test_no_warning_when_production_is_the_pinned_tree(self):
+        self.assertIsNone(SL.pin_drift_warning(self.PIN, self.PIN, ['/plywood-cable-drums']))
+        self.assertIsNone(SL.pin_drift_warning(self.PIN, None, ['/plywood-cable-drums']))
+
+    def test_warning_names_both_commits_and_every_redated_url(self):
+        message = SL.pin_drift_warning(self.PIN, self.TIP, ['/plywood-cable-drums', '/products'])
+        for expected in ('fed0caf1c9db', '103efa273931', '2: /plywood-cable-drums, /products', 'LIVE_SHA'):
+            self.assertIn(expected, message)
+        self.assertIn('not computed', SL.pin_drift_warning(self.PIN, self.TIP, None))
+
+    def test_remote_tip_reads_a_real_ref_and_rejects_a_missing_one(self):
+        self.assertRegex(SL.remote_tip(str(ROOT), 'HEAD'), r'^[0-9a-f]{40}$')
+        self.assertIsNone(SL.remote_tip(str(ROOT), 'refs/heads/no-such-branch-wsrc0915'))
+
+
 class PublishedTreeTests(unittest.TestCase):
     def git(self, root, *args, date=None):
         env = os.environ.copy()

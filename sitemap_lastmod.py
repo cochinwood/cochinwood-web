@@ -182,6 +182,33 @@ def revision_date(root, rev='HEAD'):
     return out if re.fullmatch(r'\d{4}-\d{2}-\d{2}', out) else None
 
 
+def remote_tip(root, ref='origin/cf-live'):
+    """The commit production currently serves, as this clone last fetched it, or None."""
+    try:
+        out = subprocess.run(['git', 'rev-parse', '--verify', '-q', ref + '^{commit}'], cwd=root,
+                             capture_output=True, text=True, timeout=15).stdout.strip()
+    except (OSError, subprocess.SubprocessError):
+        return None
+    return out if re.fullmatch(r'[0-9a-f]{40}', out) else None
+
+
+def pin_drift_warning(pin, tip, redated):
+    """A loud warning when production has moved past the pin, naming the URLs this build redated.
+
+    A page published after LIVE_SHA differs from the pinned tree, so resolve() gives it the
+    source revision's date on every build until the pin moves -- not the date it went live."""
+    if not tip or tip == pin:
+        return None
+    if redated is None:
+        listed = 'not computed, because the pinned tree could not be read'
+    else:
+        listed = f'{len(redated)}: ' + (', '.join(redated) if redated else 'none')
+    return (f'SITEMAP LASTMOD: origin/cf-live is {tip[:12]} but LIVE_SHA is {pin[:12]}. Pages published after the pin '
+            f'are compared with the older tree, so every build redates them to its own source revision until '
+            f'LIVE_SHA moves. Review what cf-live published since the pin and move it before publishing. '
+            f'URLs redated in this build, {listed}')
+
+
 def lastmods(url_paths, read_built, ref, root, seed=None):
     """Date every page, or return None when the published tree or source date is unavailable."""
     change_date = revision_date(root)
