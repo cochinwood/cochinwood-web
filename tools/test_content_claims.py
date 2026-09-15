@@ -135,6 +135,18 @@ class ContentClaimsTests(unittest.TestCase):
                     r'Sheet Count by Thickness \(Weight-Limited\)'):
             self.assertNotRegex(everything, old)
 
+    def test_no_page_implies_military_or_dangerous_goods_packing_certification(self):
+        # Owner confirmation, 10 Sep 2026: no MIL-spec, UN/Class 9 or FDA certification.
+        unsupported = re.compile(r'\bMIL[- ]?(?:spec|STD)\b|defen[cs]e[- ](?:spec|grade)\b|military packing standards?\b|'
+                                 r'ammunition[- ]grade|OFB packing standard|Class[- ]?9 dangerous[- ]goods crates', re.I)
+        for name, sentences in published_sentences().items():
+            for sentence in sentences:
+                with self.subTest(page=name):
+                    self.assertIsNone(unsupported.search(sentence), sentence[:200])
+        for city in ('chennai', 'hyderabad'):
+            self.assertIn('hold no military packing certification',
+                          ' '.join(published_sentences()['blogs/post/plywood-supply-to-' + city + '.html']))
+
 
 class Surface(HTMLParser):
     """What a reader or crawler is told: visible text, meta content and JSON-LD strings."""
