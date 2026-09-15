@@ -1,16 +1,23 @@
 """Guard customer-facing specifications, certification claims and loading limits.
 
-Run after python build.py. Checks include metadata/JSON-LD, not just visible prose.
+Run after python build.py. Checks include metadata/JSON-LD, not just visible prose. Set CWI_DIST to point
+the checks of published pages at another built tree, such as a saved build from before a content change.
 """
 import html
 import json
 import math
+import os
 import re
+import statistics
+import sys
 import unittest
 from html.parser import HTMLParser
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+DIST = Path(os.environ.get('CWI_DIST') or ROOT / 'dist')
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import load_figures as LF  # noqa: E402  tools/load_figures.py, reused by LoadFigureConsistencyTests
 
 
 class Rows(HTMLParser):
@@ -39,7 +46,7 @@ class ContentClaimsTests(unittest.TestCase):
         posts = json.loads((ROOT / 'content/blog/posts.json').read_text(encoding='utf-8'))
         cls.posts = {p['slug']: p for p in posts}
         cls.pages = {p.stem: p.read_text(encoding='utf-8')
-                     for p in (ROOT / 'dist/blogs/post').glob('*.html')}
+                     for p in (DIST / 'blogs/post').glob('*.html')}
         if not cls.pages:
             raise AssertionError('Build dist before checking published claims')
 
@@ -86,7 +93,7 @@ class ContentClaimsTests(unittest.TestCase):
             self.assertNotIn(phrase, all_posts)
 
     def test_returns_search_description_matches_existing_claim_windows(self):
-        page = (ROOT / 'dist/return-refund-policy.html').read_text(encoding='utf-8')
+        page = (DIST / 'return-refund-policy.html').read_text(encoding='utf-8')
         self.assertNotIn('7-day returns', page)
         self.assertIn('within 3 days', page)
         self.assertIn('within 14 days', page)
@@ -289,8 +296,8 @@ class ContentClaimsTests(unittest.TestCase):
     def test_price_columns_in_tables_carry_no_figures(self):
         reviewed = {(page, header) for page, header, _reason in self.REVIEWED_PRICED_COLUMNS}
         used = set()
-        for path in sorted((ROOT / 'dist').rglob('*.html')):
-            name = path.relative_to(ROOT / 'dist').as_posix()
+        for path in sorted(DIST.rglob('*.html')):
+            name = path.relative_to(DIST).as_posix()
             for header, cell in self.priced_numeric_cells(path.read_text(encoding='utf-8')):
                 if (name, header) in reviewed:
                     used.add((name, header))
@@ -385,14 +392,14 @@ class ContentClaimsTests(unittest.TestCase):
     def test_loading_guide_keeps_its_search_title(self):
         # The article's headline gained "Payload and Space"; its <title> must stay the phrase
         # cf-live serves (103efa27), not collapse to "20ft Container Plywood Loading".
-        page = (ROOT / 'dist/blogs/post/20ft-container-plywood-loading-sheet-count-by-thickness-weight-limited.html'
+        page = (DIST / 'blogs/post/20ft-container-plywood-loading-sheet-count-by-thickness-weight-limited.html'
                 ).read_text(encoding='utf-8')
         title = re.search(r'<title>([^<]*)</title>', page).group(1)
         self.assertEqual(title, '20ft Container Plywood Loading: Sheet Count by Thickness')
         self.assertLessEqual(len(title), 62)
 
     def test_pallet_article_headline_and_title_name_both_ceilings(self):
-        page = (ROOT / 'dist/blogs/post/pallet-vs-loose-container-loading-plywood-exports.html').read_text(encoding='utf-8')
+        page = (DIST / 'blogs/post/pallet-vs-loose-container-loading-plywood-exports.html').read_text(encoding='utf-8')
         self.assertEqual(re.search(r'<title>([^<]*)</title>', page).group(1),
                          'Pallet vs Loose Plywood Loading: Weight and Layout Ceilings')
         self.assertIn('>Pallet vs Loose Container Loading for Plywood: Weight and Layout Ceilings</h1>', page)
@@ -499,6 +506,405 @@ class ContentClaimsTests(unittest.TestCase):
                           ' '.join(published_sentences()['blogs/post/plywood-supply-to-' + city + '.html']))
 
 
+_LOAD_FIGURES = {}
+
+
+def site_load_figures():
+    """(records, vehicle-name flags) from tools/load_figures.py over the built tree, read once per run."""
+    if not _LOAD_FIGURES:
+        records, names, _pages = LF.scan_site(str(DIST))
+        _LOAD_FIGURES.update(records=records, names=names)
+    return _LOAD_FIGURES['records'], _LOAD_FIGURES['names']
+
+
+def published_guide_planning():
+    """(20ft internal volume in m3, planning density in kg/m3) as the built loading guide states them."""
+    page = (DIST / ('blogs/post/' + ContentClaimsTests.GUIDE_SLUG + '.html')).read_text(encoding='utf-8')
+    volume = float(re.search(r'20ft general purpose</td>\s*<td>(\d+(?:\.\d+)?) m', page).group(1))
+    density = float(re.search(r'illustrative density of (\d+) kg', page).group(1))
+    return volume, density
+
+
+class LoadFigureConsistencyTests(unittest.TestCase):
+    """Load figures checked against each other: across sentences, surfaces, pages and vehicle classes.
+
+    ContentClaimsTests compares a sheet count with a tonnage only inside one sentence and reads only the
+    plural units. These tests reuse tools/load_figures.py, which links every load figure on the built site
+    to its vehicle, thickness and tonnage at the loading guide's 650 kg/m3, and marks the figures that are
+    not a vehicle load (thresholds, part-loads, order sizes, ratings, per-crate weights, other cargo).
+    Set CWI_DIST to run them against another built tree, such as the build from before a content change.
+    """
+    LOW, HIGH = 0.85, 1.15      # the tolerance test_sheet_counts_agree_with_their_own_tonnage already allows
+    # The site's own anchor puts neighbouring truck classes about x1.35 apart (Kota: 32 ft single-axle
+    # 15-16 MT, 32 ft multi-axle 21 MT), so a figure more than x1.3 from its class median is another vehicle.
+    CLASS_BAND = 1.3
+    NOT_A_LOAD = frozenset(['threshold', 'part-load', 'order-size', 'illustrative', 'non-plywood', 'per-item',
+                            'mixed-component'])
+
+    @classmethod
+    def setUpClass(cls):
+        cls.records, cls.name_flags = site_load_figures()
+        if not cls.records:
+            raise AssertionError('Build dist before checking published load figures')
+
+    @staticmethod
+    def vehicle_load(record):
+        return record['tonnes_low'] is not None and LF.is_capacity(record, allow_rating=record['vehicle_kind'] == 'truck')
+
+    @staticmethod
+    def describe(record):
+        thickness = ' of %g mm' % record['thickness_mm'] if record['unit'] in ('sheets', 'sqft') and record['thickness_mm'] else ''
+        tonnes = ' = %.1f-%.1f t' % (record['tonnes_low'], record['tonnes_high']) if record['tonnes_low'] is not None else ''
+        return '%s "%s": %s %s%s%s | %s' % (record['source'], record['vehicle'], record['quantity'],
+                                            record.get('unit_text') or record['unit'], thickness, tonnes, record['text'][:160])
+
+    @staticmethod
+    def synthetic_records(body):
+        markup = ('<html><head><meta name="description" content="Synthetic page."></head><body><main>%s</main>'
+                  '</body></html>' % body)
+        return LF.page_records('synthetic.html', LF.extract_units_from_html(markup))
+
+    @staticmethod
+    def stated_tonnage(record):
+        return record['unit'] in ('tonnes', 'kg', 'm3', 'other')
+
+    SINGULAR_UNIT = re.compile(r'(?:metric\s+)?(?:tonne|ton|tonner|MT|t)', re.I)
+
+    @classmethod
+    def singular_tonnage(cls, record):
+        return record['unit'] == 'tonnes' and bool(cls.SINGULAR_UNIT.fullmatch(record.get('unit_text') or ''))
+
+    @classmethod
+    def disagreements(cls, records, stated, same_text):
+        """(sheet figure, stated figure) pairs on one page, for compatible vehicles, whose tonnages disagree.
+
+        stated(record) picks the other side of each pair; same_text=False leaves out a pair inside one sentence
+        or one table cell, which test_sheet_counts_agree_with_their_own_tonnage already reads."""
+        by_page, found, seen = {}, [], set()
+        for record in records:
+            if cls.vehicle_load(record):
+                by_page.setdefault(record['page'], []).append(record)
+        for recs in by_page.values():
+            for sheet in (r for r in recs if r['unit'] == 'sheets'):
+                for other in (r for r in recs if r['unit'] != 'sheets' and stated(r)):
+                    if not same_text and (sheet['source'], sheet['text']) == (other['source'], other['text']):
+                        continue
+                    if {sheet['source'], other['source']} == {'faq', 'faq-jsonld'}:
+                        continue        # an answer's JSON-LD copy is checked as a surface of its own
+                    if not LF.compatible(sheet, other, recs):
+                        continue
+                    if (sheet['tonnes_high'] >= other['tonnes_low'] * cls.LOW
+                            and sheet['tonnes_low'] <= other['tonnes_high'] * cls.HIGH):
+                        continue
+                    key = (sheet['page'], sheet['source'], sheet['text'], sheet['quantity'],
+                           other['source'], other['text'], other['quantity'])
+                    if key not in seen:
+                        seen.add(key)
+                        found.append((sheet, other))
+        return found
+
+    def test_sheet_and_tonnage_figures_agree_across_sentences_faq_answers_and_table_cells(self):
+        """Gap (a): a sheet count and a tonnage for one vehicle were compared only inside a single sentence.
+
+        Split across sentences or list items ("32 ft single-axle for full loads (~440 sheets of 12 mm)" beside
+        "a single-driver 20-ton truck"), between the body and an FAQ answer ("full truckloads of 4-5 containers'
+        worth of sheets" against "a full single-axle truck (about 600-700 sheets of 12 mm)"), or across the cells
+        of one table row, the two figures were never set against each other."""
+        broken = self.synthetic_records(
+            '<h2>Lane</h2><p>A 32-ft single-axle truck carries about 15 tonnes of plywood.</p>'
+            '<table><thead><tr><th>Vehicle</th><th>Capacity</th><th>Sheets</th></tr></thead><tbody>'
+            '<tr><td>32-ft single-axle</td><td>15 tonnes</td><td>1,000 sheets of 12 mm</td></tr></tbody></table>'
+            '<h2>FAQ</h2><h3>How much fits in one truck?</h3><p>One 32-ft single-axle truck takes about 1,000 sheets of 12 mm.</p>')
+        pairs = {(sheet['source'], other['source']) for sheet, other in self.disagreements(broken, self.stated_tonnage, False)}
+        self.assertIn(('table', 'table'), pairs, 'two cells of one table row')
+        self.assertIn(('faq', 'body'), pairs, 'an FAQ answer against the body')
+        consistent = self.synthetic_records(
+            '<h2>Lane</h2><p>A 32-ft single-axle truck carries about 15 tonnes of plywood.</p>'
+            '<table><thead><tr><th>Vehicle</th><th>Capacity</th><th>Sheets</th></tr></thead><tbody>'
+            '<tr><td>32-ft single-axle</td><td>15 tonnes</td><td>650 sheets of 12 mm</td></tr></tbody></table>'
+            '<h2>FAQ</h2><h3>How much fits in one truck?</h3><p>One 32-ft single-axle truck takes about 650 sheets of 12 mm.</p>')
+        self.assertEqual(self.disagreements(consistent, self.stated_tonnage, False), [])
+        for sheet, other in self.disagreements(self.records, self.stated_tonnage, False):
+            with self.subTest(page=sheet['page'], sheets=sheet['text'][:100], stated=other['text'][:100]):
+                self.fail('sheet figure disagrees with the tonnage stated elsewhere for the same vehicle: %s || %s'
+                          % (self.describe(sheet), self.describe(other)))
+
+    AREA_VOLUME_SKIP = frozenset(['order-size', 'per-item', 'rating', 'non-plywood', 'threshold', 'part-load',
+                                  'illustrative', 'mixed-component'])
+
+    @classmethod
+    def area_volume_disagreements(cls, records):
+        """(sq ft or m3 figure, tonnage, reason) on one page, in one sentence or for compatible vehicles."""
+        by_page, found = {}, []
+        for record in records:
+            if not set(record['qualifiers']) & cls.AREA_VOLUME_SKIP:
+                by_page.setdefault(record['page'], []).append(record)
+        for recs in by_page.values():
+            for measure in (r for r in recs if r['unit'] in ('sqft', 'm3')):
+                for tonnage in (r for r in recs if r['unit'] in ('tonnes', 'kg')):
+                    together = (measure['source'], measure['text']) == (tonnage['source'], tonnage['text'])
+                    if not together and ({measure['source'], tonnage['source']} == {'faq', 'faq-jsonld'}
+                                         or not LF.compatible(measure, tonnage, recs)):
+                        continue
+                    if measure['tonnes_low'] is None:
+                        if together:
+                            found.append((measure, tonnage, 'an area paired with tonnes must state the thickness'))
+                        continue
+                    if (measure['tonnes_high'] >= tonnage['tonnes_low'] * cls.LOW
+                            and measure['tonnes_low'] <= tonnage['tonnes_high'] * cls.HIGH):
+                        continue
+                    found.append((measure, tonnage, '%.1f-%.1f t at %g kg/m3' % (
+                        measure['tonnes_low'], measure['tonnes_high'], LF.DENSITY)))
+        return found
+
+    def test_area_and_volume_figures_agree_with_their_tonnage(self):
+        """Gap (b): square feet and cubic metres were never converted to weight.
+
+        "Full-load orders of 18-22 tonnes (roughly 9,000-11,000 sq.ft of 18 mm plywood)" is 9.8-12.0 t at
+        650 kg/m3 and the stated 18 mm, not 18-22 t; "12-15 m3" on a truck said to carry 20 tonnes is 7.8-9.8 t."""
+        self.assertEqual(published_guide_planning()[1], LF.DENSITY, 'the detector converts at the guide density')
+        broken = self.synthetic_records(
+            '<p>A 32-ft single-axle truck suits full-load orders of 18-22 tonnes (roughly 9,000-11,000 sq.ft of 18 mm plywood).</p>'
+            '<p>A full 22-ft truck carries 12-15 m³ of plywood. That 22-ft truck carries about 20 tonnes of plywood.</p>')
+        self.assertEqual(sorted(m['unit'] for m, _t, _why in self.area_volume_disagreements(broken)), ['m3', 'sqft'])
+        consistent = self.synthetic_records(
+            '<p>A 32-ft single-axle truck suits full-load orders of 10-12 tonnes (roughly 9,000-11,000 sq.ft of 18 mm plywood).</p>'
+            '<p>A full 22-ft truck carries 12-15 m³ of plywood, about 8-9 tonnes.</p>')
+        self.assertEqual(self.area_volume_disagreements(consistent), [])
+        for measure, tonnage, why in self.area_volume_disagreements(self.records):
+            with self.subTest(page=measure['page'], figure=measure['text'][:120]):
+                self.fail('%s: %s || %s' % (why, self.describe(measure), self.describe(tonnage)))
+
+    TONNAGE_ANY = re.compile(r"(\d+(?:\.\d+)?)(?:\s*(?:to|-|–|—)\s*(\d+(?:\.\d+)?))?\s*-?\s*"
+                             r"((?:metric\s+)?(?:tonnes?|tonners?|tons?|MT|t))\b(?![/’'-]\w)", re.I)
+    PLYWOOD_TONNAGE_ANY = re.compile(TONNAGE_ANY.pattern + r"\s+(?:payload\s+)?of\s+"
+                                     r"(?:(?:mixed|finished|bare|packing-grade|packing|commercial|sheet)\s+)*(?:plywood|ply\b|sheet stock)", re.I)
+    RATING_AFTER = re.compile(r"\s*(?:payload|cap|limit|ceiling|rating)\b(?!\s+of\s+(?:plywood|ply\b))", re.I)
+    COUNTERFACTUAL = re.compile(r"\bwould (?:need|take|require)\b|\bagainst its\b", re.I)
+
+    def test_singular_and_abbreviated_tonnage_units_are_checked(self):
+        """Gap (c): the tonnage checks read 'tonnes' and 'tons' only (and 'MT' or 't' only before "of plywood").
+
+        A load written with the singular 'tonne' or 'ton', or as 't' or 'MT' ("a single-driver 20-ton truck",
+        "32 ft / 16 MT"), was never compared with a sheet count, and "a 28-tonne payload of plywood" in a
+        20 ft box was never held to the 21.5 t that fills its 33 m3."""
+        for phrase, value in (('a 20-tonne truck', '20'), ('16 t of plywood', '16'), ('32 ft / 9 MT', '9'),
+                              ('a single-driver 20-ton truck', '20'), ('a 22-tonner', '22')):
+            with self.subTest(phrase=phrase):
+                self.assertEqual(self.TONNAGE_ANY.search(phrase).group(1), value)
+        self.assertEqual(self.PLYWOOD_TONNAGE_ANY.search('In a 20 ft box, a 28-tonne payload of plywood').group(1), '28')
+        for body in ('<p>A 9 MT 22-ft truck carries 700 sheets of 12 mm.</p>',
+                     '<ul><li><strong>Transit time:</strong> 14-18 hours door-to-door for a single-driver 20-ton truck.</li>'
+                     '<li><strong>Vehicle:</strong> 32 ft single-axle for full loads (~440 sheets of 12 mm).</li></ul>'):
+            with self.subTest(synthetic=body[:60]):
+                self.assertEqual(len(self.disagreements(self.synthetic_records(body), self.singular_tonnage, True)), 1)
+        # every page: a singular or abbreviated tonnage against the sheet figures for the same vehicle
+        for sheet, other in self.disagreements(self.records, self.singular_tonnage, True):
+            with self.subTest(page=sheet['page'], sheets=sheet['text'][:100], stated=other['text'][:100]):
+                self.fail('sheet figure disagrees with a tonnage written "%s": %s || %s'
+                          % (other['unit_text'], self.describe(sheet), self.describe(other)))
+        # every sentence: the same two checks ContentClaimsTests makes, with the unit spellings they miss
+        volume, density = published_guide_planning()
+        limit = math.ceil(volume * density / 100) / 10
+        for name, sentences in published_sentences().items():
+            for sentence in sentences:
+                sheets = ContentClaimsTests.PAIR_SHEETS.search(sentence)
+                loads = [m for m in self.TONNAGE_ANY.finditer(sentence)
+                         if not self.RATING_AFTER.match(sentence, m.end())]
+                if sheets and loads:
+                    sheet_kg = LF.sheet_kg(float(sheets.group(3)))
+                    mass_low = int(sheets.group(1).replace(',', '')) * sheet_kg / 1000
+                    mass_high = int((sheets.group(2) or sheets.group(1)).replace(',', '')) * sheet_kg / 1000
+                    stated_low, stated_high = float(loads[0].group(1)), float(loads[0].group(2) or loads[0].group(1))
+                    with self.subTest(page=name, sentence=sentence[:180]):
+                        self.assertTrue(mass_high >= stated_low * self.LOW and mass_low <= stated_high * self.HIGH,
+                                        f'{mass_low:.1f}-{mass_high:.1f} t of sheets against {stated_low}-{stated_high} t stated')
+                if self.COUNTERFACTUAL.search(sentence):
+                    continue        # "a 28-tonne payload of plywood would need about 43 m3 against its 33 m3"
+                boxes = ContentClaimsTests.boxes_in(sentence)
+                for load in self.PLYWOOD_TONNAGE_ANY.finditer(sentence):
+                    before = [box for at, box in boxes if at < load.start()]
+                    box = before[-1] if before else (boxes[0][1] if boxes else None)
+                    if box == '20':
+                        with self.subTest(page=name, sentence=sentence[:180]):
+                            self.assertLessEqual(float(load.group(2) or load.group(1)), limit)
+
+    BAND_LABEL = {'truck-up-to-24ft': '19-24 ft truck', 'truck-32ft-sxl': '32 ft single-axle',
+                  'truck-32ft-mxl': '32 ft multi-axle', 'truck-32ft': '32 ft truck, axle not named',
+                  'container-20ft': '20 ft container', 'container-40ft': '40 ft container', 'container-40hc': '40 ft high-cube'}
+
+    @classmethod
+    def band_class(cls, record):
+        detail = record['class_detail']
+        if detail in cls.BAND_LABEL:
+            return detail
+        short = re.fullmatch(r'truck-(\d{2}(?:/\d{2})*)(?:ft)?(?:-single|-multi)?(?:-axle)?', detail)
+        if short and all(19 <= int(length) <= 24 for length in short.group(1).split('/')):
+            return 'truck-up-to-24ft'
+        return None     # an axle with no length, or no vehicle size at all, names no class
+
+    @classmethod
+    def class_bands(cls, records):
+        """{class: (low t, high t, pages)}: the median of each page's tonnage range for the class, x/÷ CLASS_BAND.
+
+        A 32 ft truck whose axle is not named may be either body, so its band runs from the single-axle low
+        to the multi-axle high."""
+        ranges = {}
+        for record in records:
+            key = cls.band_class(record)
+            if key and not record['alt_classes'] and cls.vehicle_load(record):
+                low, high = ranges.setdefault(key, {}).get(record['page'], (math.inf, -math.inf))
+                ranges[key][record['page']] = (min(low, record['tonnes_low']), max(high, record['tonnes_high']))
+        medians = {key: statistics.median((low + high) / 2 for low, high in pages.values()) for key, pages in ranges.items()}
+        bands = {}
+        for key, median in medians.items():
+            around = [medians[c] for c in ('truck-32ft-sxl', 'truck-32ft-mxl') if c in medians] if key == 'truck-32ft' else []
+            around = around or [median]
+            bands[key] = (min(around) / cls.CLASS_BAND, max(around) * cls.CLASS_BAND, len(ranges[key]))
+        return bands
+
+    def test_load_figures_for_one_vehicle_class_agree_across_pages(self):
+        """Gap (d): each page was checked on its own, so one vehicle class could carry any figure.
+
+        A 22-ft truck was "around 6 tonnes" on one page and "1,000-1,200 sheets of 12 mm" (23-28 t) on another;
+        a 32 ft single-axle ran from 9 t to 25 t; a 32-foot truck "roughly 28-30 tonnes"; a 20 ft box took
+        "roughly 280 sheets of 12 mm" (6.5 t) on one page and "380 to 420 sheets at 18mm" (13-15 t) on another."""
+        bands = self.class_bands(self.records)
+        checked = 0
+        for record in self.records:
+            key = self.band_class(record)
+            if not key or record['alt_classes'] or not self.vehicle_load(record):
+                continue
+            checked += 1
+            low, high, pages = bands[key]
+            if record['tonnes_low'] < low - 1e-9 or record['tonnes_high'] > high + 1e-9:
+                with self.subTest(page=record['page'], vehicle_class=self.BAND_LABEL[key], figure=record['text'][:120]):
+                    self.fail('%s is outside the %s band %.1f-%.1f t (median of %d pages, x/÷%g)'
+                              % (self.describe(record), self.BAND_LABEL[key], low, high, pages, self.CLASS_BAND))
+        self.assertGreaterEqual(checked, 10, 'the class check found almost no vehicle-tied load figures; is dist built?')
+
+    AXLE_CONFLICT = re.compile(
+        r"(?:\bsingle[- ]axle|\bSXL)\b(?:\s+(?!(?:or|and|to|vs|versus)\b)[\w’'-]+)?\s+(?:multi[- ]axle|MXL)\b|"
+        r"(?:\bmulti[- ]axle|\bMXL)\b(?:\s+(?!(?:or|and|to|vs|versus)\b)[\w’'-]+)?\s+(?:single[- ]axle|SXL)\b", re.I)
+
+    def test_no_vehicle_name_is_both_single_axle_and_multi_axle(self):
+        """Gap (e): nothing read vehicle names. "A 32-foot multi-axle SXL" (SXL is a single-axle body) and "a 32-ft
+        single-axle multi-axle" name two different trucks as one, so their load figures belong to neither class."""
+        for name in ('a 32-foot multi-axle SXL carries', 'a 32-ft single-axle multi-axle carrying', 'a multi-axle 32-ft SXL'):
+            with self.subTest(contradictory=name):
+                self.assertRegex(name, self.AXLE_CONFLICT)
+        for name in ('a 32-ft single-axle or multi-axle truck', 'single-axle and/or multi-axle trailers',
+                     '32-ft single-axle and multi-axle trailers', 'single-axle / multi-axle', 'a 32-foot SXL'):
+            with self.subTest(alternatives=name):
+                self.assertNotRegex(name, self.AXLE_CONFLICT)
+        for name, sentences in published_sentences().items():
+            for sentence in sentences:
+                found = self.AXLE_CONFLICT.search(sentence)
+                if found:
+                    with self.subTest(page=name, sentence=sentence[:180]):
+                        self.fail('vehicle named both single-axle and multi-axle: "%s"' % found.group(0))
+        rule_four = [flag for flag in LF.rules(self.records)[0] if flag['rule'].startswith('4')]
+        for flag in self.name_flags + rule_four:
+            with self.subTest(page=flag['pages'][0], detail=flag['detail'][:160]):
+                self.fail(flag['detail'])
+
+    @staticmethod
+    def published_estimator():
+        """(containers, sheet mm, form defaults, page) as the site publishes its container estimator."""
+        page = (DIST / 'rubberwood-plywood-container-weight.html').read_text(encoding='utf-8')
+        script = (DIST / re.search(r'src="/?(assets/container-calculator[^"]*\.js)"', page).group(1)).read_text(encoding='utf-8')
+        containers = {size: {key: int(value) for key, value in re.findall(r'(\w+):(\d+)', body)}
+                      for size, body in re.findall(r"'(20|40)':\s*\{([^}]*)\}", script)}
+        sheet = tuple(int(v) for v in re.search(r'sheet = \{length:(\d+),width:(\d+)\}', script).groups())
+        defaults = {field: float(re.search(r'id="cwi-calc-%s"[^>]*\bvalue="([\d.]+)"' % field, page).group(1))
+                    for field in ('density', 'payload', 'packing', 'clearance')}
+        return containers, sheet, defaults, page
+
+    @staticmethod
+    def estimator_count(box, sheet, thickness, defaults):
+        """calculate() in assets/container-calculator.js: flat lengthwise stacks, 100 mm clearance, 50 mm gaps."""
+        along = (box['length'] - 100 + 50) // (sheet[0] + 50)
+        across = (min(box['width'], box['doorWidth']) - 100 + 50) // (sheet[1] + 50)
+        layers = math.floor((min(box['height'], box['doorHeight']) - defaults['clearance']) / thickness)
+        mass = sheet[0] / 1000 * (sheet[1] / 1000) * (thickness / 1000) * defaults['density']
+        weight = math.floor((defaults['payload'] * 1000 - defaults['packing']) / mass)
+        return min(weight, along * across * layers)
+
+    def test_typical_container_sheet_counts_stay_within_the_estimator_flat_stack(self):
+        """Gap (f): container sheet counts were held only to the guide's capacity-only ceilings (615 sheets of 18 mm
+        in a 20 ft box), which leave out pallets, dunnage and sheet fit. The site's own estimator flat-stacks 242
+        sheets of 18 mm in a 20 ft box, yet FAQ answers gave "roughly 320-360" and "roughly 380 to 420" as the load."""
+        containers, sheet, defaults, page = self.published_estimator()
+
+        def count(size, thickness):
+            return self.estimator_count(containers[size], sheet, thickness, defaults)
+        self.assertEqual((count('20', 12), count('40', 12)), (364, 728))
+        self.assertIn('364 sheets in a 20ft standard container or 728 in a 40ft', html.unescape(page))
+        for thickness in (12, 18):
+            self.assertEqual(count('20', thickness), LF.ceiling_estimator('container-20ft', thickness))
+            self.assertEqual(count('40', thickness), LF.ceiling_estimator('container-40ft', thickness))
+        for record in self.records:
+            if (record['vehicle_kind'] != 'container' or record['class_detail'] not in ('container-20ft', 'container-40ft')
+                    or record['unit'] != 'sheets' or not record['thickness_mm'] or record['alt_classes']
+                    or set(record['qualifiers']) & (self.NOT_A_LOAD | {'rating'})):
+                continue
+            limit = count(record['class_detail'][len('container-'):len('container-') + 2], record['thickness_mm'])
+            if record['high'] > limit:
+                with self.subTest(page=record['page'], figure=record['text'][:140]):
+                    self.fail('%s exceeds the estimator flat-stack count of %d sheets' % (self.describe(record), limit))
+
+    STATISTIC = re.compile(
+        r"(?P<cur>₹|\bRs\.?|\bINR\b|US\$|\$|\bUSD\b|\bSAR\b|\bAED\b|\bQAR\b)\s?(?P<num>\d[\d,]*(?:\.\d+)?)[\s-]?"
+        r"(?P<scale>crores?|lakhs?|billion|million)\b(?P<rest>[^.;:,()—–]*)"
+        r"|(?P<pct>\d+(?:\.\d+)?)\s?%\s+of\s+(?:India|the world|the country)[’']s\s+(?P<prest>[^.;:,()—–]*)", re.I)
+    SCALE = {'crore': 1e7, 'lakh': 1e5, 'billion': 1e9, 'million': 1e6}
+    CURRENCY = {'₹': 'INR', 'rs': 'INR', 'rs.': 'INR', 'inr': 'INR', '$': 'USD', 'us$': 'USD', 'usd': 'USD',
+                'sar': 'SAR', 'aed': 'AED', 'qar': 'QAR'}
+    STAT_STOP = frozenset('about and around cumulative did each every export exports for from india indian into its '
+                          'mark out over per recent roughly share that the total value worth year years'.split())
+
+    @classmethod
+    def statistics_by_subject(cls, sentences_by_page, places):
+        """{(place, subject word, unit): {page: {value}}} for money totals and national or world shares."""
+        found = {}
+        for page, sentences in sentences_by_page.items():
+            for sentence in set(sentences):
+                for match in cls.STATISTIC.finditer(sentence):
+                    window = sentence[max(0, match.start() - 160):match.end()]
+                    named = {p for p in places if re.search(r'\b%s\b' % re.escape(p), window, re.I)}
+                    if not named:
+                        continue
+                    if match.group('pct'):
+                        unit, value, rest = '%', float(match.group('pct')), match.group('prest')
+                    else:
+                        unit = cls.CURRENCY[match.group('cur').lower()]
+                        value = float(match.group('num').replace(',', '')) * cls.SCALE[match.group('scale').lower().rstrip('s')]
+                        rest = match.group('rest')
+                    words = [w for w in re.findall(r'[a-z][a-z-]{2,}', rest.lower())[:6] if w not in cls.STAT_STOP]
+                    for place in named:
+                        for subject in (w for w in words if w not in place.split()):
+                            found.setdefault((place, subject, unit), {}).setdefault(page, set()).add(float('%.3g' % value))
+        return found
+
+    def test_a_statistic_has_one_value_across_pages(self):
+        """Gap (g): nothing compared a figure between pages. Tiruppur's annual knitwear exports were "somewhere
+        around Rs 30,000 crore" on the Tiruppur page and "roughly ₹40,000 crore ... in FY25" on the Coimbatore page."""
+        places = {m.group(1).replace('-', ' ') for m in (
+            re.fullmatch(r'(?:blogs/post/plywood-supply-to-|export/)([a-z-]+)\.html', path.relative_to(DIST).as_posix())
+            for path in DIST.rglob('*.html')) if m}
+        broken = self.statistics_by_subject(
+            {'a.html': ['Tiruppur ships somewhere around Rs 30,000 crore worth of knitwear out of India every year.'],
+             'b.html': ['And Tiruppur, 55 km east, did roughly ₹40,000 crore in knitwear exports in FY25.']}, {'tiruppur'})
+        self.assertEqual(broken[('tiruppur', 'knitwear', 'INR')], {'a.html': {3e11}, 'b.html': {4e11}})
+        for (place, subject, unit), pages in sorted(self.statistics_by_subject(published_sentences(), places).items()):
+            values = list(pages.items())
+            clash = [(p, q) for i, (p, vp) in enumerate(values) for q, vq in values[i + 1:] if vp.isdisjoint(vq)]
+            if clash:
+                with self.subTest(place=place, subject=subject, unit=unit):
+                    self.fail('one statistic, different values: %s' % '; '.join(
+                        '%s %s' % (page, sorted(v)) for page, v in sorted(pages.items())))
+
+
 class Surface(HTMLParser):
     """What a reader or crawler is told: visible text, meta content and JSON-LD strings."""
     BREAKS = {'p', 'li', 'td', 'th', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'br', 'figcaption', 'title'}
@@ -548,11 +954,11 @@ _SENTENCES = {}
 
 def published_sentences():
     if not _SENTENCES:
-        for path in sorted((ROOT / 'dist').rglob('*.html')):
+        for path in sorted(DIST.rglob('*.html')):
             parser = Surface()
             parser.feed(path.read_text(encoding='utf-8'))
             text = ''.join(parser.parts)
-            _SENTENCES[path.relative_to(ROOT / 'dist').as_posix()] = [
+            _SENTENCES[path.relative_to(DIST).as_posix()] = [
                 s.strip() for line in text.split('\n') for s in re.split(r'(?<=[.!?])\s+', line) if s.strip()]
     return _SENTENCES
 
