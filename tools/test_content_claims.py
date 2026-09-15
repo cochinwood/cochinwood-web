@@ -113,27 +113,47 @@ class ContentClaimsTests(unittest.TestCase):
         for old in ('Past about 20 mm, the geometry flips', '~1,225 sheets', 'freight drops by close to 40%'):
             self.assertNotIn(old, page)
 
-    # Pages about sawn timber species, not plywood; their density and stacking differ.
-    TIMBER_PAGES = {'woods-we-use/matti.html', 'woods-we-use/venteak.html'}
+    # Weight alone never sets the sheet count, whatever container a sentence names. The site's
+    # own estimator (assets/container-calculator.js) takes the lower of the weight and layout
+    # ceilings, and a flat-stacked 40 ft box is layout-bound at every offered thickness at
+    # 650 kg/m3 (12 mm: 728 by layout against 1,136 by weight). The loading guide only says
+    # 26.5 t occupies about 40.8 m3, "below its gross internal volume". No qualifier, and no
+    # timber-page exemption, excuses a claim that weight decides.
+    WEIGHT_ALONE = re.compile(
+        r"weighs? out|cubes? out|weighbridge sets|sets the sheet count|cube never|not (?:just )?the cube|"
+        r"weight (?:alone )?decides|decides it, not volume|not (?:by )?volume|not (?:by )?space|kilograms, not cubic|"
+        r"binding constraint is kilograms|(?<![/-])\bweight-limited\b(?! to volume-limited)|fills? up by weight|"
+        r"weight first|payload first|with space (?:still showing|to spare)|set by weight|space the sheets take|"
+        r"(?:reach|hit)\w*\s+(?:the|its|that|a)\s+(?:container'?s?\s+)?(?:permitted\s+)?(?:payload|weight)\b[^.]*?before|"
+        r"loaded to (?:the |your destination.s )?(?:road )?weight limit|weight question, not a volume", re.I)
+    LIGHTER_ADDS_SHEETS = re.compile(r"lighter[^.]*(?:more (?:usable )?sheets|adds? sheets)|"
+                                     r"more (?:usable )?sheets[^.]*(?:before it hits|same booking)", re.I)
+    ONLY_WHEN_WEIGHT_BINDS = re.compile(r"(?:only |)(?:when|where) weight (?:rather than the sheet layout )?is the binding limit", re.I)
 
-    def test_weight_before_space_is_never_stated_for_every_container(self):
-        # The loading guide: at 650 kg/m3, 28 t needs about 43.1 m3 against a 20ft box's
-        # 33 m3, while 26.5 t takes about 40.8 of a 40ft box's 67 m3. So "weighs out before
-        # it cubes out" holds for a 40ft box, not for plywood in general.
-        claim = re.compile(r'weighs? out|cubes? out|fills? up by weight|weight, not (?:by )?(?:space|volume)|'
-                           r'weight question, not a volume|(?:reach|hit)\w*\s+(?:the|its)\s+(?:container\'?s?\s+)?'
-                           r'(?:permitted\s+)?(?:payload|weight)\b[^.]*?before', re.I)
+    def test_no_page_says_weight_alone_sets_the_sheet_count(self):
         for name, sentences in published_sentences().items():
-            if name in self.TIMBER_PAGES:
-                continue
             for sentence in sentences:
-                if claim.search(sentence) and not re.search(r'40\s?-?(?:ft|foot)', sentence, re.I):
-                    with self.subTest(page=name, sentence=sentence[:160]):
-                        self.fail('container loading claim without its container')
+                if self.WEIGHT_ALONE.search(sentence):
+                    with self.subTest(page=name, sentence=sentence[:180]):
+                        self.fail('loading claim says weight alone sets the count')
         everything = '\n'.join(s for sentences in published_sentences().values() for s in sentences)
         for old in (r'28 tonnes? (?:of cargo )?for a 40 ft', r'22-24 tonnes of packing-grade ply',
                     r'Sheet Count by Thickness \(Weight-Limited\)'):
             self.assertNotRegex(everything, old)
+
+    def test_a_lighter_panel_adds_sheets_only_when_weight_binds(self):
+        for name, sentences in published_sentences().items():
+            for sentence in sentences:
+                if sentence.endswith('?'):
+                    continue        # a question ("Does a lighter core always mean more sheets?") claims nothing
+                if self.LIGHTER_ADDS_SHEETS.search(sentence) and not self.ONLY_WHEN_WEIGHT_BINDS.search(sentence):
+                    with self.subTest(page=name, sentence=sentence[:180]):
+                        self.fail('lighter panel promised more sheets without the weight condition')
+
+    def test_worked_sheet_counts_state_the_layout_ceiling(self):
+        pallet = ' '.join(published_sentences()['blogs/post/pallet-vs-loose-container-loading-plywood-exports.html'])
+        self.assertIn('weight ceiling loaded loose is 26,500 ÷ 30 ≈ 883 sheets', pallet)
+        self.assertIn('layout ceiling of about 564 sheets', pallet)
 
     def test_no_page_implies_military_or_dangerous_goods_packing_certification(self):
         # Owner confirmation, 10 Sep 2026: no MIL-spec, UN/Class 9 or FDA certification.
