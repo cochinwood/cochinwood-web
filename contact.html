@@ -141,6 +141,111 @@
     <p class="cw-note">Cochin Wood Industries Private Limited<br>GSTIN 32AAJCC9689H1Z5<br>CIN U20219KL2021PTC072862<br><a href="/company-verification">Verify our registrations &rarr;</a></p>
     <p class="cw-note">For factory visits or collection, contact the desk to confirm the producing works, appointment and loading instructions.</p>
   </aside></div>
+  <div class="cw-sales-team" id="cw-sales-section" style="margin-top:36px;border:1px solid var(--cw-sand-300,#ded8ce);border-radius:12px;background:var(--cw-sand-50,#faf8f5);padding:24px 20px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px;margin-bottom:16px">
+      <div>
+        <h2 style="font-size:1.28rem;font-weight:700;color:var(--cw-green-900,#1b4d3e);margin:0 0 4px">Direct Sales Contacts</h2>
+        <p style="font-size:.88rem;color:var(--cw-ink-700,#4a4a4a);margin:0">Contact our sales managers directly based on your destination and language preference.</p>
+      </div>
+      <div id="cw-sales-filters" style="display:none;gap:6px;align-items:center">
+        <span style="font-size:.78rem;font-weight:600;color:var(--cw-ink-600,#666)">Filter:</span>
+        <button type="button" class="cw-sales-filter active" data-filter="all" style="padding:4px 10px;font-size:.78rem;font-weight:600;border:1px solid #1b4d3e;background:#1b4d3e;color:#fff;border-radius:999px;cursor:pointer">All</button>
+        <button type="button" class="cw-sales-filter" data-filter="Domestic" style="padding:4px 10px;font-size:.78rem;font-weight:600;border:1px solid #cbd5e1;background:#fff;color:#334155;border-radius:999px;cursor:pointer">Domestic</button>
+        <button type="button" class="cw-sales-filter" data-filter="Export" style="padding:4px 10px;font-size:.78rem;font-weight:600;border:1px solid #cbd5e1;background:#fff;color:#334155;border-radius:999px;cursor:pointer">Export</button>
+      </div>
+    </div>
+    <div id="cw-sales-list" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px">
+      <div style="grid-column:1/-1;text-align:center;padding:12px;color:var(--cw-ink-500,#777);font-size:.86rem">Loading sales contacts…</div>
+    </div>
+  </div>
+  <script>
+  (function() {
+    var list = document.getElementById("cw-sales-list");
+    var filters = document.getElementById("cw-sales-filters");
+    if (!list) return;
+
+    var endpoints = [
+      "/api/public/sales-team",
+      "/cw-sales",
+      "https://www.cochinwood.in/api/public/sales-team"
+    ];
+
+    function tryFetch(i) {
+      if (i >= endpoints.length) {
+        if (list) list.innerHTML = '<p class="cw-note" style="grid-column:1/-1;margin:0;font-size:.85rem">Direct sales line: <a href="tel:+919567410175">+91 95674 10175</a> (Domestic &amp; Export).</p>';
+        return;
+      }
+      fetch(endpoints[i], { mode: "cors" })
+        .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
+        .then(function(data) {
+          if (!data || !data.ok || !Array.isArray(data.team) || !data.team.length) {
+            tryFetch(i + 1);
+            return;
+          }
+          renderTeam(data.team);
+        })
+        .catch(function() { tryFetch(i + 1); });
+    }
+
+    function renderTeam(team) {
+      if (!list) return;
+      if (filters) filters.style.display = "flex";
+
+      function draw(filter) {
+        var rows = team.filter(function(m) {
+          if (!filter || filter === "all") return true;
+          return m.dealing === filter || m.dealing === "Both";
+        });
+
+        if (!rows.length) {
+          list.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:12px;color:#666;font-size:.85rem">No managers listed for this segment. Please call our central desk.</div>';
+          return;
+        }
+
+        list.innerHTML = rows.map(function(m) {
+          var badgeColor = m.dealing === "Export" ? "#0284c7" : (m.dealing === "Domestic" ? "#16a34a" : "#7c3aed");
+          var langs = (m.languages || []).map(function(l) {
+            return '<span style="display:inline-block;padding:2px 6px;font-size:.72rem;background:#eef2f6;color:#334155;border-radius:4px;margin:1px 2px">' + esc(l) + '</span>';
+          }).join("");
+
+          return '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:14px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 1px 2px rgba(0,0,0,.04)">' +
+            '<div>' +
+              '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px;margin-bottom:2px">' +
+                '<h3 style="margin:0;font-size:.98rem;font-weight:700;color:var(--cw-green-900,#1b4d3e)">' + esc(m.name) + '</h3>' +
+                '<span style="padding:1px 7px;font-size:.7rem;font-weight:700;background:' + badgeColor + ';color:#fff;border-radius:999px;white-space:nowrap">' + esc(m.dealing) + '</span>' +
+              '</div>' +
+              '<div style="font-size:.78rem;color:#64748b;margin-bottom:8px">' + esc(m.designation || "Sales Manager") + '</div>' +
+              '<div style="margin-bottom:12px"><span style="font-size:.72rem;color:#888;font-weight:600">Languages:</span> ' + (langs || '<span style="font-size:.72rem;color:#888">English</span>') + '</div>' +
+            '</div>' +
+            '<div style="display:flex;gap:6px;margin-top:auto">' +
+              '<a href="tel:' + esc(m.phone) + '" style="flex:1;text-align:center;padding:7px 4px;font-size:.78rem;font-weight:600;background:#f8fafc;border:1px solid #cbd5e1;color:#1e293b;border-radius:6px;text-decoration:none">Call ' + esc(m.phone_disp || m.phone) + '</a>' +
+              '<a href="https://wa.me/' + esc(m.wa) + '" target="_blank" rel="noopener" style="flex:1;text-align:center;padding:7px 4px;font-size:.78rem;font-weight:600;background:#22c55e;border:1px solid #16a34a;color:#fff;border-radius:6px;text-decoration:none">WhatsApp</a>' +
+            '</div>' +
+          '</div>';
+        }).join("");
+      }
+
+      if (filters) {
+        var btns = filters.querySelectorAll(".cw-sales-filter");
+        btns.forEach(function(btn) {
+          btn.addEventListener("click", function() {
+            btns.forEach(function(b) { b.style.background = "#fff"; b.style.color = "#334155"; b.style.borderColor = "#cbd5e1"; });
+            btn.style.background = "#1b4d3e"; btn.style.color = "#fff"; btn.style.borderColor = "#1b4d3e";
+            draw(btn.getAttribute("data-filter"));
+          });
+        });
+      }
+
+      draw("all");
+    }
+
+    function esc(s) {
+      return String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+
+    tryFetch(0);
+  })();
+  </script>
 </div></section><!-- data-editorial-pass="1" --></main>
 
 <footer class="cw-ft"><div class="cw-wrap">
