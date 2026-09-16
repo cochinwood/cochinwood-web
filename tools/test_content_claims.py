@@ -203,10 +203,6 @@ class ContentClaimsTests(unittest.TestCase):
     REVIEWED_RUPEE_AMOUNTS = (
         ('blogs/post/bwr-vs-bwp-for-export-packing-when-mr-grade-will-fail-at-sea.html', 'costs a few thousand rupees per panel',
          'third-party NABL laboratory test fee'),
-        ('blogs/post/fob-cochin-for-plywood-exporters-what-s-included-what-s-extra.html', 'save ₹4,000-₹8,000 per shipment in avoided storage',
-         'third-party CFS storage charges avoided'),
-        ('blogs/post/ispm-15-ht-stamp-validity-india-exporters-2026.html',
-         "at a third-party treatment yard's rate of roughly 600 to 1,200 INR per cubic metre", 'third-party heat-treatment yard charge'),
         ('blogs/post/mundra-vs-pipavav-for-plywood-exporters-which-port-which-cost.html', '+₹400 to Mundra', 'third-party road haulage delta'),
         ('blogs/post/mundra-vs-pipavav-for-plywood-exporters-which-port-which-cost.html', '+₹350 to Mundra', 'third-party road haulage delta'),
         ('blogs/post/mundra-vs-pipavav-for-plywood-exporters-which-port-which-cost.html', '+₹900 to Mundra', 'third-party road haulage delta'),
@@ -220,16 +216,17 @@ class ContentClaimsTests(unittest.TestCase):
         # No CWI cargo value: Mundra's "loads under Rs 15 lakh of cargo value" beside its 25-tonne crossover
         # gave a unit price (about Rs 60/kg) and was removed on 15 Sep. An amount that combines with a CWI
         # quantity on the same page into a CWI unit price does not belong here, whatever its reason says.
-        ('blogs/post/plywood-boxes-for-machinery-triple-wall-vs-reinforced-single-wall.html', 'Cargo value is ≥ ₹50 lakh',
-         "the customer's cargo value"),
-        ('blogs/post/plywood-cable-drum-flanges-is-10418-spec-sizing-sourcing-guide.html', 'not a risk worth saving ₹400 on',
-         'the fumigation-risk figure the 8 Sep record keeps'),
+        # 16 Sep: the triple-wall crate's "Cargo value is >= Rs 50 lakh" sat directly under this comment
+        # and was the same shape -- a customer cargo value on a page that also published a CWI cost
+        # premium. Hedged, and removed from here. Four more went with it: the CFS storage saving, the
+        # treatment-yard rate per cubic metre, the cable-drum Rs 400 and the Salem-Trichy tolls. Each was
+        # admitted as "a third party's money", which is true and is not sufficient: all four named a cost
+        # inside something CWI quotes, so the reader could put them against a CWI quantity on the same page.
         ('blogs/post/plywood-supply-to-coimbatore.html', '₹40,000 crore in knitwear exports', 'macro export statistic'),
         ('blogs/post/plywood-supply-to-delhi-ncr.html', '₹15,000 crore a year', 'macro export statistic'),
         ('blogs/post/plywood-supply-to-guntur.html', 'hundreds of crores of FCV leaf', 'macro trade statistic'),
         ('blogs/post/plywood-supply-to-guntur.html', '1.5 lakh bags', 'a count of bags, not money'),
         ('blogs/post/plywood-supply-to-karur.html', 'Rs 8,000-crore mark', 'macro export statistic'),
-        ('blogs/post/plywood-supply-to-tiruchirapalli.html', '₹2,200-₹2,800 each way', 'third-party highway tolls'),
         ('blogs/post/plywood-supply-to-vizag.html', '₹65,000 crore cumulative exports', 'macro export statistic'),
     )
     FOREIGN_MONEY = re.compile(r"(?:US\$|\$|\bUSD|\bEUR|€|\bAED|\bSAR|\bQAR|\bOMR|\bKWD|\bBHD|\bGBP|£)\s?\d[\d,.]*(?![\d,.]|\s?x\s?\d)"
@@ -266,10 +263,94 @@ class ContentClaimsTests(unittest.TestCase):
         reviewed = {(page, amount) for page, amount, _r in self.REVIEWED_RUPEE_AMOUNTS + self.REVIEWED_FOREIGN_AMOUNTS}
         self.assertEqual(reviewed - used, set(), 'a reviewed amount no longer appears; remove it from the list')
 
+    # NOTHING HERE GUARDED A RATIO UNTIL 16 SEP 2026, and that is the hole every sweep fell through.
+    # The two reviewed lists above catch money. They cannot catch "Okoume sits about 15-25% above
+    # commercial packing on price", which names no currency and still gives a competitor CWI's internal
+    # price relationship -- one quote for either product unlocks the other. Eleven figures of this shape
+    # were live on 16 Sep, on pages three previous sweeps had already passed.
+    #
+    # The rule this encodes: a percentage or multiple in the same sentence as a cost word needs a reason
+    # on this list. Government and carrier rates have one. A relationship between two things CWI sells
+    # does not, and is never publishable.
+    # BOTH halves must be present, and the second is deliberately narrow. A percentage alone is not a
+    # leak: the export guides are full of government duty and GST rates, which are the destination's
+    # own published figures and must stay. What makes a ratio dangerous is being COMPARATIVE -- a
+    # number saying one thing CWI sells costs more or less than another. The first version of this
+    # rule also matched "Triple-wall" (a product name) and "1100 x 1200 mm" (a sheet size), which is
+    # why the multiples below must sit within a clause of the word cost or price.
+    RELATIVE_FIGURE = re.compile(r"\d+(?:[.,]\d+)?\s?(?:%|per\s?cent|percent)|"
+                                 r"\b(?:twice|half again|three times)\b|"
+                                 r"\b(?:doubles?|doubled|triples?|tripled|halves|halved)\b"
+                                 r"(?=[^.]{0,60}\b(?:cost|price)\b)", re.I)
+    COST_WORD = re.compile(r"\bcheaper\b|\bdearer\b|\bcostlier\b|more expensive|less expensive|"
+                           r"cost premium|premium over|premium (?:is|of|above)|\bsaves?\b|\bsaving\b|"
+                           r"reduces? (?:the )?(?:landed )?cost|adds? [^.]{0,30}cost|of panel cost|"
+                           r"of the cost|landed cost|goes up by|above [^.]{0,40}on price|than road|"
+                           r"\bdiscount\b|\bmarkup\b|\buplift\b", re.I)
+    REVIEWED_RELATIVE_FIGURES = (
+        ('blogs/post/ispm-15-ht-stamp-validity-india-exporters-2026.html', 'more than 20 percent of the solid-wood content',
+         'a share of the timber in a crate, not of its price'),
+        ('export/haiti.html', "That schedule\u2019s overall simple average is 4.9% of CIF value",
+         "Haiti's own published tariff schedule; the buyer pays it to Haitian customs, and nothing about "
+         'CWI price follows from it'),
+        ('export/south-africa.html', 'Import VAT is 15%',
+         'the South African statutory VAT rate and its Added Tax Value formula, both published by SARS'),
+    )
+
+    @classmethod
+    def relative_outside_review(cls, page, sentence):
+        """A ratio stated beside a cost word, unless this page has a recorded reason for it."""
+        if not (cls.RELATIVE_FIGURE.search(sentence) and cls.COST_WORD.search(sentence)):
+            return None, set()
+        used = set()
+        for reviewed_page, fragment, _reason in cls.REVIEWED_RELATIVE_FIGURES:
+            if page.endswith(reviewed_page) and fragment in sentence:
+                used.add((reviewed_page, fragment))
+                return None, used
+        return cls.RELATIVE_FIGURE.search(sentence).group(0), used
+
+    def test_no_relative_cost_figure_is_published(self):
+        """A percentage or multiple attached to cost is a price relationship, published or not in rupees."""
+        used = set()
+        for name, sentences in published_sentences().items():
+            for sentence in sentences:
+                left, found = self.relative_outside_review(name, sentence)
+                used |= found
+                if left:
+                    with self.subTest(page=name, sentence=sentence[:180]):
+                        self.fail(f'a cost ratio outside the reviewed list: {left}')
+        reviewed = {(page, frag) for page, frag, _r in self.REVIEWED_RELATIVE_FIGURES}
+        self.assertEqual(reviewed - used, set(), 'a reviewed ratio no longer appears; remove it from the list')
+
     # A table column headed by a rate, price or cost, or by a currency or price unit, carries no figures:
     # CWI rate cards read "On request". Two columns carry numbers that are not CWI prices.
-    PRICED_HEADER = re.compile(r"\b(?:rates?|prices?|pricing|costs?)\b|₹|\bRs\b|\bINR\b|/\s?sq\.?\s?ft|per\s+sq\.?\s?ft|"
-                               r"per sheet|per cft|/\s?cft|\bUSD\b|\$", re.I)
+    # 16 Sep 2026: this pattern used to stop at "rate/price/cost/currency", and the BWR-vs-BWP table
+    # published "13-25 percent" and "55-73 percent" under a column headed "Premium over MR" for weeks.
+    # The rate column beside it had been redacted to "On request", so the guard read the redacted column,
+    # found no digit, and passed -- while the column holding the ratio was never inspected. A word that
+    # names a DIFFERENCE between prices is a priced header; it is worth more to a competitor than the
+    # price itself, because it needs only one quote to unlock.
+    # "Premium" is two different words on this site. "Premium HD film-faced" and "premium packing"
+    # describe a GRADE, and their columns hold thicknesses and sheet sizes; "Premium over MR" and
+    # "Cost premium (vs ...)" describe a PRICE DIFFERENCE. Matching the bare word flagged eight
+    # product tables and would have taught the next reader to ignore this test, so only the price
+    # sense is matched -- "cost premium" arrives through `costs?` already.
+    PRICED_HEADER = re.compile(r"\b(?:rates?|prices?|pricing|costs?|deltas?|savings?|discounts?|"
+                               r"markups?|uplifts?|cheaper|dearer|costlier)\b|"
+                               r"\bpremium\s+(?:over|vs\.?|versus|above)\b|"
+                               r"₹|\bRs\b|\bINR\b|"
+                               r"/\s?sq\.?\s?ft|per\s+sq\.?\s?ft|per sheet|per cft|/\s?cft|\bUSD\b|\$", re.I)
+    # A ROW LABEL IS NOT A COLUMN HEADER, and it must be judged more narrowly. A header sits above a
+    # column of like values, so "Cost" there means the column holds costs. A first cell sits beside a
+    # row and is just as likely to NAME A PRODUCT: "Low-cost panel" labels a grade whose row holds
+    # pour counts, and the bare word "cost" flagged it. What the transposed leak actually looked like
+    # was "Cost premium (vs single-wall baseline)" -- a stated DIFFERENCE between prices. So a row
+    # label qualifies only on an explicit price-difference phrase, a currency, or a price unit.
+    PRICED_ROW_LABEL = re.compile(r"cost premium|price premium|premium\s+(?:over|vs\.?|versus|above)|"
+                                  r"\b(?:deltas?|savings?|discounts?|markups?|uplifts?)\b|"
+                                  r"cost per\b|price per\b|rate per\b|"
+                                  r"₹|\bRs\b|\bINR\b|\bUSD\b|\$|"
+                                  r"/\s?sq\.?\s?ft|per\s+sq\.?\s?ft|per sheet|per cft|/\s?cft", re.I)
     REVIEWED_PRICED_COLUMNS = (
         ('blogs/post/mundra-vs-pipavav-for-plywood-exporters-which-port-which-cost.html', 'Cost delta (₹/MT)',
          'third-party road haulage deltas, the same amounts as the reviewed rupee list'),
@@ -291,6 +372,16 @@ class ContentClaimsTests(unittest.TestCase):
                 if ContentClaimsTests.PRICED_HEADER.search(header):
                     found.extend((header, row[column]) for row in rows[1:]
                                  if column < len(row) and re.search(r'\d', row[column]))
+            # A TABLE CAN BE TRANSPOSED, and one on this site was. The triple-wall crate comparison
+            # ran its metrics down the first column -- "Cost premium (vs single-wall baseline)" was a
+            # ROW LABEL, not a header -- so the loop above inspected zero columns on it and "+38-45%"
+            # published unguarded. Read the first cell of every row as a header too.
+            for row in rows[1:]:
+                if len(row) < 2:
+                    continue
+                label = row[0]
+                if ContentClaimsTests.PRICED_ROW_LABEL.search(label):
+                    found.extend((label, cell) for cell in row[1:] if re.search(r'\d', cell))
         return found
 
     def test_price_columns_in_tables_carry_no_figures(self):

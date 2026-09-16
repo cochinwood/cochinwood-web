@@ -3096,7 +3096,11 @@ LIVE_REF_NAME = "origin/cf-live"                         # where the pin came fr
 # output with no source commit, and one left three content-addressed asset URLs serving
 # bytes their names do not describe -- see HAND_EDITED_LIVE_ASSETS, which repairs them,
 # and docs/cf-live-pin-review-2026-09-16.md for the whole window.
-LIVE_SHA = "f906f6196f1648954ad7f8ff6ade5e3b09473d68"    # Reviewed live baseline; see docs/cf-live-pin-review-2026-09-16.md
+# Moved again 16 Sep 2026, from f906f619 to the PR #76 production merge -- the publication that
+# repaired the four hand-edited assets. One publication in the window, built from source already
+# on master. This is the move that retires HAND_EDITED_LIVE_ASSETS; see
+# docs/cf-live-pin-review-2026-09-16b.md.
+LIVE_SHA = "234822ae60d427e3b14a2a56f72bfd268b313eae"    # Reviewed live baseline; see docs/cf-live-pin-review-2026-09-16b.md
 LIVE_REF = LIVE_SHA                # what git is actually handed, so no fetch can move it
 LIVE_PIN = LIVE_REF_NAME + "@" + LIVE_SHA[:12]           # what the banner and dist/ record
 LIVE_HASHED_ASSET_RE = re.compile(
@@ -3238,31 +3242,21 @@ def _check_live_pin():
              f"moving LIVE_SHA, because those files publish unread otherwise")
 
 
-# FOUR CARRIED ASSET NAMES ON cf-live LIE ABOUT THEIR OWN BYTES, and a
-# content-addressed name is the one thing on this site that may never do that.
-# Publication 012d9e0c (PR #72, 16 Sep 2026) was applied by editing built output
-# in place: the trust ribbon, the mobile dock, the catalogue filter pills, the
-# quick-search code and a quote-form timing change were written into
-# bundle.eba2ca64.css, site.c6a8ed6d.js, quote-form.98c2da2a.js and
-# quick-inquiry.cced64e0.js without renaming any of them. Those URLs are served with a year-long immutable pin, so every returning
-# visitor who cached one is pinned until September 2027 to bytes the name never
-# described, and cutover_preflight's "named for its own bytes" check fails the
-# moment LIVE_SHA moves past that publication (18 passed, 3 failed, PR #74).
+# EMPTY ON PURPOSE, AND THE GUARD BELOW STAYS. On 16 Sep 2026 four hashed assets on cf-live served
+# bytes their names did not describe: publication 012d9e0c (PR #72) was applied by editing built
+# output in place, rewriting bundle.eba2ca64.css, site.c6a8ed6d.js, quote-form.98c2da2a.js and
+# quick-inquiry.cced64e0.js without renaming them. Those URLs carry a year-long immutable pin, so
+# every returning visitor holding one was pinned to bytes the name never described.
 #
-# All four are now generated from source again -- assets/site.js,
-# assets/quote-form.js, assets/quick-inquiry.js and assets/conversion-ui.css --
-# so the build emits them under names that do describe them. What is carried
-# under the OLD names is the last version whose hash was true, read from the
-# commit below, which is the cf-live tip immediately before that publication.
-# PUBLISHING THIS dist/ REPAIRS THOSE THREE URLS ON cf-live: once the tip
-# carries bytes that match their names again, the next pin move reviews a clean
-# tree and this map can be deleted.
-HAND_EDITED_LIVE_ASSETS = {
-    "assets/bundle.eba2ca64.css":    "71f4df008139e45c234e398d1c2d32d54e93ec36",
-    "assets/quote-form.98c2da2a.js": "71f4df008139e45c234e398d1c2d32d54e93ec36",
-    "assets/quick-inquiry.cced64e0.js": "71f4df008139e45c234e398d1c2d32d54e93ec36",
-    "assets/site.c6a8ed6d.js":       "71f4df008139e45c234e398d1c2d32d54e93ec36",
-}
+# This map carried each of them from the last commit where the hash was still true, and publishing
+# that dist/ (PR #76) repaired cf-live itself. Re-checked against the pin above by re-hashing every
+# content-addressed file under assets/: 20 hashed assets, 20 named for their own bytes, 0 mismatched.
+# So there is nothing left to repair and the map is empty.
+#
+# _named_for_its_own_bytes() is NOT removed with it. With an empty map it does nothing but warn the
+# next time a carried asset stops matching its name -- which is exactly the condition that took a
+# day to find, and which no other check on this build would have reported.
+HAND_EDITED_LIVE_ASSETS = {}
 
 
 def _blob_at(commit, path):
