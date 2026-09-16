@@ -155,7 +155,7 @@
   form.addEventListener('submit',function (event) {
     error.textContent = ''; error.style.display = 'none';
     saveDraft();
-    if (value('cwq2_website') || Date.now()-loadedAt < 600) {
+    if (value('cwq2_website') || Date.now()-loadedAt < 3000) {
       event.preventDefault(); showError('Please review your details and try again.'); return;
     }
     var items = rows().map(itemValue);
