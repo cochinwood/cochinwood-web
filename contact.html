@@ -141,33 +141,384 @@
     <p class="cw-note">Cochin Wood Industries Private Limited<br>GSTIN 32AAJCC9689H1Z5<br>CIN U20219KL2021PTC072862<br><a href="/company-verification">Verify our registrations &rarr;</a></p>
     <p class="cw-note">For factory visits or collection, contact the desk to confirm the producing works, appointment and loading instructions.</p>
   </aside></div>
-  <div class="cw-sales-team" id="cw-sales-section" style="margin-top:36px;border:1px solid var(--cw-sand-300,#ded8ce);border-radius:12px;background:var(--cw-sand-50,#faf8f5);padding:24px 20px">
-    <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px;margin-bottom:16px">
+  <div class="cw-sales-team" id="cw-sales-section">
+    <style>
+      #cw-sales-section {
+        margin-top: 36px;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        background: #ffffff;
+        padding: 28px 24px;
+        box-shadow: 0 4px 20px -2px rgba(0,0,0,.05);
+      }
+      .cw-sales-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-bottom: 22px;
+        padding-bottom: 18px;
+        border-bottom: 1px solid #f1f5f9;
+      }
+      .cw-sales-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 3px 10px;
+        background: #ecfdf5;
+        border: 1px solid #a7f3d0;
+        border-radius: 999px;
+        color: #047857;
+        font-size: .72rem;
+        font-weight: 700;
+        letter-spacing: .04em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .cw-sales-badge-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #10b981;
+        box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+      }
+      .cw-sales-title {
+        font-size: 1.38rem;
+        font-weight: 800;
+        color: var(--cw-green-900, #133e32);
+        margin: 0 0 4px;
+        letter-spacing: -.01em;
+      }
+      .cw-sales-desc {
+        font-size: .88rem;
+        color: #64748b;
+        margin: 0;
+        line-height: 1.5;
+        max-width: 580px;
+      }
+      .cw-sales-controls {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px;
+      }
+      .cw-sales-pills-group {
+        display: inline-flex;
+        background: #f1f5f9;
+        padding: 3px;
+        border-radius: 8px;
+        gap: 3px;
+      }
+      .cw-sales-filter {
+        border: none;
+        background: transparent;
+        padding: 6px 13px;
+        font-size: .78rem;
+        font-weight: 600;
+        color: #475569;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all .15s ease;
+        line-height: 1.2;
+      }
+      .cw-sales-filter:hover {
+        color: #0f172a;
+      }
+      .cw-sales-filter.active {
+        background: #1b4d3e;
+        color: #ffffff;
+        box-shadow: 0 1px 3px rgba(0,0,0,.15);
+      }
+      .cw-sales-lang-wrap {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+      }
+      .cw-sales-lang-icon {
+        position: absolute;
+        left: 10px;
+        pointer-events: none;
+        color: #64748b;
+      }
+      .cw-sales-lang-select {
+        padding: 6px 28px 6px 30px;
+        font-size: .80rem;
+        font-weight: 600;
+        color: #334155;
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        outline: none;
+        cursor: pointer;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 8px center;
+        transition: all .15s ease;
+      }
+      .cw-sales-lang-select:hover {
+        border-color: #94a3b8;
+      }
+      .cw-sales-lang-select:focus {
+        border-color: #1b4d3e;
+        box-shadow: 0 0 0 2px rgba(27,77,62,.15);
+      }
+      .cw-sales-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 18px;
+      }
+      .cw-sales-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: 0 1px 3px rgba(0,0,0,.03);
+        transition: all .2s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
+      }
+      .cw-sales-card:hover {
+        border-color: #cbd5e1;
+        transform: translateY(-3px);
+        box-shadow: 0 12px 24px -4px rgba(0,0,0,.07), 0 4px 6px -2px rgba(0,0,0,.03);
+      }
+      .cw-sales-card-top {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+      }
+      .cw-sales-avatar {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #1b4d3e, #0f2c23);
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: .92rem;
+        font-weight: 700;
+        letter-spacing: .02em;
+        flex-shrink: 0;
+        box-shadow: 0 2px 5px rgba(27,77,62,.2);
+      }
+      .cw-sales-meta {
+        flex: 1;
+        min-width: 0;
+      }
+      .cw-sales-name {
+        margin: 0 0 2px;
+        font-size: 1.02rem;
+        font-weight: 700;
+        color: #0f172a;
+        line-height: 1.3;
+      }
+      .cw-sales-desig {
+        font-size: .76rem;
+        color: #64748b;
+        margin: 0 0 6px;
+        font-weight: 500;
+      }
+      .cw-sales-badge-dealing {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 2px 8px;
+        font-size: .68rem;
+        font-weight: 700;
+        border-radius: 6px;
+        line-height: 1.2;
+      }
+      .cw-sales-badge-both {
+        background: #faf5ff;
+        color: #7e22ce;
+        border: 1px solid #e9d5ff;
+      }
+      .cw-sales-badge-domestic {
+        background: #f0fdf4;
+        color: #15803d;
+        border: 1px solid #bbf7d0;
+      }
+      .cw-sales-badge-export {
+        background: #f0f9ff;
+        color: #0284c7;
+        border: 1px solid #bae6fd;
+      }
+      .cw-sales-badge-dot-sm {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+      }
+      .cw-sales-langs-box {
+        margin: 14px 0;
+        padding: 9px 11px;
+        background: #f8fafc;
+        border: 1px solid #f1f5f9;
+        border-radius: 8px;
+      }
+      .cw-sales-langs-label {
+        font-size: .68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: .04em;
+        color: #64748b;
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .cw-sales-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+      }
+      .cw-sales-chip {
+        display: inline-block;
+        padding: 2px 7px;
+        font-size: .72rem;
+        font-weight: 600;
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
+        color: #334155;
+        border-radius: 4px;
+        line-height: 1.25;
+      }
+      .cw-sales-phone-box {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+        background: #f8fafc;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        border: 1px solid #f1f5f9;
+      }
+      .cw-sales-phone-link {
+        font-size: .88rem;
+        font-weight: 700;
+        color: #0f172a;
+        text-decoration: none;
+        letter-spacing: .01em;
+        font-feature-settings: "tnum";
+      }
+      .cw-sales-phone-link:hover {
+        color: #1b4d3e;
+        text-decoration: underline;
+      }
+      .cw-sales-actions {
+        display: flex;
+        gap: 8px;
+        margin-top: auto;
+      }
+      .cw-sales-btn-call {
+        flex: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 9px 10px;
+        font-size: .80rem;
+        font-weight: 600;
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
+        color: #1e293b;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: all .15s ease;
+      }
+      .cw-sales-btn-call:hover {
+        background: #f8fafc;
+        border-color: #1b4d3e;
+        color: #1b4d3e;
+      }
+      .cw-sales-btn-wa {
+        flex: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 9px 10px;
+        font-size: .80rem;
+        font-weight: 600;
+        background: #22c55e;
+        border: 1px solid #16a34a;
+        color: #ffffff;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: all .15s ease;
+        box-shadow: 0 1px 2px rgba(0,0,0,.08);
+      }
+      .cw-sales-btn-wa:hover {
+        background: #16a34a;
+        box-shadow: 0 3px 6px rgba(34,197,94,.28);
+        transform: translateY(-1px);
+        color: #ffffff;
+      }
+      @media (max-width: 640px) {
+        #cw-sales-section {
+          padding: 20px 14px;
+        }
+        .cw-sales-grid {
+          grid-template-columns: 1fr;
+        }
+        .cw-sales-controls {
+          width: 100%;
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .cw-sales-pills-group {
+          width: 100%;
+          justify-content: stretch;
+        }
+        .cw-sales-filter {
+          flex: 1;
+          text-align: center;
+        }
+        .cw-sales-lang-wrap, .cw-sales-lang-select {
+          width: 100%;
+        }
+      }
+    </style>
+    <div class="cw-sales-head">
       <div>
-        <h2 style="font-size:1.28rem;font-weight:700;color:var(--cw-green-900,#1b4d3e);margin:0 0 4px">Direct Sales Contacts</h2>
-        <p style="font-size:.88rem;color:var(--cw-ink-700,#4a4a4a);margin:0">Contact our sales managers directly based on your destination and language preference.</p>
+        <div class="cw-sales-badge"><span class="cw-sales-badge-dot"></span> Verified Sales Desk</div>
+        <h2 class="cw-sales-title">Direct Sales Contacts</h2>
+        <p class="cw-sales-desc">Connect directly with our regional and export sales specialists in your preferred language for timber, plywood, and container inquiries.</p>
       </div>
-      <div id="cw-sales-filters" style="display:none;gap:6px;align-items:center">
-        <span style="font-size:.78rem;font-weight:600;color:var(--cw-ink-600,#666)">Filter:</span>
-        <button type="button" class="cw-sales-filter active" data-filter="all" style="padding:4px 10px;font-size:.78rem;font-weight:600;border:1px solid #1b4d3e;background:#1b4d3e;color:#fff;border-radius:999px;cursor:pointer">All</button>
-        <button type="button" class="cw-sales-filter" data-filter="Domestic" style="padding:4px 10px;font-size:.78rem;font-weight:600;border:1px solid #cbd5e1;background:#fff;color:#334155;border-radius:999px;cursor:pointer">Domestic</button>
-        <button type="button" class="cw-sales-filter" data-filter="Export" style="padding:4px 10px;font-size:.78rem;font-weight:600;border:1px solid #cbd5e1;background:#fff;color:#334155;border-radius:999px;cursor:pointer">Export</button>
+      <div class="cw-sales-controls" id="cw-sales-controls" style="display:none">
+        <div class="cw-sales-pills-group" role="tablist" aria-label="Filter by market segment">
+          <button type="button" class="cw-sales-filter active" data-filter="all">All</button>
+          <button type="button" class="cw-sales-filter" data-filter="Domestic">Domestic</button>
+          <button type="button" class="cw-sales-filter" data-filter="Export">Export</button>
+        </div>
+        <div class="cw-sales-lang-wrap">
+          <svg class="cw-sales-lang-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+          <select id="cw-sales-lang" class="cw-sales-lang-select" aria-label="Filter by spoken language">
+            <option value="all">All Languages</option>
+          </select>
+        </div>
       </div>
     </div>
-    <div id="cw-sales-list" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px">
-      <div style="grid-column:1/-1;text-align:center;padding:12px;color:var(--cw-ink-500,#777);font-size:.86rem">Loading sales contacts…</div>
+    <div id="cw-sales-list" class="cw-sales-grid">
+      <div style="grid-column:1/-1;text-align:center;padding:16px;color:#64748b;font-size:.88rem">Loading sales contacts…</div>
     </div>
   </div>
   <script>
   (function() {
     var list = document.getElementById("cw-sales-list");
-    var filters = document.getElementById("cw-sales-filters");
+    var controls = document.getElementById("cw-sales-controls");
+    var langSelect = document.getElementById("cw-sales-lang");
     if (!list) return;
 
     var endpoints = [
       "/api/public/sales-team",
       "/cw-sales",
-      "https://www.cochinwood.in/api/public/sales-team"
+      "https://www.cochinwood.in/api/public/sales-team",
+      "https://app.cochinwood.in/api/public/sales-team"
     ];
 
     function tryFetch(i) {
@@ -187,56 +538,116 @@
         .catch(function() { tryFetch(i + 1); });
     }
 
+    function getInitials(name) {
+      var parts = String(name || "").trim().split(/\s+/);
+      if (!parts.length || !parts[0]) return "CW";
+      if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+      return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+    }
+
     function renderTeam(team) {
       if (!list) return;
-      if (filters) filters.style.display = "flex";
+      if (controls) controls.style.display = "flex";
 
-      function draw(filter) {
+      var activeMarket = "all";
+      var activeLang = "all";
+
+      // Populate language selector dynamically
+      var langMap = {};
+      team.forEach(function(m) {
+        (m.languages || []).forEach(function(l) {
+          if (l) langMap[l] = true;
+        });
+      });
+      var allLangs = Object.keys(langMap).sort();
+      if (langSelect && allLangs.length) {
+        langSelect.innerHTML = '<option value="all">All Languages (' + allLangs.length + ')</option>' +
+          allLangs.map(function(l) {
+            return '<option value="' + esc(l) + '">' + esc(l) + '</option>';
+          }).join("");
+        langSelect.addEventListener("change", function() {
+          activeLang = langSelect.value;
+          draw();
+        });
+      }
+
+      function draw() {
         var rows = team.filter(function(m) {
-          if (!filter || filter === "all") return true;
-          return m.dealing === filter || m.dealing === "Both";
+          var matchMarket = (activeMarket === "all") || (m.dealing === activeMarket || m.dealing === "Both");
+          var matchLang = (activeLang === "all") || ((m.languages || []).some(function(l) {
+            return l.toLowerCase() === activeLang.toLowerCase();
+          }));
+          return matchMarket && matchLang;
         });
 
         if (!rows.length) {
-          list.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:12px;color:#666;font-size:.85rem">No managers listed for this segment. Please call our central desk.</div>';
+          list.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:24px 12px;color:#64748b;font-size:.88rem;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:10px">' +
+            'No sales managers match this filter. Please call our general sales desk at <a href="tel:+919567410175" style="color:#1b4d3e;font-weight:700;text-decoration:underline">+91 95674 10175</a>.</div>';
           return;
         }
 
         list.innerHTML = rows.map(function(m) {
-          var badgeColor = m.dealing === "Export" ? "#0284c7" : (m.dealing === "Domestic" ? "#16a34a" : "#7c3aed");
-          var langs = (m.languages || []).map(function(l) {
-            return '<span style="display:inline-block;padding:2px 6px;font-size:.72rem;background:#eef2f6;color:#334155;border-radius:4px;margin:1px 2px">' + esc(l) + '</span>';
+          var badgeClass = m.dealing === "Export" ? "cw-sales-badge-export" : (m.dealing === "Domestic" ? "cw-sales-badge-domestic" : "cw-sales-badge-both");
+          var dotColor = m.dealing === "Export" ? "#0284c7" : (m.dealing === "Domestic" ? "#16a34a" : "#9333ea");
+          var dealingLabel = m.dealing === "Both" ? "Domestic & Export" : m.dealing;
+          var initials = getInitials(m.name);
+
+          var langs = (m.languages || ["English"]).map(function(l) {
+            return '<span class="cw-sales-chip">' + esc(l) + '</span>';
           }).join("");
 
-          return '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:14px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 1px 2px rgba(0,0,0,.04)">' +
+          return '<div class="cw-sales-card">' +
             '<div>' +
-              '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px;margin-bottom:2px">' +
-                '<h3 style="margin:0;font-size:.98rem;font-weight:700;color:var(--cw-green-900,#1b4d3e)">' + esc(m.name) + '</h3>' +
-                '<span style="padding:1px 7px;font-size:.7rem;font-weight:700;background:' + badgeColor + ';color:#fff;border-radius:999px;white-space:nowrap">' + esc(m.dealing) + '</span>' +
+              '<div class="cw-sales-card-top">' +
+                '<div class="cw-sales-avatar">' + esc(initials) + '</div>' +
+                '<div class="cw-sales-meta">' +
+                  '<h3 class="cw-sales-name">' + esc(m.name) + '</h3>' +
+                  '<div class="cw-sales-desig">' + esc(m.designation || "Sales Specialist") + '</div>' +
+                  '<span class="cw-sales-badge-dealing ' + badgeClass + '">' +
+                    '<span class="cw-sales-badge-dot-sm" style="background:' + dotColor + '"></span>' +
+                    esc(dealingLabel) +
+                  '</span>' +
+                '</div>' +
               '</div>' +
-              '<div style="font-size:.78rem;color:#64748b;margin-bottom:8px">' + esc(m.designation || "Sales Manager") + '</div>' +
-              '<div style="margin-bottom:12px"><span style="font-size:.72rem;color:#888;font-weight:600">Languages:</span> ' + (langs || '<span style="font-size:.72rem;color:#888">English</span>') + '</div>' +
+              '<div class="cw-sales-langs-box">' +
+                '<div class="cw-sales-langs-label">' +
+                  '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>' +
+                  'Spoken Languages' +
+                '</div>' +
+                '<div class="cw-sales-chips">' + langs + '</div>' +
+              '</div>' +
+              '<div class="cw-sales-phone-box">' +
+                '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1b4d3e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>' +
+                '<a href="tel:' + esc(m.phone) + '" class="cw-sales-phone-link">' + esc(m.phone_disp || m.phone) + '</a>' +
+              '</div>' +
             '</div>' +
-            '<div style="display:flex;gap:6px;margin-top:auto">' +
-              '<a href="tel:' + esc(m.phone) + '" style="flex:1;text-align:center;padding:7px 4px;font-size:.78rem;font-weight:600;background:#f8fafc;border:1px solid #cbd5e1;color:#1e293b;border-radius:6px;text-decoration:none">Call ' + esc(m.phone_disp || m.phone) + '</a>' +
-              '<a href="https://wa.me/' + esc(m.wa) + '" target="_blank" rel="noopener" style="flex:1;text-align:center;padding:7px 4px;font-size:.78rem;font-weight:600;background:#22c55e;border:1px solid #16a34a;color:#fff;border-radius:6px;text-decoration:none">WhatsApp</a>' +
+            '<div class="cw-sales-actions">' +
+              '<a href="tel:' + esc(m.phone) + '" class="cw-sales-btn-call" title="Call ' + esc(m.name) + '">' +
+                '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1b4d3e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>' +
+                '<span>Call</span>' +
+              '</a>' +
+              '<a href="https://wa.me/' + esc(m.wa) + '" target="_blank" rel="noopener" class="cw-sales-btn-wa" title="WhatsApp ' + esc(m.name) + '">' +
+                '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M.06 24l1.68-6.16A11.87 11.87 0 010 11.9C0 5.33 5.36 0 11.95 0a11.9 11.9 0 018.42 3.48 11.75 11.75 0 013.49 8.37c0 6.56-5.36 11.9-11.96 11.9-2 0-3.96-.5-5.7-1.45L.06 24zm6.6-3.8c1.68.99 3.28 1.58 5.4 1.58 5.45 0 9.9-4.42 9.9-9.87a9.8 9.8 0 00-2.9-6.99 9.9 9.9 0 00-7-2.9C6.6 2.02 2.15 6.44 2.15 11.9c0 2.2.62 3.85 1.67 5.57l-.99 3.6 3.83-.87zm11.6-5.5c-.08-.13-.28-.2-.58-.35-.3-.15-1.76-.86-2.03-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.14-.14.3-.36.45-.53.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41z"/></svg>' +
+                '<span>WhatsApp</span>' +
+              '</a>' +
             '</div>' +
           '</div>';
         }).join("");
       }
 
-      if (filters) {
-        var btns = filters.querySelectorAll(".cw-sales-filter");
+      if (controls) {
+        var btns = controls.querySelectorAll(".cw-sales-filter");
         btns.forEach(function(btn) {
           btn.addEventListener("click", function() {
-            btns.forEach(function(b) { b.style.background = "#fff"; b.style.color = "#334155"; b.style.borderColor = "#cbd5e1"; });
-            btn.style.background = "#1b4d3e"; btn.style.color = "#fff"; btn.style.borderColor = "#1b4d3e";
-            draw(btn.getAttribute("data-filter"));
+            btns.forEach(function(b) { b.classList.remove("active"); });
+            btn.classList.add("active");
+            activeMarket = btn.getAttribute("data-filter");
+            draw();
           });
         });
       }
 
-      draw("all");
+      draw();
     }
 
     function esc(s) {
