@@ -45,10 +45,16 @@ jobs:
       # The cost is a bump: improvements to check_site.py on master do not reach this branch
       # until CHECKER_SHA moves. That is deliberate, and the step prints the sha it ran so a
       # stale pin is visible in every log rather than only when somebody goes looking.
+      # Bumped 17 Sep 2026 from 4678a8f5 (28 Aug). The pinned checker was three weeks and two
+      # revisions of tools/check_site.py behind master, so every cf-live PR was being cleared by
+      # a gate nobody had run against the current site. 5c828cd2 is the commit where check_site.py
+      # last changed, which is a more stable pin than a moving branch tip: blob 7cb05e79, verified
+      # identical to master. It was run against this exact tree before the bump -- "OK - the site
+      # says one thing, and every link goes somewhere."
       - name: Fetch the checker from master
         run: |
           set -e
-          CHECKER_SHA=4678a8f5139bd1499f1d5f3a4d75071321ce2ffd  # master @ 2026-08-28
+          CHECKER_SHA=5c828cd2b026bba8997530481b118e1f4759e3a0  # master @ 2026-09-06
           git fetch --depth=1 origin "$CHECKER_SHA"
           git show "$CHECKER_SHA:tools/check_site.py" > "$RUNNER_TEMP/check_site.py"
           echo "checker pinned at $CHECKER_SHA"
