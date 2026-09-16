@@ -26,7 +26,10 @@
         'Please confirm price, availability, lead time and terms.'
       ].join('\n');
       var url = 'https://wa.me/919567410175?text=' + encodeURIComponent(message);
-      if (status) status.textContent = 'Opening WhatsApp with your enquiry…';
+      var fallbackUrl = '/contact?product=' + encodeURIComponent(product.toLowerCase().replace(/\s+/g, '-')) + '#quote';
+      if (status) {
+        status.innerHTML = 'Connecting to WhatsApp… If WhatsApp did not open, <a href="' + url + '" target="_blank" rel="noopener" style="text-decoration:underline;font-weight:600">click here</a> or <a href="' + fallbackUrl + '" style="text-decoration:underline;font-weight:600">submit via web form</a>.';
+      }
       var opened = window.open(url, '_blank', 'noopener,noreferrer');
       if (!opened) window.location.href = url;
     });
