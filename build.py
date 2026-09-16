@@ -2460,7 +2460,11 @@ LIVE_REF_NAME = "origin/cf-live"                         # where the pin came fr
 # both revisions, 85 generated files modified, none added or removed, and every carried input (files/,
 # assets/, the site-checks workflow, the IndexNow key, llms.txt, favicon.png, the OG image) unchanged.
 # See docs/cf-live-pin-review-2026-09-15c.md.
-LIVE_SHA = "1d699b6ef4c315489117c3d5af6d5bdb8c91f100"    # Reviewed live baseline; see docs/cf-live-pin-review-2026-09-15c.md
+# Moved on 16 Sep 2026 to f906f619, the production merge of PR #69 (load-figure consistency sweep; Pages
+# deployment 3bd6b7ff), after reviewing its window: 1168 paths at both revisions, {'M': 262}, and every carried
+# input (files/, assets/, the site-checks workflow, the IndexNow key, llms.txt, favicon.png, the OG image)
+# unchanged. See docs/cf-live-pin-review-2026-09-16.md.
+LIVE_SHA = "f906f6196f1648954ad7f8ff6ade5e3b09473d68"    # Reviewed live baseline; see docs/cf-live-pin-review-2026-09-16.md
 LIVE_REF = LIVE_SHA                # what git is actually handed, so no fetch can move it
 LIVE_PIN = LIVE_REF_NAME + "@" + LIVE_SHA[:12]           # what the banner and dist/ record
 LIVE_HASHED_ASSET_RE = re.compile(
