@@ -3100,7 +3100,10 @@ LIVE_REF_NAME = "origin/cf-live"                         # where the pin came fr
 # repaired the four hand-edited assets. One publication in the window, built from source already
 # on master. This is the move that retires HAND_EDITED_LIVE_ASSETS; see
 # docs/cf-live-pin-review-2026-09-16b.md.
-LIVE_SHA = "234822ae60d427e3b14a2a56f72bfd268b313eae"    # Reviewed live baseline; see docs/cf-live-pin-review-2026-09-16b.md
+# Moved 17 Sep 2026 to the PR #78 production merge (the price-exposure sweep). One publication
+# in the window, built from source already on master, and no carried input changed -- so this
+# move publishes no new byte. See docs/cf-live-pin-review-2026-09-17.md.
+LIVE_SHA = "16360c061771a2da38adcab14880c7ad1c17b256"    # Reviewed live baseline; see docs/cf-live-pin-review-2026-09-17.md
 LIVE_REF = LIVE_SHA                # what git is actually handed, so no fetch can move it
 LIVE_PIN = LIVE_REF_NAME + "@" + LIVE_SHA[:12]           # what the banner and dist/ record
 LIVE_HASHED_ASSET_RE = re.compile(
