@@ -3101,7 +3101,7 @@ LIVE_REF = LIVE_SHA                # what git is actually handed, so no fetch ca
 LIVE_PIN = LIVE_REF_NAME + "@" + LIVE_SHA[:12]           # what the banner and dist/ record
 LIVE_HASHED_ASSET_RE = re.compile(
     r"^assets/(?:bundle|cw-events|encyclopedia-navigation|experience-motion|"
-    r"page-navigation|quote-form|search-measurement|container-calculator|site)\.[0-9a-f]{8}\.(?:css|js)$"
+    r"page-navigation|quote-form|quick-inquiry|search-measurement|container-calculator|site)\.[0-9a-f]{8}\.(?:css|js)$"
 )
 
 CARRIED_ROOT_FILES = {
@@ -3238,14 +3238,13 @@ def _check_live_pin():
              f"moving LIVE_SHA, because those files publish unread otherwise")
 
 
-# THREE CARRIED ASSET NAMES ON cf-live LIE ABOUT THEIR OWN BYTES, and a
+# FOUR CARRIED ASSET NAMES ON cf-live LIE ABOUT THEIR OWN BYTES, and a
 # content-addressed name is the one thing on this site that may never do that.
 # Publication 012d9e0c (PR #72, 16 Sep 2026) was applied by editing built output
 # in place: the trust ribbon, the mobile dock, the catalogue filter pills, the
 # quick-search code and a quote-form timing change were written into
-# bundle.eba2ca64.css, site.c6a8ed6d.js and quote-form.98c2da2a.js -- and into
-# quick-inquiry.cced64e0.js, which is not carried -- without renaming any of
-# them. Those URLs are served with a year-long immutable pin, so every returning
+# bundle.eba2ca64.css, site.c6a8ed6d.js, quote-form.98c2da2a.js and
+# quick-inquiry.cced64e0.js without renaming any of them. Those URLs are served with a year-long immutable pin, so every returning
 # visitor who cached one is pinned until September 2027 to bytes the name never
 # described, and cutover_preflight's "named for its own bytes" check fails the
 # moment LIVE_SHA moves past that publication (18 passed, 3 failed, PR #74).
@@ -3261,6 +3260,7 @@ def _check_live_pin():
 HAND_EDITED_LIVE_ASSETS = {
     "assets/bundle.eba2ca64.css":    "71f4df008139e45c234e398d1c2d32d54e93ec36",
     "assets/quote-form.98c2da2a.js": "71f4df008139e45c234e398d1c2d32d54e93ec36",
+    "assets/quick-inquiry.cced64e0.js": "71f4df008139e45c234e398d1c2d32d54e93ec36",
     "assets/site.c6a8ed6d.js":       "71f4df008139e45c234e398d1c2d32d54e93ec36",
 }
 
