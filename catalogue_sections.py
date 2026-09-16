@@ -82,6 +82,15 @@ def render_catalogue(link, visual_image, media, products, product_card):
     <section class="cw-section cw-catalogue-family" id="plywood-boards"><div class="cw-wrap">
       <div class="cw-section__head"><div><p class="cw-eyebrow">01 / Plywood &amp; boards</p>
         <h2>Choose the right panel.</h2></div><p>Grades for packing, construction, furniture and joinery. Start with the application, then confirm the specification.</p></div>
+      <div class="cw-catalogue-filters" id="cw-product-filters" role="tablist" aria-label="Filter products by application">
+        <span style="font-size:0.8rem;font-weight:700;color:var(--cw-ink-600,#4a4a4a);text-transform:uppercase;margin-right:4px">Filter:</span>
+        <button type="button" class="cw-filter-pill active" data-category="all">All Products</button>
+        <button type="button" class="cw-filter-pill" data-category="packing">📦 Packing &amp; Logistics</button>
+        <button type="button" class="cw-filter-pill" data-category="construction">🏗️ Construction &amp; Formwork</button>
+        <button type="button" class="cw-filter-pill" data-category="interiors">🪑 Furniture &amp; Interiors</button>
+        <button type="button" class="cw-filter-pill" data-category="packaging">📦 Crates &amp; Pallets</button>
+        <button type="button" class="cw-filter-pill" data-category="timber">🌲 Sawn Timber</button>
+      </div>
       {plywood}
     </div></section>
     <section class="cw-section cw-catalogue-family cw-catalogue-family--packaging" id="packing-packaging"><div class="cw-wrap">
