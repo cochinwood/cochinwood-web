@@ -46,10 +46,25 @@ def render_home(link, image, media, wood_path):
     <p class="cx-kicker"><span></span> Manufactured in Kerala. Made for your work.</p>
     <h1 id="cx-hero-title">Engineered wood. <br><em>Made to your spec.</em></h1>
     <p class="cx-hero__lead">Plywood, board and timber for construction, interiors and industrial packaging. Group manufacturing heritage since 1986.</p>
-    <a class="cx-button cx-button--light" href="{link('/products')}">Explore the range <span aria-hidden="true">↗</span></a>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:20px">
+      <a class="cx-button cx-button--light" href="{link('/contact')}#quote">Request a quote <span aria-hidden="true">↗</span></a>
+      <a class="cx-button" href="{link('/products')}" style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.35);color:#fff;backdrop-filter:blur(4px)">Explore catalogue <span aria-hidden="true">↗</span></a>
+      <a href="https://wa.me/919567410175?text=Hello%20Cochin%20Wood,%20I%20would%20like%20to%20enquire%20about%20plywood%20specifications%20and%20pricing." target="_blank" rel="noopener" style="color:#d1fae5;font-size:0.86rem;font-weight:600;display:inline-flex;align-items:center;gap:6px;text-decoration:none">
+        <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e"></span>
+        Chat on WhatsApp
+      </a>
+    </div>
   </div>
   <div class="cw-wrap cx-hero__base"><a href="#materials">Discover Cochin Wood <span aria-hidden="true">↓</span></a><span>Perumbavoor, Kerala · India &amp; export</span><span class="cx-hero__credit">Warehouse illustration</span></div>
 </section>
+<div class="cw-trust-ribbon" role="region" aria-label="Quality and certification standards">
+  <div class="cw-wrap cw-trust-ribbon__inner">
+    <div class="cw-trust-item"><span class="cw-trust-icon">🛡️</span><div><strong>Govt Verified Exporter</strong><span>IEC: AAJCC9689H · FIEO RCMC</span></div></div>
+    <div class="cw-trust-item"><span class="cw-trust-icon">🌲</span><div><strong>IS 710 &amp; IS 303 Certified</strong><span>Boiling waterproof &amp; MR grades</span></div></div>
+    <div class="cw-trust-item"><span class="cw-trust-icon">📦</span><div><strong>ISPM-15 Heat-Treated</strong><span>Export packaging crates &amp; pallets</span></div></div>
+    <div class="cw-trust-item"><span class="cw-trust-icon">🏭</span><div><strong>Perumbavoor Works</strong><span>Group manufacturing since 1986</span></div></div>
+  </div>
+</div>
 {section_nav}
 <section class="cx-intro cw-wrap" id="materials">
   <div data-reveal><p class="cx-kicker">Rooted in Kerala. Built on experience.</p><h2>Good work begins <br>with the <em>right material.</em></h2></div>

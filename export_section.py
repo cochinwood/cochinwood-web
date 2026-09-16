@@ -107,7 +107,7 @@ def hero(shared, d):
         for href, label, primary in shared["hero_actions"])
     badge = (f'<p class="cwg__note">{shared["badge"].format(**d)}</p>'
              if d.get("name_the") else "")
-    heading = (f'Plywood exports<br>to <em>{html.escape(d["name_plain"])}.</em>'
+    heading = (f'Plywood exports <br>to <em>{html.escape(d["name_plain"])}.</em>'
                if d.get("name_plain") else 'From Kerala.<br><em>To your market.</em>')
     country_guide = bool(d.get("name_plain"))
     media = ('' if country_guide else

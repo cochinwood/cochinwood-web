@@ -1,14 +1,14 @@
 {
-  "description": "Export guides after branch fix/content-accuracy-20260915 final re-check (15 Sep 2026): cf-live 103efa27 plus the reviewed loading wording (either weight or sheet layout may govern; loaded within the limits) on the hub summary and 25 country guides; only decorative hero media excluded",
+  "description": "Reviewed against the published bytes of cf-live 012d9e0c (PR #72): /export gains the container weight and sheet calculator card, carried in the published /export patch. Every other guide is byte-identical to what cf-live serves.",
   "pages": {
     "/export": {
       "blocks": {
-        "count": 59,
-        "sha256": "5e057683c84a9eff4c75c284e91a3bff75f8b4f28a258f4ce9f2454e411260a9"
+        "count": 61,
+        "sha256": "1436ae5b98d165076b9aed33e8a20918aa8608076f8940decf8e7eb50e0364f5"
       },
       "links": {
-        "count": 55,
-        "sha256": "020de77e51e93dd0f388db00257ddee38d4328ad49f6f783e9e496cbda7e607b"
+        "count": 56,
+        "sha256": "a6394c674f8fef3bd30eacdc425c03f40c34fc608a427dd6ea564307298c7786"
       },
       "anchors": {
         "count": 9,
@@ -796,7 +796,7 @@
     "content/export/netherlands.body.html": "c8e65c6f84e77074efb6cc5c04678949fdfbe2d0bc2ce1501ee4ba778fac40c2",
     "content/export/nigeria.body.html": "00bd64dd6915c9abfb14178c4fad51baca2f5ff975883410f7925941e76e6dc4",
     "content/export/oman.body.html": "404b9a9ab27e49b1fe60204248e4a6ece62f50097625be6e51d58d66724c68eb",
-    "content/export/published-patches.json": "35d96e6debb6a765fa72df1f1e6c567480eace4934f095cd34b9fdf2aeb62396",
+    "content/export/published-patches.json": "f70fe361ab4d50e9a13807215077a9650d9419de508b9875f48bb817e6d60fcf",
     "content/export/puerto-rico.body.html": "450350fc5e03b4c703af607b5078c46a69c7ff93419e39891d0cf26107f8c1e9",
     "content/export/qatar.body.html": "773418ff9d68f3ce0681ea15005946dde124d3631d9eb14fad51706a421339fd",
     "content/export/saudi-arabia.body.html": "071b800bfccdecbf0bb1361f696a40f25cbc89a29b43910aacb5459ae7f9ca34",

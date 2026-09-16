@@ -1043,8 +1043,34 @@ def quick_inquiry_markup(path):
 </nav>'''
     return form, sticky
 
+# THE MOBILE ACTION DOCK: a fixed bar across the bottom of the screen on
+# phones -- conversion-ui.css hides it above 760px -- carrying the two things
+# a buyer reading on a phone actually reaches for, the sales desk and
+# WhatsApp, plus the catalogue and the quote form. It went live as a hand
+# edit applied to 255 built HTML files (cf-live 012d9e0c, PR #72) with no
+# source commit behind it, which is why a build of master could not
+# reproduce cf-live until this existed. Emitted from here so the generator
+# owns it and every page gets the same one.
+MOBILE_DOCK = f'''<nav class="cw-mobile-dock" aria-label="Quick contact dock">
+  <a href="tel:{CONTACT['phone_href']}" class="cw-dock-item">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    <span>Call Desk</span>
+  </a>
+  <a href="https://wa.me/{CONTACT['wa']}?text=Hello%20Cochin%20Wood,%20I%20would%20like%20to%20enquire%20about%20plywood%20specifications%20and%20pricing." target="_blank" rel="noopener" class="cw-dock-item cw-dock-item--wa">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.06 24l1.68-6.16A11.87 11.87 0 010 11.9C0 5.33 5.36 0 11.95 0a11.9 11.9 0 018.42 3.48 11.75 11.75 0 013.49 8.37c0 6.56-5.36 11.9-11.96 11.9-2 0-3.96-.5-5.7-1.45L.06 24zm6.6-3.8c1.68.99 3.28 1.58 5.4 1.58 5.45 0 9.9-4.42 9.9-9.87a9.8 9.8 0 00-2.9-6.99 9.9 9.9 0 00-7-2.9C6.6 2.02 2.15 6.44 2.15 11.9c0 2.2.62 3.85 1.67 5.57l-.99 3.6 3.83-.87z"/></svg>
+    <span>WhatsApp</span>
+  </a>
+  <a href="{u('/products')}" class="cw-dock-item">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+    <span>Products</span>
+  </a>
+  <a href="{u('/contact')}#quote" class="cw-dock-item cw-dock-item--quote">
+    <span>Get Quote</span>
+  </a>
+</nav>'''
+
 def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
-         og_type="website", show_crumbs=True, self_url=True):
+         og_type="website", show_crumbs=True, self_url=True, extra_foot=""):
     canonical = LIVE + path
     page_title = seo_title(title)      # <title> is trimmed; og/twitter keep the full headline
     # A page that shows a real photograph shares that photograph. The generic card
@@ -1183,6 +1209,7 @@ def base(title, desc, path, body, body_class="", extra_head="", crumbs=None,
 <script src="{u('/assets/' + ASSETS['page-navigation.js'])}" defer></script>
 <script src="{u('/assets/' + ASSETS['experience-motion.js'])}" defer></script>
 <script src="{u('/assets/' + ASSETS['search-measurement.js'])}" defer></script>{calculator_script}{beacon_tag()}{quick_script}
+{MOBILE_DOCK}{extra_foot}
 </body>
 </html>'''
 
@@ -1453,6 +1480,53 @@ def home():
         "/", body, body_class="cw-home"))
 
 # ---------------- PRODUCTS ----------------
+# The catalogue filter pills hide and show the three product families in
+# place. One page's behaviour, so it ships with that page instead of
+# entering site.js, which every other page downloads. Restored from
+# cf-live 012d9e0c (PR #72), which had no source commit.
+CATALOGUE_FILTER_SCRIPT = """
+<script>
+(function() {
+  var filterBar = document.getElementById('cw-product-filters');
+  if (!filterBar) return;
+  var buttons = filterBar.querySelectorAll('.cw-filter-pill');
+  buttons.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      buttons.forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      var cat = btn.getAttribute('data-category');
+      var map = {
+        'packing': ['packing'],
+        'construction': ['construction'],
+        'interiors': ['interiors'],
+        'packaging': ['packing-packaging'],
+        'timber': ['timber']
+      };
+      var allSections = [
+        document.getElementById('packing'),
+        document.getElementById('construction'),
+        document.getElementById('interiors'),
+        document.getElementById('packing-packaging'),
+        document.getElementById('timber')
+      ];
+      allSections.forEach(function(el) {
+        if (!el) return;
+        if (cat === 'all') {
+          el.style.display = '';
+        } else {
+          var targetIds = map[cat] || [];
+          el.style.display = targetIds.indexOf(el.id) !== -1 ? '' : 'none';
+        }
+      });
+      if (cat !== 'all') {
+        var targetEl = document.getElementById(map[cat] ? map[cat][0] : cat);
+        if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+})();
+</script>"""
+
 def products():
     from catalogue_sections import render_catalogue
     body = render_catalogue(u, visual_image, VISUAL_MEDIA, PRODUCTS, visual_product_card)
@@ -1477,9 +1551,565 @@ def products():
         # old text listed neither and ran to 187 rendered characters, past where
         # Google truncates a description.
         "Cochin Wood Industries' plywood catalogue: packing, Okoume, commercial, marine (IS 710), film-faced shuttering, BWR hardwood and sawn timber.",
-        "/products", body, body_class="cw-catalogue", crumbs=[("Home", "/"), ("Products", None)], extra_head=ld))
+        "/products", body, body_class="cw-catalogue", crumbs=[("Home", "/"), ("Products", None)], extra_head=ld,
+        extra_foot=CATALOGUE_FILTER_SCRIPT))
 
 # ---------------- CONTACT ----------------
+# THE DIRECT SALES DIRECTORY on /contact. It lists the desk by name with a
+# direct line, a WhatsApp link and the languages each manager speaks, and it
+# reads them at page load from /api/public/sales-team (falling back to the
+# www and app origins), so a manager joining or leaving does not need a
+# website release. Published as PRs #70 and #71; the two source commits for
+# those sit on publish/sales-team-contact-20260916 over a 5 Sep build.py and
+# will not cherry-pick onto this one, so the published markup is carried here
+# verbatim -- raw and not an f-string, because it is 300 lines of CSS braces
+# and JavaScript that must reach the page exactly as written.
+SALES_TEAM_SECTION = r'''  <div class="cw-sales-team" id="cw-sales-section">
+    <style>
+      #cw-sales-section {
+        margin-top: 36px;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        background: #ffffff;
+        padding: 28px 24px;
+        box-shadow: 0 4px 20px -2px rgba(0,0,0,.05);
+      }
+      .cw-sales-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-bottom: 22px;
+        padding-bottom: 18px;
+        border-bottom: 1px solid #f1f5f9;
+      }
+      .cw-sales-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 3px 10px;
+        background: #ecfdf5;
+        border: 1px solid #a7f3d0;
+        border-radius: 999px;
+        color: #047857;
+        font-size: .72rem;
+        font-weight: 700;
+        letter-spacing: .04em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .cw-sales-badge-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #10b981;
+        box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+      }
+      .cw-sales-title {
+        font-size: 1.38rem;
+        font-weight: 800;
+        color: var(--cw-green-900, #133e32);
+        margin: 0 0 4px;
+        letter-spacing: -.01em;
+      }
+      .cw-sales-desc {
+        font-size: .88rem;
+        color: #64748b;
+        margin: 0;
+        line-height: 1.5;
+        max-width: 580px;
+      }
+      .cw-sales-controls {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px;
+      }
+      .cw-sales-pills-group {
+        display: inline-flex;
+        background: #f1f5f9;
+        padding: 3px;
+        border-radius: 8px;
+        gap: 3px;
+      }
+      .cw-sales-filter {
+        border: none;
+        background: transparent;
+        padding: 6px 13px;
+        font-size: .78rem;
+        font-weight: 600;
+        color: #475569;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all .15s ease;
+        line-height: 1.2;
+      }
+      .cw-sales-filter:hover {
+        color: #0f172a;
+      }
+      .cw-sales-filter.active {
+        background: #1b4d3e;
+        color: #ffffff;
+        box-shadow: 0 1px 3px rgba(0,0,0,.15);
+      }
+      .cw-sales-lang-wrap {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+      }
+      .cw-sales-lang-icon {
+        position: absolute;
+        left: 10px;
+        pointer-events: none;
+        color: #64748b;
+      }
+      .cw-sales-lang-select {
+        padding: 6px 28px 6px 30px;
+        font-size: .80rem;
+        font-weight: 600;
+        color: #334155;
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        outline: none;
+        cursor: pointer;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 8px center;
+        transition: all .15s ease;
+      }
+      .cw-sales-lang-select:hover {
+        border-color: #94a3b8;
+      }
+      .cw-sales-lang-select:focus {
+        border-color: #1b4d3e;
+        box-shadow: 0 0 0 2px rgba(27,77,62,.15);
+      }
+      .cw-sales-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 18px;
+      }
+      .cw-sales-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: 0 1px 3px rgba(0,0,0,.03);
+        transition: all .2s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
+      }
+      .cw-sales-card:hover {
+        border-color: #cbd5e1;
+        transform: translateY(-3px);
+        box-shadow: 0 12px 24px -4px rgba(0,0,0,.07), 0 4px 6px -2px rgba(0,0,0,.03);
+      }
+      .cw-sales-card-top {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+      }
+      .cw-sales-avatar {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #1b4d3e, #0f2c23);
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: .92rem;
+        font-weight: 700;
+        letter-spacing: .02em;
+        flex-shrink: 0;
+        box-shadow: 0 2px 5px rgba(27,77,62,.2);
+      }
+      .cw-sales-meta {
+        flex: 1;
+        min-width: 0;
+      }
+      .cw-sales-name {
+        margin: 0 0 2px;
+        font-size: 1.02rem;
+        font-weight: 700;
+        color: #0f172a;
+        line-height: 1.3;
+      }
+      .cw-sales-desig {
+        font-size: .76rem;
+        color: #64748b;
+        margin: 0 0 6px;
+        font-weight: 500;
+      }
+      .cw-sales-badge-dealing {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 2px 8px;
+        font-size: .68rem;
+        font-weight: 700;
+        border-radius: 6px;
+        line-height: 1.2;
+      }
+      .cw-sales-badge-both {
+        background: #faf5ff;
+        color: #7e22ce;
+        border: 1px solid #e9d5ff;
+      }
+      .cw-sales-badge-domestic {
+        background: #f0fdf4;
+        color: #15803d;
+        border: 1px solid #bbf7d0;
+      }
+      .cw-sales-badge-export {
+        background: #f0f9ff;
+        color: #0284c7;
+        border: 1px solid #bae6fd;
+      }
+      .cw-sales-badge-dot-sm {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+      }
+      .cw-sales-langs-box {
+        margin: 14px 0;
+        padding: 9px 11px;
+        background: #f8fafc;
+        border: 1px solid #f1f5f9;
+        border-radius: 8px;
+      }
+      .cw-sales-langs-label {
+        font-size: .68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: .04em;
+        color: #64748b;
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .cw-sales-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+      }
+      .cw-sales-chip {
+        display: inline-block;
+        padding: 2px 7px;
+        font-size: .72rem;
+        font-weight: 600;
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
+        color: #334155;
+        border-radius: 4px;
+        line-height: 1.25;
+      }
+      .cw-sales-phone-box {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+        background: #f8fafc;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        border: 1px solid #f1f5f9;
+      }
+      .cw-sales-phone-link {
+        font-size: .88rem;
+        font-weight: 700;
+        color: #0f172a;
+        text-decoration: none;
+        letter-spacing: .01em;
+        font-feature-settings: "tnum";
+      }
+      .cw-sales-phone-link:hover {
+        color: #1b4d3e;
+        text-decoration: underline;
+      }
+      .cw-sales-actions {
+        display: flex;
+        gap: 8px;
+        margin-top: auto;
+      }
+      .cw-sales-btn-call {
+        flex: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 9px 10px;
+        font-size: .80rem;
+        font-weight: 600;
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
+        color: #1e293b;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: all .15s ease;
+      }
+      .cw-sales-btn-call:hover {
+        background: #f8fafc;
+        border-color: #1b4d3e;
+        color: #1b4d3e;
+      }
+      .cw-sales-btn-wa {
+        flex: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 9px 10px;
+        font-size: .80rem;
+        font-weight: 600;
+        background: #22c55e;
+        border: 1px solid #16a34a;
+        color: #ffffff;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: all .15s ease;
+        box-shadow: 0 1px 2px rgba(0,0,0,.08);
+      }
+      .cw-sales-btn-wa:hover {
+        background: #16a34a;
+        box-shadow: 0 3px 6px rgba(34,197,94,.28);
+        transform: translateY(-1px);
+        color: #ffffff;
+      }
+      @media (max-width: 640px) {
+        #cw-sales-section {
+          padding: 20px 14px;
+        }
+        .cw-sales-grid {
+          grid-template-columns: 1fr;
+        }
+        .cw-sales-controls {
+          width: 100%;
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .cw-sales-pills-group {
+          width: 100%;
+          justify-content: stretch;
+        }
+        .cw-sales-filter {
+          flex: 1;
+          text-align: center;
+        }
+        .cw-sales-lang-wrap, .cw-sales-lang-select {
+          width: 100%;
+        }
+      }
+    </style>
+    <div class="cw-sales-head">
+      <div>
+        <div class="cw-sales-badge"><span class="cw-sales-badge-dot"></span> Verified Sales Desk</div>
+        <h2 class="cw-sales-title">Direct Sales Contacts</h2>
+        <p class="cw-sales-desc">Connect directly with our regional and export sales specialists in your preferred language for timber, plywood, and container inquiries.</p>
+      </div>
+      <div class="cw-sales-controls" id="cw-sales-controls" style="display:none">
+        <div class="cw-sales-pills-group" role="tablist" aria-label="Filter by market segment">
+          <button type="button" class="cw-sales-filter active" data-filter="all">All</button>
+          <button type="button" class="cw-sales-filter" data-filter="Domestic">Domestic</button>
+          <button type="button" class="cw-sales-filter" data-filter="Export">Export</button>
+        </div>
+        <div class="cw-sales-lang-wrap">
+          <svg class="cw-sales-lang-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+          <select id="cw-sales-lang" class="cw-sales-lang-select" aria-label="Filter by spoken language">
+            <option value="all">All Languages</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div id="cw-sales-list" class="cw-sales-grid">
+      <div style="grid-column:1/-1;text-align:center;padding:16px;color:#64748b;font-size:.88rem">Loading sales contacts…</div>
+    </div>
+  </div>
+  <script>
+  (function() {
+    var list = document.getElementById("cw-sales-list");
+    var controls = document.getElementById("cw-sales-controls");
+    var langSelect = document.getElementById("cw-sales-lang");
+    if (!list) return;
+
+    var endpoints = [
+      "/api/public/sales-team",
+      "/cw-sales",
+      "https://www.cochinwood.in/api/public/sales-team",
+      "https://app.cochinwood.in/api/public/sales-team"
+    ];
+
+    function tryFetch(i) {
+      if (i >= endpoints.length) {
+        var defaultTeam = [
+          {
+            name: "Basil John",
+            designation: "Managing Director / Sales Specialist",
+            dealing: "Both",
+            languages: ["English", "Malayalam", "Hindi", "Tamil"],
+            phone: "+918086860175",
+            phone_disp: "+91 80868 60175",
+            wa: "918086860175"
+          },
+          {
+            name: "Domestic Sales Desk",
+            designation: "Commercial & Industrial Supply",
+            dealing: "Domestic",
+            languages: ["English", "Malayalam", "Hindi"],
+            phone: "+919567410175",
+            phone_disp: "+91 95674 10175",
+            wa: "919567410175"
+          },
+          {
+            name: "Export Desk",
+            designation: "Container Shipments & Documentation",
+            dealing: "Export",
+            languages: ["English", "Arabic", "Hindi"],
+            phone: "+918086860175",
+            phone_disp: "+91 80868 60175",
+            wa: "918086860175"
+          }
+        ];
+        renderTeam(defaultTeam);
+        return;
+      }
+      fetch(endpoints[i], { mode: "cors" })
+        .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
+        .then(function(data) {
+          if (!data || !data.ok || !Array.isArray(data.team) || !data.team.length) {
+            tryFetch(i + 1);
+            return;
+          }
+          renderTeam(data.team);
+        })
+        .catch(function() { tryFetch(i + 1); });
+    }
+
+    function getInitials(name) {
+      var parts = String(name || "").trim().split(/\s+/);
+      if (!parts.length || !parts[0]) return "CW";
+      if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+      return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+    }
+
+    function renderTeam(team) {
+      if (!list) return;
+      if (controls) controls.style.display = "flex";
+
+      var activeMarket = "all";
+      var activeLang = "all";
+
+      // Populate language selector dynamically
+      var langMap = {};
+      team.forEach(function(m) {
+        (m.languages || []).forEach(function(l) {
+          if (l) langMap[l] = true;
+        });
+      });
+      var allLangs = Object.keys(langMap).sort();
+      if (langSelect && allLangs.length) {
+        langSelect.innerHTML = '<option value="all">All Languages (' + allLangs.length + ')</option>' +
+          allLangs.map(function(l) {
+            return '<option value="' + esc(l) + '">' + esc(l) + '</option>';
+          }).join("");
+        langSelect.addEventListener("change", function() {
+          activeLang = langSelect.value;
+          draw();
+        });
+      }
+
+      function draw() {
+        var rows = team.filter(function(m) {
+          var matchMarket = (activeMarket === "all") || (m.dealing === activeMarket || m.dealing === "Both");
+          var matchLang = (activeLang === "all") || ((m.languages || []).some(function(l) {
+            return l.toLowerCase() === activeLang.toLowerCase();
+          }));
+          return matchMarket && matchLang;
+        });
+
+        if (!rows.length) {
+          list.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:24px 12px;color:#64748b;font-size:.88rem;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:10px">' +
+            'No sales managers match this filter. Please call our general sales desk at <a href="tel:+919567410175" style="color:#1b4d3e;font-weight:700;text-decoration:underline">+91 95674 10175</a>.</div>';
+          return;
+        }
+
+        list.innerHTML = rows.map(function(m) {
+          var badgeClass = m.dealing === "Export" ? "cw-sales-badge-export" : (m.dealing === "Domestic" ? "cw-sales-badge-domestic" : "cw-sales-badge-both");
+          var dotColor = m.dealing === "Export" ? "#0284c7" : (m.dealing === "Domestic" ? "#16a34a" : "#9333ea");
+          var dealingLabel = m.dealing === "Both" ? "Domestic & Export" : m.dealing;
+          var initials = getInitials(m.name);
+
+          var langs = (m.languages || ["English"]).map(function(l) {
+            return '<span class="cw-sales-chip">' + esc(l) + '</span>';
+          }).join("");
+
+          return '<div class="cw-sales-card">' +
+            '<div>' +
+              '<div class="cw-sales-card-top">' +
+                '<div class="cw-sales-avatar">' + esc(initials) + '</div>' +
+                '<div class="cw-sales-meta">' +
+                  '<h3 class="cw-sales-name">' + esc(m.name) + '</h3>' +
+                  '<div class="cw-sales-desig">' + esc(m.designation || "Sales Specialist") + '</div>' +
+                  '<span class="cw-sales-badge-dealing ' + badgeClass + '">' +
+                    '<span class="cw-sales-badge-dot-sm" style="background:' + dotColor + '"></span>' +
+                    esc(dealingLabel) +
+                  '</span>' +
+                '</div>' +
+              '</div>' +
+              '<div class="cw-sales-langs-box">' +
+                '<div class="cw-sales-langs-label">' +
+                  '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>' +
+                  'Spoken Languages' +
+                '</div>' +
+                '<div class="cw-sales-chips">' + langs + '</div>' +
+              '</div>' +
+              '<div class="cw-sales-phone-box">' +
+                '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1b4d3e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>' +
+                '<a href="tel:' + esc(m.phone) + '" class="cw-sales-phone-link">' + esc(m.phone_disp || m.phone) + '</a>' +
+              '</div>' +
+            '</div>' +
+            '<div class="cw-sales-actions">' +
+              '<a href="tel:' + esc(m.phone) + '" class="cw-sales-btn-call" title="Call ' + esc(m.name) + '">' +
+                '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1b4d3e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>' +
+                '<span>Call</span>' +
+              '</a>' +
+              '<a href="https://wa.me/' + esc(m.wa) + '" target="_blank" rel="noopener" class="cw-sales-btn-wa" title="WhatsApp ' + esc(m.name) + '">' +
+                '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M.06 24l1.68-6.16A11.87 11.87 0 010 11.9C0 5.33 5.36 0 11.95 0a11.9 11.9 0 018.42 3.48 11.75 11.75 0 013.49 8.37c0 6.56-5.36 11.9-11.96 11.9-2 0-3.96-.5-5.7-1.45L.06 24zm6.6-3.8c1.68.99 3.28 1.58 5.4 1.58 5.45 0 9.9-4.42 9.9-9.87a9.8 9.8 0 00-2.9-6.99 9.9 9.9 0 00-7-2.9C6.6 2.02 2.15 6.44 2.15 11.9c0 2.2.62 3.85 1.67 5.57l-.99 3.6 3.83-.87zm11.6-5.5c-.08-.13-.28-.2-.58-.35-.3-.15-1.76-.86-2.03-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.14-.14.3-.36.45-.53.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41z"/></svg>' +
+                '<span>WhatsApp</span>' +
+              '</a>' +
+            '</div>' +
+          '</div>';
+        }).join("");
+      }
+
+      if (controls) {
+        var btns = controls.querySelectorAll(".cw-sales-filter");
+        btns.forEach(function(btn) {
+          btn.addEventListener("click", function() {
+            btns.forEach(function(b) { b.classList.remove("active"); });
+            btn.classList.add("active");
+            activeMarket = btn.getAttribute("data-filter");
+            draw();
+          });
+        });
+      }
+
+      draw();
+    }
+
+    function esc(s) {
+      return String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+
+    tryFetch(0);
+  })();
+  </script>'''
+
 # (posted value, visible label). The VALUE is what the Worker stores, so it is the live page's
 # vocabulary verbatim and not ours to tidy. Live splits BWP marine (IS 710) from BWR hardwood
 # (IS 303); the retired CRM webform had one "Premium/ISI/303/710" picklist entry that collapsed the
@@ -1689,6 +2319,7 @@ def contact():
     <p class="cw-note">Cochin Wood Industries Private Limited<br>GSTIN {GSTIN}<br>CIN {CIN}<br><a href="{u('/company-verification')}">Verify our registrations &rarr;</a></p>
     <p class="cw-note">For factory visits or collection, contact the desk to confirm the producing works, appointment and loading instructions.</p>
   </aside></div>
+{SALES_TEAM_SECTION}
 </div></section>'''
     write("contact/index.html", base(
         "Request a Plywood Quote · Cochin Wood Industries",
@@ -2460,7 +3091,12 @@ LIVE_REF_NAME = "origin/cf-live"                         # where the pin came fr
 # both revisions, 85 generated files modified, none added or removed, and every carried input (files/,
 # assets/, the site-checks workflow, the IndexNow key, llms.txt, favicon.png, the OG image) unchanged.
 # See docs/cf-live-pin-review-2026-09-15c.md.
-LIVE_SHA = "1d699b6ef4c315489117c3d5af6d5bdb8c91f100"    # Reviewed live baseline; see docs/cf-live-pin-review-2026-09-15c.md
+# Moved 16 Sep 2026 from 1d699b6e to the PR #72 production merge. THIS ONE WAS NOT A
+# ROUTINE MOVE: three of the four publications in the window were made by editing built
+# output with no source commit, and one left three content-addressed asset URLs serving
+# bytes their names do not describe -- see HAND_EDITED_LIVE_ASSETS, which repairs them,
+# and docs/cf-live-pin-review-2026-09-16.md for the whole window.
+LIVE_SHA = "f906f6196f1648954ad7f8ff6ade5e3b09473d68"    # Reviewed live baseline; see docs/cf-live-pin-review-2026-09-16.md
 LIVE_REF = LIVE_SHA                # what git is actually handed, so no fetch can move it
 LIVE_PIN = LIVE_REF_NAME + "@" + LIVE_SHA[:12]           # what the banner and dist/ record
 LIVE_HASHED_ASSET_RE = re.compile(
@@ -2602,6 +3238,68 @@ def _check_live_pin():
              f"moving LIVE_SHA, because those files publish unread otherwise")
 
 
+# THREE CARRIED ASSET NAMES ON cf-live LIE ABOUT THEIR OWN BYTES, and a
+# content-addressed name is the one thing on this site that may never do that.
+# Publication 012d9e0c (PR #72, 16 Sep 2026) was applied by editing built output
+# in place: the trust ribbon, the mobile dock, the catalogue filter pills, the
+# quick-search code and a quote-form timing change were written into
+# bundle.eba2ca64.css, site.c6a8ed6d.js and quote-form.98c2da2a.js -- and into
+# quick-inquiry.cced64e0.js, which is not carried -- without renaming any of
+# them. Those URLs are served with a year-long immutable pin, so every returning
+# visitor who cached one is pinned until September 2027 to bytes the name never
+# described, and cutover_preflight's "named for its own bytes" check fails the
+# moment LIVE_SHA moves past that publication (18 passed, 3 failed, PR #74).
+#
+# All four are now generated from source again -- assets/site.js,
+# assets/quote-form.js, assets/quick-inquiry.js and assets/conversion-ui.css --
+# so the build emits them under names that do describe them. What is carried
+# under the OLD names is the last version whose hash was true, read from the
+# commit below, which is the cf-live tip immediately before that publication.
+# PUBLISHING THIS dist/ REPAIRS THOSE THREE URLS ON cf-live: once the tip
+# carries bytes that match their names again, the next pin move reviews a clean
+# tree and this map can be deleted.
+HAND_EDITED_LIVE_ASSETS = {
+    "assets/bundle.eba2ca64.css":    "71f4df008139e45c234e398d1c2d32d54e93ec36",
+    "assets/quote-form.98c2da2a.js": "71f4df008139e45c234e398d1c2d32d54e93ec36",
+    "assets/site.c6a8ed6d.js":       "71f4df008139e45c234e398d1c2d32d54e93ec36",
+}
+
+
+def _blob_at(commit, path):
+    """One blob's raw bytes at `commit`, or None. Same filter-free read as
+    _live_tree(): a checkout here would hand back CRLF on this machine."""
+    import subprocess
+    got = subprocess.run(["git", "cat-file", "blob", commit + ":" + path],
+                         cwd=ROOT, capture_output=True, timeout=60)
+    return got.stdout if got.returncode == 0 else None
+
+
+def _named_for_its_own_bytes(rel, data):
+    """Carry `data` for `rel` unless the name disagrees with it, in which case
+    carry the last bytes that name did describe. A silent substitution would be
+    as bad as the corruption, so every branch that does not repair warns."""
+    want = rel.rsplit(".", 2)[1]
+    if _digest(lf(data)) == want:
+        return data
+    repaired_from = HAND_EDITED_LIVE_ASSETS.get(rel)
+    if not repaired_from:
+        warn(f"{rel} on {LIVE_PIN} hashes to {_digest(lf(data))}, not the "
+             f"{want} in its own name, and it is not in "
+             f"HAND_EDITED_LIVE_ASSETS -- it is being carried as it is. A "
+             f"visitor holding that immutable URL is pinned to these bytes")
+        return data
+    fixed = _blob_at(repaired_from, rel)
+    if fixed is None or _digest(lf(fixed)) != want:
+        warn(f"{rel} cannot be repaired from {repaired_from[:12]}: that commit "
+             f"does not carry bytes hashing to {want}. Carrying cf-live's copy, "
+             f"which its name does not describe")
+        return data
+    warn(f"{rel} was hand-edited on cf-live after it was named; carrying the "
+         f"{want} bytes from {repaired_from[:12]} instead, which repairs the "
+         f"URL for every returning visitor. See HAND_EDITED_LIVE_ASSETS")
+    return fixed
+
+
 def carry_live_assets():
     """Put cf-live's non-HTML files into dist/ so cutover breaks no old URL."""
     _check_live_pin()
@@ -2630,6 +3328,7 @@ def carry_live_assets():
         for rel, data in sorted(asset_blobs.items()):
             if not LIVE_HASHED_ASSET_RE.fullmatch(rel):
                 continue
+            data = _named_for_its_own_bytes(rel, data)
             fp = os.path.join(DIST, rel.replace("/", os.sep))
             os.makedirs(os.path.dirname(fp), exist_ok=True)
             with open(fp, "wb") as f: f.write(lf(data))
@@ -3151,7 +3850,7 @@ def build_redirects():
 
 # ---------------- assets + meta ----------------
 # One request instead of five; order preserved so cascade behaviour is unchanged.
-CSS_BUNDLE = ["fonts.css", "site.css", "guide.css", "wood-enc.css", "shell.css", "components.css", "visual-system.css", "experience.css", "experience-inner.css", "experience-motion.css", "blog-index.css", "blog-navigation.css", "catalogue-navigation.css", "inner-hero.css", "page-navigation.css", "encyclopedia-navigation.css", "privacy-choices.css", "regional-navigation.css", "viewport-heroes.css", "quote-form.css", "quick-inquiry.css", "brand-consistency.css", "content-spacing.css", "export-guides.css", "container-calculator.css"]
+CSS_BUNDLE = ["fonts.css", "site.css", "guide.css", "wood-enc.css", "shell.css", "components.css", "visual-system.css", "experience.css", "experience-inner.css", "experience-motion.css", "blog-index.css", "blog-navigation.css", "catalogue-navigation.css", "inner-hero.css", "page-navigation.css", "encyclopedia-navigation.css", "privacy-choices.css", "regional-navigation.css", "viewport-heroes.css", "quote-form.css", "quick-inquiry.css", "brand-consistency.css", "content-spacing.css", "export-guides.css", "container-calculator.css", "conversion-ui.css"]
 
 def _css_fix_urls(css, name):
     """Resolve /files/... backgrounds; neutralise the ones with no source file."""
